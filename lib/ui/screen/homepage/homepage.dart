@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/ui/common/progress_bar.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:rxdart/subjects.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -10,14 +12,44 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+
+abstract class ViewModel {
+
+  List<Subject> _subjects = List();
+
+  BehaviorSubject<T> createSubject<T>() {
+    BehaviorSubject<T> bs = BehaviorSubject<T>();
+    _subjects.add(bs);
+    return bs;
+  }
+
+  dispose() {
+    _subjects.forEach(
+      (s) => s.close()
+    );
+  }
+
+}
+class HomePageModel extends ViewModel {
   int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  BehaviorSubject<int> _counterSubject = BehaviorSubject<int>();
+  BehaviorSubject<String> _buttonTextSubject = BehaviorSubject<String>();
+
+  Observable<int> get counterObservable => _counterSubject.stream;
+
+  incrementCounter() {
+    _counterSubject.add(_counter++);
   }
+
+  dispose() {
+    _counterSubject.close();
+    _buttonTextSubject.close();
+  }
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  HomePageModel _model = HomePageModel();
 
   @override
   Widget build(BuildContext context) {
@@ -32,19 +64,24 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
+            StreamBuilder<int>(
+              stream: _model.counterObservable,
+              builder: (context, snapshot) {
+                return Text(
+                  '${snapshot.data}',
+                  style: Theme.of(context).textTheme.display1,
+                );
+              },
             ),
             ProgressBar(),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _model.incrementCounter(),
         tooltip: 'Increment',
         child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
