@@ -39,7 +39,7 @@ class HomePageModel extends ViewModel {
   Observable<int> get counterObservable => _counterSubject.stream;
 
   incrementCounter() {
-    _counterSubject.add(_counter++);
+    _counterSubject.add(++_counter);
   }
 
   dispose() {
@@ -78,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _model.incrementCounter(),
+        onPressed: _model.incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),

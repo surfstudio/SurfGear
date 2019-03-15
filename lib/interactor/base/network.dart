@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 
-///Wrapper over dart:http package
+///Wrapper over http 
 /// todo
 class Http {
   final HeadersBuilder headersBuilder;
