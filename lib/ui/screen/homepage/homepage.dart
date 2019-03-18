@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/di/homepage_module.dart';
+import 'package:flutter_template/di/injector.dart';
+import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/ui/common/progress_bar.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:rxdart/subjects.dart';
@@ -31,15 +34,21 @@ abstract class ViewModel {
 
 }
 class HomePageModel extends ViewModel {
+  final CounterInteractor _counterInteractor;
   int _counter = 0;
 
   BehaviorSubject<int> _counterSubject = BehaviorSubject<int>();
   BehaviorSubject<String> _buttonTextSubject = BehaviorSubject<String>();
 
+  HomePageModel(this._counterInteractor) {
+    _counterInteractor.counterObservable.listen(_counterSubject.add);
+  }
+
   Observable<int> get counterObservable => _counterSubject.stream;
 
   incrementCounter() {
-    _counterSubject.add(++_counter);
+    print("DEV_INFO increnemt");
+    _counterInteractor.incrementCounter();
   }
 
   dispose() {
@@ -49,13 +58,30 @@ class HomePageModel extends ViewModel {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  HomePageModel _model = HomePageModel();
+  HomePageModel _model;
+
+  @override
+  Widget build(BuildContext context) {
+    return Injector(
+      component: HomePageComponent(Injector.of(context).get(CounterInteractor)),
+      builder: (context) => new HomePage(title: widget.title),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({
+    Key key,
+    @required this.title,
+  }) : super(key: key);
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(title),
       ),
       body: Center(
         child: Column(
@@ -65,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             StreamBuilder<int>(
-              stream: _model.counterObservable,
+              stream: Injector.of(context).get<HomePageModel>(HomePageModel).counterObservable,
               builder: (context, snapshot) {
                 return Text(
                   '${snapshot.data}',
@@ -78,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _model.incrementCounter,
+        onPressed: Injector.of(context).get(HomePageModel).incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),

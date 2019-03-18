@@ -1,20 +1,27 @@
 import 'package:http/http.dart' as http;
 
-///Wrapper over http 
+///Wrapper over http
 /// todo
 class Http {
   final HeadersBuilder headersBuilder;
   final HttpConfig config;
+  final ErrorMapper errorMapper;
 
-  Http({this.headersBuilder, this.config});
+  Http({this.headersBuilder, this.config, this.errorMapper});
 
+  ///GET- request
   Future<Response> get<T>(String url, {Map<String, String> headers}) {
     return http
-        .get(url, headers: headersBuilder.headers)
+        .get(
+          url,
+          headers: _buildHeaders(headers),
+        )
         .timeout(config?.timeout)
-        .then(_toResponse);
+        .then(_toResponse)
+        .catchError(errorMapper?.mapError);
   }
 
+  ///POST-request
   Future<Response> post<T>(String url,
       {Map<String, String> headers, body, encoding}) {
     return http
@@ -24,9 +31,11 @@ class Http {
           body: body,
           encoding: encoding,
         )
-        .then(_toResponse);
+        .then(_toResponse)
+        .catchError(errorMapper?.mapError);
   }
 
+  ///PUT -request
   Future<Response> put<T>(String url,
       {Map<String, String> headers, body, encoding}) {
     return http
@@ -36,18 +45,22 @@ class Http {
           body: body,
           encoding: encoding,
         )
-        .then(_toResponse);
+        .then(_toResponse)
+        .catchError(errorMapper?.mapError);
   }
 
+  ///DELETE -request
   Future<Response> delete<T>(String url, {Map<String, String> headers}) {
     return http
         .delete(
           url,
           headers: _buildHeaders(headers),
         )
-        .then(_toResponse);
+        .then(_toResponse)
+        .catchError(errorMapper?.mapError);
   }
 
+  ///PATCH -request
   Future<Response> patch<T>(String url,
       {Map<String, String> headers, body, encoding}) {
     return http
@@ -57,9 +70,11 @@ class Http {
           body: body,
           encoding: encoding,
         )
-        .then(_toResponse);
+        .then(_toResponse)
+        .catchError(errorMapper?.mapError);
   }
 
+  ///HEAD - request
   Future<Response> head<T>(String url, Map<String, String> headers) {
     return http
         .head(
@@ -70,7 +85,7 @@ class Http {
   }
 
   Map<String, String> _buildHeaders(Map<String, String> headers) {
-    Map<String, String> headersMap = Map.from(headersBuilder.headers);
+    Map<String, String> headersMap = Map.from(headersBuilder?.headers);
     headersMap.addAll(headers);
     return headersMap;
   }
@@ -86,6 +101,11 @@ class HeadersBuilder {
   HeadersBuilder(this.headers);
 }
 
+///Helper for map errors
+abstract class ErrorMapper {
+  dynamic mapError(e);
+}
+
 ///Response
 class Response {
   final dynamic body;
@@ -96,6 +116,7 @@ class Response {
   Response(this.body, this.statusCode, this.contentLength, this.headers);
 }
 
+///Http configuration
 class HttpConfig {
   final Duration timeout;
 
