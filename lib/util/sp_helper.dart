@@ -7,29 +7,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///todo make universal, di, storage helper
 ///
 class PreferencesHelper {
-  static final _ph = PreferencesHelper._internal();
-
-  SharedPreferences _sp;
-
-  PreferencesHelper._internal() {
-    _init();
-  }
-
-  factory PreferencesHelper.getInstance() => _ph;
-
-  _init() async {
-    _sp = await SharedPreferences.getInstance();
-    print("DEV_INFO init ${_sp.toString()}");
-  }
 
   Future<dynamic> get(String key) async {
-    SharedPreferences sp = _sp;
+    SharedPreferences sp = await SharedPreferences.getInstance();
     var result = await sp?.get(key) ?? null;
     print("DEV_INFO get from ${sp.toString()} by key $key | result $result");
     return result;
   }
 
   set(String key, dynamic value) async {
+    SharedPreferences _sp = await SharedPreferences.getInstance();
     print("DEV_INFO set to ${_sp.toString()} by key $key | value $value");
     if (value.runtimeType == String) {
       await _sp.setString(key, value);

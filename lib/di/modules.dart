@@ -34,10 +34,11 @@ class CounterModule extends Module {
 class PreferencesModule extends Module<PreferencesHelper> {
   @override
   provides() {
-    return PreferencesHelper.getInstance();
+    return PreferencesHelper();
   }
 }
 
+/// Component per app
 class AppComponent extends Component {
   List<Module> _modules = List();
 
