@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/di/injector.dart';
-import 'package:flutter_template/di/modules.dart';
+import 'package:flutter_template/di/app.dart';
+import 'package:flutter_template/di/base/injector.dart';
 import 'package:flutter_template/ui/screen/homepage/homepage.dart';
 
 class MyApp extends StatelessWidget {

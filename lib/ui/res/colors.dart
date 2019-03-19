@@ -1,3 +1,3 @@
 import 'dart:ui';
 
-Color colorAccent = Color(0xFFFFFFFF);
+Color colorAccent = Color(0xFFFF0000);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/di/homepage_module.dart';
-import 'package:flutter_template/di/injector.dart';
+import 'package:flutter_template/di/base/injector.dart';
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/ui/base/view_model.dart';
 import 'package:flutter_template/ui/common/progress_bar.dart';
@@ -14,7 +14,7 @@ class HomePageModel extends ViewModel {
   BehaviorSubject<String> _buttonTextSubject = BehaviorSubject<String>();
 
   HomePageModel(this._counterInteractor) {
-    _counterInteractor.counterObservable.listen(_counterSubject.add);
+    _counterInteractor.counterObservable.listen((c) => _counterSubject.add(c.count));
   }
 
   Observable<int> get counterObservable => _counterSubject.stream;

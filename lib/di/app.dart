@@ -1,10 +1,29 @@
-import 'package:flutter_template/di/injector.dart';
+import 'package:flutter_template/di/base/component.dart';
+import 'package:flutter_template/di/base/module.dart';
 import 'package:flutter_template/interactor/base/network.dart';
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/interactor/counter/repository/counter_repository.dart';
 import 'package:flutter_template/interactor/network/network.dart';
 import 'package:flutter_template/util/sp_helper.dart';
 
+/// Component per app
+class AppComponent extends Component {
+  List<Module> _modules = List();
+
+  AppComponent() {
+    PreferencesModule _prefModule = PreferencesModule();
+    _modules.add(_prefModule);
+    _modules.add(HttpModule());
+    _modules.add(CounterModule(_prefModule.provides()));
+  }
+
+  @override
+  List<Module> getModules() {
+    return _modules;
+  }
+}
+
+//region Modules for app component
 class HttpModule extends Module<Http> {
   @override
   provides() {
@@ -38,19 +57,4 @@ class PreferencesModule extends Module<PreferencesHelper> {
   }
 }
 
-/// Component per app
-class AppComponent extends Component {
-  List<Module> _modules = List();
-
-  AppComponent() {
-    PreferencesModule _prefModule = PreferencesModule();
-    _modules.add(_prefModule);
-    _modules.add(HttpModule());
-    _modules.add(CounterModule(_prefModule.provides()));
-  }
-
-  @override
-  List<Module> getModules() {
-    return _modules;
-  }
-}
+//endregion

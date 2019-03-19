@@ -1,8 +1,9 @@
+import 'package:flutter_template/domain/counter.dart';
 import 'package:flutter_template/interactor/counter/repository/counter_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class CounterInteractor {
-  int _counter;
+  Counter _counter;
 
   final CounterRepository _counterRepository;
 
@@ -15,12 +16,12 @@ class CounterInteractor {
     _subject.listen(_counterRepository.setCounter);
   }
 
-  BehaviorSubject<int> _subject = BehaviorSubject();
+  BehaviorSubject<Counter> _subject = BehaviorSubject();
 
-  Observable<int> get counterObservable => _subject.stream;
+  Observable<Counter> get counterObservable => _subject.stream;
 
   incrementCounter() {
-    _counter++;
-    _subject.add(_counter);
+    int c = _counter.count + 1;
+    _subject.add(Counter(c));
   }
 }

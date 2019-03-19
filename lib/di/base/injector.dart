@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_template/di/base/component.dart';
 
 class Injector extends StatefulWidget {
   final Component component;
@@ -52,32 +53,4 @@ class _Injector extends InheritedWidget {
     //это лишь провайдер
     return false;
   }
-}
-
-///Marker.
-///
-/// TBD:: think about annotation
-abstract class Module<T> {
-  T provides();
-}
-
-///aka Dagger-component
-abstract class Component {
-  List<Module> getModules();
-
-  T get<T>(Type t) =>
-      getModules()
-          .where(
-            (m) {
-          print(
-              "DEV_INFO $m | ${m.provides()} | ${m
-                  .provides()
-                  .runtimeType}");
-          return m
-              .provides()
-              .runtimeType == t;
-        },
-      )
-          .first
-          .provides();
 }
