@@ -22,6 +22,7 @@ class CounterInteractor {
 
   incrementCounter() {
     int c = _counter.count + 1;
-    _subject.add(Counter(c));
+    _counter = Counter(c);
+    _subject.add(_counter);
   }
 }

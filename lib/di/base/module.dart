@@ -1,6 +1,7 @@
-///Marker.
+/// Marker interface.
+/// Provide concrete dependency.
 ///
-/// TBD:: think about annotation
+/// TODO:: think about annotation and provide more dependencies from one module(may be)
 abstract class Module<T> {
   T provides();
 }

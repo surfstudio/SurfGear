@@ -1,6 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_template/di/base/component.dart';
 
+/// Special widget for DI
+/// It provide dependencies to children.
+/// Children can get component dependency by 'of' and 'Component.get(Type)'
+///
 class Injector extends StatefulWidget {
   final Component component;
   final WidgetBuilder builder;
@@ -9,7 +13,8 @@ class Injector extends StatefulWidget {
   const Injector({this.component, Key key, this.builder}) : super(key: key);
 
   static _Injector of(BuildContext context) {
-    var injector = context.ancestorInheritedElementForWidgetOfExactType(_Injector)?.widget;
+    var injector =
+        context.ancestorInheritedElementForWidgetOfExactType(_Injector)?.widget;
     if (injector == null) {
       throw Exception("Can not find nearest Injector. Do you define it?");
     }
@@ -26,8 +31,21 @@ class _InjectorState extends State<Injector> {
   Widget build(BuildContext context) {
     return _Injector(
       component: widget.component,
-      child: widget.builder(context),
+      child: _InjectorProxy(
+        builder: (c) => widget.builder(c),
+      ),
     );
+  }
+}
+
+class _InjectorProxy extends StatelessWidget {
+  final WidgetBuilder builder;
+
+  const _InjectorProxy({Key key, this.builder}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return builder(context);
   }
 }
 
