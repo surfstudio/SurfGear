@@ -1,0 +1,1 @@
+const String randomNameUrl = "http://uinames.com/api/";

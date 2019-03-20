@@ -7,6 +7,10 @@ class CounterInteractor {
 
   final CounterRepository _counterRepository;
 
+  BehaviorSubject<Counter> _subject = BehaviorSubject();
+
+  Observable<Counter> get counterObservable => _subject.stream;
+
   CounterInteractor(this._counterRepository) {
     _counterRepository.getCounter().then((c) {
       _counter = c ?? 0;
@@ -15,10 +19,6 @@ class CounterInteractor {
 
     _subject.listen(_counterRepository.setCounter);
   }
-
-  BehaviorSubject<Counter> _subject = BehaviorSubject();
-
-  Observable<Counter> get counterObservable => _subject.stream;
 
   incrementCounter() {
     int c = _counter.count + 1;

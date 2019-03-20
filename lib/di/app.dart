@@ -4,6 +4,8 @@ import 'package:flutter_template/interactor/base/network.dart';
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/interactor/counter/repository/counter_repository.dart';
 import 'package:flutter_template/interactor/network/network.dart';
+import 'package:flutter_template/interactor/random_name/repository/name_repository.dart';
+import 'package:flutter_template/interactor/random_name/user_interactor.dart';
 import 'package:flutter_template/util/sp_helper.dart';
 
 /// Component per app
@@ -12,9 +14,11 @@ class AppComponent extends Component {
 
   AppComponent() {
     PreferencesModule _prefModule = PreferencesModule();
+    HttpModule _httpModule = HttpModule();
     _modules.add(_prefModule);
-    _modules.add(HttpModule());
+    _modules.add(_httpModule);
     _modules.add(CounterModule(_prefModule.provides()));
+    _modules.add(UserModule(_httpModule.provides()));
   }
 
   @override
@@ -29,7 +33,7 @@ class HttpModule extends Module<Http> {
   provides() {
     return Http(
       config: HttpConfig(
-        Duration(seconds: 1),
+        Duration(seconds: 30),
       ),
       errorMapper: CustomErrorMapper(),
     );
@@ -42,6 +46,20 @@ class CounterModule extends Module {
 
   CounterModule(this._helper) {
     _interactor = CounterInteractor(CounterRepository(_helper));
+  }
+
+  @override
+  provides() {
+    return _interactor;
+  }
+}
+
+class UserModule extends Module<UserInteractor> {
+  UserInteractor _interactor;
+  Http _http;
+
+  UserModule(this._http) {
+    _interactor = UserInteractor(UserRepository(_http));
   }
 
   @override

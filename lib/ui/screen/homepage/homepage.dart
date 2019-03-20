@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/di/base/injector.dart';
 import 'package:flutter_template/di/homepage_module.dart';
+import 'package:flutter_template/domain/user.dart';
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
+import 'package:flutter_template/interactor/random_name/user_interactor.dart';
+import 'package:flutter_template/ui/base/state.dart';
 import 'package:flutter_template/ui/base/view_model.dart';
 import 'package:flutter_template/ui/common/progress_bar.dart';
 import 'package:flutter_template/ui/res/strings.dart';
@@ -11,22 +14,45 @@ import 'package:rxdart/subjects.dart';
 ///Модель виджета [MyHomePage]
 class HomePageModel extends ViewModel {
   final CounterInteractor _counterInteractor;
+  final UserInteractor _userInteractor;
 
   BehaviorSubject<int> _counterSubject;
-  BehaviorSubject<String> _buttonTextSubject;
-
-  HomePageModel(this._counterInteractor) {
-    _counterSubject = createSubject();
-    _buttonTextSubject = createSubject();
-    _counterInteractor.counterObservable
-        .listen((c) => _counterSubject.add(c.count));
-  }
+  BehaviorSubject<UserState> _userNameSubject;
 
   Observable<int> get counterObservable => _counterSubject.stream;
+
+  Observable<UserState> get userStateObservable => _userNameSubject.stream;
+
+  HomePageModel(this._counterInteractor, this._userInteractor) {
+    _counterSubject = createSubject();
+    _userNameSubject = createSubject();
+    _counterInteractor.counterObservable
+        .listen((c) => _counterSubject.add(c.count));
+
+    _counterSubject.listen(_loadRandomName);
+  }
 
   incrementCounter() {
     _counterInteractor.incrementCounter();
   }
+
+  _loadRandomName(int i) async {
+    if (i.isEven) {
+      _userNameSubject.add(UserState.loading());
+      User user = await _userInteractor.getUser();
+      print("DEV_INFO $user");
+      //todo error handling
+      _userNameSubject.add(UserState.none(user));
+    }
+  }
+}
+
+class UserState extends EntityState<User> {
+  UserState.error() : super.error();
+
+  UserState.loading() : super.loading();
+
+  UserState.none(User user) : super.none(user);
 }
 
 ///Главная страница
@@ -45,7 +71,10 @@ class _HomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Injector(
-      component: HomePageComponent(Injector.of(context).get(CounterInteractor)),
+      component: HomePageComponent(
+        Injector.of(context).get(CounterInteractor),
+        Injector.of(context).get(UserInteractor),
+      ),
       builder: (context) {
         _model = Injector.of(context).get(HomePageModel);
         return Scaffold(
@@ -68,7 +97,16 @@ class _HomePageState extends State<MyHomePage> {
                     );
                   },
                 ),
-                ProgressBar(),
+                StreamBuilder<UserState>(
+                    stream: _model.userStateObservable,
+                    initialData: UserState.loading(),
+                    builder: (context, snapshot) {
+                      if (snapshot.data.isLoading) {
+                        return ProgressBar();
+                      } else {
+                        return Text(snapshot.data.data.name);
+                      }
+                    }),
               ],
             ),
           ),
@@ -78,7 +116,7 @@ class _HomePageState extends State<MyHomePage> {
             child: Icon(Icons.add),
           ),
         );
-      } ,
+      },
     );
   }
 

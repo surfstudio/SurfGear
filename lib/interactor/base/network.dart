@@ -85,8 +85,11 @@ class Http {
   }
 
   Map<String, String> _buildHeaders(Map<String, String> headers) {
-    Map<String, String> headersMap = Map.from(headersBuilder?.headers);
-    headersMap.addAll(headers);
+    Map<String, String> headersMap = Map();
+    if (headersBuilder != null) {
+      headersMap.addAll(headersBuilder.headers);
+      headersMap.addAll(headers);
+    }
     return headersMap;
   }
 

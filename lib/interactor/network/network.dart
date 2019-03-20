@@ -4,7 +4,7 @@ class CustomErrorMapper extends ErrorMapper {
 
   @override
   mapError(e) {
-    return e.toString();
+    throw e.toString();
   }
 
 }
