@@ -45,7 +45,6 @@ class _HomePageState extends WidgetState<MyHomePage, HomePageModel> {
 
   Widget _buildPage(BuildContext context) {
     model = Injector.of(context).get(HomePageModel);
-    model.errorStream.listen((e) => showSnack());
     return Scaffold(
       key: _scaffoldState,
       appBar: AppBar(

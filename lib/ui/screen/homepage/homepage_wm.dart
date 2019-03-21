@@ -33,7 +33,7 @@ class HomePageModel extends WidgetModel {
     _counterInteractor.incrementCounter();
   }
 
-  _loadRandomName(int i) async {
+  _loadRandomName(int i) {
     print("DEV_INFO loadName $i");
     if (i.isEven) {
       userStateSubject.add(UserState.loading());
