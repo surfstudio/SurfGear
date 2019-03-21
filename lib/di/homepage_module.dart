@@ -1,8 +1,8 @@
 import 'package:flutter_template/di/base/component.dart';
 import 'package:flutter_template/di/base/module.dart';
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
-import 'package:flutter_template/interactor/random_name/user_interactor.dart';
-import 'package:flutter_template/ui/screen/homepage/homepage.dart';
+import 'package:flutter_template/interactor/user/user_interactor.dart';
+import 'package:flutter_template/ui/screen/homepage/homepage_wm.dart';
 
 /// Component for dependencies for HomePage
 class HomePageComponent extends Component {

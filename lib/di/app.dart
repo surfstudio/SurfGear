@@ -4,8 +4,8 @@ import 'package:flutter_template/interactor/base/network.dart';
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/interactor/counter/repository/counter_repository.dart';
 import 'package:flutter_template/interactor/network/network.dart';
-import 'package:flutter_template/interactor/random_name/repository/name_repository.dart';
-import 'package:flutter_template/interactor/random_name/user_interactor.dart';
+import 'package:flutter_template/interactor/user/repository/name_repository.dart';
+import 'package:flutter_template/interactor/user/user_interactor.dart';
 import 'package:flutter_template/util/sp_helper.dart';
 
 /// Component per app
