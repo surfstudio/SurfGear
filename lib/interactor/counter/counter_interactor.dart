@@ -7,13 +7,13 @@ class CounterInteractor {
 
   final CounterRepository _counterRepository;
 
-  BehaviorSubject<Counter> _subject = BehaviorSubject();
+  PublishSubject<Counter> _subject = PublishSubject();
 
   Observable<Counter> get counterObservable => _subject.stream;
 
   CounterInteractor(this._counterRepository) {
     _counterRepository.getCounter().then((c) {
-      _counter = c ?? 0;
+      _counter = c;
       _subject.add(_counter);
     });
 

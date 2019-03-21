@@ -9,11 +9,21 @@ class CounterRepository {
   CounterRepository(this._preferencesHelper);
 
   setCounter(Counter c) {
+    if (c == null) return;
     _preferencesHelper.set(KEY_COUNTER, c.count);
   }
 
   Future<Counter> getCounter() {
-    return _preferencesHelper.get(KEY_COUNTER).then((d) => d as int)
-    .then((i) => Counter(i));
+    return _preferencesHelper
+        .get(KEY_COUNTER)
+        .then(
+          (i) => Counter(i ?? 0),
+        )
+        .catchError(
+      (e) {
+        print("DEV_ERROR ${e.toString()}");
+        return Counter(0);
+      },
+    );
   }
 }

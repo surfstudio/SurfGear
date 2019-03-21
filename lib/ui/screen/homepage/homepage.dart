@@ -4,6 +4,7 @@ import 'package:flutter_template/di/homepage_module.dart';
 import 'package:flutter_template/domain/user.dart';
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/interactor/random_name/user_interactor.dart';
+import 'package:flutter_template/ui/base/action.dart';
 import 'package:flutter_template/ui/base/state.dart';
 import 'package:flutter_template/ui/base/view_model.dart';
 import 'package:flutter_template/ui/common/progress_bar.dart';
@@ -12,15 +13,16 @@ import 'package:rxdart/rxdart.dart';
 import 'package:rxdart/subjects.dart';
 
 ///Модель виджета [MyHomePage]
-class HomePageModel extends ViewModel {
+class HomePageModel extends WidgetModel {
   final CounterInteractor _counterInteractor;
   final UserInteractor _userInteractor;
 
   BehaviorSubject<int> _counterSubject;
-  BehaviorSubject<UserState> _userNameSubject;
-
   Observable<int> get counterObservable => _counterSubject.stream;
 
+  Action incrementAction;
+
+  BehaviorSubject<UserState> _userNameSubject;
   Observable<UserState> get userStateObservable => _userNameSubject.stream;
 
   HomePageModel(this._counterInteractor, this._userInteractor) {
@@ -29,15 +31,19 @@ class HomePageModel extends ViewModel {
     _counterInteractor.counterObservable
         .listen((c) => _counterSubject.add(c.count));
 
-    _counterSubject.listen(_loadRandomName);
+    counterObservable.listen(_loadRandomName);
+
+    incrementAction = createAction();
+    incrementAction.action.listen((v) => incrementCounter());
   }
 
-  incrementCounter() {
+  void incrementCounter() {
     _counterInteractor.incrementCounter();
   }
 
   _loadRandomName(int i) async {
-    if (i.isEven) {
+    print("DEV_INFO loadName $i");
+    if (i?.isEven ?? false) {
       _userNameSubject.add(UserState.loading());
       User user = await _userInteractor.getUser();
       print("DEV_INFO $user");
@@ -111,7 +117,7 @@ class _HomePageState extends State<MyHomePage> {
             ),
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: _model.incrementCounter,
+            onPressed: _model.incrementAction.doAction,
             tooltip: incButtonTooltip,
             child: Icon(Icons.add),
           ),
