@@ -3,7 +3,7 @@ import 'dart:convert' as json;
 import 'package:flutter_template/domain/user.dart';
 import 'package:flutter_template/interactor/base/network.dart';
 import 'package:flutter_template/interactor/common/urls.dart';
-import 'package:flutter_template/interactor/random_name/repository/data/user.dart';
+import 'package:flutter_template/interactor/user/repository/data/user.dart';
 
 /// todo завернуть декодинг/энкодинг в json внутрь [Http]
 class UserRepository {
