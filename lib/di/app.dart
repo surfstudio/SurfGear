@@ -29,14 +29,16 @@ class AppComponent extends Component {
 
 //region Modules for app component
 class HttpModule extends Module<Http> {
+  Http _http = Http(
+    config: HttpConfig(
+      Duration(seconds: 30),
+    ),
+    errorMapper: CustomErrorMapper(),
+  );
+
   @override
   provides() {
-    return Http(
-      config: HttpConfig(
-        Duration(seconds: 30),
-      ),
-      errorMapper: CustomErrorMapper(),
-    );
+    return _http;
   }
 }
 

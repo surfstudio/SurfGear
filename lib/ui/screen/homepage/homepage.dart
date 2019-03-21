@@ -17,21 +17,18 @@ class HomePageModel extends WidgetModel {
   final CounterInteractor _counterInteractor;
   final UserInteractor _userInteractor;
 
-  BehaviorSubject<int> _counterSubject;
-  Observable<int> get counterObservable => _counterSubject.stream;
+  BehaviorSubject<int> counterSubject;
+  BehaviorSubject<UserState> userStateSubject;
 
   Action incrementAction;
 
-  BehaviorSubject<UserState> _userNameSubject;
-  Observable<UserState> get userStateObservable => _userNameSubject.stream;
-
   HomePageModel(this._counterInteractor, this._userInteractor) {
-    _counterSubject = createSubject();
-    _userNameSubject = createSubject();
+    counterSubject = createSubject();
+    userStateSubject = createSubject();
     _counterInteractor.counterObservable
-        .listen((c) => _counterSubject.add(c.count));
+        .listen((c) => counterSubject.add(c.count));
 
-    counterObservable.listen(_loadRandomName);
+    counterSubject.listen(_loadRandomName);
 
     incrementAction = createAction();
     incrementAction.action.listen((v) => incrementCounter());
@@ -43,12 +40,15 @@ class HomePageModel extends WidgetModel {
 
   _loadRandomName(int i) async {
     print("DEV_INFO loadName $i");
-    if (i?.isEven ?? false) {
-      _userNameSubject.add(UserState.loading());
-      User user = await _userInteractor.getUser();
-      print("DEV_INFO $user");
-      //todo error handling
-      _userNameSubject.add(UserState.none(user));
+    if (i.isEven) {
+      userStateSubject.add(UserState.loading());
+      _userInteractor.getUser().then((user) {
+        print("DEV_INFO $user");
+        userStateSubject.add(UserState.none(user));
+      }).catchError((e) {
+        print("DEV_ERROR ${e.toString}");
+        userStateSubject.add(UserState.error());
+      });
     }
   }
 }
@@ -87,34 +87,46 @@ class _HomePageState extends State<MyHomePage> {
           appBar: AppBar(
             title: Text(widget.title),
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  homePageText,
+          body: Builder(
+            builder: (ctx) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      homePageText,
+                    ),
+                    StreamBuilder<int>(
+                      stream: _model.counterSubject,
+                      builder: (context, snapshot) {
+                        return Text(
+                          '${snapshot.data}',
+                          style: Theme.of(context).textTheme.display1,
+                        );
+                      },
+                    ),
+                    StreamBuilder<UserState>(
+                        stream: _model.userStateSubject,
+                        initialData: UserState.loading(),
+                        builder: (ctx, snapshot) {
+                          if (snapshot.data.isLoading) {
+                            return ProgressBar();
+                          } else if (snapshot.data.hasError) {
+                            //todo сделать вменяемый показ снеков
+                           /* Scaffold.of(ctx).showSnackBar(
+                              SnackBar(
+                                content: Text("Snack with error"),
+                              ),
+                            );*/
+                            return Text("Some errors");
+                          } else {
+                            return Text(snapshot.data.data.name);
+                          }
+                        }),
+                  ],
                 ),
-                StreamBuilder<int>(
-                  stream: _model.counterObservable,
-                  builder: (context, snapshot) {
-                    return Text(
-                      '${snapshot.data}',
-                      style: Theme.of(context).textTheme.display1,
-                    );
-                  },
-                ),
-                StreamBuilder<UserState>(
-                    stream: _model.userStateObservable,
-                    initialData: UserState.loading(),
-                    builder: (context, snapshot) {
-                      if (snapshot.data.isLoading) {
-                        return ProgressBar();
-                      } else {
-                        return Text(snapshot.data.data.name);
-                      }
-                    }),
-              ],
-            ),
+              );
+            },
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: _model.incrementAction.doAction,

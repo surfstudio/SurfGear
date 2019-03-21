@@ -1,7 +1,6 @@
 import 'package:http/http.dart' as http;
 
-///Wrapper over http
-/// todo
+/// Wrapper over http
 class Http {
   final HeadersBuilder headersBuilder;
   final HttpConfig config;
