@@ -3,6 +3,7 @@ import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/interactor/user/user_interactor.dart';
 import 'package:flutter_template/ui/base/action.dart';
 import 'package:flutter_template/ui/base/entity_state.dart';
+import 'package:flutter_template/ui/base/error_handler.dart';
 import 'package:flutter_template/ui/base/widget_model.dart';
 import 'package:rxdart/subjects.dart';
 
@@ -16,7 +17,9 @@ class HomePageModel extends WidgetModel {
 
   Action incrementAction = Action();
 
-  HomePageModel(this._counterInteractor, this._userInteractor) {
+  HomePageModel(
+      this._counterInteractor, this._userInteractor, ErrorHandler handler)
+      : super(handler) {
     listenToStream(
       _counterInteractor.counterObservable,
       (c) => counterSubject.add(c.count),
