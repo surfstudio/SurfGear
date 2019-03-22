@@ -27,8 +27,7 @@ class _HomePageState extends WidgetState<MyHomePage, HomePageModel> {
   Widget build(BuildContext context) {
     return Injector(
       component: HomePageComponent(
-        Injector.of(context).get(CounterInteractor),
-        Injector.of(context).get(UserInteractor),
+        Injector.of(context).component,
         _scaffoldState,
       ),
       builder: _buildPage,
