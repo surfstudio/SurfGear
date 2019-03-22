@@ -8,9 +8,11 @@ class MaterialErrorHandler extends ErrorHandler {
 
   @override
   void handleError(Exception e) {
-    _scaffoldState.currentState.showSnackBar(SnackBar(
-      content: Text(e.toString()),
-      duration: Duration(seconds: 5),
-    ));
+    _scaffoldState.currentState.showSnackBar(
+      SnackBar(
+        content: Text(e.toString()),
+        duration: Duration(seconds: 5),
+      ),
+    );
   }
 }

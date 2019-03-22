@@ -3,8 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/di/base/injector.dart';
 import 'package:flutter_template/di/homepage_module.dart';
-import 'package:flutter_template/interactor/counter/counter_interactor.dart';
-import 'package:flutter_template/interactor/user/user_interactor.dart';
 import 'package:flutter_template/ui/base/widget_state.dart';
 import 'package:flutter_template/ui/common/progress_bar.dart';
 import 'package:flutter_template/ui/res/strings.dart';
@@ -43,7 +41,7 @@ class _HomePageState extends WidgetState<MyHomePage, HomePageModel> {
   }
 
   Widget _buildPage(BuildContext context) {
-    model = Injector.of(context).get(HomePageModel);
+    wm = Injector.of(context).get(HomePageModel);
     return Scaffold(
       key: _scaffoldState,
       appBar: AppBar(
@@ -51,7 +49,7 @@ class _HomePageState extends WidgetState<MyHomePage, HomePageModel> {
       ),
       body: _buildBody(),
       floatingActionButton: FloatingActionButton(
-        onPressed: model.incrementAction.doAction,
+        onPressed: wm.incrementAction.doAction,
         tooltip: incButtonTooltip,
         child: Icon(Icons.add),
       ),
@@ -67,7 +65,7 @@ class _HomePageState extends WidgetState<MyHomePage, HomePageModel> {
             homePageText,
           ),
           StreamBuilder<int>(
-            stream: model.counterSubject,
+            stream: wm.counterSubject,
             builder: (context, snapshot) {
               return Text(
                 '${snapshot.data}',
@@ -76,7 +74,7 @@ class _HomePageState extends WidgetState<MyHomePage, HomePageModel> {
             },
           ),
           StreamBuilder<UserState>(
-              stream: model.userStateSubject,
+              stream: wm.userStateSubject,
               initialData: UserState.loading(),
               builder: (ctx, snapshot) {
                 if (snapshot.data.isLoading) {
