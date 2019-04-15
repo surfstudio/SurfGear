@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/widgets.dart';
+import 'package:flutter_template/ui/base/dependency/widget_model_dependencies.dart';
 import 'package:flutter_template/ui/base/error_handler.dart';
+import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
 ///WidgetModel - interface
@@ -8,26 +11,39 @@ import 'package:rxdart/rxdart.dart';
 ///полностью на action/stream | action/observable
 abstract class WidgetModel {
   final ErrorHandler _errorHandler;
+  final NavigatorState _navigator;
   CompositeSubscription _compositeSubscription = CompositeSubscription();
-  PublishSubject<Exception> _errorSubject = PublishSubject();
+  PublishSubject<ExceptionWrapper> _errorSubject = PublishSubject();
 
-  WidgetModel(this._errorHandler);
+  Observable<ExceptionWrapper> get errorStream => _errorSubject.stream;
 
-  Observable<Exception> get errorStream => _errorSubject.stream;
+  WidgetModel(WidgetModelDependencies baseDependencies)
+      : _errorHandler = baseDependencies.errorHandler,
+        _navigator = baseDependencies.navigator {
+    onLoad();
+  }
 
-  void listenToStream<T>(Observable<T> stream, onValue(T t), {onError(e)}) {
-    StreamSubscription susbcription = stream.listen(onValue, onError: (e) {
-      _handleError(e);
+  void onLoad() {}
+
+  void listenToStream<T>(Observable<T> stream, void Function(T t) onValue,
+      {onError(e)}) {
+    StreamSubscription subscription = stream.listen(onValue, onError: (e) {
+      handleError(e);
       onError(e);
     });
 
-    _compositeSubscription.add(susbcription);
+    _compositeSubscription.add(subscription);
   }
 
   void doFuture<T>(Future<T> future, onValue(T t), {onError(e)}) {
     future.then(onValue).catchError((e) {
-      print(e);
-      _handleError(e);
+      onError(e);
+    });
+  }
+
+  void doFutureHandleError<T>(Future<T> future, onValue(T t), {onError(e)}) {
+    future.then(onValue).catchError((e) {
+      handleError(e);
       onError(e);
     });
   }
@@ -38,10 +54,15 @@ abstract class WidgetModel {
   }
 
   /// standard error handling
-  _handleError(Exception e) {
-    //todo сделать сдандуртную обработку
-    print("DEV_ERROR ${e.toString()}");
+  @protected
+  handleError(Object e) {
     _errorHandler.handleError(e);
-    _errorSubject.add(e);
+    _errorSubject.add(ExceptionWrapper(e));
   }
+}
+
+class ExceptionWrapper {
+  final Exception e;
+
+  ExceptionWrapper(this.e);
 }

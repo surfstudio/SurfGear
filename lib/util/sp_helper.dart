@@ -7,17 +7,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///todo make universal, di, storage helper
 ///
 class PreferencesHelper {
-
-  Future<dynamic> get(String key) async {
+  Future<Object> get(String key, Object defaultValue) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     var result = await sp?.get(key) ?? null;
     print("DEV_INFO get from ${sp.toString()} by key $key | result $result");
-    return result;
+    return result ?? defaultValue;
   }
 
   set(String key, dynamic value) async {
     SharedPreferences _sp = await SharedPreferences.getInstance();
-    print("DEV_INFO set to ${_sp.toString()} by key $key | value $value");
     if (value.runtimeType == String) {
       await _sp.setString(key, value);
     } else if (value.runtimeType == int) {
@@ -29,5 +27,6 @@ class PreferencesHelper {
     } else {
       throw Exception("Does not support type ${value.runtimeType} yet.");
     }
+    print("DEV_INFO set to ${_sp.toString()} by key $key | value $value");
   }
 }

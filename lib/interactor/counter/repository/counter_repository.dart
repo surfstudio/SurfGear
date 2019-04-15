@@ -15,7 +15,7 @@ class CounterRepository {
 
   Future<Counter> getCounter() {
     return _preferencesHelper
-        .get(KEY_COUNTER)
+        .get(KEY_COUNTER, 0)
         .then(
           (i) => Counter(i ?? 0),
         )

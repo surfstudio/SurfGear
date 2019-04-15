@@ -1,1 +1,3 @@
-const String randomNameUrl = "http://uinames.com/api/";
+///URL запросов сервера
+const String BASE_URL = "http://uinames.com/api/";
+
