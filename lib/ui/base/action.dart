@@ -16,12 +16,22 @@ import 'package:rxdart/rxdart.dart';
 /// ```
 class Action<T> {
   PublishSubject<T> _actionSubject = PublishSubject();
+  final void Function(T data) onChanged;
+  T value;
+
+  Action([void Function(T data) onChanged])
+      : this.onChanged = onChanged ?? ((a) {});
 
   Observable<T> get action => _actionSubject.stream;
 
-  void doAction({T data}) {
+  Future<void> accept({T data}) async {
+    value = data;
     _actionSubject.add(data);
+    onChanged(value);
+    return _actionSubject.stream.first.wrapped;
   }
+
+  call([T data]) => accept(data: data);
 
   /// Close stream
   dispose() {

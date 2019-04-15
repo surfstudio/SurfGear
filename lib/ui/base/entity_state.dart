@@ -3,6 +3,7 @@ abstract class EntityState<T> {
   final T data;
   final bool isLoading;
   final bool hasError;
+  Exception error;
 
   //возможные поля
   // final List<Exception> errors
@@ -11,10 +12,13 @@ abstract class EntityState<T> {
       : isLoading = true,
         hasError = false,
         data = null;
-  EntityState.error()
+
+  EntityState.error([Exception error])
       : isLoading = false,
         hasError = true,
+        error = error,
         data = null;
+
   EntityState.none(T data)
       : isLoading = false,
         hasError = false,
