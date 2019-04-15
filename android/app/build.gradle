@@ -23,6 +23,7 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply from:  "../keystore/signingConfigs.gradle"
 
 android {
     compileSdkVersion 28
@@ -59,3 +60,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
 }
+
+//todo раскомментировать
+//apply plugin: 'io.fabric'
+//apply plugin: 'com.google.gms.google-services'
