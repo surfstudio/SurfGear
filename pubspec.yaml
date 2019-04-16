@@ -10,6 +10,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  #внутренние библиотеки
+  logger:
+    path: ./logger
+
   intl: 0.15.7
 
   flutter_svg: 0.10.3
