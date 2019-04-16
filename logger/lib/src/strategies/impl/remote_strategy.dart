@@ -2,7 +2,7 @@ import 'package:logger/src/const.dart';
 import 'package:logger/src/remote_logger.dart';
 import 'package:logger/src/strategies/log_strategy.dart';
 
-const minRemotePriority = PRIORITY_LOG_ERROR;
+const minRemotePriority = PRIORITY_LOG_WARN;
 
 ///Стратегия для отправки логов на удалённый сервер
 ///* логи отправляются начиная с [minRemotePriority]

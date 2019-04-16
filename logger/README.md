@@ -1,14 +1,24 @@
 # logger
 
-Logger for Dart &amp; Flutter
+Logger for Dart & Flutter
 
-## Getting Started
+## Использование
 
-This project is a starting point for a Dart
-[package](https://flutter.io/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+Основные классы:
+1. [Logger]
+2. [RemoteLogger]
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+## Logger
+
+Logger используется как синглтон. Основные методы:
+* .d - debug
+* .w - warn, для ожидаемой ошибки
+* .e - error
+
+Стратегии логирования можно дополнять реализуя наследника `LogStrategy`
+
+При добавлении `RemoteLogStrategy` на удаленный сервер отправляются все логи выше уровня WARN
+
+Чтобы не загрязнять Crashlytics используем `Logger#w()` для ожидаемых ошибок
+
+Кроме того в RemoteLogger есть возможность установить id, имя и email пользователя при входе в аккаунт и очистить при выходе.
