@@ -3,10 +3,10 @@ import 'dart:convert' as json;
 import 'package:flutter_template/domain/user.dart';
 import 'package:flutter_template/interactor/auth/repository/data/auth_request.dart';
 import 'package:flutter_template/interactor/auth/repository/data/user_response.dart';
-import 'package:flutter_template/interactor/base/network.dart';
 import 'package:flutter_template/interactor/token/token_storage.dart';
 import 'package:flutter_template/util/const.dart';
 import 'package:flutter_template/util/sp_helper.dart';
+import 'package:network/network.dart';
 
 const String KEY_PIN = "PIN";
 
@@ -31,9 +31,9 @@ class AuthRepository {
         .post(
           EMPTY_STRING, //todo
           headers: otpCode.isNotEmpty ? {"X-OTP-Header": otpCode} : null,
-          body: json.jsonEncode(AuthRequest().from(info).toJson()),
+          body: AuthRequest().from(info).toJson(),
         )
-        .then((r) => UserResponse.fromJson(json.jsonDecode(r.body)))
+        .then((r) => UserResponse.fromJson(r.body))
         .then((ur) async {
       await _tokenStorage.saveToken(ur?.accessToken);
       return ur?.transform();

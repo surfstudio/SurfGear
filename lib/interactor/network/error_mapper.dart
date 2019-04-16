@@ -1,7 +1,7 @@
 import 'dart:convert' as json;
 
-import 'package:flutter_template/interactor/base/network.dart';
 import 'package:flutter_template/interactor/common/exceptions.dart';
+import 'package:network/network.dart';
 
 /// StupidMapper
 /// todo зарессерчить основные ошибки

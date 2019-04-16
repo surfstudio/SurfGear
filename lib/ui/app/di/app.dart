@@ -4,12 +4,12 @@ import 'package:flutter/src/widgets/navigator.dart';
 import 'package:flutter_template/di/base/component.dart';
 import 'package:flutter_template/di/base/module.dart';
 import 'package:flutter_template/interactor/auth/auth_interactor.dart';
-import 'package:flutter_template/interactor/base/network.dart';
+import 'package:flutter_template/interactor/common/urls.dart';
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/interactor/counter/repository/counter_repository.dart';
 import 'package:flutter_template/interactor/initial_progress/initial_progress_interactor.dart';
+import 'package:flutter_template/interactor/network/error_mapper.dart';
 import 'package:flutter_template/interactor/network/header_builder.dart';
-import 'package:flutter_template/interactor/network/network.dart';
 import 'package:flutter_template/interactor/token/token_storage.dart';
 import 'package:flutter_template/interactor/user/repository/name_repository.dart';
 import 'package:flutter_template/interactor/user/user_interactor.dart';
@@ -23,6 +23,7 @@ import 'package:flutter_template/ui/base/dependency/widget_model_dependencies.da
 import 'package:flutter_template/ui/base/impl/material_message_controller.dart';
 import 'package:flutter_template/ui/base/impl/standard_error_handler.dart';
 import 'package:flutter_template/util/sp_helper.dart';
+import 'package:network/network.dart';
 
 /// Component per app
 class AppComponent extends Component {
@@ -104,8 +105,9 @@ class HttpModule extends Module<Http> {
   Http _http;
 
   HttpModule(AuthInfoStorage ts) {
-    _http = Http(
+    _http = DioHttp(
       config: HttpConfig(
+        BASE_URL,
         Duration(seconds: 30),
       ),
       errorMapper: CustomErrorMapper(),
