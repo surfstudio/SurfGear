@@ -12,10 +12,11 @@ class DioHttp extends Http {
   final _dio = dio.Dio();
 
   DioHttp({this.headersBuilder, HttpConfig config, this.errorMapper}) {
-    _dio.options.baseUrl = config.baseUrl;
-    _dio.options.connectTimeout = config.timeout.inMilliseconds;
-    _dio.options.receiveTimeout = config.timeout.inMilliseconds;
-    _dio.options.sendTimeout = config.timeout.inMilliseconds;
+    _dio.options
+      ..baseUrl = config.baseUrl
+      ..connectTimeout = config.timeout.inMilliseconds
+      ..receiveTimeout = config.timeout.inMilliseconds
+      ..sendTimeout = config.timeout.inMilliseconds;
   }
 
   @override
