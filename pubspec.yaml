@@ -13,6 +13,8 @@ dependencies:
   #внутренние библиотеки
   network:
     path: ./network
+  logger:
+    path: ./logger
 
   intl: 0.15.7
 

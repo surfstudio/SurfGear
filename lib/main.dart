@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_template/config/build_types.dart';
 import 'package:flutter_template/config/env/env.dart';
 import 'package:flutter_template/ui/app/app.dart';
+import 'package:logger/logger.dart';
 
 //Main entry point of app
 void main() async {
@@ -15,6 +16,7 @@ void main() async {
   Environment.init(buildType: BuildType.debug);
 
   _initCrashlytics();
+  _initLogger();
   _runApp();
 }
 
@@ -37,4 +39,10 @@ void _initCrashlytics() {
       Crashlytics.instance.onError(details);
     }
   };
+}
+
+void _initLogger() {
+  RemoteLogger.addStrategy(CrashlyticsRemoteLogStrategy());
+  Logger.addStrategy(DebugLogStrategy());
+  Logger.addStrategy(RemoteLogStrategy());
 }

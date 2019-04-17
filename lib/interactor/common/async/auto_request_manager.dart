@@ -16,12 +16,12 @@ class AutoRequestManager {
   StreamSubscription<ConnectivityResult> _connectivitySubscription;
   ConnectivityResult _previousConnection;
 
-  Future _autoReloadRequest;
+  Future Function() _autoReloadRequest;
   Timer _requestTimer;
 
-  /// Поставить на автоотправку [request]
-  Future<void> autoReload(Future request) async {
-    _autoReloadRequest = request;
+  /// Поставить на автоотправку запрос
+  Future<void> autoReload(Future toReload()) async {
+    _autoReloadRequest = toReload;
     _tryReload();
   }
 
@@ -45,7 +45,7 @@ class AutoRequestManager {
       reloadDuration,
       (timer) async {
         try {
-          await _autoReloadRequest;
+          await _autoReloadRequest();
           dispose();
         } catch (e) {
           // ничего не делаем, таймер перезапустит запрос
