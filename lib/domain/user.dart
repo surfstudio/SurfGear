@@ -17,11 +17,8 @@ class User {
     this.fio,
   });
 
-
-  String get formattedPhone {
-    String res = _mask.apply(phone.replaceAll("+", "")); //убираем +
-    return res;
-  }
+  //убираем +
+  String get formattedPhone => _mask.apply(phone.replaceAll("+", ""));
 }
 
 /// Информация, необходимая для авторизации

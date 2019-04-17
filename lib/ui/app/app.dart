@@ -37,7 +37,8 @@ class _AppState extends WidgetState<App, AppWidgetModel, AppComponent> {
         body: Container(
             decoration: BoxDecoration(
           color: backgroundColor,
-          image: DecorationImage(image: AssetImage(logoSmall)),
+          image: DecorationImage(
+              image: AssetImage(icAlert)), //todo лого для сплеша
         )),
       ),
       onGenerateRoute: (RouteSettings rs) =>
