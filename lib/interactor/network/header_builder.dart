@@ -1,6 +1,6 @@
-import 'package:flutter_template/interactor/base/network.dart';
 import 'package:flutter_template/interactor/token/token_storage.dart';
 import 'package:flutter_template/util/const.dart';
+import 'package:network/network.dart';
 
 /// Реализация билдера заголовков http запросов
 class DefaultHeaderBuilder extends HeadersBuilder {

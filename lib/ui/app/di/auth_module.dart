@@ -1,11 +1,11 @@
 import 'package:flutter_template/di/base/module.dart';
 import 'package:flutter_template/interactor/auth/auth_interactor.dart';
 import 'package:flutter_template/interactor/auth/repository/auth_repository.dart';
-import 'package:flutter_template/interactor/base/network.dart';
 import 'package:flutter_template/interactor/common/push/push_manager.dart';
 import 'package:flutter_template/interactor/session/session_changed_interactor.dart';
 import 'package:flutter_template/interactor/token/token_storage.dart';
 import 'package:flutter_template/util/sp_helper.dart';
+import 'package:network/network.dart';
 
 ///Модуль для пробрасывания зависимостей к [AuthInteractor]
 class AuthModule extends Module<AuthInteractor> {
