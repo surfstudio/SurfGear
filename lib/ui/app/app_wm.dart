@@ -1,8 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_template/ui/app/app.dart';
-import 'package:flutter_template/ui/base/dependency/widget_model_dependencies.dart';
-import 'package:flutter_template/ui/base/message_controller.dart';
-import 'package:flutter_template/ui/base/widget_model.dart';
+import 'package:mwwm/mwwm.dart';
+
 
 class AppWidgetModel extends WidgetModel {
   final GlobalKey<NavigatorState> _navigator;

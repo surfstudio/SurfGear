@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:injector/injector.dart';
 import 'package:flutter_template/ui/app/di/app.dart';
-import 'package:flutter_template/ui/base/widget_state.dart';
+import 'package:mwwm/mwwm.dart';
 import 'package:flutter_template/ui/common/formatters/phone_formatter.dart';
 import 'package:flutter_template/ui/common/widgets/buttons.dart';
 import 'package:flutter_template/ui/common/widgets/progress_bar.dart';

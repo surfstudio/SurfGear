@@ -18,9 +18,9 @@ import 'package:flutter_template/ui/app/di/initial_progress_module.dart';
 import 'package:flutter_template/ui/app/di/push_module.dart';
 import 'package:flutter_template/ui/app/di/session_changed_module.dart';
 import 'package:flutter_template/ui/app/di/token_storage_module.dart';
-import 'package:flutter_template/ui/base/dependency/widget_model_dependencies.dart';
-import 'package:flutter_template/ui/base/impl/material_message_controller.dart';
-import 'package:flutter_template/ui/base/impl/standard_error_handler.dart';
+import 'package:mwwm/mwwm.dart';
+import 'package:flutter_template/ui/base/material_message_controller.dart';
+import 'package:flutter_template/ui/base/standard_error_handler.dart';
 import 'package:flutter_template/util/sp_helper.dart';
 import 'package:network/network.dart';
 

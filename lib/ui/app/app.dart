@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/ui/app/di/app.dart';
 import 'package:flutter_template/ui/app/app_wm.dart';
-import 'package:flutter_template/ui/base/widget_state.dart';
 import 'package:flutter_template/ui/res/assets.dart';
 import 'package:flutter_template/ui/res/colors.dart';
 import 'package:flutter_template/ui/res/styles.dart';
 import 'package:flutter_template/ui/screen/phone_input/phone_route.dart';
+import 'package:mwwm/mwwm.dart';
 
 // todo оставить здесь только необходимые маршруты
 class Router {

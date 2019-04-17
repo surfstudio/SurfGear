@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/ui/app/di/app.dart';
 import 'package:injector/injector.dart';
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
-import 'package:flutter_template/ui/base/dependency/widget_model_dependencies.dart';
-import 'package:flutter_template/ui/base/impl/material_message_controller.dart';
-import 'package:flutter_template/ui/base/impl/standard_error_handler.dart';
+import 'package:mwwm/mwwm.dart';
+import 'package:flutter_template/ui/base/material_message_controller.dart';
+import 'package:flutter_template/ui/base/standard_error_handler.dart';
 import 'package:flutter_template/ui/screen/phone_input/phone_input_wm.dart';
 
 class PhoneInputScreenComponent extends Component {

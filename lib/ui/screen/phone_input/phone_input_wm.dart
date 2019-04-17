@@ -1,9 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
-import 'package:flutter_template/ui/base/action.dart';
-import 'package:flutter_template/ui/base/dependency/widget_model_dependencies.dart';
-import 'package:flutter_template/ui/base/entity_state.dart';
-import 'package:flutter_template/ui/base/widget_model.dart';
+import 'package:mwwm/mwwm.dart';
 import 'package:flutter_template/util/const.dart';
 import 'package:flutter_template/util/phone_number_util.dart';
 import 'package:rxdart/rxdart.dart';

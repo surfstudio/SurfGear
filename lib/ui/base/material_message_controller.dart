@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/ui/base/message_controller.dart';
+import 'package:mwwm/mwwm.dart';
 import 'package:flutter_template/ui/common/dialog/alert_dialog.dart';
 
 class MaterialMessageController extends MessageController {

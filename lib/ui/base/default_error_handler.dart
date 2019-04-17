@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/ui/base/error_handler.dart';
+import 'package:mwwm/mwwm.dart';
 
 class MaterialErrorHandler extends ErrorHandler {
   final GlobalKey<ScaffoldState> _scaffoldState;

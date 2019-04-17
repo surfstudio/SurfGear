@@ -1,8 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_template/interactor/common/exceptions.dart';
 import 'package:flutter_template/ui/app/app.dart';
-import 'package:flutter_template/ui/base/error_handler.dart';
-import 'package:flutter_template/ui/base/message_controller.dart';
+import 'package:mwwm/mwwm.dart';
 import 'package:flutter_template/ui/res/strings.dart';
 
 /// Стандартная реализация эррор хендлера
