@@ -1,10 +1,10 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert' as json;
-import 'package:network/src/config.dart';
-import 'package:network/src/errors/error_mapper.dart';
-import 'package:network/src/headers.dart';
-import 'package:network/src/http.dart';
-import 'package:network/src/response.dart';
+import 'package:network/src/base/config.dart';
+import 'package:network/src/base/status_mapper.dart';
+import 'package:network/src/base/headers.dart';
+import 'package:network/src/base/http.dart';
+import 'package:network/src/base/response.dart';
 
 class DefaultHttp extends Http {
   final HeadersBuilder headersBuilder;

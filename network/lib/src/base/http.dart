@@ -1,4 +1,4 @@
-import 'package:network/src/response.dart';
+import 'package:network/src/base/response.dart';
 
 abstract class Http {
   ///GET- request

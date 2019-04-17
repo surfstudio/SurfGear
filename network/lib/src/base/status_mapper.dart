@@ -1,5 +1,5 @@
-import 'package:network/src/errors/http_exceptions.dart';
-import 'package:network/src/response.dart';
+import 'package:network/src/base/http_exceptions.dart';
+import 'package:network/src/base/response.dart';
 
 ///Хелпер для проверки статус кода
 abstract class StatusCodeMapper {

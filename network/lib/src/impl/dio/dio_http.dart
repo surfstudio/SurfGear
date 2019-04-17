@@ -1,8 +1,8 @@
-import 'package:network/src/config.dart';
-import 'package:network/src/errors/error_mapper.dart';
-import 'package:network/src/headers.dart';
-import 'package:network/src/http.dart';
-import 'package:network/src/response.dart';
+import 'package:network/src/base/config.dart';
+import 'package:network/src/base/status_mapper.dart';
+import 'package:network/src/base/headers.dart';
+import 'package:network/src/base/http.dart';
+import 'package:network/src/base/response.dart';
 import 'package:dio/dio.dart' as dio;
 
 class DioHttp extends Http {
