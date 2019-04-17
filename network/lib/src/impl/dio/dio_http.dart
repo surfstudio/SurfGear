@@ -5,6 +5,7 @@ import 'package:network/src/base/http.dart';
 import 'package:network/src/base/response.dart';
 import 'package:dio/dio.dart' as dio;
 
+///Реализация Http на основе библиотеки [dio]
 class DioHttp extends Http {
   final HeadersBuilder headersBuilder;
   final StatusCodeMapper errorMapper;
@@ -20,7 +21,10 @@ class DioHttp extends Http {
   }
 
   @override
-  Future<Response> get<T>(String url, {Map<String, String> headers}) async {
+  Future<Response> get<T>(
+    String url, {
+    Map<String, String> headers,
+  }) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return _dio
         .get(
@@ -31,8 +35,11 @@ class DioHttp extends Http {
   }
 
   @override
-  Future<Response> post<T>(String url,
-      {Map<String, String> headers, Map<String, dynamic> body}) async {
+  Future<Response> post<T>(
+    String url, {
+    Map<String, String> headers,
+    Map<String, dynamic> body,
+  }) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return _dio
         .post(
@@ -44,8 +51,11 @@ class DioHttp extends Http {
   }
 
   @override
-  Future<Response> put<T>(String url,
-      {Map<String, String> headers, body}) async {
+  Future<Response> put<T>(
+    String url, {
+    Map<String, String> headers,
+    Map<String, dynamic> body,
+  }) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return _dio
         .put(
@@ -57,7 +67,10 @@ class DioHttp extends Http {
   }
 
   @override
-  Future<Response> delete<T>(String url, {Map<String, String> headers}) async {
+  Future<Response> delete<T>(
+    String url, {
+    Map<String, String> headers,
+  }) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return _dio
         .delete(
@@ -68,8 +81,11 @@ class DioHttp extends Http {
   }
 
   @override
-  Future<Response> patch<T>(String url,
-      {Map<String, String> headers, body}) async {
+  Future<Response> patch<T>(
+    String url, {
+    Map<String, String> headers,
+    Map<String, dynamic> body,
+  }) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return _dio
         .patch(
@@ -81,7 +97,10 @@ class DioHttp extends Http {
   }
 
   @override
-  Future<Response> head<T>(String url, Map<String, String> headers) async {
+  Future<Response> head<T>(
+    String url,
+    Map<String, String> headers,
+  ) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return _dio
         .head(

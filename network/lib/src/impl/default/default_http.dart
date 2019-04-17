@@ -16,7 +16,10 @@ class DefaultHttp extends Http {
 
   ///GET- request
   @override
-  Future<Response> get<T>(String url, {Map<String, String> headers}) async {
+  Future<Response> get<T>(
+    String url, {
+    Map<String, String> headers,
+  }) async {
     print("DEV_WEB request : $url");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return http
@@ -30,8 +33,11 @@ class DefaultHttp extends Http {
 
   ///POST-request
   @override
-  Future<Response> post<T>(String url,
-      {Map<String, String> headers, Map<String, dynamic> body}) async {
+  Future<Response> post<T>(
+    String url, {
+    Map<String, String> headers,
+    Map<String, dynamic> body,
+  }) async {
     print("DEV_WEB request : $url, $body | $headers");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return http
@@ -45,8 +51,11 @@ class DefaultHttp extends Http {
 
   ///PUT -request
   @override
-  Future<Response> put<T>(String url,
-      {Map<String, String> headers, Map<String, dynamic> body}) async {
+  Future<Response> put<T>(
+    String url, {
+    Map<String, String> headers,
+    Map<String, dynamic> body,
+  }) async {
     print("DEV_WEB request : $url, $body");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return http
@@ -60,7 +69,10 @@ class DefaultHttp extends Http {
 
   ///DELETE -request
   @override
-  Future<Response> delete<T>(String url, {Map<String, String> headers}) async {
+  Future<Response> delete<T>(
+    String url, {
+    Map<String, String> headers,
+  }) async {
     print("DEV_WEB request : $url");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return http
@@ -73,8 +85,11 @@ class DefaultHttp extends Http {
 
   ///PATCH -request
   @override
-  Future<Response> patch<T>(String url,
-      {Map<String, String> headers, Map<String, dynamic> body}) async {
+  Future<Response> patch<T>(
+    String url, {
+    Map<String, String> headers,
+    Map<String, dynamic> body,
+  }) async {
     print("DEV_WEB request : $url, $body");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return http
@@ -88,7 +103,10 @@ class DefaultHttp extends Http {
 
   ///HEAD - request
   @override
-  Future<Response> head<T>(String url, Map<String, String> headers) async {
+  Future<Response> head<T>(
+    String url,
+    Map<String, String> headers,
+  ) async {
     print("DEV_WEB request : $url");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return http
