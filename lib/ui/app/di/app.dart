@@ -8,7 +8,7 @@ import 'package:flutter_template/interactor/common/urls.dart';
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/interactor/counter/repository/counter_repository.dart';
 import 'package:flutter_template/interactor/initial_progress/initial_progress_interactor.dart';
-import 'package:flutter_template/interactor/network/error_mapper.dart';
+import 'package:flutter_template/interactor/network/status_mapper.dart';
 import 'package:flutter_template/interactor/network/header_builder.dart';
 import 'package:flutter_template/interactor/token/token_storage.dart';
 import 'package:flutter_template/interactor/user/repository/name_repository.dart';
@@ -110,7 +110,7 @@ class HttpModule extends Module<Http> {
         BASE_URL,
         Duration(seconds: 30),
       ),
-      errorMapper: CustomErrorMapper(),
+      errorMapper: DefaultStatusMapper(),
       headersBuilder: DefaultHeaderBuilder(ts),
     );
   }

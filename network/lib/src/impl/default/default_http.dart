@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert' as json;
 import 'package:network/src/config.dart';
-import 'package:network/src/error_mapper.dart';
+import 'package:network/src/errors/error_mapper.dart';
 import 'package:network/src/headers.dart';
 import 'package:network/src/http.dart';
 import 'package:network/src/response.dart';
@@ -9,7 +9,7 @@ import 'package:network/src/response.dart';
 class DefaultHttp extends Http {
   final HeadersBuilder headersBuilder;
   final HttpConfig config;
-  final ErrorMapper errorMapper;
+  final StatusCodeMapper errorMapper;
 
   DefaultHttp({this.headersBuilder, this.config, this.errorMapper});
 
@@ -116,14 +116,15 @@ class DefaultHttp extends Http {
 
   Response _toResponse(http.Response r) {
     print("DEV_WEB ${r.statusCode} | ${r.body}");
-    if (r.statusCode == 400) {
-      mapError(r.body);
+    final response = Response(json.jsonDecode(r.body), r.statusCode);
+    if (response.statusCode == 400) {
+      mapError(response);
     }
-    return Response(json.jsonDecode(r.body), r.statusCode);
+    return response;
   }
 
-  dynamic mapError(Object e) {
+  dynamic mapError(Response e) {
     print("DEV_ERROR Http $e");
-    errorMapper?.mapError(e);
+    errorMapper?.checkStatus(e);
   }
 }

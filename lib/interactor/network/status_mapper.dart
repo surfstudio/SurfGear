@@ -1,18 +1,15 @@
-import 'dart:convert' as json;
-
 import 'package:flutter_template/interactor/common/exceptions.dart';
 import 'package:network/network.dart';
 
-/// StupidMapper
-/// todo зарессерчить основные ошибки
-class CustomErrorMapper extends ErrorMapper {
+///Стандартный для проекта обработчик статус кода
+class DefaultStatusMapper extends StandardStatusMapper {
   @override
-  mapError(e) {
+  void checkClientStatus(Response response) {
     ErrorResponse er;
 
-    //todo смаппить основные ршибки сервера в проекте
+    //todo смаппить основные ошибки сервера в проекте
     try {
-      er = ErrorResponse.fromJson(json.jsonDecode(e));
+      er = ErrorResponse.fromJson(response.body);
       switch (er.errorCode) {
         case 101:
           throw OtpException();

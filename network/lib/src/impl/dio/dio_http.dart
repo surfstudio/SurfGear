@@ -1,5 +1,5 @@
 import 'package:network/src/config.dart';
-import 'package:network/src/error_mapper.dart';
+import 'package:network/src/errors/error_mapper.dart';
 import 'package:network/src/headers.dart';
 import 'package:network/src/http.dart';
 import 'package:network/src/response.dart';
@@ -7,7 +7,7 @@ import 'package:dio/dio.dart' as dio;
 
 class DioHttp extends Http {
   final HeadersBuilder headersBuilder;
-  final ErrorMapper errorMapper;
+  final StatusCodeMapper errorMapper;
 
   final _dio = dio.Dio();
 
@@ -26,7 +26,7 @@ class DioHttp extends Http {
           url,
           options: dio.Options(headers: headersMap),
         )
-        .then(_mapToResponse);
+        .then(_toResponse);
   }
 
   @override
@@ -39,7 +39,7 @@ class DioHttp extends Http {
           options: dio.Options(headers: headersMap),
           data: body,
         )
-        .then(_mapToResponse);
+        .then(_toResponse);
   }
 
   @override
@@ -52,7 +52,7 @@ class DioHttp extends Http {
           options: dio.Options(headers: headersMap),
           data: body,
         )
-        .then(_mapToResponse);
+        .then(_toResponse);
   }
 
   @override
@@ -63,7 +63,7 @@ class DioHttp extends Http {
           url,
           options: dio.Options(headers: headersMap),
         )
-        .then(_mapToResponse);
+        .then(_toResponse);
   }
 
   @override
@@ -76,7 +76,7 @@ class DioHttp extends Http {
           options: dio.Options(headers: headersMap),
           data: body,
         )
-        .then(_mapToResponse);
+        .then(_toResponse);
   }
 
   @override
@@ -87,7 +87,7 @@ class DioHttp extends Http {
           url,
           options: dio.Options(headers: headersMap),
         )
-        .then(_mapToResponse);
+        .then(_toResponse);
   }
 
   Future<Map<String, String>> _buildHeaders(
@@ -101,5 +101,9 @@ class DioHttp extends Http {
     return headersMap;
   }
 
-  Response _mapToResponse(dio.Response r) => Response(r.data, r.statusCode);
+  Response _toResponse(dio.Response r) {
+    final response = Response(r.data, r.statusCode);
+    errorMapper.checkStatus(response);
+    return response;
+  }
 }
