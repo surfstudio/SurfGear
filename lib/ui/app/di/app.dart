@@ -1,8 +1,7 @@
 import 'package:flutter/src/material/scaffold.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/navigator.dart';
-import 'package:flutter_template/di/base/component.dart';
-import 'package:flutter_template/di/base/module.dart';
+import 'package:injector/injector.dart';
 import 'package:flutter_template/interactor/auth/auth_interactor.dart';
 import 'package:flutter_template/interactor/common/urls.dart';
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';

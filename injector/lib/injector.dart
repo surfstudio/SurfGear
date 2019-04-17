@@ -1,7 +1,5 @@
 library injector;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'package:injector/src/component.dart';
+export 'package:injector/src/injector.dart';
+export 'package:injector/src/module.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_template/di/base/injector.dart';
+import 'package:injector/injector.dart';
 import 'package:flutter_template/ui/app/di/app.dart';
 import 'package:flutter_template/ui/base/widget_state.dart';
 import 'package:flutter_template/ui/common/formatters/phone_formatter.dart';
@@ -54,9 +54,8 @@ class _PhoneInputScreenState extends WidgetState<PhoneInputScreen,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(top: 36.0),
-                  child: FlutterLogo()
-                ),
+                    padding: const EdgeInsets.only(top: 36.0),
+                    child: FlutterLogo()),
                 Container(
                   width: 304,
                   height: 45,

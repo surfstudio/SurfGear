@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_template/di/base/component.dart';
+import 'package:injector/src/component.dart';
 
 Type _typeOf<T>() => T;
 

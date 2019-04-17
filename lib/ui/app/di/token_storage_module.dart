@@ -1,4 +1,4 @@
-import 'package:flutter_template/di/base/module.dart';
+import 'package:injector/injector.dart';
 import 'package:flutter_template/interactor/token/token_storage.dart';
 import 'package:flutter_template/util/sp_helper.dart';
 

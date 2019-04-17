@@ -1,4 +1,4 @@
-# widget_model
+# mwwm
 
 Reflection of widget in a single entity
 

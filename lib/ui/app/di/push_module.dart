@@ -1,4 +1,4 @@
-import 'package:flutter_template/di/base/module.dart';
+import 'package:injector/injector.dart';
 import 'package:flutter_template/interactor/common/push/notification/notification_controller.dart';
 import 'package:flutter_template/interactor/common/push/push_manager.dart';
 

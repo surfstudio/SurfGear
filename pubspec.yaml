@@ -15,6 +15,10 @@ dependencies:
     path: ./network
   logger:
     path: ./logger
+  injector:
+    path: ./injector
+  mwwm:
+    path: ./mwwm
 
   intl: 0.15.7
 

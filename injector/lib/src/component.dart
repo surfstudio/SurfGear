@@ -1,4 +1,4 @@
-import 'package:flutter_template/di/base/module.dart';
+import 'package:injector/src/module.dart';
 
 /// aka Dagger-component
 /// Hold modules, that provide concrete dependencies

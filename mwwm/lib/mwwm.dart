@@ -1,4 +1,4 @@
-library widget_model;
+library mwwm;
 
 /// A Calculator.
 class Calculator {
