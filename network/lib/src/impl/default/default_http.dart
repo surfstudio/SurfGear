@@ -6,6 +6,7 @@ import 'package:network/src/base/headers.dart';
 import 'package:network/src/base/http.dart';
 import 'package:network/src/base/response.dart';
 
+///Реализация Http на основе стандартного [http]
 class DefaultHttp extends Http {
   final HeadersBuilder headersBuilder;
   final HttpConfig config;
@@ -25,7 +26,6 @@ class DefaultHttp extends Http {
         )
         .timeout(config?.timeout)
         .then(_toResponse);
-//        .catchError(mapError);
   }
 
   ///POST-request
@@ -41,7 +41,6 @@ class DefaultHttp extends Http {
           body: json.jsonEncode(body),
         )
         .then(_toResponse);
-//        .catchError(mapError);
   }
 
   ///PUT -request
@@ -57,7 +56,6 @@ class DefaultHttp extends Http {
           body: json.jsonEncode(body),
         )
         .then(_toResponse);
-//        .catchError(mapError);
   }
 
   ///DELETE -request
@@ -71,7 +69,6 @@ class DefaultHttp extends Http {
           headers: headersMap,
         )
         .then(_toResponse);
-//        .catchError(mapError);
   }
 
   ///PATCH -request
@@ -87,7 +84,6 @@ class DefaultHttp extends Http {
           body: json.jsonEncode(body),
         )
         .then(_toResponse);
-//         .catchError(mapError);
   }
 
   ///HEAD - request

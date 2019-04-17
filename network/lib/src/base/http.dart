@@ -1,5 +1,6 @@
 import 'package:network/src/base/response.dart';
 
+///Фасад над работой с сетью
 abstract class Http {
   ///GET- request
   Future<Response> get<T>(String url, {Map<String, String> headers});
