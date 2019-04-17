@@ -5,6 +5,7 @@ import 'package:network/src/base/status_mapper.dart';
 import 'package:network/src/base/headers.dart';
 import 'package:network/src/base/http.dart';
 import 'package:network/src/base/response.dart';
+import 'package:logger/logger.dart';
 
 ///Реализация Http на основе стандартного [http]
 class DefaultHttp extends Http {
@@ -124,12 +125,12 @@ class DefaultHttp extends Http {
       headersMap.addAll(await headersBuilder.buildHeadersForUrl(url, headers));
     }
 
-    print("DEV_WEB request  headers: $url, | $headersMap");
+    Logger.d("request  headers: $url, | $headersMap");
     return headersMap;
   }
 
   Response _toResponse(http.Response r) {
-    print("DEV_WEB ${r.statusCode} | ${r.body}");
+    Logger.d("${r.statusCode} | ${r.body}");
     final response = Response(json.jsonDecode(r.body), r.statusCode);
     if (response.statusCode == 400) {
       mapError(response);
@@ -138,7 +139,6 @@ class DefaultHttp extends Http {
   }
 
   dynamic mapError(Response e) {
-    print("DEV_ERROR Http $e");
     errorMapper?.checkStatus(e);
   }
 }

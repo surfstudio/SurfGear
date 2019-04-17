@@ -11,6 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  logger:
+    path: ../logger
+
   dio: 2.1.2
   http: 0.12.0+1
 

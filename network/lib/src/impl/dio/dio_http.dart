@@ -3,6 +3,7 @@ import 'package:network/src/base/status_mapper.dart';
 import 'package:network/src/base/headers.dart';
 import 'package:network/src/base/http.dart';
 import 'package:network/src/base/response.dart';
+import 'package:logger/logger.dart';
 import 'package:dio/dio.dart' as dio;
 
 ///Реализация Http на основе библиотеки [dio]
@@ -117,7 +118,7 @@ class DioHttp extends Http {
       headersMap.addAll(await headersBuilder.buildHeadersForUrl(url, headers));
     }
 
-    print("DEV_WEB request  headers: $url, | $headersMap");
+    Logger.d("request  headers: $url, | $headersMap");
     return headersMap;
   }
 
