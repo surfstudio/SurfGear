@@ -1,4 +1,4 @@
-# flutter_template
+# template
 
-Набор библиотек для flutter проектов.
+Проект с шаблонной структурой.
 Предназначен для разработки в [Surf](https://surfstudio.ru)
