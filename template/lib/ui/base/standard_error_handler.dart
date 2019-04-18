@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_template/interactor/common/exceptions.dart';
 import 'package:flutter_template/ui/res/strings.dart';
 import 'package:mwwm/mwwm.dart';
@@ -7,11 +6,11 @@ import 'package:mwwm/mwwm.dart';
 /// todo добавить обработку стандартных ошибок типа остутствия интернета
 class StandardErrorHandler extends ErrorHandler {
   final MessageController _messageController;
-  final NavigatorState _navigator;
+  final DialogController _dialogController;
 
   StandardErrorHandler(
     this._messageController,
-    this._navigator,
+    this._dialogController,
   );
 
   @override
@@ -21,10 +20,10 @@ class StandardErrorHandler extends ErrorHandler {
     if (_messageController == null) return;
 
     if (e is UserNotFoundException) {
-      _messageController.showAlertDialog(
+      _dialogController.showAlertDialog(
         message: userNotFoundText,
         onAgreeClicked: () async {
-         //todo переход по разлогину
+          //todo переход по разлогину
         },
       );
     } else if (e is OtpException) {
