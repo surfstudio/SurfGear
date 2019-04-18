@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Flutter Plugins" type="FlutterPluginsLibraryType">
+    <CLASSES>
+      <root url="file://$USER_HOME$/Android/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging-4.0.0+1" />
+      <root url="file://$USER_HOME$/Android/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_local_notifications-0.6.0" />
+      <root url="file://$USER_HOME$/Android/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.3.1+1" />
+      <root url="file://$USER_HOME$/Android/flutter/.pub-cache/hosted/pub.dartlang.org/camera-0.4.3+2" />
+      <root url="file://$USER_HOME$/Android/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.1+1" />
+      <root url="file://$USER_HOME$/Android/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-0.5.0" />
+      <root url="file://$USER_HOME$/Android/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_crashlytics-0.0.4+1" />
+      <root url="file://$USER_HOME$/Android/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_ml_vision-0.6.0+2" />
+      <root url="file://$USER_HOME$/Android/flutter/.pub-cache/hosted/pub.dartlang.org/connectivity-0.4.2+2" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
