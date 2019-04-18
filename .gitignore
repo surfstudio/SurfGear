@@ -5,7 +5,7 @@
 .pub/
 *.lock
 
-.idea
+.idea/
 
 build/
 ios/.generated/
