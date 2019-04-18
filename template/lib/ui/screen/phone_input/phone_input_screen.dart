@@ -30,13 +30,13 @@ class _PhoneInputScreenState extends WidgetState<PhoneInputScreen,
 
   Widget _buildScreen(BuildContext context) {
     _textEditingController.addListener(() {
-      wm.textChanges.accept(data: _textEditingController.value.text);
+      wm.textChanges.accept(_textEditingController.value.text);
     });
 
     return Scaffold(
       key: _scaffoldKey,
       floatingActionButton: StreamBuilder<bool>(
-          stream: wm.buttonEnabledSubject,
+          stream: wm.buttonEnabledState.stream,
           initialData: false,
           builder: (context, snapshot) {
             return OpacityFab(
@@ -67,9 +67,9 @@ class _PhoneInputScreenState extends WidgetState<PhoneInputScreen,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: StreamBuilder<AuthState>(
-                    initialData: AuthState.none(),
-                    stream: wm.phoneInputStateSubject,
+                  child: StreamBuilder<EntityState<String>>(
+                    stream: wm.phoneInputState.stream,
+                    initialData: wm.phoneInputState.value,
                     builder: _buildTextField,
                   ),
                 ),

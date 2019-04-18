@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:mwwm/src/event/event.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// Action
@@ -9,29 +12,30 @@ import 'package:rxdart/rxdart.dart';
 /// Usage:
 /// ```
 ///   SomeWidget(
-///     onTap: someAction.doAction,
+///     onTap: someAction.accept,
 ///   )
 ///
 ///   someAction.action.listen(doSomething);
 /// ```
-class Action<T> {
+class Action<T> implements Event<T> {
   PublishSubject<T> _actionSubject = PublishSubject();
   final void Function(T data) onChanged;
   T value;
 
+  Observable<T> get action => _actionSubject.stream;
+
   Action([void Function(T data) onChanged])
       : this.onChanged = onChanged ?? ((a) {});
 
-  Observable<T> get action => _actionSubject.stream;
-
-  Future<void> accept({T data}) async {
+  @override
+  Future<void> accept([T data]) async {
     value = data;
     _actionSubject.add(data);
     onChanged(value);
     return _actionSubject.stream.first.wrapped;
   }
 
-  call([T data]) => accept(data: data);
+  call([T data]) => accept(data);
 
   /// Close stream
   dispose() {

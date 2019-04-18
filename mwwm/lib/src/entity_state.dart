@@ -1,5 +1,5 @@
-///Стейт некоторой логической сущности,
-abstract class EntityState<T> {
+///Стейт некоторой логической сущности
+class EntityState<T> {
   final T data;
   final bool isLoading;
   final bool hasError;
@@ -19,7 +19,7 @@ abstract class EntityState<T> {
         error = error,
         data = null;
 
-  EntityState.none(T data)
+  EntityState.content([T data])
       : isLoading = false,
         hasError = false,
         data = data;
