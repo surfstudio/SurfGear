@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:injector/injector.dart';
-import 'package:flutter_template/ui/base/widget_model.dart';
+import 'package:mwwm/src/widget_model.dart';
 
 abstract class WidgetState<T extends StatefulWidget, WM extends WidgetModel,
         C extends Component> extends State<T>

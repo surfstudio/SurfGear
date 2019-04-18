@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_template/ui/base/dependency/widget_model_dependencies.dart';
-import 'package:flutter_template/ui/base/error_handler.dart';
 import 'package:meta/meta.dart';
+import 'package:mwwm/mwwm.dart';
 import 'package:rxdart/rxdart.dart';
 
 ///WidgetModel - interface
