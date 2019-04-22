@@ -9,7 +9,7 @@ import 'package:flutter_template/interactor/initial_progress/initial_progress_in
 import 'package:flutter_template/interactor/network/header_builder.dart';
 import 'package:flutter_template/interactor/network/status_mapper.dart';
 import 'package:flutter_template/interactor/token/token_storage.dart';
-import 'package:flutter_template/interactor/user/repository/name_repository.dart';
+import 'package:flutter_template/interactor/user/repository/user_repository.dart';
 import 'package:flutter_template/interactor/user/user_interactor.dart';
 import 'package:flutter_template/ui/app/app_wm.dart';
 import 'package:flutter_template/ui/app/di/auth_module.dart';
@@ -45,7 +45,6 @@ class AppComponent extends Component {
     AuthModule authModule = AuthModule(
       _httpModule.provides(),
       _pushModule.provides(),
-      _prefModule.provides(),
       ts.provides(),
       scModule.provides(),
     );
@@ -100,11 +99,11 @@ class AppWidgetModule extends Module<AppWidgetModel> {
 }
 
 //region Modules for app component
-class HttpModule extends Module<Http> {
-  Http _http;
+class HttpModule extends Module<RxHttp> {
+  RxHttp _http;
 
   HttpModule(AuthInfoStorage ts) {
-    _http = DioHttp(
+    var dioHttp = DioHttp(
       config: HttpConfig(
         BASE_URL,
         Duration(seconds: 30),
@@ -112,6 +111,7 @@ class HttpModule extends Module<Http> {
       errorMapper: DefaultStatusMapper(),
       headersBuilder: DefaultHeaderBuilder(ts),
     );
+    _http = RxHttpDelegate(dioHttp);
   }
 
   @override
@@ -134,7 +134,7 @@ class CounterModule extends Module {
 
 class UserModule extends Module<UserInteractor> {
   UserInteractor _interactor;
-  Http _http;
+  RxHttp _http;
 
   UserModule(this._http) {
     _interactor = UserInteractor(UserRepository(_http));

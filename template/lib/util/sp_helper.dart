@@ -14,7 +14,7 @@ class PreferencesHelper {
     return result ?? defaultValue;
   }
 
-  set(String key, dynamic value) async {
+  Future set(String key, dynamic value) async {
     SharedPreferences _sp = await SharedPreferences.getInstance();
     if (value.runtimeType == String) {
       await _sp.setString(key, value);
