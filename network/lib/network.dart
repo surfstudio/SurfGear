@@ -17,6 +17,3 @@ export 'package:network/src/rx/rx_http_delegate.dart';
 ///implementations
 ///rx support
 
-///implementations
-///rx support
-
