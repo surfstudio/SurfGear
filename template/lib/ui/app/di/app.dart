@@ -17,8 +17,9 @@ import 'package:flutter_template/ui/app/di/initial_progress_module.dart';
 import 'package:flutter_template/ui/app/di/push_module.dart';
 import 'package:flutter_template/ui/app/di/session_changed_module.dart';
 import 'package:flutter_template/ui/app/di/token_storage_module.dart';
+import 'package:flutter_template/ui/base/default_dialog_controller.dart';
+import 'package:flutter_template/ui/base/error/standard_error_handler.dart';
 import 'package:flutter_template/ui/base/material_message_controller.dart';
-import 'package:flutter_template/ui/base/standard_error_handler.dart';
 import 'package:flutter_template/util/sp_helper.dart';
 import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
@@ -83,7 +84,7 @@ class AppWidgetModule extends Module<AppWidgetModel> {
       WidgetModelDependencies(
         errorHandler: StandardErrorHandler(
           MaterialMessageController(scaffoldState),
-          navigatorKey.currentState,
+          DefaultDialogController(scaffoldState),
         ),
         navigator: navigatorKey.currentState,
       ),
