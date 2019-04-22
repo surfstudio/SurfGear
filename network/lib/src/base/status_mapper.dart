@@ -1,4 +1,4 @@
-import 'package:network/src/base/http_exceptions.dart';
+import 'package:network/src/base/error/http_exceptions.dart';
 import 'package:network/src/base/response.dart';
 
 ///Хелпер для проверки статус кода
