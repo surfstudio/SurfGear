@@ -15,13 +15,6 @@ class StandardErrorHandler extends NetworkErrorHandler {
   );
 
   @override
-  void handleError(Exception e) {
-    if (_messageController == null) return;
-    if (_dialogController == null) return;
-    super.handleError(e);
-  }
-
-  @override
   void handleOtherError(Exception e) {
     if (e is UserNotFoundException) {
       _dialogController.showAlertDialog(
