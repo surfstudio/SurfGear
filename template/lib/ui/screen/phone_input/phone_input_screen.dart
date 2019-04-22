@@ -30,7 +30,7 @@ class _PhoneInputScreenState extends WidgetState<PhoneInputScreen,
 
   Widget _buildScreen(BuildContext context) {
     _textEditingController.addListener(() {
-      wm.textChanges.accept(_textEditingController.value.text);
+      wm.textChanges(_textEditingController.value.text);
     });
 
     return Scaffold(
