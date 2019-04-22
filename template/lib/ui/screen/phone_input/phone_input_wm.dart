@@ -3,16 +3,15 @@ import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/util/const.dart';
 import 'package:flutter_template/util/phone_number_util.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:rxdart/rxdart.dart';
 
 /// модель экрана авторизации
 class PhoneInputWidgetModel extends WidgetModel {
   final CounterInteractor _counterInteractor;
   final NavigatorState navigator;
 
-  BehaviorSubject<bool> buttonEnabledSubject = BehaviorSubject();
-  BehaviorSubject<AuthState> phoneInputStateSubject = BehaviorSubject();
-  BehaviorSubject<int> counterSubject = BehaviorSubject();
+  StreamedState<bool> buttonEnabledState = StreamedState();
+  EntityStreamedState<String> phoneInputState = EntityStreamedState();
+  StreamedState<int> counterState = StreamedState();
 
   Action<String> textChanges = Action();
   Action nextAction = Action();
@@ -33,38 +32,35 @@ class PhoneInputWidgetModel extends WidgetModel {
   void _listenToStreams() {
     _listenToActions();
 
-    listenToStream<AuthState>(phoneInputStateSubject, (state) {
-      buttonEnabledSubject.add(!state.isLoading);
-    });
+    bind<EntityState<String>>(
+      phoneInputState.stream,
+      (state) {
+        buttonEnabledState.accept(!state.isLoading);
+      },
+    );
 
-    listenToStream(
+    bind(
       _counterInteractor.counterObservable,
-          (c) => counterSubject.add(c.count),
+      (c) => counterState.accept(c.count),
     );
   }
 
   void _listenToActions() {
-    listenToStream<String>(textChanges.action, (s) {
-      _phoneNumber = PhoneNumberUtil.normalize(s, withPrefix: true);
-      buttonEnabledSubject.add(_phoneNumber.length >= PHONE_LENGTH);
-    });
+    bind<String>(
+      textChanges.action,
+      (s) {
+        _phoneNumber = PhoneNumberUtil.normalize(s, withPrefix: true);
+        buttonEnabledState.accept(_phoneNumber.length >= PHONE_LENGTH);
+      },
+    );
 
-    listenToStream(
+    bind(
       nextAction.action,
       (_) {
-        if (buttonEnabledSubject.value) {
+        if (buttonEnabledState.value) {
           _counterInteractor.incrementCounter();
         }
       },
     );
   }
-
-}
-
-class AuthState extends EntityState<String> {
-  AuthState.error() : super.error();
-
-  AuthState.loading() : super.loading();
-
-  AuthState.none([String data]) : super.none(data);
 }

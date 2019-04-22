@@ -24,8 +24,11 @@ abstract class WidgetModel {
 
   void onLoad() {}
 
-  void listenToStream<T>(Observable<T> stream, void Function(T t) onValue,
-      {onError(e)}) {
+  void bind<T>(
+    Observable<T> stream,
+    void Function(T t) onValue, {
+    onError(e),
+  }) {
     StreamSubscription subscription = stream.listen(onValue, onError: (e) {
       handleError(e);
       onError(e);
@@ -34,13 +37,21 @@ abstract class WidgetModel {
     _compositeSubscription.add(subscription);
   }
 
-  void doFuture<T>(Future<T> future, onValue(T t), {onError(e)}) {
+  void doFuture<T>(
+    Future<T> future,
+    onValue(T t), {
+    onError(e),
+  }) {
     future.then(onValue).catchError((e) {
       onError(e);
     });
   }
 
-  void doFutureHandleError<T>(Future<T> future, onValue(T t), {onError(e)}) {
+  void doFutureHandleError<T>(
+    Future<T> future,
+    onValue(T t), {
+    onError(e),
+  }) {
     future.then(onValue).catchError((e) {
       handleError(e);
       onError(e);
