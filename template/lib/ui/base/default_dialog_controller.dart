@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/ui/common/dialog/alert_dialog.dart';
 import 'package:mwwm/mwwm.dart';
 
+///Стандартная реализация [DialogController]
 class DefaultDialogController implements DialogController {
   final GlobalKey<ScaffoldState> _scaffoldState;
 

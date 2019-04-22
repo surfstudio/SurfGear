@@ -7,5 +7,5 @@ class HttpCodes {
   static final int CODE_403 = 403; // Доступ запрещен
   static final int CODE_404 = 404;
   static final int CODE_500 = 500; //ошибка сервера
-  static final int UNSPECIFIED = 0; //неопределен
+  static final int UNSPECIFIED = -1; //неопределен
 }

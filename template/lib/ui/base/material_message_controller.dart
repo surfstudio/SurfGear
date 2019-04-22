@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 
+///Стандартная реализация [MessageController]
 class MaterialMessageController extends MessageController {
   final GlobalKey<ScaffoldState> _scaffoldState;
 
