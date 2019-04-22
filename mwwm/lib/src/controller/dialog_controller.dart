@@ -1,8 +1,7 @@
 import 'dart:ui';
 
-abstract class MessageController {
-  void showSnack(String msg);
-
+///Базовый класс контроллера отображения диалогов
+abstract class DialogController {
   void showAlertDialog({
     String title,
     String message,
