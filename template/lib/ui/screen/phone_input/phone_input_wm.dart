@@ -33,13 +33,13 @@ class PhoneInputWidgetModel extends WidgetModel {
     _listenToActions();
 
     bind<EntityState<String>>(
-      phoneInputState.stream,
+      phoneInputState,
       (state) {
         buttonEnabledState.accept(!state.isLoading);
       },
     );
 
-    bind(
+    subscribe(
       _counterInteractor.counterObservable,
       (c) => counterState.accept(c.count),
     );
@@ -47,7 +47,7 @@ class PhoneInputWidgetModel extends WidgetModel {
 
   void _listenToActions() {
     bind<String>(
-      textChanges.action,
+      textChanges,
       (s) {
         _phoneNumber = PhoneNumberUtil.normalize(s, withPrefix: true);
         buttonEnabledState.accept(_phoneNumber.length >= PHONE_LENGTH);
@@ -55,7 +55,7 @@ class PhoneInputWidgetModel extends WidgetModel {
     );
 
     bind(
-      nextAction.action,
+      nextAction,
       (_) {
         if (buttonEnabledState.value) {
           _counterInteractor.incrementCounter();

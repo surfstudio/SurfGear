@@ -19,8 +19,8 @@ class AppWidgetModel extends WidgetModel {
   }
 
   void _loadApp() async {
-    doFutureHandleError(
-      initApp().then((_) => Future.delayed(Duration(seconds: 2))),
+    subscribeHandleError(
+      initApp().then((_) => Future.delayed(Duration(seconds: 2))).asStream(),
       (isAuth) {
         _openScreen(Router.ROOT);
       },

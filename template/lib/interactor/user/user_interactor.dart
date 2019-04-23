@@ -1,5 +1,5 @@
 import 'package:flutter_template/domain/user.dart';
-import 'package:flutter_template/interactor/user/repository/name_repository.dart';
+import 'package:flutter_template/interactor/user/repository/user_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class UserInteractor {
@@ -8,10 +8,6 @@ class UserInteractor {
 
   UserInteractor(this.userRepository);
 
-  Future<User> getUser() {
-    return userRepository.getUser().then((u) {
-      _userSubject.add(u);
-      return u;
-    });
-  }
+  Observable<User> getUser() =>
+      userRepository.getUser().doOnData((u) => _userSubject.add(u));
 }
