@@ -22,7 +22,8 @@ class Action<T> implements Event<T> {
   final void Function(T data) onChanged;
   T value;
 
-  Observable<T> get action => _actionSubject.stream;
+  @override
+  Observable<T> get stream => _actionSubject.stream;
 
   Action([void Function(T data) onChanged])
       : this.onChanged = onChanged ?? ((a) {});

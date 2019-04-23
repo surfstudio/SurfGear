@@ -5,6 +5,7 @@ export 'package:mwwm/src/controller/message_controller.dart';
 export 'package:mwwm/src/entity_state.dart';
 export 'package:mwwm/src/error_handler.dart';
 export 'package:mwwm/src/event/action.dart';
+export 'package:mwwm/src/event/event.dart';
 export 'package:mwwm/src/event/streamed_state.dart';
 export 'package:mwwm/src/widget_model.dart';
 export 'package:mwwm/src/widget_model_dependencies.dart';

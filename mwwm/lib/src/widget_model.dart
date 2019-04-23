@@ -24,10 +24,24 @@ abstract class WidgetModel {
 
   void onLoad() {}
 
-  void bind<T>(
+  /// subscribe for interactors
+  void subscribe<T>(
     Observable<T> stream,
     void Function(T t) onValue, {
-    onError(e),
+    void Function(dynamic e) onError,
+  }) {
+    StreamSubscription subscription = stream.listen(onValue, onError: (e) {
+      onError(e);
+    });
+
+    _compositeSubscription.add(subscription);
+  }
+
+  /// subscribe for interactors with default handle error
+  void subscribeHandleError<T>(
+    Observable<T> stream,
+    void Function(T t) onValue, {
+    void Function(dynamic e) onError,
   }) {
     StreamSubscription subscription = stream.listen(onValue, onError: (e) {
       handleError(e);
@@ -37,26 +51,13 @@ abstract class WidgetModel {
     _compositeSubscription.add(subscription);
   }
 
-  void doFuture<T>(
-    Future<T> future,
-    onValue(T t), {
-    onError(e),
-  }) {
-    future.then(onValue).catchError((e) {
-      onError(e);
-    });
-  }
-
-  void doFutureHandleError<T>(
-    Future<T> future,
-    onValue(T t), {
-    onError(e),
-  }) {
-    future.then(onValue).catchError((e) {
-      handleError(e);
-      onError(e);
-    });
-  }
+  /// bind ui [Event]'s
+  void bind<T>(
+    Event<T> event,
+    void Function(T t) onValue, {
+    void Function(dynamic e) onError,
+  }) =>
+      subscribe<T>(event.stream, onValue, onError: onError);
 
   /// Close streams of WM
   dispose() {
