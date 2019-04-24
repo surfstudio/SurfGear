@@ -10,7 +10,7 @@ const String KEY_PIN = "PIN";
 
 ///Репозиторий для авторизации
 class AuthRepository {
-  final Http http;
+  final RxHttp http;
   final AuthInfoStorage _tokenStorage;
   final PreferencesHelper _preferencesHelper;
 

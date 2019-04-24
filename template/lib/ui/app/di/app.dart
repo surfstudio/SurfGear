@@ -2,156 +2,85 @@ import 'package:flutter/src/material/scaffold.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/navigator.dart';
 import 'package:flutter_template/interactor/auth/auth_interactor.dart';
+import 'package:flutter_template/interactor/auth/repository/auth_repository.dart';
+import 'package:flutter_template/interactor/common/push/notification/notification_controller.dart';
+import 'package:flutter_template/interactor/common/push/push_manager.dart';
 import 'package:flutter_template/interactor/common/urls.dart';
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/interactor/counter/repository/counter_repository.dart';
 import 'package:flutter_template/interactor/initial_progress/initial_progress_interactor.dart';
+import 'package:flutter_template/interactor/initial_progress/storage/initial_progress_storage.dart';
 import 'package:flutter_template/interactor/network/header_builder.dart';
 import 'package:flutter_template/interactor/network/status_mapper.dart';
+import 'package:flutter_template/interactor/session/session_changed_interactor.dart';
 import 'package:flutter_template/interactor/token/token_storage.dart';
 import 'package:flutter_template/interactor/user/repository/name_repository.dart';
 import 'package:flutter_template/interactor/user/user_interactor.dart';
 import 'package:flutter_template/ui/app/app_wm.dart';
-import 'package:flutter_template/ui/app/di/auth_module.dart';
-import 'package:flutter_template/ui/app/di/initial_progress_module.dart';
-import 'package:flutter_template/ui/app/di/push_module.dart';
-import 'package:flutter_template/ui/app/di/session_changed_module.dart';
-import 'package:flutter_template/ui/app/di/token_storage_module.dart';
 import 'package:flutter_template/ui/base/default_dialog_controller.dart';
 import 'package:flutter_template/ui/base/error/standard_error_handler.dart';
 import 'package:flutter_template/ui/base/material_message_controller.dart';
 import 'package:flutter_template/util/sp_helper.dart';
-import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:network/network.dart';
 
 /// Component per app
-class AppComponent extends Component {
-  List<Module> _modules = List();
+class AppComponent implements BaseWidgetModelComponent<AppWidgetModel> {
+  AppWidgetModel wm;
+
+  PreferencesHelper preferencesHelper = PreferencesHelper();
+  PushManager pushManager = PushManager();
+  NotificationController notificationController = NotificationController();
+  AuthInfoStorage authStorage;
+  RxHttp http;
+  SessionChangedInteractor scInteractor;
+  InitialProgressInteractor initInteractor;
+  AuthInteractor authInteractor;
+  CounterInteractor counterInteractor;
+  UserInteractor userInteractor;
 
   AppComponent(
     GlobalKey<NavigatorState> navigatorKey,
     GlobalKey<ScaffoldState> scaffoldKey,
   ) {
-    PreferencesModule _prefModule = PreferencesModule();
-    PushModule _pushModule = PushModule();
-    final _notificationControllerModule = NotificationControllerModule();
-    TokenStorageModule ts = TokenStorageModule(_prefModule.provides());
-    HttpModule _httpModule = HttpModule(ts.provides());
-    SessionChangedModule scModule = SessionChangedModule(ts.provides());
-    InitialProgressInteractorModule initialProgressInteractorModule =
-        InitialProgressInteractorModule(
-      _prefModule.provides(),
+    authStorage = AuthInfoStorage(preferencesHelper);
+    http = _initHttp(authStorage);
+    scInteractor = SessionChangedInteractor(authStorage);
+    initInteractor = InitialProgressInteractor(
+      InitialProgressStorage(preferencesHelper),
     );
-    AuthModule authModule = AuthModule(
-      _httpModule.provides(),
-      _pushModule.provides(),
-      _prefModule.provides(),
-      ts.provides(),
-      scModule.provides(),
+    authInteractor = AuthInteractor(
+      AuthRepository(http, authStorage),
+      pushManager,
+      scInteractor,
     );
-    _modules.add(_prefModule);
-    _modules.add(_httpModule);
-    _modules.add(_pushModule);
-    _modules.add(_notificationControllerModule);
-    _modules.add(authModule);
-    _modules.add(initialProgressInteractorModule);
-    _modules.add(AppWidgetModule(
-      authModule.provides(),
-      navigatorKey,
-      scaffoldKey,
-      initialProgressInteractorModule.provides(),
-    ));
-    _modules.add(CounterModule(_prefModule.provides()));
-    _modules.add(UserModule(_httpModule.provides()));
-  }
+    counterInteractor = CounterInteractor(
+      CounterRepository(preferencesHelper),
+    );
+    userInteractor = UserInteractor(
+      UserRepository(http),
+    );
 
-  @override
-  List<Module> getModules() {
-    return _modules;
-  }
-}
-
-class AppWidgetModule extends Module<AppWidgetModel> {
-  AppWidgetModel _model;
-
-  AppWidgetModule(
-    AuthInteractor authInteractor,
-    GlobalKey<NavigatorState> navigatorKey,
-    GlobalKey<ScaffoldState> scaffoldState,
-    InitialProgressInteractor initialProgressInteractor,
-  ) {
-    _model = AppWidgetModel(
-      WidgetModelDependencies(
-        errorHandler: StandardErrorHandler(
-          MaterialMessageController(scaffoldState),
-          DefaultDialogController(scaffoldState),
-        ),
-        navigator: navigatorKey.currentState,
+    final messageController = MaterialMessageController(scaffoldKey);
+    final wmDependencies = WidgetModelDependencies(
+      errorHandler: StandardErrorHandler(
+        messageController,
+        DefaultDialogController(scaffoldKey),
       ),
-      null,
-      navigatorKey,
+      navigator: navigatorKey.currentState,
     );
+    wm = AppWidgetModel(wmDependencies, messageController, navigatorKey);
   }
 
-  @override
-  provides() {
-    return _model;
-  }
-}
-
-//region Modules for app component
-class HttpModule extends Module<Http> {
-  Http _http;
-
-  HttpModule(AuthInfoStorage ts) {
-    _http = DioHttp(
+  RxHttp _initHttp(AuthInfoStorage authStorage) {
+    var dioHttp = DioHttp(
       config: HttpConfig(
         BASE_URL,
         Duration(seconds: 30),
       ),
       errorMapper: DefaultStatusMapper(),
-      headersBuilder: DefaultHeaderBuilder(ts),
+      headersBuilder: DefaultHeaderBuilder(authStorage),
     );
-  }
-
-  @override
-  provides() => _http;
-}
-
-class CounterModule extends Module {
-  final PreferencesHelper _helper;
-  CounterInteractor _interactor;
-
-  CounterModule(this._helper) {
-    _interactor = CounterInteractor(CounterRepository(_helper));
-  }
-
-  @override
-  provides() {
-    return _interactor;
+    return RxHttpDelegate(dioHttp);
   }
 }
-
-class UserModule extends Module<UserInteractor> {
-  UserInteractor _interactor;
-  Http _http;
-
-  UserModule(this._http) {
-    _interactor = UserInteractor(UserRepository(_http));
-  }
-
-  @override
-  provides() {
-    return _interactor;
-  }
-}
-
-class PreferencesModule extends Module<PreferencesHelper> {
-  @override
-  provides() {
-    return PreferencesHelper();
-  }
-}
-
-//endregion
