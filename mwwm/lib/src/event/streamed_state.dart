@@ -9,6 +9,7 @@ class StreamedState<T> implements Event<T> {
 
   T get value => _stateSubject.value;
 
+  @override
   Observable<T> get stream => _stateSubject.stream;
 
   StreamedState([T initialData]) {
