@@ -14,7 +14,7 @@ import 'package:flutter_template/interactor/network/header_builder.dart';
 import 'package:flutter_template/interactor/network/status_mapper.dart';
 import 'package:flutter_template/interactor/session/session_changed_interactor.dart';
 import 'package:flutter_template/interactor/token/token_storage.dart';
-import 'package:flutter_template/interactor/user/repository/name_repository.dart';
+import 'package:flutter_template/interactor/user/repository/user_repository.dart';
 import 'package:flutter_template/interactor/user/user_interactor.dart';
 import 'package:flutter_template/ui/app/app_wm.dart';
 import 'package:flutter_template/ui/base/default_dialog_controller.dart';
