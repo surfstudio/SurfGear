@@ -71,11 +71,6 @@ class _Injector<C extends Component> extends InheritedWidget {
   const _Injector({this.component, Key key, Widget child})
       : super(key: key, child: child);
 
-  ///проверить
-  T get<T>(Type t) {
-    return component.get<T>(t);
-  }
-
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) {
     //не имеет своего стейта, не реагирует на изменение зависимостей,
