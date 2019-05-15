@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter_crashlytics/flutter_crashlytics.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_template/config/base/env/env.dart';
@@ -11,7 +11,7 @@ void run() async {
   // закрепляем ориентацию
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  _initCrashlytics();
+  await _initCrashlytics();
   _initLogger();
   _runApp();
 }
@@ -19,22 +19,27 @@ void run() async {
 void _runApp() {
   runZoned<Future<Null>>(() async {
     runApp(App());
-  });
+  }, onError:(error, stack) async {
+    await FlutterCrashlytics().reportCrash(error, stack, forceCrash: true);
+  },
+  );
 }
 
-void _initCrashlytics() {
+void _initCrashlytics() async {
   bool isDebug = Environment.instance().isDebug;
-  Crashlytics.instance.enableInDevMode = isDebug;
-  FlutterError.onError = (FlutterErrorDetails details) {
+  //Crashlytics.instance.enableInDevMode = isDebug;
+  FlutterError.onError = (FlutterErrorDetails details)  async {
     if (isDebug) {
       // In development mode simply print to console.
       FlutterError.dumpErrorToConsole(details);
     } else {
       // In production mode report to the application zone to report to
       // Crashlytics.
-      Crashlytics.instance.onError(details);
+      Zone.current.handleUncaughtError(details.exception, details.stack);
     }
   };
+
+  await FlutterCrashlytics().initialize();
 }
 
 void _initLogger() {
