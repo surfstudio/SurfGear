@@ -8,7 +8,7 @@ import 'package:network/src/base/response.dart';
 import 'package:logger/logger.dart';
 
 ///Реализация Http на основе стандартного [http]
-///todo в текущей реализации query не работает
+///todo по необходимости реализовать логику query - в текущей реализации не работает
 class DefaultHttp extends Http {
   final HeadersBuilder headersBuilder;
   final HttpConfig config;
