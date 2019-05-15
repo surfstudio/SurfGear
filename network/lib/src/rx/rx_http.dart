@@ -6,12 +6,14 @@ abstract class RxHttp {
   ///GET- request
   Observable<Response> get<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
   });
 
   ///POST-request
   Observable<Response> post<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
     Map<String, dynamic> body,
   });
@@ -19,6 +21,7 @@ abstract class RxHttp {
   ///PUT -request
   Observable<Response> put<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
     Map<String, dynamic> body,
   });
@@ -26,12 +29,14 @@ abstract class RxHttp {
   ///DELETE -request
   Observable<Response> delete<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
   });
 
   ///PATCH -request
   Observable<Response> patch<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
     Map<String, dynamic> body,
   });
@@ -39,6 +44,7 @@ abstract class RxHttp {
   ///HEAD - request
   Observable<Response> head<T>(
     String url,
+    Map<String, dynamic> query,
     Map<String, String> headers,
   );
 }

@@ -15,57 +15,63 @@ class RxHttpDelegate implements RxHttp {
   @override
   Observable<Response> get<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
   }) {
-    final request = http.get(url, headers: headers);
+    final request = http.get(url, headers: headers, query: query);
     return _adapt(request);
   }
 
   @override
   Observable<Response> post<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
     Map<String, dynamic> body,
   }) {
-    final request = http.post(url, headers: headers, body: body);
+    final request = http.post(url, headers: headers, body: body, query: query);
     return _adapt(request);
   }
 
   @override
   Observable<Response> put<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
     Map<String, dynamic> body,
   }) {
-    final request = http.put(url, headers: headers, body: body);
+    final request = http.put(url, headers: headers, body: body, query: query);
     return _adapt(request);
   }
 
   @override
   Observable<Response> delete<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
   }) {
-    final request = http.delete(url, headers: headers);
+    final request = http.delete(url, headers: headers, query: query);
     return _adapt(request);
   }
 
   @override
   Observable<Response> head<T>(
     String url,
+    Map<String, dynamic> query,
     Map<String, String> headers,
   ) {
-    final request = http.head(url, headers);
+    final request = http.head(url, query, headers);
     return _adapt(request);
   }
 
   @override
   Observable<Response> patch<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
     Map<String, dynamic> body,
   }) {
-    final request = http.patch(url, headers: headers, body: body);
+    final request = http.patch(url, headers: headers, body: body, query: query);
     return _adapt(request);
   }
 
