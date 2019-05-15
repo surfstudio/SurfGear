@@ -1,12 +1,13 @@
 import 'package:flutter_template/domain/user.dart';
-import 'package:flutter_template/interactor/base/transformable.dart';
+import 'package:flutter_template/interactor/auth/mappers/auth_request_mapper.dart';
 
 ///Реквеcт модель для авторизации
-class AuthRequest implements Creator<AuthInfo> {
+class AuthRequest extends AuthRequestMapper {
   String phone;
   String fcmToken;
 
-  AuthRequest({this.phone, this.fcmToken});
+  AuthRequest({this.phone, this.fcmToken})
+    : super.of(AuthInfo(phone: phone, fcmToken: fcmToken));
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -15,7 +16,7 @@ class AuthRequest implements Creator<AuthInfo> {
     return data;
   }
 
-  @override
   AuthRequest from(AuthInfo info) =>
       AuthRequest(phone: info.phone, fcmToken: info.fcmToken);
+
 }
