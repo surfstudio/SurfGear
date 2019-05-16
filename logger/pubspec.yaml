@@ -11,13 +11,12 @@ dependencies:
   flutter:
     sdk: flutter
 
-  #crash reporting
-  firebase_crashlytics: 0.0.4+1
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  #crash reporting
+  firebase_crashlytics: 0.0.4+1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
