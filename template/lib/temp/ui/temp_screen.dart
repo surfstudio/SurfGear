@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_template/temp/ui/di/temp_screen_component.dart';
+import 'package:flutter_template/temp/ui/temp_wm.dart';
 import 'package:flutter_template/ui/app/di/app.dart';
 import 'package:flutter_template/ui/res/colors.dart';
-import 'package:flutter_template/ui/temp/di/temp_screen_component.dart';
-import 'package:flutter_template/ui/temp/temp_wm.dart';
 import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
 
