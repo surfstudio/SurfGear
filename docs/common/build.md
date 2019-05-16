@@ -6,11 +6,13 @@
 Их выполнение происходит на Jenkins при Pr и Tag джобах.
 Также возможно ручное выполнение скриптов из консоли.
 
-- build-android-x64.sh - сборка qa/release (x64)
-- build-android.sh - сборка qa/release
-- build-ios-pr.sh - ios сборка для PR Job ( подписанный Runner.app в двух версиях qa/release)
-- build-ios-qa.sh - неподписанная qa
-- build-ios-release.sh - неподписанная release
+- ./script/android/build-android-x64.sh - сборка qa/release (x64)
+- ./script/android/build-android.sh - сборка qa/release
+- ./script/ios/build-ios-pr.sh - ios сборка для PR Job ( подписанный Runner.app в двух версиях qa/release)
+- ./script/ios/build-ios-qa.sh - неподписанная qa
+- ./script/ios/build-ios-release.sh - неподписанная release
+
+**ВАЖНО**: Все команды выполняютсмя из корня **проекта**(там где находится pubspec.yaml приложения)
 
 ## Выгрузка артефактов 
 
