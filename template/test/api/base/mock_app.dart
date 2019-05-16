@@ -8,7 +8,6 @@ import 'package:flutter_template/util/sp_helper.dart';
 import 'package:flutter_template/interactor/common/urls.dart';
 
 /// Моковый компонент для тестирования сервисного слоя
-
 class MockAppComponent {
     RxHttp http;
 
