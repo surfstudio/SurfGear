@@ -2,7 +2,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_template/domain/notification.dart';
 import 'package:flutter_template/interactor/common/push/notification/response/local_notification_response.dart';
 import 'package:flutter_template/ui/res/assets.dart';
-import 'package:flutter_template/ui/res/strings.dart';
+import 'package:flutter_template/ui/res/strings/strings.dart';
 
 /// Обёртка над локальными уведомлениями
 class NotificationController {

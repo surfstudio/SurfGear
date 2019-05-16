@@ -5,7 +5,7 @@ import 'package:flutter_template/ui/app/di/app.dart';
 import 'package:flutter_template/ui/common/formatters/phone_formatter.dart';
 import 'package:flutter_template/ui/common/widgets/buttons.dart';
 import 'package:flutter_template/ui/common/widgets/progress_bar.dart';
-import 'package:flutter_template/ui/res/strings.dart';
+import 'package:flutter_template/ui/res/strings/strings.dart';
 import 'package:flutter_template/ui/res/text_styles.dart';
 import 'package:flutter_template/ui/screen/phone_input/di/phone_input_widget_module.dart';
 import 'package:flutter_template/ui/screen/phone_input/phone_input_wm.dart';
