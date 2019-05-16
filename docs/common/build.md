@@ -6,8 +6,8 @@
 Их выполнение происходит на Jenkins при Pr и Tag джобах.
 Также возможно ручное выполнение скриптов из консоли.
 
-- build-android-qa.sh - сборка qa (2 архитектуры процессора)
-- build-android-release.sh - сборка release (2 архитектуры процессора)
+- build-android-x64.sh - сборка qa/release (x64)
+- build-android.sh - сборка qa/release
 - build-ios-pr.sh - ios сборка для PR Job ( подписанный Runner.app в двух версиях qa/release)
 - build-ios-qa.sh - неподписанная qa
 - build-ios-release.sh - неподписанная release
