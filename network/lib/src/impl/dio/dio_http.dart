@@ -24,12 +24,14 @@ class DioHttp extends Http {
   @override
   Future<Response> get<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
   }) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return _dio
         .get(
           url,
+          queryParameters: query,
           options: dio.Options(headers: headersMap),
         )
         .then(_toResponse);
@@ -38,6 +40,7 @@ class DioHttp extends Http {
   @override
   Future<Response> post<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
     Map<String, dynamic> body,
   }) async {
@@ -45,6 +48,7 @@ class DioHttp extends Http {
     return _dio
         .post(
           url,
+          queryParameters: query,
           options: dio.Options(headers: headersMap),
           data: body,
         )
@@ -54,6 +58,7 @@ class DioHttp extends Http {
   @override
   Future<Response> put<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
     Map<String, dynamic> body,
   }) async {
@@ -70,12 +75,14 @@ class DioHttp extends Http {
   @override
   Future<Response> delete<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
   }) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return _dio
         .delete(
           url,
+          queryParameters: query,
           options: dio.Options(headers: headersMap),
         )
         .then(_toResponse);
@@ -84,6 +91,7 @@ class DioHttp extends Http {
   @override
   Future<Response> patch<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
     Map<String, dynamic> body,
   }) async {
@@ -91,6 +99,7 @@ class DioHttp extends Http {
     return _dio
         .patch(
           url,
+          queryParameters: query,
           options: dio.Options(headers: headersMap),
           data: body,
         )
@@ -100,12 +109,14 @@ class DioHttp extends Http {
   @override
   Future<Response> head<T>(
     String url,
+    Map<String, dynamic> query,
     Map<String, String> headers,
   ) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return _dio
         .head(
           url,
+          queryParameters: query,
           options: dio.Options(headers: headersMap),
         )
         .then(_toResponse);

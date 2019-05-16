@@ -1,8 +1,8 @@
 import 'package:flutter_template/domain/user.dart';
-import 'package:flutter_template/interactor/base/transformable.dart';
+import 'package:flutter_template/interactor/auth/mappers/auth_request_mapper.dart';
 
 ///Реквеcт модель для авторизации
-class AuthRequest implements Creator<AuthInfo> {
+class AuthRequest {
   String phone;
   String fcmToken;
 
@@ -15,7 +15,6 @@ class AuthRequest implements Creator<AuthInfo> {
     return data;
   }
 
-  @override
   AuthRequest from(AuthInfo info) =>
-      AuthRequest(phone: info.phone, fcmToken: info.fcmToken);
+      AuthRequestMapper.of(info).map();
 }

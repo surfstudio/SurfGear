@@ -8,6 +8,7 @@ import 'package:network/src/base/response.dart';
 import 'package:logger/logger.dart';
 
 ///Реализация Http на основе стандартного [http]
+///todo по необходимости реализовать логику query - в текущей реализации не работает
 class DefaultHttp extends Http {
   final HeadersBuilder headersBuilder;
   final HttpConfig config;
@@ -19,6 +20,7 @@ class DefaultHttp extends Http {
   @override
   Future<Response> get<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
   }) async {
     print("DEV_WEB request : $url");
@@ -36,6 +38,7 @@ class DefaultHttp extends Http {
   @override
   Future<Response> post<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
     Map<String, dynamic> body,
   }) async {
@@ -54,6 +57,7 @@ class DefaultHttp extends Http {
   @override
   Future<Response> put<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
     Map<String, dynamic> body,
   }) async {
@@ -72,6 +76,7 @@ class DefaultHttp extends Http {
   @override
   Future<Response> delete<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
   }) async {
     print("DEV_WEB request : $url");
@@ -88,6 +93,7 @@ class DefaultHttp extends Http {
   @override
   Future<Response> patch<T>(
     String url, {
+    Map<String, dynamic> query,
     Map<String, String> headers,
     Map<String, dynamic> body,
   }) async {
@@ -106,6 +112,7 @@ class DefaultHttp extends Http {
   @override
   Future<Response> head<T>(
     String url,
+    Map<String, dynamic> query,
     Map<String, String> headers,
   ) async {
     print("DEV_WEB request : $url");
