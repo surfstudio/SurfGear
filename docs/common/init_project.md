@@ -17,3 +17,5 @@
 1. Замените `com.example.flutter_template` по всему проекту на необходимый package-name
 1. В Android проекте измените путь к MainActivity на совпадающий с package-name приложения
 1. Выполните ` flutter packages get `
+
+Для настройки Crashlytics, fastlane обратитесь [сюда](./cd.md)
