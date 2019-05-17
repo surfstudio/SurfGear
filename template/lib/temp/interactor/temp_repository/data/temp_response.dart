@@ -1,6 +1,6 @@
 import 'package:flutter_template/interactor/base/transformable.dart';
 
-/// Респонс на ответ сервера
+/// Респонс на <todo> ответ сервера
 ///
 /// [https://javiercbk.github.io/json_to_dart/] для генерации
 class TempResponse implements Transformable {
