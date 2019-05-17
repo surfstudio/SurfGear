@@ -1,7 +1,7 @@
 name: flutter_template
 description: a Flutter Template project for development.
 
-version: 0.0.1+1
+version: 0.0.1-rc1+1
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -40,7 +40,8 @@ dependencies:
   rxdart: 0.21.0
 
   #crash reporting
-  firebase_crashlytics: ^0.0.4+1
+  #firebase_crashlytics: ^0.0.4+1 need research about this
+  flutter_crashlytics: 0.3.0 # newer version has a bug on ios or i have ruki iz zhopi
 
   #camera
   camera: 0.4.3+2
