@@ -2,30 +2,14 @@
 
 platform=
 build_type=release
-postfix=${build_type}
+postfix=
 
 #flutter upgrade;
-flutter clean;
+#flutter clean;
 
-while [[ -n "$1" ]]; do # while loop starts
-
-    case "$1" in
-
-    -x64) platform=android-arm64;;
-
-    -qa) build_type=qa ;; # Message for -b option
-
-    -release) build_type=qa ;; # Message for -c option
-
-    *) echo "Option $1 not recognized" ;; # In case you typed a different option other than a,b,c
-
-    esac
-
-    shift
-
-done
-
+### FUNCTIONS
 function buildApk() {
+    echo Build type ${build_type}
     if [[ -z  ${platform} ]]; then
         flutter build apk --release -t lib/main-${build_type}.dart;
     else
@@ -34,16 +18,68 @@ function buildApk() {
 }
 
 function rename() {
+    cd ./build/app/outputs/apk/release/
 
+    #save current release build
+    cp app-release.apk app-release-temp.apk
+    
+    postfix=${build_type}
     if [[ -n  ${platform} ]]; then
         postfix=${postfix}-${platform}
     fi
 
-    cd ./build/app/outputs/apk/release/
+    echo Postfix ${postfix} "," ${platform}
     mv app-release.apk app-${postfix}.apk
+    echo Make postfix ...
     ls -la
+    
+    if [[ ${build_type}=release ]]; then
+         mv app-release-temp.apk app-release.apk
+    fi
+    echo "Restore release build if it exist"
+    ls -la
+
     cd ../../../../..;
 }
 
-buildApk
-rename
+function build() {
+    buildApk
+    rename
+}
+
+function usage() {
+    echo "usage: build.sh [[-x64 ] [-qa] | [-release]] | [-h]]"
+}
+
+### END FUNC
+
+echo "Parameters" $1 $2
+while [[ -n "$1" ]]; do # while loop starts
+
+        case "$1" in
+
+            -x64 )          platform=android-arm64
+                            ;;
+
+            -qa )           build_type=qa
+                            ;;
+
+            -release )      build_type=release
+                            ;;
+            -h )            usage
+                            exit
+                            ;;
+
+            *)              usage
+                            exit
+                            ;;
+
+            esac
+
+         shift
+
+done
+
+### MAIN
+
+build

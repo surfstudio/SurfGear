@@ -23,7 +23,7 @@ platform :android do
     crashlytics(
       api_token: 'YOUR_API_KEY',
       build_secret: 'YOUR_BUILD_SECRET',
-      apk_path: "../build/app/outputs/apk/release/app-qa-x64.apk"
+      apk_path: "../build/app/outputs/apk/release/app-qa-android-arm64.apk"
     )
 
     crashlytics(
@@ -37,7 +37,7 @@ platform :android do
     crashlytics(
       api_token: 'YOUR_API_KEY',
       build_secret: 'YOUR_BUILD_SECRET',
-      apk_path: "../build/app/outputs/apk/release/app-release-x64.apk"
+      apk_path: "../build/app/outputs/apk/release/app-release-android-arm64.apk"
     )
 
     crashlytics(
