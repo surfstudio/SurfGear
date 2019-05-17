@@ -1,10 +1,6 @@
 import 'package:flutter_template/util/const.dart';
 import 'package:intl/intl.dart';
 
-String homePageText = 'You have pushed the button this many times:',
-    incButtonTooltip = 'Increment';
-
-// Common
 const String nextButtonText = "Готово";
 const String okText = "ОК";
 const String cancelText = "ОТМЕНА";
@@ -31,17 +27,6 @@ const badResponseErrorMessage =
     "Произошла ошибка загрузки данных на экране. Попробуйте позже еще раз";
 const unexpectedErrorMessage = "Непредвиденная ошибка";
 const commonErrorText = "Произошла ошибка. Попробуйте позже";
-
-// Авторизация
-const String phoneInputScreenText =
-        "Для авторизации укажите номер\nвашего мобильного телефона",
-    phoneInputHintText = "Номер телефона",
-    phonePrefix = "+7 ";
-
-//локальные уведомления
-const notificationChannelId = "park_android_channel_id"; //todo notification id
-const notificationChannelName = "Уведомление";
-const notificationDescription = "Парк. Уведомление.";
 
 //region time formatter
 String daysText(int days) => "$days ${dayPlural(days)}";

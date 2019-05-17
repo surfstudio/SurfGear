@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_template/ui/res/colors.dart';
-import 'package:flutter_template/ui/res/strings.dart';
+import 'package:flutter_template/ui/res/strings/common_strings.dart';
 import 'package:flutter_template/ui/res/text_styles.dart';
 
 /// плейсхолдер для состояния ошибки
