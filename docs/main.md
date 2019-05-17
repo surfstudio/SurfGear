@@ -32,8 +32,10 @@
     1. [Создание экрана](ui/create_screen.md)
     1. [Диалоги](todo)
 
-1. [Инициализация приложения]()
+1. [Инициализация приложения](common/init_project.md)
     1. [Подготовка проекта к выгрузке в fabric](todo link to android)
+    1. [Сборка и выгрузка проекта](common/build.md)
+    1. [Continious Delivery](common/cd.md)
 
 
 1. [Лучшие практики](best_practice/best_practice.md)
