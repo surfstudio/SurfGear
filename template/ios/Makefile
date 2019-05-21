@@ -28,16 +28,17 @@ init:
 	# Install bundler if not installed
 	if ! gem spec bundler > /dev/null 2>&1; then\
   		echo "bundler gem is not installed!";\
-  		-sudo gem install bundler;\
+  		-gem install bundler -v 1.17.3;\
 	fi
 	-bundle install --path .bundle
 	-bundle exec pod repo update
-	-bundle exec pod install
+	# -bundle exec pod install
 
 	# Install git hooks
-	mkdir -p .git/hooks
-	chmod +x hooks/commit-msg
-	ln -s -f ../../hooks/commit-msg .git/hooks/commit-msg
+	sh ./scripts/init_certs.sh
+	# mkdir -p .git/hooks
+	# chmod +x hooks/commit-msg
+	# ln -s -f ../../hooks/commit-msg .git/hooks/commit-msg
 
 
 ## Used to build both target. Usually, it is not called manually, it is necessary for the CI to work.
@@ -55,6 +56,10 @@ format:
 ## Used to upload debug build in fabric. Usually, it is not called manually, it is necessary for the CI to work.
 beta:
 	bundle exec fastlane beta
+
+## Used to upload debug build in app_store. Usually, it is not called manually, it is necessary for the CI to work.
+release:
+	bundle exec fastlane release
 
 ## Allows you to perform pod install command via bundler settings. Use it instead plain pod install command.
 pod_install:
