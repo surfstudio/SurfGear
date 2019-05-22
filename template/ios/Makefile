@@ -23,23 +23,18 @@ help:
 	} \
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 
-## Initialization of the working environment.
+## Initialization of the working environ
 init:
 	# Install bundler if not installed
 	if ! gem spec bundler > /dev/null 2>&1; then\
   		echo "bundler gem is not installed!";\
   		-gem install bundler -v 1.17.3;\
 	fi
-	-bundle install --path .bundle
+
+	-bundle install
 	-bundle exec pod repo update
-	# -bundle exec pod install
 
-	# Install git hooks
 	sh ./scripts/init_certs.sh
-	# mkdir -p .git/hooks
-	# chmod +x hooks/commit-msg
-	# ln -s -f ../../hooks/commit-msg .git/hooks/commit-msg
-
 
 ## Used to build both target. Usually, it is not called manually, it is necessary for the CI to work.
 build:
