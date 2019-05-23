@@ -237,7 +237,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${POD_ROOT}/Fabric/run\n    YOUR_API_KEY\n";
+			shellScript = "${PODS_ROOT}/Fabric/run\n    YOUR_API_KEY\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
