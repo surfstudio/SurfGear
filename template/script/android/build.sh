@@ -41,8 +41,10 @@ function rename() {
 
     if [[${platform}=${platform_postfix_64}]]; then
         mv app-${apk_prefix_64}-release.apk app-${postfix}.apk
+        mv app-release.apk app-${postfix}.apk
     else
         mv app-${apk_prefix_universal}-release.apk app-${postfix}.apk
+        mv app-release.apk app-${postfix}.apk
     fi
 
     ls -la
