@@ -10,6 +10,7 @@ build_type=release
 function clean() {
     ./clean_ios.sh
 }
+
 function buildIpa() {
     echo Build type ${build_type}
 #    flutter packages get

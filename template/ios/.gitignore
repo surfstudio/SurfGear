@@ -1,36 +1,50 @@
-.idea/
-.vagrant/
-.sconsign.dblite
-.svn/
-
-.DS_Store
-*.swp
-profile
-
-DerivedData/
+# Xcode
+#
 build/
-GeneratedPluginRegistrant.h
-GeneratedPluginRegistrant.m
-
-.generated/
-
 *.pbxuser
-*.mode1v3
-*.mode2v3
-*.perspectivev3
-
 !default.pbxuser
+*.mode1v3
 !default.mode1v3
+*.mode2v3
 !default.mode2v3
+*.perspectivev3
 !default.perspectivev3
-
 xcuserdata
-
+*.xccheckout
 *.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+*.gcno
+*.xcscmblueprint
+*dSYM
+*dSYM.zip
+*.mobileprovision
 
-*.pyc
-*sync/
-Icon?
-.tags*
+# CocoaPods
+#
+# We recommend against adding the Pods directory to your .gitignore. However
+# you should judge for yourself, the pros and cons are mentioned at:
+# http://guides.cocoapods.org/using/using-cocoapods.html#should-i-ignore-the-pods-directory-in-source-control
+#
+Podfile.lock
+Pods/
 
-/Flutter/Generated.xcconfig
+# Exported environment variables for XcodeCoverage
+env.sh
+
+# OS X Finder stuff
+.DS_Store
+
+# Fastlane Stuff
+fastlane/local_config.sh
+fastlane/test_output
+fastlane/Provisioning
+fastlane/Build
+fastlane/report.xml
+
+# Bundler
+.bundle/
+Gemfile.lock
+vendor/
