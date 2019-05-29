@@ -8,7 +8,7 @@ build_type=release
 ### FUNCTIONS
 function buildIpa() {
     echo Build type ${build_type}
-    flutter build apk --release -t lib/main-${build_type}.dart --no-codesign
+    flutter build ios --release -t lib/main-${build_type}.dart --no-codesign
 }
 
 function build() {
