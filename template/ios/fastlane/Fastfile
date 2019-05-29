@@ -65,7 +65,7 @@ platform :ios do
     cert(development: false)
 
     sigh(
-      development: true,
+      development: false,
       app_identifier: prod_bundle_id
     )
 
@@ -79,6 +79,11 @@ platform :ios do
     )
 
     upload_to_fabric
+
+    upload_to_app_store(
+      app_identifier: prod_bundle_id,
+      force: true
+    )
 
     sh("rm ../*.mobileprovision")
   end
