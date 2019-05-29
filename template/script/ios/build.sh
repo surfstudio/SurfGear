@@ -6,8 +6,13 @@ build_type=release
 #flutter clean;
 
 ### FUNCTIONS
+
+function clean() {
+    ./clean_ios.sh
+}
 function buildIpa() {
     echo Build type ${build_type}
+#    flutter packages get
     flutter build ios --release -t lib/main-${build_type}.dart --no-codesign
 }
 
@@ -47,4 +52,5 @@ done
 
 ### MAIN
 
+clean
 build
