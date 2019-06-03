@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+apk_prefix_64=arm64-v8a
+apk_prefix_v7=armeabi-v7a
+apk_prefix_universal=universal
+
+platform_postfix_64=android-arm64
 platform=
 build_type=release
 postfix=
@@ -17,34 +22,47 @@ function buildApk() {
     fi
 }
 
+function cleanArtifacts() {
+    cd ./build/app/outputs/apk/release/
+    find . -name "app-*-release.apk" -delete
+    cd ../../../../..;
+}
+
 function rename() {
     cd ./build/app/outputs/apk/release/
 
-    #save current release build
-    cp app-release.apk app-release-temp.apk
-    
     postfix=${build_type}
     if [[ -n  ${platform} ]]; then
         postfix=${postfix}-${platform}
     fi
 
     echo Postfix ${postfix} "," ${platform}
-    mv app-release.apk app-${postfix}.apk
     echo Make postfix ...
-    ls -la
-    
-    if [[ ${build_type}=release ]]; then
-         mv app-release-temp.apk app-release.apk
+
+    if [[${platform}=${platform_postfix_64}]]; then
+        mv app-${apk_prefix_64}-release.apk app-${postfix}.apk
+        mv app-release.apk app-${postfix}.apk
+    else
+        mv app-${apk_prefix_universal}-release.apk app-${postfix}.apk
+        mv app-release.apk app-${postfix}.apk
     fi
-    echo "Restore release build if it exist"
+
     ls -la
 
+    echo "Restore release build if it exist"
+    if [[ ${build_type}=release ]]; then
+         mv app-universal-release.apk app-release.apk
+    fi
+    ls -la
     cd ../../../../..;
 }
+
 
 function build() {
     buildApk
     rename
+    cleanArtifacts
+
 }
 
 function usage() {
