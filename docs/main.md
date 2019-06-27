@@ -6,6 +6,7 @@
 Общая структура вики
 --------------------
 
+1. [Git flow в репозитории](git/flow.md)
 1. **Общие сведения о построении приложения**
     1. [Требования к коду](todo link to android)
         1. [Java Code Style](todo link to android)
@@ -36,6 +37,8 @@
     1. [Подготовка проекта к выгрузке в fabric](todo link to android)
     1. [Сборка и выгрузка проекта](common/build.md)
     1. [Continious Delivery](common/cd.md)
+    1. [Подключение зависимостей в проект](common/dependencies.md)
+
 
 
 1. [Лучшие практики](best_practice/best_practice.md)
