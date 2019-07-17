@@ -12,13 +12,25 @@ dependencies:
 
   #внутренние библиотеки
   network:
-    path: ../network
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: network
   logger:
-    path: ../logger
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: logger
   injector:
-    path: ../injector
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: injector
   mwwm:
-    path: ../mwwm
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: mwwm
 
   intl: 0.15.7
 
