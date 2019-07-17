@@ -41,10 +41,10 @@ class DefaultDialogController implements DialogController {
     return showDialog(
       context: _scaffoldContext,
       builder: (ctx) => PlatformAlertDialog(
-            alertText: message,
-            onAgreeClicked: () => onAgreeClicked(ctx),
-            onDisagreeClicked: () => onDisagreeClicked(ctx),
-          ),
+        alertText: message,
+        onAgreeClicked: () => onAgreeClicked(ctx),
+        onDisagreeClicked: () => onDisagreeClicked(ctx),
+      ),
     );
   }
 
@@ -111,22 +111,24 @@ class DatePickerDialogController {
       showCupertinoModalPopup(
         context: _scaffoldContext,
         builder: (ctx) => _buildBottomPicker(
-                CupertinoDatePicker(
-                  mode: CupertinoDatePickerMode.date,
-                  initialDateTime: initialDate ?? DateTime.now(),
-                  onDateTimeChanged: (DateTime newDateTime) {
-                    controller.add(newDateTime);
-                  },
-                ), 
-                onCancel: () {
-              controller.add(initialDate);
-              Navigator.of(_scaffoldContext, rootNavigator: true).pop();
-            }, 
-            onDone: () {
-              Navigator.of(_scaffoldContext, rootNavigator: true).pop();
+          CupertinoDatePicker(
+            mode: CupertinoDatePickerMode.date,
+            initialDateTime: initialDate ?? DateTime.now(),
+            onDateTimeChanged: (DateTime newDateTime) {
+              controller.add(newDateTime);
             },
-            iosCloseButton: iosCloseButton,
-            iosDoneButton: iosDoneButton,
+          ),
+          onCancel: () {
+            controller.add(initialDate);
+            controller.close();
+            Navigator.of(_scaffoldContext, rootNavigator: true).pop();
+          },
+          onDone: () {
+            controller.close();
+            Navigator.of(_scaffoldContext, rootNavigator: true).pop();
+          },
+          iosCloseButton: iosCloseButton,
+          iosDoneButton: iosDoneButton,
         ),
       );
       return controller.stream;
@@ -160,15 +162,16 @@ class DatePickerDialogController {
                     onPressed: onCancel,
                     color: Colors.transparent,
                   ),
-              iosDoneButton?? CupertinoButton(
-                padding: EdgeInsets.all(5),
-                child: Text(
-                  "Готово",
-                  style: TextStyle(color: CupertinoColors.activeBlue),
-                ),
-                onPressed: onDone,
-                color: Colors.transparent,
-              ),
+              iosDoneButton ??
+                  CupertinoButton(
+                    padding: EdgeInsets.all(5),
+                    child: Text(
+                      "Готово",
+                      style: TextStyle(color: CupertinoColors.activeBlue),
+                    ),
+                    onPressed: onDone,
+                    color: Colors.transparent,
+                  ),
             ],
           ),
           Container(
