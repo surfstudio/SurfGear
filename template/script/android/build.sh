@@ -91,5 +91,5 @@ done
 #flutter upgrade;
 #flutter clean;
 
-./script/checkout_version.sh
+./script/version.sh
 build
