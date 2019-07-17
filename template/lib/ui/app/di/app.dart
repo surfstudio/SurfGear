@@ -1,6 +1,4 @@
-import 'package:flutter/src/material/scaffold.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/navigator.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_template/interactor/auth/auth_interactor.dart';
 import 'package:flutter_template/interactor/auth/repository/auth_repository.dart';
 import 'package:flutter_template/interactor/common/push/notification/notification_controller.dart';
@@ -66,8 +64,8 @@ class AppComponent implements BaseWidgetModelComponent<AppWidgetModel> {
       errorHandler: StandardErrorHandler(
         messageController,
         DefaultDialogController(scaffoldKey),
+        scInteractor,
       ),
-      navigator: navigatorKey.currentState,
     );
     wm = AppWidgetModel(wmDependencies, messageController, navigatorKey);
   }
