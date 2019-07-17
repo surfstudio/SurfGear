@@ -10,15 +10,13 @@ import 'package:rxdart/rxdart.dart';
 ///полностью на action/stream | action/observable
 abstract class WidgetModel {
   final ErrorHandler _errorHandler;
-  final NavigatorState _navigator;
   CompositeSubscription _compositeSubscription = CompositeSubscription();
   PublishSubject<ExceptionWrapper> _errorSubject = PublishSubject();
 
   Observable<ExceptionWrapper> get errorStream => _errorSubject.stream;
 
   WidgetModel(WidgetModelDependencies baseDependencies)
-      : _errorHandler = baseDependencies.errorHandler,
-        _navigator = baseDependencies.navigator {
+      : _errorHandler = baseDependencies.errorHandler {
     onLoad();
   }
 
@@ -49,6 +47,30 @@ abstract class WidgetModel {
     });
 
     _compositeSubscription.add(subscription);
+  }
+
+  /// Call a future.
+  /// Using Rx wrappers with [subscribe] method is preferable.
+  void doFuture<T>(
+    Future<T> future,
+    onValue(T t), {
+    onError(e),
+  }) {
+    future.then(onValue).catchError((e) {
+      onError(e);
+    });
+  }
+
+  /// Call a future with default error handling
+  void doFutureHandleError<T>(
+    Future<T> future,
+    onValue(T t), {
+    onError(e),
+  }) {
+    future.then(onValue).catchError((e) {
+      handleError(e);
+      onError(e);
+    });
   }
 
   /// bind ui [Event]'s
