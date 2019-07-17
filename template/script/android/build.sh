@@ -2,29 +2,22 @@
 
 apk_prefix_64=arm64-v8a
 apk_prefix_v7=armeabi-v7a
-apk_prefix_universal=universal
 
-platform_postfix_64=android-arm64
 platform=
 build_type=release
 postfix=
 
-#flutter upgrade;
-#flutter clean;
-
 ### FUNCTIONS
 function buildApk() {
     echo Build type ${build_type}
-    if [[ -z  ${platform} ]]; then
-        flutter build apk --release -t lib/main-${build_type}.dart;
-    else
-        flutter build apk --release -t lib/main-${build_type}.dart --target-platform ${platform};
-    fi
+    flutter build apk -t lib/main-${build_type}.dart --split-per-abi;
 }
 
 function cleanArtifacts() {
+    echo Cleaning dir
+    pwd
     cd ./build/app/outputs/apk/release/
-    find . -name "app-*-release.apk" -delete
+    find . -type f -name "app-*-release.apk" -exec rm -f {} \;
     cd ../../../../..;
 }
 
@@ -39,20 +32,16 @@ function rename() {
     echo Postfix ${postfix} "," ${platform}
     echo Make postfix ...
 
-    if [[${platform}=${platform_postfix_64}]]; then
+    if [[ -n ${platform} ]]; then
         mv app-${apk_prefix_64}-release.apk app-${postfix}.apk
-        mv app-release.apk app-${postfix}.apk
+
+        echo app-${apk_prefix_64}-release.apk renamed to app-${postfix}.apk
     else
-        mv app-${apk_prefix_universal}-release.apk app-${postfix}.apk
-        mv app-release.apk app-${postfix}.apk
+        mv app-${apk_prefix_v7}-release.apk app-${postfix}.apk
+
+        echo app-${apk_prefix_v7}-release.apk renamed to app-${postfix}.apk
     fi
 
-    ls -la
-
-    echo "Restore release build if it exist"
-    if [[ ${build_type}=release ]]; then
-         mv app-universal-release.apk app-release.apk
-    fi
     ls -la
     cd ../../../../..;
 }
@@ -60,9 +49,7 @@ function rename() {
 
 function build() {
     buildApk
-    rename
-    cleanArtifacts
-
+    rename && cleanArtifacts
 }
 
 function usage() {
@@ -100,4 +87,9 @@ done
 
 ### MAIN
 
+#todo uncomment when needed to upgrade flutter on node
+#flutter upgrade;
+#flutter clean;
+
+./script/checkout_version.sh
 build

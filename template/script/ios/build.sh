@@ -2,9 +2,6 @@
 
 build_type=release
 
-#flutter upgrade;
-#flutter clean;
-
 ### FUNCTIONS
 
 function clean() {
@@ -53,5 +50,10 @@ done
 
 ### MAIN
 
+#todo uncomment when needed to upgrade flutter on node
+#flutter upgrade;
+#flutter clean;
+
+./script/checkout_version.sh
 clean
 build
