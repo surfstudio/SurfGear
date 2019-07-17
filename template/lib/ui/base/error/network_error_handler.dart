@@ -5,7 +5,10 @@ import 'package:network/network.dart';
 ///Базовый класс для обработки ошибок, связанных с сервисным слоем
 abstract class NetworkErrorHandler implements ErrorHandler {
   @override
-  void handleError(Exception e) {
+  void handleError(Object e) {
+    if (e is Error) {
+      e = Exception((e as Error).stackTrace);
+    }
     Logger.d("NetworkErrorHandler handle error", e);
     if (e is ConversionException) {
       handleConversionError(e);
