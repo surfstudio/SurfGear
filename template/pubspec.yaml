@@ -14,22 +14,22 @@ dependencies:
   network:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PCK
+      ref: project-PARK
       path: network
   logger:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PCK
+      ref: project-PARK
       path: logger
   injector:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PCK
+      ref: project-PARK
       path: injector
   mwwm:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PCK
+      ref: project-PARK
       path: mwwm
 
   intl: 0.15.7

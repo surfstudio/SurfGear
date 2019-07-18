@@ -15,7 +15,7 @@ dependencies:
   injector:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PCK
+      ref: project-PARK
       path: injector
 
   #rx
