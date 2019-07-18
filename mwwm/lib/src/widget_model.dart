@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:rxdart/rxdart.dart';
@@ -20,33 +19,36 @@ abstract class WidgetModel {
     onLoad();
   }
 
+  @mustCallSuper
   void onLoad() {}
 
   /// subscribe for interactors
-  void subscribe<T>(
+  StreamSubscription subscribe<T>(
     Observable<T> stream,
     void Function(T t) onValue, {
     void Function(dynamic e) onError,
   }) {
     StreamSubscription subscription = stream.listen(onValue, onError: (e) {
-      onError(e);
+      onError?.call(e);
     });
 
     _compositeSubscription.add(subscription);
+    return subscription;
   }
 
   /// subscribe for interactors with default handle error
-  void subscribeHandleError<T>(
+  StreamSubscription subscribeHandleError<T>(
     Observable<T> stream,
     void Function(T t) onValue, {
     void Function(dynamic e) onError,
   }) {
     StreamSubscription subscription = stream.listen(onValue, onError: (e) {
       handleError(e);
-      onError(e);
+      onError?.call(e);
     });
 
     _compositeSubscription.add(subscription);
+    return subscription;
   }
 
   /// Call a future.
@@ -88,14 +90,14 @@ abstract class WidgetModel {
 
   /// standard error handling
   @protected
-  handleError(Object e) {
+  handleError(dynamic e) {
     _errorHandler.handleError(e);
     _errorSubject.add(ExceptionWrapper(e));
   }
 }
 
 class ExceptionWrapper {
-  final Exception e;
+  final dynamic e;
 
   ExceptionWrapper(this.e);
 }

@@ -25,6 +25,8 @@ class Action<T> implements Event<T> {
   @override
   Observable<T> get stream => _actionSubject.stream;
 
+  Subject<T> get subject => _actionSubject;
+
   Action([void Function(T data) onChanged])
       : this.onChanged = onChanged ?? ((a) {});
 
@@ -39,7 +41,7 @@ class Action<T> implements Event<T> {
   call([T data]) => accept(data);
 
   /// Close stream
-  dispose() {
+  void dispose() {
     _actionSubject.close();
   }
 }

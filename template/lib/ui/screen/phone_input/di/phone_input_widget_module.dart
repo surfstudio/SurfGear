@@ -20,8 +20,8 @@ class PhoneInputScreenComponent
       errorHandler: StandardErrorHandler(
         MaterialMessageController(scaffoldKey),
         DefaultDialogController(scaffoldKey),
+        parentComponent.scInteractor,
       ),
-      navigator: navigator,
     );
 
     wm = PhoneInputWidgetModel(
