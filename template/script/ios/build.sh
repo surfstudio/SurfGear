@@ -54,6 +54,5 @@ done
 #flutter upgrade;
 #flutter clean;
 
-./script/version.sh
 clean
 build
