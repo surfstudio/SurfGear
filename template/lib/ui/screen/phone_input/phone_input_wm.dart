@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/widgets.dart' as widgets;
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/util/const.dart';
 import 'package:flutter_template/util/phone_number_util.dart';
@@ -7,7 +7,7 @@ import 'package:mwwm/mwwm.dart';
 /// модель экрана авторизации
 class PhoneInputWidgetModel extends WidgetModel {
   final CounterInteractor _counterInteractor;
-  final NavigatorState navigator;
+  final widgets.NavigatorState navigator;
 
   StreamedState<bool> buttonEnabledState = StreamedState();
   EntityStreamedState<String> phoneInputState = EntityStreamedState();
