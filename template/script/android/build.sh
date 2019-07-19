@@ -48,8 +48,7 @@ function rename() {
 
 
 function build() {
-    buildApk
-    rename && cleanArtifacts
+    buildApk && rename && cleanArtifacts
 }
 
 function usage() {
