@@ -31,6 +31,16 @@ dependencies:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
       ref: project-PCK
       path: mwwm
+  geolocation:
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: project-PCK
+      path: geolocation
+  analytics:
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: project-PCK
+      path: analytics
 
   intl: 0.15.7
 
