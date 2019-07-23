@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:network/src/base/response.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -47,4 +49,11 @@ abstract class RxHttp {
     Map<String, dynamic> query,
     Map<String, String> headers,
   );
+
+  /// Multipart request
+  Observable<Response> multipart<T>(
+    String url, {
+    Map<String, String> headers,
+    File body,
+  });
 }

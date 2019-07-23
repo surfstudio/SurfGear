@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:network/src/base/response.dart';
 
 ///Фасад над работой с сетью
@@ -46,4 +48,11 @@ abstract class Http {
     Map<String, dynamic> query,
     Map<String, String> headers,
   );
+
+  /// Multipart request
+  Future<Response> multipart<T>(
+    String url, {
+    Map<String, String> headers,
+    File body,
+  });
 }

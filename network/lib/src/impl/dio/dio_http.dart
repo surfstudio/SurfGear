@@ -1,10 +1,12 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart' as dio;
+import 'package:logger/logger.dart';
 import 'package:network/src/base/config.dart';
-import 'package:network/src/base/status_mapper.dart';
 import 'package:network/src/base/headers.dart';
 import 'package:network/src/base/http.dart';
 import 'package:network/src/base/response.dart';
-import 'package:logger/logger.dart';
-import 'package:dio/dio.dart' as dio;
+import 'package:network/src/base/status_mapper.dart';
 
 ///Реализация Http на основе библиотеки [dio]
 class DioHttp extends Http {
@@ -19,6 +21,23 @@ class DioHttp extends Http {
       ..connectTimeout = config.timeout.inMilliseconds
       ..receiveTimeout = config.timeout.inMilliseconds
       ..sendTimeout = config.timeout.inMilliseconds;
+
+    _dio.interceptors.add(dio.LogInterceptor(
+      requestBody: true,
+      responseBody: true,
+    ));
+
+    _dio.interceptors.add(dio.InterceptorsWrapper(onError: (e) {
+      if (e.type == dio.DioErrorType.RESPONSE) {
+        return e.response;
+      }
+
+      if (e is Error) {
+        throw Exception((e as Error).stackTrace);
+      }
+
+      throw e;
+    }));
   }
 
   @override
@@ -122,6 +141,26 @@ class DioHttp extends Http {
         .then(_toResponse);
   }
 
+  @override
+  Future<Response> multipart<T>(
+    String url, {
+    Map<String, String> headers,
+    File body,
+  }) async {
+    Map<String, String> headersMap = await _buildHeaders(url, headers);
+    final data = dio.FormData.from({
+      "image": dio.UploadFileInfo(body, "image",
+          contentType: ContentType("image", "jpeg")),
+    });
+    return _dio
+        .post(
+          url,
+          data: data,
+          options: dio.Options(headers: headersMap),
+        )
+        .then(_toResponse);
+  }
+
   Future<Map<String, String>> _buildHeaders(
       String url, Map<String, String> headers) async {
     Map<String, String> headersMap = Map();
@@ -134,7 +173,11 @@ class DioHttp extends Http {
   }
 
   Response _toResponse(dio.Response r) {
-    final response = Response(r.data, r.statusCode);
+    var data = r.data;
+    if (data is String && data.isEmpty) {
+      data = Map<String, dynamic>();
+    }
+    final response = Response(data, r.statusCode);
     errorMapper.checkStatus(response);
     return response;
   }
