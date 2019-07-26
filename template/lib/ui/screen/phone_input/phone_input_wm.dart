@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/widgets.dart' show NavigatorState;
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/util/const.dart';
 import 'package:flutter_template/util/phone_number_util.dart';

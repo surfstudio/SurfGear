@@ -13,10 +13,13 @@ dependencies:
 
   #внутренние библиотеки
   injector:
-    path: ../injector
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: project-PARK
+      path: injector
 
   #rx
-  rxdart: 0.21.0
+  rxdart: 0.22.0
 
 dev_dependencies:
   flutter_test:
