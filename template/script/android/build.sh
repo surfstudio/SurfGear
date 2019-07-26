@@ -8,23 +8,42 @@ platform_postfix_64=android-arm64
 platform=
 build_type=release
 postfix=
+flavor=dev
+
+apk_path=
 
 ### FUNCTIONS
+
+function resolveFlavor() {
+    if [[ ${build_type} = release ]]; then
+        flavor=prod
+    fi
+
+    apk_path=./build/app/outputs/apk/${flavor}/release/
+}
+
+function returnToParentDir() {
+    cd ../../../../../..;
+}
+
 function buildApk() {
     echo Build type ${build_type}
-    flutter build apk -t lib/main-${build_type}.dart --split-per-abi;
+
+    flutter build apk --flavor ${flavor} -t lib/main-${build_type}.dart --split-per-abi ;
 }
 
 function cleanArtifacts() {
     echo Cleaning dir
     pwd
-    cd ./build/app/outputs/apk/release/
+    cd ${apk_path}
+    pwd
+#    rm -f "app-*-release.apk"
     find . -type f -name "app-*-release.apk" -exec rm -f {} \;
-    cd ../../../../..;
+    returnToParentDir
 }
 
 function rename() {
-    cd ./build/app/outputs/apk/release/
+    cd ${apk_path}
 
     postfix=${build_type}
 
@@ -32,22 +51,22 @@ function rename() {
     echo Make postfix ...
 
     if [[ -n ${platform} ]]; then
-        mv app-${apk_prefix_64}-release.apk app-${postfix}-${apk_prefix_64}.apk
+        mv app-${flavor}-${apk_prefix_64}-release.apk app-${postfix}-${apk_prefix_64}.apk
 
         echo app-${apk_prefix_64}-release.apk renamed toapp-${postfix}-${apk_prefix_64}.apk
     else
-        mv app-${apk_prefix_v7}-release.apk app-${postfix}-${apk_prefix_v7}.apk
+        mv app-${flavor}-${apk_prefix_v7}-release.apk app-${postfix}-${apk_prefix_v7}.apk
 
         echo app-${apk_prefix_v7}-release.apk renamed to app-${postfix}-${apk_prefix_v7}.apk
     fi
 
     ls -la
-    cd ../../../../..;
+    returnToParentDir
 }
 
 
 function build() {
-    buildApk && rename && cleanArtifacts
+    resolveFlavor && buildApk && rename && cleanArtifacts
 }
 
 function usage() {

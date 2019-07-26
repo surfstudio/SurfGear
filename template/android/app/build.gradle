@@ -55,11 +55,11 @@ android {
     productFlavors {
         dev {
             dimension "release-type"
-            applicationSuffix  ".dev"
-            versionSuffix "-dev"
+            applicationIdSuffix  ".dev"
+            versionNameSuffix "-dev"
         }
 
-        release {
+        prod {
             dimension "release-type"
         }
     }
