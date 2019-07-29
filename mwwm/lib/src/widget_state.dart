@@ -28,7 +28,9 @@ abstract class WidgetState<T extends StatefulWidget, WM extends WidgetModel,
   void didChangeDependencies() {
     super.didChangeDependencies();
     print("DEV_INFO didChangeDependencies State $this");
-    _component = getComponent(context);
+    if (_component == null) {
+      _component = getComponent(context);
+    }
   }
 
   @override
