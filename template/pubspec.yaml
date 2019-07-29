@@ -34,12 +34,12 @@ dependencies:
   geolocation:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PCK
+      ref: project-PARK
       path: geolocation
   analytics:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PCK
+      ref: project-PARK
       path: analytics
 
   intl: 0.15.7

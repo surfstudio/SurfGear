@@ -19,7 +19,7 @@ dev_dependencies:
   logger:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PCK
+      ref: project-PARK
       path: logger
     
   firebase_analytics: 3.0.3
