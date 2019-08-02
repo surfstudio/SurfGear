@@ -60,5 +60,6 @@ done
 #flutter upgrade;
 #flutter clean;
 
+resolveFlavor
 clean
 build
