@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 
 build_type=release
-
+flavor=dev
 ### FUNCTIONS
+
+function resolveFlavor() {
+    if [[ ${build_type} = release ]]; then
+        flavor=prod
+    fi
+}
 
 function clean() {
     ./clean_ios.sh
@@ -11,7 +17,7 @@ function clean() {
 function buildIpa() {
     echo Build type ${build_type}
 #    flutter packages get
-    flutter build ios --release -t lib/main-${build_type}.dart --no-codesign
+    flutter build ios --release --flavor ${flavor} -t lib/main-${build_type}.dart --no-codesign
 }
 
 function build() {
