@@ -2,7 +2,7 @@ import 'package:counter/ui/app/app_wm.dart';
 import 'package:counter/ui/app/di/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mwwm/mwwm.dart';
+import 'package:injector/injector.dart';
 
 /// Widget приложения
 class App extends StatefulWidget {
@@ -10,10 +10,23 @@ class App extends StatefulWidget {
   State createState() => new _AppState();
 }
 
-class _AppState extends WidgetState<App, AppWidgetModel, AppComponent> {
+class _AppState extends State<App> {
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
-  Widget buildState(BuildContext context) {
+  AppWidgetModel wm;
+
+  @override
+  Widget build(BuildContext context) {
+    return Injector<AppComponent>(
+      component: AppComponent(navigatorKey),
+      builder: (context) {
+        wm = Injector.of<AppComponent>(context).component.wm;
+        return _buildState(context);
+      },
+    );
+  }
+
+  Widget _buildState(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey,
       home: Scaffold(
@@ -29,7 +42,8 @@ class _AppState extends WidgetState<App, AppWidgetModel, AppComponent> {
   }
 
   @override
-  AppComponent getComponent(BuildContext context) {
-    return AppComponent(navigatorKey);
+  void dispose() {
+    wm.dispose();
+    super.dispose();
   }
 }

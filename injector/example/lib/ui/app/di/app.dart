@@ -3,10 +3,10 @@ import 'package:counter/interactor/counter/repository/counter_repository.dart';
 import 'package:counter/ui/app/app_wm.dart';
 import 'package:counter/util/sp_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:mwwm/mwwm.dart';
+import 'package:injector/injector.dart';
 
 /// Component для приложения
-class AppComponent implements BaseWidgetModelComponent<AppWidgetModel> {
+class AppComponent implements Component {
   AppWidgetModel wm;
 
   final preferencesHelper = PreferencesHelper();
@@ -16,7 +16,6 @@ class AppComponent implements BaseWidgetModelComponent<AppWidgetModel> {
     counterInteractor = CounterInteractor(CounterRepository(preferencesHelper));
 
     wm = AppWidgetModel(
-      WidgetModelDependencies(),
       navigatorKey,
     );
   }

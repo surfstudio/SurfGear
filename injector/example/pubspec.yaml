@@ -35,15 +35,8 @@ dependencies:
 
   #surfstudio
   injector:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PARK
-      path: injector
-  mwwm:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PARK
-      path: mwwm
+   path: ..
+
 
 dev_dependencies:
   flutter_test:

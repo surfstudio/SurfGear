@@ -3,7 +3,6 @@ import 'package:counter/ui/screen/counter/counter_wm.dart';
 import 'package:counter/ui/screen/counter/di/counter.dart';
 import 'package:flutter/material.dart';
 import 'package:injector/injector.dart';
-import 'package:mwwm/mwwm.dart';
 
 /// Widget для экрана счетчика
 class CounterScreen extends StatefulWidget {
@@ -11,16 +10,26 @@ class CounterScreen extends StatefulWidget {
   _CounterScreenState createState() => _CounterScreenState();
 }
 
-class _CounterScreenState
-    extends WidgetState<CounterScreen, CounterWidgetModel, CounterComponent> {
+class _CounterScreenState extends State<CounterScreen> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
+  CounterWidgetModel wm;
+
   @override
-  Widget buildState(BuildContext context) {
-    return _buildScreen(context);
+  Widget build(BuildContext context) {
+    return Injector<CounterComponent>(
+      component: CounterComponent(
+        Injector.of<AppComponent>(context).component,
+        Navigator.of(context),
+      ),
+      builder: (context) {
+        wm = Injector.of<CounterComponent>(context).component.wm;
+        return _buildState(context);
+      },
+    );
   }
 
-  Widget _buildScreen(BuildContext context) {
+  Widget _buildState(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -28,7 +37,9 @@ class _CounterScreenState
       ),
       body: _buildBody(),
       floatingActionButton: FloatingActionButton(
-        onPressed: wm.incrementAction,
+        onPressed: () {
+          wm.incrementAction.add(true);
+        },
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
@@ -57,11 +68,8 @@ class _CounterScreenState
   }
 
   @override
-  CounterComponent getComponent(BuildContext context) {
-    /// получение зависимостей
-    return CounterComponent(
-      Injector.of<AppComponent>(context).component,
-      Navigator.of(context),
-    );
+  void dispose() {
+    wm.dispose();
+    super.dispose();
   }
 }
