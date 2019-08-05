@@ -1,28 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:injector/injector.dart';
-import 'package:mwwm/mwwm.dart';
 import 'package:name_generator/domain/User.dart';
-import 'package:name_generator/ui/app/di/app.dart';
+import 'package:name_generator/interactor/name_generator/name_generator_interactor.dart';
 import 'package:name_generator/ui/res/text_styles.dart';
-import 'package:name_generator/ui/screen/name_generator/di/name_generator.dart';
 import 'package:name_generator/ui/screen/name_generator/name_generator_wm.dart';
 
 /// Widget для экрана счетчика
 class NameGeneratorScreen extends StatefulWidget {
   @override
   _NameGeneratorScreenState createState() => _NameGeneratorScreenState();
+
+  static const String routeName = 'name_generator';
+
+  final NameGeneratorInteractor interactor;
+
+  NameGeneratorScreen(this.interactor);
 }
 
-class _NameGeneratorScreenState extends WidgetState<NameGeneratorScreen,
-    NameGeneratorWidgetModel, NameGeneratorComponent> {
+class _NameGeneratorScreenState extends State<NameGeneratorScreen> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
+  NameGeneratorWidgetModel wm;
+
   @override
-  Widget buildState(BuildContext context) {
-    return _buildScreen(context);
+  void initState() {
+    wm = NameGeneratorWidgetModel(widget.interactor);
+    super.initState();
   }
 
-  Widget _buildScreen(BuildContext context) {
+  @override
+  void dispose() {
+    wm.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -30,7 +42,9 @@ class _NameGeneratorScreenState extends WidgetState<NameGeneratorScreen,
       ),
       body: _buildBody(),
       floatingActionButton: FloatingActionButton(
-        onPressed: wm.getUserAction,
+        onPressed: () {
+          wm.getUserAction.add(true);
+        },
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
@@ -42,15 +56,6 @@ class _NameGeneratorScreenState extends WidgetState<NameGeneratorScreen,
       stream: wm.listState.stream,
       initialData: [],
       builder: _buildListWidget,
-    );
-  }
-
-  @override
-  NameGeneratorComponent getComponent(BuildContext context) {
-    /// получение зависимостей
-    return NameGeneratorComponent(
-      Injector.of<AppComponent>(context).component,
-      Navigator.of(context),
     );
   }
 

@@ -27,16 +27,7 @@ dependencies:
   #surfstudio
   network:
     path: ..
-  injector:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PCK
-      path: injector
-  mwwm:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PCK
-      path: mwwm
+
 
   #storage
   shared_preferences: ^0.5.3

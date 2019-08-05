@@ -21,6 +21,7 @@ class CounterWidgetModel {
 
   dispose() {
     incrementAction.close();
+    counterState.close();
   }
 
   void _listenToStreams() {

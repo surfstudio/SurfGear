@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mwwm/mwwm.dart';
-import 'package:name_generator/ui/app/app_wm.dart';
-import 'package:name_generator/ui/app/di/app.dart';
+import 'package:name_generator/interactor/name_generator/name_generator_interactor.dart';
+import 'package:name_generator/ui/screen/name_generator/name_generator_route.dart';
+import 'package:name_generator/ui/screen/name_generator/name_generator_screen.dart';
 
 /// Widget приложения
 class App extends StatefulWidget {
+  final NameGeneratorInteractor interactor;
+
+  App(this.interactor);
+
   @override
   State createState() => new _AppState();
 }
 
-class _AppState extends WidgetState<App, AppWidgetModel, AppComponent> {
+class _AppState extends State<App> {
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
-  Widget buildState(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey,
       home: Scaffold(
@@ -27,11 +32,8 @@ class _AppState extends WidgetState<App, AppWidgetModel, AppComponent> {
           ),
         ),
       ),
+      initialRoute: NameGeneratorScreen.routeName,
+      onGenerateRoute: (_) => NameGeneratorScreenRoute(widget.interactor),
     );
-  }
-
-  @override
-  AppComponent getComponent(BuildContext context) {
-    return AppComponent(navigatorKey, scaffoldKey);
   }
 }
