@@ -27,25 +27,9 @@ dependencies:
   # static analysis
   pedantic: ^1.7.0
 
-  #rx
-  rxdart: ^0.22.0
-
-  #storage
-  shared_preferences: 0.5.1+1
-
   #surfstudio
   logger:
     path: ..
-  injector:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PARK
-      path: injector
-  mwwm:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PARK
-      path: mwwm
 
   #Crashlytics
   flutter_crashlytics: ^1.0.0
