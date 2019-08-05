@@ -26,15 +26,7 @@ dependencies:
 
   #surfstudio
   network:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PCK
-      path: network
-  logger:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PCK
-      path: logger
+    path: ..
   injector:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git

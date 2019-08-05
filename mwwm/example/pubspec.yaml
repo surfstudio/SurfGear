@@ -32,10 +32,7 @@ dependencies:
 
   #surfstudio
   mwwm:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
-      path: mwwm
+    path: ..
 
 dev_dependencies:
   flutter_test:
