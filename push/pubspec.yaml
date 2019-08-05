@@ -1,5 +1,5 @@
 name: push
-description: A new Flutter package project.
+description: Push implementation for Flutter.
 version: 0.0.1
 author:
 homepage:
@@ -28,8 +28,7 @@ dependencies:
   rxdart: ^0.22.0
 
   #notifications
-  flutter_local_notifications:
-    path: ../flutter_local_notifications
+  flutter_local_notifications: ^0.8.1
 
 dev_dependencies:
   flutter_test:
