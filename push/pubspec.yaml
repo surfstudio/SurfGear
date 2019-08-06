@@ -21,8 +21,8 @@ dependencies:
       path: logger
 
   #firebase push
-  firebase_core: 0.4.0+1
-  firebase_messaging: 5.0.1+1
+  firebase_core: ^0.4.0
+  firebase_messaging: ^5.0.1
 
   #rx
   rxdart: ^0.22.0
