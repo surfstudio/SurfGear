@@ -1,6 +1,6 @@
 # example
 
-A new Flutter project.
+Example of using the storage module.
 
 ## Getting Started
 
