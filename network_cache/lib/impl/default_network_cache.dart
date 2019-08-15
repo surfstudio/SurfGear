@@ -6,7 +6,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:storage/storage.dart';
 import 'package:network/network.dart';
 
-/// Default implementation based on json storage 
+/// Default implementation based on json storage
 class DefaultNetworkCache implements NetworkCache {
   final Storage<String, Map<String, dynamic>> _storage;
   final RxHttp _http;
@@ -18,10 +18,13 @@ class DefaultNetworkCache implements NetworkCache {
     this._http, {
     CacheStrategy strategy,
     this.lifetime = const Duration(hours: 12),
-  })  : _strategy = strategy ?? CacheIfExistsStrategy(),
+  })  : _strategy = strategy ?? CacheIfErrorStrategy(),
         assert(_storage != null),
         assert(_http != null),
         assert(lifetime != null);
+
+  @override
+  void clearCache() => _storage.clear();
 
   @override
   Observable<Response> hybridGet(
@@ -49,7 +52,7 @@ class DefaultNetworkCache implements NetworkCache {
 
     final entity = ResponseEntity.fromJson(entityJson);
     final actualAlive = DateTime.now().difference(entity.storageTimestamp);
-    final cacheExpired = actualAlive.compareTo(entity.lifetime) <= 0;
+    final cacheExpired = actualAlive.compareTo(entity.lifetime) >= 0;
 
     if (cacheExpired) {
       _storage.remove(key);

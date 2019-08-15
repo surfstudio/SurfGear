@@ -24,3 +24,17 @@ class CacheIfExistsStrategy implements CacheStrategy {
   ) =>
       cacheResponse.switchIfEmpty(networkResponse);
 }
+
+class CacheIfErrorStrategy implements CacheStrategy {
+  @override
+  Observable<Response> resolve(
+    Observable<Response> cacheResponse,
+    Observable<Response> networkResponse,
+  ) =>
+      networkResponse.onErrorResume(
+        (e) => Observable.concat([
+          cacheResponse,
+          Observable.error(e),
+        ])
+      );
+}

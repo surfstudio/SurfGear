@@ -14,4 +14,6 @@ abstract class NetworkCache {
     Map<String, String> headers,
     Duration lifetime,
   });
+
+  void clearCache();
 }
