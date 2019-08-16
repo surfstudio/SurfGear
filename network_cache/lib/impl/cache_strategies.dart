@@ -15,7 +15,8 @@ class CacheFirstStrategy implements CacheStrategy {
       ]);
 }
 
-/// Emits cache response, if it doesn't exist emits network response.
+/// Emits cache response, if it doesn't exist
+/// strategy emits network response.
 class CacheIfExistsStrategy implements CacheStrategy {
   @override
   Observable<Response> resolve(
@@ -25,6 +26,8 @@ class CacheIfExistsStrategy implements CacheStrategy {
       cacheResponse.switchIfEmpty(networkResponse);
 }
 
+/// Emits network response, if it terminates with an error
+/// strategy emits cache and the error.
 class CacheIfErrorStrategy implements CacheStrategy {
   @override
   Observable<Response> resolve(
