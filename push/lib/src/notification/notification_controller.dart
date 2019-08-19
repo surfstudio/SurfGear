@@ -33,7 +33,7 @@ class NotificationController {
         InitializationSettings(
           AndroidInitializationSettings(androidDefaultIcon),
           IOSInitializationSettings(
-              onDidReceiveLocalNotification: (id, title, body, payload) {
+              onDidReceiveLocalNotification: (id, title, body, payload) async {
             Logger.d("handle notification% $id , $title, $body, $payload");
           }),
         ),
@@ -51,7 +51,7 @@ class NotificationController {
     final platformSpecifics = NotificationDetails(androidSpecific, iosSpecific);
 
     print("DEV_INFO receive for show push : $notification");
-    _notificationPlugin.show(
+    return _notificationPlugin.show(
       0, //todo добавить поддержку id для удаления уведомления из приложения
       notification.title,
       notification.body,
@@ -70,7 +70,8 @@ class NotificationController {
     selectNotificationSubject.add(payload);
 
     if (onSelectNotification != null) {
-      onSelectNotification(payload);
+      return onSelectNotification(payload);
     }
+    return null;
   }
 }
