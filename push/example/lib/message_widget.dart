@@ -22,7 +22,9 @@ class _MessageWidgetState extends State<MessageWidget> {
         final notification = message['notification'];
         setState(() {
           messages.add(Message(
-              title: notification['title'], body: notification['body']));
+            title: notification['title'],
+            body: notification['body'],
+          ));
         });
       },
       onLaunch: (Map<String, dynamic> message) async {

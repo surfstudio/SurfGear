@@ -1,7 +1,14 @@
-# push
+[Главная](../docs/main.md)
 
-Push implementation for Flutter
+[TOC]
 
-## Описание
-
+# Push
+Библиотека для реализации push уведомлений
 В модуль вынесена основная работа с push уведомлениями.
+
+## Использование PushManager
+* Для получения нотификаций нужно создать экземпляр PushManager и назначить обработчики событий: onMessage, onLaunch, onResume.
+* Для показа нотификаций нужно создать экземпляр NotificationController.
+Для обработки нажатий на нотификаци использовать назначить обработчик onSelectNotification
+
+

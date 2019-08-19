@@ -16,7 +16,7 @@
     1. [Инъекция зависимостей](common/di.md)
     1. [Логгирование](common/logging.md) //todo
     1. [Асинхронные взаимодействия](common/async.md)
-    1. [Пуш-уведомления](../push/README.md) //todo
+    1. [Пуш-уведомления](../push/README.md)
 
 1. [**Слой Model**](todo)
     1. [Interactor](todo)
