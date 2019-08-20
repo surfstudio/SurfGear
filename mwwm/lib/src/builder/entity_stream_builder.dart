@@ -12,13 +12,14 @@ typedef DataWidgetBuilder<T> = Widget Function(BuildContext, T data);
 ///   [errorChild] - ошибка.
 ///
 /// ### пример
-///
+/// ```dart
 /// EntityStateBuilder<Data>(
 ///      streamedState: wm.dataState,
 ///      child: (data) => DataWidget(data),
 ///      loadingChild: LoadingWidget(),
 ///      errorChild: ErrorPlaceholder(),
 ///    );
+///  ```
 class EntityStateBuilder<T> extends StatelessWidget {
   final EntityStreamedState<T> streamedState;
 
@@ -45,16 +46,15 @@ class EntityStateBuilder<T> extends StatelessWidget {
       initialData: streamedState.value,
       builder: (context, snapshot) {
         final streamData = snapshot.data;
-        if (streamData == null ||
-            (streamData.data == null && streamData.isLoading)) {
+        if (streamData == null || streamData.isLoading) {
           return loadingChild;
         }
 
-        if (streamData.data != null) {
-          return child(context, streamData.data);
+        if (streamData.hasError) {
+          return errorChild;
         }
 
-        return errorChild;
+        return child(context, streamData.data);
       },
     );
   }
