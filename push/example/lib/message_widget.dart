@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:push/push.dart';
+import 'package:push_demo/example_factory.dart';
 import 'package:push_demo/message.dart';
 
 class MessageWidget extends StatefulWidget {
@@ -10,38 +11,38 @@ class MessageWidget extends StatefulWidget {
 class _MessageWidgetState extends State<MessageWidget> {
   final List<Message> messages = [];
 
-  PushManager pushManager = PushManager();
+  PushManager pushManager = PushManager(ExampleFactory());
 
   @override
   void initState() {
     super.initState();
 
-    pushManager.initNotification(
-      onMessage: (message) async {
-        print("onMessage: $message");
-        final notification = message['notification'];
-        setState(() {
-          messages.add(Message(
-            title: notification['title'],
-            body: notification['body'],
-          ));
-        });
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
-
-        final notification = message['data'];
-        setState(() {
-          messages.add(Message(
-            title: '${notification['title']}',
-            body: '${notification['body']}',
-          ));
-        });
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-      },
-    );
+//    pushManager.initNotification(
+//      onMessage: (message) async {
+//        print("onMessage: $message");
+//        final notification = message['notification'];
+//        setState(() {
+//          messages.add(Message(
+//            title: notification['title'],
+//            body: notification['body'],
+//          ));
+//        });
+//      },
+//      onLaunch: (Map<String, dynamic> message) async {
+//        print("onLaunch: $message");
+//
+//        final notification = message['data'];
+//        setState(() {
+//          messages.add(Message(
+//            title: '${notification['title']}',
+//            body: '${notification['body']}',
+//          ));
+//        });
+//      },
+//      onResume: (Map<String, dynamic> message) async {
+//        print("onResume: $message");
+//      },
+//    );
   }
 
   @override
