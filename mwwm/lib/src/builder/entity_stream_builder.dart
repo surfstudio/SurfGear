@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:mwwm/mwwm.dart';
 
-typedef WidgetBuilder<T> = Widget Function(BuildContext, T data);
+typedef DataWidgetBuilder<T> = Widget Function(BuildContext, T data);
 
 /// Реактивный виджет для [EntityStreamedState]
 ///
@@ -22,7 +22,7 @@ typedef WidgetBuilder<T> = Widget Function(BuildContext, T data);
 class EntityStateBuilder<T> extends StatelessWidget {
   final EntityStreamedState<T> streamedState;
 
-  final WidgetBuilder<T> child;
+  final DataWidgetBuilder<T> child;
   final Widget loadingChild;
   final Widget errorChild;
 
