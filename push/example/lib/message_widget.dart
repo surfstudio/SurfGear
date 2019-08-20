@@ -11,11 +11,14 @@ class MessageWidget extends StatefulWidget {
 class _MessageWidgetState extends State<MessageWidget> {
   final List<Message> messages = [];
 
-  PushManager pushManager = PushManager(ExampleFactory());
+  PushManager _pushManager;
 
   @override
   void initState() {
     super.initState();
+
+    _pushManager = PushManager(ExampleFactory());
+    _pushManager.requestNotificationPermissions();
 
 //    pushManager.initNotification(
 //      onMessage: (message) async {

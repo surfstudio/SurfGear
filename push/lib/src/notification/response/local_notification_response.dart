@@ -1,5 +1,4 @@
 import 'package:push/src/domain/notification.dart';
-import 'package:push/src/res/consts.dart';
 import 'package:surf_util/surf_util.dart';
 
 /// Респонс модель пришедшего пуша
