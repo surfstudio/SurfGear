@@ -2,31 +2,22 @@ import 'dart:convert';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:logger/logger.dart';
-import 'package:push/src/domain/notification.dart';
-import 'package:push/src/notification/request/local_notification_request.dart';
-import 'package:push/src/notification/response/local_notification_response.dart';
+import 'package:push/push.dart';
 import 'package:rxdart/subjects.dart';
-
-typedef SelectNotificationCallback = Future<dynamic> Function(
-    NotificationPayload payload);
 
 /// Обёртка над локальными уведомлениями
 class NotificationController {
-  final BehaviorSubject<NotificationPayload> selectNotificationSubject =
-      BehaviorSubject();
+  final PushHandleStrategyFactory _strategyFactory;
 
-  final _notificationChannelId;
-  final _notificationChannelName;
-  final _notificationDescription;
+  final BehaviorSubject<BasePushHandleStrategy> selectNotificationSubject =
+      BehaviorSubject();
 
   FlutterLocalNotificationsPlugin _notificationPlugin;
   SelectNotificationCallback onSelectNotification;
 
   NotificationController(
+    this._strategyFactory,
     String androidDefaultIcon,
-    this._notificationChannelId,
-    this._notificationChannelName,
-    this._notificationDescription,
   ) {
     _notificationPlugin = FlutterLocalNotificationsPlugin()
       ..initialize(
@@ -37,37 +28,39 @@ class NotificationController {
             Logger.d("handle notification% $id , $title, $body, $payload");
           }),
         ),
-        onSelectNotification: _transformPayload,
+        onSelectNotification: _internalOnSelectNotifacation,
       );
   }
 
-  Future<dynamic> show(LocalNotification notification) {
+  Future<dynamic> show(BasePushHandleStrategy strategy) {
     final androidSpecific = AndroidNotificationDetails(
-      _notificationChannelId,
-      _notificationChannelName,
-      _notificationDescription,
+      strategy.notificationChannelId,
+      strategy.notificationChannelName,
+      strategy.notificationDescription,
     );
     final iosSpecific = IOSNotificationDetails();
     final platformSpecifics = NotificationDetails(androidSpecific, iosSpecific);
 
-    print("DEV_INFO receive for show push : $notification");
+    print(
+        "DEV_INFO receive for show push : ${strategy.title}, ${strategy.body}");
+
     return _notificationPlugin.show(
-      0, //todo добавить поддержку id для удаления уведомления из приложения
-      notification.title,
-      notification.body,
+      strategy.pushId,
+      strategy.title,
+      strategy.body,
       platformSpecifics,
-      payload: LocalNotificationRequest.from(notification).payload,
+      payload: jsonEncode(strategy.messageData),
     );
   }
 
-  Future<dynamic> _transformPayload(String rawPayload) {
-    print('DEV_INFO onSelectNotification, payload: $rawPayload');
+  Future<dynamic> _internalOnSelectNotifacation(String payload) {
+    print('DEV_INFO onSelectNotification, payload: $payload');
 
-    final payloadJson = jsonDecode(rawPayload);
-    final payload =
-        NotificationPayloadResponse.fromJson(payloadJson).transform();
+    final payloadJson = jsonDecode(payload);
+    var strategy = _strategyFactory.createByData(payloadJson);
+    strategy.onTapNotification();
 
-    selectNotificationSubject.add(payload);
+    selectNotificationSubject.add(payloadJson);
 
     if (onSelectNotification != null) {
       return onSelectNotification(payload);

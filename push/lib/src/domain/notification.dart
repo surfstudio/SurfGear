@@ -1,16 +1,24 @@
 import 'package:surf_util/surf_util.dart';
 
 /// Уведомление
-class LocalNotification {
+class LocalNotification<T> {
   final String title;
   final String body;
-  final NotificationPayload payload;
+  final String payload;
 
   LocalNotification({
     this.title,
     this.body,
     this.payload,
   });
+
+  factory LocalNotification.fromMap(Map<String, dynamic> map) {
+    return LocalNotification(
+      title: map['title'],
+      body: map['body'],
+      payload: map['payload'],
+    );
+  }
 }
 
 /// Полезная нагрузка уведомления

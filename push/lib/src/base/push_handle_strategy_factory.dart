@@ -1,4 +1,4 @@
-import 'package:push/src/base/push_handle_strategy.dart';
+import 'package:push/src/base/base_push_handle_strategy.dart';
 
 /// Абстрактная факбрика для стратегий обработки пуш уведомлений
 abstract class PushHandleStrategyFactory {
@@ -7,10 +7,10 @@ abstract class PushHandleStrategyFactory {
   String key = "event";
 
   /// Переопределяем с необходимым соответствием действий(типа пуша) и стратегий
-  Map<String, PushHandleStrategy> map = {};
+  Map<String, BasePushHandleStrategy> get map;
 
   /// Возвращает стратегию по данным пуша
-  PushHandleStrategy createByData(Map<String, dynamic> data) {
-    return map[data[key]];
+  BasePushHandleStrategy createByData(Map<String, dynamic> messageData) {
+    return map[messageData[key]]..extractDataFromMap(messageData);
   }
 }

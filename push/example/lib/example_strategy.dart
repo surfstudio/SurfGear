@@ -1,9 +1,17 @@
 import 'package:push/push.dart';
+import 'package:push_demo/example_payload.dart';
 
-class ExampleStrategy extends PushHandleStrategy {
+class ExampleStrategy extends BasePushHandleStrategy<ExamplePayload> {
   @override
-  void handleMessage(
-      Map<String, dynamic> message, MessageHandlerType handlerType) {
-    print("on $handlerType message: $message");
+  void extractPayloadFromMap(Map<String, dynamic> map) {
+    payload = ExamplePayload(
+      map['payloadInt'],
+      map['payloadString'],
+    );
+  }
+
+  @override
+  void onTapNotification() {
+    print('on tap notification');
   }
 }

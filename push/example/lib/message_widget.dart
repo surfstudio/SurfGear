@@ -3,6 +3,8 @@ import 'package:push/push.dart';
 import 'package:push_demo/example_factory.dart';
 import 'package:push_demo/message.dart';
 
+const String androidMipMapIcon = "@mipmap/ic_launcher";
+
 class MessageWidget extends StatefulWidget {
   @override
   _MessageWidgetState createState() => new _MessageWidgetState();
@@ -12,12 +14,22 @@ class _MessageWidgetState extends State<MessageWidget> {
   final List<Message> messages = [];
 
   PushManager _pushManager;
+  ExampleFactory _factory;
+  NotificationController _notificationController;
 
   @override
   void initState() {
     super.initState();
 
-    _pushManager = PushManager(ExampleFactory());
+    _factory = ExampleFactory();
+    _notificationController = NotificationController(
+      _factory,
+      androidMipMapIcon,
+    );
+    _pushManager = PushManager(
+      _factory,
+      _notificationController,
+    );
     _pushManager.requestNotificationPermissions();
 
 //    pushManager.initNotification(

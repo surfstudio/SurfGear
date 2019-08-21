@@ -1,8 +1,11 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:push/src/base/push_handle_strategy_factory.dart';
+import 'package:push/src/notification/notification_controller.dart';
 import 'package:rxdart/subjects.dart';
 
 typedef Future<void> MessageHandler(Map<String, dynamic> message);
+
+enum MessageHandlerType { OnTap, onMessage, onLaunch, onResume }
 
 /// Обёртка над [FirebaseMessaging]
 class PushManager {
@@ -12,20 +15,23 @@ class PushManager {
   final PublishSubject<Map<String, dynamic>> messageSubject = PublishSubject();
 
   final PushHandleStrategyFactory _strategyFactory;
+  final NotificationController _notificationController;
 
-  PushManager(this._strategyFactory) {
+  PushManager(
+    this._strategyFactory,
+    this._notificationController,
+  ) {
     _initNotification();
   }
+
   Future<dynamic> _internalMessageInterceptor(
       Map<String, dynamic> message, MessageHandlerType handlerType) async {
     print("DEV_INFO receive message on $handlerType: $message");
 
-    var strategy = _strategyFactory.createByData(message);
-    if (strategy != null) {
-      strategy.handleMessage(message, handlerType);
-    }
-
     messageSubject.add(message);
+
+    var strategy = _strategyFactory.createByData(message);
+    return _notificationController.show(strategy);
   }
 
   void _initNotification() {
@@ -45,5 +51,3 @@ class PushManager {
     );
   }
 }
-
-enum MessageHandlerType { onMessage, onLaunch, onResume }
