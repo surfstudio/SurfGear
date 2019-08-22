@@ -3,8 +3,6 @@ import 'package:push/src/base/base_notification_payload.dart';
 
 /// Абстрактная стратегия
 abstract class BasePushHandleStrategy<PT extends BaseNotificationPayload> {
-  BasePushHandleStrategy();
-
   /// Настройки канала
   String notificationChannelId = 'default_push_chanel';
   String notificationChannelName = 'Название канала';
@@ -23,7 +21,7 @@ abstract class BasePushHandleStrategy<PT extends BaseNotificationPayload> {
 
   /// извлечение данных
   void extractDataFromMap(Map<String, dynamic> map) {
-    messageData = map;
+    messageData = Map<String, dynamic>.of(map);
     title = map['title'];
     body = map['body'];
     extractPayloadFromMap(map);
@@ -33,5 +31,5 @@ abstract class BasePushHandleStrategy<PT extends BaseNotificationPayload> {
   void extractPayloadFromMap(Map<String, dynamic> map);
 
   /// обработка сообщения
-  void onTapNotification() {}
+  void onTapNotification();
 }
