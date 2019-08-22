@@ -13,9 +13,9 @@ class ExampleStrategy extends BasePushHandleStrategy<ExamplePayload> {
   }
 
   @override
-  void onTapNotification() {
+  void onTapNotification(BuildContext context) {
     debugPrint('on tap notification');
-    var context = PushContextHolder().context;
+
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) => MessageScreen(),

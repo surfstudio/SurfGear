@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:push/push.dart';
 import 'package:push/src/base/base_notification_payload.dart';
 
@@ -31,5 +32,10 @@ abstract class BasePushHandleStrategy<PT extends BaseNotificationPayload> {
   void extractPayloadFromMap(Map<String, dynamic> map);
 
   /// обработка сообщения
-  void onTapNotification();
+  void onTapNotification(BuildContext context);
+
+  void beforeTapNotificationHandler() {
+    var context = PushContextHolder().context;
+    onTapNotification(context);
+  }
 }

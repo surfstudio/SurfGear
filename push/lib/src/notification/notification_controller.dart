@@ -59,7 +59,7 @@ class NotificationController {
 
     final payloadJson = jsonDecode(payload);
     var strategy = _strategyFactory.createByData(payloadJson);
-    strategy.onTapNotification();
+    strategy.beforeTapNotificationHandler();
 
     selectNotificationSubject.add(payloadJson);
 
