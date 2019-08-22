@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:push/push.dart';
 import 'package:push_demo/example_payload.dart';
-import 'package:push_demo/message_screen_route.dart';
+import 'package:push_demo/message_screen.dart';
 
 class ExampleStrategy extends BasePushHandleStrategy<ExamplePayload> {
   @override
@@ -15,13 +15,11 @@ class ExampleStrategy extends BasePushHandleStrategy<ExamplePayload> {
   @override
   void onTapNotification() {
     debugPrint('on tap notification');
-    navigatorKey.currentState.pushReplacement(MessageScreenRoute(
-      navigatorKey: navigatorKey,
-      onTapHandler: _internalOnTapHandler,
-    ));
-  }
-
-  void _internalOnTapHandler(BuildContext context) {
-    debugPrint('on tap notification with context');
+    var context = PushContextHolder().context;
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => MessageScreen(),
+      ),
+    );
   }
 }

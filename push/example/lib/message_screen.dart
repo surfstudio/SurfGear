@@ -6,15 +6,12 @@ import 'package:push_demo/message.dart';
 const String androidMipMapIcon = "@mipmap/ic_launcher";
 
 class MessageScreen extends StatefulWidget {
-  final GlobalKey<NavigatorState> navigatorKey;
-
-  const MessageScreen({Key key, this.navigatorKey}) : super(key: key);
-
   @override
   MessageScreenState createState() => new MessageScreenState();
 }
 
-class MessageScreenState extends State<MessageScreen> {
+class MessageScreenState extends State<MessageScreen>
+    with PushStateMixin<MessageScreen> {
   final List<Message> messages = [];
 
   PushManager _pushManager;
@@ -25,7 +22,7 @@ class MessageScreenState extends State<MessageScreen> {
   void initState() {
     super.initState();
 
-    _factory = ExampleFactory(widget.navigatorKey);
+    _factory = ExampleFactory();
     _notificationController = NotificationController(
       _factory,
       androidMipMapIcon,

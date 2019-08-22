@@ -15,9 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: MessageScreen(
-        navigatorKey: navigatorKey,
-      ),
+      home: MessageScreen(),
     );
   }
 }
