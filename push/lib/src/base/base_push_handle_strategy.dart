@@ -1,13 +1,8 @@
-import 'package:flutter/widgets.dart';
 import 'package:push/push.dart';
 import 'package:push/src/base/base_notification_payload.dart';
 
-typedef void StrategyOnTapHandler(BuildContext context);
-
 /// Абстрактная стратегия
 abstract class BasePushHandleStrategy<PT extends BaseNotificationPayload> {
-  GlobalKey<NavigatorState> navigatorKey;
-
   /// Настройки канала
   String notificationChannelId = 'default_push_chanel';
   String notificationChannelName = 'Название канала';

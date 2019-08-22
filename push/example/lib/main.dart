@@ -8,9 +8,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey<NavigatorState> navigatorKey = GlobalKey();
     return MaterialApp(
-      navigatorKey: navigatorKey,
       title: appTitle,
       theme: ThemeData(
         primarySwatch: Colors.indigo,
