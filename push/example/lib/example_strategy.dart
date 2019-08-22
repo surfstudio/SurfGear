@@ -17,6 +17,7 @@ class ExampleStrategy extends BasePushHandleStrategy<ExamplePayload> {
     debugPrint('on tap notification');
     navigatorKey.currentState.pushReplacement(MessageScreenRoute(
       navigatorKey: navigatorKey,
+      onTapHandler: _internalOnTapHandler,
     ));
   }
 
