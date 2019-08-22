@@ -1,11 +1,12 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:push/src/base/push_handle_strategy_factory.dart';
 import 'package:push/src/notification/notification_controller.dart';
 import 'package:rxdart/subjects.dart';
 
 typedef Future<void> MessageHandler(Map<String, dynamic> message);
 
-enum MessageHandlerType { OnTap, onMessage, onLaunch, onResume }
+enum MessageHandlerType { onTap, onMessage, onLaunch, onResume }
 
 /// Обёртка над [FirebaseMessaging]
 class PushManager {
@@ -26,7 +27,7 @@ class PushManager {
 
   Future<dynamic> _internalMessageInterceptor(
       Map<String, dynamic> message, MessageHandlerType handlerType) async {
-    print("DEV_INFO receive message on $handlerType: $message");
+    debugPrint("DEV_INFO receive message on $handlerType: $message");
 
     messageSubject.add(message);
 

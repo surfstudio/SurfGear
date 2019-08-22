@@ -1,8 +1,13 @@
+import 'package:flutter/widgets.dart';
 import 'package:push/push.dart';
 import 'package:push/src/base/base_notification_payload.dart';
 
+typedef void StrategyOnTapHandler(BuildContext context);
+
 /// Абстрактная стратегия
 abstract class BasePushHandleStrategy<PT extends BaseNotificationPayload> {
+  GlobalKey<NavigatorState> navigatorKey;
+
   /// Настройки канала
   String notificationChannelId = 'default_push_chanel';
   String notificationChannelName = 'Название канала';
@@ -21,7 +26,7 @@ abstract class BasePushHandleStrategy<PT extends BaseNotificationPayload> {
 
   /// извлечение данных
   void extractDataFromMap(Map<String, dynamic> map) {
-    messageData = Map<String, dynamic>.of(map);
+    messageData = Map<String, dynamic>.from(map);
     title = map['title'];
     body = map['body'];
     extractPayloadFromMap(map);

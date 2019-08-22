@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:logger/logger.dart';
 import 'package:push/push.dart';
@@ -41,7 +42,7 @@ class NotificationController {
     final iosSpecific = IOSNotificationDetails();
     final platformSpecifics = NotificationDetails(androidSpecific, iosSpecific);
 
-    print(
+    debugPrint(
         "DEV_INFO receive for show push : ${strategy.title}, ${strategy.body}");
 
     return _notificationPlugin.show(
