@@ -7,7 +7,7 @@ abstract class DialogController {
     String message,
     void Function(BuildContext context) onAgreeClicked,
     void Function(BuildContext context) onDisagreeClicked,
-    bool barrierDismissible,
+    // bool barrierDismissible,
   });
 
   Future<R> showSheet<R>(dynamic type, {VoidCallback onDismiss});
