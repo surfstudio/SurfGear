@@ -4,10 +4,10 @@ import 'package:flutter/widgets.dart';
 class ContextHolderStorage {
   BuildContext context;
 
-  static final ContextHolderStorage _singleton =
+  static final ContextHolderStorage _instance =
       ContextHolderStorage._internal();
 
-  factory ContextHolderStorage() => _singleton;
+  factory ContextHolderStorage() => _instance;
 
   ContextHolderStorage._internal();
 }
