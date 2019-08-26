@@ -20,6 +20,7 @@ class TempScreenComponent implements BaseWidgetModelComponent<TempWidgetModel> {
       errorHandler: StandardErrorHandler(
         MaterialMessageController(scaffoldKey),
         DefaultDialogController(scaffoldKey),
+        parentComponent.scInteractor,
       ),
     );
 

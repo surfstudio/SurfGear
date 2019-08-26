@@ -2,7 +2,9 @@
 
 apk_prefix_64=arm64-v8a
 apk_prefix_v7=armeabi-v7a
+apk_prefix_universal=universal
 
+platform_postfix_64=android-arm64
 platform=
 build_type=release
 postfix=
@@ -25,21 +27,18 @@ function rename() {
     cd ./build/app/outputs/apk/release/
 
     postfix=${build_type}
-    if [[ -n  ${platform} ]]; then
-        postfix=${postfix}-${platform}
-    fi
 
     echo Postfix ${postfix} "," ${platform}
     echo Make postfix ...
 
     if [[ -n ${platform} ]]; then
-        mv app-${apk_prefix_64}-release.apk app-${postfix}.apk
+        mv app-${apk_prefix_64}-release.apk app-${postfix}-${apk_prefix_64}.apk
 
-        echo app-${apk_prefix_64}-release.apk renamed to app-${postfix}.apk
+        echo app-${apk_prefix_64}-release.apk renamed toapp-${postfix}-${apk_prefix_64}.apk
     else
-        mv app-${apk_prefix_v7}-release.apk app-${postfix}.apk
+        mv app-${apk_prefix_v7}-release.apk app-${postfix}-${apk_prefix_v7}.apk
 
-        echo app-${apk_prefix_v7}-release.apk renamed to app-${postfix}.apk
+        echo app-${apk_prefix_v7}-release.apk renamed to app-${postfix}-${apk_prefix_v7}.apk
     fi
 
     ls -la
@@ -48,8 +47,7 @@ function rename() {
 
 
 function build() {
-    buildApk
-    rename && cleanArtifacts
+    buildApk && rename && cleanArtifacts
 }
 
 function usage() {
@@ -87,7 +85,6 @@ done
 
 ### MAIN
 
-#todo uncomment when needed to upgrade flutter on node
 #flutter upgrade;
 #flutter clean;
 

@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'dart:convert' as json;
 import 'package:network/src/base/config.dart';
 import 'package:network/src/base/status_mapper.dart';
@@ -123,6 +126,30 @@ class DefaultHttp extends Http {
           headers: headersMap,
         )
         .then(_toResponse);
+  }
+
+  @override
+  Future<Response> multipart<T>(
+    String url, {
+    Map<String, String> headers,
+    File body,
+  }) async {
+    print("DEV_WEB request : $url");
+    Map<String, String> headersMap = await _buildHeaders(url, headers);
+
+    final request = http.MultipartRequest("POST", Uri.parse(url));
+    final bytes = await body.readAsBytes();
+    final file = http.MultipartFile.fromBytes(
+      "image",
+      bytes,
+      contentType: MediaType("image", "jpeg"),
+    );
+
+    request.files.add(file);
+    headersMap.entries
+        .forEach((entry) => request.headers[entry.key] = entry.value);
+
+    return request.send().then(http.Response.fromStream).then(_toResponse);
   }
 
   Future<Map<String, String>> _buildHeaders(

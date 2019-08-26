@@ -2,7 +2,7 @@
 
 # todo change to needed version of Flutter
 # list of versions: flutter version
-current_version=v1.7.4+hotfix.3
+current_version=v1.7.8+hotfix.3
 
 # FUNC
 

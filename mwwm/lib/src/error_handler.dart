@@ -1,3 +1,3 @@
 abstract class ErrorHandler {
-  void handleError(Exception e);
+  void handleError(Object e);
 }

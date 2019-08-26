@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:network/network.dart';
 import 'package:network/src/base/response.dart';
 import 'package:network/src/rx/rx_call_adapter.dart';
@@ -72,6 +74,16 @@ class RxHttpDelegate implements RxHttp {
     Map<String, dynamic> body,
   }) {
     final request = http.patch(url, headers: headers, body: body, query: query);
+    return _adapt(request);
+  }
+
+  @override
+  Observable<Response> multipart<T>(
+    String url, {
+    Map<String, String> headers,
+    File body,
+  }) {
+    final request = http.multipart(url, headers: headers, body: body);
     return _adapt(request);
   }
 
