@@ -6,21 +6,21 @@ class Logger {
   static final _strategies = Map<Type, LogStrategy>();
 
   ///debug
-  static void d(String msg, [Exception error]) {
+  static void d(String msg, [dynamic error]) {
     _forAllStrategies(
       (strategy) => strategy.log(msg, PRIORITY_LOG_DEBUG, error),
     );
   }
 
   ///warn (для ожидаемых ошибок)
-  static void w(String msg, [Exception error]) {
+  static void w(String msg, [dynamic error]) {
     _forAllStrategies(
       (strategy) => strategy.log(msg, PRIORITY_LOG_WARN, error),
     );
   }
 
   ///error (для ошибок)
-  static void e(String msg, [Exception error]) {
+  static void e(String msg, [dynamic error]) {
     _forAllStrategies(
       (strategy) => strategy.log(msg, PRIORITY_LOG_ERROR, error),
     );

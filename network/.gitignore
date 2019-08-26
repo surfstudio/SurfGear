@@ -5,10 +5,15 @@
 .pub/
 *.lock
 
-.idea
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
 
 build/
 **/android/**/GeneratedPluginRegistrant.java
+.flutter-plugins
 ios/.generated/
 ios/Flutter/Generated.xcconfig
 ios/Runner/GeneratedPluginRegistrant.*

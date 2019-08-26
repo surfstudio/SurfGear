@@ -17,7 +17,7 @@ class RemoteLogger {
     _forAllStrategies((strategy) => strategy.log(message));
   }
 
-  static void logError(Exception error) {
+  static void logError(dynamic error) {
     _forAllStrategies((strategy) => strategy.logError(error));
   }
 

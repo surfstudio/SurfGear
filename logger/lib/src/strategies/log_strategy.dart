@@ -1,3 +1,3 @@
 abstract class LogStrategy {
-  void log(String message, int priority, [Exception error]);
+  void log(String message, int priority, [dynamic error]);
 }

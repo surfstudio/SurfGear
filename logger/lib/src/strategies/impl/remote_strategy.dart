@@ -8,7 +8,7 @@ const minRemotePriority = PRIORITY_LOG_WARN;
 ///* логи отправляются начиная с [minRemotePriority]
 class RemoteLogStrategy extends LogStrategy {
   @override
-  void log(String message, int priority, [Exception error]) {
+  void log(String message, int priority, [dynamic error]) {
     if (priority < minRemotePriority) return;
 
     RemoteLogger.log(message);

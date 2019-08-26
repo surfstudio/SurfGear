@@ -33,13 +33,3 @@ class ClientHttpException extends HttpProtocolException {
 class ServerHttpException extends HttpException {
   ServerHttpException(Response response) : super(response);
 }
-
-///Интернет недоступен
-class NoInternetException extends HttpException {
-  NoInternetException(Response response) : super(response);
-}
-
-///Ошибка парсинга ответа
-class ConversionException extends HttpException {
-  ConversionException(Response response) : super(response);
-}

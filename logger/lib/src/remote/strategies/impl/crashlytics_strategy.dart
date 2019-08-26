@@ -22,7 +22,7 @@ class CrashlyticsRemoteLogStrategy extends RemoteLogStrategy {
   }
 
   @override
-  void logError(Exception error) {
+  void logError(dynamic error) {
     _crashlytics.onError(
       FlutterErrorDetails(
         exception: error,

@@ -1,6 +1,6 @@
 ///Ответ сервера
 class Response {
-  final Map<String, dynamic> body;
+  final dynamic body;
   final int statusCode;
 
   Response(

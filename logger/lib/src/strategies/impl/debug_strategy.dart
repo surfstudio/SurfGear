@@ -6,7 +6,7 @@ import 'package:logger/src/strategies/log_strategy.dart';
 ///* используется для локального дебага
 class DebugLogStrategy extends LogStrategy {
   @override
-  void log(String message, int priority, [Exception error]) {
+  void log(String message, int priority, [dynamic error]) {
     if (error != null) {
       debugPrint("ERROR: $error");
     }

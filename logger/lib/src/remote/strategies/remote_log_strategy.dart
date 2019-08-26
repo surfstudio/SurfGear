@@ -6,7 +6,7 @@ abstract class RemoteLogStrategy {
 
   void log(String message);
 
-  void logError(Exception error);
+  void logError(dynamic error);
 
   void logInfo(String key, dynamic info);
 }

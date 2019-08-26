@@ -27,6 +27,7 @@ abstract class WidgetState<T extends StatefulWidget, WM extends WidgetModel,
 
   @override
   Widget build(BuildContext context) {
+    super.build(context); //need for AutomaticKeepAliveClientMixin
     print("DEV_INFO $this rebuild");
     return Injector(
       component: _component,

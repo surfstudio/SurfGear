@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
 import 'package:mwwm/mwwm.dart';
@@ -9,71 +9,82 @@ import 'package:rxdart/rxdart.dart';
 ///WM is logical representation of widget.
 ///полностью на action/stream | action/observable
 abstract class WidgetModel {
-  final ErrorHandler _errorHandler;
-  final NavigatorState _navigator;
-  CompositeSubscription _compositeSubscription = CompositeSubscription();
-  PublishSubject<ExceptionWrapper> _errorSubject = PublishSubject();
+    final ErrorHandler _errorHandler;
+    final NavigatorState _navigator;
+    CompositeSubscription _compositeSubscription = CompositeSubscription();
+    PublishSubject<ExceptionWrapper> _errorSubject = PublishSubject();
 
-  Observable<ExceptionWrapper> get errorStream => _errorSubject.stream;
+    Observable<ExceptionWrapper> get errorStream => _errorSubject.stream;
 
-  WidgetModel(WidgetModelDependencies baseDependencies)
-      : _errorHandler = baseDependencies.errorHandler,
-        _navigator = baseDependencies.navigator {
-    onLoad();
-  }
+    WidgetModel(WidgetModelDependencies baseDependencies)
+        : _errorHandler = baseDependencies.errorHandler,
+            _navigator = baseDependencies.navigator {
+        _initErrorHandler();
+        onLoad();
+    }
 
-  void onLoad() {}
+    ///В будущем проекте call super
+    @protected
+    void onLoad() => onBind();
 
-  /// subscribe for interactors
-  void subscribe<T>(
-    Observable<T> stream,
-    void Function(T t) onValue, {
-    void Function(dynamic e) onError,
-  }) {
-    StreamSubscription subscription = stream.listen(onValue, onError: (e) {
-      onError(e);
-    });
+    @protected
+    void onBind() {}
 
-    _compositeSubscription.add(subscription);
-  }
+    /// subscribe for interactors
+    StreamSubscription subscribe<T>(Observable<T> stream,
+        void Function(T t) onValue, {
+            void Function(dynamic e) onError,
+        }) {
+        StreamSubscription subscription = stream.listen(onValue, onError: (e) {
+            if (onError != null) onError(e);
+        });
 
-  /// subscribe for interactors with default handle error
-  void subscribeHandleError<T>(
-    Observable<T> stream,
-    void Function(T t) onValue, {
-    void Function(dynamic e) onError,
-  }) {
-    StreamSubscription subscription = stream.listen(onValue, onError: (e) {
-      handleError(e);
-      onError(e);
-    });
+        _compositeSubscription.add(subscription);
+        return subscription;
+    }
 
-    _compositeSubscription.add(subscription);
-  }
+    /// subscribe for interactors with default handle error
+    StreamSubscription subscribeHandleError<T>(Observable<T> stream,
+        void Function(T t) onValue, {
+            void Function(dynamic e) onError,
+        }) {
+        StreamSubscription subscription = stream.listen(onValue, onError: (e) {
+            handleError(e);
+            if (onError != null) onError(e);
+        });
 
-  /// bind ui [Event]'s
-  void bind<T>(
-    Event<T> event,
-    void Function(T t) onValue, {
-    void Function(dynamic e) onError,
-  }) =>
-      subscribe<T>(event.stream, onValue, onError: onError);
+        _compositeSubscription.add(subscription);
+        return subscription;
+    }
 
-  /// Close streams of WM
-  dispose() {
-    _compositeSubscription.dispose();
-  }
+    /// bind ui [Event]'s
+    void bind<T>(Event<T> event,
+        void Function(T t) onValue, {
+            void Function(dynamic e) onError,
+        }) =>
+        subscribe<T>(event.stream, onValue, onError: onError);
 
-  /// standard error handling
-  @protected
-  handleError(Object e) {
-    _errorHandler.handleError(e);
-    _errorSubject.add(ExceptionWrapper(e));
-  }
+    /// Close streams of WM
+    dispose() {
+        _compositeSubscription.dispose();
+    }
+
+    /// standard error handling
+    @protected
+    handleError(dynamic e) {
+        _errorSubject.add(ExceptionWrapper(e));
+    }
+
+    void _initErrorHandler() {
+        subscribe<ExceptionWrapper>(
+            _errorSubject.throttleTime(Duration(seconds: 4)),
+                (error) => _errorHandler.handleError(error.e),
+        );
+    }
 }
 
 class ExceptionWrapper {
-  final Exception e;
+    final dynamic e;
 
-  ExceptionWrapper(this.e);
+    ExceptionWrapper(this.e);
 }
