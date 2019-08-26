@@ -13,10 +13,10 @@ class ExampleStrategy extends BasePushHandleStrategy<ExamplePayload> {
   }
 
   @override
-  void onTapNotification(BuildContext context) {
+  void onTapNotification(NavigatorState navigator) {
     debugPrint('on tap notification');
 
-    Navigator.of(context).pushReplacement(
+    navigator.pushReplacement(
       MaterialPageRoute(
         builder: (context) => MessageScreen(),
       ),

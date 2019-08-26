@@ -10,8 +10,7 @@ class MessageScreen extends StatefulWidget {
   MessageScreenState createState() => new MessageScreenState();
 }
 
-class MessageScreenState extends State<MessageScreen>
-    with PushStateMixin<MessageScreen> {
+class MessageScreenState extends State<MessageScreen> {
   final List<Message> messages = [];
 
   PushManager _pushManager;

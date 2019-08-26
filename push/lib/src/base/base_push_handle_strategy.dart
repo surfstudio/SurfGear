@@ -32,10 +32,10 @@ abstract class BasePushHandleStrategy<PT extends BaseNotificationPayload> {
   void extractPayloadFromMap(Map<String, dynamic> map);
 
   /// обработка сообщения
-  void onTapNotification(BuildContext context);
+  void onTapNotification(NavigatorState navigator);
 
   void beforeTapNotificationHandler() {
-    var context = PushContextHolder().context;
-    onTapNotification(context);
+    var navigator = PushNavigatorHolder().navigator;
+    onTapNotification(navigator);
   }
 }
