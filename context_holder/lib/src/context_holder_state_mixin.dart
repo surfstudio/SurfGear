@@ -5,6 +5,6 @@ import 'package:flutter/widgets.dart';
 mixin ContextHolderStateMixin<T extends StatefulWidget> on State<T> {
   void didChangeDependencies() {
     super.didChangeDependencies();
-    ContextHolderStorage().context = context;
+    BuildContextHolder.instance.context = context;
   }
 }

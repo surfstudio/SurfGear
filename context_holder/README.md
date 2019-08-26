@@ -7,5 +7,5 @@
 The BuildContext store received from the last created widget
 
 ## Использование
-* Подключить ContextHolderStateMixin ко требуемым экранам приложения, и BuildContext будет схранятся в хранилище
+* Подключить ContextHolderStateMixin к требуемым экранам приложения, и BuildContext будет схраняться в хранилище
 * Получить сохраненный контекст `ContextHolderStorage().context`
