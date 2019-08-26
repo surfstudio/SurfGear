@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-/// Глобальное хранилище контекста
+/// BuildContext global storage
 class BuildContextHolder {
   BuildContext context;
 
