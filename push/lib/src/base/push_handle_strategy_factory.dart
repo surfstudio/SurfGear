@@ -1,4 +1,4 @@
-import 'package:push/src/base/base_push_handle_strategy.dart';
+import 'package:push/push.dart';
 
 /// Абстрактная факбрика для стратегий обработки пуш уведомлений
 abstract class PushHandleStrategyFactory {

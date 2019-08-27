@@ -13,7 +13,9 @@ class MessageScreen extends StatefulWidget {
 class MessageScreenState extends State<MessageScreen> {
   final List<Message> messages = [];
 
-  PushManager _pushManager;
+  PushHandler _pushHandler;
+  MessagingService _messagingService;
+
   ExampleFactory _factory;
   NotificationController _notificationController;
 
@@ -22,15 +24,13 @@ class MessageScreenState extends State<MessageScreen> {
     super.initState();
 
     _factory = ExampleFactory();
-    _notificationController = NotificationController(
-      _factory,
-      androidMipMapIcon,
-    );
-    _pushManager = PushManager(
+    _notificationController = NotificationController(androidMipMapIcon);
+    _pushHandler = PushHandler(
       _factory,
       _notificationController,
     );
-    _pushManager.requestNotificationPermissions();
+    _messagingService = MessagingService(_pushHandler);
+    _messagingService.requestNotificationPermissions();
   }
 
   @override

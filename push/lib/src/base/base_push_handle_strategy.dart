@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:push/push.dart';
-import 'package:push/src/base/base_notification_payload.dart';
 
 /// Абстрактная стратегия
 abstract class BasePushHandleStrategy<PT extends BaseNotificationPayload> {

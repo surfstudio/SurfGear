@@ -1,15 +1,14 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:logger/logger.dart';
 import 'package:push/push.dart';
 import 'package:rxdart/subjects.dart';
 
+typedef NotificationCallback = void Function(String payload);
+
 /// Обёртка над локальными уведомлениями
 class NotificationController {
-  final PushHandleStrategyFactory _strategyFactory;
-
   final BehaviorSubject<BasePushHandleStrategy> selectNotificationSubject =
       BehaviorSubject();
 
@@ -17,7 +16,6 @@ class NotificationController {
   SelectNotificationCallback onSelectNotification;
 
   NotificationController(
-    this._strategyFactory,
     String androidDefaultIcon,
   ) {
     _notificationPlugin = FlutterLocalNotificationsPlugin()
@@ -29,11 +27,12 @@ class NotificationController {
             Logger.d("handle notification% $id , $title, $body, $payload");
           }),
         ),
-        onSelectNotification: _internalOnSelectNotifacation,
+        onSelectNotification: _internalOnSelectNotification,
       );
   }
 
-  Future<dynamic> show(BasePushHandleStrategy strategy) {
+  Future<dynamic> show(BasePushHandleStrategy strategy,
+      NotificationCallback onSelectNotification) {
     final androidSpecific = AndroidNotificationDetails(
       strategy.notificationChannelId,
       strategy.notificationChannelName,
@@ -42,9 +41,10 @@ class NotificationController {
     final iosSpecific = IOSNotificationDetails();
     final platformSpecifics = NotificationDetails(androidSpecific, iosSpecific);
 
-    debugPrint(
+    Logger.d(
         "DEV_INFO receive for show push : ${strategy.title}, ${strategy.body}");
 
+    this.onSelectNotification = onSelectNotification;
     return _notificationPlugin.show(
       strategy.pushId,
       strategy.title,
@@ -54,18 +54,10 @@ class NotificationController {
     );
   }
 
-  Future<dynamic> _internalOnSelectNotifacation(String payload) {
-    print('DEV_INFO onSelectNotification, payload: $payload');
-
-    final payloadJson = jsonDecode(payload);
-    var strategy = _strategyFactory.createByData(payloadJson);
-    strategy.beforeTapNotificationHandler();
-
-    selectNotificationSubject.add(payloadJson);
-
+  Future<dynamic> _internalOnSelectNotification(String payload) async {
+    Logger.d('DEV_INFO onSelectNotification, payload: $payload');
     if (onSelectNotification != null) {
       return onSelectNotification(payload);
     }
-    return null;
   }
 }
