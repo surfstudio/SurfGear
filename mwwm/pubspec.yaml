@@ -13,7 +13,10 @@ dependencies:
 
   #внутренние библиотеки
   injector:
-    path: ../injector
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: project-KFC
+      path: injector
 
   #rx
   rxdart: 0.22.0
