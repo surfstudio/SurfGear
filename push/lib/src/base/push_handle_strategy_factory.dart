@@ -11,6 +11,8 @@ abstract class PushHandleStrategyFactory {
 
   /// Возвращает стратегию по данным пуша
   BasePushHandleStrategy createByData(Map<String, dynamic> messageData) {
-    return map[messageData[key]]..extractDataFromMap(messageData);
+    var strategy = map[messageData[key]];
+    strategy.payload.extractDataFromMap(messageData);
+    return strategy;
   }
 }

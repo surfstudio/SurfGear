@@ -12,29 +12,11 @@ abstract class BasePushHandleStrategy<PT extends BaseNotificationPayload> {
   int pushId = 0;
 
   /// данные сообщения
-  String title;
-  String body;
   PT payload;
-
-  /// Исходные данные сообщения
-  Map<String, dynamic> messageData;
-
-  /// извлечение данных
-  void extractDataFromMap(Map<String, dynamic> map) {
-    messageData = Map<String, dynamic>.from(map);
-    title = map['title'];
-    body = map['body'];
-    extractPayloadFromMap(map);
-  }
 
   /// абстрактный метод извлечения данных
   void extractPayloadFromMap(Map<String, dynamic> map);
 
   /// обработка сообщения
   void onTapNotification(NavigatorState navigator);
-
-  void beforeTapNotificationHandler() {
-    var navigator = PushNavigatorHolder().navigator;
-    onTapNotification(navigator);
-  }
 }

@@ -42,15 +42,15 @@ class NotificationController {
     final platformSpecifics = NotificationDetails(androidSpecific, iosSpecific);
 
     Logger.d(
-        "DEV_INFO receive for show push : ${strategy.title}, ${strategy.body}");
+        "DEV_INFO receive for show push : ${strategy.payload.title}, ${strategy.payload.body}");
 
     this.onSelectNotification = onSelectNotification;
     return _notificationPlugin.show(
       strategy.pushId,
-      strategy.title,
-      strategy.body,
+      strategy.payload.title,
+      strategy.payload.body,
       platformSpecifics,
-      payload: jsonEncode(strategy.messageData),
+      payload: jsonEncode(strategy.payload.messageData),
     );
   }
 
