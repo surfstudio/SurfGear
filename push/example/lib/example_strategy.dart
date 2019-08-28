@@ -5,14 +5,6 @@ import 'package:push_demo/message_screen.dart';
 
 class ExampleStrategy extends BasePushHandleStrategy<ExamplePayload> {
   @override
-  void extractPayloadFromMap(Map<String, dynamic> map) {
-    payload = ExamplePayload(
-      map['payloadInt'],
-      map['payloadString'],
-    );
-  }
-
-  @override
   void onTapNotification(NavigatorState navigator) {
     debugPrint('on tap notification');
 

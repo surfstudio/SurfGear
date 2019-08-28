@@ -14,9 +14,6 @@ abstract class BasePushHandleStrategy<PT extends BaseNotificationPayload> {
   /// данные сообщения
   PT payload;
 
-  /// абстрактный метод извлечения данных
-  void extractPayloadFromMap(Map<String, dynamic> map);
-
   /// обработка сообщения
   void onTapNotification(NavigatorState navigator);
 }
