@@ -9,7 +9,8 @@ abstract class BaseNotificationPayload {
   /// извлечение данных
   void extractDataFromMap(Map<String, dynamic> map) {
     messageData = Map<String, dynamic>.from(map);
-    title = map['title'];
-    body = map['body'];
+
+    title = map['notification']['title'];
+    body = map['notification']['body'];
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:push/push.dart';
-import 'package:push_demo/message_screen.dart';
+import 'package:push_demo/ui/main_screen.dart';
 
 void main() => runApp(MyApp());
 

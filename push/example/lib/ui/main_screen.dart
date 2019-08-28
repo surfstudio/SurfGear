@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:push/push.dart';
-import 'package:push_demo/example_factory.dart';
-import 'package:push_demo/message.dart';
+import 'package:push_demo/domain/message.dart';
+import 'package:push_demo/notification/example_factory.dart';
 
 const String androidMipMapIcon = "@mipmap/ic_launcher";
 
@@ -11,7 +11,7 @@ class MessageScreen extends StatefulWidget {
 }
 
 class MessageScreenState extends State<MessageScreen> {
-  final List<Message> messages = [];
+  final List<Message> messageList = [];
 
   PushHandler _pushHandler;
   MessagingService _messagingService;
@@ -31,6 +31,13 @@ class MessageScreenState extends State<MessageScreen> {
     );
     _messagingService = MessagingService(_pushHandler);
     _messagingService.requestNotificationPermissions();
+
+    _pushHandler.messageSubject.listen((messageMap) {
+      var message = Message()..extractDataFromMap(messageMap);
+      setState(() {
+        messageList.add(message);
+      });
+    });
   }
 
   @override
@@ -40,14 +47,14 @@ class MessageScreenState extends State<MessageScreen> {
         title: Text('Push demo'),
       ),
       body: ListView.builder(
-        itemCount: messages.length,
+        itemCount: messageList.length,
         itemBuilder: buildMessage,
       ),
     );
   }
 
   Widget buildMessage(BuildContext context, int index) {
-    final message = messages[index];
+    final message = messageList[index];
     return ListTile(
       title: Text(message.title),
       subtitle: Text(message.body),
