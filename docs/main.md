@@ -14,8 +14,8 @@
         1. [Dart Code Style](common/code_style.md)
     1. [Архитектура приложения](common/arch.md)
     1. [Инъекция зависимостей](common/di.md)
-    1. [Логгирование](common/logging.md) //todo
-    1. [Асинхронные взаимодействия](common/async.md)
+    1. [Логгирование](todox) //todo
+    1. [Асинхронные взаимодействия](todo)
     1. [Пуш-уведомления](../push/README.md) //todo
 
 1. [**Слой Model**](todo)
