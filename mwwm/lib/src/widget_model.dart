@@ -59,7 +59,7 @@ abstract class WidgetModel {
     onError(e),
   }) {
     future.then(onValue).catchError((e) {
-      onError(e);
+      onError?.call(e);
     });
   }
 
@@ -71,7 +71,7 @@ abstract class WidgetModel {
   }) {
     future.then(onValue).catchError((e) {
       handleError(e);
-      onError(e);
+      onError?.call(e);
     });
   }
 
