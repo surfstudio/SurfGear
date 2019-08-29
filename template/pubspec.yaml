@@ -14,32 +14,32 @@ dependencies:
   network:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PARK
+      ref: dev
       path: network
   logger:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PARK
+      ref: dev
       path: logger
   injector:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PARK
+      ref: dev
       path: injector
   mwwm:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PARK
+      ref: dev
       path: mwwm
   geolocation:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PARK
+      ref: dev
       path: geolocation
   analytics:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PARK
+      ref: dev
       path: analytics
 
   intl: 0.15.7
