@@ -3,15 +3,15 @@ import 'package:mwwm/mwwm.dart';
 
 typedef DataWidgetBuilder<T> = Widget Function(BuildContext, T data);
 
-/// Реактивный виджет для [EntityStreamedState]
+/// Reactive widget for [EntityStreamedState]
 ///
-/// [streamedState] - внешний поток, который управляет состояние виджета
-/// виджет имеет 3 состояния:
-///   [child] - контент;
-///   [loadingChild] - загрузка;
-///   [errorChild] - ошибка.
+/// [streamedState] - external stream that controls the state of the widget
+/// widget has three states:
+///   [child] - content;
+///   [loadingChild] - loading;
+///   [errorChild] - error.
 ///
-/// ### пример
+/// ### example
 /// ```dart
 /// EntityStateBuilder<Data>(
 ///      streamedState: wm.dataState,

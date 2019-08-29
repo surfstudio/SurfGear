@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:mwwm/mwwm.dart';
 
-/// Стрим билдер для текстовых полей
+/// Stream builder for text fields
 class TextFieldStateBuilder extends StatelessWidget {
   final TextFieldStreamedState state;
   final Widget Function(BuildContext, TextFieldState) stateBuilder;
@@ -21,13 +21,13 @@ class TextFieldStateBuilder extends StatelessWidget {
   }
 }
 
-/// Стейт текстового поля
-/// поддержка
-///   - загрузки
-///   - ошибки
-///   - дизейбла
-///   - данных
-/// todo подумать над объединением с контроллером
+/// Text field state
+/// can:
+///   - loading
+///   - error
+///   - disable
+///   - content
+/// todo come up with how to combine with the controller
 class TextFieldState extends EntityState<String> {
   final bool isEnabled;
   final String data;
@@ -53,8 +53,8 @@ class TextFieldState extends EntityState<String> {
         super.content(oldData);
 }
 
-/// Потоковое представление состояния текстового поля
-/// Для валидаций есть возможность задать ограничения такие как [validator],
+/// Stream view of text field state
+/// For validations, it is possible to set restrictions such as [validator],
 /// [mandatory], [canEdit]
 class TextFieldStreamedState extends StreamedState<TextFieldState>
     implements EntityEvent<String> {
