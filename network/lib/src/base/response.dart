@@ -1,15 +1,21 @@
+import 'dart:convert';
+
 ///Ответ сервера
-class Response {
-  final Map<String, dynamic> body;
+class Response<T> {
+  final T bodyRaw;
   final int statusCode;
 
+  Map<String, dynamic> get body => bodyRaw is String
+      ? jsonDecode(bodyRaw as String)
+      : bodyRaw as Map<String, dynamic>;
+
   Response(
-    this.body,
+    this.bodyRaw,
     this.statusCode,
   );
 
   @override
   String toString() {
-    return body.toString();
+    return bodyRaw.toString();
   }
 }
