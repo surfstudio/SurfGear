@@ -3,15 +3,11 @@ import 'dart:convert';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:logger/logger.dart';
 import 'package:push/push.dart';
-import 'package:rxdart/subjects.dart';
 
 typedef NotificationCallback = void Function(String payload);
 
 /// Wrapper over local notifications
 class NotificationController {
-  final BehaviorSubject<PushHandleStrategy> selectNotificationSubject =
-      BehaviorSubject();
-
   FlutterLocalNotificationsPlugin _notificationPlugin;
   SelectNotificationCallback onSelectNotification;
 

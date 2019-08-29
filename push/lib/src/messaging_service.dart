@@ -5,14 +5,21 @@ enum MessageHandlerType { onMessage, onLaunch, onResume }
 
 /// Wrapper over [FirebaseMessaging]
 class MessagingService {
-  final FirebaseMessaging _messaging = FirebaseMessaging();
-
-  final PushHandler _handler;
-
   MessagingService(
     this._handler,
   ) {
     _initNotification();
+  }
+
+  final FirebaseMessaging _messaging = FirebaseMessaging();
+
+  final PushHandler _handler;
+
+  /// request notification permissions for ios platform
+  void requestNotificationPermissions() {
+    _messaging.requestNotificationPermissions(
+      const IosNotificationSettings(sound: true, badge: true, alert: true),
+    );
   }
 
   Future<dynamic> _internalMessageInterceptor(
@@ -35,12 +42,6 @@ class MessagingService {
         message,
         MessageHandlerType.onResume,
       ),
-    );
-  }
-
-  void requestNotificationPermissions() {
-    _messaging.requestNotificationPermissions(
-      const IosNotificationSettings(sound: true, badge: true, alert: true),
     );
   }
 }

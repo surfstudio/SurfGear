@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:push/push.dart';
 import 'package:push_demo/domain/message.dart';
-import 'package:push_demo/notification/example_factory.dart';
 
 const String androidMipMapIcon = "@mipmap/ic_launcher";
 
 class MessageScreen extends StatefulWidget {
+  MessageScreen(this.pushHandler);
+
+  final PushHandler pushHandler;
+
   @override
   MessageScreenState createState() => new MessageScreenState();
 }
@@ -13,26 +16,11 @@ class MessageScreen extends StatefulWidget {
 class MessageScreenState extends State<MessageScreen> {
   final List<Message> messageList = [];
 
-  PushHandler _pushHandler;
-  MessagingService _messagingService;
-
-  ExampleFactory _factory;
-  NotificationController _notificationController;
-
   @override
   void initState() {
     super.initState();
 
-    _factory = ExampleFactory();
-    _notificationController = NotificationController(androidMipMapIcon);
-    _pushHandler = PushHandler(
-      _factory,
-      _notificationController,
-    );
-    _messagingService = MessagingService(_pushHandler);
-    _messagingService.requestNotificationPermissions();
-
-    _pushHandler.messageSubject.listen((messageMap) {
+    widget.pushHandler.messageSubject.listen((messageMap) {
       var message = Message.fromMap(messageMap);
       setState(() {
         messageList.add(message);
