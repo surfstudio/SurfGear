@@ -24,7 +24,15 @@ class FirstScreenState extends State<FirstScreen> {
       appBar: AppBar(
         title: Text('First notification screen'),
       ),
-      body: Placeholder(),
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            Text('Incomming message'),
+            Text('Title : ${widget.payload.title}'),
+            Text('Body: ${widget.payload.body}'),
+          ],
+        ),
+      ),
     );
   }
 }

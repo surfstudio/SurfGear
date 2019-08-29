@@ -1,18 +1,28 @@
+import 'dart:io';
+
 import 'package:push/push.dart';
 
-/// Абстрактная факбрика для стратегий обработки пуш уведомлений
+/// strategy builder function
+typedef StrategyBuilder = PushHandleStrategy Function(
+    Map<String, dynamic> payload);
+
+/// Abstract factory for push notification strategies
 abstract class PushHandleStrategyFactory {
-  /// ключ события в data firebase'вского пуша
-  /// Можно настроить свой формат в релизации фабрики
+  /// Action key in data firebase's push
+  /// You can customize your format in the factory implementation.
   String key = "event";
 
-  /// Переопределяем с необходимым соответствием действий(типа пуша) и стратегий
-  Map<String, BasePushHandleStrategy> get map;
+  /// Override with the necessary matching actions and strategy builder
+  Map<String, StrategyBuilder> get map;
 
-  /// Возвращает стратегию по данным пуша
-  BasePushHandleStrategy createByData(Map<String, dynamic> messageData) {
-    var strategy = map[messageData[key]];
-    strategy.payload.extractDataFromMap(messageData);
-    return strategy;
+  /// Returns a strategy from push data
+  PushHandleStrategy createByData(Map<String, dynamic> messageData) {
+    var builder;
+    if (Platform.isAndroid) {
+      builder = map[messageData['data'][key]];
+    } else if (Platform.isIOS) {
+      builder = map[messageData[key]];
+    }
+    return builder(messageData);
   }
 }

@@ -1,11 +1,11 @@
 import 'package:push/push.dart';
 import 'package:rxdart/subjects.dart';
 
-/// Обработка нотификаций
+/// Notification handling
 class PushHandler {
-  /// Возможность на прямую подписаться на получение сообщений
+  /// The ability to directly subscribe to receive messages
   final PublishSubject<Map<String, dynamic>> messageSubject = PublishSubject();
-  final BehaviorSubject<BasePushHandleStrategy> selectNotificationSubject =
+  final BehaviorSubject<PushHandleStrategy> selectNotificationSubject =
       BehaviorSubject();
 
   final PushHandleStrategyFactory _strategyFactory;

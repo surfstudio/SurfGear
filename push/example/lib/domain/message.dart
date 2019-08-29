@@ -1,14 +1,24 @@
 import 'package:push/push.dart';
 
-class Message extends BaseNotificationPayload {
-  int extraInt;
-  double extraDouble;
+class Message extends NotificationPayload {
+  Message(
+    Map<String, dynamic> messageData,
+    String title,
+    String body,
+    this.extraInt,
+    this.extraDouble,
+  ) : super(messageData, title, body);
 
-  @override
-  void extractDataFromMap(Map<String, dynamic> map) {
-    super.extractDataFromMap(map);
-    print('extractDataFromMap: $map');
-    extraInt = map['extraInt'] ?? 0;
-    extraDouble = map['extraDouble'] ?? 0.0;
+  final int extraInt;
+  final double extraDouble;
+
+  factory Message.fromMap(Map<String, dynamic> map) {
+    return Message(
+      map,
+      map['notification']['title'],
+      map['notification']['body'],
+      map['extraInt'] ?? 0,
+      map['extraDouble'] ?? 0.0,
+    );
   }
 }

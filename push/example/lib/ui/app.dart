@@ -10,7 +10,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      navigatorObservers: [PushObserver()],
+      navigatorObservers: [
+        PushObserver(),
+      ],
       title: appTitle,
       theme: ThemeData(
         primarySwatch: Colors.indigo,

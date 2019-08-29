@@ -3,7 +3,7 @@ import 'package:push/push.dart';
 
 enum MessageHandlerType { onMessage, onLaunch, onResume }
 
-/// Обёртка над [FirebaseMessaging]
+/// Wrapper over [FirebaseMessaging]
 class MessagingService {
   final FirebaseMessaging _messaging = FirebaseMessaging();
 

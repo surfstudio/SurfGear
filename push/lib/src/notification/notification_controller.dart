@@ -7,9 +7,9 @@ import 'package:rxdart/subjects.dart';
 
 typedef NotificationCallback = void Function(String payload);
 
-/// Обёртка над локальными уведомлениями
+/// Wrapper over local notifications
 class NotificationController {
-  final BehaviorSubject<BasePushHandleStrategy> selectNotificationSubject =
+  final BehaviorSubject<PushHandleStrategy> selectNotificationSubject =
       BehaviorSubject();
 
   FlutterLocalNotificationsPlugin _notificationPlugin;
@@ -31,8 +31,10 @@ class NotificationController {
       );
   }
 
-  Future<dynamic> show(BasePushHandleStrategy strategy,
-      NotificationCallback onSelectNotification) {
+  Future<dynamic> show(
+    PushHandleStrategy strategy,
+    NotificationCallback onSelectNotification,
+  ) {
     final androidSpecific = AndroidNotificationDetails(
       strategy.notificationChannelId,
       strategy.notificationChannelName,

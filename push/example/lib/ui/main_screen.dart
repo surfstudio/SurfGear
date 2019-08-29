@@ -33,7 +33,7 @@ class MessageScreenState extends State<MessageScreen> {
     _messagingService.requestNotificationPermissions();
 
     _pushHandler.messageSubject.listen((messageMap) {
-      var message = Message()..extractDataFromMap(messageMap);
+      var message = Message.fromMap(messageMap);
       setState(() {
         messageList.add(message);
       });
