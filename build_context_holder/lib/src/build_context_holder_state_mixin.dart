@@ -1,4 +1,4 @@
-import 'package:context_holder/context_holder.dart';
+import 'package:build_context_holder/build_context_holder.dart';
 import 'package:flutter/widgets.dart';
 
 /// Getting context by mixing into a widget

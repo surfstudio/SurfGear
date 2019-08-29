@@ -1,4 +1,4 @@
-name: context_holder
+name: build_context_holder
 description: The BuildContext store received from the last created widget.
 version: 0.0.1
 author:

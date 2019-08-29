@@ -1,4 +1,4 @@
-import 'package:context_holder/context_holder.dart';
+import 'package:build_context_holder/build_context_holder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
