@@ -21,7 +21,7 @@ StreamController<Counter> _counterController;
 
 Storage _storage = JsonStorage("jsonStorageExample");
 
-String _counterKey="counter";
+String _counterKey = "counter";
 
 _storage
         .get(_counterKey)
