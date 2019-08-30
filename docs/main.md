@@ -8,10 +8,10 @@
 
 1. [Git flow в репозитории](git/flow.md)
 1. **Общие сведения о построении приложения**
-    1. [Требования к коду](common/codestyle)
-        1. [Java Code Style](common/codestyle/code_style.md)
-        1. [Koltin Code Style](common/codestyle/java_codestyle.md)
-        1. [Dart Code Style](common/codestyle/kotlin_codestyle.md)
+    1. [Требования к коду](todo)
+        1. [Java Code Style](todo)
+        1. [Koltin Code Style](todo)
+        1. [Dart Code Style](todo)
     1. [Архитектура приложения](common/arch.md)
     1. [Инъекция зависимостей](common/di.md)
     1. [Логгирование](common/logging.md) //todo
