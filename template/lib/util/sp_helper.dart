@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PreferencesHelper {
   Future<Object> get(String key, Object defaultValue) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    var result = await sp?.get(key) ?? null;
+    var result = (sp != null) ? await sp.get(key) : null;
     print("DEV_INFO get from ${sp.toString()} by key $key | result $result");
     return result ?? defaultValue;
   }

@@ -8,6 +8,7 @@ class CounterInteractor {
   final CounterRepository _counterRepository;
 
   PublishSubject<Counter> _subject = PublishSubject();
+
   Observable<Counter> get counterObservable => _subject.stream;
 
   CounterInteractor(this._counterRepository) {
@@ -17,7 +18,6 @@ class CounterInteractor {
       _counter = c;
       _subject.add(_counter);
     });
-
   }
 
   incrementCounter() {
