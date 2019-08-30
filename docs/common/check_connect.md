@@ -39,7 +39,7 @@ if (connectivityResult == ConnectivityResult.mobile) {
 initState() {
   subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
     print("Connection Status has Changed");
-  })
+  });
 }
 
 dispose() {
