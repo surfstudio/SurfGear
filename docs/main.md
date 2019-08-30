@@ -21,7 +21,7 @@
 1. [**Слой Model**](todo)
     1. [Interactor](todo)
     1. [Проверка соединения](todo) 
-    1. [Работа с файловым хранилищем](todo)
+    1. [Работа с файловым хранилищем](common/file_storage.md)
     1. [Работа с SharedPrefs](todo)
 
 1. [UI слой]()
