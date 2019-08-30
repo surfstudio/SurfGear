@@ -26,6 +26,7 @@ class PhoneInputWidgetModel extends WidgetModel {
 
   @override
   void onLoad() {
+    super.onLoad();
     _listenToStreams();
   }
 

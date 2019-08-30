@@ -1,5 +1,4 @@
 class Model {
-
   final int id;
   final String name;
   final List<double> numbers;

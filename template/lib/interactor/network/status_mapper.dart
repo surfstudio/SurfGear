@@ -21,7 +21,7 @@ class DefaultStatusMapper extends StandardStatusMapper {
           throw Exception("Another exception");
       }
     } catch (ex) {
-      throw ex;
+      rethrow;
     }
   }
 }

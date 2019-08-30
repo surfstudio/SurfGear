@@ -89,6 +89,8 @@ dependencies:
   #connection
   connectivity: 0.4.2+2
 
+  pedantic: ^1.7.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
