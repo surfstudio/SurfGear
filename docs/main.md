@@ -9,9 +9,9 @@
 1. [Git flow в репозитории](git/flow.md)
 1. **Общие сведения о построении приложения**
     1. [Требования к коду](todo)
-        1. [Java Code Style](todo)
-        1. [Koltin Code Style](todod)
-        1. [Dart Code Style](todo)
+        1. [Java Code Style](https://github.com/surfstudio/SurfAndroidStandard/blob/snapshot-0.4.0/docs/common/codestyle/java_codestyle.md)
+        1. [Koltin Code Style](https://github.com/surfstudio/SurfAndroidStandard/blob/snapshot-0.4.0/docs/common/codestyle/kotlin_codestyle.md)
+        1. [Dart Code Style](common/code_style.md)
     1. [Архитектура приложения](common/arch.md)
     1. [Инъекция зависимостей](common/di.md)
     1. [Логгирование](todo) //todo
