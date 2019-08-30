@@ -23,7 +23,7 @@
     1. [Проверка соединения](todo)
     1. [Работа с Broadcast](todo)
     1. [Работа с файловым хранилищем](todo)
-    1. [Работа с SharedPrefs](todo)
+    1. [Работа с SharedPrefs](common/shared_preferences.md)
 
 1. [UI слой]()
     1. [Структура UI-слоя](ui/structure.md)
