@@ -20,8 +20,7 @@
 
 1. [**Слой Model**](todo)
     1. [Interactor](todo)
-    1. [Проверка соединения](todo)
-    1. [Работа с Broadcast](todo)
+    1. [Проверка соединения](todo) 
     1. [Работа с файловым хранилищем](todo)
     1. [Работа с SharedPrefs](todo)
 
@@ -44,4 +43,4 @@
 1. [Лучшие практики](best_practice/best_practice.md)
     1. [Поиск утечек](best_practice/memory_leak.md)
     2. [CI](https://github.com/surfstudio/jenkins-pipeline-lib)
-    3. [Настройки и плагины для Android Studio](best_practice/android_studio_settings.md)
+    3. [Настройки и плагины для Android Studio](best_practice/android_studio_settings.md) 
