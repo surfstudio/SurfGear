@@ -29,7 +29,7 @@
     1. [Структура UI-слоя](ui/structure.md)
         1. [WidgetModel](todo)
         1. [Widget](todo)
-    1. [Навигация](todo)
+    1. [Навигация](сommon/navigation.md)
     1. [Создание экрана](ui/create_screen.md)
     1. [Диалоги](todo)
 
