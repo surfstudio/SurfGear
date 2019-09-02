@@ -4,14 +4,12 @@ import 'package:push_demo/notification/example_factory.dart';
 import 'package:push_demo/ui/main_screen.dart';
 
 void main() {
-  PushHandler pushHandler;
-  MessagingService messagingService;
-
-  pushHandler = PushHandler(
+  MessagingService messagingService = MessagingService();
+  PushHandler pushHandler = PushHandler(
     ExampleFactory(),
     NotificationController(androidMipMapIcon),
+    messagingService,
   );
-  messagingService = MessagingService(pushHandler);
   messagingService.requestNotificationPermissions();
 
   runApp(MyApp(
