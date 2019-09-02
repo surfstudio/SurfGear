@@ -7,7 +7,7 @@
 --------------------
 
 1. [Git flow в репозитории](git/flow.md)
-1. **Общие сведения о построении приложения**
+1. **Общие сведения о построении приложения** 
     1. [Требования к коду](todo)
         1. [Java Code Style](todo)
         1. [Koltin Code Style](todod)
@@ -27,8 +27,8 @@
 
 1. [UI слой]()
     1. [Структура UI-слоя](ui/structure.md)
-        1. [WidgetModel](todo)
-        1. [Widget](todo)
+        1. [WidgetModel](ui/widget_model.md)
+        1. [Widget](ui/widget.md)
     1. [Навигация](todo)
     1. [Создание экрана](ui/create_screen.md)
     1. [Диалоги](todo)
