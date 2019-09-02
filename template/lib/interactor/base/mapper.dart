@@ -3,9 +3,9 @@
 /// * Главная особенность: возможность из [F] получить множество различных [T]
 /// * путём разделения на несколько наследником [Mapper]
 abstract class Mapper<F, T> {
-    F data;
+  F data;
 
-    Mapper.of(this.data);
+  Mapper.of(this.data);
 
-    T map();
+  T map();
 }

@@ -2,9 +2,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_template/ui/app/app.dart';
 import 'package:mwwm/mwwm.dart';
 
-
 class AppWidgetModel extends WidgetModel {
   final GlobalKey<NavigatorState> _navigator;
+
+  // ignore: unused_field
   final MessageController _msgController;
 
   AppWidgetModel(
@@ -15,6 +16,7 @@ class AppWidgetModel extends WidgetModel {
 
   @override
   void onLoad() {
+    super.onLoad();
     _loadApp();
   }
 

@@ -17,5 +17,6 @@ class InitialProgressInteractor {
   Future<bool> get isOnMain async =>
       await _currentProgress == InitialProgress.main;
 
-  Future<bool> get isOnMac async => await _currentProgress == InitialProgress.mac;
+  Future<bool> get isOnMac async =>
+      await _currentProgress == InitialProgress.mac;
 }

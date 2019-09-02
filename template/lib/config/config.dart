@@ -1,5 +1,3 @@
-import 'package:flutter_template/interactor/common/urls.dart';
-
 ///
 /// Пример класса-конфигурации
 ///

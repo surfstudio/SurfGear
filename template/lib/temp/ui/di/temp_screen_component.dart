@@ -6,7 +6,7 @@ import 'package:flutter_template/ui/base/error/standard_error_handler.dart';
 import 'package:flutter_template/ui/base/material_message_controller.dart';
 import 'package:mwwm/mwwm.dart';
 
-/// Шаблон [Component] для экрана <todo>
+/// [Component] для экрана <todo>
 class TempScreenComponent implements BaseWidgetModelComponent<TempWidgetModel> {
   @override
   TempWidgetModel wm;
