@@ -19,10 +19,10 @@
 авторизации, так и на экране отображения заказов пользователя. Исходя из полученных данных от AuthInteractor
 в WidgetModel произвести обработку состояний экрана и передать на презентационный слой.
 
-Из-за того,что в интеракторах api строится на основе [rxDart](async.md), следовательно данные должны храниться
-в реактивных потоках. Для хранения данных внутри интерактора используются Subjects. По сути это
-те же StreamControllerы из нативного Dart, только с возможностью множественной подписки.
-Более подробно об этом можно узнать в этой [статье на хабре](https://habr.com/ru/post/451292/)
+Api интеракторов строится преимущнественно на Rx.
+Для рассылки событий между отдельными частями приложения следует создавать Subject внутри интерактора.
+У Subject схожий принцип работы с StreamController из нативного Dart, только с возможностью множественной подписки.
+Более подробно об этом можно узнать в этой [статье](https://habr.com/ru/post/451292/)
 
 ### Типовые сущности, принадлежащие слою Interactor
 
@@ -42,10 +42,17 @@
 некому установленному вами правилу.
 
 ###### 2. Storage
-Обертка над источником данных
+
+Обертка над источником данных. Следуя принципам SOLID, каждый класс должен иметь единственную ответственность.
+Нельзя смешивать логику нескольких классов в один. Сущность Storage предназначена для абстрагирования
+работы с хранилищем данных. Например есть кейс, когда необходимо сохранять данные пользователя на локальное устройство.
+Это необходимо делать в различных форматах. Например xml и json. Правильным решением в этом случае будет
+реализовать отдельно низкоуровневое api для работы с файловой системой устройства - FileSystem. Поверх него реализовать
+две "обертки" JsonStorage и XmlStorage, которые будут использовать FileSystem для доступа к файловой системе, а логика сохранения
+данных будет реализоавана непосредственно в этих классах. 
 
 ###### 3. Mapper
-Обьект, который переводит один тип данных в другой
+Объект, который переводит один тип данных в другой.
 
 ###### 4. Интерактор инициализации
 
@@ -80,34 +87,47 @@
 
 Пример: 
 ```dart
-/// Интерактор для работы с профилем пользователя
-class UserInteractor {
-  final BehaviorSubject<User> _userSubject = BehaviorSubject();
-  final UserRepository userRepository;
+/// Интерактор сессии пользователя
+class SessionChangedInteractor {
+  final AuthInfoStorage _ts;
 
-  UserInteractor(this.userRepository);
+  final PublishSubject<SessionState> sessionSubject = PublishSubject();
 
-  ///Получение профиля
-  Observable<User> getUser() =>
-      userRepository.getUser().doOnData((u) => _userSubject.add(u));
+  SessionChangedInteractor(this._ts);
 
-  /// Изменение пользовательского профиля
-  Observable<User> changeProfile({
-    String phone,
-    String email,
-    String fio,
-    DateTime birthDate,
-    String cityName,
-  }) =>
-      userRepository.changeProfile(
-        birthDate: birthDate,
-        phone: phone,
-        email: email,
-        fio: fio,
-        cityName: cityName,
-      );
+  void onSessionChanged() {
+    sessionSubject.add(SessionState.LOGGED_IN);
+  }
+
+  void forceLogout() {
+    sessionSubject.add(SessionState.LOGGED_OUT);
+    silentLogout();
+  }
+
+  void silentLogout() {
+    _ts.clearData();
+  }
 }
+
+enum SessionState { LOGGED_IN, LOGGED_OUT }
 ```
 
-Далее подключаем UserInteractor в любую WidgetModel, где понадобиться получать текущего пользователя
-и вызываем метод getUser().
+Далее необходимо подключить SessionChangedInteractor в WidgetModel и подписаться на изменения 
+в sessionSubject:
+
+```dart
+/// Некоторая WidgetModel
+class SomeWidgetModel {
+   final SessionChangedInteractor _changeInteractor;
+   
+   SomeWidgetModel(WidgetModelDependencies baseDependencies,
+        this._changeInteractor,) : super(baseDependencies);
+   
+    @override
+     void onLoad() {
+       subscribeHandleError(_changeInteractor.sessionSubject, (sessionState){
+         print(sessionState.toString());});
+       super.onLoad();
+     }
+}
+```
