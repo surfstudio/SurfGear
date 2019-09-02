@@ -65,7 +65,6 @@ class Screen2 extends StatelessWidget {
 Наиболее часто используемые MaterialPageRoute и CupertinoPageRoute.
 Более подробно с созданием роутов можно ознакомиться в [этой статье](https://medium.com/@agungsurya/create-custom-router-transition-in-flutter-using-pageroutebuilder-73a1a9c4a171)
 
-
 # Примечание.
  
 В студийной практике навигатор используется только в сущности WidgetModel.
