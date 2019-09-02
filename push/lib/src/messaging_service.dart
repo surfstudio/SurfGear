@@ -7,6 +7,8 @@ enum MessageHandlerType { onMessage, onLaunch, onResume }
 class MessagingService {
   final FirebaseMessaging _messaging = FirebaseMessaging();
 
+  Future<String> get fcmTokenObservable => _messaging.getToken();
+
   HandleMessageFunction _handleMessage;
 
   /// request notification permissions for ios platform
