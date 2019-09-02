@@ -31,7 +31,7 @@
         1. [Widget](todo)
     1. [Навигация](todo)
     1. [Создание экрана](ui/create_screen.md)
-    1. [Диалоги](todo)
+    1. [Диалоги](ui/dialog.md)
 
 1. [Инициализация приложения](common/init_project.md)
     1. [Подготовка проекта к выгрузке в fabric](todo link to android)
