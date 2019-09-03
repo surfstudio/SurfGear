@@ -85,10 +85,6 @@ class _SomeScreenState extends WidgetState<SomeScreen, ScreenWidgetModel, Screen
                   onPressed: wm.showModalDialog,
                 ),
                 RaisedButton(
-                  child: Text("show sheet dialog"),
-                  onPressed: wm.showBottomSheet,
-                ),
-                RaisedButton(
                   child: Text("show datepicker"),
                   onPressed: wm.showDatePicker,
                 ),
