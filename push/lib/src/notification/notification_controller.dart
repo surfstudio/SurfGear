@@ -1,15 +1,19 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:logger/logger.dart';
 import 'package:push/push.dart';
 
-typedef NotificationCallback = void Function(String payload);
+typedef NotificationCallback = void Function(Map<String, dynamic> payload);
+
+const String pushIdParam = 'localPushId';
 
 /// Wrapper over local notifications
 class NotificationController {
   FlutterLocalNotificationsPlugin _notificationPlugin;
-  SelectNotificationCallback onSelectNotification;
+
+  HashMap<int, SelectNotificationCallback> callbackMap;
 
   NotificationController(
     String androidDefaultIcon,
@@ -42,18 +46,27 @@ class NotificationController {
     Logger.d(
         "DEV_INFO receive for show push : ${strategy.payload.title}, ${strategy.payload.body}");
 
-    this.onSelectNotification = onSelectNotification;
+    int pushId = DateTime.now().millisecondsSinceEpoch;
+    var tmpPayload = Map.of(strategy.payload.messageData);
+    tmpPayload[pushIdParam] = pushId;
+
     return _notificationPlugin.show(
       strategy.pushId,
       strategy.payload.title,
       strategy.payload.body,
       platformSpecifics,
-      payload: jsonEncode(strategy.payload.messageData),
+      payload: jsonEncode(tmpPayload),
     );
   }
 
   Future<dynamic> _internalOnSelectNotification(String payload) async {
     Logger.d('DEV_INFO onSelectNotification, payload: $payload');
+
+    Map<String, dynamic> tmpPayload = jsonDecode(payload);
+    int pushId = tmpPayload[pushIdParam];
+    var onSelectNotification = callbackMap[pushId];
+    callbackMap.remove(pushId);
+
     if (onSelectNotification != null) {
       return onSelectNotification(payload);
     }
