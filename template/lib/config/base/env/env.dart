@@ -22,5 +22,3 @@ class Environment<T> {
 
   bool get isDebug => _currentBuildType == BuildType.debug;
 }
-
-

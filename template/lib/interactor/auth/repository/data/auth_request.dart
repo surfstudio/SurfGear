@@ -15,6 +15,5 @@ class AuthRequest {
     return data;
   }
 
-  AuthRequest from(AuthInfo info) =>
-      AuthRequestMapper.of(info).map();
+  AuthRequest from(AuthInfo info) => AuthRequestMapper.of(info).map();
 }
