@@ -5,8 +5,8 @@ Logger for Dart & Flutter
 ## Использование
 
 Основные классы:
-1. [Logger]
-2. [RemoteLogger]
+1. [Logger](lib/src/logger.dart)
+2. [RemoteLogger](lib/src/remote_logger.dart)
 
 ## Logger
 
@@ -20,5 +20,3 @@ Logger используется как синглтон. Основные мет
 При добавлении `RemoteLogStrategy` на удаленный сервер отправляются все логи выше уровня WARN
 
 Чтобы не загрязнять Crashlytics используем `Logger#w()` для ожидаемых ошибок
-
-Кроме того в RemoteLogger есть возможность установить id, имя и email пользователя при входе в аккаунт и очистить при выходе.
