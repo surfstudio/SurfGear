@@ -13,7 +13,8 @@ const String pushIdParam = 'localPushId';
 class NotificationController {
   FlutterLocalNotificationsPlugin _notificationPlugin;
 
-  HashMap<int, SelectNotificationCallback> callbackMap;
+  Map<int, NotificationCallback> callbackMap =
+      HashMap<int, NotificationCallback>();
 
   NotificationController(
     String androidDefaultIcon,
@@ -49,6 +50,7 @@ class NotificationController {
     int pushId = DateTime.now().millisecondsSinceEpoch;
     var tmpPayload = Map.of(strategy.payload.messageData);
     tmpPayload[pushIdParam] = pushId;
+    callbackMap[pushId] = onSelectNotification;
 
     return _notificationPlugin.show(
       strategy.pushId,
@@ -68,7 +70,7 @@ class NotificationController {
     callbackMap.remove(pushId);
 
     if (onSelectNotification != null) {
-      return onSelectNotification(payload);
+      return onSelectNotification(tmpPayload);
     }
   }
 }
