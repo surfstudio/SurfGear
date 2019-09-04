@@ -24,8 +24,13 @@ class PushHandler {
   final MessagingService _messagingService;
 
   void handleMessage(
-      Map<String, dynamic> message, MessageHandlerType handlerType) {
-    messageSubject.add(message);
+    Map<String, dynamic> message,
+    MessageHandlerType handlerType, {
+    bool localNotification = false,
+  }) {
+    if (!localNotification) {
+      messageSubject.add(message);
+    }
 
     var strategy = _strategyFactory.createByData(message);
     _notificationController.show(

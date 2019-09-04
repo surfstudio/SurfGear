@@ -69,8 +69,6 @@ class NotificationController {
     var onSelectNotification = callbackMap[pushId];
     callbackMap.remove(pushId);
 
-    if (onSelectNotification != null) {
-      return onSelectNotification(tmpPayload);
-    }
+    return onSelectNotification?.call(tmpPayload);
   }
 }

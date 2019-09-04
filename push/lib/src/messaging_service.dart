@@ -39,9 +39,6 @@ class MessagingService {
   Future<dynamic> _internalMessageInterceptor(
     Map<String, dynamic> message,
     MessageHandlerType handlerType,
-  ) async {
-    if (_handleMessage != null) {
-      return _handleMessage(message, handlerType);
-    }
-  }
+  ) async =>
+      _handleMessage?.call(message, handlerType);
 }
