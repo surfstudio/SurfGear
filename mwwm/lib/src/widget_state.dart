@@ -22,7 +22,15 @@ abstract class WidgetState<T extends StatefulWidget, WM extends WidgetModel,
   void initState() {
     super.initState();
     print("DEV_INFO init State $this");
-    _component = getComponent(context);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print("DEV_INFO didChangeDependencies State $this");
+    if (_component == null) {
+      _component = getComponent(context);
+    }
   }
 
   @override

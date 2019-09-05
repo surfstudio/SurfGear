@@ -44,6 +44,7 @@ class NotificationController {
     );
   }
 
+  // ignore: missing_return
   Future _onSelectNotification(String payload) {
     //todo нажато на уведомление
   }
