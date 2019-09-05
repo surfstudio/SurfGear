@@ -7,7 +7,7 @@ import 'package:flutter_template/ui/res/colors.dart';
 import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
 
-/// Шаблона для экрана <todo>
+/// Экран <todo>
 class TempScreen extends StatefulWidget {
   @override
   _TempScreenState createState() => _TempScreenState();

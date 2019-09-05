@@ -10,11 +10,11 @@
 1. **Общие сведения о построении приложения**
     1. [Требования к коду](todo)
         1. [Java Code Style](todo)
-        1. [Koltin Code Style](todo)
-        1. [Dart Code Style](common/code_style.md)
+        1. [Koltin Code Style](todod)
+        1. [Dart Code Style](todo)
     1. [Архитектура приложения](common/arch.md)
     1. [Инъекция зависимостей](common/di.md)
-    1. [Логгирование](todox) //todo
+    1. [Логгирование](todo) //todo
     1. [Асинхронные взаимодействия](todo)
     1. [Пуш-уведомления](../push/README.md) //todo
 
