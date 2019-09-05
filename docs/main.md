@@ -8,19 +8,19 @@
 
 1. [Git flow в репозитории](git/flow.md)
 1. **Общие сведения о построении приложения**
-    1. [Требования к коду](todo link to android)
-        1. [Java Code Style](todo link to android)
-        1. [Koltin Code Style](todo link to android)
-        1. [Dart Code Style](common//code_style.md)
+    1. [Требования к коду](todo)
+        1. [Java Code Style][java_codestyle]
+        1. [Koltin Code Style][kotlin_codestyle]
+        1. [Dart Code Style](common/code_style.md)
     1. [Архитектура приложения](common/arch.md)
     1. [Инъекция зависимостей](common/di.md)
-    1. [Логгирование](common/logging.md) //todo
-    1. [Асинхронные взаимодействия](common/async.md)
+    1. [Логгирование](todo) //todo
+    1. [Асинхронные взаимодействия](todo)
     1. [Пуш-уведомления](../push/README.md)
 
 1. [**Слой Model**](todo)
     1. [Interactor](todo)
-    1. [Проверка соединения](todo)
+    1. [Проверка соединения](common/check_connect.md)
     1. [Работа с Broadcast](todo)
     1. [Работа с файловым хранилищем](todo)
     1. [Работа с SharedPrefs](todo)
@@ -45,3 +45,6 @@
     1. [Поиск утечек](best_practice/memory_leak.md)
     2. [CI](https://github.com/surfstudio/jenkins-pipeline-lib)
     3. [Настройки и плагины для Android Studio](best_practice/android_studio_settings.md)
+    
+[java_codestyle]:https://github.com/surfstudio/SurfAndroidStandard/blob/snapshot-0.4.0/docs/common/codestyle/java_codestyle.md
+[kotlin_codestyle]:https://github.com/surfstudio/SurfAndroidStandard/blob/snapshot-0.4.0/docs/common/codestyle/kotlin_codestyle.md
