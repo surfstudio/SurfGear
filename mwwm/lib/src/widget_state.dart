@@ -22,11 +22,20 @@ abstract class WidgetState<T extends StatefulWidget, WM extends WidgetModel,
   void initState() {
     super.initState();
     print("DEV_INFO init State $this");
-    _component = getComponent(context);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print("DEV_INFO didChangeDependencies State $this");
+    if (_component == null) {
+      _component = getComponent(context);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     print("DEV_INFO $this rebuild");
     return Injector(
       component: _component,
@@ -38,9 +47,9 @@ abstract class WidgetState<T extends StatefulWidget, WM extends WidgetModel,
   }
 
   void _attachWidgetModel(BuildContext context) {
-    var _debug_wm = Injector.of<C>(context).component.wm;
-    print("DEV_INFO identical wm ${wm == _debug_wm}");
-    wm ??= _debug_wm;
+    var debugWm = Injector.of<C>(context).component.wm;
+    print("DEV_INFO identical wm ${wm == debugWm}");
+    wm ??= debugWm;
   }
 
   @override

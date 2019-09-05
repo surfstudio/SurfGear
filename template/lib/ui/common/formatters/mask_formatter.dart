@@ -5,7 +5,7 @@ class MaskTextInputFormatter extends TextInputFormatter {
   Map<int, String> _maskMap;
   List<int> _maskList;
 
-  MaskTextInputFormatter(maskString, {escapeChar: "_"}) {
+  MaskTextInputFormatter(maskString, {escapeChar = "_"}) {
     assert(maskString != null);
     final entries = RegExp('[^$escapeChar]+')
         .allMatches(maskString)

@@ -35,9 +35,9 @@ class AuthInteractor {
       Observable(_pushManager.fcmTokenObservable.asStream())
           .flatMap(
             (token) => _authRepository.signIn(
-                  otpCode,
-                  AuthInfo(phone: phoneNumber, fcmToken: token),
-                ),
+              otpCode,
+              AuthInfo(phone: phoneNumber, fcmToken: token),
+            ),
           )
           .doOnData((_) => _sessionChangedInteractor.onSessionChanged);
 
