@@ -122,7 +122,7 @@ class FirstWidgetModel {
    Action sessionChangedAction = Action();
    
    FirstWidgetModel(WidgetModelDependencies baseDependencies,
-        this._changeInteractor,) : super(baseDependencies);
+        this._changeInteractor,) : super(baseDependencies); 
    
     @override
      void onLoad() {
