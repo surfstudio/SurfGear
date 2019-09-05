@@ -2,10 +2,12 @@
 
 [Главная](../main.md)
 
+[TabNavigator](tabnavigator.md)
+
 Навигация осуществляется при помощи стандартных механизмов фреймворка, а именно Navigator.
 
 Общий алгоритм работы:
-Необходимо указать какой виджет открывать, выбрать тип роута, и если необходимо, передать параметры.
+Необходимо  выбрать тип роута, и если необходимо, передать параметры.
 Для более детального изучения навигации во Flutter можно обратиться к [официальной документации](https://flutter.dev/docs/cookbook/navigation).
 
 # Пример использования
@@ -59,12 +61,14 @@ class Screen2 extends StatelessWidget {
 }
 ```
 
-# Роуты
+# Route
 
-Роуты определяют анимацию перехода.
+Route определяют анимацию перехода.
 Наиболее часто используемые MaterialPageRoute и CupertinoPageRoute.
-Более подробно с созданием роутов можно ознакомиться в [этой статье](https://medium.com/@agungsurya/create-custom-router-transition-in-flutter-using-pageroutebuilder-73a1a9c4a171)
+Более подробно с созданием роутов можно ознакомиться в [этой статье][route_link]
 
 # Примечание.
  
-В студийной практике навигатор используется только в сущности WidgetModel.
+В студийной практике навигатор используется только в сущности [WidgetModel](../ui/widget_model.md).
+
+[route_link]:https://medium.com/@agungsurya/create-custom-router-transition-in-flutter-using-pageroutebuilder-73a1a9c4a171
