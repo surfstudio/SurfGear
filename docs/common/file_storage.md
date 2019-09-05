@@ -18,7 +18,7 @@ LocalStorage.
 
 ```dart
 StreamController<Counter> _counterController;
-
+ 
 Storage _storage = JsonStorage("jsonStorageExample");
 
 String _counterKey = "counter";
