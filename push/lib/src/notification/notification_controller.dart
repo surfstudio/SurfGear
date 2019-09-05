@@ -45,6 +45,7 @@ class NotificationController {
     );
     final iosSpecific = IOSNotificationDetails(
       presentSound: strategy.playSound,
+      presentAlert: strategy.presentAlert,
     );
     final platformSpecifics = NotificationDetails(androidSpecific, iosSpecific);
 
