@@ -90,7 +90,7 @@ void _bindActions() {
     bind(showCardAction, (_) => _navigateToShowCardScreen());
   }
 ```
-
+ 
 [rx_dart_link]:https://pub.dev/packages/rxdart
 [rx_dart_habr]:https://habr.com/ru/post/451292/
 [future_link]:https://api.flutter.dev/flutter/dart-async/Future-class.html
