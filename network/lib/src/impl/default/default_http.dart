@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'dart:convert' as json;
 import 'package:network/src/base/config.dart';
 import 'package:network/src/base/status_mapper.dart';
@@ -7,8 +10,10 @@ import 'package:network/src/base/http.dart';
 import 'package:network/src/base/response.dart';
 import 'package:logger/logger.dart';
 
-///Реализация Http на основе стандартного [http]
-///todo по необходимости реализовать логику query - в текущей реализации не работает
+/// Реализация Http на основе стандартного [http]
+/// Response.bodyRaw всегда String.
+/// 
+/// todo по необходимости реализовать логику query - в текущей реализации не работает
 class DefaultHttp extends Http {
   final HeadersBuilder headersBuilder;
   final HttpConfig config;
@@ -18,7 +23,7 @@ class DefaultHttp extends Http {
 
   ///GET- request
   @override
-  Future<Response> get<T>(
+  Future<Response<T>> get<T>(
     String url, {
     Map<String, dynamic> query,
     Map<String, String> headers,
@@ -36,7 +41,7 @@ class DefaultHttp extends Http {
 
   ///POST-request
   @override
-  Future<Response> post<T>(
+  Future<Response<T>> post<T>(
     String url, {
     Map<String, dynamic> query,
     Map<String, String> headers,
@@ -55,7 +60,7 @@ class DefaultHttp extends Http {
 
   ///PUT -request
   @override
-  Future<Response> put<T>(
+  Future<Response<T>> put<T>(
     String url, {
     Map<String, dynamic> query,
     Map<String, String> headers,
@@ -74,7 +79,7 @@ class DefaultHttp extends Http {
 
   ///DELETE -request
   @override
-  Future<Response> delete<T>(
+  Future<Response<T>> delete<T>(
     String url, {
     Map<String, dynamic> query,
     Map<String, String> headers,
@@ -91,7 +96,7 @@ class DefaultHttp extends Http {
 
   ///PATCH -request
   @override
-  Future<Response> patch<T>(
+  Future<Response<T>> patch<T>(
     String url, {
     Map<String, dynamic> query,
     Map<String, String> headers,
@@ -110,7 +115,7 @@ class DefaultHttp extends Http {
 
   ///HEAD - request
   @override
-  Future<Response> head<T>(
+  Future<Response<T>> head<T>(
     String url,
     Map<String, dynamic> query,
     Map<String, String> headers,
@@ -125,6 +130,30 @@ class DefaultHttp extends Http {
         .then(_toResponse);
   }
 
+  @override
+  Future<Response<T>> multipart<T>(
+    String url, {
+    Map<String, String> headers,
+    File body,
+  }) async {
+    print("DEV_WEB request : $url");
+    Map<String, String> headersMap = await _buildHeaders(url, headers);
+
+    final request = http.MultipartRequest("POST", Uri.parse(url));
+    final bytes = await body.readAsBytes();
+    final file = http.MultipartFile.fromBytes(
+      "image",
+      bytes,
+      contentType: MediaType("image", "jpeg"),
+    );
+
+    request.files.add(file);
+    headersMap.entries
+        .forEach((entry) => request.headers[entry.key] = entry.value);
+
+    return request.send().then(http.Response.fromStream).then(_toResponse);
+  }
+
   Future<Map<String, String>> _buildHeaders(
       String url, Map<String, String> headers) async {
     Map<String, String> headersMap = Map();
@@ -136,9 +165,9 @@ class DefaultHttp extends Http {
     return headersMap;
   }
 
-  Response _toResponse(http.Response r) {
+  Response<T> _toResponse<T>(http.Response r) {
     Logger.d("${r.statusCode} | ${r.body}");
-    final response = Response(json.jsonDecode(r.body), r.statusCode);
+    final response = Response<T>(r.body as dynamic, r.statusCode);
     if (response.statusCode == 400) {
       mapError(response);
     }

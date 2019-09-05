@@ -10,7 +10,7 @@ class PushManager {
 
   void initNotification(onMessage(Map<String, dynamic> message)) {
     _messaging.configure(
-      onMessage: (Map<String, dynamic> message) {
+      onMessage: (Map<String, dynamic> message) async {
         print("DEV_INFO receive message: $message");
 
         onMessage(message);

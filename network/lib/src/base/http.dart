@@ -1,16 +1,18 @@
+import 'dart:io';
+
 import 'package:network/src/base/response.dart';
 
 ///Фасад над работой с сетью
 abstract class Http {
   ///GET- request
-  Future<Response> get<T>(
+  Future<Response<T>> get<T>(
     String url, {
     Map<String, dynamic> query,
     Map<String, String> headers,
   });
 
   ///POST-request
-  Future<Response> post<T>(
+  Future<Response<T>> post<T>(
     String url, {
     Map<String, dynamic> query,
     Map<String, String> headers,
@@ -18,7 +20,7 @@ abstract class Http {
   });
 
   ///PUT -request
-  Future<Response> put<T>(
+  Future<Response<T>> put<T>(
     String url, {
     Map<String, dynamic> query,
     Map<String, String> headers,
@@ -26,14 +28,14 @@ abstract class Http {
   });
 
   ///DELETE -request
-  Future<Response> delete<T>(
+  Future<Response<T>> delete<T>(
     String url, {
     Map<String, dynamic> query,
     Map<String, String> headers,
   });
 
   ///PATCH -request
-  Future<Response> patch<T>(
+  Future<Response<T>> patch<T>(
     String url, {
     Map<String, dynamic> query,
     Map<String, String> headers,
@@ -41,9 +43,16 @@ abstract class Http {
   });
 
   ///HEAD - request
-  Future<Response> head<T>(
+  Future<Response<T>> head<T>(
     String url,
     Map<String, dynamic> query,
     Map<String, String> headers,
   );
+
+  /// Multipart request
+  Future<Response<T>> multipart<T>(
+    String url, {
+    Map<String, String> headers,
+    File body,
+  });
 }

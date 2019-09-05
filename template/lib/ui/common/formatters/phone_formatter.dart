@@ -33,8 +33,9 @@ class RuNumberTextInputFormatter extends TextInputFormatter {
     }
 
     // Dump the rest.
-    if (newTextLength >= usedSubstringIndex)
+    if (newTextLength >= usedSubstringIndex) {
       newText.write(newValue.text.substring(usedSubstringIndex));
+    }
     return TextEditingValue(
       text: newText.toString(),
       selection: TextSelection.collapsed(offset: selectionIndex),
