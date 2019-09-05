@@ -13,6 +13,8 @@ abstract class PushHandleStrategy<PT extends NotificationPayload> {
   /// push id
   int pushId = 0;
 
+  bool ongoing = false;
+
   /// notification payload
   final PT payload;
 

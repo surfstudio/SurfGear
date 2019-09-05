@@ -40,6 +40,7 @@ class NotificationController {
       strategy.notificationChannelId,
       strategy.notificationChannelName,
       strategy.notificationDescription,
+      ongoing: strategy.ongoing,
     );
     final iosSpecific = IOSNotificationDetails();
     final platformSpecifics = NotificationDetails(androidSpecific, iosSpecific);
