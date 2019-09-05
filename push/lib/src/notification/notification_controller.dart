@@ -41,8 +41,11 @@ class NotificationController {
       strategy.notificationChannelName,
       strategy.notificationDescription,
       ongoing: strategy.ongoing,
+      playSound: strategy.playSound,
     );
-    final iosSpecific = IOSNotificationDetails();
+    final iosSpecific = IOSNotificationDetails(
+      presentSound: strategy.playSound,
+    );
     final platformSpecifics = NotificationDetails(androidSpecific, iosSpecific);
 
     Logger.d(

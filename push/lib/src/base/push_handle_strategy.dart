@@ -13,7 +13,11 @@ abstract class PushHandleStrategy<PT extends NotificationPayload> {
   /// push id
   int pushId = 0;
 
+  /// non-removable notification (Android only)
   bool ongoing = false;
+
+  /// Indicates if a sound should be played when the notification is displayed.
+  bool playSound = true;
 
   /// notification payload
   final PT payload;
