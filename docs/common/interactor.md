@@ -126,7 +126,7 @@ class FirstWidgetModel {
    
     @override
      void onLoad() {
-      bind(sessionChangedAction, (_)=> _changeInteractor.onSessionChanged());
+      bind(sessionChangedAction, (_) => _changeInteractor.onSessionChanged());
        super.onLoad();
      }
 }
