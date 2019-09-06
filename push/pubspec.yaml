@@ -20,7 +20,7 @@ dependencies:
   logger:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PARK
+      ref: dev
       path: logger
 
   #firebase push
