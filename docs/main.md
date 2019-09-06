@@ -32,6 +32,7 @@
     1. [Навигация](todo)
     1. [Создание экрана](ui/create_screen.md)
     1. [Диалоги](todo)
+    1. [Сообщения](common/message.md)
 
 1. [Инициализация приложения](common/init_project.md)
     1. [Подготовка проекта к выгрузке в fabric](todo link to android)
