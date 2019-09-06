@@ -22,7 +22,7 @@
     1. [Interactor](todo)
     1. [Проверка соединения](todo) 
     1. [Работа с файловым хранилищем](common/file_storage.md)
-    1. [Работа с SharedPrefs](todo)
+    1. [Работа с SharedPrefs](common/shared_preferences.md)
 
 1. [UI слой]()
     1. [Структура UI-слоя](ui/structure.md)
