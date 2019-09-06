@@ -6,7 +6,6 @@ import 'package:network/network.dart';
 class DefaultHeaderBuilder extends HeadersBuilder {
   String t = EMPTY_STRING;
 
-  String get _token => t;
   final AuthInfoStorage _ts;
 
   DefaultHeaderBuilder(this._ts);

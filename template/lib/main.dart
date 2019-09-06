@@ -1,4 +1,3 @@
-
 import 'package:flutter_template/config/base/build_types.dart';
 import 'package:flutter_template/config/base/env/env.dart';
 import 'package:flutter_template/config/config.dart';
@@ -16,4 +15,3 @@ void main() async {
 
   run();
 }
-

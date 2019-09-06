@@ -12,13 +12,35 @@ dependencies:
 
   #внутренние библиотеки
   network:
-    path: ../network
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: network
   logger:
-    path: ../logger
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: logger
   injector:
-    path: ../injector
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: injector
   mwwm:
-    path: ../mwwm
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: mwwm
+  geolocation:
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: geolocation
+  analytics:
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: analytics
 
   intl: 0.15.7
 
@@ -37,7 +59,7 @@ dependencies:
   path_provider: 0.5.0
 
   #rx
-  rxdart: 0.21.0
+  rxdart: 0.22.0
 
   #crash reporting
   #firebase_crashlytics: ^0.0.4+1 need research about this
@@ -66,6 +88,8 @@ dependencies:
 
   #connection
   connectivity: 0.4.2+2
+
+  pedantic: ^1.7.0
 
 dev_dependencies:
   flutter_test:

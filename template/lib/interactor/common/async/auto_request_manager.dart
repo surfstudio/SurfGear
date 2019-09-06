@@ -27,7 +27,7 @@ class AutoRequestManager {
 
   Future<void> dispose() async {
     _autoReloadRequest = null;
-    _connectivitySubscription.cancel();
+    await _connectivitySubscription.cancel();
     _requestTimer.cancel();
   }
 
@@ -46,7 +46,7 @@ class AutoRequestManager {
       (timer) async {
         try {
           await _autoReloadRequest();
-          dispose();
+          await dispose();
         } catch (e) {
           // ничего не делаем, таймер перезапустит запрос
         }
