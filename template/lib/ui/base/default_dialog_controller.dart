@@ -52,8 +52,15 @@ class DefaultDialogController implements DialogController {
   Future<R> showSheet<R>(type, {VoidCallback onDismiss}) {
     assert(dialogOwner != null);
 
-    _sheetController = _scaffoldState.currentState
-        .showBottomSheet(dialogOwner?.registeredDialogs[type]);
+    if (_scaffoldState == null) {
+      _sheetController = showBottomSheet(
+        context: _context,
+        builder: dialogOwner?.registeredDialogs[type],
+      );
+    } else {
+      _sheetController = _scaffoldState.currentState
+          .showBottomSheet(dialogOwner?.registeredDialogs[type]);
+    }
 
     _sheetController.closed.then((_) {
       _sheetController = null;
