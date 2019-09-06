@@ -34,7 +34,6 @@ class MockAppComponent {
                 Duration(seconds: 30),
             ),
             errorMapper: DefaultStatusMapper(),
-            headersBuilder: DefaultHeaderBuilder(authStorage),
         );
         return RxHttpDelegate(dioHttp);
     }
