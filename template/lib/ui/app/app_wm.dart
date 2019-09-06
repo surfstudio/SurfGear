@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_template/ui/app/app.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:rxdart/rxdart.dart';
 
 class AppWidgetModel extends WidgetModel {
   final GlobalKey<NavigatorState> _navigator;
@@ -22,7 +23,7 @@ class AppWidgetModel extends WidgetModel {
 
   void _loadApp() async {
     subscribeHandleError(
-      initApp().then((_) => Future.delayed(Duration(seconds: 2))).asStream(),
+      initApp(),
       (isAuth) {
         _openScreen(Router.ROOT);
       },
@@ -33,7 +34,7 @@ class AppWidgetModel extends WidgetModel {
     _navigator.currentState.pushReplacementNamed(routeName);
   }
 
-  Future<void> initApp() {
-    return Future.delayed(Duration(seconds: 2));
+  Observable<bool> initApp() {
+    return Observable.just(true).delay(Duration(seconds: 2));
   }
 }
