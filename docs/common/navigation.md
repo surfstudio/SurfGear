@@ -21,7 +21,7 @@ class SomeWidgetModel{
    void _goToNextScreen() {
       _navigator.push(InputNumberRoute());
     }
-}
+} 
 ```
 
 # Пример использования с передачей параметров
