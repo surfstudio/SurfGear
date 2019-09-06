@@ -28,16 +28,9 @@ class AuthInteractor {
   ///
   ///@param otpCode - пришедший номер по смс
   ///@param phoneNumber - телефонный номер пользователя
-  Observable<User> signIn(String otpCode, String phoneNumber) =>
-      //_pushManager.fcmTokenObservable.asStream()
-      Observable.just(EMPTY_STRING)
-          .flatMap(
-            (token) => _authRepository.signIn(
-              otpCode,
-              AuthInfo(phone: phoneNumber, fcmToken: token),
-            ),
-          )
-          .doOnData((_) => _sessionChangedInteractor.onSessionChanged);
+  Observable<User> signIn(String otpCode, String phoneNumber) => _authRepository
+      .signIn(otpCode, AuthInfo(phone: phoneNumber))
+      .doOnData((_) => _sessionChangedInteractor.onSessionChanged);
 
   ///логаут
   Observable<void> logOut() => _authRepository
