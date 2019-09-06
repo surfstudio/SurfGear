@@ -77,11 +77,11 @@ dependencies:
   cupertino_icons: 0.1.2
 
   #firebase push
-  firebase_core: 0.3.1+1
-  firebase_messaging: 4.0.0+1
+  #firebase_core: 0.3.1+1
+  #firebase_messaging: 4.0.0+1
 
   #firebase ml kit
-  firebase_ml_vision: 0.6.0+2
+  #firebase_ml_vision: 0.6.0+2
 
   #notifications
   flutter_local_notifications: 0.6.0

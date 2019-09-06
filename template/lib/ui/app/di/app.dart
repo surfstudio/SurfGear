@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/interactor/auth/auth_interactor.dart';
 import 'package:flutter_template/interactor/auth/repository/auth_repository.dart';
-import 'package:flutter_template/interactor/common/push/notification/notification_controller.dart';
-import 'package:flutter_template/interactor/common/push/push_manager.dart';
 import 'package:flutter_template/interactor/common/urls.dart';
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/interactor/counter/repository/counter_repository.dart';
@@ -27,8 +25,6 @@ class AppComponent implements BaseWidgetModelComponent<AppWidgetModel> {
   AppWidgetModel wm;
 
   PreferencesHelper preferencesHelper = PreferencesHelper();
-  PushManager pushManager = PushManager();
-  NotificationController notificationController = NotificationController();
   AuthInfoStorage authStorage;
   RxHttp http;
   SessionChangedInteractor scInteractor;
@@ -49,7 +45,6 @@ class AppComponent implements BaseWidgetModelComponent<AppWidgetModel> {
     );
     authInteractor = AuthInteractor(
       AuthRepository(http, authStorage),
-      pushManager,
       scInteractor,
     );
     counterInteractor = CounterInteractor(

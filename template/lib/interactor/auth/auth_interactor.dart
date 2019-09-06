@@ -1,6 +1,5 @@
 import 'package:flutter_template/domain/user.dart';
 import 'package:flutter_template/interactor/auth/repository/auth_repository.dart';
-import 'package:flutter_template/interactor/common/push/push_manager.dart';
 import 'package:flutter_template/interactor/session/session_changed_interactor.dart';
 import 'package:flutter_template/util/const.dart';
 import 'package:rxdart/rxdart.dart';
@@ -8,7 +7,6 @@ import 'package:rxdart/rxdart.dart';
 ///Интерактор для авторизации
 class AuthInteractor {
   final AuthRepository _authRepository;
-  final PushManager _pushManager;
   final SessionChangedInteractor _sessionChangedInteractor;
 
   Observable<bool> get isAuthorized => _authRepository.isAuthorized();
@@ -17,7 +15,6 @@ class AuthInteractor {
 
   AuthInteractor(
     this._authRepository,
-    this._pushManager,
     this._sessionChangedInteractor,
   );
 
@@ -32,7 +29,8 @@ class AuthInteractor {
   ///@param otpCode - пришедший номер по смс
   ///@param phoneNumber - телефонный номер пользователя
   Observable<User> signIn(String otpCode, String phoneNumber) =>
-      Observable(_pushManager.fcmTokenObservable.asStream())
+      //_pushManager.fcmTokenObservable.asStream()
+      Observable.just(EMPTY_STRING)
           .flatMap(
             (token) => _authRepository.signIn(
               otpCode,
