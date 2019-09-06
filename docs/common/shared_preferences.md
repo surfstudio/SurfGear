@@ -37,7 +37,7 @@ class AuthInfoStorage {
   }
 
   Future saveToken(String token) async {
-    return await _preferencesHelper.set(KEY_TOKEN, token);
+    return await _preferencesHelper.set(KEY_TOKEN, token); 
   }
 
   Future savePin(String pin) async {
