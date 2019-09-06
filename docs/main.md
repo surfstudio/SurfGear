@@ -19,7 +19,7 @@
     1. [Пуш-уведомления](../push/README.md) //todo
 
 1. [**Слой Model**](todo)
-    1. [Interactor](todo)
+    1. [Interactor](common/interactor.md)
     1. [Проверка соединения](todo) 
     1. [Работа с файловым хранилищем](common/file_storage.md)
     1. [Работа с SharedPrefs](common/shared_preferences.md)
@@ -37,7 +37,6 @@
     1. [Сборка и выгрузка проекта](common/build.md)
     1. [Continious Delivery](common/cd.md)
     1. [Подключение зависимостей в проект](common/dependencies.md)
-
 
 
 1. [Лучшие практики](best_practice/best_practice.md)
