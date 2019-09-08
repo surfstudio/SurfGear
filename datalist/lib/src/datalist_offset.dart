@@ -9,6 +9,7 @@ import 'package:datalist/src/exceptions.dart';
 /// Можно сливать с другим DataList
 ///
 /// @param <T> Item
+
 class DataList<T> extends DelegatingList<T> {
   //количество элементов в списке
   int limit;

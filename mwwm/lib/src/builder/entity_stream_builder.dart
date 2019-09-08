@@ -45,7 +45,7 @@ class EntityStateBuilder<T> extends StatelessWidget {
       stream: streamedState.stream,
       initialData: streamedState.value,
       builder: (context, snapshot) {
-        final streamData = snapshot.data;
+        final streamData = snapshot._data;
         if (streamData == null || streamData.isLoading) {
           return loadingChild;
         }
@@ -54,7 +54,7 @@ class EntityStateBuilder<T> extends StatelessWidget {
           return errorChild;
         }
 
-        return child(context, streamData.data);
+        return child(context, streamData._data);
       },
     );
   }

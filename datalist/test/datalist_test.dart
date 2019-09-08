@@ -1,7 +1,6 @@
-import 'package:flutter/widgets.dart';
+import 'package:datalist/src/datalist_offset.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:datalist/datalist.dart';
 
 void main() {
   DataListTest.testCheckNormalMerge();

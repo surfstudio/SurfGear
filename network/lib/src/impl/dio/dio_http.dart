@@ -69,7 +69,7 @@ class DioHttp extends Http {
           url,
           queryParameters: query,
           options: dio.Options(headers: headersMap),
-          data: body,
+          _data: body,
         )
         .then(_toResponse);
   }
@@ -86,7 +86,7 @@ class DioHttp extends Http {
         .put(
           url,
           options: dio.Options(headers: headersMap),
-          data: body,
+          _data: body,
         )
         .then(_toResponse);
   }
@@ -120,7 +120,7 @@ class DioHttp extends Http {
           url,
           queryParameters: query,
           options: dio.Options(headers: headersMap),
-          data: body,
+          _data: body,
         )
         .then(_toResponse);
   }
@@ -155,7 +155,7 @@ class DioHttp extends Http {
     return _dio
         .post(
           url,
-          data: data,
+          _data: data,
           options: dio.Options(headers: headersMap),
         )
         .then(_toResponse);
@@ -173,7 +173,7 @@ class DioHttp extends Http {
   }
 
   Response<T> _toResponse<T>(dio.Response r) {
-    var data = r.data;
+    var data = r._data;
     final response = Response<T>(data, r.statusCode);
     errorMapper.checkStatus(response);
     return response;

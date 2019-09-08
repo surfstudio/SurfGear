@@ -82,7 +82,7 @@ class TextFieldStreamedState extends StreamedState<TextFieldState>
         ),
       );
     } else if (!canEdit) {
-      return accept(TextFieldState.enabled(value.data, canEdit));
+      return accept(TextFieldState.enabled(value._data, canEdit));
     } else {
       return super.accept(TextFieldState.content(data));
     }
@@ -90,7 +90,7 @@ class TextFieldStreamedState extends StreamedState<TextFieldState>
 
   @override
   Future<void> error([Exception error]) {
-    var state = TextFieldState.error(value.data, error);
+    var state = TextFieldState.error(value._data, error);
     return super.accept(state);
   }
 

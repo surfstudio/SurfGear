@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  sortedmap: ^0.4.2
 
 dev_dependencies:
   flutter_test:

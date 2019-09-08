@@ -57,7 +57,7 @@ class _CounterScreenState extends State<CounterScreen> {
             children: <Widget>[
               Text('You have pushed the button this many times:'),
               Text(
-                '${snapshot.data}',
+                '${snapshot._data}',
                 style: Theme.of(context).textTheme.display1,
               ),
             ],
