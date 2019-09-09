@@ -11,8 +11,8 @@ function hasPubspec() {
 }
 
 ## check existing LICENSE
-function hasPubspec() {
-    ls -la $1/ | grep -q pubspec.yaml
+function hasLicense() {
+   grep -q -f $1/LICENSE ./license/LICENSE
 }
 
 ### endregion
@@ -23,7 +23,7 @@ for dir in */; do
         continue
     fi
     
-    if ! grep -q -f $dir/LICENSE ./license/LICENSE ; then
+    if ! $(hasLicense $dir); then
         echo No license in $dir. Adding new one...
         cp ./license/LICENSE $dir/LICENSE
     fi
