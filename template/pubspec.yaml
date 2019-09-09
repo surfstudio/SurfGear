@@ -89,7 +89,7 @@ dependencies:
   cupertino_icons: 0.1.2
 
   #notifications
-  flutter_local_notifications: 0.6.0
+  flutter_local_notifications: ^0.8.2
 
   #connection
   connectivity: 0.4.2+2

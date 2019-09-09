@@ -1,4 +1,13 @@
+import 'package:flutter_template/config/config.dart';
+import 'package:flutter_template/config/env/env.dart';
+
 ///URL запросов сервера
-const String BASE_URL = "http://uinames.com/api/";
-const String TEST_URL = "http://uinames.com/api/";
-const String PROD_URL = "http://uinames.com/api/";
+abstract class Url {
+  static String get testUrl => "http://test.surfstudio.ru/api";
+
+  static String get prodUrl => "https://prod.surfstudio.ru/api";
+
+  static String get devUrl => "https://localhost:9999/food/hs/ExchangeSotr";
+
+  static String get baseUrl => Environment<Config>.instance().config.url;
+}
