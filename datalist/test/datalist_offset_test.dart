@@ -1,24 +1,24 @@
 import 'package:datalist/src/datalist_offset.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:datalist/src/exceptions.dart';
 
 void main() {
-  DataListTest.testCheckNormalMerge();
-  DataListTest.checkNormalMergeWithOffset();
-  DataListTest.checkNormalMergeWithOffsetAndCollision();
-  DataListTest.checkMergeWithCollision();
-  DataListTest.checkMergeWithCollision2();
-  DataListTest.checkMergeWithCollision3();
-  DataListTest.checkMergeWithCollision4();
-  DataListTest.checkMergeEmptyWithNormal();
-  DataListTest.checkInvalidData();
-  DataListTest.transformToStringDataList();
-  DataListTest.checkDynamicDataInsertion();
-  DataListTest.checkDynamicDataInsertion2();
-  DataListTest.checkDynamicDataInsertion3();
+  DataListOffsetTest.testCheckNormalMerge();
+  DataListOffsetTest.checkNormalMergeWithOffset();
+  DataListOffsetTest.checkNormalMergeWithOffsetAndCollision();
+  DataListOffsetTest.checkMergeWithCollision();
+  DataListOffsetTest.checkMergeWithCollision2();
+  DataListOffsetTest.checkMergeWithCollision3();
+  DataListOffsetTest.checkMergeWithCollision4();
+  DataListOffsetTest.checkMergeEmptyWithNormal();
+  DataListOffsetTest.checkInvalidData();
+  DataListOffsetTest.transformToStringDataList();
+  DataListOffsetTest.checkDynamicDataInsertion();
+  DataListOffsetTest.checkDynamicDataInsertion2();
+  DataListOffsetTest.checkDynamicDataInsertion3();
 }
 
-class DataListTest {
+class DataListOffsetTest {
   static void testCheckNormalMerge() {
     test(
       "testCheckNormalMerge",

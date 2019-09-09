@@ -1,15 +1,21 @@
 import 'dart:collection';
 import 'dart:core';
-
 import 'package:collection/collection.dart';
-import 'package:datalist/datalist.dart';
+
+import 'package:datalist/src/exceptions.dart';
 import 'package:sortedmap/sortedmap.dart';
 
-class DataList1<T> extends DelegatingList<T> {
-  static final int UNSPECIFIED_PAGE = -1;
-  static final int UNSPECIFIED_PAGE_SIZE = -1;
-  static final int UNSPECIFIED_TOTAL_ITEMS_COUNT = -1;
-  static final int UNSPECIFIED_TOTAL_PAGES_COUNT = -1;
+/// List для работы с пагинацией
+/// Механизм page-count
+/// Можно сливать с другим DataList
+///
+/// @param <T> Item
+
+class DataList<T> extends DelegatingList<T> {
+  static const int UNSPECIFIED_PAGE = -1;
+  static const int UNSPECIFIED_PAGE_SIZE = -1;
+  static const int UNSPECIFIED_TOTAL_ITEMS_COUNT = -1;
+  static const int UNSPECIFIED_TOTAL_PAGES_COUNT = -1;
 
   int pageSize;
   int startPage;
@@ -19,13 +25,13 @@ class DataList1<T> extends DelegatingList<T> {
 
   List<T> data;
 
-  DataList1({
+  DataList({
     this.data,
     this.pageSize,
     this.startPage,
-    this.numPages,
-    this.totalItemsCount,
-    this.totalPagesCount,
+    this.numPages = 1,
+    this.totalItemsCount = UNSPECIFIED_TOTAL_ITEMS_COUNT,
+    this.totalPagesCount = UNSPECIFIED_TOTAL_PAGES_COUNT,
   }) : super(data);
 
   /// Создает пустой DataList
@@ -34,9 +40,9 @@ class DataList1<T> extends DelegatingList<T> {
   /// @param totalItemsCount максимальное количество элементов
   /// @param totalPagesCount максимальное количество страниц
   /// @return пустой дата-лист
-  factory DataList1.emptyWithTotalCount(
+  factory DataList.emptyWithTotalCount(
           int totalItemsCount, int totalPagesCount) =>
-      DataList1(
+      DataList(
         data: List(),
         startPage: UNSPECIFIED_PAGE,
         numPages: 0,
@@ -49,29 +55,27 @@ class DataList1<T> extends DelegatingList<T> {
   ///
   /// @param <T> тип данных в листе
   /// @return пустой дата-лист
-  factory DataList1.empty() => DataList1.emptyWithTotalCount(
-        0,
-        0,
-      );
+  factory DataList.empty() => DataList.emptyWithTotalCount(0, 0);
 
   /// Создает пустой DataList
   ///
   /// @param <T> тип данных в листе
   /// @return пустой дата-лист
-  factory DataList1.emptyUnspecifiedTotal() => DataList1.emptyWithTotalCount(
+  factory DataList.emptyUnspecifiedTotal() => DataList.emptyWithTotalCount(
         UNSPECIFIED_TOTAL_ITEMS_COUNT,
         UNSPECIFIED_TOTAL_PAGES_COUNT,
       );
 
-  DataList1<T> merge(DataList1<T> inputDataList) {
+  DataList<T> merge(DataList<T> inputDataList) {
     if (this.startPage != UNSPECIFIED_PAGE &&
         inputDataList.startPage != UNSPECIFIED_PAGE &&
         this.pageSize != inputDataList.pageSize) {
-      throw ArgumentError("pageSize for merging DataList must be same");
+      throw new ArgumentError("pageSize for merging DataList must be same");
     }
+
     Map<int, List<T>> originalPagesData = _split();
     Map<int, List<T>> inputPagesData = inputDataList._split();
-    TreeMap<int, List<T>> resultPagesData = TreeMap();
+    Map<int, List<T>> resultPagesData = new Map();
 
     resultPagesData.addAll(originalPagesData);
     resultPagesData.addAll(inputPagesData);
@@ -84,14 +88,15 @@ class DataList1<T> extends DelegatingList<T> {
       if (lastPage != UNSPECIFIED_PAGE &&
           (pageNumber - lastPage > 1 || lastPageItemsSize < pageSize)) {
         throw IncompatibleRangesException("Merging DataLists has empty space "
-            "between its ranges, original list:  $this, inputList: $inputDataList");
+            "between its ranges, original list:$this, inputList: $inputDataList");
       }
       lastPage = pageNumber;
       lastPageItemsSize = pageItems.length;
       newData.addAll(pageItems);
     });
-    this.data = newData;
-    this.startPage = resultPagesData.entries.first.key; //firstkey??
+    this.data.clear();
+    this.data.addAll(newData);
+    this.startPage = resultPagesData.entries.first.key;
     this.numPages = lastPage - startPage + 1;
     this.totalItemsCount =
         inputDataList.totalItemsCount == UNSPECIFIED_TOTAL_ITEMS_COUNT
@@ -119,7 +124,7 @@ class DataList1<T> extends DelegatingList<T> {
           (itemsRemained < pageSize ? itemsRemained : pageSize);
       if (itemsRemained <= 0) break;
 
-      result[i] = data.sublist(startItemIndex, endItemIndex);
+      result.putIfAbsent(i, () => data.sublist(startItemIndex, endItemIndex));
     }
     return result;
   }
@@ -129,12 +134,12 @@ class DataList1<T> extends DelegatingList<T> {
   /// @param mapFunc функция преобразования
   /// @param <R>     тип данных нового списка
   /// @return DataList с элементами типа R
-  DataList1<R> transform<R>(R Function(T item) mapFunc) {
+  DataList<R> transform<R>(R Function(T item) mapFunc) {
     List<R> resultData = List<R>();
     for (T item in this) {
       resultData.add(mapFunc.call(item));
     }
-    return DataList1(
+    return DataList(
       data: resultData,
       startPage: startPage,
       numPages: numPages,
@@ -180,5 +185,15 @@ class DataList1<T> extends DelegatingList<T> {
     throw Exception("Unsupported operation \'addAll\'");
   }
 
-
+  @override
+  String toString() {
+    return "DataList{"
+        "pageSize=$pageSize"
+        ", startPage=$startPage"
+        ", numPages=$numPages"
+        ", totalItemsCount=$totalItemsCount"
+        ", totalPagesCount=$totalPagesCount"
+        ", data=$data"
+        '}';
+  }
 }
