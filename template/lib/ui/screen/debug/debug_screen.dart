@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_template/domain/debug_options.dart';
 import 'package:flutter_template/interactor/common/urls.dart';
 import 'package:flutter_template/ui/app/di/app.dart';
 import 'package:flutter_template/ui/res/text_styles.dart';
@@ -33,10 +34,6 @@ class _DebugScreenState
 
   @override
   Widget buildState(BuildContext context) {
-    return _buildScreen(context);
-  }
-
-  Widget _buildScreen(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -46,10 +43,7 @@ class _DebugScreenState
           ),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              wm.showDebugNotification.accept();
-              Navigator.of(context).pop();
-            },
+            onPressed: wm.closeScreenAction,
           )),
       body: _buildBody(),
     );
@@ -84,21 +78,21 @@ class _DebugScreenState
                       title: Text(UrlType.test.toString()),
                       subtitle: Text(Url.testUrl),
                       value: UrlType.test,
-                      onChanged: wm.urlState.accept,
+                      onChanged: wm.urlChangeAction,
                     ),
                     RadioListTile<UrlType>(
                       groupValue: urlState,
                       title: Text(UrlType.prod.toString()),
                       subtitle: Text(Url.prodUrl),
                       value: UrlType.prod,
-                      onChanged: wm.urlState.accept,
+                      onChanged: wm.urlChangeAction,
                     ),
                     RadioListTile<UrlType>(
                       groupValue: urlState,
                       title: Text(UrlType.dev.toString()),
                       subtitle: Text(Url.devUrl),
                       value: UrlType.dev,
-                      onChanged: wm.urlState.accept,
+                      onChanged: wm.urlChangeAction,
                     ),
                     MaterialButton(
                       onPressed: () => wm.switchServer(urlState),
@@ -125,16 +119,51 @@ class _DebugScreenState
           children: <Widget>[
             Text('Диагностика'),
             StreamedStateBuilder(
-              streamedState: wm.performanceOverlayState,
-              builder: (context, state) {
-                return Row(
+              streamedState: wm.debugOptionsState,
+              builder: (context, DebugOptions state) {
+                return Column(
                   children: <Widget>[
-                    Expanded(
-                      child: Text('Диаграмма производительности'),
+                    ListTile(
+                      title: Text('showPerformanceOverlay'),
+                      trailing: Switch(
+                        value: state.showPerformanceOverlay,
+                        onChanged: wm.showPerformanceOverlayChangeAction,
+                      ),
                     ),
-                    Switch(
-                      value: state,
-                      onChanged: wm.performanceOverlayState.accept,
+                    ListTile(
+                      title: Text('debugShowMaterialGrid'),
+                      trailing: Switch(
+                        value: state.debugShowMaterialGrid,
+                        onChanged: wm.debugShowMaterialGridChangeAction,
+                      ),
+                    ),
+                    ListTile(
+                      title: Text('debugShowCheckedModeBanner'),
+                      trailing: Switch(
+                        value: state.debugShowCheckedModeBanner,
+                        onChanged: wm.debugShowCheckedModeBannerChangeAction,
+                      ),
+                    ),
+                    ListTile(
+                      title: Text('checkerboardRasterCacheImages'),
+                      trailing: Switch(
+                        value: state.checkerboardRasterCacheImages,
+                        onChanged: wm.checkerboardRasterCacheImagesChangeAction,
+                      ),
+                    ),
+                    ListTile(
+                      title: Text('checkerboardOffscreenLayers'),
+                      trailing: Switch(
+                        value: state.checkerboardOffscreenLayers,
+                        onChanged: wm.checkerboardOffscreenLayersChangeAction,
+                      ),
+                    ),
+                    ListTile(
+                      title: Text('showSemanticsDebugger'),
+                      trailing: Switch(
+                        value: state.showSemanticsDebugger,
+                        onChanged: wm.showSemanticsDebuggerChangeAction,
+                      ),
                     ),
                   ],
                 );

@@ -13,8 +13,6 @@ class DebugScreenStrategy extends PushHandleStrategy<DebugPushMessage> {
   bool playSound = false;
 
   @override
-  void onTapNotification(NavigatorState navigator) {
-    debugPrint('tap debug screen notification');
-    navigator.push(DebugScreenRoute());
-  }
+  void onTapNotification(NavigatorState navigator) =>
+      navigator.push(DebugScreenRoute());
 }

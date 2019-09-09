@@ -25,19 +25,32 @@ class DebugWidgetModel extends WidgetModel {
   final PushHandler _pushHandler;
 
   final urlState = StreamedState<UrlType>();
-  final performanceOverlayState = StreamedState<bool>(
-      Environment.instance().config.debugOptions.showPerformanceOverlay);
+  final debugOptionsState =
+      StreamedState<DebugOptions>(Environment.instance().config.debugOptions);
 
   final switchServer = Action<UrlType>();
   final showDebugNotification = Action();
+  final closeScreenAction = Action();
+  final urlChangeAction = Action<UrlType>();
+
+  final showPerformanceOverlayChangeAction = Action<bool>();
+  final debugShowMaterialGridChangeAction = Action<bool>();
+  final checkerboardRasterCacheImagesChangeAction = Action<bool>();
+  final checkerboardOffscreenLayersChangeAction = Action<bool>();
+  final showSemanticsDebuggerChangeAction = Action<bool>();
+  final debugShowCheckedModeBannerChangeAction = Action<bool>();
 
   String currentUrl;
+
+  Config get config => Environment.instance().config;
+
+  set config(Config newConfig) => Environment.instance().config = newConfig;
 
   @override
   void onLoad() {
     super.onLoad();
 
-    currentUrl = Environment.instance().config.url;
+    currentUrl = config.url;
     if (currentUrl == Url.testUrl) {
       urlState.accept(UrlType.test);
     } else if (currentUrl == Url.prodUrl) {
@@ -50,46 +63,72 @@ class DebugWidgetModel extends WidgetModel {
       Config newConfig;
       switch (urlType) {
         case UrlType.test:
-          newConfig = Config(
-            url: Url.testUrl,
-            debugOptions: Environment.instance().config.debugOptions,
-          );
+          newConfig = config.copyWith(url: Url.testUrl);
           break;
         case UrlType.prod:
-          newConfig = Config(
-            url: Url.prodUrl,
-            debugOptions: Environment.instance().config.debugOptions,
-          );
+          newConfig = config.copyWith(url: Url.prodUrl);
           break;
         default:
-          newConfig = Config(
-            url: Url.devUrl,
-            debugOptions: Environment.instance().config.debugOptions,
-          );
+          newConfig = config.copyWith(url: Url.devUrl);
           break;
       }
       _refreshApp(newConfig);
     });
 
-    subscribe(performanceOverlayState.stream, (value) {
-      var newConfig = Config(
-        url: Environment.instance().config.url,
-        debugOptions: DebugOptions(
-          showPerformanceOverlay: value,
-        ),
-      );
-      Environment.instance().config = newConfig;
+    subscribe(debugOptionsState.stream, (value) {
+      config = config.copyWith(debugOptions: value);
     });
 
     bind(
       showDebugNotification,
       (_) => DebugScreenRoute.showDebugScreenNotification(_pushHandler),
     );
+
+    bind(closeScreenAction, (_) {
+      showDebugNotification.accept();
+      navigator.pop();
+    });
+
+    bind(urlChangeAction, (url) => urlState.accept);
+
+    bind(showPerformanceOverlayChangeAction, (value) {
+      var newOpt = config.debugOptions.copyWith(showPerformanceOverlay: value);
+      config = config.copyWith(debugOptions: newOpt);
+      debugOptionsState.accept(newOpt);
+    });
+    bind(debugShowMaterialGridChangeAction, (value) {
+      var newOpt = config.debugOptions.copyWith(debugShowMaterialGrid: value);
+      config = config.copyWith(debugOptions: newOpt);
+      debugOptionsState.accept(newOpt);
+    });
+    bind(checkerboardRasterCacheImagesChangeAction, (value) {
+      var newOpt =
+          config.debugOptions.copyWith(checkerboardRasterCacheImages: value);
+      config = config.copyWith(debugOptions: newOpt);
+      debugOptionsState.accept(newOpt);
+    });
+    bind(checkerboardOffscreenLayersChangeAction, (value) {
+      var newOpt =
+          config.debugOptions.copyWith(checkerboardOffscreenLayers: value);
+      config = config.copyWith(debugOptions: newOpt);
+      debugOptionsState.accept(newOpt);
+    });
+    bind(showSemanticsDebuggerChangeAction, (value) {
+      var newOpt = config.debugOptions.copyWith(showSemanticsDebugger: value);
+      config = config.copyWith(debugOptions: newOpt);
+      debugOptionsState.accept(newOpt);
+    });
+    bind(debugShowCheckedModeBannerChangeAction, (value) {
+      var newOpt =
+          config.debugOptions.copyWith(debugShowCheckedModeBanner: value);
+      config = config.copyWith(debugOptions: newOpt);
+      debugOptionsState.accept(newOpt);
+    });
   }
 
   void _refreshApp(Config newConfig) {
     subscribeHandleError(_authInteractor.logOut(), (_) {
-      Environment.instance().config = newConfig;
+      config = newConfig;
       navigator.pushAndRemoveUntil(PhoneInputRoute(), (_) => false);
     });
   }

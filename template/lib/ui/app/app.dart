@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/config/env/env.dart';
+import 'package:flutter_template/domain/debug_options.dart';
 import 'package:flutter_template/ui/app/app_wm.dart';
 import 'package:flutter_template/ui/app/di/app.dart';
 import 'package:flutter_template/ui/res/assets.dart';
@@ -37,8 +38,8 @@ class _AppState extends WidgetState<App, AppWidgetModel, AppComponent> {
 
   @override
   void dispose() {
-    super.dispose();
     Environment.instance().removeListener(_setStateOnChangeConfig);
+    super.dispose();
   }
 
   Widget buildState(BuildContext context) {
@@ -48,8 +49,13 @@ class _AppState extends WidgetState<App, AppWidgetModel, AppComponent> {
         PushObserver(),
       ],
       theme: themeData,
-      showPerformanceOverlay:
-          Environment.instance().config.debugOptions.showPerformanceOverlay,
+      showPerformanceOverlay: getDebugConfig().showPerformanceOverlay,
+      debugShowMaterialGrid: getDebugConfig().debugShowMaterialGrid,
+      checkerboardRasterCacheImages:
+          getDebugConfig().checkerboardRasterCacheImages,
+      checkerboardOffscreenLayers: getDebugConfig().checkerboardOffscreenLayers,
+      showSemanticsDebugger: getDebugConfig().showSemanticsDebugger,
+      debugShowCheckedModeBanner: getDebugConfig().debugShowCheckedModeBanner,
       home: Scaffold(
         key: scaffoldKey,
         body: Container(
@@ -72,4 +78,6 @@ class _AppState extends WidgetState<App, AppWidgetModel, AppComponent> {
   void _setStateOnChangeConfig() {
     setState(() {});
   }
+
+  DebugOptions getDebugConfig() => Environment.instance().config.debugOptions;
 }
