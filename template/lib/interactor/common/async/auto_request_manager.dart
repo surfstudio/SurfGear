@@ -1,30 +1,11 @@
-/// Copyright (c) 2019-present,  SurfStudio LLC
-/// 
-/// Licensed under the Apache License, Version 2.0 (the "License");
-/// you may not use this file except in compliance with the License.
-/// You may obtain a copy of the License at
-/// 
-///     http://www.apache.org/licenses/LICENSE-2.0
-/// 
-/// Unless required by applicable law or agreed to in writing, software
-/// distributed under the License is distributed on an "AS IS" BASIS,
-/// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-/// See the License for the specific language governing permissions and
-/// limitations under the License.
-
 import 'dart:async';
 
 import 'package:connectivity/connectivity.dart';
 
 final reloadDuration = Duration(seconds: 10);
 
-/// Менеджер автоотправки запроса
 ///
-/// хранит один запрос и пытается его перезапустить
-/// для списка запросов либо доработать,
-/// либо использовать несколько экземпляров менеджера
 ///
-/// todo можно доработать и использовать напр. doFutureAutoReload(...)
 class AutoRequestManager {
   final Connectivity _connectivity = Connectivity();
   StreamSubscription<ConnectivityResult> _connectivitySubscription;
@@ -33,7 +14,6 @@ class AutoRequestManager {
   Future Function() _autoReloadRequest;
   Timer _requestTimer;
 
-  /// Поставить на автоотправку запрос
   Future<void> autoReload(Future toReload()) async {
     _autoReloadRequest = toReload;
     _tryReload();
