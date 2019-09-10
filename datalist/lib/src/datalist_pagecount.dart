@@ -81,7 +81,7 @@ class PageCountDataList<T> extends DataList<T> {
 
     Map<int, List<T>> originalPagesData = _split();
     Map<int, List<T>> inputPagesData = inputDataList._split();
-    Map<int, List<T>> resultPagesData = new Map();
+    SplayTreeMap<int, List<T>> resultPagesData = new SplayTreeMap();
 
     resultPagesData.addAll(originalPagesData);
     resultPagesData.addAll(inputPagesData);
