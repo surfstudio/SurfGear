@@ -91,39 +91,35 @@ class DebugWidgetModel extends WidgetModel {
 
     bind(urlChangeAction, (url) => urlState.accept);
 
-    bind(showPerformanceOverlayChangeAction, (value) {
-      var newOpt = config.debugOptions.copyWith(showPerformanceOverlay: value);
-      config = config.copyWith(debugOptions: newOpt);
-      debugOptionsState.accept(newOpt);
-    });
-    bind(debugShowMaterialGridChangeAction, (value) {
-      var newOpt = config.debugOptions.copyWith(debugShowMaterialGrid: value);
-      config = config.copyWith(debugOptions: newOpt);
-      debugOptionsState.accept(newOpt);
-    });
-    bind(checkerboardRasterCacheImagesChangeAction, (value) {
-      var newOpt =
-          config.debugOptions.copyWith(checkerboardRasterCacheImages: value);
-      config = config.copyWith(debugOptions: newOpt);
-      debugOptionsState.accept(newOpt);
-    });
-    bind(checkerboardOffscreenLayersChangeAction, (value) {
-      var newOpt =
-          config.debugOptions.copyWith(checkerboardOffscreenLayers: value);
-      config = config.copyWith(debugOptions: newOpt);
-      debugOptionsState.accept(newOpt);
-    });
-    bind(showSemanticsDebuggerChangeAction, (value) {
-      var newOpt = config.debugOptions.copyWith(showSemanticsDebugger: value);
-      config = config.copyWith(debugOptions: newOpt);
-      debugOptionsState.accept(newOpt);
-    });
-    bind(debugShowCheckedModeBannerChangeAction, (value) {
-      var newOpt =
-          config.debugOptions.copyWith(debugShowCheckedModeBanner: value);
-      config = config.copyWith(debugOptions: newOpt);
-      debugOptionsState.accept(newOpt);
-    });
+    bind(
+        showPerformanceOverlayChangeAction,
+        (value) => _setDebugOptionState(
+            () => config.debugOptions.copyWith(showPerformanceOverlay: value)));
+
+    bind(
+        debugShowMaterialGridChangeAction,
+        (value) => _setDebugOptionState(
+            () => config.debugOptions.copyWith(debugShowMaterialGrid: value)));
+
+    bind(
+        checkerboardRasterCacheImagesChangeAction,
+        (value) => _setDebugOptionState(() => config.debugOptions
+            .copyWith(checkerboardRasterCacheImages: value)));
+
+    bind(
+        checkerboardOffscreenLayersChangeAction,
+        (value) => _setDebugOptionState(() =>
+            config.debugOptions.copyWith(checkerboardOffscreenLayers: value)));
+
+    bind(
+        showSemanticsDebuggerChangeAction,
+        (value) => _setDebugOptionState(
+            () => config.debugOptions.copyWith(showSemanticsDebugger: value)));
+
+    bind(
+        debugShowCheckedModeBannerChangeAction,
+        (value) => _setDebugOptionState(() =>
+            config.debugOptions.copyWith(debugShowCheckedModeBanner: value)));
   }
 
   void _refreshApp(Config newConfig) {
@@ -131,5 +127,11 @@ class DebugWidgetModel extends WidgetModel {
       config = newConfig;
       navigator.pushAndRemoveUntil(PhoneInputRoute(), (_) => false);
     });
+  }
+
+  void _setDebugOptionState(DebugOptions Function() func) {
+    var newOpt = func();
+    config = config.copyWith(debugOptions: newOpt);
+    debugOptionsState.accept(newOpt);
   }
 }

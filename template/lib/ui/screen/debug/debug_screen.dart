@@ -123,47 +123,35 @@ class _DebugScreenState
               builder: (context, DebugOptions state) {
                 return Column(
                   children: <Widget>[
-                    ListTile(
-                      title: Text('showPerformanceOverlay'),
-                      trailing: Switch(
-                        value: state.showPerformanceOverlay,
-                        onChanged: wm.showPerformanceOverlayChangeAction,
-                      ),
+                    _buildSwitchTile(
+                      'Включить наложение производительности',
+                      state.showPerformanceOverlay,
+                      wm.showPerformanceOverlayChangeAction,
                     ),
-                    ListTile(
-                      title: Text('debugShowMaterialGrid'),
-                      trailing: Switch(
-                        value: state.debugShowMaterialGrid,
-                        onChanged: wm.debugShowMaterialGridChangeAction,
-                      ),
+                    _buildSwitchTile(
+                      'Включить наложение базовой сетки',
+                      state.debugShowMaterialGrid,
+                      wm.debugShowMaterialGridChangeAction,
                     ),
-                    ListTile(
-                      title: Text('debugShowCheckedModeBanner'),
-                      trailing: Switch(
-                        value: state.debugShowCheckedModeBanner,
-                        onChanged: wm.debugShowCheckedModeBannerChangeAction,
-                      ),
+                    _buildSwitchTile(
+                      'Показать debug баннер',
+                      state.debugShowCheckedModeBanner,
+                      wm.debugShowCheckedModeBannerChangeAction,
                     ),
-                    ListTile(
-                      title: Text('checkerboardRasterCacheImages'),
-                      trailing: Switch(
-                        value: state.checkerboardRasterCacheImages,
-                        onChanged: wm.checkerboardRasterCacheImagesChangeAction,
-                      ),
+                    _buildSwitchTile(
+                      'Включить проверку изображений растрового кэша',
+                      state.checkerboardRasterCacheImages,
+                      wm.checkerboardRasterCacheImagesChangeAction,
                     ),
-                    ListTile(
-                      title: Text('checkerboardOffscreenLayers'),
-                      trailing: Switch(
-                        value: state.checkerboardOffscreenLayers,
-                        onChanged: wm.checkerboardOffscreenLayersChangeAction,
-                      ),
+                    _buildSwitchTile(
+                      'Включает проверку слоев, отображаемых в закадровых растровых изображениях.',
+                      state.checkerboardOffscreenLayers,
+                      wm.checkerboardOffscreenLayersChangeAction,
                     ),
-                    ListTile(
-                      title: Text('showSemanticsDebugger'),
-                      trailing: Switch(
-                        value: state.showSemanticsDebugger,
-                        onChanged: wm.showSemanticsDebuggerChangeAction,
-                      ),
+                    _buildSwitchTile(
+                      'Включает наложение, которое показывает информацию о доступности, сообщаемую платформой.',
+                      state.showSemanticsDebugger,
+                      wm.showSemanticsDebuggerChangeAction,
                     ),
                   ],
                 );
@@ -171,6 +159,20 @@ class _DebugScreenState
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildSwitchTile(
+    String title,
+    bool value,
+    ValueChanged<bool> onChanged,
+  ) {
+    return ListTile(
+      title: Text(title),
+      trailing: Switch(
+        value: value,
+        onChanged: onChanged,
       ),
     );
   }
