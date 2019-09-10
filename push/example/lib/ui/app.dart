@@ -1,21 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:push/push.dart';
-import 'package:push_demo/notification/example_factory.dart';
 import 'package:push_demo/ui/main_screen.dart';
-
-void main() {
-  MessagingService messagingService = MessagingService();
-  PushHandler pushHandler = PushHandler(
-    ExampleFactory(),
-    NotificationController(androidMipMapIcon),
-    messagingService,
-  );
-  messagingService.requestNotificationPermissions();
-
-  runApp(MyApp(
-    pushHandler,
-  ));
-}
 
 class MyApp extends StatelessWidget {
   MyApp(this._pushHandler);
