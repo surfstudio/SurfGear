@@ -46,14 +46,11 @@ void main() {
         },
       ),
     );
-
     await tester.pumpAndSettle();
 
-    logInvocations([appComponent]);
+    verify(appComponent.counterInteractor).called(1);
 
-//    expect(find.text('Email'), findsOneWidget);
-//    expect(find.text('Пароль'), findsOneWidget);
-//    expect(find.text('Имя'), findsNothing);
-//    expect(find.text('Фамилия'), findsNothing);
+    expect(find.text('Номер телефона'), findsOneWidget);
+    expect(find.byIcon(Icons.arrow_forward), findsOneWidget);
   });
 }
