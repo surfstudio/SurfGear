@@ -22,11 +22,11 @@ class OffsetDataList<T> extends DataList<T> {
   List<T> data;
 
   factory OffsetDataList.empty() {
-    return new OffsetDataList<T>(data: List<T>());
+    return new OffsetDataList<T>(data: []);
   }
 
-  OffsetDataList<T> emptyWithTotal(int totalCount) {
-    return new OffsetDataList(data: List<T>(), totalCount: totalCount);
+  factory OffsetDataList.emptyWithTotal(int totalCount) {
+    return new OffsetDataList(data: [], totalCount: totalCount);
   }
 
   OffsetDataList({

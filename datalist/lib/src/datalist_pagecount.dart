@@ -41,7 +41,7 @@ class PageCountDataList<T> extends DataList<T> {
   factory PageCountDataList.emptyWithTotalCount(
           int totalItemsCount, int totalPagesCount) =>
       PageCountDataList(
-        data: List(),
+        data: [],
         startPage: UNSPECIFIED_PAGE,
         numPages: 0,
         pageSize: UNSPECIFIED_PAGE_SIZE,
