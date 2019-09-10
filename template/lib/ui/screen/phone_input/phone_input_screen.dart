@@ -82,7 +82,7 @@ class _PhoneInputScreenState extends WidgetState<PhoneInputScreen,
   }
 
   Widget _buildTextField(context, snapshot) {
-    if (snapshot._data.isLoading) {
+    if (snapshot.data.isLoading) {
       return ProgressBar();
     } else {
       return TextFormField(

@@ -70,7 +70,8 @@ class PageCountDataList<T> extends DataList<T> {
   ///
   /// @param inputDataList DataList для слияния с текущим
   /// @return текущий экземпляр
-    PageCountDataList<T> merge(DataList<T> _inputDataList) {
+  @override
+  PageCountDataList<T> merge(DataList<T> _inputDataList) {
     PageCountDataList inputDataList = _inputDataList as PageCountDataList;
 
     if (this.startPage != UNSPECIFIED_PAGE &&
@@ -166,6 +167,7 @@ class PageCountDataList<T> extends DataList<T> {
   /// возвращает значение page, c которого нужно начать чтобы подгрузить следующий блок данных
   int get nextPage => startPage == UNSPECIFIED_PAGE ? 1 : startPage + numPages;
 
+  /// Сброс данных
   @override
   void clear() {
     this.data.clear();

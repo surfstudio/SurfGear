@@ -45,7 +45,7 @@ class OffsetDataList<T> extends DataList<T> {
     OffsetDataList data = _data as OffsetDataList;
 
     bool reverse = data.offset < this.offset;
-    List<T> merged = tryMerge(reverse ? data : this, reverse ? this : data);
+    List<T> merged = _tryMerge(reverse ? data : this, reverse ? this : data);
     if (merged == null) {
       //Отрезки данных не совпадают, слияние не возможно
       throw IncompatibleRangesException("incorrect data range");
@@ -79,7 +79,7 @@ class OffsetDataList<T> extends DataList<T> {
     R Function(T item) distinctPredicate,
   ) {
     bool reverse = data.offset < this.offset;
-    List<T> merged = tryMerge(reverse ? data : this, reverse ? this : data);
+    List<T> merged = _tryMerge(reverse ? data : this, reverse ? this : data);
     if (merged == null) {
       //Отрезки данных не совпадают, слияние не возможно
       throw new IncompatibleRangesException("incorrect data range");
@@ -144,15 +144,15 @@ class OffsetDataList<T> extends DataList<T> {
   @override
   bool get canGetMore => totalCount > limit + offset;
 
-  List<T> tryMerge(OffsetDataList<T> to, OffsetDataList<T> from) {
+  List<T> _tryMerge(OffsetDataList<T> to, OffsetDataList<T> from) {
     if ((to.offset + to.limit) >= from.offset) {
-      return mergeLists(to.data, from.data, from.offset - to.offset);
+      return _mergeLists(to.data, from.data, from.offset - to.offset);
     }
 
     return null;
   }
 
-  List<T> mergeLists(List<T> to, List<T> from, int start) {
+  List<T> _mergeLists(List<T> to, List<T> from, int start) {
     List<T> result = new List();
     result.addAll(start < to.length ? to.sublist(0, start) : to);
     result.addAll(from);
