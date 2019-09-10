@@ -1,17 +1,15 @@
 import 'dart:collection';
 import 'dart:core';
-import 'package:collection/collection.dart';
 
+import 'package:datalist/src/base/datalist.dart';
 import 'package:datalist/src/exceptions.dart';
-import 'package:sortedmap/sortedmap.dart';
 
 /// List для работы с пагинацией
 /// Механизм page-count
 /// Можно сливать с другим DataList
 ///
 /// @param <T> Item
-
-class DataList<T> extends DelegatingList<T> {
+class PageCountDataList<T> extends DataList<T> {
   static const int UNSPECIFIED_PAGE = -1;
   static const int UNSPECIFIED_PAGE_SIZE = -1;
   static const int UNSPECIFIED_TOTAL_ITEMS_COUNT = -1;
@@ -25,7 +23,7 @@ class DataList<T> extends DelegatingList<T> {
 
   List<T> data;
 
-  DataList({
+  PageCountDataList({
     this.data,
     this.pageSize,
     this.startPage,
@@ -40,9 +38,9 @@ class DataList<T> extends DelegatingList<T> {
   /// @param totalItemsCount максимальное количество элементов
   /// @param totalPagesCount максимальное количество страниц
   /// @return пустой дата-лист
-  factory DataList.emptyWithTotalCount(
+  factory PageCountDataList.emptyWithTotalCount(
           int totalItemsCount, int totalPagesCount) =>
-      DataList(
+      PageCountDataList(
         data: List(),
         startPage: UNSPECIFIED_PAGE,
         numPages: 0,
@@ -55,18 +53,26 @@ class DataList<T> extends DelegatingList<T> {
   ///
   /// @param <T> тип данных в листе
   /// @return пустой дата-лист
-  factory DataList.empty() => DataList.emptyWithTotalCount(0, 0);
+  factory PageCountDataList.empty() =>
+      PageCountDataList.emptyWithTotalCount(0, 0);
 
   /// Создает пустой DataList
   ///
   /// @param <T> тип данных в листе
   /// @return пустой дата-лист
-  factory DataList.emptyUnspecifiedTotal() => DataList.emptyWithTotalCount(
+  factory PageCountDataList.emptyUnspecifiedTotal() =>
+      PageCountDataList.emptyWithTotalCount(
         UNSPECIFIED_TOTAL_ITEMS_COUNT,
         UNSPECIFIED_TOTAL_PAGES_COUNT,
       );
 
-  DataList<T> merge(DataList<T> inputDataList) {
+  /// Слияние двух DataList
+  ///
+  /// @param inputDataList DataList для слияния с текущим
+  /// @return текущий экземпляр
+  PageCountDataList<T> merge(DataList<T> _inputDataList) {
+    PageCountDataList inputDataList = _inputDataList as PageCountDataList;
+
     if (this.startPage != UNSPECIFIED_PAGE &&
         inputDataList.startPage != UNSPECIFIED_PAGE &&
         this.pageSize != inputDataList.pageSize) {
@@ -134,12 +140,12 @@ class DataList<T> extends DelegatingList<T> {
   /// @param mapFunc функция преобразования
   /// @param <R>     тип данных нового списка
   /// @return DataList с элементами типа R
-  DataList<R> transform<R>(R Function(T item) mapFunc) {
+  PageCountDataList<R> transform<R>(R Function(T item) mapFunc) {
     List<R> resultData = List<R>();
     for (T item in this) {
       resultData.add(mapFunc.call(item));
     }
-    return DataList(
+    return PageCountDataList(
       data: resultData,
       startPage: startPage,
       numPages: numPages,

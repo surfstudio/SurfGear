@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'dart:core';
 
-import 'package:collection/collection.dart';
+import 'package:datalist/src/base/datalist.dart';
 import 'package:datalist/src/exceptions.dart';
 
 /// List для работы с пагинацией
@@ -9,8 +9,7 @@ import 'package:datalist/src/exceptions.dart';
 /// Можно сливать с другим DataList
 ///
 /// @param <T> Item
-
-class DataList<T> extends DelegatingList<T> {
+class OffsetDataList<T> extends DataList<T> {
   //количество элементов в списке
   int limit;
 
@@ -22,15 +21,15 @@ class DataList<T> extends DelegatingList<T> {
 
   List<T> data;
 
-  factory DataList.empty() {
-    return new DataList<T>(data: List<T>());
+  factory OffsetDataList.empty() {
+    return new OffsetDataList<T>(data: List<T>());
   }
 
-  DataList<T> emptyWithTotal(int totalCount) {
-    return new DataList(data: List<T>(), totalCount: totalCount);
+  OffsetDataList<T> emptyWithTotal(int totalCount) {
+    return new OffsetDataList(data: List<T>(), totalCount: totalCount);
   }
 
-  DataList({
+  OffsetDataList({
     this.data,
     this.limit = 0,
     this.offset = 0,
@@ -41,7 +40,10 @@ class DataList<T> extends DelegatingList<T> {
   ///
   /// @param data DataList для слияния с текущим
   /// @return текущий экземпляр
-  DataList<T> merge(DataList<T> data) {
+  @override
+  DataList<T> merge(DataList<T> _data) {
+    OffsetDataList data = _data as OffsetDataList;
+
     bool reverse = data.offset < this.offset;
     List<T> merged = tryMerge(reverse ? data : this, reverse ? this : data);
     if (merged == null) {
@@ -72,8 +74,8 @@ class DataList<T> extends DelegatingList<T> {
   /// @param data              DataList для слияния с текущим
   /// @param distinctPredicate предикат, по которому происходит удаление дублируемых элементов
   /// @return текущий экземпляр
-  DataList<T> mergeWithPredicate<R>(
-    DataList<T> data,
+  OffsetDataList<T> mergeWithPredicate<R>(
+    OffsetDataList<T> data,
     R Function(T item) distinctPredicate,
   ) {
     bool reverse = data.offset < this.offset;
@@ -107,13 +109,13 @@ class DataList<T> extends DelegatingList<T> {
   /// @param mapFunc функция преобразования
   /// @param <R>     тип данных нового списка
   /// @return DataList с элементами типа R
-  DataList<R> transform<R>(R Function(T item) mapFunc) {
+  OffsetDataList<R> transform<R>(R Function(T item) mapFunc) {
     List<R> resultData = new List();
     for (T item in this) {
       resultData.add(mapFunc.call(item));
     }
 
-    return DataList<R>(
+    return OffsetDataList<R>(
       data: resultData,
       limit: limit,
       offset: offset,
@@ -139,9 +141,10 @@ class DataList<T> extends DelegatingList<T> {
   /// Проверка возможности дозагрузки данных
   ///
   /// @return
-  bool canGetMore() => totalCount > limit + offset;
+  @override
+  bool get canGetMore => totalCount > limit + offset;
 
-  List<T> tryMerge(DataList<T> to, DataList<T> from) {
+  List<T> tryMerge(OffsetDataList<T> to, OffsetDataList<T> from) {
     if ((to.offset + to.limit) >= from.offset) {
       return mergeLists(to.data, from.data, from.offset - to.offset);
     }
