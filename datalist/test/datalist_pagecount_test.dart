@@ -1,4 +1,5 @@
 import 'package:datalist/src/datalist_pagecount.dart';
+import 'package:datalist/src/exceptions.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -52,12 +53,14 @@ class DataListPageCountTest {
       );
 
       PageCountDataList<int> list3 = PageCountDataList<int>(
-        data: [1, 2, 3, 4, 5],
-        startPage: 0,
-        pageSize: 5,
-      );
+          data: [1, 2, 3, 4, 5], startPage: 0, pageSize: 5, numPages: 1);
 
-      list1.merge(list2);
+      try {
+        list1.merge(list2);
+      } on IncompatibleRangesException catch (e) {
+        expect(e.runtimeType, IncompatibleRangesException);
+        return;
+      }
 
       expect(list1, list3);
     });
@@ -221,7 +224,7 @@ class DataListPageCountTest {
 
       try {
         list1.merge(list2);
-      } on ArgumentError catch(e) {
+      } on ArgumentError catch (e) {
         expect(e.message, 'pageSize for merging DataList must be same');
         return;
       }

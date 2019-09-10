@@ -95,7 +95,7 @@ class PageCountDataList<T> extends DataList<T> {
       if (lastPage != UNSPECIFIED_PAGE &&
           (pageNumber - lastPage > 1 || lastPageItemsSize < pageSize)) {
         throw IncompatibleRangesException("Merging DataLists has empty space "
-            "between its ranges, original list:$this, inputList: $inputDataList");
+            "between its ranges\noriginalList:$this\ninputList: $inputDataList");
       }
       lastPage = pageNumber;
       lastPageItemsSize = pageItems.length;
