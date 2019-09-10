@@ -70,7 +70,7 @@ class PageCountDataList<T> extends DataList<T> {
   ///
   /// @param inputDataList DataList для слияния с текущим
   /// @return текущий экземпляр
-  PageCountDataList<T> merge(DataList<T> _inputDataList) {
+    PageCountDataList<T> merge(DataList<T> _inputDataList) {
     PageCountDataList inputDataList = _inputDataList as PageCountDataList;
 
     if (this.startPage != UNSPECIFIED_PAGE &&

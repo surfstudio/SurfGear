@@ -62,9 +62,9 @@ class _NameGeneratorScreenState extends State<NameGeneratorScreen> {
   Widget _buildListWidget(
       BuildContext context, AsyncSnapshot<List<User>> snapshot) {
     return ListView.builder(
-      itemCount: snapshot._data.length,
+      itemCount: snapshot.data.length,
       itemBuilder: (context, index) {
-        var user = snapshot._data[index];
+        var user = snapshot.data[index];
         return Card(
           child: ListTile(
             leading: Icon(Icons.account_circle),

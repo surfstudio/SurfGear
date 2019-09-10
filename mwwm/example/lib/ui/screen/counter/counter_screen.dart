@@ -44,7 +44,7 @@ class _CounterScreenState
             children: <Widget>[
               Text('You have pushed the button this many times:'),
               Text(
-                '${snapshot._data}',
+                '${snapshot.data}',
                 style: Theme.of(context).textTheme.display1,
               ),
             ],

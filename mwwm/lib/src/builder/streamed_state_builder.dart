@@ -20,7 +20,7 @@ class StreamedStateBuilder<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<T>(
-      builder: (ctx, snapshot) => builder(ctx, snapshot._data),
+      builder: (ctx, snapshot) => builder(ctx, snapshot.data),
       stream: streamedState.stream,
       initialData: streamedState.value,
     );

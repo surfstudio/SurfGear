@@ -59,13 +59,13 @@ class DefaultNetworkCache implements NetworkCache {
       return null;
     }
 
-    return Response(entity._data, 200);
+    return Response(entity.data, 200);
   }
 
   void _writeCache(String key, Response response, Duration lifetime) {
     if (response.statusCode ~/ 100 == 2 && response.body.isNotEmpty) {
       final entity = ResponseEntity(
-        _data: response.body,
+        data: response.body,
         lifetime: lifetime,
         storageTimestamp: DateTime.now(),
       );
