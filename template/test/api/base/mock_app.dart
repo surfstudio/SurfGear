@@ -1,8 +1,8 @@
+import 'package:flutter_template/interactor/common/urls.dart';
 import 'package:flutter_template/interactor/network/status_mapper.dart';
 import 'package:flutter_template/interactor/token/token_storage.dart';
 import 'package:flutter_template/interactor/user/repository/user_repository.dart';
 import 'package:flutter_template/interactor/user/user_interactor.dart';
-import 'package:flutter_template/util/const.dart';
 import 'package:flutter_template/util/sp_helper.dart';
 import 'package:network/network.dart';
 
@@ -28,7 +28,7 @@ class MockAppComponent {
   RxHttp _initHttp(AuthInfoStorage authStorage) {
     var dioHttp = DioHttp(
       config: HttpConfig(
-        EMPTY_STRING,
+        Url.testUrl,
         Duration(seconds: 30),
       ),
       errorMapper: DefaultStatusMapper(),
