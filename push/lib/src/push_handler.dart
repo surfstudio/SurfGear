@@ -23,6 +23,8 @@ class PushHandler {
   final NotificationController _notificationController;
   final MessagingService _messagingService;
 
+  /// display local notification
+  /// [MessagingService] calls this method to display the notification that came from Firebase
   void handleMessage(
     Map<String, dynamic> message,
     MessageHandlerType handlerType, {

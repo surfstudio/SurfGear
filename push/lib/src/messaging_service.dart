@@ -18,6 +18,7 @@ class MessagingService {
     );
   }
 
+  /// no need to call. initialization is called inside the [PushHandler]
   void initNotification(HandleMessageFunction handleMessage) {
     this._handleMessage = handleMessage;
     _messaging.configure(

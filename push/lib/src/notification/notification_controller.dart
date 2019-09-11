@@ -32,6 +32,7 @@ class NotificationController {
       );
   }
 
+  /// displaying notification from the strategy
   Future<dynamic> show(
     PushHandleStrategy strategy,
     NotificationCallback onSelectNotification,
