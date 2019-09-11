@@ -4,10 +4,9 @@ import 'package:flutter_template/config/env/env.dart';
 import 'package:flutter_template/domain/debug_options.dart';
 import 'package:flutter_template/interactor/auth/auth_interactor.dart';
 import 'package:flutter_template/interactor/common/urls.dart';
-import 'package:flutter_template/ui/screen/debug/debug_route.dart';
+import 'package:flutter_template/interactor/debug/debug_screen_interactor.dart';
 import 'package:flutter_template/ui/screen/phone_input/phone_route.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:push/push.dart';
 
 enum UrlType { test, prod, dev }
 
@@ -17,12 +16,12 @@ class DebugWidgetModel extends WidgetModel {
     WidgetModelDependencies dependencies,
     this.navigator,
     this._authInteractor,
-    this._pushHandler,
+    this._debugScreenInteractor,
   ) : super(dependencies);
 
   final w.NavigatorState navigator;
   final AuthInteractor _authInteractor;
-  final PushHandler _pushHandler;
+  final DebugScreenInteractor _debugScreenInteractor;
 
   final urlState = StreamedState<UrlType>();
   final debugOptionsState =
@@ -81,7 +80,7 @@ class DebugWidgetModel extends WidgetModel {
 
     bind(
       showDebugNotification,
-      (_) => DebugScreenRoute.showDebugScreenNotification(_pushHandler),
+      (_) => _debugScreenInteractor.showDebugScreenNotification(),
     );
 
     bind(closeScreenAction, (_) {

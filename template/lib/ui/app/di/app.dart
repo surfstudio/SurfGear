@@ -4,6 +4,7 @@ import 'package:flutter_template/interactor/auth/repository/auth_repository.dart
 import 'package:flutter_template/interactor/common/push/push_strategy_factory.dart';
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/interactor/counter/repository/counter_repository.dart';
+import 'package:flutter_template/interactor/debug/debug_screen_interactor.dart';
 import 'package:flutter_template/interactor/initial_progress/initial_progress_interactor.dart';
 import 'package:flutter_template/interactor/initial_progress/storage/initial_progress_storage.dart';
 import 'package:flutter_template/interactor/network/header_builder.dart';
@@ -35,6 +36,7 @@ class AppComponent implements BaseWidgetModelComponent<AppWidgetModel> {
   AuthInteractor authInteractor;
   CounterInteractor counterInteractor;
   UserInteractor userInteractor;
+  DebugScreenInteractor debugScreenInteractor;
 
   MessagingService messagingService = MessagingService();
   NotificationController notificationController =
@@ -69,6 +71,8 @@ class AppComponent implements BaseWidgetModelComponent<AppWidgetModel> {
       UserRepository(http),
     );
 
+    debugScreenInteractor = DebugScreenInteractor(pushHandler);
+
     final messageController = MaterialMessageController(scaffoldKey);
     final wmDependencies = WidgetModelDependencies(
       errorHandler: StandardErrorHandler(
@@ -81,7 +85,7 @@ class AppComponent implements BaseWidgetModelComponent<AppWidgetModel> {
       wmDependencies,
       messageController,
       navigatorKey,
-      pushHandler,
+      debugScreenInteractor,
     );
   }
 

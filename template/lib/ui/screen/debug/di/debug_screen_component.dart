@@ -29,7 +29,7 @@ class DebugScreenComponent
       wmDependencies,
       navigator,
       parentComponent.authInteractor,
-      parentComponent.pushHandler,
+      parentComponent.debugScreenInteractor,
     );
   }
 }
