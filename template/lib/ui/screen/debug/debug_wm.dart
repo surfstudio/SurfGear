@@ -94,32 +94,39 @@ class DebugWidgetModel extends WidgetModel {
     bind(
         showPerformanceOverlayChangeAction,
         (value) => _setDebugOptionState(
-            () => config.debugOptions.copyWith(showPerformanceOverlay: value)));
+              config.debugOptions.copyWith(showPerformanceOverlay: value),
+            ));
 
     bind(
         debugShowMaterialGridChangeAction,
         (value) => _setDebugOptionState(
-            () => config.debugOptions.copyWith(debugShowMaterialGrid: value)));
+              config.debugOptions.copyWith(debugShowMaterialGrid: value),
+            ));
 
     bind(
         checkerboardRasterCacheImagesChangeAction,
-        (value) => _setDebugOptionState(() => config.debugOptions
-            .copyWith(checkerboardRasterCacheImages: value)));
+        (value) => _setDebugOptionState(
+              config.debugOptions
+                  .copyWith(checkerboardRasterCacheImages: value),
+            ));
 
     bind(
         checkerboardOffscreenLayersChangeAction,
-        (value) => _setDebugOptionState(() =>
-            config.debugOptions.copyWith(checkerboardOffscreenLayers: value)));
+        (value) => _setDebugOptionState(
+              config.debugOptions.copyWith(checkerboardOffscreenLayers: value),
+            ));
 
     bind(
         showSemanticsDebuggerChangeAction,
         (value) => _setDebugOptionState(
-            () => config.debugOptions.copyWith(showSemanticsDebugger: value)));
+              config.debugOptions.copyWith(showSemanticsDebugger: value),
+            ));
 
     bind(
         debugShowCheckedModeBannerChangeAction,
-        (value) => _setDebugOptionState(() =>
-            config.debugOptions.copyWith(debugShowCheckedModeBanner: value)));
+        (value) => _setDebugOptionState(
+              config.debugOptions.copyWith(debugShowCheckedModeBanner: value),
+            ));
   }
 
   void _refreshApp(Config newConfig) {
@@ -129,8 +136,7 @@ class DebugWidgetModel extends WidgetModel {
     });
   }
 
-  void _setDebugOptionState(DebugOptions Function() func) {
-    var newOpt = func();
+  void _setDebugOptionState(DebugOptions newOpt) {
     config = config.copyWith(debugOptions: newOpt);
     debugOptionsState.accept(newOpt);
   }
