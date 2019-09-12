@@ -1,4 +1,4 @@
-import 'package:datalist/src/datalist_pagecount.dart';
+import 'package:datalist/src/impl/datalist_page_count.dart';
 import 'package:datalist/src/exceptions.dart';
 import 'package:flutter_test/flutter_test.dart';
 

@@ -4,27 +4,31 @@ import 'dart:core';
 import 'package:datalist/src/base/datalist.dart';
 import 'package:datalist/src/exceptions.dart';
 
-/// List для работы с пагинацией
-/// Механизм limit-offset
-/// Можно сливать с другим DataList
+/// Pagination List
+/// Limit-offset mechanism
+/// May merge with another DataList
 ///
 /// @param <T> Item
 class OffsetDataList<T> extends DataList<T> {
-  //количество элементов в списке
+
+  /// Item count in List
   int limit;
 
-  //сдвиг относительно первого элемента
+  /// Offset relative to the first element
   int offset;
 
-  //максимально возможное количество эелементов списка
+  /// Maximum number of list items
   int totalCount;
 
+  /// List of items
   List<T> data;
 
+  /// Creating an Empty DataList
   factory OffsetDataList.empty() {
     return new OffsetDataList<T>(data: []);
   }
 
+  /// Creating an empty DataList with a limit on the maximum number of elements
   factory OffsetDataList.emptyWithTotal(int totalCount) {
     return new OffsetDataList(data: [], totalCount: totalCount);
   }
@@ -36,10 +40,10 @@ class OffsetDataList<T> extends DataList<T> {
     this.totalCount = 0,
   }) : super(data);
 
-  /// Слияние двух DataList
+  /// Merge two DataList
   ///
-  /// @param data DataList для слияния с текущим
-  /// @return текущий экземпляр
+  /// @param _data DataList for merge with current
+  /// @return current instance
   @override
   DataList<T> merge(DataList<T> _data) {
     OffsetDataList data = _data as OffsetDataList;
@@ -68,12 +72,12 @@ class OffsetDataList<T> extends DataList<T> {
     return this;
   }
 
-  /// Слияние двух DataList с удалением дублируемых элементов
-  /// При удалении остаются актуальные (последние присланные сервером) элементы
+  /// Merging two DataList with removing duplicate items
+  /// When you delete, the current (last sent by the server) items remain
   ///
-  /// @param data              DataList для слияния с текущим
-  /// @param distinctPredicate предикат, по которому происходит удаление дублируемых элементов
-  /// @return текущий экземпляр
+  /// @param data              DataList for merge with current
+  /// @param distinctPredicate predicate by which duplicate elements are deleted
+  /// @return current instance
   OffsetDataList<T> mergeWithPredicate<R>(
     OffsetDataList<T> data,
     R Function(T item) distinctPredicate,
@@ -104,11 +108,11 @@ class OffsetDataList<T> extends DataList<T> {
     return this;
   }
 
-  /// Преобразует dataList одного типа в dataList другого типа
+  /// Converts a dataList of one type to a dataList of another type
   ///
-  /// @param mapFunc функция преобразования
-  /// @param <R>     тип данных нового списка
-  /// @return DataList с элементами типа R
+  /// @param mapFunc mapping function
+  /// @param <R>     data type of new list
+  /// @return DataList<R>
   OffsetDataList<R> transform<R>(R Function(T item) mapFunc) {
     List<R> resultData = new List();
     for (T item in this) {
@@ -123,7 +127,7 @@ class OffsetDataList<T> extends DataList<T> {
     );
   }
 
-  /// возвращает значение offset c которого нужно начать чтобы подгрузить слкдующий блок данных
+  /// Returns the offset value from which you need to start to load the next data block
   int get nextOffset => limit + offset;
 
   int getLimit() {
@@ -138,9 +142,9 @@ class OffsetDataList<T> extends DataList<T> {
     return totalCount;
   }
 
-  /// Проверка возможности дозагрузки данных
+  /// Checking the possibility of reloading data
   ///
-  /// @return
+  /// @return true/false
   @override
   bool get canGetMore => totalCount > limit + offset;
 
@@ -200,12 +204,12 @@ class OffsetDataList<T> extends DataList<T> {
     return "DataList {limit= $limit , offset= $offset , data= $data }";
   }
 
-  /// Удаление одинаковых элементов из исходного списка
-  /// Критерий того, что элементы одинаковые, задается параметром distinctPredicate
+  /// Removing duplicate items from source list
+  /// The criterion that the elements are the same is set by the distinctPredicate parameter
   ///
-  /// @param source            исходный список
-  /// @param distinctPredicate критерий того, что элементы одинаковые
-  /// @return отфильтрованный список без одинаковых элементов
+  /// @param source            source list
+  /// @param distinctPredicate criterion that the elements are the same
+  /// @return filtered list without identical items
   List<T> distinctByLast<R>(
     List<T> source,
     R Function(T item) distinctPredicate,

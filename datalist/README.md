@@ -1,23 +1,23 @@
 # datalist limit-offset
-Основная сущность - [`OffsetDataList`][dl_offset] - список для пагинируемых данных через механизм limit/offset
-Имеет методы:
- 1. `merge(DataList data)`, позволяющий обьединять 2 блока данных. На вход должен быть только OffsetDataList
- 2. `int nextOffset` - возвращает смещение для след блока данных
- 3. `bool canGetMore` - обозначает, можно ли загрузить еще данные
- 1. `#transform()` - для преобразования данных в списке
+The main entity - [`OffsetDataList`] [dl_offset] - a list for paginated data through the limit / offset mechanism
+Has methods:
+  1. `merge (DataList data)`, which allows you to combine 2 data blocks. The input should be only OffsetDataList
+  2. `int nextOffset` - returns the offset for the trace of the data block
+  3. `bool canGetMore` - indicates whether more data can be loaded
+  1. `#transform ()` - to convert data in a list
 
-Может объединять два последующих блока, так и в обратном порядке.
+It can combine two subsequent blocks, and in reverse order.
 
-[dl_offset]: lib/src/datalist_offset.dart
+[dl_offset]: lib/src/impl/datalist_limit_offset.dart
 
 # DataList page-count
-Основная сущность - [`PageCountDataList`][dl_pagecount] - список для пагинируемых данных через механизм page/count
-Имеет методы:
- 1. `merge(DataList data)`, позволяющий обьединять 2 блока данных.  На вход должен быть только PageCount DataList
- 2. `int getNextPage()` - возвращает номер след блока данных
- 3. `bool canGetMore` - обозначает, можно ли загрузить еще данные
- 1. `#transform()` - для преобразования данных в списке
+The main entity - [`PageCountDataList`] [dl_pagecount] - a list of paginated data through the page / count mechanism
+Has methods:
+  1. `merge (DataList data)`, which allows you to combine 2 data blocks. Input should be only PageCount DataList
+  2. `int getNextPage ()` - returns the number of the trace of the data block
+  3. `bool canGetMore` - indicates whether more data can be loaded
+  1. `#transform ()` - to convert data in a list
 
-Может объединять два последующих блока, так и в обратном порядке.
+It can combine two subsequent blocks, and in reverse order.
 
-[dl_pagecount]: lib/src/datalist_pagecount.dart
+[dl_pagecount]: lib/src/impl/datalist_page_count.dart

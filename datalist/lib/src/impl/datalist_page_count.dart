@@ -4,9 +4,9 @@ import 'dart:core';
 import 'package:datalist/src/base/datalist.dart';
 import 'package:datalist/src/exceptions.dart';
 
-/// List для работы с пагинацией
-/// Механизм page-count
-/// Можно сливать с другим DataList
+/// Pagination List
+/// Page-count mechanism
+/// May merge with another DataList
 ///
 /// @param <T> Item
 class PageCountDataList<T> extends DataList<T> {
@@ -15,12 +15,18 @@ class PageCountDataList<T> extends DataList<T> {
   static const int UNSPECIFIED_TOTAL_ITEMS_COUNT = -1;
   static const int UNSPECIFIED_TOTAL_PAGES_COUNT = -1;
 
+  /// Page size
   int pageSize;
+  /// Which page begins
   int startPage;
+  /// Page count
   int numPages;
+  /// Max items count
   int totalItemsCount;
+  /// Max pages count
   int totalPagesCount;
 
+  /// List of items
   List<T> data;
 
   PageCountDataList({
@@ -32,12 +38,12 @@ class PageCountDataList<T> extends DataList<T> {
     this.totalPagesCount = UNSPECIFIED_TOTAL_PAGES_COUNT,
   }) : super(data);
 
-  /// Создает пустой DataList
+  /// Creating an empty DataList with a limit on the maximum number of elements
   ///
-  /// @param <T>             тип данных в листе
-  /// @param totalItemsCount максимальное количество элементов
-  /// @param totalPagesCount максимальное количество страниц
-  /// @return пустой дата-лист
+  /// @param <T>             data type in List
+  /// @param totalItemsCount max count of items
+  /// @param totalPagesCount max count of pages
+  /// @return empty DataList
   factory PageCountDataList.emptyWithTotalCount(
           int totalItemsCount, int totalPagesCount) =>
       PageCountDataList(
@@ -49,27 +55,27 @@ class PageCountDataList<T> extends DataList<T> {
         totalItemsCount: totalItemsCount,
       );
 
-  ///Создает пустой DataList
+  ///Create empty DataList
   ///
   /// @param <T> тип данных в листе
   /// @return пустой дата-лист
   factory PageCountDataList.empty() =>
       PageCountDataList.emptyWithTotalCount(0, 0);
 
-  /// Создает пустой DataList
+  /// Create empty DataList
   ///
-  /// @param <T> тип данных в листе
-  /// @return пустой дата-лист
+  /// @param <T> data type in list
+  /// @return empty data list
   factory PageCountDataList.emptyUnspecifiedTotal() =>
       PageCountDataList.emptyWithTotalCount(
         UNSPECIFIED_TOTAL_ITEMS_COUNT,
         UNSPECIFIED_TOTAL_PAGES_COUNT,
       );
 
-  /// Слияние двух DataList
+  /// Merge two DataList
   ///
-  /// @param inputDataList DataList для слияния с текущим
-  /// @return текущий экземпляр
+  /// @param inputDataList DataList for merge with current instance
+  /// @return current instance
   @override
   PageCountDataList<T> merge(DataList<T> _inputDataList) {
     PageCountDataList inputDataList = _inputDataList as PageCountDataList;
@@ -119,9 +125,9 @@ class PageCountDataList<T> extends DataList<T> {
     return this;
   }
 
-  /// разделяет данные на блоки по страницам
+  /// Divides data into blocks by pages
   ///
-  /// @return
+  /// @return map of pages
   Map<int, List<T>> _split() {
     Map<int, List<T>> result = HashMap();
     for (int i = startPage; i < startPage + numPages; i++) {
@@ -136,11 +142,11 @@ class PageCountDataList<T> extends DataList<T> {
     return result;
   }
 
-  /// Преобразует dataList одного типа в dataList другого типа
+  /// Converts a DataList of one type to a DataList of another type
   ///
-  /// @param mapFunc функция преобразования
-  /// @param <R>     тип данных нового списка
-  /// @return DataList с элементами типа R
+  /// @param mapFunc mapping function
+  /// @param <R>     type of new list
+  /// @return DataList<R>
   PageCountDataList<R> transform<R>(R Function(T item) mapFunc) {
     List<R> resultData = List<R>();
     for (T item in this) {
@@ -156,7 +162,7 @@ class PageCountDataList<T> extends DataList<T> {
     );
   }
 
-  /// Проверка возможности дозагрузки данных
+  /// Checking the possibility of reloading data
   ///
   /// @return
   bool get canGetMore =>
@@ -164,10 +170,11 @@ class PageCountDataList<T> extends DataList<T> {
       (data.length == (numPages - startPage + 1) * pageSize &&
           totalPagesCount != numPages);
 
-  /// возвращает значение page, c которого нужно начать чтобы подгрузить следующий блок данных
+  /// Returns the page value from which to start to load the next data block
   int get nextPage => startPage == UNSPECIFIED_PAGE ? 1 : startPage + numPages;
 
   /// Сброс данных
+  /// Clear data
   @override
   void clear() {
     this.data.clear();
