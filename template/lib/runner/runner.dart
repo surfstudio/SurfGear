@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_crashlytics/flutter_crashlytics.dart';
-import 'package:flutter_template/config/base/env/env.dart';
+import 'package:flutter_template/config/env/env.dart';
 import 'package:flutter_template/ui/app/app.dart';
 import 'package:logger/logger.dart';
 
