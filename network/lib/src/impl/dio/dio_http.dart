@@ -22,6 +22,8 @@ class DioHttp extends Http {
       ..receiveTimeout = config.timeout.inMilliseconds
       ..sendTimeout = config.timeout.inMilliseconds;
 
+    _configProxy(config);
+
     _dio.interceptors.add(dio.LogInterceptor(
       requestBody: true,
       responseBody: true,
@@ -38,6 +40,22 @@ class DioHttp extends Http {
 
       throw e;
     }));
+  }
+
+  ///Конфигурация прокси для трекинга данных.
+  ///
+  /// @param config - HttpConfig клиента. Получение ссылки на прокси сервер.
+  void _configProxy(HttpConfig config) {
+    var proxyUrl = config.proxyUrl;
+
+    if (proxyUrl != null) {
+      (_dio.httpClientAdapter as dio.DefaultHttpClientAdapter)
+          .onHttpClientCreate = (client) {
+        client.findProxy = (uri) {
+          return "PROXY $proxyUrl";
+        };
+      };
+    }
   }
 
   @override
