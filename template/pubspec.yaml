@@ -46,12 +46,12 @@ dependencies:
   push:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: ANDDEP-639-push-module
+      ref: dev
       path: push
   surf_util:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: ANDDEP-639-push-module
+      ref: dev
       path: surf_util
 
   intl: 0.15.7
