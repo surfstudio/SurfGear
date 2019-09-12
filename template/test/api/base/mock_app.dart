@@ -30,7 +30,7 @@ class MockAppComponent {
   RxHttp _initHttp(AuthInfoStorage authStorage) {
     var dioHttp = DioHttp(
       config: HttpConfig(
-        TEST_URL,
+        Url.testUrl,
         Duration(seconds: 30),
       ),
       errorMapper: DefaultStatusMapper(),
