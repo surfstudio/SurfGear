@@ -42,6 +42,18 @@ dependencies:
       ref: dev
       path: analytics
 
+  # модуль push уведомлений
+  push:
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: push
+  surf_util:
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: surf_util
+
   intl: 0.15.7
 
   flutter_svg: 0.10.3
@@ -77,7 +89,7 @@ dependencies:
   cupertino_icons: 0.1.2
 
   #notifications
-  flutter_local_notifications: 0.6.0
+  flutter_local_notifications: ^0.8.2
 
   #connection
   connectivity: 0.4.2+2

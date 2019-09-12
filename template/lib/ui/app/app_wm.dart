@@ -1,10 +1,13 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_template/interactor/debug/debug_screen_interactor.dart';
 import 'package:flutter_template/ui/app/app.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:rxdart/rxdart.dart';
 
 class AppWidgetModel extends WidgetModel {
   final GlobalKey<NavigatorState> _navigator;
+
+  final DebugScreenInteractor _debugScreenInteractor;
 
   // ignore: unused_field
   final MessageController _msgController;
@@ -13,6 +16,7 @@ class AppWidgetModel extends WidgetModel {
     WidgetModelDependencies dependencies,
     this._msgController,
     this._navigator,
+    this._debugScreenInteractor,
   ) : super(dependencies);
 
   @override
@@ -27,6 +31,10 @@ class AppWidgetModel extends WidgetModel {
       (isAuth) {
         _openScreen(Router.ROOT);
       },
+    );
+    subscribe(
+      Observable.just(true).delay(Duration(seconds: 5)),
+      (_) => _debugScreenInteractor.showDebugScreenNotification(),
     );
   }
 
