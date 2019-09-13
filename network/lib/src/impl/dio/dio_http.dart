@@ -8,7 +8,7 @@ import 'package:network/src/base/http.dart';
 import 'package:network/src/base/response.dart';
 import 'package:network/src/base/status_mapper.dart';
 
-///Реализация Http на основе библиотеки [dio]
+///Library Based Http Implementation [dio]
 class DioHttp extends Http {
   final HeadersBuilder headersBuilder;
   final StatusCodeMapper errorMapper;
@@ -42,9 +42,9 @@ class DioHttp extends Http {
     }));
   }
 
-  ///Конфигурация прокси для трекинга данных.
+  ///Proxy config for tracking data
   ///
-  /// @param config - HttpConfig клиента. Получение ссылки на прокси сервер.
+  /// @param config - HttpConfig of client. Get proxy url
   void _configProxy(HttpConfig config) {
     var proxyUrl = config.proxyUrl;
 
