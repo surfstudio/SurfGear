@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/util/const.dart';

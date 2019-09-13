@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_template/domain/user.dart';
 import 'package:flutter_template/interactor/user/repository/user_repository.dart';
 import 'package:rxdart/rxdart.dart';

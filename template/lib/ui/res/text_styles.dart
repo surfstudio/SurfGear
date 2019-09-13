@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/painting.dart';
 import 'package:flutter_template/ui/res/colors.dart';
 

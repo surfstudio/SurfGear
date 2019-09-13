@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_template/interactor/token/token_storage.dart';
 import 'package:rxdart/subjects.dart';
 

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_template/interactor/common/exceptions.dart';
 import 'package:flutter_template/interactor/session/session_changed_interactor.dart';
 import 'package:flutter_template/ui/base/error/network_error_handler.dart';

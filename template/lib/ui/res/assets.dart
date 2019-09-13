@@ -1,5 +1,3 @@
-
-
 const String _baseResPath = "res/assets";
 
 const String androidMipMapIcon = "@mipmap/ic_launcher";

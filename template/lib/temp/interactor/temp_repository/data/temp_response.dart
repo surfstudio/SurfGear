@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_template/interactor/base/transformable.dart';
 
 /// Респонс на <todo> ответ сервера

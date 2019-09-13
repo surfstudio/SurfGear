@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_template/interactor/initial_progress/storage/initial_progress_storage.dart';
 
 /// Интерактор для работы с прогрессом

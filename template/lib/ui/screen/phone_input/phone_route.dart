@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_template/ui/screen/phone_input/phone_input_screen.dart';
 

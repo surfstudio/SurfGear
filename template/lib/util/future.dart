@@ -1,5 +1,3 @@
-
-
 class FutureUtils {
   ///Отсроченный запрос
   static Future delayed(Duration dur, [dynamic Function() computation]) {

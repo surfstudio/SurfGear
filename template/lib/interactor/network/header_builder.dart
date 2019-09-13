@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_template/interactor/token/token_storage.dart';
 import 'package:flutter_template/util/const.dart';
 import 'package:network/network.dart';

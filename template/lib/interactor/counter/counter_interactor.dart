@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_template/domain/counter.dart';
 import 'package:flutter_template/interactor/counter/repository/counter_repository.dart';
 import 'package:rxdart/rxdart.dart';

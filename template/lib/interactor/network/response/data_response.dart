@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_template/interactor/base/transformable.dart';
 
 /// Базовая модель респонса для ответов вида: { data: [] }

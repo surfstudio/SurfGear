@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_template/interactor/common/urls.dart';
 import 'package:flutter_template/interactor/network/status_mapper.dart';
 import 'package:flutter_template/interactor/token/token_storage.dart';

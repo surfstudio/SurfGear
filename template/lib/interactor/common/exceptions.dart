@@ -1,5 +1,3 @@
-
-
 class MessagedException implements Exception {
   final String message;
 

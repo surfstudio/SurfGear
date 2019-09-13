@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_template/util/const.dart';
 import 'package:string_mask/string_mask.dart';
 

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_template/util/sp_helper.dart';
 
 const String _KEY_PROGRESS = "KEY_PROGRESS";

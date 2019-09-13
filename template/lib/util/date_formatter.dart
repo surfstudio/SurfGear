@@ -1,5 +1,3 @@
-
-
 /// Утилиты для [DateTime]
 
 const UTC_FORMAT = "YYYY-MM-DDThh:mmTZD";

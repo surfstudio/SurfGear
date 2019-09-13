@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_template/temp/ui/temp_wm.dart';
 import 'package:flutter_template/ui/app/di/app.dart';

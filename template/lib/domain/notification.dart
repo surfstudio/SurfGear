@@ -1,5 +1,3 @@
-
-
 /// Уведомление
 class Notification {
   final DateTime date;

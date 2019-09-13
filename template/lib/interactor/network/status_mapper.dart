@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_template/interactor/common/exceptions.dart';
 import 'package:network/network.dart';
 

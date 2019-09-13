@@ -1,5 +1,3 @@
-
-
 class Model {
   final int id;
   final String name;

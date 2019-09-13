@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_template/domain/user.dart';
 import 'package:flutter_template/interactor/auth/repository/auth_repository.dart';
 import 'package:flutter_template/interactor/session/session_changed_interactor.dart';

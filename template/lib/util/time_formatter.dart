@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_template/domain/time.dart';
 import 'package:flutter_template/ui/res/strings/common_strings.dart';
 import 'package:flutter_template/util/const.dart';

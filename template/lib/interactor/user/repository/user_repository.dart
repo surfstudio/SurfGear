@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_template/domain/user.dart';
 import 'package:flutter_template/interactor/auth/repository/data/user_response.dart';
 import 'package:flutter_template/util/const.dart';

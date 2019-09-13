@@ -1,5 +1,3 @@
-
-
 class Counter {
   final int count;
 
