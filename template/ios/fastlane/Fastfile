@@ -14,6 +14,7 @@
 fastlane_version "2.108.0"
 
 prod_bundle_id = "YOUR_ID" ## your id here todo
+dev_bundle_id = "YOUR_ID" ## your id here todo
 
 prod_target = "Runner"
 prod_scheme = "Runner"
@@ -39,7 +40,7 @@ platform :ios do
 
     sigh(
       development: true,
-      app_identifier: prod_bundle_id
+      app_identifier: dev_bundle_id
     )
 
     gym(

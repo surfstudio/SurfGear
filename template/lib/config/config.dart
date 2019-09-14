@@ -1,10 +1,18 @@
-import 'package:flutter_template/interactor/common/urls.dart';
-
-///
-/// Пример класса-конфигурации
-///
 class Config {
   final String url;
+  final DebugOptions debugOptions;
 
-  Config({this.url});
+  Config({
+    this.url,
+    this.debugOptions,
+  });
+
+  Config copyWith({
+    String url,
+    DebugOptions debugOptions,
+  }) =>
+      Config(
+        url: url ?? this.url,
+        debugOptions: debugOptions ?? this.debugOptions,
+      );
 }
