@@ -29,7 +29,7 @@ current_version=*версия сдк*
 * Выполнить следующие команды:
 
 ```
-cd ios/ && make init
+make -C ios/ init
 ```
 
 В случае непонятных ошибок(актуально для iOS сборок):
@@ -54,7 +54,7 @@ cd ios/ && make init
 ```
 cd android/; fastlane android beta //android сборка
 
-cd ios/; make beta //ios сборка
+make -C ios beta //ios сборка
 ```
 
 **ВАЖНО**: При локальной выгрузке перед ней следует выполнить сборку проекта одним из описанных 
