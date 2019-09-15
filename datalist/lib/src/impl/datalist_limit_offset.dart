@@ -57,13 +57,10 @@ class OffsetDataList<T> extends DataList<T> {
     this.data.clear();
     this.data.addAll(merged);
     if (this.offset < data.offset) {
-      //загрузка вниз, как обычно
       this.limit = data.offset + data.limit - this.offset;
     } else if (this.offset == data.offset) {
-      //коллизия?
       this.limit = data.limit;
     } else {
-      // загрузка вверх
       this.offset = data.offset;
       this.limit = length;
     }
@@ -85,7 +82,6 @@ class OffsetDataList<T> extends DataList<T> {
     bool reverse = data.offset < this.offset;
     List<T> merged = _tryMerge(reverse ? data : this, reverse ? this : data);
     if (merged == null) {
-      //Отрезки данных не совпадают, слияние не возможно
       throw new IncompatibleRangesException("incorrect data range");
     }
 

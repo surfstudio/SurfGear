@@ -173,7 +173,6 @@ class PageCountDataList<T> extends DataList<T> {
   /// Returns the page value from which to start to load the next data block
   int get nextPage => startPage == UNSPECIFIED_PAGE ? 1 : startPage + numPages;
 
-  /// Сброс данных
   /// Clear data
   @override
   void clear() {
