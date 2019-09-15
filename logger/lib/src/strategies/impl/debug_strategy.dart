@@ -31,11 +31,11 @@ class DebugLogStrategy extends LogStrategy {
 
   String _mapPrefix(int priority) {
     switch (priority) {
-      case 1:
+      case PRIORITY_LOG_DEBUG:
         return PREFIX_LOG_DEBUG;
-      case 2:
+      case PRIORITY_LOG_WARN:
         return PREFIX_LOG_WARN;
-      case 3:
+      case PRIORITY_LOG_ERROR:
         return PREFIX_LOG_ERROR;
       default:
         return "";

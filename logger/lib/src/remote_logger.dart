@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:logger/src/remote/strategies/remote_log_strategy.dart';
+import 'package:logger/src/remote/strategies/remote_log_user_strategy.dart';
 
 /// Wrapper for logging to a remote server
 /// using various strategies
 class RemoteLogger {
-  static final _strategies = Map<Type, RemoteLogStrategy>();
+  static final _strategies = Map<Type, RemoteUserLogStrategy>();
 
   static void setUser(String id, String username, String email) {
     _forAllStrategies((strategy) => strategy.setUser(id, username, email));
@@ -39,15 +39,15 @@ class RemoteLogger {
     _forAllStrategies((strategy) => strategy.logInfo(key, info));
   }
 
-  static void addStrategy(RemoteLogStrategy strategy) {
+  static void addStrategy(RemoteUserLogStrategy strategy) {
     _strategies[strategy.runtimeType] = strategy;
   }
 
-  static void removeStrategy(RemoteLogStrategy strategy) {
+  static void removeStrategy(RemoteUserLogStrategy strategy) {
     _strategies.remove(strategy.runtimeType);
   }
 
-  static void _forAllStrategies(Function(RemoteLogStrategy strategy) action) {
+  static void _forAllStrategies(Function(RemoteUserLogStrategy strategy) action) {
     _strategies.values.forEach(action);
   }
 }

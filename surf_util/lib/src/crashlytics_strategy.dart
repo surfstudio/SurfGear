@@ -14,10 +14,10 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_crashlytics/flutter_crashlytics.dart';
-import 'package:logger/src/remote/strategies/remote_log_strategy.dart';
+import 'package:logger/logger.dart';
 
 /// Strategy for sending logs to Crashlytics
-class CrashlyticsRemoteLogStrategy extends RemoteLogStrategy {
+class CrashlyticsRemoteLogStrategy extends RemoteUserLogStrategy {
   FlutterCrashlytics get _crashlytics => FlutterCrashlytics();
 
   @override
@@ -29,6 +29,7 @@ class CrashlyticsRemoteLogStrategy extends RemoteLogStrategy {
   void clearUser() {
     _crashlytics.setUserInfo("", "","");
   }
+
 
   @override
   void log(String message) {

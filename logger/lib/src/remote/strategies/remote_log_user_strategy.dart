@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Strategy for sending logs to a remote server
-abstract class RemoteLogStrategy {
+/// Strategy for sending logs of user to a remote server
+abstract class RemoteUserLogStrategy {
   void setUser(String id, String username, String email);
 
   void clearUser();
