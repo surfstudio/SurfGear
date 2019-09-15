@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'dart:core';
 
-import 'package:datalist/src/base/datalist.dart';
+import 'package:datalist/src/datalist.dart';
 import 'package:datalist/src/exceptions.dart';
 
 /// Pagination List
