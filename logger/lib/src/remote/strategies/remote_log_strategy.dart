@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-///Стратегия для отправки логов на удалённый сервер
+/// Strategy for sending logs to a remote server
 abstract class RemoteLogStrategy {
   void setUser(String id, String username, String email);
 

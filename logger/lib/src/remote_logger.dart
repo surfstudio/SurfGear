@@ -14,8 +14,8 @@
 
 import 'package:logger/src/remote/strategies/remote_log_strategy.dart';
 
-///Обёртка для логирования на удалённый сервер
-///с использованием различных стратегий
+/// Wrapper for logging to a remote server
+/// using various strategies
 class RemoteLogger {
   static final _strategies = Map<Type, RemoteLogStrategy>();
 

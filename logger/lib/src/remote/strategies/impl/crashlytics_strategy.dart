@@ -16,7 +16,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_crashlytics/flutter_crashlytics.dart';
 import 'package:logger/src/remote/strategies/remote_log_strategy.dart';
 
-///Стратегия для отправки логов в Crashlytics
+/// Strategy for sending logs to Crashlytics
 class CrashlyticsRemoteLogStrategy extends RemoteLogStrategy {
   FlutterCrashlytics get _crashlytics => FlutterCrashlytics();
 

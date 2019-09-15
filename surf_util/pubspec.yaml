@@ -11,6 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  logger:
+    path:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
