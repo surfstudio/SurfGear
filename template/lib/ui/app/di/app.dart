@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/interactor/auth/auth_interactor.dart';
 import 'package:flutter_template/interactor/auth/repository/auth_repository.dart';
-import 'package:flutter_template/interactor/common/urls.dart';
+import 'package:flutter_template/interactor/common/push/push_strategy_factory.dart';
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/interactor/counter/repository/counter_repository.dart';
+import 'package:flutter_template/interactor/debug/debug_screen_interactor.dart';
 import 'package:flutter_template/interactor/initial_progress/initial_progress_interactor.dart';
 import 'package:flutter_template/interactor/initial_progress/storage/initial_progress_storage.dart';
 import 'package:flutter_template/interactor/network/header_builder.dart';
@@ -16,9 +17,12 @@ import 'package:flutter_template/ui/app/app_wm.dart';
 import 'package:flutter_template/ui/base/default_dialog_controller.dart';
 import 'package:flutter_template/ui/base/error/standard_error_handler.dart';
 import 'package:flutter_template/ui/base/material_message_controller.dart';
+import 'package:flutter_template/ui/res/assets.dart';
+import 'package:flutter_template/util/const.dart';
 import 'package:flutter_template/util/sp_helper.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:network/network.dart';
+import 'package:push/push.dart';
 
 /// Component per app
 class AppComponent implements BaseWidgetModelComponent<AppWidgetModel> {
@@ -32,6 +36,12 @@ class AppComponent implements BaseWidgetModelComponent<AppWidgetModel> {
   AuthInteractor authInteractor;
   CounterInteractor counterInteractor;
   UserInteractor userInteractor;
+  DebugScreenInteractor debugScreenInteractor;
+
+  MessagingService messagingService = MessagingService();
+  NotificationController notificationController =
+      NotificationController(androidMipMapIcon);
+  PushHandler pushHandler;
 
   AppComponent(
     GlobalKey<NavigatorState> navigatorKey,
@@ -43,6 +53,13 @@ class AppComponent implements BaseWidgetModelComponent<AppWidgetModel> {
     initInteractor = InitialProgressInteractor(
       InitialProgressStorage(preferencesHelper),
     );
+
+    pushHandler = PushHandler(
+      PushStrategyFactory(),
+      notificationController,
+      messagingService,
+    );
+
     authInteractor = AuthInteractor(
       AuthRepository(http, authStorage),
       scInteractor,
@@ -54,6 +71,8 @@ class AppComponent implements BaseWidgetModelComponent<AppWidgetModel> {
       UserRepository(http),
     );
 
+    debugScreenInteractor = DebugScreenInteractor(pushHandler);
+
     final messageController = MaterialMessageController(scaffoldKey);
     final wmDependencies = WidgetModelDependencies(
       errorHandler: StandardErrorHandler(
@@ -62,13 +81,18 @@ class AppComponent implements BaseWidgetModelComponent<AppWidgetModel> {
         scInteractor,
       ),
     );
-    wm = AppWidgetModel(wmDependencies, messageController, navigatorKey);
+    wm = AppWidgetModel(
+      wmDependencies,
+      messageController,
+      navigatorKey,
+      debugScreenInteractor,
+    );
   }
 
   RxHttp _initHttp(AuthInfoStorage authStorage) {
     var dioHttp = DioHttp(
       config: HttpConfig(
-        BASE_URL,
+        EMPTY_STRING,
         Duration(seconds: 30),
       ),
       errorMapper: DefaultStatusMapper(),
