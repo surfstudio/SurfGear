@@ -16,8 +16,8 @@ import 'package:flutter/foundation.dart';
 import 'package:logger/src/const.dart';
 import 'package:logger/src/strategies/log_strategy.dart';
 
-///Стратегия для вывода лога в консоль
-///* используется для локального дебага
+/// Strategy for log output to console
+/// * used for local debugging
 class DebugLogStrategy extends LogStrategy {
   @override
   void log(String message, int priority, [Exception error]) {
@@ -31,11 +31,11 @@ class DebugLogStrategy extends LogStrategy {
 
   String _mapPrefix(int priority) {
     switch (priority) {
-      case 1:
+      case PRIORITY_LOG_DEBUG:
         return PREFIX_LOG_DEBUG;
-      case 2:
+      case PRIORITY_LOG_WARN:
         return PREFIX_LOG_WARN;
-      case 3:
+      case PRIORITY_LOG_ERROR:
         return PREFIX_LOG_ERROR;
       default:
         return "";

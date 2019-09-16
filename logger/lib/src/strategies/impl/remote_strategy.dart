@@ -18,8 +18,8 @@ import 'package:logger/src/strategies/log_strategy.dart';
 
 const minRemotePriority = PRIORITY_LOG_WARN;
 
-///Стратегия для отправки логов на удалённый сервер
-///* логи отправляются начиная с [minRemotePriority]
+/// Strategy for sending logs to a remote server
+/// * logs are sent starting from [minRemotePriority]
 class RemoteLogStrategy extends LogStrategy {
   @override
   void log(String message, int priority, [Exception error]) {
