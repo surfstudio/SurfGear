@@ -12,8 +12,10 @@ dependencies:
     sdk: flutter
 
   logger:
-    path: ../logger
-
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: project-PCK
+      path: logger
 
   #crash reporting
   flutter_crashlytics: 0.3.0
