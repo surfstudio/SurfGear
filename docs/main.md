@@ -17,6 +17,7 @@
     1. [Логгирование](common/logging.md)
     1. [Асинхронные взаимодействия](common/async.md) 
     1. [Пуш-уведомления](../push/README.md)
+    1. [Тестирование](common/testing.md)
 
 1. [**Слой Model**](todo)
     1. [Interactor](common/interactor.md)
@@ -26,8 +27,8 @@
 
 1. [UI слой]()
     1. [Структура UI-слоя](ui/structure.md)
-        1. [WidgetModel](todo)
-        1. [Widget](todo)
+        1. [WidgetModel](ui/widget_model.md)
+        1. [Widget](ui/widget.md)
     1. [Навигация](сommon/navigation.md)
     1. [Создание экрана](ui/create_screen.md)
     1. [Диалоги](todo)
