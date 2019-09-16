@@ -26,8 +26,8 @@
 
 1. [UI слой]()
     1. [Структура UI-слоя](ui/structure.md)
-        1. [WidgetModel](todo)
-        1. [Widget](todo)
+        1. [WidgetModel](ui/widget_model.md)
+        1. [Widget](ui/widget.md)
     1. [Навигация](сommon/navigation.md)
     1. [Создание экрана](ui/create_screen.md)
     1. [Диалоги](todo)
@@ -39,12 +39,11 @@
     1. [Continious Delivery](common/cd.md)
     1. [Подключение зависимостей в проект](common/dependencies.md)
 
-
 1. [Лучшие практики](best_practice/best_practice.md)
     1. [Поиск утечек](best_practice/memory_leak.md)
     1. [CI](https://github.com/surfstudio/jenkins-pipeline-lib)
     1. [Настройки и плагины для Android Studio](best_practice/android_studio_settings.md) 
-    1. [Тестирование](common/testing.md)
+    1. [Flutter Flavors](best_practices/flavors.md)
 
 [java_codestyle]:https://github.com/surfstudio/SurfAndroidStandard/blob/snapshot-0.4.0/docs/common/codestyle/java_codestyle.md
 
