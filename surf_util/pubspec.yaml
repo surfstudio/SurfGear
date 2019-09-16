@@ -14,6 +14,7 @@ dependencies:
   logger:
     path: ../logger
 
+
   #crash reporting
   flutter_crashlytics: 0.3.0
 
