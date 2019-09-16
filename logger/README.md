@@ -2,21 +2,21 @@
 
 Logger for Dart & Flutter
 
-## Использование
+## Usage
 
-Основные классы:
+Main classes:
 1. [Logger](lib/src/logger.dart)
 2. [RemoteLogger](lib/src/remote_logger.dart)
 
 ## Logger
 
-Logger используется как синглтон. Основные методы:
+Logger is used as a singleton. The main methods:
 * .d - debug
-* .w - warn, для ожидаемой ошибки
+* .w - warn, for expected error
 * .e - error
 
-Стратегии логирования можно дополнять, реализуя наследника `LogStrategy`
+Logging strategies can be supplemented by implementing the `LogStrategy` heir
 
-При добавлении `RemoteLogStrategy` на удаленный сервер отправляются все логи выше уровня WARN
+When adding `RemoteLogStrategy` to the remote server, all logs are sent above the WARN level
 
-Чтобы не загрязнять Crashlytics используем `Logger#w()` для ожидаемых ошибок
+In order not to pollute Crashlytics we use `Logger # w ()` for the expected errors

@@ -1,3 +1,3 @@
 # counter
 
-Демонстрационный проект для библиотеки logger
+Demo project for Logger

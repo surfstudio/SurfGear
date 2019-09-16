@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-///Набор констант для работы логгера
+/// Set of constants for the logger
 
-///приореты логирования
+/// logging priorities
 const PRIORITY_LOG_DEBUG = 1;
 const PRIORITY_LOG_WARN = 2;
 const PRIORITY_LOG_ERROR = 3;

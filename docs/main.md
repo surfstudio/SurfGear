@@ -42,9 +42,9 @@
 
 1. [Лучшие практики](best_practice/best_practice.md)
     1. [Поиск утечек](best_practice/memory_leak.md)
-    1. [CI](https://github.com/surfstudio/jenkins-pipeline-lib)
-    1. [Настройки и плагины для Android Studio](best_practice/android_studio_settings.md) 
-    1. [Flutter Flavors](best_practices/flavors.md)
+    2. [CI](https://github.com/surfstudio/jenkins-pipeline-lib)
+    3. [Настройки и плагины для Android Studio](best_practice/android_studio_settings.md) 
+    1. [Flutter Flavors](best_practices/flavors_for_devs.md)
 
 [java_codestyle]:https://github.com/surfstudio/SurfAndroidStandard/blob/snapshot-0.4.0/docs/common/codestyle/java_codestyle.md
 
