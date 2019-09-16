@@ -9,10 +9,10 @@ void main() {
 }
 
 void _init() async {
-  OffsetDataList page1User = await _getUserList(10, 0);
-  OffsetDataList page2User = await _getUserList(10, page1User.nextOffset);
+  OffsetDataList page1Users = await _getUserList(10, 0);
+  OffsetDataList page2Users = await _getUserList(10, page1Users.nextOffset);
 
-  print(page1User.merge(page2User).toString());
+  print(page1Users.merge(page2Users).toString());
 }
 
 Client _client = Client();
