@@ -7,7 +7,7 @@
 --------------------
 
 1. [Git flow в репозитории](git/flow.md)
-1. **Общие сведения о построении приложения** 
+1. **Общие сведения о построении приложения**
     1. [Требования к коду](todo)
         1. [Java Code Style][java_codestyle]
         1. [Koltin Code Style][kotlin_codestyle]
@@ -17,6 +17,7 @@
     1. [Логгирование](common/logging.md)
     1. [Асинхронные взаимодействия](common/async.md) 
     1. [Пуш-уведомления](../push/README.md)
+    1. [Тестирование](common/testing.md)
 
 1. [**Слой Model**](todo)
     1. [Interactor](common/interactor.md)
@@ -41,8 +42,8 @@
 
 1. [Лучшие практики](best_practice/best_practice.md)
     1. [Поиск утечек](best_practice/memory_leak.md)
-    2. [CI](https://github.com/surfstudio/jenkins-pipeline-lib)
-    3. [Настройки и плагины для Android Studio](best_practice/android_studio_settings.md) 
+    1. [CI](https://github.com/surfstudio/jenkins-pipeline-lib)
+    1. [Настройки и плагины для Android Studio](best_practice/android_studio_settings.md) 
     1. [Flutter Flavors](best_practices/flavors.md)
 
 [java_codestyle]:https://github.com/surfstudio/SurfAndroidStandard/blob/snapshot-0.4.0/docs/common/codestyle/java_codestyle.md

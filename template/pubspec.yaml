@@ -96,6 +96,9 @@ dependencies:
 
   pedantic: ^1.7.0
 
+  # testing mock
+  mockito: ^4.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
