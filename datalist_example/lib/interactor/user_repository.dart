@@ -13,9 +13,6 @@ class UserRepository {
     Response userList = await client.get(
       "https://api.github.com/users?per_page=$limit&since=$offset",
     );
-
-    print(userList.body);
-
     return OffsetDataList(
       data: _parseUserList(userList.body),
       offset: offset,
