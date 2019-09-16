@@ -17,6 +17,7 @@
     1. [Логгирование](common/logging.md)
     1. [Асинхронные взаимодействия](common/async.md) 
     1. [Пуш-уведомления](../push/README.md)
+    1. [Тестирование](common/testing.md)
 
 1. [**Слой Model**](todo)
     1. [Interactor](common/interactor.md)
