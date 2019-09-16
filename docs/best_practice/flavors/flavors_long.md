@@ -26,7 +26,8 @@
 
  Итак, все, что нам потребуется в минимальном варианте:
 
- ```groovy
+
+``` groovy
  flavorDimensions "release-type"
 
     productFlavors {
@@ -40,12 +41,16 @@
             dimension "release-type"
         }
     }
+    
 ```
 
 И все, теперь мы можем с легкостью запустить команду :
+
 ```
 flutter run --flavor dev
+
 ```
+
 на нашем андроид девайсе.
 
 У некоторых вдумчивых разработчиков может возникнуть вопрос: а почему не buildType? Отвечаю: команда флаттера захардкодила билд тайпы под свои нужды. Собственно, вся магия дебаг сборки в этом и заключается.
@@ -86,13 +91,14 @@ flutter run --flavor dev
 В наших проектах имеется две конфигурации: dev, prod.
 Содержимое у них примерно следующее:
 
-```с
-#include "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug-dev.xcconfig"
-#include "Generated.xcconfig"
-#include "common.xcconfig"
+```
 
-bundle_suffix=.dev
-IDENTIFIER=$(identifier)$(bundle_suffix)
+    #include "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug-dev.xcconfig"
+    #include "Generated.xcconfig"
+    #include "common.xcconfig"
+
+    bundle_suffix=.dev
+    IDENTIFIER=$(identifier)$(bundle_suffix)
 ```
 
 Как мы видим, в них задается bundle_suffix.
@@ -210,11 +216,11 @@ $(PRODUCT_BUNFLE_IDENTIFIER)
 Доабавим дополнительный этап сборки в виде Run Script (setup firebase как пример названия):
  ![build_phase](./img/build_phase.png)
 
- Обратите внимание на расположение - оно играет решающюю роль!
+Обратите внимание на расположение - оно играет решающюю роль!
 
- Теперь доавим сам скрипт, как один из вариантов можно использовать подобный:
+Теперь доавим сам скрипт, как один из вариантов можно использовать подобный:
 
- ```
+```
  # Name of the resource we're selectively copying
 GOOGLESERVICE_INFO_PLIST=GoogleService-Info.plist
 
