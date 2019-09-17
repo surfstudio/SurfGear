@@ -6,6 +6,7 @@ import 'package:flutter_crashlytics/flutter_crashlytics.dart';
 import 'package:flutter_template/config/env/env.dart';
 import 'package:flutter_template/ui/app/app.dart';
 import 'package:logger/logger.dart';
+import 'package:surf_util/src/crashlytics_strategy.dart';
 
 void run() async {
   // закрепляем ориентацию todo изменить на необходимое или убрать
