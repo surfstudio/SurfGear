@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:datalist/src/impl/datalist_limit_offset.dart';
 import 'package:http/http.dart';
-import '../src/impl/datalist_limit_offset.dart';
 import 'user.dart';
 
 void main() async{
