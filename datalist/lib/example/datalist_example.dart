@@ -4,11 +4,7 @@ import 'package:http/http.dart';
 import '../src/impl/datalist_limit_offset.dart';
 import 'user.dart';
 
-void main() {
-  _init();
-}
-
-void _init() async {
+void main() async{
   OffsetDataList page1Users = await _getUserList(10, 0);
   OffsetDataList page2Users = await _getUserList(10, page1Users.nextOffset);
 
