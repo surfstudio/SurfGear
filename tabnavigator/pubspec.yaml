@@ -16,7 +16,7 @@ dependencies:
   surf_util:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
+      ref: ANDDEP-546-tabnavigator
       path: surf_util
 
 dev_dependencies:
