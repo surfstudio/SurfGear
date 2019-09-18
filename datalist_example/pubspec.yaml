@@ -1,5 +1,5 @@
-name: push_demo
-description: A new Flutter project.
+name: datalist_example
+description: DataList example app
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -14,25 +14,31 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
+
 
 dependencies:
   flutter:
     sdk: flutter
 
+  mwwm:
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: project-PCK
+      path: mwwm
+
+  datalist:
+    path: ../datalist
+
+  flutter_crashlytics: 0.3.0
+
+  http: 0.12.0+1
+  dio: 2.1.2
+
+  json_annotation: 2.0.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-
-  push:
-    path: ..
-
-#  surf_util:
-#    path: ../../surf_util
-
-  #firebase push
-  firebase_core: ^0.4.0
-  firebase_messaging: ^5.0.1
 
 dev_dependencies:
   flutter_test:
