@@ -127,7 +127,7 @@ Future<WorkItem> _doBackgroundWork(WorkItem backgroundWorkItem) async {
 class WorkItem<I, O> {
   /// Function executes in background
   ///
-  /// Can be static or top-level function
+  /// Must be static or top-level function
   Future<O> Function(I input) calculation;
 
   /// Input for background function
