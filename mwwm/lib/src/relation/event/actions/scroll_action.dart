@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:flutter/widgets.dart' show ScrollController;
-import 'package:mwwm/src/event/action.dart';
+import 'package:mwwm/src/relation/event/action.dart';
 
 /// Action for scroll
 class ScrollOffsetAction extends Action<double> {

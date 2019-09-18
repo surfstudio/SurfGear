@@ -14,7 +14,7 @@
 
 import 'package:flutter/widgets.dart' show ValueNotifier;
 
-import 'package:mwwm/src/event/action.dart';
+import 'package:mwwm/src/relation/event/action.dart';
 
 /// Wrapper on controller
 class Controller<T, C extends ValueNotifier<T>> extends Action<T> {

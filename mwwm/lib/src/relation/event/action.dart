@@ -14,7 +14,7 @@
 
 import 'dart:async';
 
-import 'package:mwwm/src/event/event.dart';
+import 'package:mwwm/src/relation/event/event.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// Action

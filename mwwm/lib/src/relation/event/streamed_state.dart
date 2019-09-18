@@ -12,8 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:mwwm/src/entity_state.dart';
-import 'package:mwwm/src/event/event.dart';
+import 'package:mwwm/mwwm.dart';
 import 'package:rxdart/rxdart.dart';
 
 ///Состояние некого типа, обёрнутое в поток
