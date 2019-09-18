@@ -73,6 +73,7 @@ dependencies:
   #rx
   rxdart: 0.22.0
 
+
   #crash reporting
   #firebase_crashlytics: ^0.0.4+1 need research about this
   flutter_crashlytics: 0.3.0 # newer version has a bug on ios or i have ruki iz zhopi
