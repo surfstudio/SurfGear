@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_crashlytics/flutter_crashlytics.dart';
 import 'package:flutter_template/config/base/env/env.dart';
 import 'package:flutter_template/ui/app/app.dart';
+import 'package:flutter_template/util/crashlytics_strategy.dart';
 import 'package:logger/logger.dart';
 
 void run() async {
