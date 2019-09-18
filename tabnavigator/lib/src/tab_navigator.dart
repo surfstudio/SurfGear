@@ -16,6 +16,8 @@ class TabNavigator extends StatefulWidget {
   final TabType initialTab;
   final void Function(BuildContext, TabType) onActiveTabReopened;
   final ObserversBuilder observersBuilder;
+  final RouteTransitionsBuilder transitionsBuilder;
+  final Duration transitionDuration;
 
   static TabNavigatorState of(BuildContext context) {
     Type type = _typeOf<TabNavigatorState>();
@@ -37,6 +39,8 @@ class TabNavigator extends StatefulWidget {
     @required this.initialTab,
     this.onActiveTabReopened,
     this.observersBuilder,
+    this.transitionsBuilder,
+    this.transitionDuration,
   }) : super(key: key);
 
   @override
@@ -91,6 +95,16 @@ class TabNavigatorState extends State<TabNavigator> {
     super.dispose();
   }
 
+  Duration _defaultTransitionDuration() => Duration(milliseconds: 300);
+
+  Widget _defaultTransitionBuilder(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) =>
+      child;
+
   List<Widget> _buildTabs(TabType selectedTab) {
     mappedNavKeys.putIfAbsent(
       selectedTab,
@@ -109,14 +123,21 @@ class TabNavigatorState extends State<TabNavigator> {
               observers: widget.observersBuilder != null
                   ? widget.observersBuilder(tabType)
                   : [],
-              onGenerateRoute: (rs) => MaterialPageRoute(
+              onGenerateRoute: (rs) => PageRouteBuilder(
                 settings: RouteSettings(
                   isInitialRoute: true,
-                  //todo изменить на осмысленные имена для route observer'ов
                   name: Navigator.defaultRouteName,
                 ),
-                //todo possibility to change route
-                builder: (ctx) => widget.mappedTabs[tabType](),
+                transitionsBuilder:
+                    widget.transitionsBuilder ?? _defaultTransitionBuilder,
+                transitionDuration:
+                    widget.transitionDuration ?? _defaultTransitionDuration,
+                pageBuilder: (
+                  context,
+                  animation,
+                  secondaryAnimation,
+                ) =>
+                    widget.mappedTabs[tabType](),
               ),
             ),
           ),
