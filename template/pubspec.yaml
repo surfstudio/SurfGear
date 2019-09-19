@@ -72,7 +72,7 @@ dependencies:
 
   #crash reporting
   #firebase_crashlytics: ^0.0.4+1 need research about this
-  flutter_crashlytics: 1.0.0
+  flutter_crashlytics: 0.3.0
 
   #camera
   camera: 0.4.3+2
