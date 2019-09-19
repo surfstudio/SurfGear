@@ -57,7 +57,7 @@ class _DebugScreenState
           children: <Widget>[
             _getPerformanceOverlayCard(),
             _getServerSwitchCard(),
-            _getProxyCard(),
+//            _getProxyCard(),
           ],
         ),
       ),
@@ -175,15 +175,11 @@ class _DebugScreenState
           padding: const EdgeInsets.only(bottom: 8),
           child: Text('Прокси-сервер'),
         ),
-        StreamedStateBuilder(
-            streamedState: wm.proxySwitchState,
-            builder: (context, isChecked) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Text(
-                    "Активирует передачу трафика через прокси сервер. Необходимо для трэкинга данных."),
-              );
-            }),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Text(
+              "Активирует передачу трафика через прокси сервер. Необходимо для трэкинга данных."),
+        ),
         StreamedStateBuilder(
             streamedState: wm.proxyValueState,
             builder: (context, proxyUrl) {
