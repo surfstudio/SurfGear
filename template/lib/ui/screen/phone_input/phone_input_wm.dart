@@ -33,12 +33,11 @@ class PhoneInputWidgetModel extends WidgetModel {
   void _listenToStreams() {
     _listenToActions();
 
-    bind<EntityState<String>>(
-      phoneInputState,
-      (state) {
-        buttonEnabledState.accept(!state.isLoading);
-      },
-    );
+    phoneInputState.accept(EntityState.content(_phoneNumber));
+
+    bind(phoneInputState, (state) {
+      buttonEnabledState.accept(!state.isLoading);
+    });
 
     subscribe(
       _counterInteractor.counterObservable,

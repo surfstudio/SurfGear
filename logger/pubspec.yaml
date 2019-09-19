@@ -11,14 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-
-  #crash reporting
-  flutter_crashlytics: 0.3.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec

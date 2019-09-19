@@ -1,3 +1,17 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:io';
 
 import 'package:dio/dio.dart' as dio;
@@ -8,7 +22,7 @@ import 'package:network/src/base/http.dart';
 import 'package:network/src/base/response.dart';
 import 'package:network/src/base/status_mapper.dart';
 
-///Реализация Http на основе библиотеки [dio]
+///Library Based Http Implementation [dio]
 class DioHttp extends Http {
   final HeadersBuilder headersBuilder;
   final StatusCodeMapper errorMapper;
@@ -21,6 +35,8 @@ class DioHttp extends Http {
       ..connectTimeout = config.timeout.inMilliseconds
       ..receiveTimeout = config.timeout.inMilliseconds
       ..sendTimeout = config.timeout.inMilliseconds;
+
+    _configProxy(config);
 
     _dio.interceptors.add(dio.LogInterceptor(
       requestBody: true,
@@ -38,6 +54,22 @@ class DioHttp extends Http {
 
       throw e;
     }));
+  }
+
+  ///Proxy config for tracking data
+  ///
+  /// @param config - HttpConfig of client. Get proxy url
+  void _configProxy(HttpConfig config) {
+    var proxyUrl = config.proxyUrl;
+
+    if (proxyUrl != null && proxyUrl.isNotEmpty) {
+      (_dio.httpClientAdapter as dio.DefaultHttpClientAdapter)
+          .onHttpClientCreate = (client) {
+        client.findProxy = (uri) {
+          return "PROXY $proxyUrl";
+        };
+      };
+    }
   }
 
   @override

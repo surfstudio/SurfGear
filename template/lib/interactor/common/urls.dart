@@ -3,6 +3,12 @@ import 'package:flutter_template/config/env/env.dart';
 
 ///URL запросов сервера
 abstract class Url {
+  static String get prodProxyUrl => "";
+
+  static String get qaProxyUrl => "192.168.0.1";
+
+  static String get devProxyUrl => "";
+
   static String get testUrl => "http://uinames.com/api/";
 
   static String get prodUrl => "https://prod.surfstudio.ru/api";

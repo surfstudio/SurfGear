@@ -52,11 +52,14 @@ class _DebugScreenState
   Widget _buildBody() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: <Widget>[
-          _getPerformanceOverlayCard(),
-          _getServerSwitchCard(),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            _getPerformanceOverlayCard(),
+            _getServerSwitchCard(),
+            _getProxyCard(),
+          ],
+        ),
       ),
     );
   }
@@ -161,6 +164,48 @@ class _DebugScreenState
         ),
       ),
     );
+  }
+
+  Widget _getProxyCard() {
+    return Card(
+        child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Text('Прокси-сервер'),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Text("Активирует передачу трафика через прокси сервер."),
+        ),
+        TextFieldStateBuilder(
+            state: wm.proxyValueState,
+            stateBuilder: (context, proxyUrl) {
+              return Column(
+                children: <Widget>[
+                  TextField(
+                    textInputAction: TextInputAction.done,
+                    onSubmitted: wm.setProxy,
+                    controller: wm.proxyChanges.controller,
+                    decoration: InputDecoration(
+                        filled: true,
+                        border: UnderlineInputBorder(),
+                        labelText: 'Адрес прокси сервера',
+                        hintText: '192.168.0.1:8888'),
+                  ),
+                  MaterialButton(
+                    onPressed:  wm.setProxy,
+                    child: Text(
+                      'Переключить прокси',
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                  ),
+                ],
+              );
+            }),
+      ]),
+    ));
   }
 
   Widget _buildSwitchTile(

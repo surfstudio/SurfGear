@@ -11,6 +11,12 @@ dependencies:
   flutter:
     sdk: flutter
 
+  logger:
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: logger
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -29,6 +35,7 @@ flutter:
 # For details regarding assets in packages, see
 # https://flutter.dev/assets-and-images/#from-packages
 #
+
 # An image asset can refer to one or more resolution-specific "variants", see
 # https://flutter.dev/assets-and-images/#resolution-aware.
 

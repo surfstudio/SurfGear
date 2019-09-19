@@ -11,6 +11,7 @@ void main() async {
     buildType: BuildType.release,
     config: Config(
       url: Url.prodUrl,
+      proxyUrl: Url.prodProxyUrl,
       debugOptions: DebugOptions(),
     ),
   );

@@ -9,6 +9,7 @@ import 'package:flutter_template/ui/res/colors.dart';
 import 'package:flutter_template/ui/res/styles.dart';
 import 'package:flutter_template/ui/screen/phone_input/phone_route.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:flutter_template/util/error_wiget.dart' as error_widget;
 import 'package:push/push.dart';
 
 // todo оставить здесь только необходимые маршруты
@@ -45,6 +46,18 @@ class _AppState extends WidgetState<App, AppWidgetModel, AppComponent> {
   Widget buildState(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey,
+      builder: (BuildContext context, Widget widget) {
+        ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+          return error_widget.ErrorWidget(
+            context: context,
+            error: errorDetails,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            errorMessage: "test",
+          );
+        };
+        return widget;
+      },
       navigatorObservers: [
         PushObserver(),
       ],
