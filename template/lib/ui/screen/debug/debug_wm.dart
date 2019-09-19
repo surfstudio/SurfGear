@@ -24,7 +24,7 @@ class DebugWidgetModel extends WidgetModel {
   final DebugScreenInteractor _debugScreenInteractor;
 
   final urlState = StreamedState<UrlType>();
-  final proxyValueState = StreamedState<String>();
+  TextFieldStreamedState proxyValueState;
   final debugOptionsState =
       StreamedState<DebugOptions>(Environment.instance().config.debugOptions);
 
@@ -33,13 +33,15 @@ class DebugWidgetModel extends WidgetModel {
   final closeScreenAction = Action();
   final urlChangeAction = Action<UrlType>();
 
+  final proxyChanges = TextEditingAction();
+
   final showPerformanceOverlayChangeAction = Action<bool>();
   final debugShowMaterialGridChangeAction = Action<bool>();
   final checkerboardRasterCacheImagesChangeAction = Action<bool>();
   final checkerboardOffscreenLayersChangeAction = Action<bool>();
   final showSemanticsDebuggerChangeAction = Action<bool>();
   final debugShowCheckedModeBannerChangeAction = Action<bool>();
-  final setProxy = Action<String>();
+  final setProxy = Action<void>();
 
   String currentUrl;
   String proxyUrl;
@@ -64,9 +66,11 @@ class DebugWidgetModel extends WidgetModel {
     }
 
     if (proxyUrl != null && proxyUrl.isNotEmpty) {
-      proxyValueState.accept(proxyUrl);
+      proxyValueState = TextFieldStreamedState(proxyUrl);
+      proxyChanges.controller.text = proxyUrl;
     } else {
-      proxyValueState.accept("");
+      proxyValueState = TextFieldStreamedState("");
+      proxyChanges.controller.text = "";
     }
 
     bind(switchServer, (urlType) {
@@ -138,7 +142,9 @@ class DebugWidgetModel extends WidgetModel {
               config.debugOptions.copyWith(debugShowCheckedModeBanner: value),
             ));
 
-    bind(setProxy, _setProxy);
+    bind(proxyChanges, proxyValueState.content);
+
+    bind(setProxy, (_) => _setProxy());
   }
 
   void _refreshApp(Config newConfig) {
@@ -148,8 +154,8 @@ class DebugWidgetModel extends WidgetModel {
     });
   }
 
-  void _setProxy(String proxyUrl) {
-    config = config.copyWith(proxyUrl: proxyUrl);
+  void _setProxy() {
+    config = config.copyWith(proxyUrl: proxyValueState.value.data);
     _refreshApp(config);
   }
 

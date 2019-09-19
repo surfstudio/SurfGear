@@ -177,19 +177,17 @@ class _DebugScreenState
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 8),
-          child: Text(
-              "Активирует передачу трафика через прокси сервер. Необходимо для трэкинга данных."),
+          child: Text("Активирует передачу трафика через прокси сервер."),
         ),
-        StreamedStateBuilder(
-            streamedState: wm.proxyValueState,
-            builder: (context, proxyUrl) {
-              final proxyController = TextEditingController(text: proxyUrl);
+        TextFieldStateBuilder(
+            state: wm.proxyValueState,
+            stateBuilder: (context, proxyUrl) {
               return Column(
                 children: <Widget>[
                   TextField(
                     textInputAction: TextInputAction.done,
-                    onSubmitted: (_) => wm.setProxy(proxyController.text),
-                    controller: proxyController,
+                    onSubmitted: wm.setProxy,
+                    controller: wm.proxyChanges.controller,
                     decoration: InputDecoration(
                         filled: true,
                         border: UnderlineInputBorder(),
@@ -197,7 +195,7 @@ class _DebugScreenState
                         hintText: '192.168.0.1:8888'),
                   ),
                   MaterialButton(
-                    onPressed: () => wm.setProxy(proxyController.text),
+                    onPressed:  wm.setProxy,
                     child: Text(
                       'Переключить прокси',
                       style: TextStyle(fontSize: 16.0),
@@ -205,7 +203,7 @@ class _DebugScreenState
                   ),
                 ],
               );
-            })
+            }),
       ]),
     ));
   }
