@@ -37,8 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final analytics = FirebaseAnalytics();
     _analyticsService = DefaultAnalyticService()
-      ..addActionPerformer(FirebaseAnalyticEventSender(analytics))
-      ..addActionPerformer(FirebaseUserPropertyUpdater(analytics));
+      ..addActionPerformer(FirebaseAnalyticEventSender(analytics));
   }
 
   void _sendAnalyticAction(AnalyticAction action) {
