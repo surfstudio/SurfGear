@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/config/config.dart';
+import 'package:flutter_template/config/env/env.dart';
 import 'package:flutter_template/interactor/auth/auth_interactor.dart';
 import 'package:flutter_template/interactor/auth/repository/auth_repository.dart';
 import 'package:flutter_template/interactor/common/push/push_strategy_factory.dart';
@@ -90,10 +92,12 @@ class AppComponent implements BaseWidgetModelComponent<AppWidgetModel> {
   }
 
   RxHttp _initHttp(AuthInfoStorage authStorage) {
+    var proxyUrl = Environment<Config>.instance().config.proxyUrl;
     var dioHttp = DioHttp(
       config: HttpConfig(
         EMPTY_STRING,
         Duration(seconds: 30),
+        proxyUrl: proxyUrl,
       ),
       errorMapper: DefaultStatusMapper(),
       headersBuilder: DefaultHeaderBuilder(authStorage),

@@ -62,7 +62,7 @@ class DioHttp extends Http {
   void _configProxy(HttpConfig config) {
     var proxyUrl = config.proxyUrl;
 
-    if (proxyUrl != null) {
+    if (proxyUrl != null && proxyUrl.isNotEmpty) {
       (_dio.httpClientAdapter as dio.DefaultHttpClientAdapter)
           .onHttpClientCreate = (client) {
         client.findProxy = (uri) {
