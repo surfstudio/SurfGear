@@ -37,11 +37,6 @@ dependencies:
 
   intl: ^0.15.7
 
-
-  #crash reporting
-  flutter_crashlytics: ^0.3.0
-
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -11,6 +11,7 @@ void main() async {
     buildType: BuildType.qa,
     config: Config(
       url: Url.testUrl,
+      proxyUrl: Url.qaProxyUrl,
       debugOptions: DebugOptions(
         debugShowCheckedModeBanner: true,
       ),

@@ -12,10 +12,7 @@ dependencies:
 
   #внутренние библиотеки
   network:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
-      path: network
+      path: ./../network
   logger:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
@@ -75,7 +72,7 @@ dependencies:
 
   #crash reporting
   #firebase_crashlytics: ^0.0.4+1 need research about this
-  flutter_crashlytics: 0.3.0 # newer version has a bug on ios or i have ruki iz zhopi
+  flutter_crashlytics: 0.3.0
 
   #camera
   camera: 0.4.3+2
