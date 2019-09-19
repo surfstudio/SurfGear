@@ -10,4 +10,6 @@ abstract class Url {
   static String get devUrl => "https://localhost:9999/food/hs/ExchangeSotr";
 
   static String get baseUrl => Environment<Config>.instance().config.url;
+
+  static String proxyUrl = "192.168.1.104:8888";
 }
