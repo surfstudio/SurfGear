@@ -31,9 +31,6 @@ dependencies:
   logger:
     path: ..
 
-  #Crashlytics
-#  flutter_crashlytics: 0.3.0
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
