@@ -1,22 +1,20 @@
 import 'package:analytics/core/analytic_action.dart';
 import 'package:analytics/core/analytic_action_performer.dart';
 import 'package:analytics/impl/firebase/const.dart';
-import 'package:analytics/impl/firebase/firebase_analytic_set_user_property_action.dart';
+import 'package:analytics/impl/firebase/firebase_user_property.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
-/// Отправляет свойство пользователя в Firebase аналитику
-class FirebaseAnalyticSetUserPropertyActionPerformer
-    implements AnalyticActionPerformer<FirebaseAnalyticSetUserPropertyAction> {
+class FirebaseUserPropertyUpdater
+    implements AnalyticActionPerformer<FirebaseUserProperty> {
   final FirebaseAnalytics _firebaseAnalytics;
 
-  FirebaseAnalyticSetUserPropertyActionPerformer(this._firebaseAnalytics);
+  FirebaseUserPropertyUpdater(this._firebaseAnalytics);
 
   @override
-  bool canHandle(AnalyticAction action) =>
-      action is FirebaseAnalyticSetUserPropertyAction;
+  bool canHandle(AnalyticAction action) => action is FirebaseUserProperty;
 
   @override
-  void perform(FirebaseAnalyticSetUserPropertyAction action) {
+  void perform(FirebaseUserProperty action) {
     _firebaseAnalytics.setUserProperty(
       name: _cutName(action.key),
       value: _cutValue(action.value),

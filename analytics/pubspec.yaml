@@ -11,17 +11,17 @@ dependencies:
   flutter:
     sdk: flutter
 
+  logger:
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: logger
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  logger:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-PARK
-      path: logger
-    
   firebase_analytics: 3.0.3
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -4,7 +4,6 @@ import 'package:analytics/impl/firebase/const.dart';
 import 'package:analytics/impl/firebase/firebase_analytic_event.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
-/// Отправляет событие с именем и параметрами в Firebase аналитику
 class FirebaseAnalyticEventSender
     implements AnalyticActionPerformer<FirebaseAnalyticEvent> {
   final FirebaseAnalytics _firebaseAnalytics;
@@ -23,7 +22,7 @@ class FirebaseAnalyticEventSender
     );
   }
 
-  /// Обрезка параметров для выполнения ограничений FirebaseAnalytics
+  // Shortening of parameters to meet requirements of Firebase Analytics
   Map<String, dynamic> _cutParamsLength(Map<String, dynamic> params) {
     if (params == null) return null;
 
