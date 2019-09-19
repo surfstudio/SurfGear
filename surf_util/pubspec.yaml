@@ -11,6 +11,12 @@ dependencies:
   flutter:
     sdk: flutter
 
+  logger:
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: logger
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
