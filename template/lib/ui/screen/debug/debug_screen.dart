@@ -57,7 +57,7 @@ class _DebugScreenState
           children: <Widget>[
             _getPerformanceOverlayCard(),
             _getServerSwitchCard(),
-//            _getProxyCard(),
+            _getProxyCard(),
           ],
         ),
       ),
