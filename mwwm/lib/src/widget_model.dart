@@ -16,6 +16,7 @@ import 'dart:async';
 
 import 'package:meta/meta.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:mwwm/src/error/error_handler.dart';
 import 'package:rxdart/rxdart.dart';
 
 ///WidgetModel - interface
