@@ -37,5 +37,6 @@ void main() {
         Injector.of<CounterComponent>(context).component.scaffoldKey,
       ),
     );
+    
   runApp(App());
 }

@@ -24,23 +24,19 @@ class CounterScreen extends MwwmWidget<CounterComponent, CounterWidgetModel> {
   State<StatefulWidget> buildState() => _CounterScreenState();
 
   @override
-  CounterComponent createComponent(BuildContext context) => CounterComponent(Navigator.of(context));
+  CounterComponent createComponent(BuildContext context) =>
+      CounterComponent(Navigator.of(context));
 }
 
-class _CounterScreenState
-    extends WidgetState<CounterWidgetModel> {
-      @override
+class _CounterScreenState extends WidgetState<CounterWidgetModel> {
+  @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     wm.showInit();
   }
+
   @override
   Widget build(BuildContext context) {
-    return _buildScreen(context);
-  }
-
-  Widget _buildScreen(BuildContext context) {
     return Scaffold(
       key: Injector.of<CounterComponent>(context).component.scaffoldKey,
       appBar: AppBar(
