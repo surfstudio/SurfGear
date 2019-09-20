@@ -9,6 +9,14 @@ typedef ObserversBuilder = List<NavigatorObserver> Function(TabType tabType);
 
 Type _typeOf<T>() => T;
 
+Widget _defaultTransitionBuilder(
+  BuildContext context,
+  Animation<double> animation,
+  Animation<double> secondaryAnimation,
+  Widget child,
+) =>
+    child;
+
 /// Implementation of tab navigation
 class TabNavigator extends StatefulWidget {
   final Map<TabType, TabBuilder> mappedTabs;
@@ -39,9 +47,14 @@ class TabNavigator extends StatefulWidget {
     @required this.initialTab,
     this.onActiveTabReopened,
     this.observersBuilder,
-    this.transitionsBuilder,
-    this.transitionDuration,
-  }) : super(key: key);
+    RouteTransitionsBuilder transitionsBuilder,
+    this.transitionDuration = const Duration(milliseconds: 300),
+  })  : assert(mappedTabs != null),
+        assert(selectedTabStream != null),
+        assert(initialTab != null),
+        this.transitionsBuilder =
+            transitionsBuilder ?? _defaultTransitionBuilder,
+        super(key: key);
 
   @override
   TabNavigatorState createState() => TabNavigatorState();
@@ -95,14 +108,6 @@ class TabNavigatorState extends State<TabNavigator> {
     super.dispose();
   }
 
-  Widget _defaultTransitionBuilder(
-    BuildContext context,
-    Animation<double> animation,
-    Animation<double> secondaryAnimation,
-    Widget child,
-  ) =>
-      child;
-
   List<Widget> _buildTabs(TabType selectedTab) {
     mappedNavKeys.putIfAbsent(
       selectedTab,
@@ -126,10 +131,8 @@ class TabNavigatorState extends State<TabNavigator> {
                   isInitialRoute: true,
                   name: Navigator.defaultRouteName,
                 ),
-                transitionsBuilder:
-                    widget.transitionsBuilder ?? _defaultTransitionBuilder,
-                transitionDuration:
-                    widget.transitionDuration ?? Duration(milliseconds: 300),
+                transitionsBuilder: widget.transitionsBuilder,
+                transitionDuration: widget.transitionDuration,
                 pageBuilder: (
                   context,
                   animation,
