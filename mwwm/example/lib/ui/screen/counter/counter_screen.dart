@@ -16,25 +16,33 @@ import 'package:counter/ui/screen/counter/counter_wm.dart';
 import 'package:counter/ui/screen/counter/di/counter.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:injector/injector.dart';
 
 /// Widget для экрана счетчика
-class CounterScreen extends StatefulWidget {
+class CounterScreen extends MwwmWidget<CounterComponent, CounterWidgetModel> {
   @override
-  _CounterScreenState createState() => _CounterScreenState();
+  State<StatefulWidget> buildState() => _CounterScreenState();
+
+  @override
+  CounterComponent createComponent(BuildContext context) => CounterComponent(Navigator.of(context));
 }
 
 class _CounterScreenState
-    extends WidgetState<CounterScreen, CounterWidgetModel, CounterComponent> {
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-
+    extends WidgetState<CounterWidgetModel> {
+      @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    wm.showInit();
+  }
   @override
-  Widget buildState(BuildContext context) {
+  Widget build(BuildContext context) {
     return _buildScreen(context);
   }
 
   Widget _buildScreen(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
+      key: Injector.of<CounterComponent>(context).component.scaffoldKey,
       appBar: AppBar(
         title: Text('Counter Demo'),
       ),
@@ -66,10 +74,5 @@ class _CounterScreenState
         );
       },
     );
-  }
-
-  @override
-  CounterComponent getComponent(BuildContext context) {
-    return CounterComponent(Navigator.of(context));
   }
 }

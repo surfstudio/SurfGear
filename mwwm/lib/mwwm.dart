@@ -31,4 +31,6 @@ export 'package:mwwm/src/relation/event/actions/text_editing_action.dart';
 export 'package:mwwm/src/relation/event/event.dart';
 export 'package:mwwm/src/relation/event/streamed_state.dart';
 export 'package:mwwm/src/widget_model.dart';
-export 'package:mwwm/src/widget_state.dart';
+
+export 'package:mwwm/src/mwwm_widget.dart';
+export 'package:mwwm/src/wm_factory.dart';

@@ -1,34 +1,70 @@
 import 'package:flutter/widgets.dart';
 import 'package:injector/injector.dart';
-import 'package:mwwm/src/widget_model.dart';
+import 'package:mwwm/mwwm.dart';
+import 'package:mwwm/src/widget_model_creator.dart';
 
-typedef WidgetModelBuilder<C> = WidgetModel Function(BuildContext, C);
+typedef WidgetStateBuilder = State Function();
 
-class MWWMWidget<C extends Component> extends StatefulWidget {
-  final C component;
-  final WidgetModelBuilder<C> wmBuilder;
-  final Widget child;
-
-  const MWWMWidget({
-    Key key,
-    this.component,
-    this.wmBuilder,
-    this.child,
-  }) : super(key: key);
-
+abstract class MwwmWidget<C extends Component, WM extends WidgetModel>
+    extends StatefulWidget {
   @override
-  _MWWMWidgetState createState() => _MWWMWidgetState();
+  State<StatefulWidget> createState() => _MwwWidgetState<C>(buildState);
+
+  @protected
+  State buildState();
+
+  @protected
+  C createComponent(BuildContext context);
 }
 
-class _MWWMWidgetState extends State<MWWMWidget> {
+abstract class WidgetState<WM extends WidgetModel>
+    extends State<_Proxy> {
+  final WidgetModelCreator _wmc = WidgetModelCreator<WM>();
+
+  @protected
+  WM wm;
+
+  @override
+  void initState() {
+    _wmc.initWm(context);
+    wm = _wmc.wm;
+    super.initState();
+  }
+
+  @protected
+  Widget build(BuildContext context);
+
+  @protected
+  @mustCallSuper
+  void dispose() {
+    wm.dispose();
+    super.dispose();
+  }
+}
+
+class _MwwWidgetState<C extends Component> extends State<MwwmWidget> {
+  final WidgetStateBuilder ws;
+
+  _MwwWidgetState(this.ws);
 
   @override
   Widget build(BuildContext context) {
-    return Injector(
-      component: widget.component,
-      builder: (context) {
-          return widget.child;
+    return Injector<C>(
+      component: widget.createComponent(context),
+      builder: (ctx) {
+        return _Proxy(
+          wsBuilder: ws,
+        );
       },
     );
   }
+}
+
+class _Proxy extends StatefulWidget {
+  final WidgetStateBuilder wsBuilder;
+
+  const _Proxy({Key key, this.wsBuilder}) : super(key: key);
+
+  @override
+  WidgetState createState() => wsBuilder();
 }
