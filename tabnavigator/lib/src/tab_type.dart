@@ -1,8 +1,7 @@
 import 'package:surf_util/surf_util.dart';
 
-// todo think about needing on defaultType and values
-// todo maybe we can make signature like this:
-// todo ``` Enum<Widget> ``` ?
+/// base type for a list of tabs
+/// adding new types of tabs via the create() method
 abstract class TabType extends Enum<int> {
   static List<TabType> values = List();
 

@@ -61,7 +61,7 @@ class TabNavigatorState extends State<TabNavigator> {
         tabObserver.toggleActiveTab(_activeTab.value);
       });
 
-    //для отслеживани нажатий на таб
+    // to track clicks on the tab
     widget.selectedTabStream.listen((tabType) {
       if (_activeTab.value == tabType) {
         tabObserver.onDoubleTapped(tabType);
@@ -94,8 +94,6 @@ class TabNavigatorState extends State<TabNavigator> {
     _activeTab.dispose();
     super.dispose();
   }
-
-  Duration _defaultTransitionDuration() => Duration(milliseconds: 300);
 
   Widget _defaultTransitionBuilder(
     BuildContext context,
@@ -131,7 +129,7 @@ class TabNavigatorState extends State<TabNavigator> {
                 transitionsBuilder:
                     widget.transitionsBuilder ?? _defaultTransitionBuilder,
                 transitionDuration:
-                    widget.transitionDuration ?? _defaultTransitionDuration,
+                    widget.transitionDuration ?? Duration(milliseconds: 300),
                 pageBuilder: (
                   context,
                   animation,
