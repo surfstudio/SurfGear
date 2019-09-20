@@ -21,7 +21,8 @@ import 'package:rxdart/rxdart.dart';
 
 ///WidgetModel - interface
 ///WM is logical representation of widget.
-///полностью на action/stream | action/observable
+///Has Action as input 
+///and StreamedState(and descedants) as output
 abstract class WidgetModel {
   final ErrorHandler _errorHandler;
   CompositeSubscription _compositeSubscription = CompositeSubscription();

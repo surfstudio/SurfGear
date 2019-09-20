@@ -22,21 +22,22 @@ import 'package:injector/injector.dart';
 
 import 'ui/app/di/app.dart';
 
-void main() {
-  WidgetModelFactory.instance()
-    ..registerBuilder<AppWidgetModel>(
-      (context) => AppWidgetModel(
-        WidgetModelDependencies(),
-        Injector.of<AppComponent>(context).component.navigatorKey,
-      ),
-    )
-    ..registerBuilder<CounterWidgetModel>(
-      (context) => CounterWidgetModel(
-        WidgetModelDependencies(),
-        Injector.of<CounterComponent>(context).component.navigator,
-        Injector.of<CounterComponent>(context).component.scaffoldKey,
-      ),
+AppWidgetModel createAppModel(BuildContext context) => AppWidgetModel(
+      WidgetModelDependencies(),
+      Injector.of<AppComponent>(context).component.navigatorKey,
+    );
+
+CounterWidgetModel createCounterModel(BuildContext context) =>
+    CounterWidgetModel(
+      WidgetModelDependencies(),
+      Injector.of<CounterComponent>(context).component.navigator,
+      Injector.of<CounterComponent>(context).component.scaffoldKey,
     );
     
+void main() {
+  WidgetModelFactory.instance()
+    ..registerBuilder<AppWidgetModel>(createAppModel)
+    ..registerBuilder<CounterWidgetModel>(createCounterModel);
+
   runApp(App());
 }
