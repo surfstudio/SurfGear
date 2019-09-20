@@ -10,7 +10,7 @@ class MessageScreen extends StatefulWidget {
   final PushHandler pushHandler;
 
   @override
-  MessageScreenState createState() => new MessageScreenState();
+  MessageScreenState createState() => MessageScreenState();
 }
 
 class MessageScreenState extends State<MessageScreen> {
