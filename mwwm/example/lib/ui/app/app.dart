@@ -30,7 +30,6 @@ class App extends MwwmWidget<AppComponent, AppWidgetModel> {
 }
 
 class _AppState extends WidgetState<AppWidgetModel> {
-  GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
 @override
   Widget build(BuildContext context) {

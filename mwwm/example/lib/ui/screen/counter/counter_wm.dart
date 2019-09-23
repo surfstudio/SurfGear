@@ -12,25 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/cupertino.dart' as prefix0;
 import 'package:flutter/material.dart' show NavigatorState;
-import 'package:flutter/material.dart' as prefix1;
+import 'package:flutter/material.dart' as w;
 import 'package:mwwm/mwwm.dart';
 
 
 /// WidgetModel для экрана счетчика
 class CounterWidgetModel extends WidgetModel {
   final NavigatorState navigator;
-  final prefix0.GlobalKey<prefix1.ScaffoldState> _controller;
-
-  Action incrementAction = Action();
+  final w.GlobalKey<w.ScaffoldState> _key;
 
   StreamedState<int> counterState = StreamedState(0);
+
+  Action incrementAction = Action();
+  final showInit = Action();
 
   CounterWidgetModel(
     WidgetModelDependencies dependencies,
     this.navigator,
-    this._controller,
+    this._key,
   ) : super(dependencies);
 
   @override
@@ -45,21 +45,20 @@ class CounterWidgetModel extends WidgetModel {
       (_) => counterState.accept(counterState.value + 1),
     );
 
-    bind(showInit, (_) => _controller.currentState.showSnackBar(
-        prefix1.SnackBar(
-          content: prefix1.Text('init'),
+    bind(showInit, (_) => _key.currentState.showSnackBar(
+        w.SnackBar(
+          content: w.Text('init'),
         ),
       ),);
 
     subscribe(
       counterState.stream.where((c) => c % 2 == 0).skip(1),
-      (c) => _controller.currentState.showSnackBar(
-        prefix1.SnackBar(
-          content: prefix1.Text('Tabbed $c'),
+      (c) => _key.currentState.showSnackBar(
+        w.SnackBar(
+          content: w.Text('Tapped $c'),
         ),
       ),
     );
   }
 
-  final showInit = Action();
 }

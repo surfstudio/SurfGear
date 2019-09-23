@@ -14,13 +14,12 @@
 
 import 'package:counter/ui/app/app.dart';
 import 'package:counter/ui/app/app_wm.dart';
+import 'package:counter/ui/app/di/app.dart';
 import 'package:counter/ui/screen/counter/counter_wm.dart';
 import 'package:counter/ui/screen/counter/di/counter.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:injector/injector.dart';
-
-import 'ui/app/di/app.dart';
 
 AppWidgetModel createAppModel(BuildContext context) => AppWidgetModel(
       WidgetModelDependencies(),
@@ -33,7 +32,7 @@ CounterWidgetModel createCounterModel(BuildContext context) =>
       Injector.of<CounterComponent>(context).component.navigator,
       Injector.of<CounterComponent>(context).component.scaffoldKey,
     );
-    
+
 void main() {
   WidgetModelFactory.instance()
     ..registerBuilder<AppWidgetModel>(createAppModel)
