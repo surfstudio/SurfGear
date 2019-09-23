@@ -1,4 +1,5 @@
 import 'package:example/analytics_events.dart';
+import 'package:example/firebase/firebase_analytic_event_sender.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:analytics/analytics.dart';

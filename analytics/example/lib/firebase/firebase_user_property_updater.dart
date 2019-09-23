@@ -14,8 +14,8 @@
 
 import 'package:analytics/core/analytic_action.dart';
 import 'package:analytics/core/analytic_action_performer.dart';
-import 'package:analytics/impl/firebase/const.dart';
-import 'package:analytics/impl/firebase/firebase_user_property.dart';
+import 'package:example/firebase/const.dart';
+import 'package:example/firebase/firebase_user_property.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 class FirebaseUserPropertyUpdater

@@ -1,4 +1,4 @@
-import 'package:analytics/impl/firebase/firebase_analytic_event.dart';
+import 'package:example/firebase/firebase_analytic_event.dart';
 
 class FantasticButtonTappedEvent implements FirebaseAnalyticEvent {
   @override
