@@ -27,9 +27,8 @@ class CrashlyticsRemoteLogStrategy extends RemoteUserLogStrategy {
 
   @override
   void clearUser() {
-    _crashlytics.setUserInfo("", "","");
+    _crashlytics.setUserInfo("", "", "");
   }
-
 
   @override
   void log(String message) {

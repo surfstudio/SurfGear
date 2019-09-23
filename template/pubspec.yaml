@@ -12,7 +12,10 @@ dependencies:
 
   #внутренние библиотеки
   network:
-      path: ./../network
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: network
   logger:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
@@ -53,7 +56,7 @@ dependencies:
 
   intl: 0.15.7
 
-  flutter_svg: 0.10.3
+  flutter_svg: ^0.14.1
   qr_flutter: ^2.0.0
 
   #networking
