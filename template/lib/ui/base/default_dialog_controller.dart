@@ -11,7 +11,7 @@ import 'package:mwwm/mwwm.dart';
 class DialogType extends Enum<String> {
   const DialogType(String value) : super(value);
 
-  static const alert = const DialogType('alert');
+  static const alert = DialogType('alert');
 }
 
 ///Стандартная реализация [DialogController]

@@ -94,7 +94,7 @@ dependencies:
   #connection
   connectivity: 0.4.2+2
 
-  pedantic: ^1.7.0
+  pedantic: ^1.8.0
 
   # testing mock
   mockito: ^4.0.0
