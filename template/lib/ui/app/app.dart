@@ -4,12 +4,10 @@ import 'package:flutter_template/config/env/env.dart';
 import 'package:flutter_template/domain/debug_options.dart';
 import 'package:flutter_template/ui/app/app_wm.dart';
 import 'package:flutter_template/ui/app/di/app.dart';
-import 'package:flutter_template/ui/res/assets.dart';
-import 'package:flutter_template/ui/res/colors.dart';
 import 'package:flutter_template/ui/res/styles.dart';
 import 'package:flutter_template/ui/screen/phone_input/phone_route.dart';
-import 'package:mwwm/mwwm.dart';
 import 'package:flutter_template/util/error_wiget.dart' as error_widget;
+import 'package:mwwm/mwwm.dart';
 import 'package:push/push.dart';
 
 // todo оставить здесь только необходимые маршруты
@@ -71,12 +69,26 @@ class _AppState extends WidgetState<App, AppWidgetModel, AppComponent> {
       debugShowCheckedModeBanner: getDebugConfig().debugShowCheckedModeBanner,
       home: Scaffold(
         key: scaffoldKey,
-        body: Container(
-            decoration: BoxDecoration(
-          color: backgroundColor,
-          image: DecorationImage(
-              image: AssetImage(icAlert)), //todo лого для сплеша
-        )),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                Icons.error_outline,
+                size: 150,
+                color: Colors.indigo,
+              ),
+              Text(
+                'Add Logo Here', //todo change logo
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.indigo,
+                ),
+              )
+            ],
+          ),
+        ),
       ),
       onGenerateRoute: (RouteSettings rs) =>
           Router.routes[rs.name](rs.arguments),

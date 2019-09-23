@@ -12,22 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_crashlytics/flutter_crashlytics.dart';
 import 'package:logger/logger.dart';
 
 /// Strategy for sending logs to Crashlytics
 class CrashlyticsRemoteLogStrategy extends RemoteUserLogStrategy {
-  FlutterCrashlytics get _crashlytics => FlutterCrashlytics();
+  Crashlytics get _crashlytics => Crashlytics.instance;
 
   @override
   void setUser(String id, String username, String email) {
-    _crashlytics.setUserInfo(id, email, username);
+    _crashlytics.setUserIdentifier(id);
+    _crashlytics.setUserName(username);
+    _crashlytics.setUserEmail(email);
   }
 
   @override
   void clearUser() {
-    _crashlytics.setUserInfo("", "", "");
+    _crashlytics.setUserIdentifier('');
+    _crashlytics.setUserName('');
+    _crashlytics.setUserEmail('');
   }
 
   @override
@@ -37,15 +41,33 @@ class CrashlyticsRemoteLogStrategy extends RemoteUserLogStrategy {
 
   @override
   void logError(Exception error) {
-    _crashlytics.onError(
-      FlutterErrorDetails(
-        exception: error,
-      ),
+    _crashlytics.recordError(
+      error,
+      FlutterErrorDetails(exception: error).stack,
     );
   }
 
   @override
-  void logInfo(String key, info) {
-    _crashlytics.setInfo(key, info);
+  void logInfo(String key, dynamic info) {
+    if (info is bool) {
+      _crashlytics.setBool(key, info);
+      return;
+    }
+
+    if (info is double) {
+      _crashlytics.setDouble(key, info);
+      return;
+    }
+
+    if (info is int) {
+      _crashlytics.setInt(key, info);
+      return;
+    }
+
+    if (info is String) {
+      _crashlytics.setString(key, info);
+    } else {
+      _crashlytics.setString(key, info.toString());
+    }
   }
 }
