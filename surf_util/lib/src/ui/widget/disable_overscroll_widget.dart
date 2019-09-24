@@ -5,7 +5,7 @@ class DisableOverscroll extends StatelessWidget {
     Key key,
     @required this.child,
   }) : super(key: key);
-  
+
   final Widget child;
 
   @override
