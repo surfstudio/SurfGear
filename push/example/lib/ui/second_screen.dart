@@ -9,7 +9,7 @@ class SecondScreen extends StatefulWidget {
   final Message payload;
 
   @override
-  SecondScreenState createState() => new SecondScreenState();
+  SecondScreenState createState() => SecondScreenState();
 }
 
 class SecondScreenState extends State<SecondScreen> {

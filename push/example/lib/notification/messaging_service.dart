@@ -1,10 +1,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:push/push.dart';
 
-enum MessageHandlerType { onMessage, onLaunch, onResume }
-
 /// Wrapper over [FirebaseMessaging]
-class MessagingService {
+class MessagingService extends BaseMessagingService {
   final FirebaseMessaging _messaging = FirebaseMessaging();
 
   Future<String> get fcmTokenObservable => _messaging.getToken();
