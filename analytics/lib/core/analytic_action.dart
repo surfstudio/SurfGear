@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Представление действия в аналитике.
-/// "Действие" идет без привязки к реализации конкретного сервиса аналитики,
-/// т.е реализующая сущность может выполнить любое действия на конкретном api (Firebase, Flurry, AppMetrica...),
-/// например, отправку события или установку свойств пользователя (setUserProperty)
+/// Any action that is valuable for analytics.
+/// Usually it is a "button pressed" or "screen opened"
+/// type of event but the main criterion is a possibility
+/// to be handled by [AnalyticActionPerformer].
 abstract class AnalyticAction {}

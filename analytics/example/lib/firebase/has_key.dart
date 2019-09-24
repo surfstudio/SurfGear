@@ -12,11 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:analytics/core/analytic_action.dart';
-import 'package:analytics/core/analytic_action_performer.dart';
-
-/// Задает отображение действия в аналитике и списка сущностей которые выполнят действие
-abstract class AnalyticActionPerformerCreator<A extends AnalyticAction> {
-  /// Возвращает выполнители, которые могут обработать действие аналитики
-  List<AnalyticActionPerformer> getPerformersByAction(A event);
+abstract class HasKey {
+  String get key;
 }

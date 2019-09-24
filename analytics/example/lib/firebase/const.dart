@@ -12,12 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:analytics/analytics.dart';
+const MAX_EVENT_KEY_LENGTH = 40;
+const MAX_EVENT_VALUE_LENGTH = 100;
 
-/// Действие установки свойств пользователя для аналитики Firebase
-class FirebaseAnalyticSetUserPropertyAction implements AnalyticAction {
-  final String key;
-  final String value;
-
-  FirebaseAnalyticSetUserPropertyAction(this.key, this.value);
-}
+const MAX_SET_USER_PROPERTY_KEY_LENGTH = 24;
+const MAX_SET_USER_PROPERTY_VALUE_LENGTH = 36;

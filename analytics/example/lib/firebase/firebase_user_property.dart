@@ -12,7 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Маркер наличия имени/ключа
-abstract class HasKey {
-  String get key;
+import 'package:analytics/analytics.dart';
+
+class FirebaseUserProperty implements AnalyticAction {
+  final String key;
+  final String value;
+
+  FirebaseUserProperty(this.key, this.value);
 }
