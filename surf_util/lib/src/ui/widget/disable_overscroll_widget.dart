@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
-class DisableOverscroll extends StatefulWidget {
-  @override
-  DisableOverscrollState createState() => new DisableOverscrollState();
-}
+class DisableOverscroll extends StatelessWidget {
+  const DisableOverscroll({
+    Key key,
+    @required this.child,
+  }) : super(key: key);
+  
+  final Widget child;
 
-class DisableOverscrollState extends State<DisableOverscroll> {
   @override
   Widget build(BuildContext context) {
     return NotificationListener(
@@ -15,6 +17,7 @@ class DisableOverscrollState extends State<DisableOverscroll> {
         }
         return false;
       },
+      child: this.child,
     );
   }
 }
