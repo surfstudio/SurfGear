@@ -13,19 +13,24 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart' show NavigatorState;
+import 'package:flutter/material.dart' as w;
 import 'package:mwwm/mwwm.dart';
+
 
 /// WidgetModel для экрана счетчика
 class CounterWidgetModel extends WidgetModel {
   final NavigatorState navigator;
-
-  Action incrementAction = Action();
+  final w.GlobalKey<w.ScaffoldState> _key;
 
   StreamedState<int> counterState = StreamedState(0);
+
+  Action incrementAction = Action();
+  final showInit = Action();
 
   CounterWidgetModel(
     WidgetModelDependencies dependencies,
     this.navigator,
+    this._key,
   ) : super(dependencies);
 
   @override
@@ -39,5 +44,21 @@ class CounterWidgetModel extends WidgetModel {
       incrementAction,
       (_) => counterState.accept(counterState.value + 1),
     );
+
+    bind(showInit, (_) => _key.currentState.showSnackBar(
+        w.SnackBar(
+          content: w.Text('init'),
+        ),
+      ),);
+
+    subscribe(
+      counterState.stream.where((c) => c % 2 == 0).skip(1),
+      (c) => _key.currentState.showSnackBar(
+        w.SnackBar(
+          content: w.Text('Tapped $c'),
+        ),
+      ),
+    );
   }
+
 }

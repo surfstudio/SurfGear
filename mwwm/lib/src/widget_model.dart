@@ -16,11 +16,13 @@ import 'dart:async';
 
 import 'package:meta/meta.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:mwwm/src/error/error_handler.dart';
 import 'package:rxdart/rxdart.dart';
 
 ///WidgetModel - interface
 ///WM is logical representation of widget.
-///полностью на action/stream | action/observable
+///Has Action as input 
+///and StreamedState(and descedants) as output
 abstract class WidgetModel {
   final ErrorHandler _errorHandler;
   CompositeSubscription _compositeSubscription = CompositeSubscription();

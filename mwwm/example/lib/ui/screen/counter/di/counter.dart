@@ -18,15 +18,11 @@ import 'package:mwwm/mwwm.dart';
 
 /// Component для экрана счетчика
 class CounterComponent implements BaseWidgetModelComponent<CounterWidgetModel> {
-  @override
-  CounterWidgetModel wm;
+  
+  final NavigatorState navigator;
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   CounterComponent(
-    NavigatorState navigator,
-  ) {
-    wm = CounterWidgetModel(
-      WidgetModelDependencies(),
-      navigator,
-    );
-  }
+    this.navigator,
+  );
 }

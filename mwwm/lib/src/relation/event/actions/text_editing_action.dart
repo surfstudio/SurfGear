@@ -14,7 +14,7 @@
 
 import 'package:flutter/widgets.dart' as widgets;
 
-import 'package:mwwm/src/event/action.dart';
+import 'package:mwwm/src/relation/event/action.dart';
 
 /// Action for text editing
 class TextEditingAction extends Action<String> {
