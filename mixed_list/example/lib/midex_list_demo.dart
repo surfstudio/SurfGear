@@ -12,7 +12,6 @@ class MixedListDemo extends StatelessWidget {
   MixedListDemo() {
     for (int i = 0; i < 10; i++) {
       mixedListItems.add(Circle());
-//      mixedListItems.add(rect.Rect());
       mixedListItems.add(Circle());
       mixedListItems.add(User(
         dateOfBirth: "01.01.1991",
