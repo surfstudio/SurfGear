@@ -1,14 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:datalist/datalist.dart';
 import 'package:example/item_builder.dart';
-import 'package:example/items/circle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart';
 import 'package:mixed_list/mixed_list.dart';
-import 'package:datalist/datalist.dart';
 
-import 'dart:convert';
 import 'items/post.dart';
 
 Client client = Client();
