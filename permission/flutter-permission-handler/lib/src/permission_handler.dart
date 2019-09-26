@@ -31,6 +31,8 @@ class PermissionHandler {
   /// Returns a [Future] containing the current permission status for the supplied [PermissionGroup].
   Future<PermissionStatus> checkPermissionStatus(
       PermissionGroup permission) async {
+    _checkRequest([permission]);
+
     final int status = await _methodChannel.invokeMethod(
         'checkPermissionStatus', permission.value);
 
@@ -60,6 +62,8 @@ class PermissionHandler {
   ///     devices' capability to place & connect phone calls
   ///     as it also depends on the network condition.
   Future<ServiceStatus> checkServiceStatus(PermissionGroup permission) async {
+    _checkRequest([permission]);
+
     final int status = await _methodChannel.invokeMethod(
         'checkServiceStatus', permission.value);
 
@@ -80,6 +84,8 @@ class PermissionHandler {
   /// Returns a [Map] containing the status per requested permissiongroup.
   Future<Map<PermissionGroup, PermissionStatus>> requestPermissions(
       List<PermissionGroup> permissions) async {
+    _checkRequest(permissions);
+
     final List<int> data = Codec.encodePermissionGroups(permissions);
     final Map<dynamic, dynamic> status =
         await _methodChannel.invokeMethod('requestPermissions', data);
@@ -101,5 +107,33 @@ class PermissionHandler {
         'shouldShowRequestPermissionRationale', permission.value);
 
     return shouldShowRationale;
+  }
+
+  void _checkRequest(List<PermissionGroup> permissions) {
+    for (var permission in permissions) {
+      switch (permission) {
+        case PermissionGroup.calendar:
+        case PermissionGroup.camera:
+        case PermissionGroup.contacts:
+        case PermissionGroup.location:
+        case PermissionGroup.locationAlways:
+        case PermissionGroup.locationWhenInUse:
+        case PermissionGroup.mediaLibrary:
+        case PermissionGroup.microphone:
+        case PermissionGroup.photos:
+        case PermissionGroup.reminders:
+        case PermissionGroup.sensors:
+        case PermissionGroup.speech:
+        case PermissionGroup.ignoreBatteryOptimizations:
+          assert(false, 'Modify the iOS plugin first');
+          break;
+        case PermissionGroup.storage:
+        case PermissionGroup.sms:
+        case PermissionGroup.phone:
+        case PermissionGroup.unknown:
+        default:
+          break;
+      }
+    }
   }
 }

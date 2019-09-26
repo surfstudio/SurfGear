@@ -78,6 +78,8 @@ class DefaultPermissionManager implements PermissionManager {
         return PermissionGroup.contacts;
       case Permission.microphone:
         return PermissionGroup.microphone;
+      case Permission.phone:
+        return PermissionGroup.phone;
       default:
         return PermissionGroup.unknown;
     }
