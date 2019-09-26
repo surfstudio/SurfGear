@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  notification_permissions: 0.4.0
   permission_handler:
     path: flutter-permission-handler
 
