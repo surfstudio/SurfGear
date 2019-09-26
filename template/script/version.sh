@@ -15,4 +15,4 @@ function checkoutChannel() {
 }
 
 checkoutVersion
-checkoutChannel
+#checkoutChannel unnecessary command
