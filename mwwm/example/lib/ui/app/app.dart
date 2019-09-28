@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:counter/main.dart';
 import 'package:counter/ui/app/app_wm.dart';
 import 'package:counter/ui/app/di/app.dart';
 import 'package:flutter/material.dart';
@@ -20,21 +21,27 @@ import 'package:mwwm/mwwm.dart';
 import 'package:injector/injector.dart';
 
 /// Widget приложения
-class App extends MwwmWidget<AppComponent, AppWidgetModel> {
-
-  @override
-  State<StatefulWidget> buildState() => _AppState();
-
-  @override
-  AppComponent createComponent(BuildContext context) => AppComponent();
+class App extends MwwmWidget<AppComponent> {
+  App()
+      : super(
+          dependenciesBuilder: (BuildContext context) => AppComponent(),
+          widgetStateBuilder: () => _AppState(),
+        );
 }
 
 class _AppState extends WidgetState<AppWidgetModel> {
+  Key _navKey;
 
-@override
+  @override
+  void initState() {
+    super.initState();
+    _navKey = Injector.of<AppComponent>(context).component.navigatorKey;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      navigatorKey: Injector.of<AppComponent>(context).component.navigatorKey,
+      navigatorKey: _navKey,
       home: Scaffold(
         body: Center(
           child: Icon(

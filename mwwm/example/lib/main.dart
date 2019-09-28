@@ -34,9 +34,9 @@ CounterWidgetModel createCounterModel(BuildContext context) =>
     );
 
 void main() {
-  WidgetModelFactory.instance()
-    ..registerBuilder<AppWidgetModel>(createAppModel)
-    ..registerBuilder<CounterWidgetModel>(createCounterModel);
+   WidgetModelFactory.instance()
+     ..registerBuilder<AppWidgetModel>(createAppModel)
+     ..registerBuilder<CounterWidgetModel>(createCounterModel);
 
   runApp(App());
 }
