@@ -21,9 +21,17 @@ abstract class DialogController {
     String message,
     void Function(BuildContext context) onAgreeClicked,
     void Function(BuildContext context) onDisagreeClicked,
+    DialogData data,
   });
 
-  Future<R> showSheet<R>(dynamic type, {VoidCallback onDismiss});
+  Future<R> showSheet<R>(
+    dynamic type, {
+    VoidCallback onDismiss,
+    DialogData data,
+  });
 
-  Future<R> showModalSheet<R>(dynamic type);
+  Future<R> showModalSheet<R>(dynamic type, {DialogData data});
 }
+
+/// Параметры диалога
+abstract class DialogData {}
