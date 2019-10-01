@@ -11,7 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  permission_handler: 3.2.2
+  notification_permissions: 0.4.0
+  permission_handler:
+    path: flutter-permission-handler
 
 dev_dependencies:
   flutter_test:
