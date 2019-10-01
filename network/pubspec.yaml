@@ -14,7 +14,7 @@ dependencies:
   logger:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-7
+      ref: project-ROS-8
       path: logger
 
   dio: 2.1.2
