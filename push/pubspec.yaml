@@ -14,13 +14,13 @@ dependencies:
   surf_util:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-8
+      ref: project-ROS-9
       path: surf_util
 
   logger:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-8
+      ref: project-ROS-9
       path: logger
 
   #rx
