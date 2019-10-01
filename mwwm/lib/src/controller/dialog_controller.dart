@@ -21,7 +21,6 @@ abstract class DialogController {
     String message,
     void Function(BuildContext context) onAgreeClicked,
     void Function(BuildContext context) onDisagreeClicked,
-    DialogData data,
   });
 
   Future<R> showSheet<R>(
@@ -30,7 +29,11 @@ abstract class DialogController {
     DialogData data,
   });
 
-  Future<R> showModalSheet<R>(dynamic type, {DialogData data});
+  Future<R> showModalSheet<R>(
+    dynamic type, {
+    DialogData data,
+    bool isScrollControlled,
+  });
 }
 
 /// Параметры диалога
