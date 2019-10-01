@@ -9,7 +9,7 @@ class AuthRequest {
   AuthRequest({this.phone, this.fcmToken});
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['phone'] = this.phone;
     data['fcmToken'] = this.fcmToken;
     return data;

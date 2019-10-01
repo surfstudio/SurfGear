@@ -4,7 +4,7 @@ description: a Flutter Template project for development.
 version: 0.0.1-rc1+1
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.5.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -12,7 +12,10 @@ dependencies:
 
   #внутренние библиотеки
   network:
-      path: ./../network
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: network
   logger:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
@@ -51,50 +54,38 @@ dependencies:
       ref: dev
       path: surf_util
 
-  intl: 0.15.7
+  intl: ^0.15.7
 
-  flutter_svg: 0.10.3
-  qr_flutter: ^2.0.0
+  flutter_svg: ^0.14.1
 
   #networking
-  http: 0.12.0+1
-  dio: 2.1.2
-
-  #parsing
-  json_annotation: 2.0.0
+  http: ^0.12.0+1
+  dio: ^2.1.2
 
   #storage
-  shared_preferences: 0.5.1+1
-  path_provider: 0.5.0
+  shared_preferences: ^0.5.3+4
+  path_provider: ^1.3.0
 
   #rx
-  rxdart: 0.22.0
+  rxdart: ^0.22.0
 
   #crash reporting
-  #firebase_crashlytics: ^0.0.4+1 need research about this
-  flutter_crashlytics: 0.3.0
-
-  #camera
-  camera: 0.4.3+2
+  firebase_crashlytics: ^0.1.0+3
 
   #masked text
-  flutter_masked_text: 0.8.0
-  string_mask: 0.1.0
+  string_mask: ^0.1.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: 0.1.2
-
-  #notifications
-  flutter_local_notifications: ^0.8.2
+  cupertino_icons: ^0.1.2
 
   #connection
-  connectivity: 0.4.2+2
+  connectivity: ^0.4.4
 
-  pedantic: ^1.7.0
+  pedantic: ^1.8.0
 
   # testing mock
-  mockito: ^4.0.0
+  mockito: ^4.1.1
 
 dev_dependencies:
   flutter_test:
