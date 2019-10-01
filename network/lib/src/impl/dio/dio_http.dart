@@ -22,7 +22,7 @@ import 'package:network/src/base/http.dart';
 import 'package:network/src/base/response.dart';
 import 'package:network/src/base/status_mapper.dart';
 
-///Реализация Http на основе библиотеки [dio]
+///Library Based Http Implementation [dio]
 class DioHttp extends Http {
   final HeadersBuilder headersBuilder;
   final StatusCodeMapper errorMapper;
@@ -35,6 +35,8 @@ class DioHttp extends Http {
       ..connectTimeout = config.timeout.inMilliseconds
       ..receiveTimeout = config.timeout.inMilliseconds
       ..sendTimeout = config.timeout.inMilliseconds;
+
+    _configProxy(config);
 
     _dio.interceptors.add(dio.LogInterceptor(
       requestBody: true,
@@ -52,6 +54,22 @@ class DioHttp extends Http {
 
       throw e;
     }));
+  }
+
+  ///Proxy config for tracking data
+  ///
+  /// @param config - HttpConfig of client. Get proxy url
+  void _configProxy(HttpConfig config) {
+    var proxyUrl = config.proxyUrl;
+
+    if (proxyUrl != null && proxyUrl.isNotEmpty) {
+      (_dio.httpClientAdapter as dio.DefaultHttpClientAdapter)
+          .onHttpClientCreate = (client) {
+        client.findProxy = (uri) {
+          return "PROXY $proxyUrl";
+        };
+      };
+    }
   }
 
   @override

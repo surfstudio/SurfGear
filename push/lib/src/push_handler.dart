@@ -11,7 +11,7 @@ class PushHandler {
     this._notificationController,
     this._messagingService,
   ) {
-    _messagingService.initNotification(handleMessage);
+    _messagingService?.initNotification(handleMessage);
   }
 
   /// The ability to directly subscribe to receive messages
@@ -21,10 +21,10 @@ class PushHandler {
 
   final PushHandleStrategyFactory _strategyFactory;
   final NotificationController _notificationController;
-  final MessagingService _messagingService;
+  final BaseMessagingService _messagingService;
 
   /// display local notification
-  /// [MessagingService] calls this method to display the notification that came from Firebase
+  /// [MessagingService] calls this method to display the notification that came from message service
   void handleMessage(
     Map<String, dynamic> message,
     MessageHandlerType handlerType, {
