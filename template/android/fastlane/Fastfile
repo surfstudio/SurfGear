@@ -12,52 +12,48 @@
 
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
-fastlane_version "2.108.0"
+fastlane_version "2.132.0"
 
 default_platform(:android)
 
 platform :android do
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
+  desc "Submit a new debug build to Firebase App Distribution"
   lane :beta do
-    puts "upload 32 bit version"
-    crashlytics(
-        api_token: 'YOUR_API_KEY',
-        build_secret: 'YOUR_BUILD_SECRET',
-        apk_path: "../build/app/outputs/apk/release/app-qa-armeabi-v7a.apk",
-        emails: ["surfstudio36@gmail.com", ],
-        notes: "x32 | qa",
+    puts "Firebase App Distribution | 32-bit"
+    firebase_app_distribution(
+        app: "1:867693323181:android:5d761bfb2896673e3eb724",                       #application identifier from Firebase Console
+        apk_path: "../build/app/outputs/apk/dev/release/app-qa-armeabi-v7a.apk",    #relative path to the *.apk file
+        groups: "surf",                                                             #desired testers group name
+        release_notes: "QA x32",                                                    #release notes
+        firebase_cli_path: "/usr/local/bin/firebase"                                #your local path to Firebase CLI
     )
-    puts "end upload 32 bit version"
 
-    puts "upload 64 bit version"
-    crashlytics(
-        api_token: 'YOUR_API_KEY',
-        build_secret: 'YOUR_BUILD_SECRET',
-        apk_path: "../build/app/outputs/apk/release/app-qa-arm64-v8a.apk",
-        emails: ["surfstudio36@gmail.com", ],
-        notes: "x64 | qa",
+    puts "Firebase App Distribution | 64-bit"
+    firebase_app_distribution(
+        app: "1:867693323181:android:5d761bfb2896673e3eb712",                   #application identifier from Firebase Console
+        apk_path: "../build/app/outputs/apk/dev/release/app-qa-arm64-v8a.apk",  #relative path to the *.apk file
+        groups: "TESTER_GROUP_NAME",                                            #desired testers group name
+        release_notes: "QA x64",                                                #release notes
+        firebase_cli_path: "/usr/local/bin/firebase"                            #your local path to Firebase CLI
     )
-    puts "end upload 64 bit version"
+
   end
 
   lane :release do
-    crashlytics(
-      api_token: 'YOUR_API_KEY',
-      build_secret: 'YOUR_BUILD_SECRET',
-      apk_path: "../build/app/outputs/apk/release/app-release-android-arm64.apk"
-    )
+    #todo
+    #crashlytics(
+    #  api_token: 'YOUR_API_KEY',
+    #  build_secret: 'YOUR_BUILD_SECRET',
+    #  apk_path: "../build/app/outputs/apk/release/app-release-android-arm64.apk"
+    #)
 
-    crashlytics(
-          api_token: 'YOUR_API_KEY',
-          build_secret: 'YOUR_BUILD_SECRET',
-          apk_path: "../build/app/outputs/apk/release/app-release.apk"
-    )
+    #todo
+    #crashlytics(
+    #      api_token: 'YOUR_API_KEY',
+    #      build_secret: 'YOUR_BUILD_SECRET',
+    #      apk_path: "../build/app/outputs/apk/release/app-release.apk"
+    #)
   end
 
-#  desc "Deploy a new version to the Google Play"
-#  lane :deploy do
-#    gradle(task: "clean assembleRelease")
-#    upload_to_play_store
-#  end
 end
