@@ -24,13 +24,23 @@ class NotificationController {
         InitializationSettings(
           AndroidInitializationSettings(androidDefaultIcon),
           IOSInitializationSettings(
+              requestAlertPermission: false,
+              requestBadgePermission: false,
+              requestSoundPermission: false,
               onDidReceiveLocalNotification: (id, title, body, payload) async {
-            Logger.d("handle notification% $id , $title, $body, $payload");
-          }),
+                Logger.d("handle notification% $id , $title, $body, $payload");
+              }),
         ),
         onSelectNotification: _internalOnSelectNotification,
       );
   }
+
+  /// Request notification permissions (iOS only)
+  Future<bool> requestPermissions() => _notificationPlugin.requestPermissions(
+        requestSoundPermission: true,
+        requestAlertPermission: true,
+        requestBadgePermission: true,
+      );
 
   /// displaying notification from the strategy
   Future<dynamic> show(
