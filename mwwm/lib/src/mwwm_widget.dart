@@ -33,7 +33,6 @@ abstract class MwwmWidget<C extends Component> extends StatefulWidget {
   _MwwmWidgetState createState() => _MwwmWidgetState<C>();
 }
 
-
 /// Hold child widget
 class _MwwmWidgetState<C extends Component> extends State<MwwmWidget> {
   Widget child;
@@ -52,39 +51,18 @@ class _MwwmWidgetState<C extends Component> extends State<MwwmWidget> {
   }
 
   @override
+  void didUpdateWidget(MwwmWidget<Component> oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+//    if (oldWidget.c) {
+//
+//    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     debugPrint("DEVDEV build $this | $hashCode");
     return child;
-  }
-}
-
-/// Implementation of MwwmWidget based on [InheritedWidget]
-/// todo test perfomance
-abstract class MwwmInheritedWidget<C extends Component>
-    extends InheritedWidget {
-  MwwmInheritedWidget({
-    @required DependenciesBuilder<C> dependenciesBuilder,
-    @required WidgetStateBuilder widgetStateBuilder,
-    WidgetModelBuilder widgetModelBuilder,
-  }) : super(
-          child: Builder(
-            builder: (context) => Injector<C>(
-              component: dependenciesBuilder(context),
-              builder: (ctx) {
-                debugPrint("DEVDEV return _Mwwwm on $ctx");
-                return _MwwmWidget(
-                  wsBuilder: widgetStateBuilder,
-                  widgetModelBuilder: widgetModelBuilder,
-                );
-              },
-            ),
-          ),
-        );
-
-  /// Yet this forever true because otherwise hot reload not working.
-  @override
-  bool updateShouldNotify(InheritedWidget oldWidget) {
-    return true;
   }
 }
 
@@ -134,5 +112,35 @@ abstract class WidgetState<WM extends WidgetModel> extends State<_MwwmWidget>
   void dispose() {
     wm.dispose();
     super.dispose();
+  }
+}
+
+/// Implementation of MwwmWidget based on [InheritedWidget]
+/// todo test perfomance
+abstract class MwwmInheritedWidget<C extends Component>
+    extends InheritedWidget {
+  MwwmInheritedWidget({
+    @required DependenciesBuilder<C> dependenciesBuilder,
+    @required WidgetStateBuilder widgetStateBuilder,
+    WidgetModelBuilder widgetModelBuilder,
+  }) : super(
+          child: Builder(
+            builder: (context) => Injector<C>(
+              component: dependenciesBuilder(context),
+              builder: (ctx) {
+                debugPrint("DEVDEV return _Mwwwm on $ctx");
+                return _MwwmWidget(
+                  wsBuilder: widgetStateBuilder,
+                  widgetModelBuilder: widgetModelBuilder,
+                );
+              },
+            ),
+          ),
+        );
+
+  /// Yet this forever true because otherwise hot reload not working.
+  @override
+  bool updateShouldNotify(InheritedWidget oldWidget) {
+    return true;
   }
 }
