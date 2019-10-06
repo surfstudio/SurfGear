@@ -70,11 +70,6 @@ class CounterWidgetModel extends WidgetModel {
             ),
           ),
         );
-//        return _key.currentState.showSnackBar(
-//        w.SnackBar(
-//          content: w.Text('Tapped $c'),
-//        ),
-//      );
       },
     );
   }

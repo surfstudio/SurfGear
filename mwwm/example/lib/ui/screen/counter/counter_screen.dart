@@ -32,7 +32,6 @@ class CounterScreen extends MwwmWidget<CounterComponent> {
 class _CounterScreenState extends WidgetState<CounterWidgetModel> {
   @override
   Widget build(BuildContext context) {
-    debugPrint("DEVDEV $this | $hashCode | ${DateTime.now()}");
     return Scaffold(
       key: Injector.of<CounterComponent>(context).component.scaffoldKey,
       appBar: AppBar(

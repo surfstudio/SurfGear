@@ -51,17 +51,7 @@ class _MwwmWidgetState<C extends Component> extends State<MwwmWidget> {
   }
 
   @override
-  void didUpdateWidget(MwwmWidget<Component> oldWidget) {
-    // TODO: implement didUpdateWidget
-    super.didUpdateWidget(oldWidget);
-//    if (oldWidget.c) {
-//
-//    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    debugPrint("DEVDEV build $this | $hashCode");
     return child;
   }
 }
@@ -77,7 +67,6 @@ class _MwwmWidget extends StatefulWidget {
 
   @override
   State createState() {
-    debugPrint("DEVDEV create state on $this");
     return wsBuilder();
   }
 }
@@ -128,7 +117,6 @@ abstract class MwwmInheritedWidget<C extends Component>
             builder: (context) => Injector<C>(
               component: dependenciesBuilder(context),
               builder: (ctx) {
-                debugPrint("DEVDEV return _Mwwwm on $ctx");
                 return _MwwmWidget(
                   wsBuilder: widgetStateBuilder,
                   widgetModelBuilder: widgetModelBuilder,
