@@ -8,8 +8,7 @@ typedef WidgetStateBuilder = State Function();
 typedef DependenciesBuilder<C> = C Function(BuildContext);
 
 /// Base class for widgets that has [WidgetModel]
-abstract class MwwmWidget<C extends Component> extends StatelessWidget {
-
+abstract class MwwmWidget<C extends Component> extends StatefulWidget {
   /// A function that build dependencies for WidgetModel and Widget
   final DependenciesBuilder<C> dependenciesBuilder;
 
@@ -30,44 +29,30 @@ abstract class MwwmWidget<C extends Component> extends StatelessWidget {
           key: key,
         );
 
-  /// Do not override
   @override
-  Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) => Injector<C>(
-        component: dependenciesBuilder(context),
-        builder: (ctx) => _MwwmWidget(
-          wsBuilder: widgetStateBuilder,
-          widgetModelBuilder: widgetModelBuilder,
-        ),
+  _MwwmWidgetState createState() => _MwwmWidgetState<C>();
+}
+
+/// Hold child widget
+class _MwwmWidgetState<C extends Component> extends State<MwwmWidget> {
+  Widget child;
+
+  @override
+  void initState() {
+    super.initState();
+
+    child = Injector<C>(
+      component: widget.dependenciesBuilder(context),
+      builder: (ctx) => _MwwmWidget(
+        wsBuilder: widget.widgetStateBuilder,
+        widgetModelBuilder: widget.widgetModelBuilder,
       ),
     );
   }
-}
 
-/// Implementation of MwwmWidget based on [InheritedWidget]
-/// todo test perfomance
-abstract class MwwmInheritedWidget<C extends Component> extends InheritedWidget {
-  MwwmInheritedWidget({
-    @required DependenciesBuilder<C> dependenciesBuilder,
-    @required WidgetStateBuilder widgetStateBuilder,
-    WidgetModelBuilder widgetModelBuilder,
-  }) : super(
-    child: Builder(
-      builder: (context) => Injector<C>(
-        component: dependenciesBuilder(context),
-        builder: (ctx) => _MwwmWidget(
-          wsBuilder: widgetStateBuilder,
-          widgetModelBuilder: widgetModelBuilder,
-        ),
-      ),
-    ),
-  );
-
-  /// Yet this forever true because otherwise hot reload not working.
   @override
-  bool updateShouldNotify(InheritedWidget oldWidget) {
-    return true;
+  Widget build(BuildContext context) {
+    return child;
   }
 }
 
@@ -81,7 +66,9 @@ class _MwwmWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  State createState() => wsBuilder();
+  State createState() {
+    return wsBuilder();
+  }
 }
 
 /// Base class for state of [MwwmWidget].
@@ -114,5 +101,34 @@ abstract class WidgetState<WM extends WidgetModel> extends State<_MwwmWidget>
   void dispose() {
     wm.dispose();
     super.dispose();
+  }
+}
+
+/// Implementation of MwwmWidget based on [InheritedWidget]
+/// todo test perfomance
+abstract class MwwmInheritedWidget<C extends Component>
+    extends InheritedWidget {
+  MwwmInheritedWidget({
+    @required DependenciesBuilder<C> dependenciesBuilder,
+    @required WidgetStateBuilder widgetStateBuilder,
+    WidgetModelBuilder widgetModelBuilder,
+  }) : super(
+          child: Builder(
+            builder: (context) => Injector<C>(
+              component: dependenciesBuilder(context),
+              builder: (ctx) {
+                return _MwwmWidget(
+                  wsBuilder: widgetStateBuilder,
+                  widgetModelBuilder: widgetModelBuilder,
+                );
+              },
+            ),
+          ),
+        );
+
+  /// Yet this forever true because otherwise hot reload not working.
+  @override
+  bool updateShouldNotify(InheritedWidget oldWidget) {
+    return true;
   }
 }

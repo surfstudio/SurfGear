@@ -14,7 +14,7 @@ typedef NS_ENUM(int, PermissionGroup) {
     // PermissionGroupLocationWhenInUse,
     // PermissionGroupMediaLibrary,
     // PermissionGroupMicrophone,
-    // PermissionGroupPhone,
+    PermissionGroupPhone = 0,
     // PermissionGroupPhotos,
     // PermissionGroupReminders,
     // PermissionGroupSensors,
@@ -22,7 +22,7 @@ typedef NS_ENUM(int, PermissionGroup) {
     // PermissionGroupSpeech,
     // PermissionGroupStorage,
     // PermissionGroupIgnoreBatteryOptimizations,
-    PermissionGroupUnknown = 0,
+    PermissionGroupUnknown,
 };
 
 typedef NS_ENUM(int, PermissionStatus) {

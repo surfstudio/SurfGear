@@ -55,11 +55,22 @@ class CounterWidgetModel extends WidgetModel {
 
     subscribe(
       counterState.stream.where((c) => c % 2 == 0).skip(1),
-      (c) => _key.currentState.showSnackBar(
-        w.SnackBar(
-          content: w.Text('Tapped $c'),
-        ),
-      ),
+      (c) {
+        navigator.push(
+          w.MaterialPageRoute(
+            builder: (ctx) => w.Scaffold(
+              body: w.Column(
+                children: [
+                  w.TextField(
+                    autofocus: true,
+                    onChanged: (_) {},
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
