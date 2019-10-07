@@ -1,6 +1,6 @@
+import 'package:background_worker/background_worker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test_project/src/background/background_worker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -59,8 +59,9 @@ class _MainScreenState extends State<MainScreen> {
           OutlineButton(
             child: Text("Do in Background"),
             onPressed: () async {
-              var workItem = WorkItem<List<Data>, dynamic>()
-                ..calculation = backgroundWork;
+              var workItem = WorkItem<List<Data>, dynamic>.calculate(
+                backgroundWork,
+              );
               await _backgroudWorker.send(workItem);
             },
           ),

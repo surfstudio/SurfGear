@@ -66,7 +66,7 @@ class _Worker {
   bool isWork = false;
 
   /// Start worker
-  /// 
+  ///
   /// Create and initialize isolate
   Future<void> start() async {
     ReceivePort receivePort = ReceivePort();
@@ -88,7 +88,7 @@ class _Worker {
   }
 
   /// Stop worker
-  /// 
+  ///
   /// Kill isolate
   void stop() {
     if (isolate != null) {
@@ -125,6 +125,10 @@ Future<WorkItem> _doBackgroundWork(WorkItem backgroundWorkItem) async {
 
 /// Represent background work
 class WorkItem<I, O> {
+  WorkItem();
+
+  WorkItem.calculate(this.calculation);
+
   /// Function executes in background
   ///
   /// Must be static or top-level function
