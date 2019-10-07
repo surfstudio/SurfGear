@@ -55,10 +55,16 @@ class _CounterScreenState extends WidgetState<CounterWidgetModel> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('You have pushed the button this many times:'),
+              Text('You have pushed the this many times:'),
               Text(
                 '${snapshot.data}',
-                style: Theme.of(context).textTheme.display1,
+                style: Theme.of(context).textTheme.caption,
+              ),
+              TextField(
+                autofocus: true,
+                onChanged: (_) {
+
+                },
               ),
             ],
           ),
