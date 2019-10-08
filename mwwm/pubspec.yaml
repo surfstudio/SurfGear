@@ -15,7 +15,7 @@ dependencies:
   injector:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-14
+      ref: project-ROS-16
       path: injector
 
   #rx
