@@ -35,8 +35,12 @@ abstract class WidgetModel {
     onLoad();
   }
 
+  @protected
   @mustCallSuper
-  void onLoad() {}
+  void onLoad() => onBind();
+
+  @protected
+  void onBind() {}
 
   /// subscribe for interactors
   StreamSubscription subscribe<T>(
