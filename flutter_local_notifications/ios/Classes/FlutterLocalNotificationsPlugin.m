@@ -79,11 +79,16 @@ typedef NS_ENUM(NSInteger, RepeatInterval) {
     FlutterLocalNotificationsPlugin* instance = [[FlutterLocalNotificationsPlugin alloc] initWithChannel:channel registrar:registrar];
     [registrar addApplicationDelegate:instance];
     [registrar addMethodCallDelegate:instance channel:channel];
+
+    // Пришлось вернуть этот код для исправления тикета:
+    // https://jira.surfstudio.ru/browse/ROS-450
+    // без этого не показывались локальные уведомления на ios
+
     // необходимо для совместной работы с firebase_messaging
-    // if(@available(iOS 10.0, *)) {
-    //     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    //     center.delegate = instance;
-    // }
+    if(@available(iOS 10.0, *)) {
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        center.delegate = instance;
+    }
 }
 
 - (instancetype)initWithChannel:(FlutterMethodChannel *)channel registrar:(NSObject<FlutterPluginRegistrar> *)registrar {
