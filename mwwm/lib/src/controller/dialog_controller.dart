@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 
 ///Базовый класс контроллера отображения диалогов
 abstract class DialogController {
-    void showAlertDialog({
+    Future showAlertDialog({
         String title,
         String message,
         void Function(BuildContext context) onAgreeClicked,
