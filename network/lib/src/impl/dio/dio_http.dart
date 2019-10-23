@@ -56,6 +56,8 @@ class DioHttp extends Http {
     }));
   }
 
+  dio.Dio get dio => _dio;
+
   ///Proxy config for tracking data
   ///
   /// @param config - HttpConfig of client. Get proxy url
