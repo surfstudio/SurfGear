@@ -56,6 +56,8 @@ class DioHttp extends Http {
     }));
   }
 
+  dio.HttpClientAdapter get httpClientAdapter => _dio.httpClientAdapter;
+
   ///Proxy config for tracking data
   ///
   /// @param config - HttpConfig of client. Get proxy url
@@ -209,13 +211,5 @@ class DioHttp extends Http {
     final response = Response<T>(data, r.statusCode);
     errorMapper.checkStatus(response);
     return response;
-  }
-
-  /// Override current httpClient
-  /// 
-  /// Uses for ssl/tls
-  void overrideHttpClient(dio.OnHttpClientCreate onHttpClientCreate) {
-    var adapter = _dio.httpClientAdapter as dio.DefaultHttpClientAdapter;
-    adapter.onHttpClientCreate = onHttpClientCreate;
   }
 }
