@@ -57,7 +57,6 @@ class DioHttp extends Http {
   }
 
   ///Proxy config for tracking data
-  ///Proxy config for tracking data
   ///
   /// @param config - HttpConfig of client. Get proxy url
   void _configProxy(HttpConfig config) {
