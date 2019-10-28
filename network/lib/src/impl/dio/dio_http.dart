@@ -210,4 +210,10 @@ class DioHttp extends Http {
     errorMapper.checkStatus(response);
     return response;
   }
+
+  /// Override current httpClient
+  void overrideHttpClient(dio.OnHttpClientCreate onHttpClientCreate) {
+    var adapter = _dio.httpClientAdapter as dio.DefaultHttpClientAdapter;
+    adapter.onHttpClientCreate = onHttpClientCreate;
+  }
 }
