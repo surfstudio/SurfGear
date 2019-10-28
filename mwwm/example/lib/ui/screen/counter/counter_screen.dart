@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:counter/main.dart';
 import 'package:counter/ui/screen/counter/counter_wm.dart';
 import 'package:counter/ui/screen/counter/di/counter.dart';
 import 'package:flutter/material.dart';
@@ -19,22 +20,16 @@ import 'package:mwwm/mwwm.dart';
 import 'package:injector/injector.dart';
 
 /// Widget для экрана счетчика
-class CounterScreen extends MwwmWidget<CounterComponent, CounterWidgetModel> {
-  @override
-  State<StatefulWidget> buildState() => _CounterScreenState();
-
-  @override
-  CounterComponent createComponent(BuildContext context) =>
-      CounterComponent(Navigator.of(context));
+class CounterScreen extends MwwmWidget<CounterComponent> {
+  CounterScreen()
+      : super(
+          dependenciesBuilder: (BuildContext context) =>
+              CounterComponent(Navigator.of(context)),
+          widgetStateBuilder: () => _CounterScreenState(),
+        );
 }
 
 class _CounterScreenState extends WidgetState<CounterWidgetModel> {
-  @override
-  void initState() {
-    super.initState();
-    wm.showInit();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,10 +55,16 @@ class _CounterScreenState extends WidgetState<CounterWidgetModel> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('You have pushed the button this many times:'),
+              Text('You have pushed the this many times:'),
               Text(
                 '${snapshot.data}',
-                style: Theme.of(context).textTheme.display1,
+                style: Theme.of(context).textTheme.caption,
+              ),
+              TextField(
+                autofocus: true,
+                onChanged: (_) {
+
+                },
               ),
             ],
           ),

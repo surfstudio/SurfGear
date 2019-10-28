@@ -16,7 +16,6 @@ import 'package:flutter/material.dart' show NavigatorState;
 import 'package:flutter/material.dart' as w;
 import 'package:mwwm/mwwm.dart';
 
-
 /// WidgetModel для экрана счетчика
 class CounterWidgetModel extends WidgetModel {
   final NavigatorState navigator;
@@ -45,20 +44,33 @@ class CounterWidgetModel extends WidgetModel {
       (_) => counterState.accept(counterState.value + 1),
     );
 
-    bind(showInit, (_) => _key.currentState.showSnackBar(
+    bind(
+      showInit,
+      (_) => _key.currentState.showSnackBar(
         w.SnackBar(
           content: w.Text('init'),
         ),
-      ),);
+      ),
+    );
 
     subscribe(
       counterState.stream.where((c) => c % 2 == 0).skip(1),
-      (c) => _key.currentState.showSnackBar(
-        w.SnackBar(
-          content: w.Text('Tapped $c'),
-        ),
-      ),
+      (c) {
+        navigator.push(
+          w.MaterialPageRoute(
+            builder: (ctx) => w.Scaffold(
+              body: w.Column(
+                children: [
+                  w.TextField(
+                    autofocus: true,
+                    onChanged: (_) {},
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
-
 }
