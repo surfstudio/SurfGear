@@ -12,23 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/widgets.dart' show ScrollController;
-import 'package:mwwm/src/event/action.dart';
+import 'package:flutter/widgets.dart' show ValueNotifier;
 
-/// Action for scroll
-class ScrollOffsetAction extends Action<double> {
-  final controller = ScrollController();
+import 'package:mwwm/src/relation/event/action.dart';
 
-  ScrollOffsetAction([void Function(double data) onChanged])
-      : super(onChanged) {
+/// Wrapper on controller
+class Controller<T, C extends ValueNotifier<T>> extends Action<T> {
+  final C controller;
+
+  Controller(this.controller, void Function(C controller, Controller) onChanged)
+      : super() {
     controller.addListener(() {
-      accept(controller.offset);
+      onChanged(controller, this);
     });
   }
 
   @override
-  dispose() {
+  call([T data]) {
+    controller.value = data;
+  }
+
+  @override
+  void dispose() {
     controller.dispose();
-    return super.dispose();
+    super.dispose();
   }
 }
