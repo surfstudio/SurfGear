@@ -14,19 +14,19 @@ dependencies:
   surf_util:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-19
+      ref: project-ROS-20
       path: surf_util
 
   logger:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-19
+      ref: project-ROS-20
       path: logger
 
   flutter_local_notifications:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-19
+      ref: project-ROS-20
       path: flutter_local_notifications
 
   #rx
