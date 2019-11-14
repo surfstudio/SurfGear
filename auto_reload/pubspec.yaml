@@ -1,0 +1,21 @@
+name: auto_reload
+description: a library that helps to perform actions with some periodicity
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  #connection
+  connectivity: 0.4.5+3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
