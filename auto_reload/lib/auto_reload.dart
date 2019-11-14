@@ -14,5 +14,7 @@
 
 library auto_reload;
 
-export 'package:auto_reload/src/auto_request/base/auto_future_manager.dart';
-export 'package:auto_reload/src/auto_request/impl/auto_request_manager.dart';
+export 'package:auto_reload/src/manager/base/auto_future_manager.dart';
+export 'package:auto_reload/src/manager/impl/auto_request_manager.dart';
+export 'package:auto_reload/src/mixin/auto_reload_mixin.dart';
+export 'package:auto_reload/src/mixin/auto_reloader.dart';

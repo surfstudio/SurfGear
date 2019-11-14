@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:math';
 
-import 'package:auto_reload/src/auto_request/base/auto_future_manager.dart';
+import 'package:auto_reload/src/manager/base/auto_future_manager.dart';
 import 'package:connectivity/connectivity.dart';
 
 const int _defaultMinReloadDurationSeconds = 1;
