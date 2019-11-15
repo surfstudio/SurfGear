@@ -22,12 +22,14 @@ class AutoRequestManager implements AutoFutureManager {
   StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
   HashMap _queue = HashMap<String, Future Function()>();
-  HashMap _callbacks = HashMap<String, Function>();
+  HashMap _callbacks = HashMap<String, AutoFutureCallback>();
 
   Timer _requestTimer;
 
-  AutoRequestManager(int minReloadDurationSeconds, int maxReloadDurationSeconds)
-      : _minReloadDurationSeconds =
+  AutoRequestManager({
+    int minReloadDurationSeconds,
+    int maxReloadDurationSeconds,
+  })  : _minReloadDurationSeconds =
             minReloadDurationSeconds ?? _defaultMinReloadDurationSeconds,
         _maxReloadDurationSeconds =
             maxReloadDurationSeconds ?? _defaultMaxReloadDurationSeconds {
@@ -35,10 +37,11 @@ class AutoRequestManager implements AutoFutureManager {
   }
 
   /// register request for auto reload
+  @override
   Future<void> autoReload({
     String id,
     Future toReload(),
-    Function onComplete,
+    AutoFutureCallback onComplete,
   }) async {
     _queue.putIfAbsent(id, () {
       if (onComplete != null) {
@@ -111,7 +114,7 @@ class AutoRequestManager implements AutoFutureManager {
     if (!_callbacks.containsKey(key)) {
       return;
     }
-    _callbacks[key]();
+    _callbacks[key](key);
     _callbacks.remove(key);
   }
 

@@ -14,7 +14,8 @@
 
 import 'package:flutter/material.dart';
 
-import 'demo/auto_reload_widget.dart';
+import 'auto_reload/auto_reload_widget.dart';
+import 'auto_request/auto_request_widget.dart';
 
 void main() => runApp(MyApp());
 
@@ -47,12 +48,18 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: DemoAutoReloadWidget(),
-          ),
-        ],
+      body: Container(
+        width: double.infinity,
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: DemoAutoReloadWidget(),
+            ),
+            Expanded(
+              child: DemoAutoRequestManager(),
+            ),
+          ],
+        ),
       ),
     );
   }

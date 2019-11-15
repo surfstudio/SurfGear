@@ -1,4 +1,5 @@
 import 'package:auto_reload/auto_reload.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 /// Demo widget for [AutoReloadMixin]
@@ -30,8 +31,19 @@ class _DemoAutoReloadWidgetState extends _AutoReloadState with AutoReloadMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('count of reload $_countOfReload'),
+    return Column(
+      children: <Widget>[
+        const Spacer(),
+        Text(
+          'auto reload example:',
+          style: TextStyle(
+            fontStyle: FontStyle.normal,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text('count of reload $_countOfReload'),
+        const Spacer(),
+      ],
     );
   }
 
