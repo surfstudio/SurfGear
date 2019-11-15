@@ -11,16 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  #внутренние библиотеки
-  injector:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
-      path: injector
-
-  #rx
-  rxdart: 0.22.0
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,7 +1,6 @@
 import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
-import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm/src/widget_model.dart';
 

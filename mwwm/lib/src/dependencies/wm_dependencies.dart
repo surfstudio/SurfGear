@@ -14,7 +14,7 @@
 
 import 'package:mwwm/src/error/error_handler.dart';
 
-/// Базовые зависимости для WM
+/// dependencies for [WidgetModel]
 class WidgetModelDependencies {
   final ErrorHandler errorHandler;
 
