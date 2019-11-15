@@ -12,11 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:network/src/base/config/log_config.dart';
+
 ///Http configuration
 class HttpConfig {
   final String baseUrl;
   final Duration timeout;
   final String proxyUrl;
 
-  HttpConfig(this.baseUrl, this.timeout, {this.proxyUrl});
+  ///config for logging requests
+  ///
+  ///if null - requests will not logging
+  final LogConfig logConfig;
+
+  HttpConfig(
+    this.baseUrl,
+    this.timeout, {
+    this.proxyUrl,
+    this.logConfig,
+  });
 }

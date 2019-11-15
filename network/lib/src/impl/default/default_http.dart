@@ -17,7 +17,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'dart:convert' as json;
-import 'package:network/src/base/config.dart';
+import 'package:network/src/base/config/config.dart';
 import 'package:network/src/base/status_mapper.dart';
 import 'package:network/src/base/headers.dart';
 import 'package:network/src/base/http.dart';

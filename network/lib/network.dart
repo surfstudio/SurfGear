@@ -15,7 +15,8 @@
 library network;
 
 ///base
-export 'package:network/src/base/config.dart';
+export 'package:network/src/base/config/config.dart';
+export 'package:network/src/base/config/log_config.dart';
 export 'package:network/src/base/error/http_codes.dart';
 export 'package:network/src/base/error/http_exceptions.dart';
 export 'package:network/src/base/headers.dart';
