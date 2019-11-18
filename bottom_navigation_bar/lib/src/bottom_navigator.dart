@@ -12,23 +12,50 @@ class BottomNavigator extends StatefulWidget {
   final BottomNavTabType initialTab;
   final Stream<BottomNavTabType> outerSelector;
 
+  final BottomNavBar bottomNavBar;
+  final StreamController<BottomNavTabType> selectController;
+
   const BottomNavigator({
     Key key,
     @required this.map,
     @required this.initialTab,
     this.outerSelector,
-  }) : super(key: key);
+  })  : bottomNavBar = null,
+        selectController = null,
+        super(key: key);
+
+  /// In this case bottom navigation bar will be custom,
+  /// and BottomNavigationRelationship.navElementBuilder could not be called.
+  /// Also outer selector should be given into custom bottom navigation bar
+  /// bypass bottom navigator.
+  const BottomNavigator.custom({
+    Key key,
+    @required this.map,
+    @required this.initialTab,
+    @required this.bottomNavBar,
+    @required this.selectController,
+  })  : outerSelector = null,
+        super(key: key);
 
   @override
-  _BottomNavigatorState createState() => _BottomNavigatorState();
+  _BaseBottomNavigatorState createState() => bottomNavBar == null
+      ? _BottomNavigatorState()
+      : _CustomBottomNavigatorState();
 }
 
-class _BottomNavigatorState extends State<BottomNavigator> {
-  StreamController<BottomNavTabType> _selectController =
-      StreamController<BottomNavTabType>.broadcast();
+class _CustomBottomNavigatorState extends _BaseBottomNavigatorState {
+  @override
+  BottomNavBar buildBottomBar() {
+    return widget.bottomNavBar;
+  }
 
-  Map<BottomNavTabType, TabBuilder> _navigatorMap =
-      Map<BottomNavTabType, TabBuilder>();
+  @override
+  StreamController<BottomNavTabType> initSelectController() {
+    return widget.selectController;
+  }
+}
+
+class _BottomNavigatorState extends _BaseBottomNavigatorState {
   Map<BottomNavTabType, NavElementBuilder> _bottomMap =
       Map<BottomNavTabType, NavElementBuilder>();
 
@@ -36,12 +63,43 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   void initState() {
     super.initState();
 
+    widget.map.forEach((tabType, relationship) {
+      _bottomMap
+          .addEntries([MapEntry(tabType, relationship.navElementBuilder)]);
+    });
+  }
+
+  @override
+  StreamController<BottomNavTabType> initSelectController() {
+    return StreamController<BottomNavTabType>.broadcast();
+  }
+
+  @override
+  BottomNavBar buildBottomBar() {
+    return BottomNavBar(
+      initType: widget.initialTab,
+      selected: _selectController.sink,
+      elements: _bottomMap,
+      outerSelector: widget.outerSelector,
+    );
+  }
+}
+
+abstract class _BaseBottomNavigatorState extends State<BottomNavigator> {
+  StreamController<BottomNavTabType> _selectController;
+
+  Map<BottomNavTabType, TabBuilder> _navigatorMap =
+      Map<BottomNavTabType, TabBuilder>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _selectController = initSelectController();
     _selectController.add(widget.initialTab);
 
     widget.map.forEach((tabType, relationship) {
       _navigatorMap.addEntries([MapEntry(tabType, relationship.tabBuilder)]);
-      _bottomMap
-          .addEntries([MapEntry(tabType, relationship.navElementBuilder)]);
     });
   }
 
@@ -56,20 +114,21 @@ class _BottomNavigatorState extends State<BottomNavigator> {
             mappedTabs: _navigatorMap,
           ),
         ),
-        BottomNavBar(
-          initType: widget.initialTab,
-          selected: _selectController.sink,
-          elements: _bottomMap,
-          outerSelector: widget.outerSelector,
-        ),
+        buildBottomBar(),
       ],
     );
   }
+
+  @protected
+  StreamController<BottomNavTabType> initSelectController();
+
+  @protected
+  BottomNavBar buildBottomBar();
 
   @override
   void dispose() {
     super.dispose();
 
-    _selectController.close();
+    _selectController?.close();
   }
 }

@@ -70,9 +70,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   void _updateSelected(BottomNavTabType newSelected) {
-    setState(() {
-      _currentType = newSelected;
-      widget.selected.add(newSelected);
-    });
+    if (newSelected != _currentType) {
+      setState(() {
+        _currentType = newSelected;
+        widget.selected.add(newSelected);
+      });
+    }
   }
 }
