@@ -6,15 +6,17 @@ import 'package:bottom_navigation_bar/src/bottom_navigation_relationship.dart';
 import 'package:flutter/material.dart';
 import 'package:tabnavigator/tabnavigator.dart';
 
-/// Widget that display element by current item in bottom bar.
+/// Widget that display element by item currently selected in bottom bar.
 class BottomNavigator extends StatefulWidget {
   final Map<BottomNavTabType, BottomNavigationRelationship> map;
   final BottomNavTabType initialTab;
+  final Stream<BottomNavTabType> outerSelector;
 
   const BottomNavigator({
     Key key,
     @required this.map,
     @required this.initialTab,
+    this.outerSelector,
   }) : super(key: key);
 
   @override
@@ -25,8 +27,10 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   StreamController<BottomNavTabType> _selectController =
       StreamController<BottomNavTabType>.broadcast();
 
-  Map<BottomNavTabType, TabBuilder> _navigatorMap = Map<BottomNavTabType, TabBuilder>();
-  Map<BottomNavTabType, NavElementBuilder> _bottomMap = Map<BottomNavTabType, NavElementBuilder>();
+  Map<BottomNavTabType, TabBuilder> _navigatorMap =
+      Map<BottomNavTabType, TabBuilder>();
+  Map<BottomNavTabType, NavElementBuilder> _bottomMap =
+      Map<BottomNavTabType, NavElementBuilder>();
 
   @override
   void initState() {
@@ -56,6 +60,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
           initType: widget.initialTab,
           selected: _selectController.sink,
           elements: _bottomMap,
+          outerSelector: widget.outerSelector,
         ),
       ],
     );
