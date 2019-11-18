@@ -1,6 +1,0 @@
-#include "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug-dev.xcconfig"
-#include "Generated.xcconfig"
-#include "common.xcconfig"
-
-bundle_suffix=.dev
-IDENTIFIER=$(identifier)$(bundle_suffix)
