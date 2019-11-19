@@ -25,7 +25,7 @@ class BottomNavigator extends StatefulWidget {
         super(key: key);
 
   /// In this case bottom navigation bar will be custom,
-  /// and BottomNavigationRelationship.navElementBuilder could not be called.
+  /// and BottomNavigationRelationship.navElementBuilder will not be called.
   /// Also outer selector should be given into custom bottom navigation bar
   /// bypass bottom navigator.
   const BottomNavigator.custom({
