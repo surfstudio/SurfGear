@@ -29,10 +29,16 @@ abstract class WidgetModel {
   WidgetModel(WidgetModelDependencies baseDependencies)
       : _errorHandler = baseDependencies.errorHandler {
     onLoad();
+    onBind();
   }
 
+  /// called when widget ready
   @mustCallSuper
   void onLoad() {}
+
+  /// here need to bind relations
+  @mustCallSuper
+  void onBind() {}
 
   /// subscribe for interactors
   StreamSubscription subscribe<T>(

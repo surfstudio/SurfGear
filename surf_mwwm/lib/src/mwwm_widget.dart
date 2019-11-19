@@ -41,7 +41,7 @@ class _MwwmWidgetState<C extends Component> extends State<MwwmWidget> {
     child = Injector<C>(
       component: widget.dependenciesBuilder(context),
       builder: (ctx) => ProxyMwwmWidget(
-        wsBuilder: widget.widgetStateBuilder,
+        widgetStateBuilder: widget.widgetStateBuilder,
         widgetModelBuilder: widget.widgetModelBuilder,
       ),
     );
@@ -67,7 +67,7 @@ abstract class MwwmInheritedWidget<C extends Component>
               component: dependenciesBuilder(context),
               builder: (ctx) {
                 return ProxyMwwmWidget(
-                  wsBuilder: widgetStateBuilder,
+                  widgetStateBuilder: widgetStateBuilder,
                   widgetModelBuilder: widgetModelBuilder,
                 );
               },

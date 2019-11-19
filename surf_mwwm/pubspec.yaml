@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  #внутренние библиотеки
+  #inner packages
   injector:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git

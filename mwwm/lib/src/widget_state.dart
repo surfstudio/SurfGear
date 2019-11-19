@@ -40,14 +40,15 @@ abstract class WidgetState<WM extends WidgetModel>
 /// Hidden widget that create [WidgetState]
 /// It's only proxy builder for [State]
 class ProxyMwwmWidget extends StatefulWidget {
-  final WidgetStateBuilder wsBuilder;
+  final WidgetStateBuilder widgetStateBuilder;
   final WidgetModelBuilder widgetModelBuilder;
 
-  const ProxyMwwmWidget({Key key, this.wsBuilder, this.widgetModelBuilder})
+  const ProxyMwwmWidget(
+      {Key key, this.widgetStateBuilder, this.widgetModelBuilder})
       : super(key: key);
 
   @override
   State createState() {
-    return wsBuilder();
+    return widgetStateBuilder();
   }
 }

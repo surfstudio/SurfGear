@@ -12,11 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:counter/demo_relations.dart';
+import 'package:counter/ui/screen/counter/counter_screen.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: DemoRelations(),
-  ));
+/// Route для экрана счетчика
+class CounterScreenRoute extends MaterialPageRoute {
+  CounterScreenRoute() : super(builder: (ctx) => CounterScreen());
 }
