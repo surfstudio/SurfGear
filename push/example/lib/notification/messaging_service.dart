@@ -8,6 +8,7 @@ class MessagingService extends BaseMessagingService {
   Future<String> get fcmTokenObservable => _messaging.getToken();
 
   HandleMessageFunction _handleMessage;
+  List<String> _topicsSubscription = [];
 
   /// request notification permissions for ios platform
   void requestNotificationPermissions() {
@@ -43,6 +44,17 @@ class MessagingService extends BaseMessagingService {
   /// subscribe on a list of topics in background.
   void subscribeToTopics(List<String> topics) {
     topics.forEach(subscribeToTopic);
+  }
+
+  /// unsubscribe from topic in background.
+  void unsubscribeFromTopic(String topic) {
+    _messaging.unsubscribeFromTopic(topic);
+    _topicsSubscription.remove(topic);
+  }
+
+  /// unsubscribe from all topics
+  void unsubscribe() {
+    _topicsSubscription.forEach(unsubscribeFromTopic);
   }
 
   Future<dynamic> _internalMessageInterceptor(
