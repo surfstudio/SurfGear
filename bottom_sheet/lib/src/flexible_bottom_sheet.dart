@@ -7,7 +7,7 @@ import 'package:flutter/rendering.dart';
 /// This bottom sheet resizing between min and max size, and when size become
 /// max start scrolling content. Reduction size available when content
 /// scrolled to 0 offset.
-class FlexibleBottomSheet extends StatelessWidget {
+class FlexibleBottomSheet extends StatefulWidget {
   final double minHeight;
   final double minPartHeight;
   final double maxHeight;
@@ -16,6 +16,7 @@ class FlexibleBottomSheet extends StatelessWidget {
   final ScrollPhysics scrollPhysics;
   final Color backgroundColor;
   final double borderRadius;
+  final bool isCollapsible;
 
   const FlexibleBottomSheet({
     Key key,
@@ -27,66 +28,122 @@ class FlexibleBottomSheet extends StatelessWidget {
     this.scrollPhysics,
     Color backgroundColor,
     double borderRadius,
+    bool isCollapsible = false,
   })  : assert(minHeight != null && minPartHeight == null ||
             minPartHeight != null && minHeight == null),
         assert(maxHeight != null && maxPartHeight == null ||
             maxPartHeight != null && maxHeight == null ||
             maxPartHeight == null && maxHeight == null),
         assert(
-            minPartHeight == null || minPartHeight > 0 && minPartHeight <= 1),
+            minPartHeight == null || minPartHeight >= 0 && minPartHeight <= 1),
         assert(
             maxPartHeight == null || maxPartHeight > 0 && maxPartHeight <= 1),
         assert(!(maxPartHeight != null && minPartHeight != null) ||
             maxPartHeight > minPartHeight),
         assert(
             !(maxHeight != null && minHeight != null) || maxHeight > minHeight),
+        assert(!isCollapsible || minPartHeight == 0),
         this.children = children ?? const [],
         this.backgroundColor = backgroundColor ?? const Color(0xFFFFFFFF),
         this.borderRadius = borderRadius ?? 16,
+        this.isCollapsible = isCollapsible,
         super(key: key);
+
+  const FlexibleBottomSheet.collapsible({
+    Key key,
+    double maxHeight,
+    double maxPartHeight,
+    List<Widget> children,
+    ScrollPhysics scrollPhysics,
+    Color backgroundColor,
+    double borderRadius,
+  }) : this(
+          maxHeight: maxHeight,
+          maxPartHeight: maxPartHeight,
+          children: children,
+          scrollPhysics: scrollPhysics,
+          backgroundColor: backgroundColor,
+          borderRadius: borderRadius,
+          minPartHeight: 0,
+          isCollapsible: true,
+        );
+
+  @override
+  _FlexibleBottomSheetState createState() => _FlexibleBottomSheetState();
+}
+
+class _FlexibleBottomSheetState extends State<FlexibleBottomSheet> {
+  bool _isClosing = false;
 
   @override
   Widget build(BuildContext context) {
+    var maxHeight = _getMaxHeightPart(context);
     var minHeight = _getMinHeightPart(context);
 
-    return DraggableScrollableSheet(
-      maxChildSize: _getMaxHeightPart(context),
-      minChildSize: minHeight,
-      initialChildSize: minHeight,
-      builder: (context, scrollController) {
-        return Container(
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(borderRadius),
-              topRight: Radius.circular(borderRadius),
+    return NotificationListener<DraggableScrollableNotification>(
+      onNotification: _isClosing ? null : _processNotify,
+      child: DraggableScrollableSheet(
+        maxChildSize: maxHeight,
+        minChildSize: minHeight,
+        initialChildSize: _getInitHeight(minHeight, maxHeight),
+        builder: (context, scrollController) {
+          return Container(
+            decoration: BoxDecoration(
+              color: widget.backgroundColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(widget.borderRadius),
+                topRight: Radius.circular(widget.borderRadius),
+              ),
             ),
-          ),
-          child: Padding(
-            padding: EdgeInsets.only(top: borderRadius),
-            child: ListView(
-              padding: const EdgeInsets.all(0),
-              controller: scrollController,
-              physics: scrollPhysics,
-              children: children,
+            child: Padding(
+              padding: EdgeInsets.only(top: widget.borderRadius),
+              child: ListView(
+                padding: const EdgeInsets.all(0),
+                controller: scrollController,
+                physics: widget.scrollPhysics,
+                children: widget.children,
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
   double _getMaxHeightPart(BuildContext context) {
-    if (maxPartHeight != null) return maxPartHeight;
+    if (widget.maxPartHeight != null) return widget.maxPartHeight;
 
     var height = MediaQuery.of(context).size.height;
-    return (maxHeight ?? height) / height;
+    return (widget.maxHeight ?? height) / height;
   }
 
   double _getMinHeightPart(BuildContext context) {
-    if (minPartHeight != null) return minPartHeight;
+    if (widget.minPartHeight != null) return widget.minPartHeight;
 
     var height = MediaQuery.of(context).size.height;
-    return minHeight / height;
+    return widget.minHeight / height;
+  }
+
+  double _getInitHeight(double min, double max) {
+    if (min > 0) {
+      return min;
+    }
+
+    return (max + min) / 2;
+  }
+
+  bool _processNotify(DraggableScrollableNotification notification) {
+    var minHeight = _getMinHeightPart(context);
+
+    if (widget.isCollapsible && !_isClosing) {
+      if (notification.extent == minHeight) {
+        setState(() {
+          _isClosing = true;
+          Navigator.of(context).pop();
+        });
+      }
+    }
+
+    return false;
   }
 }

@@ -13,6 +13,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   final ScrollPhysics scrollPhysics;
   final Color backgroundColor;
   final double borderRadius;
+  final bool isCollapsible;
 
   final ThemeData theme;
 
@@ -27,6 +28,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     this.theme,
     this.barrierLabel,
     this.backgroundColor,
+    this.isCollapsible,
     RouteSettings settings,
   }) : super(settings: settings);
 
@@ -58,16 +60,25 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     Widget bottomSheet = MediaQuery.removePadding(
         context: context,
         removeTop: true,
-        child: FlexibleBottomSheet(
-          minPartHeight: minPartHeight,
-          maxPartHeight: maxPartHeight,
-          minHeight: minHeight,
-          maxHeight: maxHeight,
-          scrollPhysics: scrollPhysics,
-          backgroundColor: backgroundColor,
-          borderRadius: borderRadius,
-          children: children,
-        ));
+        child: isCollapsible
+            ? FlexibleBottomSheet.collapsible(
+                maxPartHeight: maxPartHeight,
+                maxHeight: maxHeight,
+                scrollPhysics: scrollPhysics,
+                backgroundColor: backgroundColor,
+                borderRadius: borderRadius,
+                children: children,
+              )
+            : FlexibleBottomSheet(
+                minPartHeight: minPartHeight,
+                maxPartHeight: maxPartHeight,
+                minHeight: minHeight,
+                maxHeight: maxHeight,
+                scrollPhysics: scrollPhysics,
+                backgroundColor: backgroundColor,
+                borderRadius: borderRadius,
+                children: children,
+              ));
 
     if (theme != null) {
       bottomSheet = Theme(data: theme, child: bottomSheet);
@@ -88,6 +99,7 @@ Future<T> showFlexibleBottomSheet<T>({
   ScrollPhysics scrollPhysics,
   Color backgroundColor,
   double borderRadius,
+  bool isCollapsible = true,
   bool useRootNavigator = false,
 }) {
   assert(context != null);
@@ -107,6 +119,7 @@ Future<T> showFlexibleBottomSheet<T>({
       maxPartHeight: maxPartHeight,
       borderRadius: borderRadius,
       scrollPhysics: scrollPhysics,
+      isCollapsible: isCollapsible,
       children: children,
     ),
   );

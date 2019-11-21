@@ -71,7 +71,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void _showSheet() {
     showFlexibleBottomSheet(
       context: context,
-      minPartHeight: 0.5,
       children: <Widget>[
         _testContainer(Color(0xEEFFFF00)),
         _testContainer(Color(0xDD99FF00)),
