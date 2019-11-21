@@ -7,6 +7,18 @@ import 'package:flutter/rendering.dart';
 /// This bottom sheet resizing between min and max size, and when size become
 /// max start scrolling content. Reduction size available when content
 /// scrolled to 0 offset.
+///
+/// [minHeight], [maxHeight], [minPartHeight], [maxPartHeight] are limits of
+/// bounds this widget. You can use all of them, but not both same limit
+/// at once time. For example:
+/// - you can set minHeight to 200 and minPartHeight to 1;
+/// - you can't set minHeight to 200 and minPartHeight to 0.5;
+///
+/// [isCollapsible] make possible collapse widget and remove from the screen,
+/// but you must be carefully to use it, set it to true only if you show this
+/// widget with like showFlexibleBottomSheet() case, because it will be removed
+/// by Navigator.pop(). If you set [isCollapsible] true, [minPartHeight]
+/// must be 0.
 class FlexibleBottomSheet extends StatefulWidget {
   final double minHeight;
   final double minPartHeight;

@@ -88,7 +88,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   }
 }
 
-// Shows a flexible bottom sheet.
+/// Shows a flexible bottom sheet.
 Future<T> showFlexibleBottomSheet<T>({
   @required BuildContext context,
   @required List<Widget> children,
