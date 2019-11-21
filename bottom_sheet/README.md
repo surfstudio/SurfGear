@@ -1,14 +1,17 @@
 # bottom_sheet
 
-Custom bottom sheet widget.
+Custom bottom sheet widget, that can resize by drag and then scroll.
 
-## Getting Started
+## Usage
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+Main classes:
+1. [BottomSheet](lib/src/flexible_bottom_sheet.dart)
+2. [BottomSheetRoute and Show method](lib/src/flexible_bottom_sheet_route.dart)
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+## Bottom Sheet
+
+Flexible and scrollable bottom sheet.
+
+This widget can use like a permanent show container with resize by drag and scrollable.
+You also can show it if call `showFlexibleBottomSheet()`, then it will be show as popup like a modal
+bottom sheet with resize by drag and scrollable.
