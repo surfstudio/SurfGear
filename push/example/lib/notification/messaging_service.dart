@@ -35,6 +35,16 @@ class MessagingService extends BaseMessagingService {
     );
   }
 
+  /// subscribe to topic in background.
+  void subscribeToTopic(String topic) {
+    _messaging.subscribeToTopic(topic);
+  }
+
+  /// subscribe on a list of topics in background.
+  void subscribeToTopics(List<String> topics) {
+    topics.forEach(subscribeToTopic);
+  }
+
   Future<dynamic> _internalMessageInterceptor(
     Map<String, dynamic> message,
     MessageHandlerType handlerType,
