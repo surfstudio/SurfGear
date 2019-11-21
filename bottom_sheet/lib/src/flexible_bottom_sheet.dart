@@ -26,7 +26,7 @@ class FlexibleBottomSheet extends StatelessWidget {
     List<Widget> children,
     this.scrollPhysics,
     Color backgroundColor,
-    this.borderRadius = 16,
+    double borderRadius,
   })  : assert(minHeight != null && minPartHeight == null ||
             minPartHeight != null && minHeight == null),
         assert(maxHeight != null && maxPartHeight == null ||
@@ -42,6 +42,7 @@ class FlexibleBottomSheet extends StatelessWidget {
             !(maxHeight != null && minHeight != null) || maxHeight > minHeight),
         this.children = children ?? const [],
         this.backgroundColor = backgroundColor ?? const Color(0xFFFFFFFF),
+        this.borderRadius = borderRadius ?? 16,
         super(key: key);
 
   @override
@@ -79,7 +80,7 @@ class FlexibleBottomSheet extends StatelessWidget {
     if (maxPartHeight != null) return maxPartHeight;
 
     var height = MediaQuery.of(context).size.height;
-    return maxHeight / height;
+    return (maxHeight ?? height) / height;
   }
 
   double _getMinHeightPart(BuildContext context) {
