@@ -1,3 +1,4 @@
+import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -25,38 +26,41 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+            Container(
+              color: Color(0xFFFF0000),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
+            FlexibleBottomSheet(
+              minPartHeight: 0.5,
+              maxPartHeight: 1,
+              children: <Widget>[
+                _testContainer(Color(0xEEFFFF00)),
+                _testContainer(Color(0xDD99FF00)),
+                _testContainer(Color(0xCC00FFFF)),
+                _testContainer(Color(0xBB555555)),
+                _testContainer(Color(0xAAFF5555)),
+                _testContainer(Color(0x9900FF00)),
+                _testContainer(Color(0x8800FF00)),
+                _testContainer(Color(0x7700FF00)),
+              ],
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+    );
+  }
+
+  Widget _testContainer(Color color) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 100,
+        color: color,
       ),
     );
   }
