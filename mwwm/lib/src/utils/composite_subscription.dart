@@ -1,5 +1,7 @@
 import 'dart:async';
 
+/// inspired by rxDart
+///
 /// Acts as a container for multiple subscriptions that can be canceled at once
 /// e.g. view subcriptions in Flutter that need to be canceled on view disposal
 ///

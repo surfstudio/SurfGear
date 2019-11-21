@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mwwm/mwwm.dart';
 
-/// Widget приложения
+/// Main widget in app
 class App extends ProxyMwwmWidget {
   App()
       : super(

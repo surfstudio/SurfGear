@@ -5,6 +5,7 @@ import 'package:mwwm/mwwm.dart';
 typedef DependenciesBuilder<C> = C Function(BuildContext);
 
 /// Base class for widgets that has [WidgetModel]
+/// and has dependencies in [Component]
 abstract class MwwmWidget<C extends Component> extends StatefulWidget {
   /// A function that build dependencies for WidgetModel and Widget
   final DependenciesBuilder<C> dependenciesBuilder;

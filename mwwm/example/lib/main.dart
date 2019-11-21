@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:counter/ui/app/app/app.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
