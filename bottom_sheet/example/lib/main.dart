@@ -30,26 +30,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Stack(
-          children: <Widget>[
-            Container(
-              color: Color(0xFFFF0000),
-            ),
-            FlexibleBottomSheet(
-              minPartHeight: 0.5,
-              maxPartHeight: 1,
-              children: <Widget>[
-                _testContainer(Color(0xEEFFFF00)),
-                _testContainer(Color(0xDD99FF00)),
-                _testContainer(Color(0xCC00FFFF)),
-                _testContainer(Color(0xBB555555)),
-                _testContainer(Color(0xAAFF5555)),
-                _testContainer(Color(0x9900FF00)),
-                _testContainer(Color(0x8800FF00)),
-                _testContainer(Color(0x7700FF00)),
-              ],
-            ),
-          ],
+        child: Container(
+          color: Color(0xFFFF0000),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -71,16 +53,34 @@ class _MyHomePageState extends State<MyHomePage> {
   void _showSheet() {
     showFlexibleBottomSheet(
       context: context,
-      children: <Widget>[
-        _testContainer(Color(0xEEFFFF00)),
-        _testContainer(Color(0xDD99FF00)),
-        _testContainer(Color(0xCC00FFFF)),
-        _testContainer(Color(0xBB555555)),
-        _testContainer(Color(0xAAFF5555)),
-        _testContainer(Color(0x9900FF00)),
-        _testContainer(Color(0x8800FF00)),
-        _testContainer(Color(0x7700FF00)),
-      ],
+      builder: (context, scrollController) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Color(0xFFFFFFFF),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: ListView(
+              padding: EdgeInsets.all(0),
+              controller: scrollController,
+              children: <Widget>[
+                _testContainer(Color(0xEEFFFF00)),
+                _testContainer(Color(0xDD99FF00)),
+                _testContainer(Color(0xCC00FFFF)),
+                _testContainer(Color(0xBB555555)),
+                _testContainer(Color(0xAAFF5555)),
+                _testContainer(Color(0x9900FF00)),
+                _testContainer(Color(0x8800FF00)),
+                _testContainer(Color(0x7700FF00)),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

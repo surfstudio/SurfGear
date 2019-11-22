@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 /// Flexible and scrollable bottom sheet.
 ///
@@ -24,11 +23,10 @@ class FlexibleBottomSheet extends StatefulWidget {
   final double minPartHeight;
   final double maxHeight;
   final double maxPartHeight;
-  final List<Widget> children;
+  final ScrollableWidgetBuilder builder;
   final ScrollPhysics scrollPhysics;
-  final Color backgroundColor;
-  final double borderRadius;
   final bool isCollapsible;
+  final bool isExpand;
 
   const FlexibleBottomSheet({
     Key key,
@@ -36,11 +34,10 @@ class FlexibleBottomSheet extends StatefulWidget {
     this.maxHeight,
     this.minPartHeight,
     this.maxPartHeight,
-    List<Widget> children,
+    this.builder,
     this.scrollPhysics,
-    Color backgroundColor,
-    double borderRadius,
     bool isCollapsible = false,
+    this.isExpand = true,
   })  : assert(minHeight != null && minPartHeight == null ||
             minPartHeight != null && minHeight == null),
         assert(maxHeight != null && maxPartHeight == null ||
@@ -55,9 +52,6 @@ class FlexibleBottomSheet extends StatefulWidget {
         assert(
             !(maxHeight != null && minHeight != null) || maxHeight > minHeight),
         assert(!isCollapsible || minPartHeight == 0),
-        this.children = children ?? const [],
-        this.backgroundColor = backgroundColor ?? const Color(0xFFFFFFFF),
-        this.borderRadius = borderRadius ?? 16,
         this.isCollapsible = isCollapsible,
         super(key: key);
 
@@ -65,19 +59,17 @@ class FlexibleBottomSheet extends StatefulWidget {
     Key key,
     double maxHeight,
     double maxPartHeight,
-    List<Widget> children,
+    ScrollableWidgetBuilder builder,
     ScrollPhysics scrollPhysics,
-    Color backgroundColor,
-    double borderRadius,
+    bool isExpand,
   }) : this(
           maxHeight: maxHeight,
           maxPartHeight: maxPartHeight,
-          children: children,
+          builder: builder,
           scrollPhysics: scrollPhysics,
-          backgroundColor: backgroundColor,
-          borderRadius: borderRadius,
           minPartHeight: 0,
           isCollapsible: true,
+          isExpand: isExpand,
         );
 
   @override
@@ -98,26 +90,8 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet> {
         maxChildSize: maxHeight,
         minChildSize: minHeight,
         initialChildSize: _getInitHeight(minHeight, maxHeight),
-        builder: (context, scrollController) {
-          return Container(
-            decoration: BoxDecoration(
-              color: widget.backgroundColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(widget.borderRadius),
-                topRight: Radius.circular(widget.borderRadius),
-              ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.only(top: widget.borderRadius),
-              child: ListView(
-                padding: const EdgeInsets.all(0),
-                controller: scrollController,
-                physics: widget.scrollPhysics,
-                children: widget.children,
-              ),
-            ),
-          );
-        },
+        builder: widget.builder,
+        expand: widget.isExpand,
       ),
     );
   }
