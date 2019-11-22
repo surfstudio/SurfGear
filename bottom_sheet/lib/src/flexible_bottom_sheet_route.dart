@@ -45,8 +45,12 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   @override
   AnimationController createAnimationController() {
     assert(_animationController == null);
-    _animationController =
-        BottomSheet.createAnimationController(navigator.overlay);
+    _animationController = AnimationController(
+      duration: _BOTTOM_SHEET_DURATION,
+      debugLabel: 'FlexibleBottomSheet',
+      vsync: navigator.overlay,
+    );
+
     return _animationController;
   }
 
@@ -62,6 +66,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
                 maxHeight: maxHeight,
                 builder: builder,
                 isExpand: isExpand,
+                animationController: _animationController,
               )
             : FlexibleBottomSheet(
                 minPartHeight: minPartHeight,
@@ -70,6 +75,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
                 maxHeight: maxHeight,
                 builder: builder,
                 isExpand: isExpand,
+                animationController: _animationController,
               ));
 
     if (theme != null) {

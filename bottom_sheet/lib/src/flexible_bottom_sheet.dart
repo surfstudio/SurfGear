@@ -18,6 +18,11 @@ import 'package:flutter/material.dart';
 /// widget with like showFlexibleBottomSheet() case, because it will be removed
 /// by Navigator.pop(). If you set [isCollapsible] true, [minPartHeight]
 /// must be 0.
+///
+/// The [animationController] that controls the bottom sheet's entrance and
+/// exit animations.
+/// The FlexibleBottomSheet widget will manipulate the position of this
+/// animation, it is not just a passive observer.
 class FlexibleBottomSheet extends StatefulWidget {
   final double minHeight;
   final double minPartHeight;
@@ -26,6 +31,7 @@ class FlexibleBottomSheet extends StatefulWidget {
   final ScrollableWidgetBuilder builder;
   final bool isCollapsible;
   final bool isExpand;
+  final AnimationController animationController;
 
   const FlexibleBottomSheet({
     Key key,
@@ -36,6 +42,7 @@ class FlexibleBottomSheet extends StatefulWidget {
     this.builder,
     bool isCollapsible = false,
     this.isExpand = true,
+    this.animationController,
   })  : assert(minHeight != null && minPartHeight == null ||
             minPartHeight != null && minHeight == null),
         assert(maxHeight != null && maxPartHeight == null ||
@@ -50,6 +57,7 @@ class FlexibleBottomSheet extends StatefulWidget {
         assert(
             !(maxHeight != null && minHeight != null) || maxHeight > minHeight),
         assert(!isCollapsible || minPartHeight == 0),
+        assert(animationController != null),
         this.isCollapsible = isCollapsible,
         super(key: key);
 
@@ -59,6 +67,7 @@ class FlexibleBottomSheet extends StatefulWidget {
     double maxPartHeight,
     ScrollableWidgetBuilder builder,
     bool isExpand,
+    AnimationController animationController,
   }) : this(
           maxHeight: maxHeight,
           maxPartHeight: maxPartHeight,
@@ -66,6 +75,7 @@ class FlexibleBottomSheet extends StatefulWidget {
           minPartHeight: 0,
           isCollapsible: true,
           isExpand: isExpand,
+          animationController: animationController,
         );
 
   @override
@@ -125,6 +135,16 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet> {
         });
       }
     }
+
+    var currentVal = notification.extent;
+    var initVal = notification.initialExtent;
+
+    if (initVal == 0) {
+      initVal = currentVal;
+    }
+
+    widget.animationController.value =
+        (1 + (currentVal - initVal) / (initVal)).clamp(0.0, 1.0);
 
     return false;
   }
