@@ -10,7 +10,6 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   final double minPartHeight;
   final double maxHeight;
   final double maxPartHeight;
-  final ScrollPhysics scrollPhysics;
   final bool isCollapsible;
   final bool isExpand;
 
@@ -21,7 +20,6 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     this.minPartHeight,
     this.maxHeight,
     this.maxPartHeight,
-    this.scrollPhysics,
     this.builder,
     this.theme,
     this.barrierLabel,
@@ -62,7 +60,6 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
             ? FlexibleBottomSheet.collapsible(
                 maxPartHeight: maxPartHeight,
                 maxHeight: maxHeight,
-                scrollPhysics: scrollPhysics,
                 builder: builder,
                 isExpand: isExpand,
               )
@@ -71,7 +68,6 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
                 maxPartHeight: maxPartHeight,
                 minHeight: minHeight,
                 maxHeight: maxHeight,
-                scrollPhysics: scrollPhysics,
                 builder: builder,
                 isExpand: isExpand,
               ));
@@ -92,7 +88,6 @@ Future<T> showFlexibleBottomSheet<T>({
   double minPartHeight,
   double maxHeight,
   double maxPartHeight,
-  ScrollPhysics scrollPhysics,
   bool isCollapsible = true,
   bool isExpand = true,
   bool useRootNavigator = false,
@@ -111,7 +106,6 @@ Future<T> showFlexibleBottomSheet<T>({
       maxHeight: maxHeight,
       minPartHeight: minPartHeight,
       maxPartHeight: maxPartHeight,
-      scrollPhysics: scrollPhysics,
       isCollapsible: isCollapsible,
       isExpand: isExpand,
       builder: builder,

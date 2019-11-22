@@ -24,7 +24,6 @@ class FlexibleBottomSheet extends StatefulWidget {
   final double maxHeight;
   final double maxPartHeight;
   final ScrollableWidgetBuilder builder;
-  final ScrollPhysics scrollPhysics;
   final bool isCollapsible;
   final bool isExpand;
 
@@ -35,7 +34,6 @@ class FlexibleBottomSheet extends StatefulWidget {
     this.minPartHeight,
     this.maxPartHeight,
     this.builder,
-    this.scrollPhysics,
     bool isCollapsible = false,
     this.isExpand = true,
   })  : assert(minHeight != null && minPartHeight == null ||
@@ -60,13 +58,11 @@ class FlexibleBottomSheet extends StatefulWidget {
     double maxHeight,
     double maxPartHeight,
     ScrollableWidgetBuilder builder,
-    ScrollPhysics scrollPhysics,
     bool isExpand,
   }) : this(
           maxHeight: maxHeight,
           maxPartHeight: maxPartHeight,
           builder: builder,
-          scrollPhysics: scrollPhysics,
           minPartHeight: 0,
           isCollapsible: true,
           isExpand: isExpand,
