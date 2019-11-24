@@ -12,9 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library auto_reload;
+import 'auto_reload_mixin.dart';
 
-export 'package:auto_reload/src/auto_reload/auto_reload_mixin.dart';
-export 'package:auto_reload/src/auto_reload/auto_reloader.dart';
-export 'package:auto_reload/src/auto_request/base/auto_future_manager.dart';
-export 'package:auto_reload/src/auto_request/impl/auto_request_manager.dart';
+/// Class providing an opportunity to participate
+/// in autoload managed by [AutoReloadMixin]
+abstract class AutoReloader {
+  ///reloaded place here
+  void autoReload() {}
+}

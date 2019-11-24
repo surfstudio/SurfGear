@@ -12,9 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library auto_reload;
+/// return id of success future in queue
+typedef AutoFutureCallback = Function(String id);
 
-export 'package:auto_reload/src/auto_reload/auto_reload_mixin.dart';
-export 'package:auto_reload/src/auto_reload/auto_reloader.dart';
-export 'package:auto_reload/src/auto_request/base/auto_future_manager.dart';
-export 'package:auto_reload/src/auto_request/impl/auto_request_manager.dart';
+/// Manager for endless replay [Future], until will not be performed
+abstract class AutoFutureManager {
+  /// register [Future] to auto reload
+  ///
+  /// [id] - number of future in queue
+  /// [toReload] - himself future on reboot
+  /// [onComplete] - callback of success future, that returns id in queue
+  Future<void> autoReload({
+    String id,
+    Future toReload(),
+    AutoFutureCallback onComplete,
+  });
+}

@@ -1,8 +1,22 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:async';
 import 'dart:collection';
 import 'dart:math';
 
-import 'package:auto_reload/src/manager/base/auto_future_manager.dart';
+import 'package:auto_reload/src/auto_request/base/auto_future_manager.dart';
 import 'package:connectivity/connectivity.dart';
 
 const int _defaultMinReloadDurationSeconds = 1;
@@ -74,10 +88,10 @@ class AutoRequestManager implements AutoFutureManager {
 
     _currentReloadDuration = _minReloadDurationSeconds;
 
-    _runTimer();
+    _reRunTimer();
   }
 
-  void _runTimer() {
+  void _reRunTimer() {
     _closeTimer();
     _requestTimer = Timer.periodic(
       Duration(seconds: _currentReloadDuration),
@@ -102,10 +116,11 @@ class AutoRequestManager implements AutoFutureManager {
         await _handleItemQueue(key);
       } catch (e) {
         // do nothing, the timer will restart request
+        print('unsuccessful attempt to execute request with error: $e');
       }
     }
 
-    _queue.isEmpty ? _closeTimer() : _runTimer();
+    _queue.isEmpty ? _closeTimer() : _reRunTimer();
   }
 
   Future<void> _handleItemQueue(String key) async {
