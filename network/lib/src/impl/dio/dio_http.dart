@@ -19,7 +19,6 @@ import 'package:logger/logger.dart';
 import 'package:network/src/base/config/config.dart';
 import 'package:network/src/base/headers.dart';
 import 'package:network/src/base/http.dart';
-import 'package:network/src/base/interceptors/interceptor.dart';
 import 'package:network/src/base/response.dart';
 import 'package:network/src/base/status_mapper.dart';
 import 'package:network/src/impl/dio/interceptor/dio_interceptor.dart';
@@ -35,8 +34,7 @@ class DioHttp extends Http {
     this.headersBuilder,
     HttpConfig config,
     this.errorMapper,
-    List<Interceptor<dio.RequestOptions, dio.Response, dio.DioError>>
-        interceptors,
+    List<DioInterceptor> interceptors,
   }) {
     _dio.options
       ..baseUrl = config.baseUrl
