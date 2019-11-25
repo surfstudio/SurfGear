@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -34,6 +32,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Map<BottomNavTabType, BottomNavigationRelationship> _map;
 
+  bool _isCustom = true;
+
   @override
   void initState() {
     super.initState();
@@ -46,60 +46,65 @@ class _MyHomePageState extends State<MyHomePage> {
 
     _map = {
       _types[0]: BottomNavigationRelationship(
-            () => _buildPage(Color(0xFFFF0000)),
-            (isSelected) => _buildElement(
+        () => _buildPage(Color(0xFFFF0000)),
+        (isSelected) => _buildElement(
           isSelected,
           Color(0x55FF0000),
         ),
       ),
       _types[1]: BottomNavigationRelationship(
-            () => _buildPage(Color(0xFF00FF00)),
-            (isSelected) => _buildElement(
+        () => _buildPage(Color(0xFF00FF00)),
+        (isSelected) => _buildElement(
           isSelected,
           Color(0x5500FF00),
         ),
       ),
       _types[2]: BottomNavigationRelationship(
-            () => _buildPage(Color(0xFF0000FF)),
-            (isSelected) => _buildElement(
+        () => _buildPage(Color(0xFF0000FF)),
+        (isSelected) => _buildElement(
           isSelected,
           Color(0x550000FF),
         ),
       ),
     };
+
+    _selectorController.stream.listen((type) => print(type.value));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: _buildBottomNavigator(),
-        // uncomment for custom navigator example
-        //child: _buildCustomBottomNavigator(),
+        child: _isCustom ? _buildWithCustom() : _buildWithCommon(),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            final random = new Random();
-            _selectorController.sink.add(_types[random.nextInt(_types.length)]);
-          });
-        },
-      ),
+    );
+  }
+
+  Widget _buildWithCommon() {
+    return Container(
+      child: _buildBottomNavigator(),
+    );
+  }
+
+  Widget _buildWithCustom() {
+    return Container(
+      child: _buildCustomBottomNavigator(),
     );
   }
 
   BottomNavigator _buildBottomNavigator() {
     return BottomNavigator(
+      key: UniqueKey(),
       initialTab: _types[0],
-      map: _map,
-      outerSelector: _selectorController.stream,
+      tabsMap: _map,
+      selectController: _selectorController,
     );
   }
 
-  // ignore: unused_element
   BottomNavigator _buildCustomBottomNavigator() {
     return BottomNavigator.custom(
-      map: _map,
+      key: UniqueKey(),
+      tabsMap: _map,
       initialTab: _types[0],
       bottomNavBar: _buildNavBar(),
       selectController: _selectorController,
@@ -109,6 +114,40 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildPage(Color color) {
     return Container(
       color: color,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          FlatButton(
+            child: Text("Change mode"),
+            onPressed: () {
+              setState(
+                () {
+                  _isCustom = !_isCustom;
+                },
+              );
+            },
+            color: Color(0xFFFFFFFF),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              _buildChangeButton(0),
+              _buildChangeButton(1),
+              _buildChangeButton(2),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildChangeButton(int value) {
+    return FlatButton(
+      child: Text(value.toString()),
+      onPressed: () {
+        _selectorController.sink.add(_types[value]);
+      },
+      color: Color(0xFFFFFFFF),
     );
   }
 
@@ -158,15 +197,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
       },
       initType: _types[0],
-      selected: _selectorController.sink,
-      outerSelector: _selectorController.stream,
+      selectedController:_selectorController,
     );
   }
 
   @override
   void dispose() {
-    super.dispose();
-
     _selectorController.close();
+
+    super.dispose();
   }
 }

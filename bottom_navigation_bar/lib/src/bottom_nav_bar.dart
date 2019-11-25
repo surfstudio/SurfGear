@@ -2,23 +2,20 @@ import 'dart:async';
 
 import 'package:bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:tabnavigator/tabnavigator.dart';
 
 typedef NavElementBuilder = Widget Function(bool isSelected);
 
 /// Bottom navigation bar widget.
 class BottomNavBar extends StatefulWidget {
-  final StreamSink<TabType> selected;
   final BottomNavTabType initType;
   final Map<BottomNavTabType, NavElementBuilder> elements;
-  final Stream<BottomNavTabType> outerSelector;
+  final StreamController<BottomNavTabType> selectedController;
 
   const BottomNavBar({
     Key key,
-    @required this.selected,
+    @required this.selectedController,
     @required this.initType,
     @required this.elements,
-    this.outerSelector,
   }) : super(key: key);
 
   @override
@@ -26,6 +23,7 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
+  StreamSubscription _outerSubscription;
   BottomNavTabType _currentType;
 
   @override
@@ -34,9 +32,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
     _currentType = widget.initType;
 
-    if (widget.outerSelector != null) {
-      widget.outerSelector.listen(_onSelectedChanged);
-    }
+    _outerSubscription =
+        widget.selectedController.stream.listen(_onSelectedChanged);
   }
 
   @override
@@ -66,15 +63,26 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   void _onSelectedChanged(BottomNavTabType event) {
-    _updateSelected(event);
+    if (event != _currentType) {
+      setState(() {
+        _currentType = event;
+      });
+    }
   }
 
   void _updateSelected(BottomNavTabType newSelected) {
     if (newSelected != _currentType) {
       setState(() {
         _currentType = newSelected;
-        widget.selected.add(newSelected);
+        widget.selectedController.sink.add(newSelected);
       });
     }
+  }
+
+  @override
+  void dispose() {
+    _outerSubscription?.cancel();
+
+    super.dispose();
   }
 }
