@@ -1,11 +1,12 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:logger/logger.dart';
 import 'package:push/push.dart';
 
 /// Wrapper over [FirebaseMessaging]
 class MessagingService extends BaseMessagingService {
   final FirebaseMessaging _messaging = FirebaseMessaging();
 
-  Future<String> get fcmTokenObservable => _messaging.getToken();
+  Future<String> get fcmToken => _messaging.getToken();
 
   HandleMessageFunction _handleMessage;
   List<String> _topicsSubscription = [];
@@ -36,20 +37,26 @@ class MessagingService extends BaseMessagingService {
     );
   }
 
-  /// subscribe to topic in background.
+  /// subscribe to [topic] in background.
   void subscribeToTopic(String topic) {
     _messaging.subscribeToTopic(topic);
+    _topicsSubscription.add(topic);
   }
 
-  /// subscribe on a list of topics in background.
+  /// subscribe on a list of [topics] in background.
   void subscribeToTopics(List<String> topics) {
     topics.forEach(subscribeToTopic);
   }
 
-  /// unsubscribe from topic in background.
+  /// unsubscribe from [topic] in background1.
   void unsubscribeFromTopic(String topic) {
     _messaging.unsubscribeFromTopic(topic);
     _topicsSubscription.remove(topic);
+  }
+
+  /// unsubscribe from [topics]
+  void unsubscribeFromTopics(List<String> topics) {
+    topics.forEach(unsubscribeFromTopic);
   }
 
   /// unsubscribe from all topics
@@ -60,6 +67,8 @@ class MessagingService extends BaseMessagingService {
   Future<dynamic> _internalMessageInterceptor(
     Map<String, dynamic> message,
     MessageHandlerType handlerType,
-  ) async =>
-      _handleMessage?.call(message, handlerType);
+  ) async {
+    Logger.d('FIREBASE MESSAGE: $handlerType - $message');
+    _handleMessage?.call(message, handlerType);
+  }
 }
