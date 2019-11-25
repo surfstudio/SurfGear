@@ -1,7 +1,7 @@
 import 'package:bottom_sheet/src/flexible_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
-const Duration _BOTTOM_SHEET_DURATION = Duration(milliseconds: 200);
+const Duration _bottomSheetDuration = Duration(milliseconds: 200);
 
 /// A modal route with flexible bottom sheet.
 class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
@@ -29,7 +29,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   }) : super(settings: settings);
 
   @override
-  Duration get transitionDuration => _BOTTOM_SHEET_DURATION;
+  Duration get transitionDuration => _bottomSheetDuration;
 
   @override
   bool get barrierDismissible => true;
@@ -46,7 +46,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   AnimationController createAnimationController() {
     assert(_animationController == null);
     _animationController = AnimationController(
-      duration: _BOTTOM_SHEET_DURATION,
+      duration: _bottomSheetDuration,
       debugLabel: 'FlexibleBottomSheet',
       vsync: navigator.overlay,
     );
