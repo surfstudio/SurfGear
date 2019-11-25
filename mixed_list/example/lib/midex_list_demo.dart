@@ -16,20 +16,19 @@ class MixedListDemo extends StatelessWidget {
       mixedListItems.add(User(
         dateOfBirth: "01.01.1991",
         userName: "Mr.Robot",
-        avatar: "assets/images/avatar1.jpeg",
+        avatar: "res/assets/images/avatar1.jpeg",
       ));
       mixedListItems.add(Circle());
       mixedListItems.add(User(
         dateOfBirth: "01.01.1970",
         userName: "John Wick",
-        avatar: "assets/images/avatar2.jpg",
+        avatar: "res/assets/images/avatar2.jpg",
       ));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return MixedList(
       supportedItemControllers: {
         User: UserBuilder(),
