@@ -27,7 +27,6 @@ class PostBuilder extends ItemBuilder<Post> {
 class CircleBuilder extends ItemBuilder<Circle> {
   @override
   Widget build(BuildContext context, Circle data) {
-    // TODO: implement build
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -45,7 +44,6 @@ class CircleBuilder extends ItemBuilder<Circle> {
 class RectBuilder extends ItemBuilder<Rect> {
   @override
   Widget build(BuildContext context, data) {
-    // TODO: implement build
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Center(
@@ -62,7 +60,6 @@ class RectBuilder extends ItemBuilder<Rect> {
 class UserBuilder extends ItemBuilder<User> {
   @override
   Widget build(BuildContext context, User data) {
-    // TODO: implement build
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
