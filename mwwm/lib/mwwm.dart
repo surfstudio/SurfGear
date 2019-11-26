@@ -11,3 +11,4 @@ export 'package:mwwm/src/event/event.dart';
 export 'package:mwwm/src/event/streamed_state.dart';
 export 'package:mwwm/src/widget_model.dart';
 export 'package:mwwm/src/widget_state.dart';
+export 'package:mwwm/src/holder/global_context_holder.dart';

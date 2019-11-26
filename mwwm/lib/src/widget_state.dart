@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:injector/injector.dart';
 import 'package:mwwm/src/di/base_wm_component.dart';
+import 'package:mwwm/src/holder/global_context_holder.dart';
 import 'package:mwwm/src/widget_model.dart';
 
 abstract class WidgetState<T extends StatefulWidget, WM extends WidgetModel,
@@ -33,6 +34,7 @@ abstract class WidgetState<T extends StatefulWidget, WM extends WidgetModel,
       component: _component,
       builder: (context) {
         _attachWidgetModel(context);
+        GlobalContextHolder().context = context;
         return buildState(context);
       },
     );
