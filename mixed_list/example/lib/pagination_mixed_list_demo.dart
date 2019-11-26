@@ -1,62 +1,47 @@
 import 'dart:async';
-import 'dart:convert';
+import 'dart:math';
 
 import 'package:datalist/datalist.dart';
 import 'package:example/item_builder.dart';
+import 'package:example/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:http/http.dart';
 import 'package:mixed_list/mixed_list.dart';
 
 import 'items/post.dart';
 
-Client client = Client();
-
-Future<OffsetDataList<Post>> getPostList(int offset, int limit) async {
-  Response postList = await client.get(
-    "http://jsonplaceholder.typicode.com/posts?_start=$offset&_limit=$limit",
-  );
-  return OffsetDataList<Post>(
-    data: _parsePostList(postList.body),
-    offset: offset,
-    limit: limit,
-  );
-}
-
-//Parsing
-List<Post> _parsePostList(String responseBody) {
-  final data = json.decode(responseBody);
-  List<Post> postList = data.map<Post>((json) => Post.fromJson(json)).toList();
-
-  return postList;
-}
-
+/// Widget for demonstration Mixed List pagination.
 class PaginationMixedListDemo extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return _PaginationMixedListDemo();
-  }
+  State<StatefulWidget> createState() => _PaginationMixedListDemo();
 }
 
-///Необходимо доделать пагинацию.
-///На текущий момент происходит бесконечная загрузка данных, из-за getPostList(0, 10)
-///Т.е каждый раз когда надо подгрузить данные происходит загрузка с того-же момента
-///
-/// Несмотря на то что в поток приходят новые данные, в методе build не происходит отрисовка...
 class _PaginationMixedListDemo extends State<PaginationMixedListDemo> {
   StreamController<PaginationState> paginationController = StreamController();
   StreamController<OffsetDataList<Post>> itemsController = StreamController();
-  int offset = 0;
 
-  void _loadItems() {
+  var _dataList = OffsetDataList<Post>.empty();
+
+  @override
+  void initState() {
+    paginationController.sink.add(PaginationState.none);
+
+    super.initState();
+  }
+
+  void _loadNext() {
     paginationController.sink.add(PaginationState.loading);
-    getPostList(0, 10).then((response) {
+    getPostList(_dataList.nextOffset, 10,
+            emulateSlowConnect: Random().nextBool())
+        .then((response) {
       if (response.isEmpty) {
         paginationController.sink.add(PaginationState.complete);
       } else {
         itemsController.sink.add(response);
         paginationController.sink.add(PaginationState.none);
       }
+    }).catchError((error) {
+      paginationController.sink.add(PaginationState.error);
     });
   }
 
@@ -64,40 +49,54 @@ class _PaginationMixedListDemo extends State<PaginationMixedListDemo> {
   Widget build(BuildContext context) {
     return StreamBuilder<OffsetDataList<Post>>(
       stream: itemsController.stream,
-      initialData: OffsetDataList(
-          data: List.generate(5, (index) => Post(id: 1, body: "data")),
-          limit: 5,
-          offset: 0),
+      initialData: _dataList,
       builder: (ctx, postList) {
-        return StreamBuilder<PaginationState>(
-          initialData: PaginationState.none,
-          stream: paginationController.stream,
-          builder: (ctx, state) {
-            return PaginationMixedList(
-              items: postList.data,
-              supportedItemControllers: {
-                Post: PostBuilder(),
-              },
-              listMode: ListMode.list,
-              onLoadMore: _loadItems,
-              currentPaginationState: state.data,
-              paginationFooterBuilder: (context, state) {
-                if (state == PaginationState.loading ||
-                    state == PaginationState.none) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Center(
-                      child: CircularProgressIndicator(),
+        _dataList.merge(postList.data);
+        return PaginationMixedList(
+          items: _dataList,
+          supportedItemControllers: {
+            Post: PostBuilder(),
+          },
+          listMode: ListMode.list,
+          onLoadMore: _loadNext,
+          paginationState: paginationController.stream,
+          paginationFooterBuilder: (context, state) {
+            if (state == PaginationState.loading) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            } else if (state == PaginationState.error) {
+              return Container(
+                height: 50,
+                color: Color(0xFFFF0000),
+                child: Center(
+                  child: FlatButton(
+                    child: Text(
+                      "Press to reload"
                     ),
-                  );
-                } else {
-                  return Container();
-                }
-              },
-            );
+                    onPressed: () {
+                      _loadNext();
+                    },
+                  ),
+                ),
+              );
+            } else {
+              return Container();
+            }
           },
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    paginationController.close();
+    itemsController.close();
+
+    super.dispose();
   }
 }

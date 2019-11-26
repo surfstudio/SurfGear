@@ -1,8 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:mixed_list/src/item_builder.dart';
 
-enum ListMode { grid, list }
+/// Mode visualisation of MixedList.
+enum ListMode {
+  grid,
+  list,
+}
 
+/// Widget list for display different type of data.
 class MixedList extends StatefulWidget {
   final EdgeInsets sliverPadding;
 
@@ -36,33 +41,10 @@ class MixedList extends StatefulWidget {
   }
 
   @override
-  State<StatefulWidget> createState() {
-    return MixedListState(
-      this.supportedItemControllers,
-      this.items,
-    );
-  }
+  State<StatefulWidget> createState() => MixedListState();
 }
 
-class MixedListState extends State<MixedList> {
-  final Map<Type, ItemBuilder> supportedItemControllers;
-  final List items;
-
-  MixedListState(
-    this.supportedItemControllers,
-    this.items,
-  );
-
-  SliverChildBuilderDelegate getItemDelegate() {
-    return widget.itemsDelegate ??
-        SliverChildBuilderDelegate((ctx, position) {
-          return buildItemWidget(
-            context,
-            position,
-          );
-        }, childCount: items.length);
-  }
-
+class MixedListState<W extends MixedList> extends State<W> {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -81,13 +63,23 @@ class MixedListState extends State<MixedList> {
         ]);
   }
 
+  SliverChildBuilderDelegate getItemDelegate() {
+    return widget.itemsDelegate ??
+        SliverChildBuilderDelegate((ctx, position) {
+          return buildItemWidget(
+            context,
+            position,
+          );
+        }, childCount: widget.items.length);
+  }
+
   Widget buildItemWidget(
     BuildContext context,
     int position,
   ) {
-    final item = items[position];
+    final item = widget.items[position];
 
-    final controller = supportedItemControllers[item.runtimeType];
+    final controller = widget.supportedItemControllers[item.runtimeType];
 
     return controller.build(context, item);
   }
