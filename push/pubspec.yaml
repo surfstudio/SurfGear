@@ -23,11 +23,7 @@ dependencies:
       ref: project-KFC
       path: logger
 
-  flutter_local_notifications:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-KFC
-      path: flutter_local_notifications
+  flutter_local_notifications: 0.8.4+3
 
   #rx
   rxdart: ^0.22.0
