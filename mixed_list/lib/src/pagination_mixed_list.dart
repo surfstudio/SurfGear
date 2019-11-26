@@ -5,6 +5,7 @@ import 'package:mixed_list/src/item_builder.dart';
 import 'package:mixed_list/src/mixed_list.dart';
 import 'package:mixed_list/src/pagination_state.dart';
 
+/// Signature for the building widget by pagination state.
 typedef PaginationBuilder = Widget Function(BuildContext, PaginationState);
 
 /// Signature for the init next loading.
