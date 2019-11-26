@@ -81,10 +81,10 @@ typedef NS_ENUM(NSInteger, RepeatInterval) {
     [registrar addMethodCallDelegate:instance channel:channel];
 
     // необходимо для совместной работы с firebase_messaging
-    if(@available(iOS 10.0, *)) {
-        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-        center.delegate = instance;
-    }
+    //if(@available(iOS 10.0, *)) {
+    //    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    //    center.delegate = instance;
+    //}
 }
 
 - (instancetype)initWithChannel:(FlutterMethodChannel *)channel registrar:(NSObject<FlutterPluginRegistrar> *)registrar {
