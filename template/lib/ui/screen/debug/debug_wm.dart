@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart' as w;
 import 'package:flutter_template/config/config.dart';
 import 'package:flutter_template/config/env/env.dart';
 import 'package:flutter_template/domain/debug_options.dart';
-import 'package:flutter_template/interactor/auth/auth_interactor.dart';
 import 'package:flutter_template/interactor/common/urls.dart';
 import 'package:flutter_template/interactor/debug/debug_screen_interactor.dart';
 import 'package:flutter_template/ui/screen/debug/di/debug_screen_component.dart';
@@ -21,7 +20,6 @@ DebugWidgetModel createDebugWidgetModel(BuildContext context) {
   return DebugWidgetModel(
     component.wmDependencies,
     component.navigator,
-    component.authInteractor,
     component.debugScreenInteractor,
   );
 }
@@ -31,12 +29,10 @@ class DebugWidgetModel extends WidgetModel {
   DebugWidgetModel(
     WidgetModelDependencies dependencies,
     this.navigator,
-    this._authInteractor,
     this._debugScreenInteractor,
   ) : super(dependencies);
 
   final w.NavigatorState navigator;
-  final AuthInteractor _authInteractor;
   final DebugScreenInteractor _debugScreenInteractor;
 
   final urlState = StreamedState<UrlType>();
@@ -164,10 +160,8 @@ class DebugWidgetModel extends WidgetModel {
   }
 
   void _refreshApp(Config newConfig) {
-    subscribeHandleError(_authInteractor.logOut(), (_) {
-      config = newConfig;
-      navigator.pushAndRemoveUntil(WelcomeScreenRoute(), (_) => false);
-    });
+    config = newConfig;
+    navigator.pushAndRemoveUntil(WelcomeScreenRoute(), (_) => false);
   }
 
   void _setProxy() {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/interactor/auth/auth_interactor.dart';
 import 'package:flutter_template/interactor/debug/debug_screen_interactor.dart';
 import 'package:flutter_template/ui/app/di/app.dart';
 import 'package:flutter_template/ui/base/default_dialog_controller.dart';
@@ -17,7 +16,6 @@ class DebugScreenComponent implements Component {
   NavigatorState navigator;
   WidgetModelDependencies wmDependencies;
   DebugScreenInteractor debugScreenInteractor;
-  AuthInteractor authInteractor;
 
   DebugScreenComponent(BuildContext context) {
     var app = Injector.of<AppComponent>(context).component;
@@ -35,6 +33,5 @@ class DebugScreenComponent implements Component {
     );
 
     debugScreenInteractor = app.debugScreenInteractor;
-    authInteractor = app.authInteractor;
   }
 }

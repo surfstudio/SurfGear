@@ -1,11 +1,9 @@
-const String homePageText = 'You have pushed the button this many times:',
-    incButtonTooltip = 'Increment';
-
-// Авторизация
+// Экран приветствия
 const String welcomeScreenText =
-        "Вы используете шаблон\nflutter-приложения от Surf";
+    "Вы используете шаблон\nflutter-приложения от Surf";
 
 //локальные уведомления
-const notificationChannelId = "park_android_channel_id"; //todo notification id
-const notificationChannelName = "Уведомление";
-const notificationDescription = "Парк. Уведомление.";
+const notificationChannelId = "channel_id"; //todo notification id
+const notificationChannelName =
+    "notification_channel"; //todo notification channel
+const notificationDescription = "notification";
