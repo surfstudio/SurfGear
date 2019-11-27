@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/domain/counter.dart';
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/ui/app/di/app.dart';
-import 'package:flutter_template/ui/screen/phone_input/phone_input_screen.dart';
+import 'package:flutter_template/ui/screen/welcome_screen/welcome_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:injector/injector.dart';
 import 'package:mockito/mockito.dart';
@@ -41,7 +41,7 @@ void main() {
         component: appComponent,
         builder: (context) {
           return MaterialApp(
-            home: PhoneInputScreen(),
+            home: WelcomeScreen(),
           );
         },
       ),
@@ -49,8 +49,5 @@ void main() {
     await tester.pumpAndSettle();
 
     verify(appComponent.counterInteractor).called(1);
-
-    expect(find.text('Номер телефона'), findsOneWidget);
-    expect(find.byIcon(Icons.arrow_forward), findsOneWidget);
   });
 }

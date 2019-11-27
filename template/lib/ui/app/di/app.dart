@@ -15,21 +15,25 @@ import 'package:flutter_template/interactor/session/session_changed_interactor.d
 import 'package:flutter_template/interactor/token/token_storage.dart';
 import 'package:flutter_template/interactor/user/repository/user_repository.dart';
 import 'package:flutter_template/interactor/user/user_interactor.dart';
-import 'package:flutter_template/ui/app/app_wm.dart';
 import 'package:flutter_template/ui/base/default_dialog_controller.dart';
 import 'package:flutter_template/ui/base/error/standard_error_handler.dart';
 import 'package:flutter_template/ui/base/material_message_controller.dart';
 import 'package:flutter_template/ui/res/assets.dart';
 import 'package:flutter_template/util/const.dart';
 import 'package:flutter_template/util/sp_helper.dart';
+import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:network/network.dart';
 import 'package:push/push.dart';
 
 /// Component per app
-class AppComponent implements BaseWidgetModelComponent<AppWidgetModel> {
-  AppWidgetModel wm;
+class AppComponent implements Component {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  final navigator = GlobalKey<NavigatorState>();
 
+  WidgetModelDependencies wmDependencies;
+  MaterialMessageController messageController;
+  DefaultDialogController dialogController;
   PreferencesHelper preferencesHelper = PreferencesHelper();
   AuthInfoStorage authStorage;
   RxHttp http;
@@ -40,15 +44,14 @@ class AppComponent implements BaseWidgetModelComponent<AppWidgetModel> {
   UserInteractor userInteractor;
   DebugScreenInteractor debugScreenInteractor;
 
-  MessagingService messagingService = MessagingService();
+  //MessagingService messagingService = MessagingService();
   NotificationController notificationController =
       NotificationController(androidMipMapIcon);
   PushHandler pushHandler;
 
-  AppComponent(
-    GlobalKey<NavigatorState> navigatorKey,
-    GlobalKey<ScaffoldState> scaffoldKey,
-  ) {
+  AppComponent(BuildContext context) {
+    messageController = MaterialMessageController(scaffoldKey);
+    dialogController = DefaultDialogController(scaffoldKey);
     authStorage = AuthInfoStorage(preferencesHelper);
     http = _initHttp(authStorage);
     scInteractor = SessionChangedInteractor(authStorage);
@@ -59,7 +62,8 @@ class AppComponent implements BaseWidgetModelComponent<AppWidgetModel> {
     pushHandler = PushHandler(
       PushStrategyFactory(),
       notificationController,
-      messagingService,
+      //messagingService,
+      null
     );
 
     authInteractor = AuthInteractor(
@@ -75,19 +79,12 @@ class AppComponent implements BaseWidgetModelComponent<AppWidgetModel> {
 
     debugScreenInteractor = DebugScreenInteractor(pushHandler);
 
-    final messageController = MaterialMessageController(scaffoldKey);
-    final wmDependencies = WidgetModelDependencies(
+    wmDependencies = WidgetModelDependencies(
       errorHandler: StandardErrorHandler(
         messageController,
         DefaultDialogController(scaffoldKey),
         scInteractor,
       ),
-    );
-    wm = AppWidgetModel(
-      wmDependencies,
-      messageController,
-      navigatorKey,
-      debugScreenInteractor,
     );
   }
 

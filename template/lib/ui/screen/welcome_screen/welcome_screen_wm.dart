@@ -1,11 +1,26 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
+import 'package:flutter_template/ui/screen/welcome_screen/di/welcome_screen_component.dart';
 import 'package:flutter_template/util/const.dart';
 import 'package:flutter_template/util/phone_number_util.dart';
+import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:mwwm/mwwm.dart' as m;
 
-/// модель экрана авторизации
-class PhoneInputWidgetModel extends WidgetModel {
+/// Билдер для [WelcomeScreenWidgetModel].
+WelcomeScreenWidgetModel createWelcomeWidgetModel(BuildContext context) {
+  var component = Injector.of<WelcomeScreenComponent>(context).component;
+
+  return WelcomeScreenWidgetModel(
+    component.wmDependencies,
+    component.navigator,
+    component.counterInteractor,
+  );
+}
+
+/// [WidgetModel] для экрана <Welcome>
+class WelcomeScreenWidgetModel extends WidgetModel {
   final CounterInteractor _counterInteractor;
   final widgets.NavigatorState navigator;
 
@@ -13,12 +28,12 @@ class PhoneInputWidgetModel extends WidgetModel {
   EntityStreamedState<String> phoneInputState = EntityStreamedState();
   StreamedState<int> counterState = StreamedState();
 
-  Action<String> textChanges = Action();
-  Action nextAction = Action();
+  m.Action<String> textChanges = m.Action();
+  m.Action nextAction = m.Action();
 
   String _phoneNumber = EMPTY_STRING;
 
-  PhoneInputWidgetModel(
+  WelcomeScreenWidgetModel(
     WidgetModelDependencies dependencies,
     this.navigator,
     this._counterInteractor,

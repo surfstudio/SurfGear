@@ -1,13 +1,22 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_template/interactor/debug/debug_screen_interactor.dart';
-import 'package:flutter_template/ui/app/app.dart';
+import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:rxdart/rxdart.dart';
 
+import 'di/app.dart';
+
+/// Билдер для [AppWidgetModel].
+AppWidgetModel createAppWidgetModel(BuildContext context) {
+  var component = Injector.of<AppComponent>(context).component;
+
+  return AppWidgetModel(
+    component.wmDependencies,
+    component.messageController,
+  );
+}
+
+/// [WidgetModel] для виджета приложения
 class AppWidgetModel extends WidgetModel {
-  final GlobalKey<NavigatorState> _navigator;
-
-  final DebugScreenInteractor _debugScreenInteractor;
 
   // ignore: unused_field
   final MessageController _msgController;
@@ -15,34 +24,6 @@ class AppWidgetModel extends WidgetModel {
   AppWidgetModel(
     WidgetModelDependencies dependencies,
     this._msgController,
-    this._navigator,
-    this._debugScreenInteractor,
   ) : super(dependencies);
 
-  @override
-  void onLoad() {
-    super.onLoad();
-    _loadApp();
-  }
-
-  void _loadApp() async {
-    subscribeHandleError(
-      initApp(),
-      (isAuth) {
-        _openScreen(Router.ROOT);
-      },
-    );
-    subscribe(
-      Observable.just(true).delay(Duration(seconds: 5)),
-      (_) => _debugScreenInteractor.showDebugScreenNotification(),
-    );
-  }
-
-  void _openScreen(String routeName) {
-    _navigator.currentState.pushReplacementNamed(routeName);
-  }
-
-  Observable<bool> initApp() {
-    return Observable.just(true).delay(Duration(seconds: 2));
-  }
 }

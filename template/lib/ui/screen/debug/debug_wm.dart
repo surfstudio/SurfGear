@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart' as w;
 import 'package:flutter_template/config/config.dart';
 import 'package:flutter_template/config/env/env.dart';
@@ -5,10 +6,25 @@ import 'package:flutter_template/domain/debug_options.dart';
 import 'package:flutter_template/interactor/auth/auth_interactor.dart';
 import 'package:flutter_template/interactor/common/urls.dart';
 import 'package:flutter_template/interactor/debug/debug_screen_interactor.dart';
-import 'package:flutter_template/ui/screen/phone_input/phone_route.dart';
+import 'package:flutter_template/ui/screen/debug/di/debug_screen_component.dart';
+import 'package:flutter_template/ui/screen/welcome_screen/welcome_route.dart';
+import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:mwwm/mwwm.dart' as m;
 
 enum UrlType { test, prod, dev }
+
+/// Билдер для [DebugWidgetModel].
+DebugWidgetModel createDebugWidgetModel(BuildContext context) {
+  var component = Injector.of<DebugScreenComponent>(context).component;
+
+  return DebugWidgetModel(
+    component.wmDependencies,
+    component.navigator,
+    component.authInteractor,
+    component.debugScreenInteractor,
+  );
+}
 
 /// [WidgetModel] для экрана <Debug>
 class DebugWidgetModel extends WidgetModel {
@@ -28,20 +44,20 @@ class DebugWidgetModel extends WidgetModel {
   final debugOptionsState =
       StreamedState<DebugOptions>(Environment.instance().config.debugOptions);
 
-  final switchServer = Action<UrlType>();
-  final showDebugNotification = Action();
-  final closeScreenAction = Action();
-  final urlChangeAction = Action<UrlType>();
+  final switchServer = m.Action<UrlType>();
+  final showDebugNotification = m.Action();
+  final closeScreenAction = m.Action();
+  final urlChangeAction = m.Action<UrlType>();
 
   final proxyChanges = TextEditingAction();
 
-  final showPerformanceOverlayChangeAction = Action<bool>();
-  final debugShowMaterialGridChangeAction = Action<bool>();
-  final checkerboardRasterCacheImagesChangeAction = Action<bool>();
-  final checkerboardOffscreenLayersChangeAction = Action<bool>();
-  final showSemanticsDebuggerChangeAction = Action<bool>();
-  final debugShowCheckedModeBannerChangeAction = Action<bool>();
-  final setProxy = Action<void>();
+  final showPerformanceOverlayChangeAction = m.Action<bool>();
+  final debugShowMaterialGridChangeAction = m.Action<bool>();
+  final checkerboardRasterCacheImagesChangeAction = m.Action<bool>();
+  final checkerboardOffscreenLayersChangeAction = m.Action<bool>();
+  final showSemanticsDebuggerChangeAction = m.Action<bool>();
+  final debugShowCheckedModeBannerChangeAction = m.Action<bool>();
+  final setProxy = m.Action<void>();
 
   String currentUrl;
   String proxyUrl;
@@ -150,7 +166,7 @@ class DebugWidgetModel extends WidgetModel {
   void _refreshApp(Config newConfig) {
     subscribeHandleError(_authInteractor.logOut(), (_) {
       config = newConfig;
-      navigator.pushAndRemoveUntil(PhoneInputRoute(), (_) => false);
+      navigator.pushAndRemoveUntil(WelcomeScreenRoute(), (_) => false);
     });
   }
 

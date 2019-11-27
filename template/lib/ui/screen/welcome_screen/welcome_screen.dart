@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_template/ui/app/di/app.dart';
 import 'package:flutter_template/ui/common/formatters/phone_formatter.dart';
 import 'package:flutter_template/ui/common/widgets/buttons.dart';
 import 'package:flutter_template/ui/common/widgets/progress_bar.dart';
 import 'package:flutter_template/ui/res/strings/strings.dart';
 import 'package:flutter_template/ui/res/text_styles.dart';
-import 'package:flutter_template/ui/screen/phone_input/di/phone_input_widget_module.dart';
-import 'package:flutter_template/ui/screen/phone_input/phone_input_wm.dart';
+import 'package:flutter_template/ui/screen/welcome_screen/di/welcome_screen_component.dart';
+import 'package:flutter_template/ui/screen/welcome_screen/welcome_screen_wm.dart';
 import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
 
 /// Экран ввода телефона
-class PhoneInputScreen extends StatefulWidget {
-  @override
-  _PhoneInputScreenState createState() => _PhoneInputScreenState();
+class WelcomeScreen extends MwwmWidget<WelcomeScreenComponent> {
+  WelcomeScreen([
+    WidgetModelBuilder widgetModelBuilder = createWelcomeWidgetModel,
+  ]) : super(
+    dependenciesBuilder: (context) => WelcomeScreenComponent(context),
+    widgetStateBuilder: () => _WelcomeScreenState(),
+    widgetModelBuilder: widgetModelBuilder,
+  );
 }
 
-class _PhoneInputScreenState extends WidgetState<PhoneInputScreen,
-    PhoneInputWidgetModel, PhoneInputScreenComponent> {
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+class _WelcomeScreenState extends WidgetState<WelcomeScreenWidgetModel> {
   TextEditingController _textEditingController = TextEditingController();
 
   @override
-  Widget buildState(BuildContext context) {
+  Widget build(BuildContext context) {
     return _buildScreen(context);
   }
 
@@ -34,7 +36,7 @@ class _PhoneInputScreenState extends WidgetState<PhoneInputScreen,
     });
 
     return Scaffold(
-      key: _scaffoldKey,
+      key: Injector.of<WelcomeScreenComponent>(context).component.scaffoldKey,
       floatingActionButton: StreamBuilder<bool>(
           stream: wm.buttonEnabledState.stream,
           initialData: false,
@@ -101,14 +103,5 @@ class _PhoneInputScreenState extends WidgetState<PhoneInputScreen,
         ),
       );
     }
-  }
-
-  @override
-  PhoneInputScreenComponent getComponent(BuildContext context) {
-    return PhoneInputScreenComponent(
-      Injector.of<AppComponent>(context).component,
-      _scaffoldKey,
-      Navigator.of(context),
-    );
   }
 }
