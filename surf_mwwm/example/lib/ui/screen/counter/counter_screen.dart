@@ -19,7 +19,7 @@ import 'package:injector/injector.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
 /// Widget для экрана счетчика
-class CounterScreen extends MwwmWidget<CounterComponent> {
+class CounterScreen extends SurfMwwmWidget<CounterComponent> {
   CounterScreen()
       : super(
           dependenciesBuilder: (BuildContext context) =>

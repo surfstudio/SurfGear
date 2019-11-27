@@ -21,7 +21,7 @@ import 'package:mwwm/mwwm.dart';
 import 'package:injector/injector.dart';
 
 /// Widget приложения
-class App extends MwwmWidget<AppComponent> {
+class App extends SurfMwwmWidget<AppComponent> {
   App()
       : super(
           dependenciesBuilder: (BuildContext context) => AppComponent(),
