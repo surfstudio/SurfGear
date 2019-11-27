@@ -15,4 +15,11 @@ class ExampleFactory extends PushHandleStrategyFactory {
           return SecondStrategy(message);
         },
       };
+
+  @override
+  StrategyBuilder get defaultStrategy {
+    return (payload) => FirstStrategy(
+          Message.fromMap(payload),
+        );
+  }
 }
