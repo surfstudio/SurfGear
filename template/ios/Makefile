@@ -33,6 +33,7 @@ init:
   		-gem install bundler -v 1.17.3;\
 	fi
 
+    bash -lc "source ~/.rvm/scripts/rvm && rvm use ${RVM_VERSION}@${PROJECT_TAG} --create && rvm gemset name"
 	-bundle install
 	-bundle exec pod repo update
 
