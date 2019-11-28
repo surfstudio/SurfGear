@@ -46,22 +46,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
     _map = {
       _types[0]: BottomNavigationRelationship(
-        () => _buildPage(Color(0xFFFF0000)),
-        (isSelected) => _buildElement(
+        tabBuilder: () => _buildPage(Color(0xFFFF0000)),
+        navElementBuilder: (isSelected) => _buildElement(
           isSelected,
           Color(0x55FF0000),
         ),
       ),
       _types[1]: BottomNavigationRelationship(
-        () => _buildPage(Color(0xFF00FF00)),
-        (isSelected) => _buildElement(
+        tabBuilder: () => _buildPage(Color(0xFF00FF00)),
+        navElementBuilder: (isSelected) => _buildElement(
           isSelected,
           Color(0x5500FF00),
         ),
       ),
       _types[2]: BottomNavigationRelationship(
-        () => _buildPage(Color(0xFF0000FF)),
-        (isSelected) => _buildElement(
+        tabBuilder: () => _buildPage(Color(0xFF0000FF)),
+        navElementBuilder: (isSelected) => _buildElement(
           isSelected,
           Color(0x550000FF),
         ),

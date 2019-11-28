@@ -17,24 +17,24 @@ List<BottomNavTabType> _types = [
 
 Map<BottomNavTabType, BottomNavigationRelationship> _map = {
   _types[0]: BottomNavigationRelationship(
-    () => _buildPage("Red"),
-    (isSelected) => _buildButton(
+    tabBuilder: () => _buildPage("Red"),
+    navElementBuilder: (isSelected) => _buildButton(
       _redKey,
       isSelected,
       Color(0x55FF0000),
     ),
   ),
   _types[1]: BottomNavigationRelationship(
-    () => _buildPage("Green"),
-    (isSelected) => _buildButton(
+    tabBuilder: () => _buildPage("Green"),
+    navElementBuilder: (isSelected) => _buildButton(
       _greenKey,
       isSelected,
       Color(0x5500FF00),
     ),
   ),
   _types[2]: BottomNavigationRelationship(
-    () => _buildPage("Blue"),
-    (isSelected) => _buildButton(
+    tabBuilder: () => _buildPage("Blue"),
+    navElementBuilder: (isSelected) => _buildButton(
       _blueKey,
       isSelected,
       Color(0x550000FF),
@@ -71,7 +71,6 @@ void main() {
   blueButtonTest();
   outerActionTest();
 }
-
 
 void redButtonTest() {
   testWidgets('Red tap', (WidgetTester tester) async {

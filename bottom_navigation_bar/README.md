@@ -2,13 +2,16 @@
 
 Bottom navigation bar
 
-## Getting Started
+## Usage
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+Main classes:
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+1. [Bottom navigator](lib/src/bottom_navigator.dart)
+2. [Bottom navigator bar](lib/src/bottom_nav_bar.dart)
+3. [Type of tab](lib/src/bottom_nav_tab_type.dart)
+4. [Relation between item in bar and content](lib/src/bottom_navigation_relationship.dart)
+
+## BottomNavigator
+
+Widget for simple switch content by selected item in bottom bar.
+More details of using you can see in example.
