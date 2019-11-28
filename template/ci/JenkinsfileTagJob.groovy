@@ -1,4 +1,4 @@
-@Library('surf-lib@flutter_firebase_app_distribution') // https://bitbucket.org/surfstudio/jenkins-pipeline-lib/ //todo change version to snapshot
+@Library('surf-lib@flutter') // https://bitbucket.org/surfstudio/jenkins-pipeline-lib/ //todo change version to snapshot
 import ru.surfstudio.ci.pipeline.tag.TagPipelineFlutter
 import ru.surfstudio.ci.stage.StageStrategy
 
