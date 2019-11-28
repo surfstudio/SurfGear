@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:logger/logger.dart';
 import 'package:push/push.dart';
 
 /// strategy builder function
@@ -29,6 +30,7 @@ abstract class PushHandleStrategyFactory {
       }
       return builder(messageData);
     } catch (e) {
+      Logger.d('$e - cant found $key');
       return defaultStrategy(messageData);
     }
   }
