@@ -18,7 +18,7 @@ import 'package:flutter/widgets.dart';
 import 'package:mwwm/mwwm.dart';
 
 /// Main widget in app
-class App extends MwwmWidget {
+class App extends CoreMwwmWidget {
   App()
       : super(
           widgetModelBuilder: (BuildContext context) =>

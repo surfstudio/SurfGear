@@ -1,13 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:mwwm/mwwm.dart' as mwwm;
 
 typedef DependenciesBuilder<C> = C Function(BuildContext);
 
 /// Base class for widgets that has [WidgetModel]
 /// and has dependencies in [Component]
-abstract class SurfMwwmWidget<C extends Component> extends StatefulWidget {
+abstract class MwwmWidget<C extends Component> extends StatefulWidget {
   /// A function that build dependencies for WidgetModel and Widget
   final DependenciesBuilder<C> dependenciesBuilder;
 
@@ -19,7 +18,7 @@ abstract class SurfMwwmWidget<C extends Component> extends StatefulWidget {
   /// WidgetModelBuilders set in the [WidgetModelFactory]
   final WidgetModelBuilder widgetModelBuilder;
 
-  SurfMwwmWidget({
+  MwwmWidget({
     Key key,
     @required this.dependenciesBuilder,
     @required this.widgetStateBuilder,
@@ -29,12 +28,12 @@ abstract class SurfMwwmWidget<C extends Component> extends StatefulWidget {
         );
 
   @override
-  _SurfMwwmWidgetState createState() => _SurfMwwmWidgetState<C>();
+  _MwwmWidgetState createState() => _MwwmWidgetState<C>();
 }
 
 /// Hidden widget that create [WidgetState]
 /// It's only proxy builder for [State]
-class _ProxyMwwmWidget extends mwwm.MwwmWidget {
+class _ProxyMwwmWidget extends CoreMwwmWidget {
   const _ProxyMwwmWidget({
     Key key,
     WidgetStateBuilder widgetStateBuilder,
@@ -47,7 +46,7 @@ class _ProxyMwwmWidget extends mwwm.MwwmWidget {
 }
 
 /// Hold child widget
-class _SurfMwwmWidgetState<C extends Component> extends State<SurfMwwmWidget> {
+class _MwwmWidgetState<C extends Component> extends State<MwwmWidget> {
   Widget child;
 
   @override

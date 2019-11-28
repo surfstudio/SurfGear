@@ -5,11 +5,11 @@ import 'package:mwwm/src/widget_model_creator.dart';
 typedef WidgetStateBuilder = State Function();
 
 /// Class for widgets that has [WidgetModel]
-abstract class MwwmWidget extends StatefulWidget {
+abstract class CoreMwwmWidget extends StatefulWidget {
   final WidgetStateBuilder widgetStateBuilder;
   final WidgetModelBuilder widgetModelBuilder;
 
-  const MwwmWidget({Key key, this.widgetStateBuilder, this.widgetModelBuilder})
+  const CoreMwwmWidget({Key key, this.widgetStateBuilder, this.widgetModelBuilder})
       : super(key: key);
 
   @override
@@ -18,9 +18,9 @@ abstract class MwwmWidget extends StatefulWidget {
   }
 }
 
-/// Base class for state of [MwwmWidget].
+/// Base class for state of [CoreMwwmWidget].
 /// Has [WidgetModel] from [initState].
-abstract class WidgetState<WM extends WidgetModel> extends State<MwwmWidget> {
+abstract class WidgetState<WM extends WidgetModel> extends State<CoreMwwmWidget> {
   final WidgetModelCreator _wmc = WidgetModelCreator<WM>();
 
   /// [WidgetModel] for widget.

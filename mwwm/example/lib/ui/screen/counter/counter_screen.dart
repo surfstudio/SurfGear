@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 
 /// Widget для экрана счетчика
-class CounterScreen extends MwwmWidget {
+class CounterScreen extends CoreMwwmWidget {
   CounterScreen()
       : super(
           widgetModelBuilder: (BuildContext context) => CounterWidgetModel(
