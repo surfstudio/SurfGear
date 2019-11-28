@@ -28,7 +28,7 @@ import 'package:logger/logger.dart';
 /// Response.bodyRaw всегда String.
 /// 
 /// todo по необходимости реализовать логику query - в текущей реализации не работает
-@Deprecated('Use `Http` instead.')
+@Deprecated('Use `DioHttp` instead.')
 class DefaultHttp extends Http {
   final HeadersBuilder headersBuilder;
   final HttpConfig config;
