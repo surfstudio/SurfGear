@@ -9,20 +9,30 @@ enum ListMode {
 
 /// Widget list for display different type of data.
 class MixedList extends StatefulWidget {
+  /// The amount of space by which to inset the child sliver.
   final EdgeInsets sliverPadding;
 
+  /// Items for display.
   final List items;
 
+  /// Map of relationship between type of item and build function for them.
   final Map<Type, ItemBuilder> supportedItemControllers;
 
+  /// An object that can be used to control the position to which this scroll
+  /// view is scrolled.
   final ScrollController scrollController;
 
+  /// How the scroll view should respond to user input.
   final ScrollPhysics scrollPhysics;
 
+  /// Mode of display children list.
   final ListMode listMode;
 
+  /// The delegate that controls the size and position of the children,
+  /// if mode is Grid.
   final SliverGridDelegate gridDelegate;
 
+  /// The delegate that provides the children for this widget.
   final SliverChildBuilderDelegate itemsDelegate;
 
   MixedList({
@@ -35,10 +45,8 @@ class MixedList extends StatefulWidget {
     this.gridDelegate =
         const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
     this.itemsDelegate,
-  }) {
-    assert(this.supportedItemControllers != null);
-    assert(this.items != null);
-  }
+  })  : assert(supportedItemControllers != null),
+        assert(items != null);
 
   @override
   State<StatefulWidget> createState() => MixedListState();
@@ -63,6 +71,7 @@ class MixedListState<W extends MixedList> extends State<W> {
         ]);
   }
 
+  @protected
   SliverChildBuilderDelegate getItemDelegate() {
     return widget.itemsDelegate ??
         SliverChildBuilderDelegate((ctx, position) {
@@ -73,6 +82,7 @@ class MixedListState<W extends MixedList> extends State<W> {
         }, childCount: widget.items.length);
   }
 
+  @protected
   Widget buildItemWidget(
     BuildContext context,
     int position,

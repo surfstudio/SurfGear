@@ -13,10 +13,19 @@ typedef PaginationPredicate = bool Function(int position);
 
 /// Widget list for display different type of data with pagination.
 class PaginationMixedList extends MixedList {
+  /// Function that will be called when need load more data.
   final VoidCallback onLoadMore;
+
+  /// Current pagination state.
   final Stream<PaginationState> paginationState;
+
+  /// Predicate that determine, is need load more data now.
   final PaginationPredicate paginationPredicate;
+
+  /// Builder for footer of list. That wil be display under all items.
   final PaginationBuilder paginationFooterBuilder;
+
+  /// Slivers that will be display before the first items in list.
   final List<Widget> headerSlivers;
 
   PaginationMixedList({
@@ -82,12 +91,19 @@ class _PaginationState extends MixedListState<PaginationMixedList> {
   }
 
   @override
+  void dispose() {
+    _stateSubscription?.cancel();
+
+    super.dispose();
+  }
+
+  @override
   SliverChildBuilderDelegate getItemDelegate() {
     var itemsLength = widget.items.length;
 
     return SliverChildBuilderDelegate(
       (ctx, position) {
-        if (isNeedLoading(position)) {
+        if (_isNeedLoading(position)) {
           _isLoading = true;
           widget.onLoadMore();
         }
@@ -117,23 +133,16 @@ class _PaginationState extends MixedListState<PaginationMixedList> {
                   ),
           ),
           SliverToBoxAdapter(
-            child: paginationFooter(context),
+            child: _paginationFooter(context),
           )
         ]);
   }
 
-  Widget paginationFooter(BuildContext context) {
+  Widget _paginationFooter(BuildContext context) {
     return widget.paginationFooterBuilder(context, _currentState);
   }
 
-  @override
-  void dispose() {
-    _stateSubscription?.cancel();
-
-    super.dispose();
-  }
-
-  bool isNeedLoading(int position) {
+  bool _isNeedLoading(int position) {
     if (widget.paginationPredicate != null) {
       return widget.paginationPredicate(position);
     } else {
