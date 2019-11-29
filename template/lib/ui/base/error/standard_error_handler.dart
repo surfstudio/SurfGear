@@ -9,7 +9,9 @@ import 'package:network/network.dart';
 /// Стандартная реализация эррор хендлера
 class StandardErrorHandler extends NetworkErrorHandler {
   final MessageController _messageController;
+  // ignore: unused_field
   final DialogController _dialogController;
+  // ignore: unused_field
   final SessionChangedInteractor _sessionChangedInteractor;
 
   StandardErrorHandler(
@@ -20,16 +22,7 @@ class StandardErrorHandler extends NetworkErrorHandler {
 
   @override
   void handleOtherError(Exception e) {
-    if (e is UserNotFoundException) {
-      _dialogController.showAlertDialog(
-        message: userNotFoundText,
-        onAgreeClicked: (_) async {
-          _sessionChangedInteractor?.forceLogout();
-        },
-      );
-    } else if (e is OtpException) {
-      print("DEV_ERROR $e");
-    } else if (e is MessagedException) {
+    if (e is MessagedException) {
       _show(e.message);
     } else {
       _show(commonErrorText);

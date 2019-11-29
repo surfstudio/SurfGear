@@ -7,17 +7,18 @@ import 'package:flutter_template/ui/base/material_message_controller.dart';
 import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
 
-/// [Component] для экрана <Debug>
-class DebugScreenComponent implements Component {
+/// [Component] для экрана <SplashScreen>
+class SplashScreenComponent implements Component {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  MessageController messageController;
-  DialogController dialogController;
+  MaterialMessageController messageController;
+  DefaultDialogController dialogController;
   NavigatorState navigator;
   WidgetModelDependencies wmDependencies;
+
   DebugScreenInteractor debugScreenInteractor;
 
-  DebugScreenComponent(BuildContext context) {
+  SplashScreenComponent(BuildContext context) {
     var app = Injector.of<AppComponent>(context).component;
 
     messageController = MaterialMessageController(scaffoldKey);
