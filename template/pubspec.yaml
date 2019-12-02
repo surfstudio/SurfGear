@@ -14,44 +14,44 @@ dependencies:
   network:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
+      ref: project-ROS-22
       path: network
   logger:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
+      ref: project-ROS-22
       path: logger
   injector:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
+      ref: project-ROS-22
       path: injector
   mwwm:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
+      ref: project-ROS-22
       path: mwwm
   geolocation:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
+      ref: project-ROS-22
       path: geolocation
   analytics:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
+      ref: project-ROS-22
       path: analytics
 
   # модуль push уведомлений
   push:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
+      ref: project-ROS-22
       path: push
   surf_util:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
+      ref: project-ROS-22
       path: surf_util
 
   intl: ^0.15.7
@@ -59,8 +59,11 @@ dependencies:
   flutter_svg: ^0.14.1
 
   #networking
-  http: ^0.12.0+1
-  dio: ^2.1.2
+  http: 0.12.0+1
+  dio: 3.0.4
+
+  #parsing
+  json_annotation: 2.0.0
 
   #storage
   shared_preferences: ^0.5.3+4

@@ -14,6 +14,7 @@
 
 import 'dart:io';
 
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:logger/logger.dart';
 import 'package:network/src/base/config.dart';
@@ -21,6 +22,7 @@ import 'package:network/src/base/headers.dart';
 import 'package:network/src/base/http.dart';
 import 'package:network/src/base/response.dart';
 import 'package:network/src/base/status_mapper.dart';
+import 'package:http_parser/http_parser.dart';
 
 ///Library Based Http Implementation [dio]
 class DioHttp extends Http {
@@ -63,7 +65,7 @@ class DioHttp extends Http {
     var proxyUrl = config.proxyUrl;
 
     if (proxyUrl != null && proxyUrl.isNotEmpty) {
-      (_dio.httpClientAdapter as dio.DefaultHttpClientAdapter)
+      (_dio.httpClientAdapter as DefaultHttpClientAdapter)
           .onHttpClientCreate = (client) {
         client.findProxy = (uri) {
           return "PROXY $proxyUrl";
@@ -180,9 +182,14 @@ class DioHttp extends Http {
     File body,
   }) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
-    final data = dio.FormData.from({
-      "image": dio.UploadFileInfo(body, "image",
-          contentType: ContentType("image", "jpeg")),
+    Stream<List<int>> fileStream = body.openRead();
+    int fileLength = await fileStream.length;
+    final data = dio.FormData.fromMap({
+      "image": dio.MultipartFile(
+        fileStream,
+        fileLength,
+        contentType: MediaType("image", "jpeg"),
+      ),
     });
     return _dio
         .post(

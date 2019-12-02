@@ -11,7 +11,12 @@ dependencies:
   flutter:
     sdk: flutter
 
-  permission_handler: 3.2.2
+  notification_permissions: 0.4.0
+  permission_handler:
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: project-ROS-22
+      path: flutter-permission-handler
 
 dev_dependencies:
   flutter_test:
