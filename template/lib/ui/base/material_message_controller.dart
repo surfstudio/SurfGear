@@ -57,6 +57,6 @@ class MaterialMessageController extends MessageController {
 class MsgType extends Enum<String> {
   const MsgType(String value) : super(value);
 
-  static const commonError = const MsgType('commonError');
-  static const common = const MsgType('common');
+  static const commonError = MsgType('commonError');
+  static const common = MsgType('common');
 }

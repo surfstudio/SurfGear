@@ -11,7 +11,7 @@ class MaskTextInputFormatter extends TextInputFormatter {
         .allMatches(maskString)
         .map((match) => MapEntry<int, String>(match.start, match.group(0)));
 
-    _maskMap = new Map.fromEntries(entries);
+    _maskMap = Map.fromEntries(entries);
     _maskList = _maskMap.keys.toList();
   }
 

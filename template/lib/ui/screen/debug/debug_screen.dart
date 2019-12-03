@@ -195,7 +195,7 @@ class _DebugScreenState
                         hintText: '192.168.0.1:8888'),
                   ),
                   MaterialButton(
-                    onPressed:  wm.setProxy,
+                    onPressed: wm.setProxy,
                     child: Text(
                       'Переключить прокси',
                       style: TextStyle(fontSize: 16.0),

@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 ///
 /// Creates instance of a local storage. Key is used as a filename
 class LocalStorage {
-  static final Map<String, LocalStorage> _cache = new Map();
+  static final Map<String, LocalStorage> _cache = Map();
 
   String _filename;
   File _file;
@@ -37,10 +37,10 @@ class LocalStorage {
 
   LocalStorage._internal(String key) {
     _filename = key;
-    _data = new Map();
-    onError = new ValueNotifier(null);
+    _data = Map();
+    onError = ValueNotifier(null);
 
-    ready = new Future<bool>(() async {
+    ready = Future<bool>(() async {
       await this._init();
       return true;
     });
