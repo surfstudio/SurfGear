@@ -38,6 +38,8 @@ class EntityStateBuilder<T> extends StatelessWidget {
   final EntityStreamedState<T> streamedState;
 
   final DataWidgetBuilder<T> child;
+  final DataWidgetBuilder<T> loadingBuilder;
+  final DataWidgetBuilder<T> errorBuilder;
   final Widget loadingChild;
   final Widget errorChild;
 
@@ -45,12 +47,14 @@ class EntityStateBuilder<T> extends StatelessWidget {
     Key key,
     @required this.streamedState,
     @required this.child,
-    @required this.loadingChild,
-    @required this.errorChild,
-  })  : assert(streamedState != null),
+    this.loadingBuilder,
+    this.errorBuilder,
+    Widget loadingChild,
+    Widget errorChild,
+  })  : loadingChild = loadingChild ?? const SizedBox(),
+        errorChild = errorChild ?? const SizedBox(),
+        assert(streamedState != null),
         assert(child != null),
-        assert(loadingChild != null),
-        assert(errorChild != null),
         super(key: key);
 
   @override
@@ -61,14 +65,22 @@ class EntityStateBuilder<T> extends StatelessWidget {
       builder: (context, snapshot) {
         final streamData = snapshot.data;
         if (streamData == null || streamData.isLoading) {
-          return loadingChild;
+          if (streamData?.data != null && loadingBuilder != null) {
+            return loadingBuilder(context, streamData.data);
+          } else {
+            return loadingChild;
+          }
+        } else if (streamData.hasError) {
+          if (streamData.data != null && errorBuilder != null) {
+            return errorBuilder(context, streamData.data);
+          } else {
+            return errorChild;
+          }
+        } else if (streamData.data != null) {
+          return child(context, streamData.data);
         }
 
-        if (streamData.hasError) {
-          return errorChild;
-        }
-
-        return child(context, streamData.data);
+        return errorChild;
       },
     );
   }

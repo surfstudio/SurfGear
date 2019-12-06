@@ -52,14 +52,14 @@ class EntityStreamedState<T> extends StreamedState<EntityState<T>>
   }
 
   @override
-  Future<void> error([Exception error]) {
-    final newState = EntityState<T>.error(error);
+  Future<void> error([dynamic error]) {
+    final newState = EntityState<T>.error(error, value?.data);
     return super.accept(newState);
   }
 
   @override
   Future<void> loading() {
-    final newState = EntityState<T>.loading();
+    final newState = EntityState<T>.loading(value?.data);
     return super.accept(newState);
   }
 }
