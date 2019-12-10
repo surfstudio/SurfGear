@@ -40,7 +40,7 @@ class FlexibleBottomSheet extends StatefulWidget {
     this.minPartHeight,
     this.maxPartHeight,
     this.builder,
-    bool isCollapsible = false,
+    this.isCollapsible = false,
     this.isExpand = true,
     this.animationController,
   })  : assert(minHeight != null && minPartHeight == null ||
@@ -58,7 +58,6 @@ class FlexibleBottomSheet extends StatefulWidget {
             !(maxHeight != null && minHeight != null) || maxHeight > minHeight),
         assert(!isCollapsible || minPartHeight == 0),
         assert(animationController != null),
-        this.isCollapsible = isCollapsible,
         super(key: key);
 
   const FlexibleBottomSheet.collapsible({
