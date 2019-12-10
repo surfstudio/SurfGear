@@ -12,11 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:event_filter/event_filter.dart';
 import 'package:event_filter/src/event/event.dart';
 import 'package:event_filter/src/strategy/base_event_strategy.dart';
+import 'package:flutter/cupertino.dart';
 
 /// The strategy of event processing.
 abstract class EventStrategy<E extends Event> extends BaseEventStrategy<E> {
+  final EventFilterStrategy<E> filterStrategy;
+
+  EventStrategy({this.filterStrategy});
+
   /// Resolve event by selected strategy.
-  void resolve(E event);
+  void resolve(E event) {
+    if (filterStrategy != null) {
+      event = filterStrategy.filter(event);
+    }
+
+    if (event != null) {
+      doResolve(event);
+    }
+  }
+
+  @protected
+  void doResolve(E event);
 }
