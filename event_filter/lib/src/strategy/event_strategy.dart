@@ -25,15 +25,27 @@ abstract class EventStrategy<E extends Event> extends BaseEventStrategy<E> {
 
   /// Resolve event by selected strategy.
   void resolve(E event) {
-    if (filterStrategy != null) {
-      event = filterStrategy.filter(event);
+    _resolve(event, filterStrategy);
+  }
+
+  /// Resolve event by selected strategy if it passed through transmitted filter.
+  void resolveWithCurrentFilter(
+    E event, {
+    EventFilterStrategy<E> filter,
+  }) {
+    _resolve(event, filter);
+  }
+
+  @protected
+  void doResolve(E event);
+
+  void _resolve(E event, EventFilterStrategy<E> filter) {
+    if (filter != null) {
+      event = filter.filter(event);
     }
 
     if (event != null) {
       doResolve(event);
     }
   }
-
-  @protected
-  void doResolve(E event);
 }
