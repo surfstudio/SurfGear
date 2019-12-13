@@ -3,6 +3,43 @@ import 'package:flutter/material.dart';
 
 const Duration _bottomSheetDuration = Duration(milliseconds: 200);
 
+/// Shows a flexible bottom sheet.
+///
+/// anchors - relative height that bottom sheet can be
+Future<T> showFlexibleBottomSheet<T>({
+  @required BuildContext context,
+  @required ScrollableWidgetBuilder builder,
+  double minHeight,
+  double minPartHeight,
+  double maxHeight,
+  double maxPartHeight,
+  bool isCollapsible = true,
+  bool isExpand = true,
+  bool useRootNavigator = false,
+  List<double> anchors,
+}) {
+  assert(context != null);
+  assert(builder != null);
+  assert(useRootNavigator != null);
+  assert(debugCheckHasMediaQuery(context));
+  assert(debugCheckHasMaterialLocalizations(context));
+
+  return Navigator.of(context, rootNavigator: useRootNavigator).push(
+    _FlexibleBottomSheetRoute<T>(
+      theme: Theme.of(context, shadowThemeOnly: true),
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+      minHeight: minHeight,
+      maxHeight: maxHeight,
+      minPartHeight: minPartHeight,
+      maxPartHeight: maxPartHeight,
+      isCollapsible: isCollapsible,
+      isExpand: isExpand,
+      builder: builder,
+      anchors: anchors,
+    ),
+  );
+}
+
 /// A modal route with flexible bottom sheet.
 class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   final ScrollableWidgetBuilder builder;
@@ -12,6 +49,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   final double maxPartHeight;
   final bool isCollapsible;
   final bool isExpand;
+  final List<double> anchors;
 
   final ThemeData theme;
 
@@ -25,6 +63,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     this.barrierLabel,
     this.isCollapsible,
     this.isExpand,
+    this.anchors,
     RouteSettings settings,
   }) : super(settings: settings);
 
@@ -55,8 +94,11 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   }
 
   @override
-  Widget buildPage(BuildContext context, Animation<double> animation,
-      Animation<double> secondaryAnimation) {
+  Widget buildPage(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+  ) {
     Widget bottomSheet = MediaQuery.removePadding(
         context: context,
         removeTop: true,
@@ -67,6 +109,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
                 builder: builder,
                 isExpand: isExpand,
                 animationController: _animationController,
+                anchors: anchors,
               )
             : FlexibleBottomSheet(
                 minPartHeight: minPartHeight,
@@ -76,6 +119,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
                 builder: builder,
                 isExpand: isExpand,
                 animationController: _animationController,
+                anchors: anchors,
               ));
 
     if (theme != null) {
@@ -84,37 +128,4 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
 
     return bottomSheet;
   }
-}
-
-/// Shows a flexible bottom sheet.
-Future<T> showFlexibleBottomSheet<T>({
-  @required BuildContext context,
-  @required ScrollableWidgetBuilder builder,
-  double minHeight,
-  double minPartHeight,
-  double maxHeight,
-  double maxPartHeight,
-  bool isCollapsible = true,
-  bool isExpand = true,
-  bool useRootNavigator = false,
-}) {
-  assert(context != null);
-  assert(builder != null);
-  assert(useRootNavigator != null);
-  assert(debugCheckHasMediaQuery(context));
-  assert(debugCheckHasMaterialLocalizations(context));
-
-  return Navigator.of(context, rootNavigator: useRootNavigator).push(
-    _FlexibleBottomSheetRoute<T>(
-      theme: Theme.of(context, shadowThemeOnly: true),
-      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-      minHeight: minHeight,
-      maxHeight: maxHeight,
-      minPartHeight: minPartHeight,
-      maxPartHeight: maxPartHeight,
-      isCollapsible: isCollapsible,
-      isExpand: isExpand,
-      builder: builder,
-    ),
-  );
 }

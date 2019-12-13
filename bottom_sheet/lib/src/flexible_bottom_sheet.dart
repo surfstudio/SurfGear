@@ -32,6 +32,7 @@ class FlexibleBottomSheet extends StatefulWidget {
   final bool isCollapsible;
   final bool isExpand;
   final AnimationController animationController;
+  final List<double> anchors;
 
   const FlexibleBottomSheet({
     Key key,
@@ -43,6 +44,7 @@ class FlexibleBottomSheet extends StatefulWidget {
     this.isCollapsible = false,
     this.isExpand = true,
     this.animationController,
+    this.anchors,
   })  : assert(minHeight != null && minPartHeight == null ||
             minPartHeight != null && minHeight == null),
         assert(maxHeight != null && maxPartHeight == null ||
@@ -67,6 +69,7 @@ class FlexibleBottomSheet extends StatefulWidget {
     ScrollableWidgetBuilder builder,
     bool isExpand,
     AnimationController animationController,
+    List<double> anchors,
   }) : this(
           maxHeight: maxHeight,
           maxPartHeight: maxPartHeight,
@@ -75,6 +78,7 @@ class FlexibleBottomSheet extends StatefulWidget {
           isCollapsible: true,
           isExpand: isExpand,
           animationController: animationController,
+          anchors: anchors,
         );
 
   @override
@@ -84,19 +88,37 @@ class FlexibleBottomSheet extends StatefulWidget {
 class _FlexibleBottomSheetState extends State<FlexibleBottomSheet> {
   bool _isClosing = false;
 
+  double get _bottom => MediaQuery.of(context).viewInsets.bottom;
+
   @override
   Widget build(BuildContext context) {
     var maxHeight = _getMaxHeightPart(context);
     var minHeight = _getMinHeightPart(context);
-
-    return NotificationListener<DraggableScrollableNotification>(
-      onNotification: _isClosing ? null : _processNotify,
-      child: DraggableScrollableSheet(
-        maxChildSize: maxHeight,
-        minChildSize: minHeight,
-        initialChildSize: _getInitHeight(minHeight, maxHeight),
-        builder: widget.builder,
-        expand: widget.isExpand,
+    return NotificationListener<Notification>(
+      onNotification: (notification) {
+        return true;
+      },
+      child: NotificationListener<DraggableScrollableNotification>(
+        onNotification: _isClosing ? null : _processNotify,
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: DraggableScrollableSheet(
+                maxChildSize: maxHeight,
+                minChildSize: minHeight,
+                initialChildSize: _getInitHeight(minHeight, maxHeight),
+                builder: (context, ScrollController controller) {
+                  return widget.builder(context, controller);
+                },
+                expand: widget.isExpand,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: _bottom),
+              child: Container(),
+            )
+          ],
+        ),
       ),
     );
   }
