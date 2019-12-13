@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:bottom_sheet/src/flexible_draggable_scrollable_sheet.dart';
 import 'package:bottom_sheet/src/widgets/flexible_bottom_sheet_scroll_notifyer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,12 +27,15 @@ import 'package:flutter/material.dart';
 /// exit animations.
 /// The FlexibleBottomSheet widget will manipulate the position of this
 /// animation, it is not just a passive observer.
+///
+/// [initHeight] - relevant height for init bottom sheet
 class FlexibleBottomSheet extends StatefulWidget {
   final double minHeight;
   final double minPartHeight;
+  final double initHeight;
   final double maxHeight;
   final double maxPartHeight;
-  final ScrollableWidgetBuilder builder;
+  final FlexibleDraggableScrollableWidgetBuilder builder;
   final bool isCollapsible;
   final bool isExpand;
   final AnimationController animationController;
@@ -39,6 +45,7 @@ class FlexibleBottomSheet extends StatefulWidget {
     Key key,
     this.minHeight,
     this.maxHeight,
+    this.initHeight = 0.5,
     this.minPartHeight,
     this.maxPartHeight,
     this.builder,
@@ -65,9 +72,10 @@ class FlexibleBottomSheet extends StatefulWidget {
 
   const FlexibleBottomSheet.collapsible({
     Key key,
+    double initHeight,
     double maxHeight,
     double maxPartHeight,
-    ScrollableWidgetBuilder builder,
+    FlexibleDraggableScrollableWidgetBuilder builder,
     bool isExpand,
     AnimationController animationController,
     List<double> anchors,
@@ -76,6 +84,7 @@ class FlexibleBottomSheet extends StatefulWidget {
           maxPartHeight: maxPartHeight,
           builder: builder,
           minPartHeight: 0,
+          initHeight: initHeight ?? 0.5,
           isCollapsible: true,
           isExpand: isExpand,
           animationController: animationController,
@@ -89,7 +98,17 @@ class FlexibleBottomSheet extends StatefulWidget {
 class _FlexibleBottomSheetState extends State<FlexibleBottomSheet> {
   bool _isClosing = false;
 
+  /// Relative top offset
+  double _topOffset = 0;
+
   double get _bottom => MediaQuery.of(context).viewInsets.bottom;
+  FlexibleDraggableScrollableSheetScrollController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _topOffset = widget.initHeight;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,11 +121,13 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet> {
       child: Column(
         children: <Widget>[
           Expanded(
-            child: DraggableScrollableSheet(
+            child: FlexibleDraggableScrollableSheet(
               maxChildSize: maxHeight,
               minChildSize: minHeight,
-              initialChildSize: _getInitHeight(minHeight, maxHeight),
-              builder: (context, ScrollController controller) {
+              initialChildSize: widget.initHeight,
+              builder: (context,
+                  FlexibleDraggableScrollableSheetScrollController controller) {
+                _controller = controller;
                 return widget.builder(context, controller);
               },
               expand: widget.isExpand,
@@ -135,19 +156,18 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet> {
     return widget.minHeight / height;
   }
 
-  double _getInitHeight(double min, double max) {
-    if (min > 0) {
-      return min;
-    }
-
-    return (max + min) / 2;
-  }
-
   bool _startScroll(ScrollStartNotification notification) {
+    print("ScrollStartNotification");
+    print("globalPosition = ${notification.dragDetails.globalPosition}");
+    print("localPosition = ${notification.dragDetails.localPosition}");
     return false;
   }
 
-  bool _scrolling(DraggableScrollableNotification notification) {
+  bool _scrolling(FlexibleDraggableScrollableNotification notification) {
+    _topOffset = notification.extent;
+    print("FlexibleDraggableScrollableNotification");
+    print("extent = ${notification.extent}");
+
     if (_isClosing) return false;
 
     var minHeight = _getMinHeightPart(context);
@@ -175,6 +195,34 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet> {
   }
 
   bool _endScroll(ScrollEndNotification notification) {
+    print("ScrollEndNotification");
+    // print("primaryVelocity = ${notification.dragDetails.primaryVelocity}");
+    // print("velocity = ${notification.dragDetails.velocity}");
+
+    if (widget.anchors?.isNotEmpty ?? false) {
+      _scrollToNearestArchor(notification.dragDetails);
+    }
+
     return false;
+  }
+
+  void _scrollToNearestArchor(DragEndDetails oldDragDetails) {
+    if (widget.anchors.contains(_topOffset)) return;
+    // TODO добавить проверку на максимальную раскрытость
+
+    List<double> screenAnchor = [
+      if (widget.maxPartHeight != null) widget.maxPartHeight,
+      ...widget.anchors,
+      if (widget.minPartHeight != null) widget.minPartHeight,
+    ];
+    List<double> diff = screenAnchor
+        .map(
+          (d) => (d - _topOffset).abs(),
+        )
+        .toList();
+    int minIndex = diff.indexOf(diff.reduce(min));
+    double currentHeight = screenAnchor[minIndex];
+    _controller.extent.currentExtent = currentHeight;
+    print("currentHeight = $currentHeight");
   }
 }
