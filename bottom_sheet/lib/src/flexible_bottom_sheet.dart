@@ -1,3 +1,4 @@
+import 'package:bottom_sheet/src/widgets/flexible_bottom_sheet_scroll_notifyer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -94,31 +95,28 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet> {
   Widget build(BuildContext context) {
     var maxHeight = _getMaxHeightPart(context);
     var minHeight = _getMinHeightPart(context);
-    return NotificationListener<Notification>(
-      onNotification: (notification) {
-        return true;
-      },
-      child: NotificationListener<DraggableScrollableNotification>(
-        onNotification: _isClosing ? null : _processNotify,
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: DraggableScrollableSheet(
-                maxChildSize: maxHeight,
-                minChildSize: minHeight,
-                initialChildSize: _getInitHeight(minHeight, maxHeight),
-                builder: (context, ScrollController controller) {
-                  return widget.builder(context, controller);
-                },
-                expand: widget.isExpand,
-              ),
+    return FlexibleScrollNotifyer(
+      scrollStartCallback: _startScroll,
+      scrollingCallback: _scrolling,
+      scrollEndCallback: _endScroll,
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: DraggableScrollableSheet(
+              maxChildSize: maxHeight,
+              minChildSize: minHeight,
+              initialChildSize: _getInitHeight(minHeight, maxHeight),
+              builder: (context, ScrollController controller) {
+                return widget.builder(context, controller);
+              },
+              expand: widget.isExpand,
             ),
-            Padding(
-              padding: EdgeInsets.only(bottom: _bottom),
-              child: Container(),
-            )
-          ],
-        ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: _bottom),
+            child: Container(),
+          )
+        ],
       ),
     );
   }
@@ -145,7 +143,13 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet> {
     return (max + min) / 2;
   }
 
-  bool _processNotify(DraggableScrollableNotification notification) {
+  bool _startScroll(ScrollStartNotification notification) {
+    return false;
+  }
+
+  bool _scrolling(DraggableScrollableNotification notification) {
+    if (_isClosing) return false;
+
     var minHeight = _getMinHeightPart(context);
 
     if (widget.isCollapsible && !_isClosing) {
@@ -167,6 +171,10 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet> {
     widget.animationController.value =
         (1 + (currentVal - initVal) / (initVal)).clamp(0.0, 1.0);
 
+    return false;
+  }
+
+  bool _endScroll(ScrollEndNotification notification) {
     return false;
   }
 }
