@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:bottom_sheet/src/flexible_draggable_scrollable_sheet.dart';
 import 'package:bottom_sheet/src/widgets/flexible_bottom_sheet_scroll_notifyer.dart';
+import 'package:bottom_sheet/src/widgets/flexible_draggable_scrollable_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -95,8 +95,12 @@ class FlexibleBottomSheet extends StatefulWidget {
   _FlexibleBottomSheetState createState() => _FlexibleBottomSheetState();
 }
 
-class _FlexibleBottomSheetState extends State<FlexibleBottomSheet> {
+class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
+    with SingleTickerProviderStateMixin {
   bool _isClosing = false;
+
+  AnimationController _animationController;
+  final _topOffsetTween = Tween<double>();
 
   /// Relative top offset
   double _topOffset = 0;
@@ -107,7 +111,28 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet> {
   @override
   void initState() {
     super.initState();
+
     _topOffset = widget.initHeight;
+
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 200),
+      vsync: this,
+    );
+    final curve = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.fastOutSlowIn,
+    );
+    Animation topTweenAnimation = _topOffsetTween.animate(curve);
+    topTweenAnimation.addListener(() {
+      if (_animationController.isAnimating) {
+        _controller.extent.currentExtent = topTweenAnimation.value;
+      }
+    });
+    topTweenAnimation.addStatusListener((AnimationStatus status) {
+      if (status == AnimationStatus.completed) {
+        _animationController.reset();
+      }
+    });
   }
 
   @override
@@ -140,6 +165,13 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+
+    super.dispose();
   }
 
   double _getMaxHeightPart(BuildContext context) {
@@ -222,7 +254,10 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet> {
         .toList();
     int minIndex = diff.indexOf(diff.reduce(min));
     double currentHeight = screenAnchor[minIndex];
-    _controller.extent.currentExtent = currentHeight;
-    print("currentHeight = $currentHeight");
+
+    _topOffsetTween.begin = _topOffset;
+    _topOffsetTween.end = currentHeight;
+
+    _animationController.forward();
   }
 }
