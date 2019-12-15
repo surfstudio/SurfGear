@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bottom_sheet/src/widgets/flexible_bottom_sheet_scroll_notifyer.dart';
 import 'package:bottom_sheet/src/widgets/flexible_draggable_scrollable_sheet.dart';
 import 'package:flutter/cupertino.dart';
@@ -104,6 +102,7 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
 
   /// Relative top offset
   double _topOffset = 0;
+  double _currentAnchor;
 
   double get _bottom => MediaQuery.of(context).viewInsets.bottom;
   FlexibleDraggableScrollableSheetScrollController _controller;
@@ -113,6 +112,7 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
     super.initState();
 
     _topOffset = widget.initHeight;
+    _currentAnchor = _topOffset;
 
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 200),
@@ -189,16 +189,11 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
   }
 
   bool _startScroll(ScrollStartNotification notification) {
-    print("ScrollStartNotification");
-    print("globalPosition = ${notification.dragDetails.globalPosition}");
-    print("localPosition = ${notification.dragDetails.localPosition}");
     return false;
   }
 
   bool _scrolling(FlexibleDraggableScrollableNotification notification) {
     _topOffset = notification.extent;
-    print("FlexibleDraggableScrollableNotification");
-    print("extent = ${notification.extent}");
 
     if (_isClosing) return false;
 
@@ -227,36 +222,70 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
   }
 
   bool _endScroll(ScrollEndNotification notification) {
-    print("ScrollEndNotification");
-    // print("primaryVelocity = ${notification.dragDetails.primaryVelocity}");
-    // print("velocity = ${notification.dragDetails.velocity}");
-
     if (widget.anchors?.isNotEmpty ?? false) {
-      _scrollToNearestArchor(notification.dragDetails);
+      _scrollToNearestAnchor(notification.dragDetails);
     }
 
     return false;
   }
 
-  void _scrollToNearestArchor(DragEndDetails oldDragDetails) {
-    if (widget.anchors.contains(_topOffset)) return;
-    // TODO добавить проверку на максимальную раскрытость
-
+  void _scrollToNearestAnchor(DragEndDetails oldDragDetails) {
     List<double> screenAnchor = [
-      if (widget.maxPartHeight != null) widget.maxPartHeight,
       ...widget.anchors,
+      if (widget.maxPartHeight != null) widget.maxPartHeight,
       if (widget.minPartHeight != null) widget.minPartHeight,
-    ];
-    List<double> diff = screenAnchor
-        .map(
-          (d) => (d - _topOffset).abs(),
-        )
-        .toList();
-    int minIndex = diff.indexOf(diff.reduce(min));
-    double currentHeight = screenAnchor[minIndex];
+      if (widget.initHeight != null) widget.initHeight,
+    ].toSet().toList();
 
+    if (screenAnchor.contains(_topOffset)) return;
+
+    double nextAnchor = _calculateNextAnchor(screenAnchor);
+    _animateToNextAnchor(nextAnchor);
+    _currentAnchor = nextAnchor;
+  }
+
+  double _calculateNextAnchor(List<double> screenAnchor) {
+    List<double> nearestAnchor = _findNearestAnchors(screenAnchor, _topOffset);
+    double firstAnchor = nearestAnchor[0];
+    double secondAnchor = nearestAnchor[1];
+
+    if (firstAnchor == _currentAnchor) {
+      return _findNextAnchorFromPrevious(firstAnchor, secondAnchor);
+    } else if (secondAnchor == _currentAnchor) {
+      return _findNextAnchorFromPrevious(secondAnchor, firstAnchor);
+    } else {
+      return (firstAnchor - _topOffset).abs() >
+              (secondAnchor - _topOffset).abs()
+          ? secondAnchor
+          : firstAnchor;
+    }
+  }
+
+  List<double> _findNearestAnchors(List<double> list, double x) {
+    list.sort();
+    Map<double, double> diff = Map.fromIterable(
+      list,
+      key: (d) => d,
+      value: (d) => d - x,
+    );
+    double firstAnchor = diff.entries.where((me) => me.value > 0).first.key;
+    double secondAnchor = diff.entries.where((me) => me.value < 0).last.key;
+
+    return [firstAnchor, secondAnchor];
+  }
+
+  double _findNextAnchorFromPrevious(double previousAnchor, double nextAnchor) {
+    double percent = 0.2;
+
+    return (_topOffset - previousAnchor).abs() >
+            (nextAnchor - previousAnchor).abs() * percent
+        ? nextAnchor
+        : previousAnchor;
+  }
+
+  void _animateToNextAnchor(double nextAnchor) {
     _topOffsetTween.begin = _topOffset;
-    _topOffsetTween.end = currentHeight;
+    _topOffsetTween.end = nextAnchor;
 
     _animationController.forward();
   }
