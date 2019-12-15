@@ -44,8 +44,8 @@ class DioHttp extends Http {
 
     _configProxy(config);
     interceptors
-        .map((interceptor) => DioInterceptorDecorator(interceptor))
-        .forEach((interceptor) => _dio.interceptors.add(interceptor));
+        ?.map((interceptor) => DioInterceptorDecorator(interceptor))
+        ?.forEach((interceptor) => _dio.interceptors.add(interceptor));
 
     var logConfig = config.logConfig;
     if (logConfig != null) {
