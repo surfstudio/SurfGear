@@ -14,44 +14,44 @@ dependencies:
   network:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
+      ref: project-RIG
       path: network
   logger:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
+      ref: project-RIG
       path: logger
   injector:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
+      ref: project-RIG
       path: injector
   mwwm:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
+      ref: project-RIG
       path: mwwm
   geolocation:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
+      ref: project-RIG
       path: geolocation
   analytics:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
+      ref: project-RIG
       path: analytics
 
   # модуль push уведомлений
   push:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
+      ref: project-RIG
       path: push
   surf_util:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
+      ref: project-RIG
       path: surf_util
 
   intl: ^0.15.7
