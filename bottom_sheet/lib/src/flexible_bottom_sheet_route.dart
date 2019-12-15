@@ -1,4 +1,5 @@
 import 'package:bottom_sheet/src/flexible_bottom_sheet.dart';
+import 'package:bottom_sheet/src/widgets/flexible_draggable_scrollable_sheet.dart';
 import 'package:flutter/material.dart';
 
 const Duration _bottomSheetDuration = Duration(milliseconds: 200);
@@ -8,7 +9,7 @@ const Duration _bottomSheetDuration = Duration(milliseconds: 200);
 /// anchors - relative height that bottom sheet can be
 Future<T> showFlexibleBottomSheet<T>({
   @required BuildContext context,
-  @required ScrollableWidgetBuilder builder,
+  @required FlexibleDraggableScrollableWidgetBuilder builder,
   double minHeight,
   double minPartHeight,
   double maxHeight,
@@ -42,7 +43,7 @@ Future<T> showFlexibleBottomSheet<T>({
 
 /// A modal route with flexible bottom sheet.
 class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
-  final ScrollableWidgetBuilder builder;
+  final FlexibleDraggableScrollableWidgetBuilder builder;
   final double minHeight;
   final double minPartHeight;
   final double maxHeight;

@@ -61,42 +61,44 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildBottomSheet(
     BuildContext context,
     ScrollController scrollController,
+    double bottomSheetOffset,
   ) {
-    return SafeArea(
-      child: Container(
-        decoration: BoxDecoration(
-          color: Color(0xFFFFFFFF),
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16),
-            topRight: Radius.circular(16),
+    return Material(
+      child: SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color(0xFFFFFFFF),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
           ),
-        ),
-        child: ListView(
-          padding: EdgeInsets.all(0),
-          controller: scrollController,
-          children: <Widget>[
-            _buildTextField(),
-            _testContainer(Color(0xEEFFFF00)),
-            _testContainer(Color(0xDD99FF00)),
-            _testContainer(Color(0xCC00FFFF)),
-            _testContainer(Color(0xBB555555)),
-            _testContainer(Color(0xAAFF5555)),
-            _testContainer(Color(0x9900FF00)),
-            _testContainer(Color(0x8800FF00)),
-            _testContainer(Color(0x7700FF00)),
-            _buildTextField(),
-          ],
+          child: ListView(
+            padding: EdgeInsets.all(0),
+            controller: scrollController,
+            children: <Widget>[
+              Text("$bottomSheetOffset"),
+              _buildTextField(),
+              _testContainer(Color(0xEEFFFF00)),
+              _testContainer(Color(0xDD99FF00)),
+              _testContainer(Color(0xCC00FFFF)),
+              _testContainer(Color(0xBB555555)),
+              _testContainer(Color(0xAAFF5555)),
+              _testContainer(Color(0x9900FF00)),
+              _testContainer(Color(0x8800FF00)),
+              _testContainer(Color(0x7700FF00)),
+              _buildTextField(),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildTextField() => Material(
-        child: TextField(
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: 'Enter a search term',
-          ),
+  Widget _buildTextField() => TextField(
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: 'Enter a search term',
         ),
       );
 }

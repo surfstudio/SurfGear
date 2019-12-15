@@ -12,9 +12,12 @@ import 'package:flutter/material.dart';
 /// Users should apply the [scrollController] to a [ScrollView] subclass, such
 /// as a [SingleChildScrollView], [ListView] or [GridView], to have the whole
 /// sheet be draggable.
+///
+/// [bottomSheetOffset] - percent of offset
 typedef FlexibleDraggableScrollableWidgetBuilder = Widget Function(
   BuildContext context,
   FlexibleDraggableScrollableSheetScrollController scrollController,
+  double bottomSheetOffset,
 );
 
 /// A container for a [Scrollable] that responds to drag gestures by resizing
@@ -134,7 +137,7 @@ class FlexibleDraggableScrollableSheet extends StatefulWidget {
   /// The builder that creates a child to display in this widget, which will
   /// use the provided [ScrollController] to enable dragging and scrolling
   /// of the contents.
-  final FlexibleDraggableScrollableWidgetBuilder builder;
+  final ScrollableWidgetBuilder builder;
 
   @override
   _FlexibleDraggableScrollableSheetState createState() =>

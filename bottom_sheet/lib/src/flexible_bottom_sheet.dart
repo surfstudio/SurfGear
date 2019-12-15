@@ -126,6 +126,7 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
     topTweenAnimation.addListener(() {
       if (_animationController.isAnimating) {
         _controller.extent.currentExtent = topTweenAnimation.value;
+        _topOffset = topTweenAnimation.value;
       }
     });
     topTweenAnimation.addStatusListener((AnimationStatus status) {
@@ -150,10 +151,14 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
               maxChildSize: maxHeight,
               minChildSize: minHeight,
               initialChildSize: widget.initHeight,
-              builder: (context,
-                  FlexibleDraggableScrollableSheetScrollController controller) {
-                _controller = controller;
-                return widget.builder(context, controller);
+              builder: (
+                context,
+                ScrollController controller,
+              ) {
+                _controller = controller
+                    as FlexibleDraggableScrollableSheetScrollController;
+
+                return widget.builder(context, _controller, _topOffset);
               },
               expand: widget.isExpand,
             ),
