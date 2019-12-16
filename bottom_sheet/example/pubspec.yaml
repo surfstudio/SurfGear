@@ -1,0 +1,32 @@
+name: example
+description: Example using bottom sheet.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^0.1.2
+
+  # static analysis
+  pedantic: ^1.7.0
+
+  #rx
+  rxdart: ^0.22.0
+
+  #surfstudio
+  bottom_sheet:
+    path: ..
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
