@@ -1,0 +1,49 @@
+name: surf_mwwm
+description: Reflection of widget in a single entity
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  #inner packages
+  injector:
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: injector
+
+  #todo uncomment after merge PR in dev
+  #  relation:
+  #    git:
+  #      url: https://bitbucket.org/surfstudio/flutter-standard.git
+  #      ref: dev
+  #      path: relation
+  relation:
+    path: ../relation
+
+  #todo uncomment after merge PR in dev
+  #  mwwm:
+  #    git:
+  #      url: https://bitbucket.org/surfstudio/flutter-standard.git
+  #      ref: dev
+  #      path: mwwm
+  mwwm:
+    path: ../mwwm
+
+
+  #rx
+  rxdart: 0.22.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  pedantic: ^1.7.0
+
+flutter:

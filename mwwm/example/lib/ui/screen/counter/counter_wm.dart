@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
 import 'package:flutter/material.dart' show NavigatorState;
 import 'package:flutter/material.dart' as w;
 import 'package:mwwm/mwwm.dart';
@@ -19,40 +21,31 @@ import 'package:mwwm/mwwm.dart';
 /// WidgetModel для экрана счетчика
 class CounterWidgetModel extends WidgetModel {
   final NavigatorState navigator;
-  final w.GlobalKey<w.ScaffoldState> _key;
+  final w.GlobalKey<w.ScaffoldState> key;
 
-  StreamedState<int> counterState = StreamedState(0);
+  /// relations
+  final counterState = StreamController<int>.broadcast();
 
-  Action incrementAction = Action();
-  final showInit = Action();
+  int currentCounter = 0;
 
   CounterWidgetModel(
     WidgetModelDependencies dependencies,
     this.navigator,
-    this._key,
+    this.key,
   ) : super(dependencies);
 
   @override
   void onLoad() {
-    _listenToActions();
+    _listenToStates();
     super.onLoad();
   }
 
-  void _listenToActions() {
-    bind(
-      incrementAction,
-      (_) => counterState.accept(counterState.value + 1),
-    );
+  void incrementAction() {
+    currentCounter = currentCounter + 1;
+    counterState.add(currentCounter);
+  }
 
-    bind(
-      showInit,
-      (_) => _key.currentState.showSnackBar(
-        w.SnackBar(
-          content: w.Text('init'),
-        ),
-      ),
-    );
-
+  void _listenToStates() {
     subscribe(
       counterState.stream.where((c) => c % 2 == 0).skip(1),
       (c) {
