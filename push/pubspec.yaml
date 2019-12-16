@@ -27,7 +27,7 @@ dependencies:
   rxdart: ^0.22.0
 
   #notifications
-  flutter_local_notifications: ^0.8.2
+  flutter_local_notifications: 0.8.4+3
 
 dev_dependencies:
   flutter_test:
