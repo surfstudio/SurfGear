@@ -1,0 +1,26 @@
+name: bottom_navigation_bar
+description: Bottom navigation bar
+version: 0.0.1
+author:
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  tabnavigator:
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: tabnavigator
+
+  # testing mock
+  mockito: ^4.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
