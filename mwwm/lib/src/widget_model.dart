@@ -24,13 +24,14 @@ import 'package:mwwm/src/utils/composite_subscription.dart';
 ///WM is logical representation of widget.
 abstract class WidgetModel {
   final ErrorHandler _errorHandler;
+
+  @protected
+  final Model model;
+
   CompositeSubscription _compositeSubscription = CompositeSubscription();
 
-  WidgetModel(WidgetModelDependencies baseDependencies)
-      : _errorHandler = baseDependencies.errorHandler {
-    onLoad();
-    onBind();
-  }
+  WidgetModel(WidgetModelDependencies baseDependencies, this.model)
+      : _errorHandler = baseDependencies.errorHandler;
 
   /// called when widget ready
   @mustCallSuper
@@ -94,13 +95,13 @@ abstract class WidgetModel {
   }
 
   /// Close streams of WM
-  dispose() {
+  void dispose() {
     _compositeSubscription.dispose();
   }
 
   /// standard error handling
   @protected
-  handleError(dynamic e) {
+  void handleError(dynamic e) {
     _errorHandler.handleError(e);
   }
 }

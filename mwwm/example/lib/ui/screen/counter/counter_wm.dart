@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'dart:async';
-
+import 'package:counter/ui/screen/counter/performer/performer.dart';
 import 'package:flutter/material.dart' show NavigatorState;
 import 'package:flutter/material.dart' as w;
 import 'package:mwwm/mwwm.dart';
@@ -25,14 +25,13 @@ class CounterWidgetModel extends WidgetModel {
 
   /// relations
   final counterState = StreamController<int>.broadcast();
-
   int currentCounter = 0;
 
   CounterWidgetModel(
     WidgetModelDependencies dependencies,
     this.navigator,
     this.key,
-  ) : super(dependencies);
+  ) : super(dependencies, Model([Incrementor()]));
 
   @override
   void onLoad() {
@@ -41,13 +40,13 @@ class CounterWidgetModel extends WidgetModel {
   }
 
   void incrementAction() {
-    currentCounter = currentCounter + 1;
-    counterState.add(currentCounter);
+    doFuture<int>(model.perform(Increment(1)), counterState.add);
+    doFuture<int>(model.perform(Decrement(1)), counterState.add);
   }
 
   void _listenToStates() {
     subscribe(
-      counterState.stream.where((c) => c % 2 == 0).skip(1),
+      model.listen<Increment, int>().where((c) => c % 2 == 0).skip(1),
       (c) {
         navigator.push(
           w.MaterialPageRoute(

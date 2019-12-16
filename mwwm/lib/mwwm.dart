@@ -26,3 +26,7 @@ export 'package:mwwm/src/widget_state.dart';
 export 'package:mwwm/src/wm_factory.dart';
 export 'package:mwwm/src/widget_model.dart';
 export 'package:mwwm/src/dependencies/wm_dependencies.dart';
+
+export 'package:mwwm/src/model/model.dart';
+export 'package:mwwm/src/model/changes/changes.dart';
+export 'package:mwwm/src/model/performer/performer.dart';

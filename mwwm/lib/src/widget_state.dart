@@ -39,6 +39,9 @@ abstract class WidgetState<WM extends WidgetModel> extends State<CoreMwwmWidget>
       wm = wmbBuilder(context);
     }
     super.initState();
+
+    wm.onLoad();
+    wm.onBind();
   }
 
   /// Descedants must call super in the end
