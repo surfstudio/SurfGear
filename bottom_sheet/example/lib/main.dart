@@ -52,9 +52,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _showSheet(BuildContext context) {
     showFlexibleBottomSheet(
+      minHeight: 0,
+      initHeight: 0.5,
+      maxHeight: 1,
       context: context,
       builder: _buildBottomSheet,
-      anchors: [0.2, 0.5, 1],
+      anchors: [0, 0.5, 1],
     );
   }
 
@@ -80,12 +83,19 @@ class _MyHomePageState extends State<MyHomePage> {
               Text("$bottomSheetOffset"),
               _buildTextField(),
               _testContainer(Color(0xEEFFFF00)),
+              _buildTextField(),
               _testContainer(Color(0xDD99FF00)),
+              _buildTextField(),
               _testContainer(Color(0xCC00FFFF)),
+              _buildTextField(),
               _testContainer(Color(0xBB555555)),
+              _buildTextField(),
               _testContainer(Color(0xAAFF5555)),
+              _buildTextField(),
               _testContainer(Color(0x9900FF00)),
+              _buildTextField(),
               _testContainer(Color(0x8800FF00)),
+              _buildTextField(),
               _testContainer(Color(0x7700FF00)),
               _buildTextField(),
             ],

@@ -11,9 +11,8 @@ Future<T> showFlexibleBottomSheet<T>({
   @required BuildContext context,
   @required FlexibleDraggableScrollableWidgetBuilder builder,
   double minHeight,
-  double minPartHeight,
+  double initHeight,
   double maxHeight,
-  double maxPartHeight,
   bool isCollapsible = true,
   bool isExpand = true,
   bool useRootNavigator = false,
@@ -29,10 +28,9 @@ Future<T> showFlexibleBottomSheet<T>({
     _FlexibleBottomSheetRoute<T>(
       theme: Theme.of(context, shadowThemeOnly: true),
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-      minHeight: minHeight,
-      maxHeight: maxHeight,
-      minPartHeight: minPartHeight,
-      maxPartHeight: maxPartHeight,
+      minHeight: minHeight ?? 0,
+      initHeight: initHeight ?? 0.5,
+      maxHeight: maxHeight ?? 1,
       isCollapsible: isCollapsible,
       isExpand: isExpand,
       builder: builder,
@@ -45,9 +43,8 @@ Future<T> showFlexibleBottomSheet<T>({
 class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   final FlexibleDraggableScrollableWidgetBuilder builder;
   final double minHeight;
-  final double minPartHeight;
+  final double initHeight;
   final double maxHeight;
-  final double maxPartHeight;
   final bool isCollapsible;
   final bool isExpand;
   final List<double> anchors;
@@ -56,9 +53,8 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
 
   _FlexibleBottomSheetRoute({
     this.minHeight,
-    this.minPartHeight,
+    this.initHeight,
     this.maxHeight,
-    this.maxPartHeight,
     this.builder,
     this.theme,
     this.barrierLabel,
@@ -105,7 +101,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
         removeTop: true,
         child: isCollapsible
             ? FlexibleBottomSheet.collapsible(
-                maxPartHeight: maxPartHeight,
+                initHeight: initHeight,
                 maxHeight: maxHeight,
                 builder: builder,
                 isExpand: isExpand,
@@ -113,9 +109,8 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
                 anchors: anchors,
               )
             : FlexibleBottomSheet(
-                minPartHeight: minPartHeight,
-                maxPartHeight: maxPartHeight,
                 minHeight: minHeight,
+                initHeight: initHeight,
                 maxHeight: maxHeight,
                 builder: builder,
                 isExpand: isExpand,
