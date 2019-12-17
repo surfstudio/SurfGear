@@ -6,7 +6,12 @@ const Duration _bottomSheetDuration = Duration(milliseconds: 500);
 
 /// Shows a flexible bottom sheet.
 ///
-/// anchors - relative height that bottom sheet can be
+/// [builder] - content's builder
+/// [minHeight] - min height in percent for bottom sheet. e.g. 0.1
+/// [initHeight] - init height in percent for bottom sheet. e.g. 0.5
+/// [maxHeight] - init height in percent for bottom sheet. e.g. 0.5
+/// [isModal] - if true, overlay background with dark color
+/// [anchors] - percent height that bottom sheet can be
 Future<T> showFlexibleBottomSheet<T>({
   @required BuildContext context,
   @required FlexibleDraggableScrollableWidgetBuilder builder,
