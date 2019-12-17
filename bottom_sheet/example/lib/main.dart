@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _showSheet(context),
+        onPressed: _showSheet,
       ),
     );
   }
@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _showSheet(BuildContext context) {
+  void _showSheet() {
     showFlexibleBottomSheet(
       minHeight: 0,
       initHeight: 0.5,
