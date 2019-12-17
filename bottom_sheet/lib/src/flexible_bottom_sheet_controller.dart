@@ -12,13 +12,16 @@ class FlexibleBottomSheetController {
   BuildContext get _scaffoldContext => Scaffold.of(_context).context;
 
   /// Show registered bottom sheet.
-  Future<T> show<T>(type, {
+  Future<T> show<T>(
+    type, {
+    double minHeight,
+    double initHeight,
     double maxHeight,
-    double maxPartHeight,
   }) {
     return showFlexibleBottomSheet(
       context: _scaffoldContext,
-      maxPartHeight: maxPartHeight,
+      minHeight: minHeight,
+      initHeight: initHeight,
       maxHeight: maxHeight,
       isExpand: true,
       isCollapsible: true,
