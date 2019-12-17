@@ -2,7 +2,7 @@ import 'package:bottom_sheet/src/flexible_bottom_sheet.dart';
 import 'package:bottom_sheet/src/widgets/flexible_draggable_scrollable_sheet.dart';
 import 'package:flutter/material.dart';
 
-const Duration _bottomSheetDuration = Duration(milliseconds: 200);
+const Duration _bottomSheetDuration = Duration(milliseconds: 500);
 
 /// Shows a flexible bottom sheet.
 ///
@@ -16,6 +16,7 @@ Future<T> showFlexibleBottomSheet<T>({
   bool isCollapsible = true,
   bool isExpand = true,
   bool useRootNavigator = false,
+  bool isModal = true,
   List<double> anchors,
 }) {
   assert(context != null);
@@ -34,6 +35,7 @@ Future<T> showFlexibleBottomSheet<T>({
       isCollapsible: isCollapsible,
       isExpand: isExpand,
       builder: builder,
+      isModal: isModal,
       anchors: anchors,
     ),
   );
@@ -47,6 +49,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   final double maxHeight;
   final bool isCollapsible;
   final bool isExpand;
+  final bool isModal;
   final List<double> anchors;
 
   final ThemeData theme;
@@ -60,6 +63,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     this.barrierLabel,
     this.isCollapsible,
     this.isExpand,
+    this.isModal,
     this.anchors,
     RouteSettings settings,
   }) : super(settings: settings);
@@ -74,7 +78,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   final String barrierLabel;
 
   @override
-  Color get barrierColor => Colors.black54;
+  Color get barrierColor => isModal ? Colors.black54 : Color(0x00FFFFFF);
 
   AnimationController _animationController;
 
@@ -123,5 +127,28 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     }
 
     return bottomSheet;
+  }
+
+  @override
+  Widget buildTransitions(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    var begin = Offset(0.0, 1.0);
+    var end = Offset.zero;
+    var curve = Curves.ease;
+    var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+    return SlideTransition(
+      position: animation.drive(tween),
+      child: super.buildTransitions(
+        context,
+        animation,
+        secondaryAnimation,
+        child,
+      ),
+    );
   }
 }
