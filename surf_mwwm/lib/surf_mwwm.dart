@@ -16,6 +16,5 @@ library surf_mwwm;
 
 export 'package:surf_mwwm/src/mwwm_widget.dart';
 export 'package:surf_mwwm/src/mixins/lifecycle_logging_mixin.dart';
-export 'package:mwwm/mwwm.dart' hide WidgetModel;
+export 'package:mwwm/mwwm.dart';
 export 'package:relation/relation.dart';
-export 'package:surf_mwwm/src/widget_model.dart';
