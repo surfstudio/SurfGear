@@ -17,7 +17,7 @@ import 'package:flutter/material.dart' as w;
 import 'package:surf_mwwm/surf_mwwm.dart';
 
 /// WidgetModel для экрана счетчика
-class CounterWidgetModel extends WidgetModel {
+class CounterWidgetModel extends SurfWidgetModel {
   final NavigatorState navigator;
   final w.GlobalKey<w.ScaffoldState> _key;
 

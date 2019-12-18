@@ -18,7 +18,7 @@ import 'package:surf_mwwm/surf_mwwm.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// WidgetModel приложения
-class AppWidgetModel extends WidgetModel {
+class AppWidgetModel extends SurfWidgetModel {
   final GlobalKey<NavigatorState> _navigator;
 
   AppWidgetModel(

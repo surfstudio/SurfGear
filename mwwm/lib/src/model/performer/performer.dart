@@ -8,7 +8,7 @@ abstract class Performer<C, R> {
 }
 
 /// Performer for broadcasting messages while changes appears
-abstract class Broadcaster<C extends Change, R> extends Performer<C, R> {
+abstract class Broadcast<C extends Change, R> extends Performer<C, R> {
   final _controller = StreamController<R>.broadcast();
   Stream<R> get broadcast => _controller.stream;
 
@@ -24,14 +24,4 @@ abstract class Broadcaster<C extends Change, R> extends Performer<C, R> {
   void _addBroadcast(Future<R> result) {
     _controller.addStream(result.asStream());
   }
-}
-
-mixin Broadcast<C, R> on Performer<C, R> {
-  final _controller = StreamController<R>.broadcast();
-
-  void addBroadcast(Future<R> result) {
-    _controller.addStream(result.asStream());
-  }
-
-  Stream<R> broadcast() => _controller.stream;
 }

@@ -8,7 +8,7 @@ class Decrement extends Change<int, int> {
   Decrement(int data) : super(data);
 }
 
-class Incrementor extends Broadcaster<Increment, int> {
+class Incrementor extends Broadcast<Increment, int> {
   int c = 0;
 
   @override

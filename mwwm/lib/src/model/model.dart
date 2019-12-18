@@ -28,7 +28,7 @@ class Model {
     for (var p in performers) {
       try {
         if (p is Broadcast<C, R>) { //todo need resolver ?
-          return p.broadcast();
+          return p.broadcast;
         } else {
           continue;
         }
