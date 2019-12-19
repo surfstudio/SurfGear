@@ -14,5 +14,7 @@ function checkoutChannel() {
     flutter channel stable
 }
 
+dart version/checkoutVersion.dart ${current_version}
+
 checkoutVersion
 #checkoutChannel unnecessary command
