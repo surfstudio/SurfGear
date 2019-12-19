@@ -16,31 +16,35 @@ import 'dart:async';
 
 import 'package:meta/meta.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:mwwm/src/dependencies/wm_dependencies.dart';
 import 'package:mwwm/src/error/error_handler.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:mwwm/src/utils/composite_subscription.dart';
 
 ///WidgetModel - interface
 ///WM is logical representation of widget.
-///Has Action as input 
-///and StreamedState(and descedants) as output
 abstract class WidgetModel {
   final ErrorHandler _errorHandler;
+
+  @protected
+  final Model model;
+
   CompositeSubscription _compositeSubscription = CompositeSubscription();
-  PublishSubject<ExceptionWrapper> _errorSubject = PublishSubject();
 
-  Observable<ExceptionWrapper> get errorStream => _errorSubject.stream;
+  WidgetModel(WidgetModelDependencies baseDependencies, [Model model])
+      : _errorHandler = baseDependencies.errorHandler,
+        model = model ?? Model([]);
 
-  WidgetModel(WidgetModelDependencies baseDependencies)
-      : _errorHandler = baseDependencies.errorHandler {
-    onLoad();
-  }
-
+  /// called when widget ready
   @mustCallSuper
   void onLoad() {}
 
+  /// here need to bind relations
+  @mustCallSuper
+  void onBind() {}
+
   /// subscribe for interactors
   StreamSubscription subscribe<T>(
-    Observable<T> stream,
+    Stream<T> stream,
     void Function(T t) onValue, {
     void Function(dynamic e) onError,
   }) {
@@ -54,7 +58,7 @@ abstract class WidgetModel {
 
   /// subscribe for interactors with default handle error
   StreamSubscription subscribeHandleError<T>(
-    Observable<T> stream,
+    Stream<T> stream,
     void Function(T t) onValue, {
     void Function(dynamic e) onError,
   }) {
@@ -91,24 +95,15 @@ abstract class WidgetModel {
     });
   }
 
-  /// bind ui [Event]'s
-  void bind<T>(
-    Event<T> event,
-    void Function(T t) onValue, {
-    void Function(dynamic e) onError,
-  }) =>
-      subscribe<T>(event.stream, onValue, onError: onError);
-
   /// Close streams of WM
-  dispose() {
+  void dispose() {
     _compositeSubscription.dispose();
   }
 
   /// standard error handling
   @protected
-  handleError(dynamic e) {
+  void handleError(dynamic e) {
     _errorHandler.handleError(e);
-    _errorSubject.add(ExceptionWrapper(e));
   }
 }
 
