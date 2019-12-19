@@ -2,28 +2,40 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 
-const String rootRelativePath = "../../";
-const String templatePath = rootRelativePath + "lib/temp/ui/";
+const String templatePath = "../../lib/temp/ui/";
+
+final beforeCapitalLetter = RegExp(r"(?=[A-Z])");
 
 String widgetName;
 String snakeWidgetName;
 String dirPath;
 
+/// Script for generation mwwm template files.
+/// Need parameters: name of widget, path to create widget environment files,
+/// passed in this order.
+/// For example: dart mwwmgen.dart TestScreen ../../lib/ui/screen/test
+/// That should create in lib/ui/screen/test directory form the root of the
+/// project an environment for widget with name TestScreen.
+/// Prepared template for generation should be in lib/temp/ui/ directory.
+///
+/// Exit codes:
+/// 0 - success
+/// 1 - error
 void main(List<String> arguments) {
+  exitCode = 0;
   final parser = ArgParser();
 
   var args = parser.parse(arguments).arguments;
 
   if (args.length != 2) {
+    exitCode = 1;
     throw Exception(
-        "Wrong count of arguments! You should path name of widget and directory from the root of project, in order [-name -dir].");
+        "Wrong count of arguments! You should path name of widget and directory, in order [-name -dir].");
   } else {
     widgetName = args[0];
-    final beforeCapitalLetter = RegExp(r"(?=[A-Z])");
-    var parts = widgetName.split(beforeCapitalLetter);
-    snakeWidgetName = parts.map((word) => word.toLowerCase()).join("_");
+    snakeWidgetName = _toSnake(widgetName);
 
-    dirPath = rootRelativePath + args[1];
+    dirPath = args[1];
 
     var lastDirSymbol = dirPath[dirPath.length - 1];
     if (lastDirSymbol != "/" || lastDirSymbol != "\\") {
@@ -34,11 +46,17 @@ void main(List<String> arguments) {
   }
 }
 
+String _toSnake(String name) {
+  var parts = widgetName.split(beforeCapitalLetter);
+  return parts.map((word) => word.toLowerCase()).join("_");
+}
+
 void _generate() async {
   var templateDir = Directory(templatePath);
 
   var isExist = await templateDir.exists();
   if (!isExist) {
+    exitCode = 1;
     throw Exception("Project should contain templates for generation.");
   }
 

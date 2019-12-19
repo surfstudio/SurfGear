@@ -9,8 +9,10 @@ import 'temp_wm.dart';
 
 /// Виджет [$Temp$]
 class $Temp$ extends MwwmWidget<$Temp$Component> {
-  $Temp$()
-      : super(
+  $Temp$([
+    WidgetModelBuilder widgetModelBuilder = create$Temp$WidgetModel,
+  ]) : super(
+          widgetModelBuilder: widgetModelBuilder,
           dependenciesBuilder: (context) => $Temp$Component(context),
           widgetStateBuilder: () => _$Temp$State(),
         );
