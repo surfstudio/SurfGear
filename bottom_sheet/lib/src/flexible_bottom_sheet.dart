@@ -33,10 +33,15 @@ class FlexibleBottomSheet extends StatefulWidget {
   final double initHeight;
   final double maxHeight;
   final FlexibleDraggableScrollableWidgetBuilder builder;
+  final FlexibleDraggableScrollableHeaderWidgetBuilder builderHeader;
+  final FlexibleDraggableScrollableWidgetBodyBuilder builderBody;
   final bool isCollapsible;
   final bool isExpand;
   final AnimationController animationController;
   final List<double> anchors;
+  final Color backgroundColor;
+  final bool isPinnedHeader;
+  final bool isMaterialRoot;
 
   const FlexibleBottomSheet({
     Key key,
@@ -44,11 +49,19 @@ class FlexibleBottomSheet extends StatefulWidget {
     this.initHeight,
     this.maxHeight,
     this.builder,
+    this.builderHeader,
+    this.builderBody,
     this.isCollapsible = false,
     this.isExpand = true,
     this.animationController,
     this.anchors,
-  })  : assert(minHeight == null || minHeight >= 0 && minHeight <= 1),
+    Color backgroundColor,
+    bool isPinnedHeader,
+    bool isMaterialRoot,
+  })  : backgroundColor = backgroundColor ?? Colors.white,
+        isPinnedHeader = isPinnedHeader ?? true,
+        isMaterialRoot = isMaterialRoot ?? true,
+        assert(minHeight == null || minHeight >= 0 && minHeight <= 1),
         assert(maxHeight == null || maxHeight > 0 && maxHeight <= 1),
         assert(
             !(maxHeight != null && minHeight != null) || maxHeight > minHeight),
@@ -61,18 +74,28 @@ class FlexibleBottomSheet extends StatefulWidget {
     double initHeight,
     double maxHeight,
     FlexibleDraggableScrollableWidgetBuilder builder,
+    FlexibleDraggableScrollableHeaderWidgetBuilder builderHeader,
+    FlexibleDraggableScrollableWidgetBodyBuilder builderBody,
     bool isExpand,
     AnimationController animationController,
     List<double> anchors,
+    Color backgroundColor,
+    bool isPinnedHeader,
+    bool isMaterialRoot,
   }) : this(
           maxHeight: maxHeight,
           builder: builder,
+          builderHeader: builderHeader,
+          builderBody: builderBody,
           minHeight: 0,
           initHeight: initHeight,
           isCollapsible: true,
           isExpand: isExpand,
           animationController: animationController,
           anchors: anchors,
+          backgroundColor: backgroundColor,
+          isPinnedHeader: isPinnedHeader,
+          isMaterialRoot: isMaterialRoot,
         );
 
   @override
@@ -92,6 +115,10 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
 
   bool _isKeyboardOpenedNotified = false;
   bool _isKeyboardClosedNotified = false;
+
+  double get _currentExtent => _controller.extent.currentExtent;
+
+  bool get _isDefault => widget.builder != null;
 
   @override
   void initState() {
@@ -145,14 +172,56 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
             padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
-            child: widget.builder(
-              context,
-              _controller,
-              _controller.extent.currentExtent,
-            ),
+            child: _buildContent(context),
           );
         },
         expand: widget.isExpand,
+      ),
+    );
+  }
+
+  Widget _buildRootWidget({Widget child}) {
+    if (widget.isMaterialRoot) {
+      return Material(
+        child: child,
+      );
+    }
+
+    return child;
+  }
+
+  Widget _buildContent(BuildContext context) {
+    if (_isDefault) {
+      return widget.builder(
+        context,
+        _controller,
+        _controller.extent.currentExtent,
+      );
+    }
+
+    return _buildRootWidget(
+      child: Container(
+        color: widget.backgroundColor,
+        child: CustomScrollView(
+          controller: _controller,
+          slivers: <Widget>[
+            SliverAppBar(
+              automaticallyImplyLeading: false,
+              titleSpacing: 0.0,
+              pinned: widget.isPinnedHeader,
+              title: widget.builderHeader(
+                context,
+                _currentExtent,
+              ),
+            ),
+            SliverList(
+              delegate: widget.builderBody(
+                context,
+                _currentExtent,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

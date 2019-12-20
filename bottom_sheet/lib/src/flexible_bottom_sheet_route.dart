@@ -12,9 +12,17 @@ const Duration _bottomSheetDuration = Duration(milliseconds: 500);
 /// [maxHeight] - init height in percent for bottom sheet. e.g. 0.5
 /// [isModal] - if true, overlay background with dark color
 /// [anchors] - percent height that bottom sheet can be
+/// [backgroundColor] - BottomSheet content container background color
+/// [isPinnedHeader] - can the header scroll
+/// [isMaterialRoot] - use as root widget Material
 Future<T> showFlexibleBottomSheet<T>({
   @required BuildContext context,
-  @required FlexibleDraggableScrollableWidgetBuilder builder,
+  FlexibleDraggableScrollableWidgetBuilder builder,
+  FlexibleDraggableScrollableHeaderWidgetBuilder builderHeader,
+  FlexibleDraggableScrollableWidgetBodyBuilder builderBody,
+  Color backgroundColor,
+  bool isPinnedHeader,
+  bool isMaterialRoot,
   double minHeight,
   double initHeight,
   double maxHeight,
@@ -25,7 +33,7 @@ Future<T> showFlexibleBottomSheet<T>({
   List<double> anchors,
 }) {
   assert(context != null);
-  assert(builder != null);
+  assert(builder != null || (builderHeader != null && builderBody != null));
   assert(useRootNavigator != null);
   assert(debugCheckHasMediaQuery(context));
   assert(debugCheckHasMaterialLocalizations(context));
@@ -40,8 +48,13 @@ Future<T> showFlexibleBottomSheet<T>({
       isCollapsible: isCollapsible,
       isExpand: isExpand,
       builder: builder,
+      builderHeader: builderHeader,
+      builderBody: builderBody,
       isModal: isModal,
       anchors: anchors,
+      backgroundColor: backgroundColor,
+      isPinnedHeader: isPinnedHeader,
+      isMaterialRoot: isMaterialRoot,
     ),
   );
 }
@@ -49,6 +62,8 @@ Future<T> showFlexibleBottomSheet<T>({
 /// A modal route with flexible bottom sheet.
 class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   final FlexibleDraggableScrollableWidgetBuilder builder;
+  final FlexibleDraggableScrollableHeaderWidgetBuilder builderHeader;
+  final FlexibleDraggableScrollableWidgetBodyBuilder builderBody;
   final double minHeight;
   final double initHeight;
   final double maxHeight;
@@ -56,6 +71,9 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   final bool isExpand;
   final bool isModal;
   final List<double> anchors;
+  final Color backgroundColor;
+  final bool isPinnedHeader;
+  final bool isMaterialRoot;
 
   final ThemeData theme;
 
@@ -64,12 +82,17 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     this.initHeight,
     this.maxHeight,
     this.builder,
+    this.builderHeader,
+    this.builderBody,
     this.theme,
     this.barrierLabel,
     this.isCollapsible,
     this.isExpand,
     this.isModal,
     this.anchors,
+    this.backgroundColor,
+    this.isPinnedHeader,
+    this.isMaterialRoot,
     RouteSettings settings,
   }) : super(settings: settings);
 
@@ -113,18 +136,28 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
                 initHeight: initHeight,
                 maxHeight: maxHeight,
                 builder: builder,
+                builderHeader: builderHeader,
+                builderBody: builderBody,
                 isExpand: isExpand,
                 animationController: _animationController,
                 anchors: anchors,
+                backgroundColor: backgroundColor,
+                isPinnedHeader: isPinnedHeader,
+                isMaterialRoot: isMaterialRoot,
               )
             : FlexibleBottomSheet(
                 minHeight: minHeight,
                 initHeight: initHeight,
                 maxHeight: maxHeight,
                 builder: builder,
+                builderHeader: builderHeader,
+                builderBody: builderBody,
                 isExpand: isExpand,
                 animationController: _animationController,
                 anchors: anchors,
+                backgroundColor: backgroundColor,
+                isPinnedHeader: isPinnedHeader,
+                isMaterialRoot: isMaterialRoot,
               ));
 
     if (theme != null) {

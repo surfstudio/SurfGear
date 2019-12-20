@@ -34,11 +34,55 @@ class _MyHomePageState extends State<MyHomePage> {
           color: Color(0xFFFF0000),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showSheet,
-      ),
+      floatingActionButton: Container(
+          width: 100,
+          height: 100,
+          decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.all(Radius.circular(8))),
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: GestureDetector(
+                  onTap: _showSheet,
+                  child: SizedBox.expand(
+                    child: Center(child: Text('1')),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: _onTapWithoutList,
+                  child: SizedBox.expand(
+                    child: Center(child: Text('2')),
+                  ),
+                ),
+              ),
+            ],
+          )),
     );
   }
+
+  List<Widget> _getChildren(double bottomSheetOffset) => <Widget>[
+        Text("$bottomSheetOffset"),
+        _buildTextField(),
+        _testContainer(Color(0xEEFFFF00)),
+        _buildTextField(),
+        _testContainer(Color(0xDD99FF00)),
+        _buildTextField(),
+        _testContainer(Color(0xCC00FFFF)),
+        _buildTextField(),
+        _testContainer(Color(0xBB555555)),
+        _buildTextField(),
+        _testContainer(Color(0xAAFF5555)),
+        _buildTextField(),
+        _testContainer(Color(0x9900FF00)),
+        _buildTextField(),
+        _testContainer(Color(0x8800FF00)),
+        _buildTextField(),
+        _testContainer(Color(0x7700FF00)),
+        _buildTextField(),
+      ];
 
   Widget _testContainer(Color color) {
     return Padding(
@@ -61,6 +105,27 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void _onTapWithoutList() {
+    showFlexibleBottomSheet(
+      minHeight: 0,
+      initHeight: 0.5,
+      maxHeight: 1,
+      context: context,
+      builderHeader: (BuildContext context, double offset) {
+        return Container(
+          width: double.infinity,
+          child: Text('Заголовок'),
+        );
+      },
+      builderBody: (BuildContext context, double offset) {
+        return SliverChildListDelegate(
+          _getChildren(offset),
+        );
+      },
+      anchors: [0, 0.5, 1],
+    );
+  }
+
   Widget _buildBottomSheet(
     BuildContext context,
     ScrollController scrollController,
@@ -77,29 +142,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           child: ListView(
-            padding: EdgeInsets.all(0),
-            controller: scrollController,
-            children: <Widget>[
-              Text("$bottomSheetOffset"),
-              _buildTextField(),
-              _testContainer(Color(0xEEFFFF00)),
-              _buildTextField(),
-              _testContainer(Color(0xDD99FF00)),
-              _buildTextField(),
-              _testContainer(Color(0xCC00FFFF)),
-              _buildTextField(),
-              _testContainer(Color(0xBB555555)),
-              _buildTextField(),
-              _testContainer(Color(0xAAFF5555)),
-              _buildTextField(),
-              _testContainer(Color(0x9900FF00)),
-              _buildTextField(),
-              _testContainer(Color(0x8800FF00)),
-              _buildTextField(),
-              _testContainer(Color(0x7700FF00)),
-              _buildTextField(),
-            ],
-          ),
+              padding: EdgeInsets.all(0),
+              controller: scrollController,
+              children: _getChildren(bottomSheetOffset)),
         ),
       ),
     );
