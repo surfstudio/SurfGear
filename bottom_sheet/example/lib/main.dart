@@ -29,37 +29,36 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: Container(
-          color: Color(0xFFFF0000),
-        ),
-      ),
-      floatingActionButton: Container(
-          width: 100,
-          height: 100,
-          decoration: BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.all(Radius.circular(8))),
+          color: Colors.white,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Expanded(
-                child: GestureDetector(
-                  onTap: _showSheet,
-                  child: SizedBox.expand(
-                    child: Center(child: Text('1')),
-                  ),
+              GestureDetector(
+                onTap: _showSheet,
+                child: Container(
+                  width: double.infinity,
+                  height: 50,
+                  color: Color.fromRGBO(0, 0, 0, .2),
+                  child: Center(child: Text('BottomSheet')),
                 ),
               ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: _onTapWithoutList,
-                  child: SizedBox.expand(
-                    child: Center(child: Text('2')),
-                  ),
+              SizedBox(height: 20),
+              GestureDetector(
+                onTap: _showSheetWithoutList,
+                child: Container(
+                  width: double.infinity,
+                  height: 50,
+                  color: Color.fromRGBO(0, 0, 0, .2),
+                  child: Center(child: Text('BottomSheet scroll without list')),
                 ),
               ),
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 
@@ -105,24 +104,35 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _onTapWithoutList() {
-    showFlexibleBottomSheet(
+  void _showSheetWithoutList() {
+    showFlexibleBottomSheetAnywayScroll(
       minHeight: 0,
       initHeight: 0.5,
-      maxHeight: 1,
+      maxHeight: .8,
+      minHeaderHeight: 200,
+      maxHeaderHeight: 200,
       context: context,
-      builderHeader: (BuildContext context, double offset) {
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
+        ),
+      ),
+      headerBuilder: (BuildContext context, double offset) {
         return Container(
           width: double.infinity,
-          child: Text('Заголовок'),
+          height: 200,
+          color: Colors.green,
+          child: Text('Заголовок', style: TextStyle(color: Colors.black)),
         );
       },
-      builderBody: (BuildContext context, double offset) {
+      bodyBuilder: (BuildContext context, double offset) {
         return SliverChildListDelegate(
           _getChildren(offset),
         );
       },
-      anchors: [0, 0.5, 1],
+      anchors: [.2, 0.5, .8],
     );
   }
 

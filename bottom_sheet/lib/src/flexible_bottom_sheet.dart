@@ -33,15 +33,16 @@ class FlexibleBottomSheet extends StatefulWidget {
   final double initHeight;
   final double maxHeight;
   final FlexibleDraggableScrollableWidgetBuilder builder;
-  final FlexibleDraggableScrollableHeaderWidgetBuilder builderHeader;
-  final FlexibleDraggableScrollableWidgetBodyBuilder builderBody;
+  final FlexibleDraggableScrollableHeaderWidgetBuilder headerBuilder;
+  final FlexibleDraggableScrollableWidgetBodyBuilder bodyBuilder;
   final bool isCollapsible;
   final bool isExpand;
   final AnimationController animationController;
   final List<double> anchors;
-  final Color backgroundColor;
   final bool isPinnedHeader;
-  final bool isMaterialRoot;
+  final BoxDecoration decoration;
+  final double minHeaderHeight;
+  final double maxHeaderHeight;
 
   const FlexibleBottomSheet({
     Key key,
@@ -49,18 +50,17 @@ class FlexibleBottomSheet extends StatefulWidget {
     this.initHeight,
     this.maxHeight,
     this.builder,
-    this.builderHeader,
-    this.builderBody,
+    this.headerBuilder,
+    this.bodyBuilder,
     this.isCollapsible = false,
     this.isExpand = true,
     this.animationController,
     this.anchors,
-    Color backgroundColor,
     bool isPinnedHeader,
-    bool isMaterialRoot,
-  })  : backgroundColor = backgroundColor ?? Colors.white,
-        isPinnedHeader = isPinnedHeader ?? true,
-        isMaterialRoot = isMaterialRoot ?? true,
+    this.decoration,
+    this.minHeaderHeight,
+    this.maxHeaderHeight,
+  })  : isPinnedHeader = isPinnedHeader ?? true,
         assert(minHeight == null || minHeight >= 0 && minHeight <= 1),
         assert(maxHeight == null || maxHeight > 0 && maxHeight <= 1),
         assert(
@@ -74,28 +74,30 @@ class FlexibleBottomSheet extends StatefulWidget {
     double initHeight,
     double maxHeight,
     FlexibleDraggableScrollableWidgetBuilder builder,
-    FlexibleDraggableScrollableHeaderWidgetBuilder builderHeader,
-    FlexibleDraggableScrollableWidgetBodyBuilder builderBody,
+    FlexibleDraggableScrollableHeaderWidgetBuilder headerBuilder,
+    FlexibleDraggableScrollableWidgetBodyBuilder bodyBuilder,
     bool isExpand,
     AnimationController animationController,
     List<double> anchors,
-    Color backgroundColor,
     bool isPinnedHeader,
-    bool isMaterialRoot,
+    BoxDecoration decoration,
+    double minHeaderHeight,
+    double maxHeaderHeight,
   }) : this(
           maxHeight: maxHeight,
           builder: builder,
-          builderHeader: builderHeader,
-          builderBody: builderBody,
+          headerBuilder: headerBuilder,
+          bodyBuilder: bodyBuilder,
           minHeight: 0,
           initHeight: initHeight,
           isCollapsible: true,
           isExpand: isExpand,
           animationController: animationController,
           anchors: anchors,
-          backgroundColor: backgroundColor,
           isPinnedHeader: isPinnedHeader,
-          isMaterialRoot: isMaterialRoot,
+          decoration: decoration,
+          minHeaderHeight: minHeaderHeight,
+          maxHeaderHeight: maxHeaderHeight,
         );
 
   @override
@@ -118,7 +120,7 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
 
   double get _currentExtent => _controller.extent.currentExtent;
 
-  bool get _isDefault => widget.builder != null;
+  bool get _isDefaultBuilder => widget.builder != null;
 
   @override
   void initState() {
@@ -180,18 +182,8 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
     );
   }
 
-  Widget _buildRootWidget({Widget child}) {
-    if (widget.isMaterialRoot) {
-      return Material(
-        child: child,
-      );
-    }
-
-    return child;
-  }
-
   Widget _buildContent(BuildContext context) {
-    if (_isDefault) {
+    if (_isDefaultBuilder) {
       return widget.builder(
         context,
         _controller,
@@ -199,23 +191,23 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
       );
     }
 
-    return _buildRootWidget(
+    return Material(
+      type: MaterialType.transparency,
       child: Container(
-        color: widget.backgroundColor,
+        decoration: widget.decoration ?? BoxDecoration(color: Colors.white),
         child: CustomScrollView(
           controller: _controller,
           slivers: <Widget>[
-            SliverAppBar(
-              automaticallyImplyLeading: false,
-              titleSpacing: 0.0,
+            SliverPersistentHeader(
               pinned: widget.isPinnedHeader,
-              title: widget.builderHeader(
-                context,
-                _currentExtent,
+              delegate: _FlexibleBottomSheetHeaderDelegate(
+                minHeight: widget.minHeaderHeight,
+                maxHeight: widget.maxHeaderHeight,
+                child: widget.headerBuilder(context, _currentExtent),
               ),
             ),
             SliverList(
-              delegate: widget.builderBody(
+              delegate: widget.bodyBuilder(
                 context,
                 _currentExtent,
               ),
@@ -392,4 +384,37 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
         if (widget.minHeight != null) widget.minHeight,
         if (widget.initHeight != null) widget.initHeight,
       ].toSet().toList();
+}
+
+class _FlexibleBottomSheetHeaderDelegate
+    extends SliverPersistentHeaderDelegate {
+  final Widget child;
+
+  final double minHeight;
+
+  final double maxHeight;
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
+
+  _FlexibleBottomSheetHeaderDelegate({
+    this.minHeight = 0,
+    @required this.maxHeight,
+    @required this.child,
+  }) : assert(child != null);
+
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    return child;
+  }
 }

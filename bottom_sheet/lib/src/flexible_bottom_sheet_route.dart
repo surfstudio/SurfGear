@@ -12,17 +12,10 @@ const Duration _bottomSheetDuration = Duration(milliseconds: 500);
 /// [maxHeight] - init height in percent for bottom sheet. e.g. 0.5
 /// [isModal] - if true, overlay background with dark color
 /// [anchors] - percent height that bottom sheet can be
-/// [backgroundColor] - BottomSheet content container background color
-/// [isPinnedHeader] - can the header scroll
-/// [isMaterialRoot] - use as root widget Material
+
 Future<T> showFlexibleBottomSheet<T>({
   @required BuildContext context,
   FlexibleDraggableScrollableWidgetBuilder builder,
-  FlexibleDraggableScrollableHeaderWidgetBuilder builderHeader,
-  FlexibleDraggableScrollableWidgetBodyBuilder builderBody,
-  Color backgroundColor,
-  bool isPinnedHeader,
-  bool isMaterialRoot,
   double minHeight,
   double initHeight,
   double maxHeight,
@@ -33,7 +26,7 @@ Future<T> showFlexibleBottomSheet<T>({
   List<double> anchors,
 }) {
   assert(context != null);
-  assert(builder != null || (builderHeader != null && builderBody != null));
+  assert(builder != null);
   assert(useRootNavigator != null);
   assert(debugCheckHasMediaQuery(context));
   assert(debugCheckHasMaterialLocalizations(context));
@@ -48,13 +41,70 @@ Future<T> showFlexibleBottomSheet<T>({
       isCollapsible: isCollapsible,
       isExpand: isExpand,
       builder: builder,
-      builderHeader: builderHeader,
-      builderBody: builderBody,
+      isModal: isModal,
+      anchors: anchors,
+    ),
+  );
+}
+
+/// Shows a flexible bottom sheet with the ability to scroll content
+/// even without a list
+///
+/// [builder] - content's builder
+/// [minHeight] - min height in percent for bottom sheet. e.g. 0.1
+/// [initHeight] - init height in percent for bottom sheet. e.g. 0.5
+/// [maxHeight] - init height in percent for bottom sheet. e.g. 0.5
+/// [isModal] - if true, overlay background with dark color
+/// [anchors] - percent height that bottom sheet can be
+/// [backgroundColor] - BottomSheet content container background color
+/// [isPinnedHeader] - can the header scroll
+/// [decoration] - BottomSheet decoration
+/// [minHeaderHeight] - minimum head size
+/// [maxHeaderHeight] - maximum head size
+Future<T> showFlexibleBottomSheetAnywayScroll<T>({
+  @required BuildContext context,
+  FlexibleDraggableScrollableWidgetBuilder builder,
+  FlexibleDraggableScrollableHeaderWidgetBuilder headerBuilder,
+  FlexibleDraggableScrollableWidgetBodyBuilder bodyBuilder,
+  Color backgroundColor,
+  bool isPinnedHeader,
+  double minHeight,
+  double initHeight,
+  double maxHeight,
+  bool isCollapsible = true,
+  bool isExpand = true,
+  bool useRootNavigator = false,
+  bool isModal = true,
+  List<double> anchors,
+  BoxDecoration decoration,
+  @required double minHeaderHeight,
+  @required double maxHeaderHeight,
+}) {
+  assert(context != null);
+  assert(builder != null || (headerBuilder != null && bodyBuilder != null));
+  assert(useRootNavigator != null);
+  assert(debugCheckHasMediaQuery(context));
+  assert(debugCheckHasMaterialLocalizations(context));
+
+  return Navigator.of(context, rootNavigator: useRootNavigator).push(
+    _FlexibleBottomSheetRoute<T>(
+      theme: Theme.of(context, shadowThemeOnly: true),
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+      minHeight: minHeight ?? 0,
+      initHeight: initHeight ?? 0.5,
+      maxHeight: maxHeight ?? 1,
+      isCollapsible: isCollapsible,
+      isExpand: isExpand,
+      builder: builder,
+      headerBuilder: headerBuilder,
+      bodyBuilder: bodyBuilder,
       isModal: isModal,
       anchors: anchors,
       backgroundColor: backgroundColor,
       isPinnedHeader: isPinnedHeader,
-      isMaterialRoot: isMaterialRoot,
+      decoration: decoration,
+      minHeaderHeight: minHeaderHeight,
+      maxHeaderHeight: maxHeaderHeight,
     ),
   );
 }
@@ -62,8 +112,8 @@ Future<T> showFlexibleBottomSheet<T>({
 /// A modal route with flexible bottom sheet.
 class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   final FlexibleDraggableScrollableWidgetBuilder builder;
-  final FlexibleDraggableScrollableHeaderWidgetBuilder builderHeader;
-  final FlexibleDraggableScrollableWidgetBodyBuilder builderBody;
+  final FlexibleDraggableScrollableHeaderWidgetBuilder headerBuilder;
+  final FlexibleDraggableScrollableWidgetBodyBuilder bodyBuilder;
   final double minHeight;
   final double initHeight;
   final double maxHeight;
@@ -73,7 +123,9 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   final List<double> anchors;
   final Color backgroundColor;
   final bool isPinnedHeader;
-  final bool isMaterialRoot;
+  final BoxDecoration decoration;
+  final double minHeaderHeight;
+  final double maxHeaderHeight;
 
   final ThemeData theme;
 
@@ -82,8 +134,8 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     this.initHeight,
     this.maxHeight,
     this.builder,
-    this.builderHeader,
-    this.builderBody,
+    this.headerBuilder,
+    this.bodyBuilder,
     this.theme,
     this.barrierLabel,
     this.isCollapsible,
@@ -92,7 +144,9 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     this.anchors,
     this.backgroundColor,
     this.isPinnedHeader,
-    this.isMaterialRoot,
+    this.decoration,
+    this.minHeaderHeight,
+    this.maxHeaderHeight,
     RouteSettings settings,
   }) : super(settings: settings);
 
@@ -136,28 +190,30 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
                 initHeight: initHeight,
                 maxHeight: maxHeight,
                 builder: builder,
-                builderHeader: builderHeader,
-                builderBody: builderBody,
+                headerBuilder: headerBuilder,
+                bodyBuilder: bodyBuilder,
                 isExpand: isExpand,
                 animationController: _animationController,
                 anchors: anchors,
-                backgroundColor: backgroundColor,
                 isPinnedHeader: isPinnedHeader,
-                isMaterialRoot: isMaterialRoot,
+                decoration: decoration,
+                minHeaderHeight: minHeaderHeight,
+                maxHeaderHeight: maxHeaderHeight,
               )
             : FlexibleBottomSheet(
                 minHeight: minHeight,
                 initHeight: initHeight,
                 maxHeight: maxHeight,
                 builder: builder,
-                builderHeader: builderHeader,
-                builderBody: builderBody,
+                headerBuilder: headerBuilder,
+                bodyBuilder: bodyBuilder,
                 isExpand: isExpand,
                 animationController: _animationController,
                 anchors: anchors,
-                backgroundColor: backgroundColor,
                 isPinnedHeader: isPinnedHeader,
-                isMaterialRoot: isMaterialRoot,
+                decoration: decoration,
+                minHeaderHeight: minHeaderHeight,
+                maxHeaderHeight: maxHeaderHeight,
               ));
 
     if (theme != null) {
