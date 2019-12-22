@@ -109,8 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
       minHeight: 0,
       initHeight: 0.5,
       maxHeight: .8,
-      minHeaderHeight: 200,
-      maxHeaderHeight: 200,
+      headerHeight: 200,
       context: context,
       decoration: BoxDecoration(
         color: Colors.white,

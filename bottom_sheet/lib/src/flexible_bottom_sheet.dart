@@ -198,7 +198,7 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
         child: CustomScrollView(
           controller: _controller,
           slivers: <Widget>[
-            SliverPersistentHeader(
+            if(widget.headerBuilder != null) SliverPersistentHeader(
               pinned: widget.isPinnedHeader,
               delegate: _FlexibleBottomSheetHeaderDelegate(
                 minHeight: widget.minHeaderHeight,

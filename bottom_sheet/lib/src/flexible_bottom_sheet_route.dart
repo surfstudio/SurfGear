@@ -61,6 +61,8 @@ Future<T> showFlexibleBottomSheet<T>({
 /// [decoration] - BottomSheet decoration
 /// [minHeaderHeight] - minimum head size
 /// [maxHeaderHeight] - maximum head size
+/// [headerHeight] - head size.
+/// Sets both [minHeaderHeight] and [maxHeaderHeight]
 Future<T> showFlexibleBottomSheetAnywayScroll<T>({
   @required BuildContext context,
   FlexibleDraggableScrollableWidgetBuilder builder,
@@ -77,11 +79,13 @@ Future<T> showFlexibleBottomSheetAnywayScroll<T>({
   bool isModal = true,
   List<double> anchors,
   BoxDecoration decoration,
-  @required double minHeaderHeight,
-  @required double maxHeaderHeight,
+  double minHeaderHeight,
+  double maxHeaderHeight,
+  double headerHeight,
 }) {
   assert(context != null);
-  assert(builder != null || (headerBuilder != null && bodyBuilder != null));
+  assert(builder != null || bodyBuilder != null);
+  assert(maxHeaderHeight != null || headerHeight != null);
   assert(useRootNavigator != null);
   assert(debugCheckHasMediaQuery(context));
   assert(debugCheckHasMaterialLocalizations(context));
@@ -103,8 +107,8 @@ Future<T> showFlexibleBottomSheetAnywayScroll<T>({
       backgroundColor: backgroundColor,
       isPinnedHeader: isPinnedHeader,
       decoration: decoration,
-      minHeaderHeight: minHeaderHeight,
-      maxHeaderHeight: maxHeaderHeight,
+      minHeaderHeight: minHeaderHeight ?? headerHeight ?? maxHeaderHeight / 2,
+      maxHeaderHeight: maxHeaderHeight ?? headerHeight,
     ),
   );
 }
