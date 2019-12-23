@@ -31,7 +31,10 @@ class CounterWidgetModel extends WidgetModel {
     WidgetModelDependencies dependencies,
     this.navigator,
     this.key,
-  ) : super(dependencies, Model([Incrementor()]));
+  ) : super(dependencies,
+            model: Model([
+              Incrementor(),
+            ]));
 
   @override
   void onLoad() {
