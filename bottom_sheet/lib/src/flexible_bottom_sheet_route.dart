@@ -63,13 +63,12 @@ Future<T> showFlexibleBottomSheet<T>({
 /// [maxHeaderHeight] - maximum head size
 /// [headerHeight] - head size.
 /// Sets both [minHeaderHeight] and [maxHeaderHeight]
-Future<T> showFlexibleBottomSheetAnywayScroll<T>({
+Future<T> showStickyFlexibleBottomSheet<T>({
   @required BuildContext context,
   FlexibleDraggableScrollableWidgetBuilder builder,
   FlexibleDraggableScrollableHeaderWidgetBuilder headerBuilder,
   FlexibleDraggableScrollableWidgetBodyBuilder bodyBuilder,
   Color backgroundColor,
-  bool isPinnedHeader,
   double minHeight,
   double initHeight,
   double maxHeight,
@@ -105,7 +104,6 @@ Future<T> showFlexibleBottomSheetAnywayScroll<T>({
       isModal: isModal,
       anchors: anchors,
       backgroundColor: backgroundColor,
-      isPinnedHeader: isPinnedHeader,
       decoration: decoration,
       minHeaderHeight: minHeaderHeight ?? headerHeight ?? maxHeaderHeight / 2,
       maxHeaderHeight: maxHeaderHeight ?? headerHeight,
@@ -126,7 +124,6 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   final bool isModal;
   final List<double> anchors;
   final Color backgroundColor;
-  final bool isPinnedHeader;
   final BoxDecoration decoration;
   final double minHeaderHeight;
   final double maxHeaderHeight;
@@ -147,7 +144,6 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     this.isModal,
     this.anchors,
     this.backgroundColor,
-    this.isPinnedHeader,
     this.decoration,
     this.minHeaderHeight,
     this.maxHeaderHeight,
@@ -199,7 +195,6 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
                 isExpand: isExpand,
                 animationController: _animationController,
                 anchors: anchors,
-                isPinnedHeader: isPinnedHeader,
                 decoration: decoration,
                 minHeaderHeight: minHeaderHeight,
                 maxHeaderHeight: maxHeaderHeight,
@@ -214,7 +209,6 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
                 isExpand: isExpand,
                 animationController: _animationController,
                 anchors: anchors,
-                isPinnedHeader: isPinnedHeader,
                 decoration: decoration,
                 minHeaderHeight: minHeaderHeight,
                 maxHeaderHeight: maxHeaderHeight,

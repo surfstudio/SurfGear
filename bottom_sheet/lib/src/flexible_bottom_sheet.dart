@@ -39,7 +39,6 @@ class FlexibleBottomSheet extends StatefulWidget {
   final bool isExpand;
   final AnimationController animationController;
   final List<double> anchors;
-  final bool isPinnedHeader;
   final BoxDecoration decoration;
   final double minHeaderHeight;
   final double maxHeaderHeight;
@@ -56,12 +55,10 @@ class FlexibleBottomSheet extends StatefulWidget {
     this.isExpand = true,
     this.animationController,
     this.anchors,
-    bool isPinnedHeader,
     this.decoration,
     this.minHeaderHeight,
     this.maxHeaderHeight,
-  })  : isPinnedHeader = isPinnedHeader ?? true,
-        assert(minHeight == null || minHeight >= 0 && minHeight <= 1),
+  })  : assert(minHeight == null || minHeight >= 0 && minHeight <= 1),
         assert(maxHeight == null || maxHeight > 0 && maxHeight <= 1),
         assert(
             !(maxHeight != null && minHeight != null) || maxHeight > minHeight),
@@ -79,7 +76,6 @@ class FlexibleBottomSheet extends StatefulWidget {
     bool isExpand,
     AnimationController animationController,
     List<double> anchors,
-    bool isPinnedHeader,
     BoxDecoration decoration,
     double minHeaderHeight,
     double maxHeaderHeight,
@@ -94,7 +90,6 @@ class FlexibleBottomSheet extends StatefulWidget {
           isExpand: isExpand,
           animationController: animationController,
           anchors: anchors,
-          isPinnedHeader: isPinnedHeader,
           decoration: decoration,
           minHeaderHeight: minHeaderHeight,
           maxHeaderHeight: maxHeaderHeight,
@@ -198,14 +193,15 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
         child: CustomScrollView(
           controller: _controller,
           slivers: <Widget>[
-            if(widget.headerBuilder != null) SliverPersistentHeader(
-              pinned: widget.isPinnedHeader,
-              delegate: _FlexibleBottomSheetHeaderDelegate(
-                minHeight: widget.minHeaderHeight,
-                maxHeight: widget.maxHeaderHeight,
-                child: widget.headerBuilder(context, _currentExtent),
+            if (widget.headerBuilder != null)
+              SliverPersistentHeader(
+                pinned: true,
+                delegate: _FlexibleBottomSheetHeaderDelegate(
+                  minHeight: widget.minHeaderHeight,
+                  maxHeight: widget.maxHeaderHeight,
+                  child: widget.headerBuilder(context, _currentExtent),
+                ),
               ),
-            ),
             SliverList(
               delegate: widget.bodyBuilder(
                 context,

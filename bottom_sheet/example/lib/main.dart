@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: double.infinity,
                   height: 50,
                   color: Color.fromRGBO(0, 0, 0, .2),
-                  child: Center(child: Text('BottomSheet scroll without list')),
+                  child: Center(child: Text('StickyBottomSheet')),
                 ),
               ),
             ],
@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _showSheetWithoutList() {
-    showFlexibleBottomSheetAnywayScroll(
+    showStickyFlexibleBottomSheet(
       minHeight: 0,
       initHeight: 0.5,
       maxHeight: .8,
