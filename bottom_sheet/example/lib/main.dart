@@ -31,34 +31,57 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              GestureDetector(
-                onTap: _showSheet,
-                child: Container(
-                  width: double.infinity,
-                  height: 50,
-                  color: Color.fromRGBO(0, 0, 0, .2),
-                  child: Center(child: Text('BottomSheet')),
-                ),
-              ),
-              SizedBox(height: 20),
-              GestureDetector(
-                onTap: _showSheetWithoutList,
-                child: Container(
-                  width: double.infinity,
-                  height: 50,
-                  color: Color.fromRGBO(0, 0, 0, .2),
-                  child: Center(child: Text('StickyBottomSheet')),
-                ),
-              ),
-            ],
-          ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            RaisedButton(
+              onPressed: _showSheet,
+              child: Text("Open BottomSheet"),
+            ),
+            SizedBox(height: 20),
+            RaisedButton(
+              onPressed: _showSheetWithoutList,
+              child: Text("Open StickyBottomSheet"),
+            ),
+          ],
         ),
       ),
+    );
+  }
+
+  void _showSheet() {
+    showFlexibleBottomSheet(
+      minHeight: 0,
+      initHeight: 0.5,
+      maxHeight: 1,
+      context: context,
+      builder: _buildBottomSheet,
+      anchors: [0, 0.5, 1],
+    );
+  }
+
+  void _showSheetWithoutList() {
+    showStickyFlexibleBottomSheet(
+      minHeight: 0,
+      initHeight: 0.5,
+      maxHeight: .8,
+      headerHeight: 200,
+      context: context,
+      backgroundColor: Colors.white,
+      headerBuilder: (BuildContext context, double offset) {
+        return Container(
+          width: double.infinity,
+          height: 200,
+          color: Colors.green,
+          child: Text('Заголовок', style: TextStyle(color: Colors.black)),
+        );
+      },
+      builder: (BuildContext context, double offset) {
+        return SliverChildListDelegate(
+          _getChildren(offset),
+        );
+      },
+      anchors: [.2, 0.5, .8],
     );
   }
 
@@ -93,55 +116,13 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _showSheet() {
-    showFlexibleBottomSheet(
-      minHeight: 0,
-      initHeight: 0.5,
-      maxHeight: 1,
-      context: context,
-      builder: _buildBottomSheet,
-      anchors: [0, 0.5, 1],
-    );
-  }
-
-  void _showSheetWithoutList() {
-    showStickyFlexibleBottomSheet(
-      minHeight: 0,
-      initHeight: 0.5,
-      maxHeight: .8,
-      headerHeight: 200,
-      context: context,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
-        ),
-      ),
-      headerBuilder: (BuildContext context, double offset) {
-        return Container(
-          width: double.infinity,
-          height: 200,
-          color: Colors.green,
-          child: Text('Заголовок', style: TextStyle(color: Colors.black)),
-        );
-      },
-      bodyBuilder: (BuildContext context, double offset) {
-        return SliverChildListDelegate(
-          _getChildren(offset),
-        );
-      },
-      anchors: [.2, 0.5, .8],
-    );
-  }
-
   Widget _buildBottomSheet(
     BuildContext context,
     ScrollController scrollController,
     double bottomSheetOffset,
   ) {
-    return Material(
-      child: SafeArea(
+    return SafeArea(
+      child: Material(
         child: Container(
           decoration: BoxDecoration(
             color: Color(0xFFFFFFFF),

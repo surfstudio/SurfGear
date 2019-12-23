@@ -39,9 +39,9 @@ class FlexibleBottomSheet extends StatefulWidget {
   final bool isExpand;
   final AnimationController animationController;
   final List<double> anchors;
-  final BoxDecoration decoration;
   final double minHeaderHeight;
   final double maxHeaderHeight;
+  final Color backgroundColor;
 
   const FlexibleBottomSheet({
     Key key,
@@ -55,9 +55,9 @@ class FlexibleBottomSheet extends StatefulWidget {
     this.isExpand = true,
     this.animationController,
     this.anchors,
-    this.decoration,
     this.minHeaderHeight,
     this.maxHeaderHeight,
+    this.backgroundColor,
   })  : assert(minHeight == null || minHeight >= 0 && minHeight <= 1),
         assert(maxHeight == null || maxHeight > 0 && maxHeight <= 1),
         assert(
@@ -79,6 +79,7 @@ class FlexibleBottomSheet extends StatefulWidget {
     BoxDecoration decoration,
     double minHeaderHeight,
     double maxHeaderHeight,
+    Color backgroundColor,
   }) : this(
           maxHeight: maxHeight,
           builder: builder,
@@ -90,9 +91,9 @@ class FlexibleBottomSheet extends StatefulWidget {
           isExpand: isExpand,
           animationController: animationController,
           anchors: anchors,
-          decoration: decoration,
           minHeaderHeight: minHeaderHeight,
           maxHeaderHeight: maxHeaderHeight,
+          backgroundColor: backgroundColor,
         );
 
   @override
@@ -165,7 +166,7 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
               controller as FlexibleDraggableScrollableSheetScrollController;
 
           return AnimatedPadding(
-            duration: Duration(milliseconds: 100),
+            duration: Duration(milliseconds: 50),
             padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
@@ -189,7 +190,7 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
     return Material(
       type: MaterialType.transparency,
       child: Container(
-        decoration: widget.decoration ?? BoxDecoration(color: Colors.white),
+        color: widget.backgroundColor,
         child: CustomScrollView(
           controller: _controller,
           slivers: <Widget>[
