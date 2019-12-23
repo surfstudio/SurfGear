@@ -33,10 +33,15 @@ class FlexibleBottomSheet extends StatefulWidget {
   final double initHeight;
   final double maxHeight;
   final FlexibleDraggableScrollableWidgetBuilder builder;
+  final FlexibleDraggableScrollableHeaderWidgetBuilder headerBuilder;
+  final FlexibleDraggableScrollableWidgetBodyBuilder bodyBuilder;
   final bool isCollapsible;
   final bool isExpand;
   final AnimationController animationController;
   final List<double> anchors;
+  final double minHeaderHeight;
+  final double maxHeaderHeight;
+  final Color backgroundColor;
 
   const FlexibleBottomSheet({
     Key key,
@@ -44,10 +49,15 @@ class FlexibleBottomSheet extends StatefulWidget {
     this.initHeight,
     this.maxHeight,
     this.builder,
+    this.headerBuilder,
+    this.bodyBuilder,
     this.isCollapsible = false,
     this.isExpand = true,
     this.animationController,
     this.anchors,
+    this.minHeaderHeight,
+    this.maxHeaderHeight,
+    this.backgroundColor,
   })  : assert(minHeight == null || minHeight >= 0 && minHeight <= 1),
         assert(maxHeight == null || maxHeight > 0 && maxHeight <= 1),
         assert(
@@ -61,18 +71,29 @@ class FlexibleBottomSheet extends StatefulWidget {
     double initHeight,
     double maxHeight,
     FlexibleDraggableScrollableWidgetBuilder builder,
+    FlexibleDraggableScrollableHeaderWidgetBuilder headerBuilder,
+    FlexibleDraggableScrollableWidgetBodyBuilder bodyBuilder,
     bool isExpand,
     AnimationController animationController,
     List<double> anchors,
+    BoxDecoration decoration,
+    double minHeaderHeight,
+    double maxHeaderHeight,
+    Color backgroundColor,
   }) : this(
           maxHeight: maxHeight,
           builder: builder,
+          headerBuilder: headerBuilder,
+          bodyBuilder: bodyBuilder,
           minHeight: 0,
           initHeight: initHeight,
           isCollapsible: true,
           isExpand: isExpand,
           animationController: animationController,
           anchors: anchors,
+          minHeaderHeight: minHeaderHeight,
+          maxHeaderHeight: maxHeaderHeight,
+          backgroundColor: backgroundColor,
         );
 
   @override
@@ -92,6 +113,10 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
 
   bool _isKeyboardOpenedNotified = false;
   bool _isKeyboardClosedNotified = false;
+
+  double get _currentExtent => _controller.extent.currentExtent;
+
+  bool get _isDefaultBuilder => widget.builder != null;
 
   @override
   void initState() {
@@ -141,18 +166,51 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
               controller as FlexibleDraggableScrollableSheetScrollController;
 
           return AnimatedPadding(
-            duration: Duration(milliseconds: 100),
+            duration: Duration(milliseconds: 50),
             padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
-            child: widget.builder(
-              context,
-              _controller,
-              _controller.extent.currentExtent,
-            ),
+            child: _buildContent(context),
           );
         },
         expand: widget.isExpand,
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
+    if (_isDefaultBuilder) {
+      return widget.builder(
+        context,
+        _controller,
+        _controller.extent.currentExtent,
+      );
+    }
+
+    return Material(
+      type: MaterialType.transparency,
+      child: Container(
+        color: widget.backgroundColor,
+        child: CustomScrollView(
+          controller: _controller,
+          slivers: <Widget>[
+            if (widget.headerBuilder != null)
+              SliverPersistentHeader(
+                pinned: true,
+                delegate: _FlexibleBottomSheetHeaderDelegate(
+                  minHeight: widget.minHeaderHeight,
+                  maxHeight: widget.maxHeaderHeight,
+                  child: widget.headerBuilder(context, _currentExtent),
+                ),
+              ),
+            SliverList(
+              delegate: widget.bodyBuilder(
+                context,
+                _currentExtent,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -323,4 +381,37 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
         if (widget.minHeight != null) widget.minHeight,
         if (widget.initHeight != null) widget.initHeight,
       ].toSet().toList();
+}
+
+class _FlexibleBottomSheetHeaderDelegate
+    extends SliverPersistentHeaderDelegate {
+  final Widget child;
+
+  final double minHeight;
+
+  final double maxHeight;
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
+
+  _FlexibleBottomSheetHeaderDelegate({
+    this.minHeight = 0,
+    @required this.maxHeight,
+    @required this.child,
+  }) : assert(child != null);
+
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    return child;
+  }
 }

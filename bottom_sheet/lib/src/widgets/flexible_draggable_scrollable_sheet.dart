@@ -20,6 +20,26 @@ typedef FlexibleDraggableScrollableWidgetBuilder = Widget Function(
   double bottomSheetOffset,
 );
 
+/// The signature of the method that provides [BuildContext]
+/// and [bottomSheetOffset] for determining the position of the BottomSheet
+/// relative to the upper border of the screen
+///
+typedef FlexibleDraggableScrollableHeaderWidgetBuilder = Widget Function(
+  BuildContext context,
+  double bottomSheetOffset,
+);
+
+/// The signature of a method that provides a [BuildContext]
+/// and [bottomSheetOffset] for determining the position of the BottomSheet
+/// relative to the upper border of the screen
+/// [bottomSheetOffset] - percent of offset
+///
+typedef FlexibleDraggableScrollableWidgetBodyBuilder = SliverChildDelegate
+    Function(
+  BuildContext context,
+  double bottomSheetOffset,
+);
+
 /// A container for a [Scrollable] that responds to drag gestures by resizing
 /// the scrollable until a limit is reached, and then scrolling.
 ///
@@ -251,6 +271,7 @@ class FlexibleDraggableSheetExtent {
   double availablePixels;
 
   bool get isAtMin => minExtent >= _currentExtent.value;
+
   bool get isAtMax => maxExtent <= _currentExtent.value;
 
   set currentExtent(double value) {
@@ -261,6 +282,7 @@ class FlexibleDraggableSheetExtent {
   double get currentExtent => _currentExtent.value;
 
   double get additionalMinExtent => isAtMin ? 0.0 : 1.0;
+
   double get additionalMaxExtent => isAtMax ? 0.0 : 1.0;
 
   /// The scroll position gets inputs in terms of pixels, but the extent is
@@ -428,6 +450,7 @@ class _FlexibleDraggableScrollableSheetScrollPosition
 
   VoidCallback _dragCancelCallback;
   final FlexibleDraggableSheetExtent extent;
+
   bool get listShouldScroll => pixels > 0.0;
 
   @override

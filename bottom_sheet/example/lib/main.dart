@@ -29,23 +29,22 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
-        child: Container(
-          color: Color(0xFFFF0000),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            RaisedButton(
+              onPressed: _showSheet,
+              child: Text("Open BottomSheet"),
+            ),
+            SizedBox(height: 20),
+            RaisedButton(
+              onPressed: _showSheetWithoutList,
+              child: Text("Open StickyBottomSheet"),
+            ),
+          ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showSheet,
-      ),
-    );
-  }
-
-  Widget _testContainer(Color color) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: 100,
-        color: color,
       ),
     );
   }
@@ -61,13 +60,69 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void _showSheetWithoutList() {
+    showStickyFlexibleBottomSheet(
+      minHeight: 0,
+      initHeight: 0.5,
+      maxHeight: .8,
+      headerHeight: 200,
+      context: context,
+      backgroundColor: Colors.white,
+      headerBuilder: (BuildContext context, double offset) {
+        return Container(
+          width: double.infinity,
+          height: 200,
+          color: Colors.green,
+          child: Text('Заголовок', style: TextStyle(color: Colors.black)),
+        );
+      },
+      builder: (BuildContext context, double offset) {
+        return SliverChildListDelegate(
+          _getChildren(offset),
+        );
+      },
+      anchors: [.2, 0.5, .8],
+    );
+  }
+
+  List<Widget> _getChildren(double bottomSheetOffset) => <Widget>[
+        Text("$bottomSheetOffset"),
+        _buildTextField(),
+        _testContainer(Color(0xEEFFFF00)),
+        _buildTextField(),
+        _testContainer(Color(0xDD99FF00)),
+        _buildTextField(),
+        _testContainer(Color(0xCC00FFFF)),
+        _buildTextField(),
+        _testContainer(Color(0xBB555555)),
+        _buildTextField(),
+        _testContainer(Color(0xAAFF5555)),
+        _buildTextField(),
+        _testContainer(Color(0x9900FF00)),
+        _buildTextField(),
+        _testContainer(Color(0x8800FF00)),
+        _buildTextField(),
+        _testContainer(Color(0x7700FF00)),
+        _buildTextField(),
+      ];
+
+  Widget _testContainer(Color color) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 100,
+        color: color,
+      ),
+    );
+  }
+
   Widget _buildBottomSheet(
     BuildContext context,
     ScrollController scrollController,
     double bottomSheetOffset,
   ) {
-    return Material(
-      child: SafeArea(
+    return SafeArea(
+      child: Material(
         child: Container(
           decoration: BoxDecoration(
             color: Color(0xFFFFFFFF),
@@ -77,29 +132,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           child: ListView(
-            padding: EdgeInsets.all(0),
-            controller: scrollController,
-            children: <Widget>[
-              Text("$bottomSheetOffset"),
-              _buildTextField(),
-              _testContainer(Color(0xEEFFFF00)),
-              _buildTextField(),
-              _testContainer(Color(0xDD99FF00)),
-              _buildTextField(),
-              _testContainer(Color(0xCC00FFFF)),
-              _buildTextField(),
-              _testContainer(Color(0xBB555555)),
-              _buildTextField(),
-              _testContainer(Color(0xAAFF5555)),
-              _buildTextField(),
-              _testContainer(Color(0x9900FF00)),
-              _buildTextField(),
-              _testContainer(Color(0x8800FF00)),
-              _buildTextField(),
-              _testContainer(Color(0x7700FF00)),
-              _buildTextField(),
-            ],
-          ),
+              padding: EdgeInsets.all(0),
+              controller: scrollController,
+              children: _getChildren(bottomSheetOffset)),
         ),
       ),
     );
