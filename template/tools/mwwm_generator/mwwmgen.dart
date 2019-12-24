@@ -16,7 +16,8 @@ String dirPath;
 /// For example: dart mwwmgen.dart TestScreen ../../lib/ui/screen/test
 /// That should create in lib/ui/screen/test directory form the root of the
 /// project an environment for widget with name TestScreen.
-/// Prepared template for generation should be in lib/temp/ui/ directory.
+/// Prepared template for generation should be in template directory same
+/// level with script.
 ///
 /// Exit codes:
 /// 0 - success
