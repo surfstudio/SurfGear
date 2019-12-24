@@ -9,7 +9,7 @@ class Model {
   Model(this.performers);
 
   /// Perform some change inside bussiness logic once
-  Future<R> perform<D, R>(Change<D, R> change) {
+  Future<R> perform<R>(Change<R> change) {
     for (var p in performers) {
       try {
         return p.perform(change);

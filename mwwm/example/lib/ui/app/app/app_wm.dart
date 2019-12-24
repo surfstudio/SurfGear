@@ -22,7 +22,7 @@ class AppWidgetModel extends WidgetModel {
 
   AppWidgetModel(
     WidgetModelDependencies dependencies,
-  ) : super(dependencies, Model(const []));
+  ) : super(dependencies, model: Model(const []));
 
   @override
   void onLoad() {
