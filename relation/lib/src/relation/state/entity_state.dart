@@ -15,6 +15,8 @@
 import 'package:relation/src/relation/event.dart';
 import 'package:relation/src/relation/state/streamed_state.dart';
 
+import 'package:mwwm/mwwm.dart';
+
 ///[StreamedState] that have download/error/content status
 class EntityStreamedState<T> extends StreamedState<EntityState<T>>
     implements EntityEvent<T> {
@@ -44,21 +46,28 @@ class EntityState<T> {
   final T data;
   final bool isLoading;
   final bool hasError;
-  Exception error;
+  ExceptionWrapper error;
 
   //возможные поля
   // final List<Exception> errors
 
-  EntityState.loading()
+  EntityState({
+    this.data,
+    this.isLoading = false,
+    this.hasError = false,
+    dynamic error,
+  }): error = ExceptionWrapper(error);
+
+  EntityState.loading([T previousData])
       : isLoading = true,
         hasError = false,
-        data = null;
+        data = previousData;
 
-  EntityState.error([Exception error])
+  EntityState.error([dynamic error, T previousData])
       : isLoading = false,
         hasError = true,
-        error = error,
-        data = null;
+        error = ExceptionWrapper(error),
+        data = previousData;
 
   EntityState.content([T data])
       : isLoading = false,
