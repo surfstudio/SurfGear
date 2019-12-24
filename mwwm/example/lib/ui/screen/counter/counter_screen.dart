@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:counter/main.dart';
 import 'package:counter/ui/screen/counter/counter_wm.dart';
 import 'package:counter/ui/screen/counter/di/counter.dart';
 import 'package:flutter/material.dart';
