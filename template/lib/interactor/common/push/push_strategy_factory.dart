@@ -10,4 +10,10 @@ class PushStrategyFactory extends PushHandleStrategyFactory {
           return DebugScreenStrategy(message);
         },
       };
+
+  @override
+  get defaultStrategy => (payload) {
+        var message = DebugPushMessage.fromMap(payload);
+        return DebugScreenStrategy(message);
+      };
 }
