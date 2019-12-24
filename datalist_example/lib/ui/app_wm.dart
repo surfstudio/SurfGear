@@ -23,6 +23,8 @@ class AppWidgetModel extends WidgetModel {
   void onLoad() {
     _bindActions();
     _loadItems(0);
+
+    super.onLoad();
   }
 
   void _bindActions() {
