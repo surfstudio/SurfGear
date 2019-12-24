@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 
-const String templatePath = "../../lib/temp/ui/";
+const String templatePath = "template/";
 
 final beforeCapitalLetter = RegExp(r"(?=[A-Z])");
 
