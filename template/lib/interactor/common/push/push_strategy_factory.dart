@@ -10,4 +10,8 @@ class PushStrategyFactory extends PushHandleStrategyFactory {
           return DebugScreenStrategy(message);
         },
       };
+
+  @override
+  // TODO: implement defaultStrategy
+  get defaultStrategy => null;
 }
