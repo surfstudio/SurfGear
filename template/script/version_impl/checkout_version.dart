@@ -9,7 +9,7 @@ void main(List<String> arguments) {
   var args = parser.parse(arguments).arguments;
   if (args.isEmpty) {
     exitCode = 1;
-    Exception("You should pass version of flutter to argument.");
+    throw Exception("You should pass version of flutter to argument.");
   } else {
     var version = args[0];
 

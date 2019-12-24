@@ -4,4 +4,4 @@
 # list of versions: flutter version
 current_version=v1.12.3
 
-dart ./script/version_impl/checkoutVersion.dart ${current_version}
+dart ./script/version_impl/checkout_version.dart ${current_version}

@@ -7,6 +7,13 @@ const String releaseBuildType = 'release';
 String flavor = "dev";
 String buildType;
 
+/// Script for build application.
+/// Need parameter: build type -release or -qa.
+/// See also usage.
+///
+/// Exit codes:
+/// 0 - success
+/// 1 - error
 void main(List<String> arguments) {
   exitCode = 0;
   final parser = ArgParser();
@@ -16,7 +23,7 @@ void main(List<String> arguments) {
       .arguments;
   if (args.length != 1) {
     exitCode = 1;
-    Exception("You should pass build type.");
+   throw Exception("You should pass build type.");
   } else {
     buildType = args[0];
 
