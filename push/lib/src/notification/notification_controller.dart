@@ -35,13 +35,6 @@ class NotificationController {
       );
   }
 
-  /// Request notification permissions (iOS only)
-  Future<bool> requestPermissions() => _notificationPlugin.requestPermissions(
-        requestSoundPermission: true,
-        requestAlertPermission: true,
-        requestBadgePermission: true,
-      );
-
   /// displaying notification from the strategy
   Future<dynamic> show(
     PushHandleStrategy strategy,
