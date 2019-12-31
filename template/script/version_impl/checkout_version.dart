@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
@@ -19,9 +20,14 @@ void main(List<String> arguments) async {
 
     // если запрос завершился ошибкой тогда все равно попробуем сменить версию
     if (checkVersion.stderr.toString().isEmpty) {
-      needChangeVersion = !checkVersion.stdout
-          .toString()
-          .contains('"frameworkVersion": "$version"');
+      var map = json.decode(checkVersion.stdout);
+      var currentVersion = map["frameworkVersion"];
+
+      if (currentVersion != null && currentVersion[0] != "v") {
+        currentVersion = "v$currentVersion";
+      }
+
+      needChangeVersion = currentVersion != version;
     }
 
     if (needChangeVersion) {
@@ -29,6 +35,8 @@ void main(List<String> arguments) async {
         stdout.write(result.stdout);
         stderr.write(result.stderr);
       });
+    } else {
+      print("Current version is equal to target version. Skipping checkout...");
     }
   }
 }
