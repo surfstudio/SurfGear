@@ -15,18 +15,23 @@ abstract class WidgetComponent implements Component {
   NavigatorState navigator;
   WidgetModelDependencies wmDependencies;
 
-  WidgetComponent(BuildContext context) {
+  WidgetComponent(
+    BuildContext context, {
+    MessageController messageController,
+    DialogController dialogController,
+    NavigatorState navigator,
+  }) {
     var appComponent = Injector.of<AppComponent>(context).component;
 
-    messageController = MaterialMessageController(scaffoldKey);
-    dialogController = DefaultDialogController(scaffoldKey);
-    navigator = Navigator.of(context);
+    this.messageController = messageController ?? MaterialMessageController(scaffoldKey);
+    this.dialogController = dialogController ?? DefaultDialogController(scaffoldKey);
+    this.navigator = navigator ?? Navigator.of(context);
 
     wmDependencies = WidgetModelDependencies(
       errorHandler: StandardErrorHandler(
         messageController,
         dialogController,
-        appComponent.scInteractor,
+        appComponent.scInteractor, // TODO: не всегда нужно
       ),
     );
   }
