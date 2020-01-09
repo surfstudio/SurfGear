@@ -20,8 +20,8 @@ void main(List<String> arguments) async {
 
     // если запрос завершился ошибкой тогда все равно попробуем сменить версию
     if (checkVersion.stderr.toString().isEmpty) {
-      var map = json.decode(checkVersion.stdout);
-      var currentVersion = map["frameworkVersion"];
+      var parsedOut = json.decode(checkVersion.stdout);
+      var currentVersion = parsedOut["frameworkVersion"];
 
       if (currentVersion != null && currentVersion[0] != "v") {
         currentVersion = "v$currentVersion";
