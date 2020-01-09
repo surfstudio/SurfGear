@@ -16,7 +16,7 @@ import 'package:rxdart/rxdart.dart';
 
 ///Событие, которое может принимать некоторое значение
 abstract class Event<T> {
-  Observable get stream;
+  Observable<T> get stream;
 
   Future<void> accept([T data]);
 }
