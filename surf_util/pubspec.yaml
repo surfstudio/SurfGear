@@ -14,13 +14,13 @@ dependencies:
   logger:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-25
+      ref: project-ROS-26
       path: logger
 
   mwwm:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-25
+      ref: project-ROS-26
       path: mwwm
 
   ## todo: заменить на другой путь когда будет в dev
