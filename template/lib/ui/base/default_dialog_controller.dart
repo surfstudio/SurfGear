@@ -49,7 +49,18 @@ class DefaultDialogController implements DialogController {
   }
 
   @override
-  Future<R> showSheet<R>(type, {VoidCallback onDismiss}) {
+  Future<R> showModalSheet<R>(type,
+      {DialogData data, bool isScrollControlled}) {
+    assert(dialogOwner != null);
+
+    return showModalBottomSheet(
+      context: _scaffoldContext,
+      builder: dialogOwner?.registeredDialogs[type],
+    );
+  }
+
+  @override
+  Future<R> showSheet<R>(type, {onDismiss, DialogData data}) {
     assert(dialogOwner != null);
 
     if (_scaffoldState == null) {
@@ -73,16 +84,6 @@ class DefaultDialogController implements DialogController {
     assert(dialogOwner != null);
 
     _sheetController?.close();
-  }
-
-  @override
-  Future<R> showModalSheet<R>(type, {VoidCallback onDismiss}) {
-    assert(dialogOwner != null);
-
-    return showModalBottomSheet(
-      context: _scaffoldContext,
-      builder: dialogOwner?.registeredDialogs[type],
-    );
   }
 }
 

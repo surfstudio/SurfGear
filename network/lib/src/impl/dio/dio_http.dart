@@ -58,17 +58,17 @@ class DioHttp extends Http {
         responseHeader: logConfig.requestHeader,
         responseBody: logConfig.responseBody,
         error: logConfig.error,
-        logSize: logConfig.logSize,
       ));
     }
 
-    _dio.interceptors.add(dio.InterceptorsWrapper(onError: (e) {
+    _dio.interceptors.add(dio.InterceptorsWrapper(onError: (dio.DioError e) {
       if (e.type == dio.DioErrorType.RESPONSE) {
         return e.response;
       }
 
       if (e is Error) {
-        throw Exception(e.stackTrace);
+        var error = e as Error;
+        throw Exception(error.stackTrace);
       }
 
       throw e;

@@ -12,11 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:permission/base/permission_handler.dart';
+import 'dart:io';
+
 import 'package:permission/base/permission_manager.dart';
 import 'package:permission/base/strategy/deny_resolve_strategy_storage.dart';
 import 'package:permission/base/strategy/proceed_permission_strategy.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import '../base/exceptions.dart';
 
 class DefaultPermissionManager implements PermissionManager {
   final PermissionHandler _permissionHandler = PermissionHandler();
@@ -24,8 +27,7 @@ class DefaultPermissionManager implements PermissionManager {
 
   DefaultPermissionManager(this._strategyStorage);
 
-  Future<bool> request(
-    Permission permission, {
+  Future<bool> request(Permission permission, {
     bool checkRationale = false,
   }) async {
     final permissionGroup = _mapPermission(permission);
@@ -62,12 +64,38 @@ class DefaultPermissionManager implements PermissionManager {
     return false;
   }
 
-  PermissionHandler _findHandler(Permission permission) {
-    return _handlers.firstWhere(
-      (handler) => handler.canHandle(permission),
-      orElse: () => null,
+  Future<bool> check(Permission permission) async {
+    final status = await _permissionHandler.checkPermissionStatus(
+      _mapPermission(permission),
     );
+
+    return _isGoodStatus(status);
   }
 
   Future<bool> openSettings() => _permissionHandler.openAppSettings();
+
+  bool _isGoodStatus(PermissionStatus status) =>
+      status == PermissionStatus.granted ||
+          status == PermissionStatus.restricted;
+
+  PermissionGroup _mapPermission(Permission permission) {
+    switch (permission) {
+      case Permission.camera:
+        return PermissionGroup.camera;
+      case Permission.gallery:
+        return Platform.isAndroid
+            ? PermissionGroup.storage
+            : PermissionGroup.photos;
+      case Permission.location:
+        return PermissionGroup.location;
+      case Permission.calendar:
+        return PermissionGroup.calendar;
+      case Permission.contacts:
+        return PermissionGroup.contacts;
+      case Permission.microphone:
+        return PermissionGroup.microphone;
+      default:
+        return PermissionGroup.unknown;
+    }
+  }
 }
