@@ -14,27 +14,53 @@
 
 import 'package:permission/base/permission_handler.dart';
 import 'package:permission/base/permission_manager.dart';
-import 'package:permission/impl/default_permission_handler.dart';
-import 'package:permission/impl/notification_permission_handler.dart';
-import 'package:permission_handler/permission_handler.dart' as lib;
+import 'package:permission/base/strategy/deny_resolve_strategy_storage.dart';
+import 'package:permission/base/strategy/proceed_permission_strategy.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class DefaultPermissionManager implements PermissionManager {
-  final _permissionHandler = lib.PermissionHandler();
-  final _handlers = [
-    DefaultPermissionHandler(),
-    NotificationPermissionHandler(),
-  ];
+  final PermissionHandler _permissionHandler = PermissionHandler();
+  final ProceedPermissionStrategyStorage _strategyStorage;
 
-  @override
-  Future<bool> check(Permission permission) =>
-      _findHandler(permission)?.check(permission);
+  DefaultPermissionManager(this._strategyStorage);
 
-  @override
-  Future<bool> request(Permission permission, {bool checkRationale}) =>
-      _findHandler(permission)?.request(
-        permission,
-        checkRationale: checkRationale,
-      );
+  Future<bool> request(
+    Permission permission, {
+    bool checkRationale = false,
+  }) async {
+    final permissionGroup = _mapPermission(permission);
+    final strategy = _strategyStorage.getStrategy(permission);
+
+    final statuses = await _permissionHandler.requestPermissions([
+      permissionGroup,
+    ]);
+
+    final status = statuses[permissionGroup];
+    if (_isGoodStatus(status)) {
+      await strategy?.proceed(permission, PermissionStrategyStatus.allow);
+      return true;
+    }
+
+    if (checkRationale) {
+      final showRationale = await _permissionHandler
+          .shouldShowRequestPermissionRationale(permissionGroup);
+
+      await strategy?.proceed(
+          permission,
+          showRationale
+              ? PermissionStrategyStatus.deny
+              : PermissionStrategyStatus.permanent_deny);
+
+      if (showRationale) {
+        return false;
+      } else {
+        throw FeatureProhibitedException();
+      }
+    }
+
+    await strategy?.proceed(permission, PermissionStrategyStatus.deny);
+    return false;
+  }
 
   PermissionHandler _findHandler(Permission permission) {
     return _handlers.firstWhere(

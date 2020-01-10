@@ -5,30 +5,36 @@ import 'package:flutter_template/domain/debug_options.dart';
 import 'package:flutter_template/ui/app/app_wm.dart';
 import 'package:flutter_template/ui/app/di/app.dart';
 import 'package:flutter_template/ui/res/styles.dart';
-import 'package:flutter_template/ui/screen/phone_input/phone_route.dart';
+import 'package:flutter_template/ui/screen/splash_screen/splash_route.dart';
+import 'package:flutter_template/ui/screen/welcome_screen/welcome_route.dart';
 import 'package:flutter_template/util/error_wiget.dart' as error_widget;
+import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:push/push.dart';
 
 // todo оставить здесь только необходимые маршруты
 class Router {
-  static const String ROOT = "/";
+  static const String root = "/";
+  static const String splashScreen = "/splash";
 
   static final Map<String, Route Function(dynamic data)> routes = {
-    Router.ROOT: (data) => PhoneInputRoute(),
+    Router.root: (data) => WelcomeScreenRoute(),
+    Router.splashScreen: (data) => SplashScreenRoute(),
   };
 }
 
 /// Виджет приложения
-class App extends StatefulWidget {
-  @override
-  State createState() => _AppState();
+class App extends MwwmWidget<AppComponent> {
+  App([
+    WidgetModelBuilder widgetModelBuilder = createAppWidgetModel,
+  ]) : super(
+    dependenciesBuilder: (context) => AppComponent(context),
+    widgetStateBuilder: () => _AppState(),
+    widgetModelBuilder: widgetModelBuilder,
+  );
 }
 
-class _AppState extends WidgetState<App, AppWidgetModel, AppComponent> {
-  GlobalKey<NavigatorState> navigatorKey = GlobalKey();
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-
+class _AppState extends WidgetState<AppWidgetModel> {
   @override
   void initState() {
     super.initState();
@@ -41,9 +47,9 @@ class _AppState extends WidgetState<App, AppWidgetModel, AppComponent> {
     super.dispose();
   }
 
-  Widget buildState(BuildContext context) {
+  Widget build(BuildContext context) {
     return MaterialApp(
-      navigatorKey: navigatorKey,
+      navigatorKey: Injector.of<AppComponent>(context).component.navigator,
       builder: (BuildContext context, Widget widget) {
         ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
           return error_widget.ErrorWidget(
@@ -67,37 +73,10 @@ class _AppState extends WidgetState<App, AppWidgetModel, AppComponent> {
       checkerboardOffscreenLayers: getDebugConfig().checkerboardOffscreenLayers,
       showSemanticsDebugger: getDebugConfig().showSemanticsDebugger,
       debugShowCheckedModeBanner: getDebugConfig().debugShowCheckedModeBanner,
-      home: Scaffold(
-        key: scaffoldKey,
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Icon(
-                Icons.error_outline,
-                size: 150,
-                color: Colors.indigo,
-              ),
-              Text(
-                'Add Logo Here', //todo change logo
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.indigo,
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+      initialRoute: Router.splashScreen,
       onGenerateRoute: (RouteSettings rs) =>
           Router.routes[rs.name](rs.arguments),
     );
-  }
-
-  @override
-  AppComponent getComponent(BuildContext context) {
-    return AppComponent(navigatorKey, scaffoldKey);
   }
 
   void _setStateOnChangeConfig() {
