@@ -16,7 +16,7 @@ import 'package:counter/ui/screen/counter/counter_wm.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 
-/// Widget для экрана счетчика
+/// Widget counter screen
 class CounterScreen extends CoreMwwmWidget {
   CounterScreen()
       : super(
