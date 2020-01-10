@@ -15,7 +15,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:relation/src/relation/state/entity_state.dart';
 
+typedef ErrorWidgetBuilder = Widget Function(dynamic error);
 typedef DataWidgetBuilder<T> = Widget Function(BuildContext, T data);
+typedef DataWidgetErrorBuilder<T> = Widget Function(
+    BuildContext, T data, dynamic error);
 
 /// Reactive widget for [EntityStreamedState]
 ///
@@ -31,7 +34,7 @@ typedef DataWidgetBuilder<T> = Widget Function(BuildContext, T data);
 ///      streamedState: wm.dataState,
 ///      child: (data) => DataWidget(data),
 ///      loadingChild: LoadingWidget(),
-///      errorChild: ErrorPlaceholder(),
+///      errorChild: (error) => ErrorPlaceholder(error),
 ///    );
 ///  ```
 class EntityStateBuilder<T> extends StatelessWidget {
@@ -39,9 +42,9 @@ class EntityStateBuilder<T> extends StatelessWidget {
 
   final DataWidgetBuilder<T> child;
   final DataWidgetBuilder<T> loadingBuilder;
-  final DataWidgetBuilder<T> errorBuilder;
+  final DataWidgetErrorBuilder<T> errorBuilder;
   final Widget loadingChild;
-  final Widget errorChild;
+  final ErrorWidgetBuilder errorChild;
 
   const EntityStateBuilder({
     Key key,
@@ -50,9 +53,8 @@ class EntityStateBuilder<T> extends StatelessWidget {
     this.loadingBuilder,
     this.errorBuilder,
     Widget loadingChild,
-    Widget errorChild,
+    this.errorChild,
   })  : loadingChild = loadingChild ?? const SizedBox(),
-        errorChild = errorChild ?? const SizedBox(),
         assert(streamedState != null),
         assert(child != null),
         super(key: key);
@@ -72,15 +74,15 @@ class EntityStateBuilder<T> extends StatelessWidget {
           }
         } else if (streamData.hasError) {
           if (streamData.data != null && errorBuilder != null) {
-            return errorBuilder(context, streamData.data);
+            return errorBuilder(context, streamData.data, streamData.error);
           } else {
-            return errorChild;
+            return errorChild(streamData.error) ?? const SizedBox();
           }
         } else if (streamData.data != null) {
           return child(context, streamData.data);
         }
 
-        return errorChild;
+        return errorChild(streamData.error) ?? const SizedBox();
       },
     );
   }
