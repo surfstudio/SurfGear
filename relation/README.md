@@ -10,9 +10,9 @@ main classes:
 1. [StreamedState](/lib/src/relation/state/streamed_state.dart)
 1. [EntityStreamedState](/lib/src/relation/state/entity_state.dart)
 
-#Action
+# Action
 
-####Action
+#### Action
 
 It's wrapper over an action on screen.
 It may be a tap on button, text changes, focus changes and so on.
@@ -29,7 +29,7 @@ It may be a tap on button, text changes, focus changes and so on.
  
 # State
 
-####StreamedState
+#### StreamedState
 
 A state of some type wrapped in a stream
 dictates the widget's state
@@ -45,7 +45,7 @@ dictates the widget's state
    );
 ```
  
-####EntityStreamedState
+#### EntityStreamedState
 
 A state that have download/error/content status
 
