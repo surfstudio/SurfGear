@@ -16,6 +16,7 @@ import 'package:flutter/widgets.dart';
 import 'package:mwwm/mwwm.dart';
 
 typedef DataWidgetBuilder<T> = Widget Function(BuildContext, T data);
+typedef ErrorWidgetBuilder = Widget Function(BuildContext, Exception error);
 
 /// Reactive widget for [EntityStreamedState]
 ///
@@ -38,19 +39,19 @@ class EntityStateBuilder<T> extends StatelessWidget {
   final EntityStreamedState<T> streamedState;
 
   final DataWidgetBuilder<T> child;
+  final ErrorWidgetBuilder errorBuilder;
   final Widget loadingChild;
-  final Widget errorChild;
 
   const EntityStateBuilder({
     Key key,
     @required this.streamedState,
     @required this.child,
     @required this.loadingChild,
-    @required this.errorChild,
+    @required this.errorBuilder,
   })  : assert(streamedState != null),
         assert(child != null),
         assert(loadingChild != null),
-        assert(errorChild != null),
+        assert(errorBuilder != null),
         super(key: key);
 
   @override
@@ -65,7 +66,7 @@ class EntityStateBuilder<T> extends StatelessWidget {
         }
 
         if (streamData.hasError) {
-          return errorChild;
+          return errorBuilder(context, streamData.error);
         }
 
         return child(context, streamData.data);

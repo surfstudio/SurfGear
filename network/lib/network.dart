@@ -15,7 +15,8 @@
 library network;
 
 ///base
-export 'package:network/src/base/config.dart';
+export 'package:network/src/base/config/config.dart';
+export 'package:network/src/base/config/log_config.dart';
 export 'package:network/src/base/error/http_codes.dart';
 export 'package:network/src/base/error/http_exceptions.dart';
 export 'package:network/src/base/headers.dart';
@@ -24,8 +25,13 @@ export 'package:network/src/base/response.dart';
 export 'package:network/src/base/status_mapper.dart';
 
 ///implementations
+
+///default
 export 'package:network/src/impl/default/default_http.dart';
+
+///dio
 export 'package:network/src/impl/dio/dio_http.dart';
+export 'package:network/src/impl/dio/interceptor/dio_interceptor.dart';
 
 ///rx support
 export 'package:network/src/rx/rx_http.dart';

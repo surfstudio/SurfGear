@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/widgets.dart';
 import 'package:injector/injector.dart';
 import 'package:mwwm/src/widget_model.dart';
 

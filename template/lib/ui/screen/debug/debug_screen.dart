@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_template/domain/debug_options.dart';
 import 'package:flutter_template/interactor/common/urls.dart';
-import 'package:flutter_template/ui/app/di/app.dart';
 import 'package:flutter_template/ui/res/text_styles.dart';
 import 'package:flutter_template/ui/screen/debug/debug_wm.dart';
 import 'package:flutter_template/ui/screen/debug/di/debug_screen_component.dart';
@@ -14,28 +13,21 @@ const String prodServer = 'Продуктовый';
 const String canSwitch = ' переключить на ';
 
 /// Экран <Debug>
-class DebugScreen extends StatefulWidget {
-  @override
-  _DebugScreenState createState() => _DebugScreenState();
+class DebugScreen extends MwwmWidget<DebugScreenComponent> {
+  DebugScreen([
+    WidgetModelBuilder widgetModelBuilder = createDebugWidgetModel,
+  ]) : super(
+          dependenciesBuilder: (context) => DebugScreenComponent(context),
+          widgetStateBuilder: () => _DebugScreenState(),
+          widgetModelBuilder: widgetModelBuilder,
+        );
 }
 
-class _DebugScreenState
-    extends WidgetState<DebugScreen, DebugWidgetModel, DebugScreenComponent> {
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-
+class _DebugScreenState extends WidgetState<DebugWidgetModel> {
   @override
-  DebugScreenComponent getComponent(BuildContext context) {
-    return DebugScreenComponent(
-      Injector.of<AppComponent>(context).component,
-      _scaffoldKey,
-      Navigator.of(context),
-    );
-  }
-
-  @override
-  Widget buildState(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
+      key: Injector.of<DebugScreenComponent>(context).component.scaffoldKey,
       appBar: AppBar(
           title: Text(
             "Экран отладки",

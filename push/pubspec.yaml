@@ -14,23 +14,26 @@ dependencies:
   surf_util:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-25
+      ref: project-ROS-26
       path: surf_util
 
   logger:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-25
+      ref: project-ROS-26
       path: logger
 
   flutter_local_notifications:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-25
+      ref: project-ROS-26
       path: flutter_local_notifications
 
   #rx
   rxdart: ^0.22.0
+
+  #notifications
+  flutter_local_notifications: 0.8.4+3
 
 dev_dependencies:
   flutter_test:
@@ -43,7 +46,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
 # To add assets to your package, add an assets section, like this:
 # assets:
 #  - images/a_dot_burr.jpeg
