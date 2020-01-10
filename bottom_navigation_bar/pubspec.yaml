@@ -13,7 +13,7 @@ dependencies:
   tabnavigator:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-RIG-1
+      ref: project-RIG-2
       path: tabnavigator
 
   # testing mock

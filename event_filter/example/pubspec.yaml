@@ -19,12 +19,12 @@ dependencies:
   injector:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-RIG-1
+      ref: project-RIG-2
       path: injector
   mwwm:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-RIG-1
+      ref: project-RIG-2
       path: mwwm
 
   event_filter:
