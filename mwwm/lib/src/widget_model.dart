@@ -28,7 +28,7 @@ abstract class WidgetModel {
   CompositeSubscription _compositeSubscription = CompositeSubscription();
   PublishSubject<ExceptionWrapper> _errorSubject = PublishSubject();
 
-  Observable<ExceptionWrapper> get errorStream => _errorSubject.stream;
+  Stream<ExceptionWrapper> get errorStream => _errorSubject.stream;
 
   WidgetModel(WidgetModelDependencies baseDependencies)
       : _errorHandler = baseDependencies.errorHandler {
@@ -40,7 +40,7 @@ abstract class WidgetModel {
 
   /// subscribe for interactors
   StreamSubscription subscribe<T>(
-    Observable<T> stream,
+    Stream<T> stream,
     void Function(T t) onValue, {
     void Function(dynamic e) onError,
   }) {
@@ -54,7 +54,7 @@ abstract class WidgetModel {
 
   /// subscribe for interactors with default handle error
   StreamSubscription subscribeHandleError<T>(
-    Observable<T> stream,
+    Stream<T> stream,
     void Function(T t) onValue, {
     void Function(dynamic e) onError,
   }) {

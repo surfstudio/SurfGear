@@ -41,9 +41,9 @@ class AppWidgetModel extends WidgetModel {
     );
   }
 
-  Observable<bool> initApp() {
+  Stream<bool> initApp() {
     /// имитация задержки на инициализацию приложения
-    return Observable.just(true).delay(Duration(seconds: 2));
+    return Stream.value(true).delay(Duration(seconds: 2));
   }
 
   void _openScreen(PageRoute route) {

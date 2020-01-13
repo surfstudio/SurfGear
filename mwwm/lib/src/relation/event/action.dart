@@ -37,7 +37,7 @@ class Action<T> implements Event<T> {
   T value;
 
   @override
-  Observable<T> get stream => _actionSubject.stream;
+  Stream<T> get stream => _actionSubject.stream;
 
   Subject<T> get subject => _actionSubject;
 
@@ -49,7 +49,7 @@ class Action<T> implements Event<T> {
     value = data;
     _actionSubject.add(data);
     onChanged(value);
-    return _actionSubject.stream.first.wrapped;
+    return _actionSubject.stream.first;
   }
 
   call([T data]) => accept(data);
