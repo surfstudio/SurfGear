@@ -30,8 +30,9 @@ abstract class WidgetModel {
 
   CompositeSubscription _compositeSubscription = CompositeSubscription();
 
-  WidgetModel(WidgetModelDependencies baseDependencies, this.model)
-      : _errorHandler = baseDependencies.errorHandler;
+  WidgetModel(WidgetModelDependencies baseDependencies, [Model model])
+      : _errorHandler = baseDependencies.errorHandler,
+        model = model ?? Model([]);
 
   /// called when widget ready
   @mustCallSuper
