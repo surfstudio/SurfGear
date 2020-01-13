@@ -22,5 +22,5 @@ class NameGeneratorInteractor {
   NameGeneratorInteractor(this._repository);
 
   /// Получение параметров пользователя
-  Observable<User> getCard() => _repository.getUser();
+  Stream<User> getCard() => _repository.getUser();
 }

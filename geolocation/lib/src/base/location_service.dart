@@ -38,5 +38,5 @@ abstract class LocationService {
   Future<bool> isLocationServiceEnabled();
 
   /// Returns a stream of location information.
-  Observable<Location> observeLocation();
+  Stream<Location> observeLocation();
 }

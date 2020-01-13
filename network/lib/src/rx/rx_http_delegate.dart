@@ -29,7 +29,7 @@ class RxHttpDelegate implements RxHttp {
   RxHttpDelegate(this.http);
 
   @override
-  Observable<Response> get<T>(
+  Stream<Response> get<T>(
     String url, {
     Map<String, dynamic> query,
     Map<String, String> headers,
@@ -39,7 +39,7 @@ class RxHttpDelegate implements RxHttp {
   }
 
   @override
-  Observable<Response> post<T>(
+  Stream<Response> post<T>(
     String url, {
     Map<String, dynamic> query,
     Map<String, String> headers,
@@ -50,7 +50,7 @@ class RxHttpDelegate implements RxHttp {
   }
 
   @override
-  Observable<Response> put<T>(
+  Stream<Response> put<T>(
     String url, {
     Map<String, dynamic> query,
     Map<String, String> headers,
@@ -61,7 +61,7 @@ class RxHttpDelegate implements RxHttp {
   }
 
   @override
-  Observable<Response> delete<T>(
+  Stream<Response> delete<T>(
     String url, {
     Map<String, dynamic> query,
     Map<String, String> headers,
@@ -71,7 +71,7 @@ class RxHttpDelegate implements RxHttp {
   }
 
   @override
-  Observable<Response> head<T>(
+  Stream<Response> head<T>(
     String url,
     Map<String, dynamic> query,
     Map<String, String> headers,
@@ -81,7 +81,7 @@ class RxHttpDelegate implements RxHttp {
   }
 
   @override
-  Observable<Response> patch<T>(
+  Stream<Response> patch<T>(
     String url, {
     Map<String, dynamic> query,
     Map<String, String> headers,
@@ -92,7 +92,7 @@ class RxHttpDelegate implements RxHttp {
   }
 
   @override
-  Observable<Response> multipart<T>(
+  Stream<Response> multipart<T>(
     String url, {
     Map<String, String> headers,
     File body,
@@ -101,6 +101,6 @@ class RxHttpDelegate implements RxHttp {
     return _adapt(request);
   }
 
-  Observable _adapt(Future<Response> deleteRequest) =>
+  Stream _adapt(Future<Response> deleteRequest) =>
       _callAdapter.adapt(deleteRequest);
 }

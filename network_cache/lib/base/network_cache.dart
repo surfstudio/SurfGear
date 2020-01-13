@@ -22,7 +22,7 @@ abstract class NetworkCache {
   /// Get data from local storage or
   /// make network request and save response.
   /// Behavior may be customized with [CacheStrategy]
-  Observable<Response> hybridGet(
+  Stream<Response> hybridGet(
     String url, {
     Map<String, dynamic> query,
     Map<String, String> headers,

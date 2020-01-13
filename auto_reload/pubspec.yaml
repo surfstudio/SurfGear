@@ -8,4 +8,4 @@ environment:
 
 dependencies:
   #connection
-  connectivity: 0.4.5+3
+  connectivity: 0.4.6+2

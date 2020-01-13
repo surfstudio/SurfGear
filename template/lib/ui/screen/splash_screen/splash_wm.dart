@@ -43,7 +43,7 @@ class SplashScreenWidgetModel extends WidgetModel {
       },
     );
     subscribe(
-      Observable.just(true).delay(Duration(seconds: 5)),
+      Stream.value(true).delay(Duration(seconds: 5)),
       (_) => _debugScreenInteractor.showDebugScreenNotification(),
     );
   }
@@ -52,7 +52,7 @@ class SplashScreenWidgetModel extends WidgetModel {
     _navigator.pushReplacementNamed(routeName);
   }
 
-  Observable<bool> initApp() {
-    return Observable.just(true).delay(Duration(seconds: 2));
+  Stream<bool> initApp() {
+    return Stream.value(true).delay(Duration(seconds: 2));
   }
 }

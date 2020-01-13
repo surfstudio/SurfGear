@@ -18,21 +18,24 @@ class DioInterceptorWrapper extends DioInterceptor {
   });
 
   @override
-  void onRequest(dio.RequestOptions options) {
-    super.onRequest(options);
+  Future onRequest(dio.RequestOptions options) {
     requestCallback?.call(options);
+
+    return super.onRequest(options);
   }
 
   @override
-  void onResponse(dio.Response response) {
-    super.onResponse(response);
+  Future onResponse(dio.Response response) {
     responseCallback?.call(response);
+
+    return super.onResponse(response);
   }
 
   @override
-  void onError(dio.DioError err) {
-    super.onError(err);
+  Future onError(dio.DioError err) {
     errorCallback?.call(err);
+
+    return super.onError(err);
   }
 }
 
@@ -43,17 +46,17 @@ class DioInterceptorDecorator implements dio.Interceptor {
   DioInterceptorDecorator(this._interceptor);
 
   @override
-  void onRequest(dio.RequestOptions options) {
-    _interceptor.onRequest(options);
+  Future onRequest(dio.RequestOptions options) {
+    return _interceptor.onRequest(options);
   }
 
   @override
-  void onResponse(dio.Response response) {
-    _interceptor.onResponse(response);
+  Future onResponse(dio.Response response) {
+    return _interceptor.onResponse(response);
   }
 
   @override
-  void onError(dio.DioError err) {
-    _interceptor.onError(err);
+  Future onError(dio.DioError err) {
+    return _interceptor.onError(err);
   }
 }

@@ -16,7 +16,6 @@ import 'package:flutter/widgets.dart';
 import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm/mwwm.dart' as m;
-import 'package:rxdart/rxdart.dart';
 
 import 'di/main_screen_component.dart';
 
@@ -50,7 +49,7 @@ class MainScreenWidgetModel extends WidgetModel {
   void _listenToActions() {
     bind(nextAction, (_) {
       subscribeHandleError(
-          Observable<void>.error(Exception("Failed Increment")), (_) {});
+          Stream<void>.error(Exception("Failed Increment")), (_) {});
     });
   }
 }

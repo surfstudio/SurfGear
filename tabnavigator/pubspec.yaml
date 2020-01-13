@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  pedantic: ^1.7.0
+  pedantic: ^1.8.0+1
 
   surf_util:
     git:

@@ -51,8 +51,8 @@ class DefaultLocationService implements LocationService {
   }
 
   @override
-  Observable<Location> observeLocation() =>
-      Observable.fromFuture(_checkStatus())
+  Stream<Location> observeLocation() =>
+      Stream.fromFuture(_checkStatus())
           .asyncExpand((_) => _locationService.onLocationChanged())
           .map(_locationDataToLocation);
 
