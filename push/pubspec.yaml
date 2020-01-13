@@ -12,7 +12,10 @@ dependencies:
     sdk: flutter
 
   surf_util:
-    path: ../surf_util
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: surf_util
 
   logger:
     git:
