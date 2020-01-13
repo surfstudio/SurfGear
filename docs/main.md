@@ -19,7 +19,7 @@
     1. [Пуш-уведомления](../push/README.md)
     1. [Тестирование](common/testing.md)
 
-1. [**Слой Model**](todo)
+1. [**Слой Model**](model/model.md)
     1. [Interactor](model/interactor.md)
     1. [Проверка соединения](todo) 
     1. [Работа с файловым хранилищем](model/file_storage.md)
