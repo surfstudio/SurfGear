@@ -12,11 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:rxdart/rxdart.dart';
-
 /// An event that can take some value
 abstract class Event<T> {
-  Observable get stream;
+  Stream get stream;
 
   Future<void> accept([T data]);
 }

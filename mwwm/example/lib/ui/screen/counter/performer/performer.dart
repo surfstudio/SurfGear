@@ -1,11 +1,15 @@
 import 'package:mwwm/mwwm.dart';
 
-class Increment extends Change<int, int> {
-  Increment(int data) : super(data);
+class Increment extends Change<int> {
+  final int data;
+
+  Increment(this.data);
 }
 
-class Decrement extends Change<int, int> {
-  Decrement(int data) : super(data);
+class Decrement extends Change<int> {
+  final int data;
+
+  Decrement(this.data);
 }
 
 class Incrementor extends Broadcast<Increment, int> {
