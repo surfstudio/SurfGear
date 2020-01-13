@@ -30,9 +30,8 @@ abstract class WidgetModel {
 
   CompositeSubscription _compositeSubscription = CompositeSubscription();
 
-  WidgetModel(WidgetModelDependencies baseDependencies, [Model model])
-      : _errorHandler = baseDependencies.errorHandler,
-        model = model ?? Model([]);
+  WidgetModel(WidgetModelDependencies baseDependencies, this.model)
+      : _errorHandler = baseDependencies.errorHandler;
 
   /// called when widget ready
   @mustCallSuper
@@ -75,8 +74,8 @@ abstract class WidgetModel {
   /// Using Rx wrappers with [subscribe] method is preferable.
   void doFuture<T>(
     Future<T> future,
-    onValue(T t), {
-    onError(e),
+    void onValue(T t), {
+    void onError(e),
   }) {
     future.then(onValue).catchError((e) {
       onError?.call(e);
