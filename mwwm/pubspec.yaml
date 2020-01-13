@@ -19,12 +19,12 @@ dependencies:
       path: injector
 
   #rx
-  rxdart: 0.22.0
+  rxdart: 0.23.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  pedantic: ^1.7.0
+  pedantic: ^1.8.0+1
 
 flutter:
