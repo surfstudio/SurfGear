@@ -8,8 +8,8 @@ Eg change type of db, or orm, or library for work with db.
 
 Main classes:
 
-1. [Base manager](lib/src/manager/db_manager_base.dart)
-2. [Base holder](lib/src/holder/db_holder_base.dart)
+1. [Manager](lib/src/holder.dart)
+2. [Holder](lib/src/holder.dart)
 
 ## Manager
 
