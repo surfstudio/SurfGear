@@ -10,14 +10,14 @@ main classes:
 1. [StreamedState](/lib/src/relation/state/streamed_state.dart)
 1. [EntityStreamedState](/lib/src/relation/state/entity_state.dart)
 
-# action
+# Action
 
-[Action]
+#### Action
 
 It's wrapper over an action on screen.
 It may be a tap on button, text changes, focus changes and so on.
 
- ```
+```
    SomeWidget(
      onTap: someAction.accept,
    )
@@ -25,15 +25,16 @@ It may be a tap on button, text changes, focus changes and so on.
    ...
 
    someAction.action.listen(doSomething);
- ```
+```
  
-# state
+# State
 
-[StreamedState]
+#### StreamedState
 
 A state of some type wrapped in a stream
 dictates the widget's state
- ```
+
+```
    yourStreamedState.accept(someData);
     
    ...
@@ -42,12 +43,13 @@ dictates the widget's state
      streamedState: yourStreamedState,
      builder: (ctx, T data) => Text(data.toString()),
    );
- ```
+```
  
-[EntityStreamedState]
+#### EntityStreamedState
 
 A state that have download/error/content status
- ```
+
+```
  dataState.loading();
  try {
     var content = await someRepository.getData();
@@ -64,4 +66,4 @@ A state that have download/error/content status
       loadingChild: LoadingWidget(),
       errorChild: ErrorPlaceholder(),
     );
-  ```
+```

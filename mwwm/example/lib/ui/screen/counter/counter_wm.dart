@@ -18,7 +18,7 @@ import 'package:flutter/material.dart' show NavigatorState;
 import 'package:flutter/material.dart' as w;
 import 'package:mwwm/mwwm.dart';
 
-/// WidgetModel для экрана счетчика
+/// WidgetModel for counter screen
 class CounterWidgetModel extends WidgetModel {
   final NavigatorState navigator;
   final w.GlobalKey<w.ScaffoldState> key;

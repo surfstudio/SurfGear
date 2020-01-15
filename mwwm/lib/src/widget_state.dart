@@ -27,7 +27,7 @@ abstract class WidgetState<WM extends WidgetModel> extends State<CoreMwwmWidget>
   @protected
   WM wm;
 
-  /// Descedants must call super firstly
+  /// Descendants must call super firstly
   @mustCallSuper
   @override
   void initState() {
@@ -44,7 +44,7 @@ abstract class WidgetState<WM extends WidgetModel> extends State<CoreMwwmWidget>
     wm.onBind();
   }
 
-  /// Descedants must call super in the end
+  /// Descendants must call super in the end
   @protected
   @mustCallSuper
   void dispose() {

@@ -2,13 +2,13 @@ import 'package:mwwm/src/model/changes/changes.dart';
 import 'package:mwwm/src/model/exceptions.dart';
 import 'package:mwwm/src/model/performer/performer.dart';
 
-/// Contract between Presentation layer and Bussines logic
+/// Contract between Presentation layer and Business logic
 class Model {
   final List<Performer> performers;
 
   Model(this.performers);
 
-  /// Perform some change inside bussiness logic once
+  /// Perform some change inside business logic once
   Future<R> perform<R>(Change<R> change) {
     for (var p in performers) {
       try {

@@ -1,4 +1,3 @@
-
 import 'package:flutter/widgets.dart';
 import 'package:mwwm/src/widget_model.dart';
 import 'package:mwwm/src/wm_factory.dart';
