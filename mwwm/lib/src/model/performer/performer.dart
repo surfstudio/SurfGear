@@ -2,12 +2,15 @@ import 'dart:async';
 
 import 'package:mwwm/mwwm.dart';
 
-/// An abstract Performer interface
+/// Performer handles a specific [Change].
+/// It's a key component in the relationship between WidgetModel
+/// that requests some data, and the source of these data.
 abstract class Performer<C, R> {
   Future<R> perform(C change);
 }
 
-/// Performer for broadcasting messages while changes appears
+/// Broadcast is a [Performer] that allows listening to
+/// results of [perform].
 abstract class Broadcast<C extends Change, R> extends Performer<C, R> {
   final _controller = StreamController<R>.broadcast();
   Stream<R> get broadcast => _controller.stream;
