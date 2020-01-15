@@ -118,7 +118,7 @@ class DebugWidgetModel extends WidgetModel {
       navigator.pop();
     });
 
-    bind(urlChangeAction, (url) => urlState.accept);
+    bind(urlChangeAction, urlState.accept);
 
     bind(
         showPerformanceOverlayChangeAction,
