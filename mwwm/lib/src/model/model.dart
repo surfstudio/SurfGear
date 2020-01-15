@@ -2,7 +2,13 @@ import 'package:mwwm/src/model/changes/changes.dart';
 import 'package:mwwm/src/model/exceptions.dart';
 import 'package:mwwm/src/model/performer/performer.dart';
 
-/// Contract between Presentation layer and Business logic
+/// Model is a mediator between WidgetModel and business logic.
+/// 
+/// Model abstracts the client (WidgetModel) from the supplier (repository,
+/// service, storage, etc) and defines the contract between presentation and
+/// service layers, thus allowing to develop both independently.
+/// 
+/// Model consists of [Change] and [Performer].
 class Model {
   final List<Performer> performers;
 
