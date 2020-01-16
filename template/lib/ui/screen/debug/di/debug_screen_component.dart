@@ -16,6 +16,7 @@ class DebugScreenComponent implements Component {
   NavigatorState navigator;
   WidgetModelDependencies wmDependencies;
   DebugScreenInteractor debugScreenInteractor;
+  VoidCallback rebuildApplication;
 
   DebugScreenComponent(BuildContext context) {
     var app = Injector.of<AppComponent>(context).component;
@@ -33,5 +34,6 @@ class DebugScreenComponent implements Component {
     );
 
     debugScreenInteractor = app.debugScreenInteractor;
+    rebuildApplication = app.rebuildDependencies;
   }
 }

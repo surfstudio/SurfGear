@@ -23,9 +23,11 @@ dependencies:
       ref: dev
       path: mwwm
 
-  ## todo: заменить на другой путь когда будет в dev
   swipe_refresh:
-    path: ../swipe_refresh/
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: swipe_refresh
 
 dev_dependencies:
   flutter_test:

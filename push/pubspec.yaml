@@ -12,7 +12,10 @@ dependencies:
     sdk: flutter
 
   surf_util:
-    path: ../surf_util
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: surf_util
 
   logger:
     git:
@@ -21,7 +24,7 @@ dependencies:
       path: logger
 
   #rx
-  rxdart: ^0.22.0
+  rxdart: 0.23.1
 
   #notifications
   flutter_local_notifications: 0.8.4+3
