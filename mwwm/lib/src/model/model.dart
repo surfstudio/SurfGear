@@ -13,7 +13,8 @@ class Model {
     for (var p in performers) {
       try {
         return p.perform(change);
-      } on TypeError {
+      } on TypeError catch (e) {
+        print(e.toString());
         continue;
       } catch (e) {
         return Future.error(e);
@@ -24,10 +25,11 @@ class Model {
   }
 
   /// Listen to changes of exact type
-  Stream<R> listen<C extends Change, R>() {
+  Stream<R> listen<R, C extends Change<R>>() {
     for (var p in performers) {
       try {
-        if (p is Broadcast<C, R>) { //todo need resolver ?
+        if (p is Broadcast<R, C>) {
+          //todo need resolver ?
           return p.broadcast;
         } else {
           continue;

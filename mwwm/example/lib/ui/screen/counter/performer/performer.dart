@@ -12,7 +12,7 @@ class Decrement extends Change<int> {
   Decrement(this.data);
 }
 
-class Incrementor extends Broadcast<Increment, int> {
+class Incrementor extends Broadcast<int, Increment> {
   int c = 0;
 
   @override

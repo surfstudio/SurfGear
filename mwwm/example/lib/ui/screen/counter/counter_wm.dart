@@ -49,7 +49,7 @@ class CounterWidgetModel extends WidgetModel {
 
   void _listenToStates() {
     subscribe(
-      model.listen<Increment, int>().where((c) => c % 2 == 0).skip(1),
+      model.listen<int, Increment>().where((c) => c % 2 == 0).skip(1),
       (c) {
         navigator.push(
           w.MaterialPageRoute(

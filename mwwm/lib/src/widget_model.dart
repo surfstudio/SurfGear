@@ -75,8 +75,8 @@ abstract class WidgetModel {
   /// Using Rx wrappers with [subscribe] method is preferable.
   void doFuture<T>(
     Future<T> future,
-    onValue(T t), {
-    onError(e),
+    void onValue(T t), {
+    void onError(e),
   }) {
     future.then(onValue).catchError((e) {
       onError?.call(e);

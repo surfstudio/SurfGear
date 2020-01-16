@@ -3,6 +3,6 @@
 abstract class Change<R> {
   @override
   String toString() {
-    return this.runtimeType.toString();
+    return '${runtimeType}';
   }
 }
