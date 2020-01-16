@@ -3,11 +3,11 @@ import 'package:mwwm/src/model/exceptions.dart';
 import 'package:mwwm/src/model/performer/performer.dart';
 
 /// Model is a mediator between WidgetModel and business logic.
-/// 
+///
 /// Model abstracts the client (WidgetModel) from the supplier (repository,
 /// service, storage, etc) and defines the contract between presentation and
 /// service layers, thus allowing to develop both independently.
-/// 
+///
 /// Model consists of [Change] and [Performer].
 class Model {
   final List<Performer> _performers;
@@ -19,7 +19,8 @@ class Model {
     for (var p in _performers) {
       try {
         return p.perform(change);
-      } on TypeError {
+      } on TypeError catch (e) {
+        print(e.toString());
         continue;
       } catch (e) {
         return Future.error(e);
@@ -30,10 +31,11 @@ class Model {
   }
 
   /// Listen to changes of exact type
-  Stream<R> listen<C extends Change, R>() {
+  Stream<R> listen<R, C extends Change<R>>() {
     for (var p in _performers) {
       try {
-        if (p is Broadcast<C, R>) { //todo need resolver ?
+        if (p is Broadcast<R, C>) {
+          //todo need resolver ?
           return p.broadcast;
         } else {
           continue;
