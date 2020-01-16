@@ -27,9 +27,6 @@ dependencies:
   # static analysis
   pedantic: ^1.7.0
 
-  #rx
-  rxdart: ^0.22.0
-
   #surfstudio
   bottom_navigation_bar:
     path: ..
