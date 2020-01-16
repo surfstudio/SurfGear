@@ -1,19 +1,23 @@
 # MWWM
 
-Software architectural pattern for flutter apps.
+Software architectural pattern for Flutter apps.
 
 ## Description
 
-This architecture is based on fundamental principles of Clean Architecture and is a variation *MVVM*.
+MWWM is based on principles of Clean Architecture and is a variation of *MVVM*.
 
-Can highlight that parts: *Widget*, *WidgetModel*, *Model*, *BusinessLogic*.
+It consists of three parts: *Widget*, *WidgetModel* and *Model*.
 
-**Widget** - representation layer, that contains only daclaration of UI. This layer interact with WidgetModel by way like a binding in mvvm.
+**Widget** — a representation layer that contains only UI related code. 
 
-**WidgetModel** - communication layer between representation layer and business logic. It use Model layer for handle logic.
+**WidgetModel** - handles and accumulates all data needed for Widget:
+objects of the domain layer, scroll position, text fields values, animation state, etc.
+WidgetModel uses Model for interaction with various data sources.
 
-**Model** - set of contracts (performers) that it can execute. Performer is a link of business logic part. Widget model calls model do anything by changes. Model finds performer that appropriate with this change and execute it.
-
-**BusinessLogic** - business logic layer. Pure dart code. Not depend from flutter.
+**Model** - a link between WidgetModel and "the external world": data sources,
+services or other abstraction layers. It allows to develop both separately and have
+a possibility to modify one layer with no need for changing the other. Model is
+represented by two components: **Change** (a signal to model which means *what* we want
+to achieve) and **Performer** (that knows *how* to achieve it).
 
 ![](images/mwwm.png) 
