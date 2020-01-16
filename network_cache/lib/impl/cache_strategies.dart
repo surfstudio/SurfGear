@@ -19,11 +19,11 @@ import 'package:rxdart/rxdart.dart';
 /// Emits cache response first, network response later.
 class CacheFirstStrategy implements CacheStrategy {
   @override
-  Observable<Response> resolve(
-    Observable<Response> cacheResponse,
-    Observable<Response> networkResponse,
+  Stream<Response> resolve(
+    Stream<Response> cacheResponse,
+    Stream<Response> networkResponse,
   ) =>
-      Observable.concatEager([
+      Rx.concatEager([
         cacheResponse,
         networkResponse,
       ]);
@@ -33,9 +33,9 @@ class CacheFirstStrategy implements CacheStrategy {
 /// strategy emits network response.
 class CacheIfExistsStrategy implements CacheStrategy {
   @override
-  Observable<Response> resolve(
-    Observable<Response> cacheResponse,
-    Observable<Response> networkResponse,
+  Stream<Response> resolve(
+    Stream<Response> cacheResponse,
+    Stream<Response> networkResponse,
   ) =>
       cacheResponse.switchIfEmpty(networkResponse);
 }
@@ -44,14 +44,14 @@ class CacheIfExistsStrategy implements CacheStrategy {
 /// strategy emits cache and the error.
 class CacheIfErrorStrategy implements CacheStrategy {
   @override
-  Observable<Response> resolve(
-    Observable<Response> cacheResponse,
-    Observable<Response> networkResponse,
+  Stream<Response> resolve(
+    Stream<Response> cacheResponse,
+    Stream<Response> networkResponse,
   ) =>
       networkResponse.onErrorResume(
-        (e) => Observable.concat([
+        (e) => Rx.concat([
           cacheResponse,
-          Observable.error(e),
+          Stream.error(e),
         ])
       );
 }

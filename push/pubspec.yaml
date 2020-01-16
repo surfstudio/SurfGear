@@ -18,10 +18,7 @@ dependencies:
       path: surf_util
 
   logger:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
-      path: logger
+    path: ../logger
 
   #rx
   rxdart: 0.23.1
