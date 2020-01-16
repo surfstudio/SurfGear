@@ -13,6 +13,8 @@ abstract class Performer<C, R> {
 /// results of [perform].
 abstract class Broadcast<C extends Change, R> extends Performer<C, R> {
   final _controller = StreamController<R>.broadcast();
+
+  /// Stream of results of [perform].
   Stream<R> get broadcast => _controller.stream;
 
   @override

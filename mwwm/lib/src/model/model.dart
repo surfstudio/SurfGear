@@ -10,13 +10,13 @@ import 'package:mwwm/src/model/performer/performer.dart';
 /// 
 /// Model consists of [Change] and [Performer].
 class Model {
-  final List<Performer> performers;
+  final List<Performer> _performers;
 
-  Model(this.performers);
+  Model(this._performers);
 
   /// Perform some change inside business logic once
   Future<R> perform<R>(Change<R> change) {
-    for (var p in performers) {
+    for (var p in _performers) {
       try {
         return p.perform(change);
       } on TypeError {
@@ -31,7 +31,7 @@ class Model {
 
   /// Listen to changes of exact type
   Stream<R> listen<C extends Change, R>() {
-    for (var p in performers) {
+    for (var p in _performers) {
       try {
         if (p is Broadcast<C, R>) { //todo need resolver ?
           return p.broadcast;
