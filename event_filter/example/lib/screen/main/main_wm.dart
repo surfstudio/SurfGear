@@ -12,12 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:example/screen/main/di/main_screen_component.dart';
 import 'package:flutter/widgets.dart';
 import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm/mwwm.dart' as m;
-
-import 'di/main_screen_component.dart';
 
 MainScreenWidgetModel createMainScreenWidgetModel(BuildContext context) {
   var component = Injector.of<MainScreenComponent>(context).component;

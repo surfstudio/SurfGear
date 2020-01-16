@@ -17,15 +17,9 @@ dependencies:
 
   #surfstudio
   injector:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
-      path: injector
+    path: ../../injector
   mwwm:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
-      path: mwwm
+    path: ../../mwwm
 
   event_filter:
     path: ..

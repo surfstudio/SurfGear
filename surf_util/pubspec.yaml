@@ -12,22 +12,13 @@ dependencies:
     sdk: flutter
 
   logger:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
-      path: logger
+    path: ../logger
 
   mwwm:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
-      path: mwwm
+    path: ../mwwm
 
   swipe_refresh:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
-      path: swipe_refresh
+    path: ../swipe_refresh
 
 dev_dependencies:
   flutter_test:

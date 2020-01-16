@@ -16,10 +16,7 @@ dependencies:
     path: ..
 
   mwwm:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
-      path: mwwm
+    path: ../../mwwm
 
 
 dev_dependencies:
