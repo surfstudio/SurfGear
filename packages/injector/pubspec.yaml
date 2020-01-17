@@ -51,3 +51,11 @@ flutter:
   #
   # For details regarding fonts in packages, see
   # https://flutter.io/custom-fonts/#from-packages
+
+custom:
+  is_stable: false
+  unstable_version: 0
+  is_plugin: false
+  path: injector
+  separate_repo_url:
+  hostUrl:

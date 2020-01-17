@@ -16,3 +16,11 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+custom:
+  is_stable: false
+  unstable_version: 0
+  is_plugin: false
+  path: background_worker
+  separate_repo_url:
+  hostUrl:

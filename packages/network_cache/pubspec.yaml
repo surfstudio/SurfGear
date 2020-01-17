@@ -59,3 +59,11 @@ flutter:
   #
   # For details regarding fonts in packages, see
   # https://flutter.dev/custom-fonts/#from-packages
+
+custom:
+  is_stable: false
+  unstable_version: 0
+  is_plugin: false
+  path: network_cache
+  separate_repo_url:
+  hostUrl:

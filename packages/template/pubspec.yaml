@@ -100,3 +100,11 @@ flutter:
   #  - images/a_dot_ham.jpeg
   assets:
     - res/assets/
+
+custom:
+  is_stable: false
+  unstable_version: 0
+  is_plugin: false
+  path: template
+  separate_repo_url:
+  hostUrl:

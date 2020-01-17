@@ -32,3 +32,11 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
+
+custom:
+  is_stable: false
+  unstable_version: 0
+  is_plugin: false
+  path: surf_util
+  separate_repo_url:
+  hostUrl:

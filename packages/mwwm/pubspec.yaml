@@ -28,3 +28,11 @@ dev_dependencies:
   pedantic: ^1.8.0+1
 
 flutter:
+
+custom:
+  is_stable: false
+  unstable_version: 0
+  is_plugin: false
+  path: mwwm
+  separate_repo_url:
+  hostUrl:
