@@ -5,3 +5,4 @@ environment:
 
 dependencies:
   args: ^1.5.2
+  path: any

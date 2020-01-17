@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:path/path.dart';
 
 const String templatePath = "template/pubspec.template";
 
@@ -46,7 +47,7 @@ Future _handleAllIn(String dirPath) async {
 
   var files = await directory
       .list(recursive: true)
-      .where((file) => file.path.contains("pubspec.yaml"))
+      .where((file) => file.path.contains("pubspec.yaml") && !file.path.contains("example"))
       .toList();
 
   print(dirPath);
@@ -93,7 +94,12 @@ Future _modifyFile(String filePath) async {
     throw Exception("Pubspec template file not found.");
   }
 
+  var fileDir = file.parent;
+
+  var moduleName = basename(fileDir.path);
+
   var template = await templateFile.readAsString();
+  template = template.replaceAll("\$pathToModule", moduleName);
 
   var fileSink = await file.openWrite(mode: FileMode.append);
   fileSink.writeln();
