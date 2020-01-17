@@ -4,11 +4,9 @@ import 'package:args/args.dart';
 
 const String templatePath = "template/pubspec.template";
 
-String pubspecFilePath;
-
 /// Script for generate part of pubspec file.
 /// This tool will add to the pubspec file block of custom parameters.
-/// Should be called with path to pubspec.
+/// Should be called with path to pubspec or "all" flag with directory.
 ///
 /// Exit codes:
 /// 0 - success
@@ -16,38 +14,75 @@ String pubspecFilePath;
 void main(List<String> arguments) async {
   exitCode = 0;
   final parser = ArgParser();
+  parser.addFlag("all", negatable: false);
 
-  var args = parser.parse(arguments).arguments;
+  var parsed = parser.parse(arguments);
+  var args = parsed.arguments;
+  var rest = parsed.rest;
 
-  if (args.length != 1) {
-    exitCode = 1;
-    throw Exception(
-        "Wrong count of arguments! You should pass path to pubspec file.");
-  } else {
-    pubspecFilePath = args[0];
+  var isAll = parsed["all"];
 
-    if (!(await _checkParams(pubspecFilePath))) {
-      _modifyFile(pubspecFilePath);
+  if (isAll) {
+    if (rest.length != 1) {
+      exitCode = 1;
+      throw Exception(
+          "Wrong count of arguments! You should pass path to pubspec file or --all with directory.");
     }
 
-    print("File $pubspecFilePath was updated.");
+    await _handleAllIn(rest[0]);
+  } else {
+    if (args.length != 1) {
+      exitCode = 1;
+      throw Exception(
+          "Wrong count of arguments! You should pass path to pubspec file or --all with directory.");
+    }
+
+    await _handleFile(args[0]);
   }
 }
 
-Future<bool> _checkParams(var filePath) async{
+Future _handleAllIn(String dirPath) async {
+  var directory = Directory(dirPath);
+
+  var files = await directory
+      .list(recursive: true)
+      .where((file) => file.path.contains("pubspec.yaml"))
+      .toList();
+
+  print(dirPath);
+
+  for (var file in files) {
+    _handleFile(file.path);
+  }
+}
+
+Future _handleFile(String filePath) async {
+  if (!filePath.contains("pubspec.yaml")) {
+    exitCode = 1;
+    throw Exception("File should be pubspec.yaml.");
+  }
+
+  if (!(await _checkParams(filePath))) {
+    _modifyFile(filePath);
+  }
+
+  print("File $filePath was updated.");
+}
+
+Future<bool> _checkParams(String filePath) async {
   var file = File(filePath);
 
   var isExist = await file.exists();
   if (!isExist) {
     exitCode = 1;
-    throw Exception("Pubspec file by pass $pubspecFilePath not found.");
+    throw Exception("Pubspec file by pass $filePath not found.");
   }
 
   var fileContent = await file.readAsString();
   return fileContent.contains("custom:");
 }
 
-Future _modifyFile(var filePath) async{
+Future _modifyFile(String filePath) async {
   var file = File(filePath);
 
   var templateFile = File(templatePath);
