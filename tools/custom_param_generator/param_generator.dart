@@ -7,7 +7,10 @@ const String templatePath = "template/pubspec.template";
 
 /// Script for generate part of pubspec file.
 /// This tool will add to the pubspec file block of custom parameters.
-/// Should be called with path to pubspec or "all" flag with directory.
+/// Should be called with path to pubspec or "--all" flag with directory.
+///
+/// You also can set exclude patterns for file path if use --all.
+/// Set option --exclude with values of patterns.
 ///
 /// Exit codes:
 /// 0 - success
@@ -16,6 +19,7 @@ void main(List<String> arguments) async {
   exitCode = 0;
   final parser = ArgParser();
   parser.addFlag("all", negatable: false);
+  parser.addMultiOption("exclude");
 
   var parsed = parser.parse(arguments);
   var args = parsed.arguments;
@@ -30,7 +34,9 @@ void main(List<String> arguments) async {
           "Wrong count of arguments! You should pass path to pubspec file or --all with directory.");
     }
 
-    await _handleAllIn(rest[0]);
+    var excludePatterns = parsed["exclude"];
+
+    await _handleAllIn(rest[0], excludePatterns);
   } else {
     if (args.length != 1) {
       exitCode = 1;
@@ -42,19 +48,29 @@ void main(List<String> arguments) async {
   }
 }
 
-Future _handleAllIn(String dirPath) async {
+Future _handleAllIn(String dirPath, List<String> excluded) async {
   var directory = Directory(dirPath);
 
   var files = await directory
       .list(recursive: true)
-      .where((file) => file.path.contains("pubspec.yaml") && !file.path.contains("example"))
+      .where((file) =>
+          file.path.contains("pubspec.yaml") &&
+          !_checkExclude(file.path, excluded))
       .toList();
-
-  print(dirPath);
 
   for (var file in files) {
     _handleFile(file.path);
   }
+}
+
+bool _checkExclude(String dirPath, List<String> excluded) {
+  for (var pattern in excluded) {
+    if (dirPath.contains(pattern)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 Future _handleFile(String filePath) async {
