@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/widgets.dart' hide Action;
 import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:mwwm/mwwm.dart' as m;
+import 'package:relation/relation.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'di/main_screen_component.dart';
@@ -33,7 +33,7 @@ MainScreenWidgetModel createMainScreenWidgetModel(BuildContext context) {
 class MainScreenWidgetModel extends WidgetModel {
   final NavigatorState navigator;
 
-  final m.Action nextAction = m.Action();
+  final Action nextAction = Action();
 
   MainScreenWidgetModel(
     WidgetModelDependencies dependencies,
