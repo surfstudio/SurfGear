@@ -15,8 +15,13 @@ const String customParamsName = "custom:";
 /// This tool will add to the pubspec file block of custom parameters.
 /// Should be called with path to pubspec or "--all" flag with directory.
 ///
-/// You also can set exclude patterns for file path if use --all.
-/// Set option --exclude with values of patterns.
+/// Template part of pubspec will be added for all pubspec.yaml in directory
+/// and all subdirectories, that not matched with excluded list,
+/// when script run with "-all" option.
+///
+/// You can set exclude patterns for file path if use --all by set option
+/// --exclude with values of patterns. This patterns are a part of path.
+/// If any part of path matched with pattern, path will be exclude.
 ///
 /// Exit codes:
 /// 0 - success
