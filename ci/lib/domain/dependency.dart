@@ -7,7 +7,7 @@ abstract class Dependency {
   /// зависит работа других библиотек.
   final Element element;
 
-  ///
+  /// Зависимость не из flutter-standard
   final bool thirdParty;
 
   Dependency(
@@ -16,7 +16,7 @@ abstract class Dependency {
   );
 }
 
-/// Библиотека, находящаяся в гит-репозитории.
+/// Библиотека, подключённая через гит.
 class GitDependency extends Dependency {
   /// Адрес репозитория.
   final String url;
@@ -36,7 +36,7 @@ class GitDependency extends Dependency {
   }) : super(element, thirdParty);
 }
 
-/// Библиотека, находящаяся локально.
+/// Библиотека, подключённая локально.
 class PathDependency extends Dependency {
   /// Путь до библиотеки.
   final String path;
@@ -48,7 +48,7 @@ class PathDependency extends Dependency {
   }) : super(element, thirdParty);
 }
 
-/// Библиотека, выложенная в pub.
+/// Библиотека, подключённая через pub.
 class HostedDependency extends Dependency {
   /// Версия библиотеки.
   final String version;
