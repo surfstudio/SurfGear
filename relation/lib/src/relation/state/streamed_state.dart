@@ -33,7 +33,7 @@ class StreamedState<T> implements Event<T> {
   T get value => _stateSubject.value;
 
   @override
-  Observable<T> get stream => _stateSubject.stream;
+  Stream<T> get stream => _stateSubject.stream;
 
   StreamedState([T initialData]) {
     if (initialData != null) accept(initialData);
@@ -42,7 +42,7 @@ class StreamedState<T> implements Event<T> {
   @override
   Future<void> accept([T data]) {
     _stateSubject.add(data);
-    return _stateSubject.stream.first.wrapped;
+    return _stateSubject.stream.first;
   }
 
   void dispose() {

@@ -14,7 +14,7 @@
 
 /// An event that can take some value
 abstract class Event<T> {
-  Stream get stream;
+  Stream<T> get stream;
 
   Future<void> accept([T data]);
 }

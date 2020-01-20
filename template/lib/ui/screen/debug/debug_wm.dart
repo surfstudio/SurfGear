@@ -21,19 +21,15 @@ DebugWidgetModel createDebugWidgetModel(BuildContext context) {
     component.wmDependencies,
     component.navigator,
     component.debugScreenInteractor,
+    component.rebuildApplication,
   );
 }
 
 /// [WidgetModel] для экрана <Debug>
 class DebugWidgetModel extends WidgetModel {
-  DebugWidgetModel(
-    WidgetModelDependencies dependencies,
-    this.navigator,
-    this._debugScreenInteractor,
-  ) : super(dependencies);
-
   final w.NavigatorState navigator;
   final DebugScreenInteractor _debugScreenInteractor;
+  final w.VoidCallback _rebuildApplication;
 
   final urlState = StreamedState<UrlType>();
   TextFieldStreamedState proxyValueState;
@@ -61,6 +57,13 @@ class DebugWidgetModel extends WidgetModel {
   Config get config => Environment.instance().config;
 
   set config(Config newConfig) => Environment.instance().config = newConfig;
+
+  DebugWidgetModel(
+    WidgetModelDependencies dependencies,
+    this.navigator,
+    this._debugScreenInteractor,
+    this._rebuildApplication,
+  ) : super(dependencies);
 
   @override
   void onLoad() {
@@ -115,7 +118,7 @@ class DebugWidgetModel extends WidgetModel {
       navigator.pop();
     });
 
-    bind(urlChangeAction, (url) => urlState.accept);
+    bind(urlChangeAction, urlState.accept);
 
     bind(
         showPerformanceOverlayChangeAction,
@@ -161,6 +164,9 @@ class DebugWidgetModel extends WidgetModel {
 
   void _refreshApp(Config newConfig) {
     config = newConfig;
+
+    _rebuildApplication();
+
     navigator.pushAndRemoveUntil(WelcomeScreenRoute(), (_) => false);
   }
 

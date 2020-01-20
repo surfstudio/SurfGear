@@ -24,9 +24,12 @@ class NotificationController {
         InitializationSettings(
           AndroidInitializationSettings(androidDefaultIcon),
           IOSInitializationSettings(
+              requestAlertPermission: false,
+              requestBadgePermission: false,
+              requestSoundPermission: false,
               onDidReceiveLocalNotification: (id, title, body, payload) async {
-            Logger.d("handle notification% $id , $title, $body, $payload");
-          }),
+                Logger.d("handle notification% $id , $title, $body, $payload");
+              }),
         ),
         onSelectNotification: _internalOnSelectNotification,
       );
