@@ -3,7 +3,13 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:path/path.dart';
 
-const String templatePath = "template/pubspec.template";
+const String templatePath = "template/custom_fields.template";
+const String pubspecFileName = "pubspec.yaml";
+
+const String optionAll = "all";
+const String optionExclude = "exclude";
+
+const String customParamsName = "custom:";
 
 /// Script for generate part of pubspec file.
 /// This tool will add to the pubspec file block of custom parameters.
@@ -18,14 +24,14 @@ const String templatePath = "template/pubspec.template";
 void main(List<String> arguments) async {
   exitCode = 0;
   final parser = ArgParser();
-  parser.addFlag("all", negatable: false);
-  parser.addMultiOption("exclude");
+  parser.addFlag(optionAll, negatable: false);
+  parser.addMultiOption(optionExclude);
 
   var parsed = parser.parse(arguments);
   var args = parsed.arguments;
   var rest = parsed.rest;
 
-  var isAll = parsed["all"];
+  var isAll = parsed[optionAll];
 
   if (isAll) {
     if (rest.length != 1) {
@@ -34,7 +40,7 @@ void main(List<String> arguments) async {
           "Wrong count of arguments! You should pass path to pubspec file or --all with directory.");
     }
 
-    var excludePatterns = parsed["exclude"];
+    var excludePatterns = parsed[optionExclude];
 
     await _handleAllIn(rest[0], excludePatterns);
   } else {
@@ -48,13 +54,15 @@ void main(List<String> arguments) async {
   }
 }
 
-Future _handleAllIn(String dirPath, List<String> excluded) async {
+/// Add to all files custom template in this directory and subdirectories,
+/// exclude matched by excluded patterns list.
+Future<void> _handleAllIn(String dirPath, List<String> excluded) async {
   var directory = Directory(dirPath);
 
   var files = await directory
       .list(recursive: true)
       .where((file) =>
-          file.path.contains("pubspec.yaml") &&
+          file.path.contains(pubspecFileName) &&
           !_checkExclude(file.path, excluded))
       .toList();
 
@@ -73,13 +81,15 @@ bool _checkExclude(String dirPath, List<String> excluded) {
   return false;
 }
 
-Future _handleFile(String filePath) async {
-  if (!filePath.contains("pubspec.yaml")) {
+/// Add to file custom template
+Future<void> _handleFile(String filePath) async {
+  if (!filePath.contains(pubspecFileName)) {
     exitCode = 1;
     throw Exception("File should be pubspec.yaml.");
   }
 
-  if (!(await _checkParams(filePath))) {
+  var alreadyHasParams = await _checkParams(filePath);
+  if (!alreadyHasParams) {
     _modifyFile(filePath);
   }
 
@@ -96,10 +106,10 @@ Future<bool> _checkParams(String filePath) async {
   }
 
   var fileContent = await file.readAsString();
-  return fileContent.contains("custom:");
+  return fileContent.contains(customParamsName);
 }
 
-Future _modifyFile(String filePath) async {
+Future<void> _modifyFile(String filePath) async {
   var file = File(filePath);
 
   var templateFile = File(templatePath);
