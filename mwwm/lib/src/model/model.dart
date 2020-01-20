@@ -2,15 +2,21 @@ import 'package:mwwm/src/model/changes/changes.dart';
 import 'package:mwwm/src/model/exceptions.dart';
 import 'package:mwwm/src/model/performer/performer.dart';
 
-/// Contract between Presentation layer and Business logic
+/// Model is a mediator between WidgetModel and business logic.
+///
+/// Model abstracts the client (WidgetModel) from the supplier (repository,
+/// service, storage, etc) and defines the contract between presentation and
+/// service layers, thus allowing to develop both independently.
+///
+/// Model consists of [Change] and [Performer].
 class Model {
-  final List<Performer> performers;
+  final List<Performer> _performers;
 
-  Model(this.performers);
+  Model(this._performers);
 
   /// Perform some change inside business logic once
   Future<R> perform<R>(Change<R> change) {
-    for (var p in performers) {
+    for (var p in _performers) {
       try {
         return p.perform(change);
       } on TypeError catch (e) {
@@ -26,7 +32,7 @@ class Model {
 
   /// Listen to changes of exact type
   Stream<R> listen<R, C extends Change<R>>() {
-    for (var p in performers) {
+    for (var p in _performers) {
       try {
         if (p is Broadcast<R, C>) {
           //todo need resolver ?

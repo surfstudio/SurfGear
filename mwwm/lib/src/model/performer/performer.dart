@@ -2,13 +2,14 @@ import 'dart:async';
 
 import 'package:mwwm/mwwm.dart';
 
-/// An abstract Performer interface
+/// Performer handles a specific [Change].
+/// It's a key component in the relationship between WidgetModel
+/// that requests some data, and the source of these data.
 abstract class Performer<R, C extends Change<R>> {
   Performer();
 
   factory Performer.from(FunctionalPerformer<R, C> _performerFunc) =>
       _Performer(_performerFunc);
-
 
   Future<R> perform(C change);
 }
@@ -26,9 +27,12 @@ class _Performer<R, C extends Change<R>> extends Performer<R, C> {
   }
 }
 
-/// Performer for broadcasting messages while changes appears
+/// Broadcast is a [Performer] that allows listening to
+/// results of [perform].
 abstract class Broadcast<R, C extends Change<R>> extends Performer<R, C> {
   final _controller = StreamController<R>.broadcast();
+
+  /// Stream of results of [perform].
   Stream<R> get broadcast => _controller.stream;
 
   @override
