@@ -16,4 +16,4 @@ Can highlight that parts: *Widget*, *WidgetModel*, *Model*, *BusinessLogic*.
 
 **BusinessLogic** - business logic layer. Pure dart code. Not depend from flutter.
 
-![](images/mwwm.png) 
+![](doc/images/mwwm.png) 
