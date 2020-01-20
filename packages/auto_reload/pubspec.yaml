@@ -9,3 +9,11 @@ environment:
 dependencies:
   #connection
   connectivity: 0.4.5+3
+
+custom:
+  is_stable: false
+  unstable_version: 0
+  is_plugin: false
+  path: auto_reload
+  separate_repo_url:
+  hostUrl:

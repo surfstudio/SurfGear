@@ -24,3 +24,10 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
+custom:
+  is_stable: false
+  unstable_version: 0
+  is_plugin: false
+  path: bottom_navigation_bar
+  separate_repo_url:
+  hostUrl:
