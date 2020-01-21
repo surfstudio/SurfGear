@@ -6,19 +6,20 @@ import 'package:pubspec_parse/pubspec_parse.dart' as lib;
 import 'package:yaml/yaml.dart';
 
 const pubspecFilename = 'pubspec.yaml';
+String getModulesNotFoundMsg(String dirPath) =>
+    'Не найдены модули по заданному пути: $dirPath. Необходимо передать путь к папке, в которой находятся пакеты dart.';
 
 /// Создание [Element] для каждого модуля, расположенного
 /// в `dirPath`. Информация о библиотеке извлекается из pubspec.yaml.
 List<Element> parsePubspecs(String dirPath) {
   final directory = Directory(dirPath);
-  final libDirectories = directory.listSync().whereType<Directory>().toList();
 
-  if (libDirectories.isEmpty) {
-    throw Exception(
-        'Не найдены модули по заданному пути: $dirPath. Необходимо передать путь к папке, в которой находятся пакеты dart.');
-  }
+  final libDirectories = directory.listSync().whereType<Directory>().toList();
+  if (libDirectories.isEmpty) throw Exception(getModulesNotFoundMsg(dirPath));
 
   final pubspecs = _findAndReadPubspecs(libDirectories);
+  if (pubspecs.isEmpty) throw Exception(getModulesNotFoundMsg(dirPath));
+
   return _parseElements(pubspecs);
 }
 
