@@ -13,7 +13,7 @@ dependencies:
   tabnavigator:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-26
+      ref: project-ROS-27
       path: tabnavigator
 
   # testing mock
