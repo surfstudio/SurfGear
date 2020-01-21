@@ -4,7 +4,13 @@ import 'package:shell/shell.dart';
 
 /// Глобальный аллиас для запуска команд.
 Future<ProcessResult> sh(String command, [List<String> arguments]) {
-  return ShellRunner.run(command, arguments);
+  var parsed = command.split(' ');
+  var cmd = parsed[0];
+  parsed.remove(cmd);
+
+  arguments = (arguments ?? <String>[])..addAll(parsed);
+
+  return ShellRunner.run(cmd, arguments);
 }
 
 /// Утилита запуска консольных команд.
