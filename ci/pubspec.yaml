@@ -6,8 +6,8 @@ description: A sample command-line application.
 environment:
   sdk: '>=2.7.0 <3.0.0'
 
-#dependencies:
-#  path: ^1.6.0
+dependencies:
+  shell: ^1.0.1
 
 dev_dependencies:
   pedantic: ^1.8.0
