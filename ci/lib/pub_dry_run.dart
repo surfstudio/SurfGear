@@ -1,25 +1,25 @@
 import 'package:ci/domain/element.dart';
-import 'package:ci/pubspec_parser.dart';
 import 'package:ci/runner/shell_runner.dart';
 
-class PubDryRun {
-  /// Список библиотек
-  final String dirPath;
+class DryRunTask {
+  List<String> message = [];
 
-  /// Список представлений [Element]
-  List<Element> listElement = [];
-
-  PubDryRun(this.dirPath) {
-    listElement.addAll(parsePubspecs(dirPath));
-
-    for (var element in listElement) {
+  // ignore: missing_return
+  Future<bool> run(List<Element> elements) async {
+    for (var element in elements) {
       if (element.hosted) {
-        sh(element.path, 'pub publish --dry-run');
+        var s = await sh('pub publish --dry-run', path: element.path);
+        message.add(element.name.toString() + ' ' + s.stderr.toString());
       }
     }
+
+    //        test.then((onValue) {
+//          message.add(onValue.stderr);
+//        });
+//    if (message.isNotEmpty) {
+//      for (var error in message) {
+//        ModuleNotReadyForOpenSours(error);
+//      }
+//    }
   }
 }
-
-//bool check(Element element) {
-//  return true;
-//}

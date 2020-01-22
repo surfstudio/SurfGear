@@ -9,3 +9,9 @@ class StableModulesWasModifiedException implements Exception {
 
   StableModulesWasModifiedException(this.message);
 }
+
+class ModuleNotReadyForOpenSours implements Exception {
+  final String message;
+
+  ModuleNotReadyForOpenSours(this.message);
+}
