@@ -1,17 +1,17 @@
-import 'package:ci/pubspec_parser.dart';
+import 'package:ci/services/pubspec_parser.dart';
 import 'package:test/test.dart';
 
 void main() {
   test('wrong path', () {
-    expect(() => parsePubspecs('.'), throwsException);
+    expect(() => PubspecParser().parsePubspecs('.'), throwsException);
   });
 
   test('correct path', () {
-    expect(() => parsePubspecs('../packages'), returnsNormally);
+    expect(() => PubspecParser().parsePubspecs('../packages'), returnsNormally);
   });
 
   test('reference equivalence', () {
-    final elements = parsePubspecs('../packages');
+    final elements = PubspecParser().parsePubspecs('../packages');
     final analytics = elements.firstWhere((e) => e.name == 'analytics');
 
     final logger = elements.firstWhere((e) => e.name == 'logger');
