@@ -10,7 +10,9 @@ dependencies:
   pubspec_parse: 0.1.5
   yaml: 2.2.0
   shell: ^1.0.1
+  meta: ^1.1.8
+  path: ^1.6.4
 
 dev_dependencies:
   pedantic: ^1.8.0
-  test: ^1.6.0
+  test: ^1.11.1
