@@ -10,7 +10,7 @@ class Element {
 
   /// Список зависимостей, необходимых для работы
   /// библиотеки.
-  final List<Dependency> dependencies;
+  List<Dependency> dependencies;
 
   /// Дополнительная информация для библиотек, выложенных
   /// в открытый доступ. Может быть null.
@@ -26,7 +26,7 @@ class Element {
   final int unstableVersion;
 
   /// Есть ли библиотека в pub.
-  final bool hosted;
+  bool get hosted => openSourceInfo != null;
 
   /// Использует ли библиотека специфичный для платформы код.
   final bool isPlugin;
@@ -37,7 +37,7 @@ class Element {
   final String path;
 
   /// Модуль был изменён в рамках пулл реквеста.
-  final bool changed;
+  bool changed;
 
   Element({
     this.name,
@@ -46,10 +46,9 @@ class Element {
     this.openSourceInfo,
     this.isStable,
     this.unstableVersion,
-    this.hosted,
     this.isPlugin,
     this.path,
-    this.changed,
+    this.changed = false,
   });
 }
 
@@ -61,5 +60,5 @@ class OpenSourceInfo {
   /// Адрес pub сервера.
   final String hostUrl;
 
-  OpenSourceInfo(this.separateRepoUrl, this.hostUrl);
+  OpenSourceInfo({this.separateRepoUrl, this.hostUrl});
 }
