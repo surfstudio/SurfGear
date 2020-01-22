@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:ci/domain/element.dart';
 import 'package:ci/helper/process_result_extension.dart';
 import 'package:ci/runner/shell_runner.dart';
-import 'package:meta/meta.dart';
 
 /// Билдер библиотек.
 class PackageBuilder {
@@ -17,11 +16,10 @@ class PackageBuilder {
   ///
   /// Возвращает true, в случае успешного билда
   Future<bool> build(Element package) async {
-    return await buildExample(package);
+    return await _buildExample(package);
   }
 
-  @visibleForTesting
-  Future<bool> buildExample(Element package) async {
+  Future<bool> _buildExample(Element package) async {
     var packageDirectory = Directory(package.path);
     var list = packageDirectory.listSync(recursive: true);
 
