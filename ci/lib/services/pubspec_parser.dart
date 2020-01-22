@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:ci/domain/dependency.dart';
 import 'package:ci/domain/element.dart';
+import 'package:ci/exceptions/exceptions.dart';
 import 'package:pubspec_parse/pubspec_parse.dart' as lib;
 import 'package:yaml/yaml.dart';
 
@@ -18,12 +19,12 @@ class PubspecParser {
 
     final libDirectories = directory.listSync().whereType<Directory>().toList();
     if (libDirectories.isEmpty) {
-      throw Exception(_getModulesNotFoundMsg(dirPath));
+      throw ModulesNotFoundException(_getModulesNotFoundMsg(dirPath));
     }
 
     final pubspecs = _findAndReadPubspecs(libDirectories);
     if (pubspecs.isEmpty) {
-      throw Exception(_getModulesNotFoundMsg(dirPath));
+      throw ModulesNotFoundException(_getModulesNotFoundMsg(dirPath));
     }
 
     return _parseElements(pubspecs);
