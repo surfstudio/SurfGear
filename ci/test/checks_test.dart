@@ -1,5 +1,5 @@
 import 'package:ci/domain/element.dart';
-import 'package:ci/stability_utils.dart';
+import 'package:ci/tasks/checks.dart';
 import 'package:test/test.dart';
 
 void main() {
