@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:ci/domain/element.dart';
-import 'package:ci/helper/process_result_extension.dart';
+import 'package:ci/utils/process_result_extension.dart';
 import 'package:ci/runner/shell_runner.dart';
 
 /// Билдер библиотек.
