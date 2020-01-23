@@ -1,9 +1,7 @@
-import 'dart:io';
-
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
-import 'package:ci/runner/shell_runner.dart';
 import 'package:ci/helper/process_result_extension.dart';
+import 'package:ci/services/pub_publish_manager.dart';
 
 /// Проверка на возможность публикации пакета  модулей openSource
 class DryRunTask {
@@ -24,7 +22,7 @@ class DryRunTask {
       List<Element> openSourceModules) async {
     final messages = [];
     for (var openSourceModule in openSourceModules) {
-      final result = await _getProcessResult(openSourceModule);
+      final result = await checkDryRun(openSourceModule);
       result.print();
       if (result.exitCode != 0) {
         messages.add(
@@ -32,11 +30,6 @@ class DryRunTask {
       }
     }
     return messages;
-  }
-
-  /// Ждём результата провеки
-  Future<ProcessResult> _getProcessResult(Element element) {
-    return sh('pub publish --dry-run', path: element.path);
   }
 
   /// Выводим список ошибок
