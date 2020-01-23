@@ -1,6 +1,7 @@
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/runner/shell_runner.dart';
+import 'package:ci/tasks/pub_dry_task.dart';
 
 /// Проверяет изменились ли модули, отмеченные как stable.
 /// Если есть изменённые — выбрасывает исключение со списком модулей.
@@ -24,4 +25,8 @@ Future<List<Element>> findChangedElements(List<Element> elements) async {
   print('Файлы, изменённые в последнем коммите:\n$diff');
 
   return elements.where((e) => diff.contains(e.path)).toList();
+}
+
+Future<bool> checkDryRunTask(List<Element> elements) async {
+  return DryRunTask(elements).run();
 }
