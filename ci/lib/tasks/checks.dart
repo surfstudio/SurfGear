@@ -27,6 +27,7 @@ Future<List<Element>> findChangedElements(List<Element> elements) async {
   return elements.where((e) => diff.contains(e.path)).toList();
 }
 
+/// Проверка на возможность публикации пакета  модулей openSource
 Future<bool> checkDryRunTask(List<Element> elements) async {
   return DryRunTask(elements).run();
 }
