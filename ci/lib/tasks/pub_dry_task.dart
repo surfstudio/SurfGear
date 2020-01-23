@@ -10,8 +10,18 @@ class DryRunTask {
   Future<void> run(List<Element> elements) async {
     final messages = [];
 
-    final openSourceModules = elements.where((element) => element.hosted).toList();
+    final openSourceModules =
+        elements.where((element) => element.hosted).toList();
 
+    messages.add(await _createMessagesException(openSourceModules));
+
+    if (messages.isNotEmpty) {
+      _printMessages(messages);
+    }
+  }
+
+  Future<List<String>> _createMessagesException(List<Element> openSourceModules) async {
+    final messages = [];
     for (var openSourceModule in openSourceModules) {
       final result = await _getProcessResult(openSourceModule);
       result.print();
@@ -20,10 +30,7 @@ class DryRunTask {
             openSourceModule.name.toString() + ' ' + result.stderr.toString());
       }
     }
-
-    if (messages.isNotEmpty) {
-      _printMessages(messages);
-    }
+    return messages;
   }
 
   /// Ждём результата провеки
