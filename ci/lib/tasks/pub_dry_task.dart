@@ -31,8 +31,7 @@ class DryRunTask extends Check {
       final result = await checkDryRun(openSourceModule);
       result.print();
       if (result.exitCode != 0) {
-        messages.add(
-            openSourceModule.name.toString() + ': ' + result.stderr.toString());
+        messages.add(getErrorElement(openSourceModule, result));
       }
     }
     return messages;
