@@ -7,8 +7,3 @@ import 'package:ci/runner/shell_runner.dart';
 Future<ProcessResult> checkDryRun(Element element) {
   return sh('pub publish --dry-run', path: element.path);
 }
-
-/// Возвращает имя [Element] и ошибку
-String getErrorElement(Element element, ProcessResult result) {
-  return element.name.toString() + ': ' + result.stderr.toString();
-}

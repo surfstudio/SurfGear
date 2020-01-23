@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/services/pub_publish_manager.dart';
@@ -40,5 +42,10 @@ class DryRunTask extends Check {
   /// Выводим список ошибок
   void _printMessages(List<String> messages) {
     throw ModuleNotReadyForOpenSours(messages.join('\n'));
+  }
+
+  /// Возвращает имя [Element] и ошибку
+  String getErrorElement(Element element, ProcessResult result) {
+    return element.name.toString() + ': ' + result.stderr.toString();
   }
 }
