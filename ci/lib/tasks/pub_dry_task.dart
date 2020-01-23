@@ -10,16 +10,17 @@ class DryRunTask {
   Future<void> run(List<Element> elements) async {
     final messages = [];
 
-    for (var element in elements) {
-      if (element.hosted) {
-        final result = await _getProcessResult(element);
-        result.print();
-        if (result.exitCode != 0) {
-          messages
-              .add(element.name.toString() + ' ' + result.stderr.toString());
-        }
+    final openSourceModules = elements.where((element) => element.hosted).toList();
+
+    for (var openSourceModule in openSourceModules) {
+      final result = await _getProcessResult(openSourceModule);
+      result.print();
+      if (result.exitCode != 0) {
+        messages.add(
+            openSourceModule.name.toString() + ' ' + result.stderr.toString());
       }
     }
+
     if (messages.isNotEmpty) {
       _printMessages(messages);
     }
