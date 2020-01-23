@@ -1,6 +1,7 @@
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/runner/shell_runner.dart';
+import 'package:ci/tasks/pub_check_release_version_task.dart';
 import 'package:ci/tasks/pub_dry_task.dart';
 
 /// Проверяет изменились ли модули, отмеченные как stable.
@@ -30,4 +31,9 @@ Future<List<Element>> findChangedElements(List<Element> elements) async {
 /// Проверка на возможность публикации пакета  модулей openSource
 Future<bool> checkDryRunTask(List<Element> elements) async {
   return DryRunTask(elements).run();
+}
+
+/// Проверка на возможность публикации пакета  модулей openSource
+Future<bool> checkReleaseVersion(List<Element> elements) async {
+  return PubCheckReleaseVersionTask(elements).run();
 }
