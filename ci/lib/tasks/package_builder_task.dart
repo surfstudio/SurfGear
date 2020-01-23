@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
+import 'package:ci/services/managers/directory_manager.dart';
 import 'package:ci/services/runner/shell_runner.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:ci/utils/process_result_extension.dart';
@@ -13,9 +14,14 @@ class PackageBuilderTask extends Action {
   static const String exampleName = 'example';
   static const String buildCmd = 'flutter build apk';
 
+  final DirectoryManager directoryManager;
+
   final Element _package;
 
-  PackageBuilderTask(this._package);
+  PackageBuilderTask(
+    this._package,
+    this.directoryManager,
+  );
 
   @override
   Future<void> run() async {
@@ -38,12 +44,14 @@ class PackageBuilderTask extends Action {
   }
 
   Future<bool> _buildExample(Element package) async {
-    var packageDirectory = Directory(package.path);
-    var list = packageDirectory.listSync(recursive: true);
+    var list = directoryManager.getEntitiesInDirectory(
+      package.path,
+      recursive: true,
+    );
 
     var example = list.firstWhere(
       (e) =>
-          FileSystemEntity.isDirectorySync(e.path) &&
+          directoryManager.isDirectory(e.path) &&
           (e.path.endsWith(exampleName) ||
               e.path.endsWith(exampleName + Platform.pathSeparator)),
       orElse: () => null,
