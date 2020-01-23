@@ -5,3 +5,6 @@ abstract class Task<R> {
 
 /// Интерфейс задачи проверки.
 abstract class Check extends Task<bool> {}
+
+/// Интерфейс задачи без возвращения ответа.
+abstract class Action extends Task<void> {}

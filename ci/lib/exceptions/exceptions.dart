@@ -9,3 +9,9 @@ class StableModulesWasModifiedException implements Exception {
 
   StableModulesWasModifiedException(this.message);
 }
+
+class PackageBuildException implements Exception {
+  final String message;
+
+  PackageBuildException(this.message);
+}
