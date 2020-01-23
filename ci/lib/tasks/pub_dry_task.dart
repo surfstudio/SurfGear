@@ -12,8 +12,7 @@ class DryRunTask {
 
     final openSourceModules =
         elements.where((element) => element.hosted).toList();
-
-    messages.add(await _createMessagesException(openSourceModules));
+    messages.addAll(await _createMessagesException(openSourceModules));
 
     if (messages.isNotEmpty) {
       _printMessages(messages);
