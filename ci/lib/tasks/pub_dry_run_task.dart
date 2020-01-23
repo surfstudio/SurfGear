@@ -6,7 +6,7 @@ import 'package:ci/services/pub_publish_manager.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:ci/utils/process_result_extension.dart';
 
-/// Проверка на возможность публикации пакета  модулей openSource
+/// Проверка на возможность публикации пакета модулей openSource
 class DryRunTask extends Check {
   final List<Element> elements;
 
@@ -33,7 +33,7 @@ class DryRunTask extends Check {
       final result = await checkDryRun(openSourceModule);
       result.print();
       if (result.exitCode != 0) {
-        messages.add(getErrorElement(openSourceModule, result));
+        messages.add(_getErrorElement(openSourceModule, result));
       }
     }
     return messages;
@@ -41,11 +41,13 @@ class DryRunTask extends Check {
 
   /// Выводим список ошибок
   void _printMessages(List<String> messages) {
-    throw ModuleNotReadyForOpenSours(messages.join('\n'));
+    throw ModuleNotReadyForOpenSours(
+        'OpenSource модули, не удовлетворяющие требованию publick:\n\t' +
+            messages.join('\n\t'));
   }
 
   /// Возвращает имя [Element] и ошибку
-  String getErrorElement(Element element, ProcessResult result) {
+  String _getErrorElement(Element element, ProcessResult result) {
     return element.name.toString() + ': ' + result.stderr.toString();
   }
 }
