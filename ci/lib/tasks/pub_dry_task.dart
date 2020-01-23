@@ -20,7 +20,9 @@ class DryRunTask {
     }
   }
 
-  Future<List<String>> _createMessagesException(List<Element> openSourceModules) async {
+  /// [Element] возвращем список ошибок
+  Future<List<String>> _createMessagesException(
+      List<Element> openSourceModules) async {
     final messages = [];
     for (var openSourceModule in openSourceModules) {
       final result = await _getProcessResult(openSourceModule);
