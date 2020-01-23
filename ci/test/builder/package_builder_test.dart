@@ -19,11 +19,9 @@ void main() {
 
       var buildTask = PackageBuilderTask(element, dm);
 
-      try {
+      expect(() async {
         await buildTask.run();
-      } catch (e) {
-        fail('Expect no throw, but: $e');
-      }
+      }, returnsNormally);
     },
   );
 
