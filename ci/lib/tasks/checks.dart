@@ -33,7 +33,7 @@ Future<bool> checkDryRunTask(List<Element> elements) async {
   return DryRunTask(elements).run();
 }
 
-/// Проверка на возможность публикации пакета  модулей openSource
-Future<bool> checkReleaseVersion(List<Element> elements) async {
+/// Проверка на наличие версии в Release Notes
+Future<bool> checkReleaseVersion(List<Element> elements) {
   return PubCheckReleaseVersionTask(elements).run();
 }

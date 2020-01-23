@@ -17,3 +17,9 @@ class ModuleNotReadyForOpenSours implements Exception {
 
   ModuleNotReadyForOpenSours(this.message);
 }
+
+class ModuleNotReadyReleaseVersion implements Exception {
+  final String message;
+
+  ModuleNotReadyReleaseVersion(this.message);
+}
