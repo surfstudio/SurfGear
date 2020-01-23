@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:ci/domain/element.dart';
-import 'package:ci/runner/shell_runner.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:test/test.dart';
 
