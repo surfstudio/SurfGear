@@ -1,20 +1,26 @@
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
-import 'package:ci/helper/process_result_extension.dart';
 import 'package:ci/services/pub_publish_manager.dart';
+import 'package:ci/tasks/core/task.dart';
+import 'package:ci/utils/process_result_extension.dart';
 
 /// Проверка на возможность публикации пакета  модулей openSource
-class DryRunTask {
-  Future<void> run(List<Element> elements) async {
-    final messages = [];
+class DryRunTask extends Check {
+  final List<Element> elements;
 
+  DryRunTask(this.elements) : assert(elements != null);
+
+  @override
+  Future<bool> run() async {
+    final messages = [];
     final openSourceModules =
         elements.where((element) => element.hosted).toList();
     messages.addAll(await _createMessagesException(openSourceModules));
-
     if (messages.isNotEmpty) {
       _printMessages(messages);
+      return false;
     }
+    return true;
   }
 
   /// [Element] возвращем список ошибок
@@ -26,7 +32,7 @@ class DryRunTask {
       result.print();
       if (result.exitCode != 0) {
         messages.add(
-            openSourceModule.name.toString() + ' ' + result.stderr.toString());
+            openSourceModule.name.toString() + ': ' + result.stderr.toString());
       }
     }
     return messages;
