@@ -12,11 +12,14 @@ dependencies:
     sdk: flutter
 
   #inner packages
+  #todo uncomment after merge PR in dev
+#  injector:
+#    git:
+#      url: https://bitbucket.org/surfstudio/flutter-standard.git
+#      ref: dev
+#      path: injector
   injector:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
-      path: injector
+    path: ../injector
 
   #todo uncomment after merge PR in dev
   #  relation:

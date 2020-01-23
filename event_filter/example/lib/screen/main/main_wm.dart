@@ -15,8 +15,8 @@
 import 'package:example/screen/main/di/main_screen_component.dart';
 import 'package:flutter/widgets.dart';
 import 'package:injector/injector.dart';
-import 'package:mwwm/mwwm.dart';
-import 'package:mwwm/mwwm.dart' as m;
+import 'package:surf_mwwm/surf_mwwm.dart';
+import 'package:surf_mwwm/surf_mwwm.dart' as m;
 
 MainScreenWidgetModel createMainScreenWidgetModel(BuildContext context) {
   var component = Injector.of<MainScreenComponent>(context).component;

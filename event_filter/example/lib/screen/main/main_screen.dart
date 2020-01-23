@@ -16,7 +16,7 @@ import 'package:example/screen/main/di/main_screen_component.dart';
 import 'package:example/screen/main/main_wm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mwwm/mwwm.dart';
+import 'package:surf_mwwm/surf_mwwm.dart';
 
 /// Main screen
 class MainScreen extends MwwmWidget<MainScreenComponent> {
