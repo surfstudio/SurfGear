@@ -19,9 +19,9 @@ void main() {
 
       var buildTask = PackageBuilderTask(element, dm);
 
-      expect(() async {
+      expectNoThrow(() async {
         await buildTask.run();
-      }, returnsNormally);
+      });
     },
   );
 
@@ -37,7 +37,7 @@ void main() {
 
       var shell = ShellMock();
       when(shell.run('flutter', ['build', 'apk'])).thenAnswer(
-            (_) => Future.value(
+        (_) => Future.value(
           ProcessResult(0, 0, '', ''),
         ),
       );
@@ -54,16 +54,16 @@ void main() {
 
   test(
     'build module shuld not throw exception if build success',
-        () async {
-      expect(() async {
+    () async {
+      expectNoThrow(() async {
         await _testBuild(true);
-      }, returnsNormally);
+      });
     },
   );
 
   test(
     'build module shuld not throw PackageBuildException if build fail',
-        () async {
+    () async {
       expect(() async {
         await _testBuild(false);
       }, throwsA(TypeMatcher<PackageBuildException>()));
@@ -81,7 +81,7 @@ void _testBuild(bool success) async {
 
   var shell = ShellMock();
   when(shell.run('flutter', ['build', 'apk'])).thenAnswer(
-        (_) => Future.value(
+    (_) => Future.value(
       ProcessResult(0, success ? 0 : 1, '', ''),
     ),
   );

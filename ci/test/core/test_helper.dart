@@ -4,6 +4,17 @@ import 'package:ci/services/runner/shell_runner.dart';
 import 'package:meta/meta.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shell/shell.dart';
+import 'package:test/test.dart';
+
+/// Common
+
+/// Проверяем что выполнение не выбросит исключения.
+void expectNoThrow(
+  actual, {
+  String reason,
+  skip,
+}) =>
+    expect(actual, returnsNormally, reason: reason, skip: skip);
 
 /// Shell part
 
