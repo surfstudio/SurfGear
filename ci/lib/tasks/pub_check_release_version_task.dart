@@ -5,8 +5,9 @@ import 'package:ci/tasks/core/task.dart';
 
 /// Проверяем, совпадает ли версия [Element] c прописанной CHANGELOG.md
 class PubCheckReleaseVersionTask extends Check {
-  final List<Element> elements;
+  static const String _checkVersion ='CHANGELOG.md doesn\'t mention current version';
 
+  final List<Element> elements;
   PubCheckReleaseVersionTask(this.elements) : assert(elements != null);
 
   @override
@@ -16,7 +17,7 @@ class PubCheckReleaseVersionTask extends Check {
       var processResult = await runDryPublish(element);
       if (processResult
           .toString()
-          .contains('CHANGELOG.md doesn\'t mention current version')) {
+          .contains(_checkVersion)) {
         resultsLog.add(element.name.toString());
       }
     }
