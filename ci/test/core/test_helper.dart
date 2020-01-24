@@ -1,4 +1,4 @@
-import 'package:ci/services/managers/directory_manager.dart';
+import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/shell_manager.dart';
 import 'package:ci/services/runner/shell_runner.dart';
 import 'package:mockito/mockito.dart';
@@ -28,7 +28,7 @@ ShellMock substituteShell({ShellManager manager}) {
 
 /// Directory Manager
 
-class DirectoryManagerMock extends Mock implements DirectoryManager {}
+class DirectoryManagerMock extends Mock implements FileSystemManager {}
 
 /// Shell Manager
 

@@ -1,6 +1,6 @@
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
-import 'package:ci/services/managers/directory_manager.dart';
+import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/tasks/package_builder_task.dart';
 
 /// Набор глобальных точек входа для выполнения задач
@@ -11,7 +11,7 @@ Future<void> build(List<Element> elements) async {
 
   var failList = <Element>[];
   for (var element in elements) {
-    var buildTask = PackageBuilderTask(element, DirectoryManager());
+    var buildTask = PackageBuilderTask(element, FileSystemManager());
     try {
       await buildTask.run();
     } on PackageBuildException {
