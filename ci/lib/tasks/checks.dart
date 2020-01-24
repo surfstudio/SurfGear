@@ -29,5 +29,5 @@ Future<List<Element>> findChangedElements(List<Element> elements) async {
 
 /// Проверка на возможность публикации пакета  модулей openSource
 Future<bool> checkDryRunTask(List<Element> elements) {
-  return DryRunTask(elements).run();
+  return PubDryRunTask(elements).run();
 }

@@ -7,17 +7,23 @@ import 'package:ci/tasks/core/task.dart';
 import 'package:ci/utils/process_result_extension.dart';
 
 /// Проверка на возможность публикации пакета модулей openSource
-class DryRunTask extends Check {
+class PubDryRunTask extends Check {
   final List<Element> elements;
 
-  DryRunTask(this.elements) : assert(elements != null);
+  PubDryRunTask(this.elements);
 
   @override
   Future<bool> run() async {
     final messages = [];
-    final openSourceModules =
-        elements.where((element) => element.hosted).toList();
-    messages.addAll(await _createMessagesException(openSourceModules));
+    final openSourceModules = elements.where((element) => element.hosted).toList();
+    for (var openSourceModule in openSourceModules) {
+      final result = await _getProcessResult(openSourceModule);
+      if (result.exitCode != 0) {
+        messages.add(
+          _getErrorElement(openSourceModule, result),
+        );
+      }
+    }
     if (messages.isNotEmpty) {
       _printMessages(messages);
       return false;
@@ -25,29 +31,21 @@ class DryRunTask extends Check {
     return true;
   }
 
-  /// [Element] возвращем список ошибок
-  Future<List<String>> _createMessagesException(
-      List<Element> openSourceModules) async {
-    final messages = [];
-    for (var openSourceModule in openSourceModules) {
-      final result = await checkDryRun(openSourceModule);
-      result.print();
-      if (result.exitCode != 0) {
-        messages.add(_getErrorElement(openSourceModule, result));
-      }
-    }
-    return messages;
-  }
-
-  /// Выводим список ошибок
-  void _printMessages(List<String> messages) {
-    throw ModuleNotReadyForOpenSours(
-        'OpenSource модули, не удовлетворяющие требованию publick:\n\t' +
-            messages.join('\n\t'));
+  /// Получаем [ProcessResult]  и выводим в консоль результат
+  Future<ProcessResult> _getProcessResult(Element openSourceModule) async {
+    final result = await runDryPublish(openSourceModule);
+    result.print();
+    return result;
   }
 
   /// Возвращает имя [Element] и ошибку
   String _getErrorElement(Element element, ProcessResult result) {
     return element.name.toString() + ': ' + result.stderr.toString();
+  }
+
+  /// Выводим список ошибок в консоль
+  void _printMessages(List<String> messages) {
+    throw ModuleNotReadyForOpenSours(
+        'OpenSource модули, не удовлетворяющие требованию publick:\n\t' + messages.join('\n\t'));
   }
 }

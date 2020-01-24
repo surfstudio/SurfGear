@@ -12,6 +12,7 @@ class StableModulesWasModifiedException implements Exception {
   StableModulesWasModifiedException(this.message);
 }
 
+/// Модуль OpenSource не может быть опубликован
 class ModuleNotReadyForOpenSours implements Exception {
   final String message;
 
