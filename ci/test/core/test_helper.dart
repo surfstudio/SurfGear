@@ -25,13 +25,9 @@ class ShellMock extends Mock implements Shell {}
 @visibleForTesting
 ShellMock substituteShell({ShellManager manager}) {
   var mock = ShellMock();
-  ShellRunner.instance.mockShell(mock, manager: manager);
+  ShellRunner.init(shell: mock, manager: manager);
   return mock;
 }
-
-/// Отменяет подмену шелла.
-@visibleForTesting
-void resetShellSubstitution() => ShellRunner.instance.resetMocking();
 
 /// Directory Manager
 
