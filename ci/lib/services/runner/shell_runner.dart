@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:ci/services/managers/shell_manager.dart';
-import 'package:meta/meta.dart';
 import 'package:shell/shell.dart';
 
 /// Глобальный аллиас для запуска команд.
@@ -26,40 +25,27 @@ class ShellRunner {
 
   static ShellRunner get instance => _instance ??= ShellRunner._();
 
-  final _shell = Shell();
-  Shell _testShell;
+  Shell _shell;
+  ShellManager _manager;
 
-  ShellManager _manager = ShellManager();
+  ShellRunner.init({Shell shell, ShellManager manager}) {
+    _instance ??= ShellRunner._(shell: shell, manager: manager);
+  }
 
-  Shell get shell => _testShell ?? _shell;
-
-  ShellRunner._();
+  ShellRunner._({Shell shell, ShellManager manager})
+      : _shell = shell ?? Shell(),
+        _manager = manager ?? ShellManager();
 
   /// Запускает переданную команду на выполнение.
   Future<ProcessResult> run(String command,
       {List<String> arguments, String path}) {
     arguments = arguments ?? <String>[];
 
-    var shell = path != null ? _manager.copy(this.shell) : this.shell;
+    var shell = path != null ? _manager.copy(_shell) : _shell;
     if (path != null) {
       shell.navigate(path);
     }
 
     return shell.run(command, arguments);
-  }
-
-  @visibleForTesting
-  void mockShell(Shell shell, {ShellManager manager}) {
-    _testShell = shell;
-
-    if (manager != null) {
-      _manager = manager;
-    }
-  }
-
-  @visibleForTesting
-  void resetMocking() {
-    _manager = ShellManager();
-    _testShell = null;
   }
 }
