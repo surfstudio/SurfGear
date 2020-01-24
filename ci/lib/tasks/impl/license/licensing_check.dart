@@ -4,9 +4,9 @@ import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
-import 'package:ci/tasks/copyright_check.dart';
+import 'package:ci/tasks/impl/license/copyright_check.dart';
 import 'package:ci/tasks/core/task.dart';
-import 'package:ci/tasks/license_file_check.dart';
+import 'package:ci/tasks/impl/license/license_file_check.dart';
 
 /// Выполняет проверку лицензии в модуле и копирайтов у файлов.
 class LicensingCheck extends Check {
