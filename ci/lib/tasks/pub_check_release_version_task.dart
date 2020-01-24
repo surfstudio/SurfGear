@@ -13,7 +13,7 @@ class PubCheckReleaseVersionTask extends Check {
   Future<bool> run() async {
     final resultsLog = [];
     for (var element in elements) {
-      var processResult = await checkDryRun(element);
+      var processResult = await runDryPublish(element);
       if (processResult
           .toString()
           .contains('CHANGELOG.md doesn\'t mention current version')) {
