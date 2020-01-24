@@ -11,3 +11,12 @@ class StableModulesWasModifiedException implements Exception {
 
   StableModulesWasModifiedException(this.message);
 }
+
+/// Ошибка при сборке модуля.
+///
+/// Выбрасывается как в случае сборки единичного модуля так и списка модулей.
+class PackageBuildException implements Exception {
+  final String message;
+
+  PackageBuildException(this.message);
+}
