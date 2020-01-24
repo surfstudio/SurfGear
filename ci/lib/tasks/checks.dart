@@ -1,7 +1,6 @@
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/services/runner/shell_runner.dart';
-import 'package:ci/tasks/pub_dry_run_task.dart';
 
 /// Проверяет изменились ли модули, отмеченные как stable.
 /// Если есть изменённые — выбрасывает исключение со списком модулей.
