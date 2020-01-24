@@ -5,23 +5,19 @@ import 'package:ci/tasks/core/task.dart';
 
 /// Проверяем, совпадает ли версия [Element] c прописанной CHANGELOG.md
 class PubCheckReleaseVersionTask extends Check {
-  static const String _checkVersion ='CHANGELOG.md doesn\'t mention current version';
+  /// Ищем данный текст в результате
+  static const String _checkVersion = 'CHANGELOG.md doesn\'t mention current version';
+  final Element element;
 
-  final List<Element> elements;
-  PubCheckReleaseVersionTask(this.elements) : assert(elements != null);
+  PubCheckReleaseVersionTask(this.element) : assert(element != null);
 
   @override
   Future<bool> run() async {
-    final resultsLog = [];
-    for (var element in elements) {
-      var processResult = await runDryPublish(element);
-      if (processResult
-          .toString()
-          .contains(_checkVersion)) {
-        resultsLog.add(element.name.toString());
-      }
+    var resultsLog = '';
+    var processResult = await runDryPublish(element);
+    if (processResult.toString().contains(_checkVersion)) {
+      resultsLog = element.name.toString();
     }
-
     if (resultsLog.isNotEmpty) {
       _printMessages(resultsLog);
       return false;
@@ -29,10 +25,9 @@ class PubCheckReleaseVersionTask extends Check {
     return true;
   }
 
-  /// Выводим список ошибок
-  void _printMessages(List<String> messages) {
+  void _printMessages(String messages) {
     throw ModuleNotReadyReleaseVersion(
-        'Модули, с непрописанной версией Release Notes: \n\t' +
-            messages.join('\n\t'));
+      'Модули, с непрописанной версией Release Notes: \n\t' + messages + '\n',
+    );
   }
 }
