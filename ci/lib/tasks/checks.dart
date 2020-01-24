@@ -2,6 +2,7 @@ import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/services/runner/shell_runner.dart';
 
+
 /// Проверяет изменились ли модули, отмеченные как stable.
 /// Если есть изменённые — выбрасывает исключение со списком модулей.
 void checkStableModulesForChanges(List<Element> elements) {
@@ -28,10 +29,5 @@ Future<List<Element>> findChangedElements(List<Element> elements) async {
 
 /// Проверка на возможность публикации пакета  модулей openSource
 Future<bool> checkDryRunTask(List<Element> elements) {
-  return DryRunTask(elements).run();
-}
-
-/// Проверка на наличие версии в Release Notes
-Future<bool> checkReleaseVersion(List<Element> elements) {
-  return PubCheckReleaseVersionTask(elements).run();
+  return PubDryRunTask(elements).run();
 }
