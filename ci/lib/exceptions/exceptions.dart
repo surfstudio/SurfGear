@@ -20,17 +20,3 @@ class PackageBuildException implements Exception {
 
   PackageBuildException(this.message);
 }
-
-class ModuleNotReadyForOpenSours implements Exception {
-  final String message;
-
-  ModuleNotReadyForOpenSours(this.message);
-}
-
-/// Выбрасывается, когда в CHANGELOG.md не описана акиуальная версия
-class ModuleNotReadyReleaseVersion implements Exception {
-  final String message;
-
-  ///[PubCheckReleaseVersionTask]
-  ModuleNotReadyReleaseVersion(this.message);
-}
