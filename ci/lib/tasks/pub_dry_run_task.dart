@@ -16,7 +16,7 @@ class PubDryRunTask extends Check {
     if (element.hosted) {
       final result = await _getProcessResult(element);
       if (result.exitCode != 0) {
-        return Future.error(_getErrorElement(element, result));
+        return _getErrorElement(element, result);
       }
     } else {
       return false;
@@ -31,8 +31,9 @@ class PubDryRunTask extends Check {
     return result;
   }
 
-  /// Возвращает имя [Element] и ошибку
-  String _getErrorElement(Element element, ProcessResult result) {
-    return element.name.toString() + ': ' + result.stderr.toString();
+  /// Модуль OpenSource не может быть опубликован
+  Future<bool> _getErrorElement(Element element, ProcessResult result) {
+    return Future.error(
+        element.name.toString() + ': ' + result.stderr.toString());
   }
 }

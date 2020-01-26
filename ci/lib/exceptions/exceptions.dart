@@ -21,13 +21,6 @@ class PackageBuildException implements Exception {
   PackageBuildException(this.message);
 }
 
-/// Модуль OpenSource не может быть опубликован
-class ModuleNotReadyForOpenSours implements Exception {
-  final String message;
-
-  ModuleNotReadyForOpenSours(this.message);
-}
-
 class ModuleNotReadyReleaseVersion implements Exception {
   final String message;
 
