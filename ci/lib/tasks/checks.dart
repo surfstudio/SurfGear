@@ -28,11 +28,15 @@ Future<List<Element>> findChangedElements(List<Element> elements) async {
 }
 
 /// Проверка на возможность публикации пакета  модулей openSource
-Future<bool> checkDryRunTask(List<Element> elements) {
-  return PubDryRunTask(elements).run();
+/// true - документ openSource и можно публиковать
+/// false - документ не openSource
+/// error -  докумет openSource, но публиковать нельзя
+Future<bool> checkDryRunTask(Element element) {
+  return PubDryRunTask(element).run();
 }
 
 /// Проверка на наличие актуальной версии в Release Notes
 Future<bool> checkPubCheckReleaseVersionTask(Element element) {
   return PubCheckReleaseVersionTask(element).run();
 }
+
