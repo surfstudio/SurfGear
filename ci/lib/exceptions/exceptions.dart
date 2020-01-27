@@ -87,3 +87,12 @@ class AddLicenseFailException extends BaseCiException {
 class AddCopyrightFailException extends BaseCiException {
   AddCopyrightFailException(String message) : super(message);
 }
+
+
+/// Не можем опубликовать модуль OpenSource
+class ModuleNotPublishOpenSourceException implements Exception {
+  final String message;
+
+  /// Вызывается [PubDryRunTask]
+  ModuleNotPublishOpenSourceException(this.message);
+}
