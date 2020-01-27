@@ -36,7 +36,6 @@ Future<bool> checkDryRunTask(Element element) {
 }
 
 /// Проверка на наличие актуальной версии в Release Notes
-/// PubCheckReleaseVersionTask
 /// dart ci pub_check_release_version element
 Future<bool> checkPubCheckReleaseVersionTask(Element element) {
   return PubCheckReleaseVersionTask(element).run();
