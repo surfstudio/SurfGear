@@ -1,5 +1,4 @@
 import 'package:ci/domain/element.dart';
-import 'package:ci/services/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:test/test.dart';
 

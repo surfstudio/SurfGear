@@ -28,3 +28,12 @@ class AnalyzerFailedException implements Exception {
 
   AnalyzerFailedException(this.message);
 }
+
+
+/// Не можем опубликовать модуль OpenSource
+class ModuleNotPublishOpenSourceException implements Exception {
+  final String message;
+
+  /// Вызывается [PubDryRunTask]
+  ModuleNotPublishOpenSourceException(this.message);
+}

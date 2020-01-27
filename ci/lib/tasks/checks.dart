@@ -4,6 +4,8 @@ import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/services/runner/shell_runner.dart';
 import 'package:ci/tasks/core/task.dart';
+import 'package:ci/tasks/pub_check_release_version_task.dart';
+import 'package:ci/tasks/pub_dry_run_task.dart';
 
 /// Проверяет изменились ли модули, отмеченные как stable.
 /// Если есть изменённые — выбрасывает исключение со списком модулей.
@@ -63,4 +65,18 @@ class CheckModulesWithLinter implements Check {
 
     return true;
   }
+}
+
+/// Проверка на возможность публикации пакета  модулей openSource
+/// true - документ openSource и можно публиковать
+/// false - документ не openSource
+/// error -  докумет openSource, но публиковать нельзя
+/// dart ci check_dry_run element
+Future<bool> checkDryRunTask(Element element) {
+  return PubDryRunTask(element).run();
+}
+
+/// Проверка на наличие актуальной версии в Release Notes
+Future<bool> checkPubCheckReleaseVersionTask(Element element) {
+  return PubCheckReleaseVersionTask(element).run();
 }

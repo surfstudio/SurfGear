@@ -32,6 +32,11 @@ class Element {
   final bool isPlugin;
 
   /// Путь до библиотеки.
+  /// 
+  /// Использование:
+  /// ```dart
+  /// element.uri.toFilePath(windows: Platform.isWindows);
+  /// ```
   final Uri uri;
 
   /// Название директории, в которой находится библиотека,
