@@ -1,6 +1,7 @@
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
+import 'package:ci/services/factories/license_task_factory.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/services/runner/shell_runner.dart';
@@ -40,8 +41,13 @@ Future<void> checkLicensing(List<Element> elements) async {
   var failList = <Element, Exception>{};
 
   for (var element in elements) {
-    var licenseCheck =
-        LicensingCheck(element, LicenseManager(), FileSystemManager());
+    var licenseCheck = LicensingCheck(
+      element,
+      LicenseManager(),
+      FileSystemManager(),
+      LicenseTaskFactory(),
+    );
+
     try {
       await licenseCheck.run();
     } on Exception catch (e) {

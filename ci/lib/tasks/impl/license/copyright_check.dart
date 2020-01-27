@@ -3,7 +3,7 @@ import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/tasks/core/task.dart';
 
-/// Выполняет проверку на наличие и актуальность копирайта у файла.
+/// Выполняет проверку наличия и актуальности копирайта у файла.
 ///
 /// Возвращает true или бросает соответствующее искоючение.
 class CopyrightCheck extends Check {
