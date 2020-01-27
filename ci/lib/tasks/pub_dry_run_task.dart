@@ -41,7 +41,7 @@ class PubDryRunTask extends Check {
     ProcessResult result,
   ) {
     return Future.error(
-      ModuleNotReadyReleaseVersion(
+      ModuleNotPublishOpenSourceException(
         element.name.toString() + ': ' + result.stderr.toString(),
       ),
     );

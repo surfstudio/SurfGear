@@ -22,10 +22,11 @@ class PackageBuildException implements Exception {
 }
 
 /// Не можем опубликовать модуль OpenSource
-class ModuleNotReadyReleaseVersion implements Exception {
+class ModuleNotPublishOpenSourceException implements Exception {
   final String message;
 
-  ModuleNotReadyReleaseVersion(this.message);
+  /// Вызывается [PubDryRunTask]
+  ModuleNotPublishOpenSourceException(this.message);
 }
 
 /// Нет описание версии в CHANGELOG.md
