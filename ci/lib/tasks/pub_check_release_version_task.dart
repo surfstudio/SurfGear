@@ -14,7 +14,7 @@ class PubCheckReleaseVersionTask extends Check {
     var processResult = await runDryPublish(element);
     if (processResult.toString().contains('CHANGELOG.md doesn\'t mention current version')) {
       return Future.error(
-        PubCheckReleaseVersionTaskException(
+        ModuleNotReadyReleaseVersion(
             element.name.toString() + ': модуль, с непрописанной версией Release Notes: \n'),
       );
     }

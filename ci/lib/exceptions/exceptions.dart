@@ -30,8 +30,9 @@ class ModuleNotPublishOpenSourceException implements Exception {
 }
 
 /// Нет описание версии в CHANGELOG.md
-class PubCheckReleaseVersionTaskException implements Exception {
+class ModuleNotReadyReleaseVersion implements Exception {
   final String message;
 
-  PubCheckReleaseVersionTaskException(this.message);
+  /// Вызывается [PubCheckReleaseVersionTask]
+  ModuleNotReadyReleaseVersion(this.message);
 }
