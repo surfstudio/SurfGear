@@ -31,6 +31,7 @@ Future<List<Element>> findChangedElements(List<Element> elements) async {
 /// true - документ openSource и можно публиковать
 /// false - документ не openSource
 /// error -  докумет openSource, но публиковать нельзя
+/// dart ci check_dry_run element
 Future<bool> checkDryRunTask(Element element) {
   return PubDryRunTask(element).run();
 }
@@ -39,4 +40,3 @@ Future<bool> checkDryRunTask(Element element) {
 Future<bool> checkPubCheckReleaseVersionTask(Element element) {
   return PubCheckReleaseVersionTask(element).run();
 }
-
