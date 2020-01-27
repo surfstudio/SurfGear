@@ -1,4 +1,5 @@
 import 'package:ci/services/managers/file_system_manager.dart';
+import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/services/managers/shell_manager.dart';
 import 'package:ci/services/runner/shell_runner.dart';
 import 'package:mockito/mockito.dart';
@@ -26,9 +27,9 @@ ShellMock substituteShell({ShellManager manager}) {
   return mock;
 }
 
-/// Directory Manager
+/// File System Manager
 
-class DirectoryManagerMock extends Mock implements FileSystemManager {}
+class FileSystemManagerMock extends Mock implements FileSystemManager {}
 
 /// Shell Manager
 
@@ -38,4 +39,23 @@ ShellManagerMock createShellManagerMock({Shell copy}) {
   var mock = ShellManagerMock();
   when(mock.copy(any)).thenReturn(copy);
   return mock;
+}
+
+/// License manager
+
+class LicenseManagerMock extends Mock implements LicenseManager {}
+
+LicenseManagerMock createLicenseManagerMock({
+  String license,
+  String copyright,
+}) {
+  var mock = LicenseManagerMock();
+
+  if (license != null) {
+    when(mock.getLicense()).thenAnswer((_) => Future.value(license));
+  }
+
+  if (copyright != null) {
+    when(mock.getCopyright()).thenAnswer((_) => Future.value(copyright));
+  }
 }

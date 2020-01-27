@@ -13,7 +13,7 @@ void main() {
     'build module without example should not throw exception',
     () async {
       var element = Element(path: 'test/package');
-      var dm = DirectoryManagerMock();
+      var dm = FileSystemManagerMock();
       when(dm.getEntitiesInDirectory(element.path, recursive: true))
           .thenReturn([]);
 
@@ -30,7 +30,7 @@ void main() {
     () async {
       var examplePath = 'test/package/example';
       var element = Element(path: 'test/package');
-      var dm = DirectoryManagerMock();
+      var dm = FileSystemManagerMock();
       when(dm.getEntitiesInDirectory(element.path, recursive: true))
           .thenReturn([Directory('test/package/example')]);
       when(dm.isDirectory(examplePath)).thenReturn(true);
@@ -74,7 +74,7 @@ void main() {
 void _testBuild(bool success) async {
   var examplePath = 'test/package/example';
   var element = Element(path: 'test/package');
-  var dm = DirectoryManagerMock();
+  var dm = FileSystemManagerMock();
   when(dm.getEntitiesInDirectory(element.path, recursive: true))
       .thenReturn([Directory('test/package/example')]);
   when(dm.isDirectory(examplePath)).thenReturn(true);
