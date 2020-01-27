@@ -27,3 +27,10 @@ class ModuleNotReadyReleaseVersion implements Exception {
 
   ModuleNotReadyReleaseVersion(this.message);
 }
+
+/// Нет описание версии в CHANGELOG.md
+class PubCheckReleaseVersionTaskException implements Exception {
+  final String message;
+
+  PubCheckReleaseVersionTaskException(this.message);
+}
