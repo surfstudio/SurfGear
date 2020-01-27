@@ -81,7 +81,7 @@ class PubspecParser {
         isStable: custom['is_stable'] as bool,
         unstableVersion: custom['unstable_version'] as int,
         isPlugin: custom['is_plugin'] as bool,
-        uri: file.parent.uri,
+        uri: file.parent.absolute.uri,
         openSourceInfo: openSourceInfo,
       );
 

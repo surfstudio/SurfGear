@@ -1,4 +1,5 @@
 import 'package:ci/domain/element.dart';
+import 'package:ci/services/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:test/test.dart';
 
@@ -29,25 +30,25 @@ void main() {
     );
 
     expect(
-      () => checkStableModulesForChanges(
+      () => CheckStableModulesForChanges(
         [
           stableChanged,
           notStableChanged,
           stableNotChanged,
           notStableNotChanged,
         ],
-      ),
+      ).run(),
       throwsException,
     );
 
     expect(
-      () => checkStableModulesForChanges(
+      () => CheckStableModulesForChanges(
         [
           notStableChanged,
           stableNotChanged,
           notStableNotChanged,
         ],
-      ),
+      ).run(),
       returnsNormally,
     );
   });

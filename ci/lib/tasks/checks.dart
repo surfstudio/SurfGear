@@ -1,27 +1,66 @@
+import 'dart:io';
+
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/services/runner/shell_runner.dart';
+import 'package:ci/tasks/core/task.dart';
 
 /// Проверяет изменились ли модули, отмеченные как stable.
 /// Если есть изменённые — выбрасывает исключение со списком модулей.
-void checkStableModulesForChanges(List<Element> elements) {
-  final changedModules =
-      elements.where((e) => e.isStable && e.changed).toList();
+class CheckStableModulesForChanges implements Check {
+  final List<Element> elements;
 
-  if (changedModules.isNotEmpty) {
-    final modulesNames = changedModules.map((e) => e.name).join(', ');
-    throw StableModulesWasModifiedException(
-        'Модули, отмеченные как stable, были изменены: $modulesNames');
+  CheckStableModulesForChanges(this.elements);
+
+  @override
+  Future<bool> run() {
+    final changedModules =
+        elements.where((e) => e.isStable && e.changed).toList();
+
+    if (changedModules.isNotEmpty) {
+      final modulesNames = changedModules.map((e) => e.name).join(', ');
+      return Future.error(
+        StableModulesWasModifiedException(
+            'Модули, отмеченные как stable, были изменены: $modulesNames'),
+      );
+    }
+
+    return Future.value(true);
   }
 }
 
-/// Ищет изменения в указанных модулях, опираясь на разницу
-/// между двумя последними коммитами.
-Future<List<Element>> findChangedElements(List<Element> elements) async {
-  final result = await sh('git diff --name-only HEAD HEAD~');
-  final diff = result.stdout as String;
+/// Проверка модулей с помощью `flutter analyze`.
+class CheckModulesWithLinter implements Check {
+  final List<Element> elements;
 
-  print('Файлы, изменённые в последнем коммите:\n$diff');
+  CheckModulesWithLinter(this.elements);
 
-  return elements.where((e) => diff.contains(e.uri.pathSegments.last)).toList();
+  @override
+  Future<bool> run() async {
+    var errorMessages = <String>[];
+
+    for (var element in elements) {
+      final analyzeResult = await sh(
+        'flutter analyze',
+        path: element.uri.toFilePath(windows: Platform.isWindows),
+      );
+
+      if (analyzeResult.exitCode != 0) {
+        final errorMessage =
+            '${analyzeResult.stdout}${analyzeResult.stderr}\n\n';
+        errorMessages.add(errorMessage);
+      }
+    }
+
+    if (errorMessages.isNotEmpty) {
+      errorMessages.insert(
+          0, 'Пожалуйста, исправьте ошибки в следующих модулях:\n\n');
+
+      return Future.error(
+        AnalyzerFailedException(errorMessages.join()),
+      );
+    }
+
+    return true;
+  }
 }

@@ -20,3 +20,11 @@ class PackageBuildException implements Exception {
 
   PackageBuildException(this.message);
 }
+
+/// Модуль не прошёл проверку статического анализатора
+/// `flutter analyze`
+class AnalyzerFailedException implements Exception {
+  final String message;
+
+  AnalyzerFailedException(this.message);
+}
