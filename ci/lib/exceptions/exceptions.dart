@@ -20,3 +20,11 @@ class PackageBuildException implements Exception {
 
   PackageBuildException(this.message);
 }
+
+/// Не можем опубликовать модуль OpenSource
+class ModuleNotPublishOpenSourceException implements Exception {
+  final String message;
+
+  /// Вызывается [PubDryRunTask]
+  ModuleNotPublishOpenSourceException(this.message);
+}
