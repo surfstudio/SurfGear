@@ -72,6 +72,18 @@ class FileCopyrightObsoleteException extends BaseCiException {
 }
 
 /// Ошибка лицензирования модуля.
+/// 
+/// Выбрасывается как в случае проверки единичного модуля так и списка модулей.
 class PackageLicensingException extends BaseCiException {
   PackageLicensingException(String message) : super(message);
+}
+
+/// Ошибка при добавлении лицензии.
+class AddLicenseFailException extends BaseCiException {
+  AddLicenseFailException(String message) : super(message);
+}
+
+/// Ошибка при добавлении копирайта.
+class AddCopyrightFailException extends BaseCiException {
+  AddCopyrightFailException(String message) : super(message);
 }

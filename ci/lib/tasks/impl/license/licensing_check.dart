@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
@@ -10,8 +8,6 @@ import 'package:ci/tasks/impl/license/license_file_check.dart';
 
 /// Выполняет проверку лицензии в модуле и копирайтов у файлов.
 class LicensingCheck extends Check {
-  static const List<String> _filesWithCopyright = <String>['.dart'];
-
   final Element _package;
   final List<String> _troubles = <String>[];
 
@@ -50,7 +46,7 @@ class LicensingCheck extends Check {
         package,
         _licenseManager,
         _fileSystemManager,
-      );
+      ).run();
     } on BaseCiException catch (e) {
       _troubles.add(e.message);
     }
@@ -59,7 +55,7 @@ class LicensingCheck extends Check {
   Future<void> _checkCopyrights(Element package) async {
     var copyrightOwners = _fileSystemManager
         .getEntitiesInDirectory(package.path)
-        .where(_isNeedCopyright)
+        .where(_licenseManager.isNeedCopyright)
         .toList();
 
     for (var file in copyrightOwners) {
@@ -68,20 +64,10 @@ class LicensingCheck extends Check {
           file.path,
           _fileSystemManager,
           _licenseManager,
-        );
+        ).run();
       } on BaseCiException catch (e) {
         _troubles.add(e.message);
       }
     }
-  }
-
-  bool _isNeedCopyright(FileSystemEntity entity) {
-    for (var pattern in _filesWithCopyright) {
-      if (entity.path.contains(pattern)) {
-        return true;
-      }
-    }
-
-    return false;
   }
 }
