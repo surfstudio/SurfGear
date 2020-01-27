@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:ci/domain/element.dart';
+import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/services/pub_publish_manager.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:ci/utils/process_result_extension.dart';
@@ -32,8 +33,14 @@ class PubDryRunTask extends Check {
   }
 
   /// Модуль OpenSource не может быть опубликован
-  Future<bool> _getErrorElement(Element element, ProcessResult result) {
+  Future<bool> _getErrorElement(
+    Element element,
+    ProcessResult result,
+  ) {
     return Future.error(
-        element.name.toString() + ': ' + result.stderr.toString());
+      ModuleNotReadyReleaseVersion(
+        element.name.toString() + ': ' + result.stderr.toString(),
+      ),
+    );
   }
 }

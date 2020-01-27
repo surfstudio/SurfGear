@@ -20,3 +20,10 @@ class PackageBuildException implements Exception {
 
   PackageBuildException(this.message);
 }
+
+/// Может ли быть опубликован модуль OpenSource
+class ModuleNotReadyReleaseVersion implements Exception {
+  final String message;
+
+  ModuleNotReadyReleaseVersion(this.message);
+}
