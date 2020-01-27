@@ -13,9 +13,8 @@
 // limitations under the License.
 
 import 'package:relation/src/relation/event.dart';
+import 'package:relation/src/relation/state/exception_wrapper.dart';
 import 'package:relation/src/relation/state/streamed_state.dart';
-
-import 'package:mwwm/mwwm.dart';
 
 ///[StreamedState] that have download/error/content status
 class EntityStreamedState<T> extends StreamedState<EntityState<T>>
@@ -56,7 +55,7 @@ class EntityState<T> {
     this.isLoading = false,
     this.hasError = false,
     dynamic error,
-  }): error = ExceptionWrapper(error);
+  }) : error = ExceptionWrapper(error);
 
   EntityState.loading([T previousData])
       : isLoading = true,

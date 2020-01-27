@@ -13,19 +13,13 @@ dependencies:
   cupertino_icons: ^0.1.2
 
   #rx
-  rxdart: ^0.22.0
+  rxdart: 0.23.1
 
   #surfstudio
   injector:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
-      path: injector
-  mwwm:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
-      path: mwwm
+    path: ../../injector
+  surf_mwwm:
+    path: ../../surf_mwwm
 
   event_filter:
     path: ..

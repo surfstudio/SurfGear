@@ -14,10 +14,7 @@ dependencies:
   pedantic: ^1.7.0
 
   surf_util:
-    git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: dev
-      path: surf_util
+    path: ../surf_util
 
 dev_dependencies:
   flutter_test:

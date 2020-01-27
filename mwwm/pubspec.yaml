@@ -1,7 +1,7 @@
 name: mwwm
 description: Reflection of widget in a single entity
 version: 0.0.3
-author:
+homepage:
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -14,6 +14,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  pedantic: ^1.7.0
+  pedantic: ^1.8.0+1
 
 flutter:

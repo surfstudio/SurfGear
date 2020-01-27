@@ -14,7 +14,7 @@
 
 import 'dart:async';
 
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm/src/dependencies/wm_dependencies.dart';
 import 'package:mwwm/src/error/error_handler.dart';

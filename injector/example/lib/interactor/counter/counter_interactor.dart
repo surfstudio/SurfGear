@@ -23,7 +23,7 @@ class CounterInteractor {
 
   BehaviorSubject<Counter> _subject = BehaviorSubject();
 
-  Observable<Counter> get counterObservable => _subject.stream;
+  Stream<Counter> get counterObservable => _subject.stream;
 
   CounterInteractor(this._counterRepository) {
     _subject.listen(_counterRepository.setCounter);
