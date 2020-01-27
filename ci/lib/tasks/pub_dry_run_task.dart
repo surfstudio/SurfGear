@@ -17,7 +17,10 @@ class PubDryRunTask extends Check {
     if (element.hosted) {
       final result = await _getProcessResult(element);
       if (result.exitCode != 0) {
-        return _getErrorElement(element, result);
+        return _getErrorElement(
+          element,
+          result,
+        );
       }
     } else {
       return false;
