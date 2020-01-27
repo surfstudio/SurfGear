@@ -1,3 +1,4 @@
+import 'package:ci/domain/element.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/services/managers/shell_manager.dart';
@@ -58,4 +59,10 @@ LicenseManagerMock createLicenseManagerMock({
   if (copyright != null) {
     when(mock.getCopyright()).thenAnswer((_) => Future.value(copyright));
   }
+}
+
+/// Element
+
+Element createTestElement({String path = 'test/path'}) {
+  return Element(path: path);
 }
