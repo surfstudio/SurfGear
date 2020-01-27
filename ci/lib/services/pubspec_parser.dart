@@ -22,16 +22,16 @@ class PubspecParser {
       throw ModulesNotFoundException(_getModulesNotFoundMsg(dirPath));
     }
 
-    final pubspecs = _findAndReadPubspecs(libDirectories);
-    if (pubspecs.isEmpty) {
+    final pubspecFiles = _findPubspecsUri(libDirectories);
+    if (pubspecFiles.isEmpty) {
       throw ModulesNotFoundException(_getModulesNotFoundMsg(dirPath));
     }
 
-    return _parseElements(pubspecs);
+    return _parseElements(pubspecFiles);
   }
 
-  List<String> _findAndReadPubspecs(List<Directory> dirs) {
-    final pubspecs = <String>[];
+  List<File> _findPubspecsUri(List<Directory> dirs) {
+    final pubspecs = <File>[];
 
     for (var lib in dirs) {
       final pubspecFile = lib.listSync().firstWhere(
@@ -44,26 +44,25 @@ class PubspecParser {
         continue;
       }
 
-      pubspecs.add(File.fromUri(pubspecFile.uri).readAsStringSync());
+      pubspecs.add(pubspecFile);
     }
 
     return pubspecs;
   }
 
-  List<Element> _parseElements(List<String> rawPubspecs) {
-    final parsedPubspecs =
-        rawPubspecs.map((p) => lib.Pubspec.parse(p)).toList();
-
-    var elements = _createElements(rawPubspecs);
-    _linkElements(elements, parsedPubspecs);
+  List<Element> _parseElements(List<File> pubspecFiles) {
+    var elements = _createElements(pubspecFiles);
+    _linkElements(elements, pubspecFiles);
 
     return elements.values.toList();
   }
 
-  Map<String, Element> _createElements(List<String> pubspecs) {
+  Map<String, Element> _createElements(List<File> pubspecFiles) {
     var elements = <String, Element>{};
 
-    for (var pubspec in pubspecs) {
+    for (var file in pubspecFiles) {
+      final pubspec = file.readAsStringSync();
+
       final pubspecMap = loadYamlDocument(pubspec).contents as YamlMap;
       final custom = pubspecMap['custom'];
 
@@ -82,7 +81,7 @@ class PubspecParser {
         isStable: custom['is_stable'] as bool,
         unstableVersion: custom['unstable_version'] as int,
         isPlugin: custom['is_plugin'] as bool,
-        path: custom['path'],
+        uri: file.parent.uri,
         openSourceInfo: openSourceInfo,
       );
 
@@ -92,8 +91,12 @@ class PubspecParser {
     return elements;
   }
 
-  void _linkElements(
-      Map<String, Element> elements, List<lib.Pubspec> pubspecs) {
+  void _linkElements(Map<String, Element> elements, List<File> pubspecFiles) {
+    final pubspecs = pubspecFiles
+        .map((file) => file.readAsStringSync())
+        .map((p) => lib.Pubspec.parse(p))
+        .toList();
+
     for (var pubspec in pubspecs) {
       var dependencies = <Dependency>[];
 

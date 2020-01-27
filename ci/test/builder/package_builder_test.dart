@@ -12,9 +12,9 @@ void main() {
   test(
     'build module without example should not throw exception',
     () async {
-      var element = Element(path: 'test/package');
+      var element = Element(uri: Uri.directory('test/package'));
       var dm = DirectoryManagerMock();
-      when(dm.getEntitiesInDirectory(element.path, recursive: true))
+      when(dm.getEntitiesInDirectory(element.uri.path, recursive: true))
           .thenReturn([]);
 
       var buildTask = PackageBuilderTask(element, dm);
@@ -29,9 +29,9 @@ void main() {
     'build module shuld call flutter build',
     () async {
       var examplePath = 'test/package/example';
-      var element = Element(path: 'test/package');
+      var element = Element(uri: Uri.directory('test/package'));
       var dm = DirectoryManagerMock();
-      when(dm.getEntitiesInDirectory(element.path, recursive: true))
+      when(dm.getEntitiesInDirectory(element.uri.path, recursive: true))
           .thenReturn([Directory('test/package/example')]);
       when(dm.isDirectory(examplePath)).thenReturn(true);
 
@@ -73,9 +73,9 @@ void main() {
 
 void _testBuild(bool success) async {
   var examplePath = 'test/package/example';
-  var element = Element(path: 'test/package');
+  var element = Element(uri: Uri.directory('test/package'));
   var dm = DirectoryManagerMock();
-  when(dm.getEntitiesInDirectory(element.path, recursive: true))
+  when(dm.getEntitiesInDirectory(element.uri.path, recursive: true))
       .thenReturn([Directory('test/package/example')]);
   when(dm.isDirectory(examplePath)).thenReturn(true);
 

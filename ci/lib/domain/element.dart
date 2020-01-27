@@ -31,10 +31,8 @@ class Element {
   /// Использует ли библиотека специфичный для платформы код.
   final bool isPlugin;
 
-  /// Относительный путь до библиотеки.
-  /// Фактически, это название директории, в которой
-  /// она находится.
-  final String path;
+  /// Путь до библиотеки.
+  final Uri uri;
 
   /// Модуль был изменён в рамках пулл реквеста.
   bool changed;
@@ -47,7 +45,7 @@ class Element {
     this.isStable,
     this.unstableVersion,
     this.isPlugin,
-    this.path,
+    this.uri,
     this.changed = false,
   });
 }
