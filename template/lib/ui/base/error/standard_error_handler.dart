@@ -1,5 +1,7 @@
 import 'package:flutter_template/interactor/common/exceptions.dart';
+import 'package:flutter_template/interactor/session/session_changed_interactor.dart';
 import 'package:flutter_template/ui/base/error/network_error_handler.dart';
+import 'package:flutter_template/ui/base/material_message_controller.dart';
 import 'package:flutter_template/ui/res/strings/common_strings.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:network/network.dart';
@@ -7,25 +9,20 @@ import 'package:network/network.dart';
 /// Стандартная реализация эррор хендлера
 class StandardErrorHandler extends NetworkErrorHandler {
   final MessageController _messageController;
+  // ignore: unused_field
   final DialogController _dialogController;
+  // ignore: unused_field
+  final SessionChangedInteractor _sessionChangedInteractor;
 
   StandardErrorHandler(
     this._messageController,
     this._dialogController,
+    this._sessionChangedInteractor,
   );
 
   @override
   void handleOtherError(Exception e) {
-    if (e is UserNotFoundException) {
-      _dialogController.showAlertDialog(
-        message: userNotFoundText,
-        onAgreeClicked: () async {
-          //todo переход по разлогину
-        },
-      );
-    } else if (e is OtpException) {
-      print("DEV_ERROR $e");
-    } else if (e is MessagedException) {
+    if (e is MessagedException) {
       _show(e.message);
     } else {
       _show(commonErrorText);
@@ -60,5 +57,9 @@ class StandardErrorHandler extends NetworkErrorHandler {
     }
   }
 
-  void _show(String msg) => _messageController.showSnack(msg);
+  void _show(String msg) => _messageController.show(
+        msg: msg,
+        msgType: MsgType
+            .commonError, //todo выделить base модуль для всех в стандарте
+      );
 }

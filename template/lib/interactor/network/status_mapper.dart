@@ -11,17 +11,13 @@ class DefaultStatusMapper extends StandardStatusMapper {
     try {
       er = ErrorResponse.fromJson(response.body);
       switch (er.errorCode) {
-        case 101:
-          throw OtpException();
-        case 102:
-          throw UserNotFoundException();
         case 105:
           throw NotFoundException(er.message);
         default:
           throw Exception("Another exception");
       }
     } catch (ex) {
-      throw ex;
+      rethrow;
     }
   }
 }
@@ -39,7 +35,7 @@ class ErrorResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['errorCode'] = this.errorCode;
     data['message'] = this.message;
     return data;

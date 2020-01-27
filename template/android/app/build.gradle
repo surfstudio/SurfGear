@@ -22,11 +22,16 @@ if (flutterVersionName == null) {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-apply from:  "../keystore/signingConfigs.gradle"
+apply from: "../keystore/signingConfigs.gradle"
 
 android {
     compileSdkVersion 28
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 
     lintOptions {
         disable 'InvalidPackage'
@@ -34,12 +39,12 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.flutter_template"
+        applicationId "ru.surfstudio.flutterTemplate"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -47,19 +52,20 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
+        }
+    }
 
-            //для различных версий. необходимо для релиза
-            ndk {
-                if (project.hasProperty('target-platform'))
-                    switch (project.property('target-platform')) {
-                        case 'android-arm64': abiFilters 'arm64-v8a'; break
-                        case 'android-arm': break // without any filters
-                        case 'android-x86': abiFilters 'x86'; break
-                        case 'android-x64': abiFilters 'x86_64'; break
-                        default:
-                            throw new GradleException("Unrecognized target-platform: " + project.property('target-platform'))
-                    }
-            }
+    flavorDimensions "release-type"
+
+    productFlavors {
+        dev {
+            dimension "release-type"
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+        }
+
+        prod {
+            dimension "release-type"
         }
     }
 }
@@ -69,12 +75,8 @@ flutter {
 }
 
 dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
-
-//todo раскомментировать
-//apply plugin: 'io.fabric'
-//apply plugin: 'com.google.gms.google-services'
-apply plugin: 'kotlin-android'

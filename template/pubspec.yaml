@@ -4,7 +4,7 @@ description: a Flutter Template project for development.
 version: 0.0.1-rc1+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.5.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -12,60 +12,80 @@ dependencies:
 
   #внутренние библиотеки
   network:
-    path: ../network
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: network
   logger:
-    path: ../logger
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: logger
   injector:
-    path: ../injector
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: injector
   mwwm:
-    path: ../mwwm
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: mwwm
+  geolocation:
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: geolocation
+  analytics:
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: analytics
 
-  intl: 0.15.7
+  # модуль push уведомлений
+  push:
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: push
+  surf_util:
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: dev
+      path: surf_util
 
-  flutter_svg: 0.10.3
-  qr_flutter: ^2.0.0
+  intl: ^0.15.7
+
+  flutter_svg: ^0.14.1
 
   #networking
-  http: 0.12.0+1
-  dio: 2.1.2
-
-  #parsing
-  json_annotation: 2.0.0
+  http: ^0.12.0+1
+  dio: ^2.1.2
 
   #storage
-  shared_preferences: 0.5.1+1
-  path_provider: 0.5.0
+  shared_preferences: ^0.5.3+4
+  path_provider: ^1.3.0
 
   #rx
-  rxdart: 0.21.0
+  rxdart: 0.23.1
 
   #crash reporting
-  #firebase_crashlytics: ^0.0.4+1 need research about this
-  flutter_crashlytics: 0.3.0 # newer version has a bug on ios or i have ruki iz zhopi
-
-  #camera
-  camera: 0.4.3+2
+  firebase_crashlytics: ^0.1.0+3
 
   #masked text
-  flutter_masked_text: 0.8.0
-  string_mask: 0.1.0
+  string_mask: ^0.1.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: 0.1.2
-
-  #firebase push
-  firebase_core: 0.3.1+1
-  firebase_messaging: 4.0.0+1
-
-  #firebase ml kit
-  firebase_ml_vision: 0.6.0+2
-
-  #notifications
-  flutter_local_notifications: 0.6.0
+  cupertino_icons: ^0.1.2
 
   #connection
-  connectivity: 0.4.2+2
+  connectivity: ^0.4.4
+
+  pedantic: ^1.8.0
+
+  # testing mock
+  mockito: ^4.1.1
 
 dev_dependencies:
   flutter_test:
@@ -79,4 +99,4 @@ flutter:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
   assets:
-  - res/assets/
+    - res/assets/

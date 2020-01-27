@@ -1,0 +1,27 @@
+name: surf_util
+description: Common classes and util.
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  logger:
+    path: ../logger
+
+  mwwm:
+    path: ../mwwm
+
+  swipe_refresh:
+    path: ../swipe_refresh
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
