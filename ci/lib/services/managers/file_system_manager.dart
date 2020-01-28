@@ -1,6 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:ci/domain/element.dart';
+
+typedef SystemEntityFilter = bool Function(FileSystemEntity);
+
 /// Менеджер работы с файловой системой.
 ///
 /// Фактически является фасадом над дарт io в части директорий и файлов.
@@ -27,6 +31,28 @@ class FileSystemManager {
         recursive: recursive,
         followLinks: followLinks,
       );
+
+  /// Возвращает объекты в модуле.
+  ///
+  /// Можно дополнительно отфильтровать результат, передав функцию фильтрации.
+  List<FileSystemEntity> getEntitiesInModule(
+    Element element, {
+    bool recursive = false,
+    bool followLinks = true,
+    SystemEntityFilter filter,
+  }) {
+    var res = getEntitiesInDirectory(
+      element.path,
+      recursive: recursive,
+      followLinks: followLinks,
+    );
+
+    if (filter != null) {
+      res = res.where(filter);
+    }
+
+    return res;
+  }
 
   /// Возвращает значение файла в виде строки.
   String readFileAsString(

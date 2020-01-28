@@ -5,12 +5,11 @@ import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
+import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/impl/license/add_copyright_task.dart';
 import 'package:ci/tasks/impl/license/add_license_task.dart';
 import 'package:ci/tasks/impl/license/license_file_check.dart';
 import 'package:ci/tasks/package_builder_task.dart';
-
-import 'impl/license/copyright_check.dart';
 
 /// Набор глобальных точек входа для выполнения задач
 
@@ -93,23 +92,29 @@ Future<void> addCopyrights(
 
   var filesToCheck = <FileSystemEntity>[];
 
-  elements.forEach((e) {
-    filesToCheck
-      ..addAll(fileSystemManager
-          .getEntitiesInDirectory(e.path)
-          .where(licenseManager.isNeedCopyright));
-  });
+  elements.forEach(
+    (e) async {
+      filesToCheck
+        ..addAll(
+          await fileSystemManager.getEntitiesInModule(
+            e,
+            recursive: true,
+            filter: licenseManager.isNeedCopyright,
+          ),
+        );
+    },
+  );
 
   var needCopyright = <FileSystemEntity>[];
   var troublesList = <FileSystemEntity, Exception>{};
 
   for (var file in filesToCheck) {
     try {
-      await CopyrightCheck(
+      await checkCopyright(
         file.path,
         fileSystemManager,
         licenseManager,
-      ).run();
+      );
     } on FileCopyrightMissedException catch (_) {
       needCopyright.add(file);
     } on FileCopyrightObsoleteException catch (e) {
@@ -122,16 +127,15 @@ Future<void> addCopyrights(
 
   for (var file in needCopyright) {
     try {
-      await AddCopyrightTask(
+      await addCopyright(
         file.path,
-        licenseManager,
         fileSystemManager,
-      ).run();
+        licenseManager,
+      );
     } on Exception catch (e) {
       troublesList[file] = e;
     }
   }
-  ;
 
   if (troublesList.isNotEmpty) {
     var errorString;
@@ -140,7 +144,7 @@ Future<void> addCopyrights(
       errorString += key.path + ':\n';
       errorString += value.toString() + '\n';
     });
-    
+
     return Future.error(
       AddCopyrightFailException(
         getAddCopyrightFailExceptionText(errorString),
@@ -148,3 +152,15 @@ Future<void> addCopyrights(
     );
   }
 }
+
+/// Добавляет копирайт файлу.
+Future<void> addCopyright(
+  String path,
+  FileSystemManager fileSystemManager,
+  LicenseManager licenseManager,
+) =>
+    AddCopyrightTask(
+      path,
+      licenseManager,
+      fileSystemManager,
+    ).run();

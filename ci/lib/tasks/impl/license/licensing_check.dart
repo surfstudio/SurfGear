@@ -73,19 +73,17 @@ class LicensingCheck extends Check {
   Future<List<String>> _checkCopyrights(Element package) async {
     var troubles = <String>[];
 
-    var copyrightOwners = _fileSystemManager
-        .getEntitiesInDirectory(package.path)
-        .where(_licenseManager.isNeedCopyright)
-        .toList();
+    var copyrightOwners = _fileSystemManager.getEntitiesInModule(package,
+        recursive: true, filter: _licenseManager.isNeedCopyright);
 
     for (var file in copyrightOwners) {
       try {
         await _licenseTaskFactory
             .createCopyrightCheck(
-          file.path,
-          _fileSystemManager,
-          _licenseManager,
-        )
+              file.path,
+              _fileSystemManager,
+              _licenseManager,
+            )
             .run();
       } on BaseCiException catch (e) {
         troubles.add(e.message);

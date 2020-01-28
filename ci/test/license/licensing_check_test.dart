@@ -14,7 +14,13 @@ void main() {
       var element = createTestElement();
       var lm = LicenseManagerMock();
       var fm = FileSystemManagerMock();
-      when(fm.getEntitiesInDirectory(element.path)).thenReturn([]);
+      when(
+        fm.getEntitiesInModule(
+          element,
+          recursive: true,
+          filter: lm.isNeedCopyright,
+        ),
+      ).thenReturn([]);
       var tf = LicenseTaskFactoryMock();
       var task = createFailTask<bool>(
         exception: PackageLicensingException('test'),
@@ -44,7 +50,13 @@ void main() {
       var lm = LicenseManagerMock();
       when(lm.isNeedCopyright(dartFile)).thenReturn(true);
       var fm = FileSystemManagerMock();
-      when(fm.getEntitiesInDirectory(element.path)).thenReturn(
+      when(
+        fm.getEntitiesInModule(
+          element,
+          recursive: true,
+          filter: lm.isNeedCopyright,
+        ),
+      ).thenReturn(
         [dartFile],
       );
       var tf = LicenseTaskFactoryMock();
@@ -94,7 +106,13 @@ void main() {
       var lm = LicenseManagerMock();
       when(lm.isNeedCopyright(dartFile)).thenReturn(true);
       var fm = FileSystemManagerMock();
-      when(fm.getEntitiesInDirectory(element.path)).thenReturn(
+      when(
+        fm.getEntitiesInModule(
+          element,
+          recursive: true,
+          filter: lm.isNeedCopyright,
+        ),
+      ).thenReturn(
         [dartFile],
       );
       var tf = LicenseTaskFactoryMock();
