@@ -1,13 +1,15 @@
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/services/runner/shell_runner.dart';
+import 'package:ci/tasks/check_dependency_stable.dart';
 import 'package:ci/tasks/pub_check_release_version_task.dart';
 import 'package:ci/tasks/pub_dry_run_task.dart';
 
 /// Проверяет изменились ли модули, отмеченные как stable.
 /// Если есть изменённые — выбрасывает исключение со списком модулей.
 void checkStableModulesForChanges(List<Element> elements) {
-  final changedModules = elements.where((e) => e.isStable && e.changed).toList();
+  final changedModules =
+      elements.where((e) => e.isStable && e.changed).toList();
 
   if (changedModules.isNotEmpty) {
     final modulesNames = changedModules.map((e) => e.name).join(', ');
@@ -41,3 +43,7 @@ Future<bool> checkDryRunTask(Element element) {
 Future<bool> checkPubCheckReleaseVersionTask(Element element) {
   return PubCheckReleaseVersionTask(element).run();
 }
+
+/// Проверка стабильности зависимостей элемента
+Future<bool> checkDependenciesStable(Element element) =>
+    CheckDependencyStable(element).run();
