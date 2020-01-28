@@ -12,13 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:rxdart/rxdart.dart';
 import 'package:network/network.dart';
 
-/// Service that incapsulates performing of the network requests 
-/// and storage for their responses. 
+/// Service that incapsulates performing of the network requests
+/// and storage for their responses.
 abstract class NetworkCache {
-
   /// Get data from local storage or
   /// make network request and save response.
   /// Behavior may be customized with [CacheStrategy]

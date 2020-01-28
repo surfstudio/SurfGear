@@ -13,12 +13,9 @@
 // limitations under the License.
 
 import 'package:network/src/base/call_adapter.dart';
-import 'package:rxdart/rxdart.dart';
 
 ///Адаптер для перевода сервисного слоя в [rx]
 class RxCallAdapter<T> implements CallAdapter<Future<T>, Stream<T>> {
   @override
-  Stream<T> adapt(Future<T> call) {
-    return Stream.fromFuture(call);
-  }
+  Stream<T> adapt(Future<T> call) => call.asStream();
 }

@@ -16,7 +16,6 @@ import 'package:geolocation/src/base/data/location.dart';
 import 'package:geolocation/src/base/exceptions.dart';
 import 'package:geolocation/src/base/location_service.dart';
 import 'package:location/location.dart' as lib;
-import 'package:rxdart/rxdart.dart';
 
 /// Location service implementation.
 /// Based on https://pub.dev/packages/location
@@ -51,10 +50,10 @@ class DefaultLocationService implements LocationService {
   }
 
   @override
-  Stream<Location> observeLocation() =>
-      Stream.fromFuture(_checkStatus())
-          .asyncExpand((_) => _locationService.onLocationChanged())
-          .map(_locationDataToLocation);
+  Stream<Location> observeLocation() => _checkStatus()
+      .asStream()
+      .asyncExpand((_) => _locationService.onLocationChanged())
+      .map(_locationDataToLocation);
 
   @override
   Future<bool> isLocationServiceEnabled() {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/interactor/debug/debug_screen_interactor.dart';
 import 'package:flutter_template/ui/app/di/app.dart';
 import 'package:flutter_template/ui/base/default_dialog_controller.dart';
 import 'package:flutter_template/ui/base/error/standard_error_handler.dart';
@@ -7,33 +6,33 @@ import 'package:flutter_template/ui/base/material_message_controller.dart';
 import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
 
-/// [Component] для экрана <Debug>
-class DebugScreenComponent implements Component {
+/// Base component with common dependencies.
+abstract class WidgetComponent implements Component {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   MessageController messageController;
   DialogController dialogController;
   NavigatorState navigator;
   WidgetModelDependencies wmDependencies;
-  DebugScreenInteractor debugScreenInteractor;
-  VoidCallback rebuildApplication;
 
-  DebugScreenComponent(BuildContext context) {
-    var app = Injector.of<AppComponent>(context).component;
+  WidgetComponent(
+    BuildContext context, {
+    MessageController messageController,
+    DialogController dialogController,
+    NavigatorState navigator,
+  }) {
+    var appComponent = Injector.of<AppComponent>(context).component;
 
-    messageController = MaterialMessageController(scaffoldKey);
-    dialogController = DefaultDialogController(scaffoldKey);
-    navigator = Navigator.of(context);
+    this.messageController = messageController ?? MaterialMessageController(scaffoldKey);
+    this.dialogController = dialogController ?? DefaultDialogController(scaffoldKey);
+    this.navigator = navigator ?? Navigator.of(context);
 
     wmDependencies = WidgetModelDependencies(
       errorHandler: StandardErrorHandler(
         messageController,
         dialogController,
-        app.scInteractor,
+        appComponent.scInteractor, // TODO: не всегда нужно
       ),
     );
-
-    debugScreenInteractor = app.debugScreenInteractor;
-    rebuildApplication = app.rebuildDependencies;
   }
 }

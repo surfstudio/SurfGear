@@ -1,5 +1,5 @@
-name: bottom_navigation_bar
-description: Bottom navigation bar
+name: db_holder
+description: Separator of app logic and src.manager working logic.
 version: 0.0.1
 author:
 
@@ -9,12 +9,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  tabnavigator:
-    path: ../tabnavigator
-
-  # testing mock
-  mockito: ^4.1.1
 
 dev_dependencies:
   flutter_test:

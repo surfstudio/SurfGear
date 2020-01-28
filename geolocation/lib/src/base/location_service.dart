@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:geolocation/src/base/data/location.dart';
-import 'package:rxdart/rxdart.dart';
 
 /// Service for location handling.
 ///

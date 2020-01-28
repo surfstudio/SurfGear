@@ -15,7 +15,6 @@
 import 'dart:io';
 
 import 'package:network/src/base/response.dart';
-import 'package:rxdart/rxdart.dart';
 
 ///Фасад над работой с сетью с использование [rx]
 abstract class RxHttp {

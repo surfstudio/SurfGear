@@ -83,7 +83,8 @@ class GeolocatorService implements LocationService {
       forceAndroidLocationManager: shouldUseLocationManager,
     );
 
-    return _geolocator.getPositionStream(options)
+    return _geolocator
+        .getPositionStream(options)
         .map(_positionToLocation)
         .doOnError(_handleError);
   }

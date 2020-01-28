@@ -18,7 +18,6 @@ import 'package:network/network.dart';
 import 'package:network/src/base/response.dart';
 import 'package:network/src/rx/rx_call_adapter.dart';
 import 'package:network/src/rx/rx_http.dart';
-import 'package:rxdart/rxdart.dart';
 
 ///Http делагат, который адаптирует [Http] к [RxHttp]
 class RxHttpDelegate implements RxHttp {

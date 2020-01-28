@@ -48,7 +48,9 @@ class DefaultNetworkCache implements NetworkCache {
     Duration lifetime,
   }) {
     final key = _buildStorageKey(url, query);
-    final cacheResponse = Stream.fromFuture(_storage.get(key))
+    final cacheResponse = _storage
+        .get(key)
+        .asStream()
         .map((data) => _extractResponse(data, key))
         .where((data) => data != null);
 
