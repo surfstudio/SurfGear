@@ -11,10 +11,6 @@ class DefaultStatusMapper extends StandardStatusMapper {
     try {
       er = ErrorResponse.fromJson(response.body);
       switch (er.errorCode) {
-        case 101:
-          throw OtpException();
-        case 102:
-          throw UserNotFoundException();
         case 105:
           throw NotFoundException(er.message);
         default:

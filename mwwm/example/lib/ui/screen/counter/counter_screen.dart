@@ -16,25 +16,23 @@ import 'package:counter/ui/screen/counter/counter_wm.dart';
 import 'package:counter/ui/screen/counter/di/counter.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:injector/injector.dart';
 
 /// Widget для экрана счетчика
-class CounterScreen extends StatefulWidget {
-  @override
-  _CounterScreenState createState() => _CounterScreenState();
+class CounterScreen extends MwwmWidget<CounterComponent> {
+  CounterScreen()
+      : super(
+          dependenciesBuilder: (BuildContext context) =>
+              CounterComponent(Navigator.of(context)),
+          widgetStateBuilder: () => _CounterScreenState(),
+        );
 }
 
-class _CounterScreenState
-    extends WidgetState<CounterScreen, CounterWidgetModel, CounterComponent> {
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-
+class _CounterScreenState extends WidgetState<CounterWidgetModel> {
   @override
-  Widget buildState(BuildContext context) {
-    return _buildScreen(context);
-  }
-
-  Widget _buildScreen(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
+      key: Injector.of<CounterComponent>(context).component.scaffoldKey,
       appBar: AppBar(
         title: Text('Counter Demo'),
       ),
@@ -56,20 +54,21 @@ class _CounterScreenState
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('You have pushed the button this many times:'),
+              Text('You have pushed the this many times:'),
               Text(
                 '${snapshot.data}',
-                style: Theme.of(context).textTheme.display1,
+                style: Theme.of(context).textTheme.caption,
+              ),
+              TextField(
+                autofocus: true,
+                onChanged: (_) {
+
+                },
               ),
             ],
           ),
         );
       },
     );
-  }
-
-  @override
-  CounterComponent getComponent(BuildContext context) {
-    return CounterComponent(Navigator.of(context));
   }
 }

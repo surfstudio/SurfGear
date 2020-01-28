@@ -13,6 +13,30 @@
 // limitations under the License.
 
 import 'package:counter/ui/app/app.dart';
+import 'package:counter/ui/app/app_wm.dart';
+import 'package:counter/ui/app/di/app.dart';
+import 'package:counter/ui/screen/counter/counter_wm.dart';
+import 'package:counter/ui/screen/counter/di/counter.dart';
 import 'package:flutter/material.dart';
+import 'package:mwwm/mwwm.dart';
+import 'package:injector/injector.dart';
 
-void main() => runApp(App());
+AppWidgetModel createAppModel(BuildContext context) => AppWidgetModel(
+      WidgetModelDependencies(),
+      Injector.of<AppComponent>(context).component.navigatorKey,
+    );
+
+CounterWidgetModel createCounterModel(BuildContext context) =>
+    CounterWidgetModel(
+      WidgetModelDependencies(),
+      Injector.of<CounterComponent>(context).component.navigator,
+      Injector.of<CounterComponent>(context).component.scaffoldKey,
+    );
+
+void main() {
+   WidgetModelFactory.instance()
+     ..registerBuilder<AppWidgetModel>(createAppModel)
+     ..registerBuilder<CounterWidgetModel>(createCounterModel);
+
+  runApp(App());
+}

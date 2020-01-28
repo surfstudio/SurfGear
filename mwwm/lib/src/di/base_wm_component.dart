@@ -13,8 +13,8 @@
 // limitations under the License.
 
 import 'package:injector/injector.dart';
+import 'package:mwwm/src/widget_model.dart';
 
 /// Базовый [Component] для всех [WidgetModel]
 abstract class BaseWidgetModelComponent<WM> implements Component {
-  WM get wm;
 }

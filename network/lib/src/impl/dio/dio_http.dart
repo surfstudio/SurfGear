@@ -16,11 +16,12 @@ import 'dart:io';
 
 import 'package:dio/dio.dart' as dio;
 import 'package:logger/logger.dart';
-import 'package:network/src/base/config.dart';
+import 'package:network/src/base/config/config.dart';
 import 'package:network/src/base/headers.dart';
 import 'package:network/src/base/http.dart';
 import 'package:network/src/base/response.dart';
 import 'package:network/src/base/status_mapper.dart';
+import 'package:network/src/impl/dio/interceptor/dio_interceptor.dart';
 
 ///Library Based Http Implementation [dio]
 class DioHttp extends Http {
@@ -29,7 +30,12 @@ class DioHttp extends Http {
 
   final _dio = dio.Dio();
 
-  DioHttp({this.headersBuilder, HttpConfig config, this.errorMapper}) {
+  DioHttp({
+    this.headersBuilder,
+    HttpConfig config,
+    this.errorMapper,
+    List<DioInterceptor> interceptors,
+  }) {
     _dio.options
       ..baseUrl = config.baseUrl
       ..connectTimeout = config.timeout.inMilliseconds
@@ -37,11 +43,22 @@ class DioHttp extends Http {
       ..sendTimeout = config.timeout.inMilliseconds;
 
     _configProxy(config);
+    interceptors
+        ?.map((interceptor) => DioInterceptorDecorator(interceptor))
+        ?.forEach((interceptor) => _dio.interceptors.add(interceptor));
 
-    _dio.interceptors.add(dio.LogInterceptor(
-      requestBody: true,
-      responseBody: true,
-    ));
+    var logConfig = config.logConfig;
+    if (logConfig != null) {
+      _dio.interceptors.add(dio.LogInterceptor(
+        request: logConfig.options,
+        requestHeader: logConfig.requestHeader,
+        requestBody: logConfig.requestBody,
+        responseHeader: logConfig.requestHeader,
+        responseBody: logConfig.responseBody,
+        error: logConfig.error,
+        logSize: logConfig.logSize,
+      ));
+    }
 
     _dio.interceptors.add(dio.InterceptorsWrapper(onError: (e) {
       if (e.type == dio.DioErrorType.RESPONSE) {
@@ -49,7 +66,7 @@ class DioHttp extends Http {
       }
 
       if (e is Error) {
-        throw Exception((e as Error).stackTrace);
+        throw Exception(e.stackTrace);
       }
 
       throw e;

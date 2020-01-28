@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:mwwm/src/error_handler.dart';
+import 'package:mwwm/src/error/error_handler.dart';
 
 /// Базовые зависимости для WM
 class WidgetModelDependencies {

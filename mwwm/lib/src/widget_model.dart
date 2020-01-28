@@ -16,17 +16,19 @@ import 'dart:async';
 
 import 'package:meta/meta.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:mwwm/src/error/error_handler.dart';
 import 'package:rxdart/rxdart.dart';
 
 ///WidgetModel - interface
 ///WM is logical representation of widget.
-///полностью на action/stream | action/observable
+///Has Action as input 
+///and StreamedState(and descedants) as output
 abstract class WidgetModel {
   final ErrorHandler _errorHandler;
   CompositeSubscription _compositeSubscription = CompositeSubscription();
   PublishSubject<ExceptionWrapper> _errorSubject = PublishSubject();
 
-  Observable<ExceptionWrapper> get errorStream => _errorSubject.stream;
+  Stream<ExceptionWrapper> get errorStream => _errorSubject.stream;
 
   WidgetModel(WidgetModelDependencies baseDependencies)
       : _errorHandler = baseDependencies.errorHandler {
@@ -38,7 +40,7 @@ abstract class WidgetModel {
 
   /// subscribe for interactors
   StreamSubscription subscribe<T>(
-    Observable<T> stream,
+    Stream<T> stream,
     void Function(T t) onValue, {
     void Function(dynamic e) onError,
   }) {
@@ -52,7 +54,7 @@ abstract class WidgetModel {
 
   /// subscribe for interactors with default handle error
   StreamSubscription subscribeHandleError<T>(
-    Observable<T> stream,
+    Stream<T> stream,
     void Function(T t) onValue, {
     void Function(dynamic e) onError,
   }) {

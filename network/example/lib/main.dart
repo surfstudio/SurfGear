@@ -33,6 +33,19 @@ RxHttp _initHttp() {
       Duration(seconds: 30),
     ),
     errorMapper: DefaultStatusMapper(),
+    interceptors: _initIntercpetors(),
   );
   return RxHttpDelegate(dioHttp);
+}
+
+List<DioInterceptor> _initIntercpetors() {
+  return [
+    DioInterceptorWrapper(
+      requestCallback: (request) =>
+          print('onRequest from DioInterceptorWrapper'),
+      responseCallback: (response) =>
+          print('onResponse from DioInterceptorWrapper'),
+      errorCallback: (error) => print('onError from DioInterceptorWrapper'),
+    ),
+  ];
 }

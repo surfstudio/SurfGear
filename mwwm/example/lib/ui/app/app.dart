@@ -17,19 +17,30 @@ import 'package:counter/ui/app/di/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:injector/injector.dart';
 
 /// Widget приложения
-class App extends StatefulWidget {
-  @override
-  State createState() => new _AppState();
+class App extends MwwmWidget<AppComponent> {
+  App()
+      : super(
+          dependenciesBuilder: (BuildContext context) => AppComponent(),
+          widgetStateBuilder: () => _AppState(),
+        );
 }
 
-class _AppState extends WidgetState<App, AppWidgetModel, AppComponent> {
-  GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+class _AppState extends WidgetState<AppWidgetModel> {
+  Key _navKey;
 
-  Widget buildState(BuildContext context) {
+  @override
+  void initState() {
+    super.initState();
+    _navKey = Injector.of<AppComponent>(context).component.navigatorKey;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
-      navigatorKey: navigatorKey,
+      navigatorKey: _navKey,
       home: Scaffold(
         body: Center(
           child: Icon(
@@ -40,10 +51,5 @@ class _AppState extends WidgetState<App, AppWidgetModel, AppComponent> {
         ),
       ),
     );
-  }
-
-  @override
-  AppComponent getComponent(BuildContext context) {
-    return AppComponent(navigatorKey);
   }
 }

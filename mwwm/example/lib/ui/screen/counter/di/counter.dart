@@ -12,21 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:counter/ui/screen/counter/counter_wm.dart';
 import 'package:flutter/material.dart';
-import 'package:mwwm/mwwm.dart';
+import 'package:injector/injector.dart';
 
 /// Component для экрана счетчика
-class CounterComponent implements BaseWidgetModelComponent<CounterWidgetModel> {
-  @override
-  CounterWidgetModel wm;
+class CounterComponent implements Component {
+  
+  final NavigatorState navigator;
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   CounterComponent(
-    NavigatorState navigator,
-  ) {
-    wm = CounterWidgetModel(
-      WidgetModelDependencies(),
-      navigator,
-    );
-  }
+    this.navigator,
+  );
 }
