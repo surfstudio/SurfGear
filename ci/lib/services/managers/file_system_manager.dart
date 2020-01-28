@@ -18,22 +18,37 @@ class FileSystemManager {
   Directory getDirectory(String path) => Directory(path);
 
   /// Возвращает объекты в директории.
-  List<FileSystemEntity> getEntitiesInDirectory(String path,
-          {bool recursive = false, bool followLinks = true}) =>
-      Directory(path).listSync(recursive: recursive, followLinks: followLinks);
+  List<FileSystemEntity> getEntitiesInDirectory(
+    String path, {
+    bool recursive = false,
+    bool followLinks = true,
+  }) =>
+      Directory(path).listSync(
+        recursive: recursive,
+        followLinks: followLinks,
+      );
 
   /// Возвращает значение файла в виде строки.
   String readFileAsString(
     String path, {
     Encoding encoding = utf8,
   }) =>
-      File(path).readAsStringSync(encoding: encoding);
+      File(path).readAsStringSync(
+        encoding: encoding,
+      );
 
   /// Записывает в файл строковые данные.
-  void writeToFileAsString(String path, String contents,
-          {FileMode mode = FileMode.write,
-          Encoding encoding = utf8,
-          bool flush = false}) =>
-      File(path).writeAsString(contents,
-          mode: mode, encoding: encoding, flush: flush);
+  void writeToFileAsString(
+    String path,
+    String contents, {
+    FileMode mode = FileMode.write,
+    Encoding encoding = utf8,
+    bool flush = false,
+  }) =>
+      File(path).writeAsString(
+        contents,
+        mode: mode,
+        encoding: encoding,
+        flush: flush,
+      );
 }

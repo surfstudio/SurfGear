@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
+import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/runner/shell_runner.dart';
 import 'package:ci/tasks/core/task.dart';
@@ -28,7 +29,7 @@ class PackageBuilderTask extends Action {
     var res = await _build(_package);
     if (res == false) {
       return Future.error(
-        PackageBuildException('Не удалось собрать модуль ${_package.name}'),
+        getPackageBuildExceptionText(_package.name),
       );
     }
   }

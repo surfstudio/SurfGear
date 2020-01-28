@@ -88,7 +88,6 @@ class AddCopyrightFailException extends BaseCiException {
   AddCopyrightFailException(String message) : super(message);
 }
 
-
 /// Не можем опубликовать модуль OpenSource
 class ModuleNotPublishOpenSourceException implements Exception {
   final String message;

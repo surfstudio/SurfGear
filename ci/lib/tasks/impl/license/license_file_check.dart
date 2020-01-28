@@ -1,5 +1,6 @@
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
+import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/tasks/core/task.dart';
@@ -29,7 +30,7 @@ class LicenseFileCheck extends Check {
     if (!isExist) {
       return Future.error(
         LicenseFileNotFoundException(
-          'Файл лицензии $licensePath не найден',
+          getLicenseFileNotFoundExceptionText(licensePath),
         ),
       );
     } else {
@@ -46,7 +47,7 @@ class LicenseFileCheck extends Check {
       if (content != sample) {
         return Future.error(
           LicenseFileObsoleteException(
-            'Файл лицензии $licensePath устарел',
+            getLicenseFileObsoleteExceptionText(licensePath),
           ),
         );
       }

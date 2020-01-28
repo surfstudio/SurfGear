@@ -4,7 +4,7 @@ import 'package:path/path.dart';
 
 /// Конфигурация приложения
 /// TODO: заполнение и парсинг не из кодового представления
-class Config {
+abstract class Config {
   static final String _resourcesPath = join(
     Directory.current.parent.path,
     'resources',

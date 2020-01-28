@@ -39,7 +39,7 @@ Future<void> build(List<Element> elements) async {
 
 /// Добавляет переданным модулям лицензии.
 ///
-/// dart ci add_license elements
+/// dart ci add_license
 Future<void> addLicense(List<Element> elements) async {
   var needUpdate = <Element>[];
 
@@ -82,8 +82,8 @@ Future<void> addLicense(List<Element> elements) async {
 
 /// Добавляет переданным модулям копирайты в файлы.
 ///
-/// dart ci Add_copyrights elements
-Future<void> AddCopyrights(
+/// dart ci add_copyrights
+Future<void> addCopyrights(
   List<Element> elements, {
   FileSystemManager fileSystemManager,
   LicenseManager licenseManager,

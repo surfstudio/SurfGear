@@ -1,4 +1,5 @@
 import 'package:ci/exceptions/exceptions.dart';
+import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/tasks/core/task.dart';
@@ -26,7 +27,7 @@ class CopyrightCheck extends Check {
     if (!isExist) {
       return Future.error(
         FileNotFoundException(
-          'File $_filePath not found',
+          getFileNotFoundExceptionText(_filePath),
         ),
       );
     }
@@ -44,13 +45,13 @@ class CopyrightCheck extends Check {
       if (content.contains(_copyrightTag)) {
         return Future.error(
           FileCopyrightObsoleteException(
-            'Копирайт файла $_filePath устарел',
+            getCopyrightFileObsoleteExceptionText(_filePath),
           ),
         );
       } else {
         return Future.error(
           FileCopyrightMissedException(
-            'Копирайт файла $_filePath не найден',
+            getCopyrightFileNotFoundExceptionText(_filePath),
           ),
         );
       }
