@@ -7,6 +7,7 @@ import 'package:ci/services/runner/shell_runner.dart';
 import 'package:ci/tasks/factories/license_task_factory.dart';
 import 'package:ci/tasks/impl/license/copyright_check.dart';
 import 'package:ci/tasks/impl/license/licensing_check.dart';
+import 'package:ci/tasks/check_dependency_stable.dart';
 import 'package:ci/tasks/pub_check_release_version_task.dart';
 import 'package:ci/tasks/pub_dry_run_task.dart';
 
@@ -44,9 +45,14 @@ Future<bool> checkDryRunTask(Element element) {
 }
 
 /// Проверка на наличие актуальной версии в Release Notes
+/// dart ci pub_check_release_version element
 Future<bool> checkPubCheckReleaseVersionTask(Element element) {
   return PubCheckReleaseVersionTask(element).run();
 }
+
+/// Проверка стабильности зависимостей элемента
+Future<bool> checkDependenciesStable(Element element) =>
+    CheckDependencyStable(element).run();
 
 /// Проверка лицензирования переданных пакетов.
 ///
