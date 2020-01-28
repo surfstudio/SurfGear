@@ -37,3 +37,11 @@ class ModuleNotPublishOpenSourceException implements Exception {
   /// Вызывается [PubDryRunTask]
   ModuleNotPublishOpenSourceException(this.message);
 }
+
+/// Нет описание версии в CHANGELOG.md
+class ModuleNotReadyReleaseVersion implements Exception {
+  final String message;
+
+  /// Вызывается [PubCheckReleaseVersionTask]
+  ModuleNotReadyReleaseVersion(this.message);
+}
