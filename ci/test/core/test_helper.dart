@@ -86,7 +86,7 @@ LicenseManagerMock createLicenseManagerMock({
 /// Element
 
 Element createTestElement({String path = 'test/path'}) {
-  return Element(path: path);
+  return Element(uri: Uri.directory(path));
 }
 
 /// License Task Factory
