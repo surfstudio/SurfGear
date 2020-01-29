@@ -133,7 +133,6 @@ Future<bool> checkCopyright(
       licenseManager,
     ).run();
 
-
 /// Проверяет, что модули не стали стабильными от изменений в dev ветке.
 Future<bool> checkStabilityNotChangeInDev(List<Element> elements) async {
   // у измененных элементов должен быть выставлен флаг

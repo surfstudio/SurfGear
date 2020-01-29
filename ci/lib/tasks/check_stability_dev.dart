@@ -95,7 +95,7 @@ class CheckStabilityDev extends Check {
   }
 
   Future<void> _checkout(String target) async {
-    var res = await sh('git checkout $target~');
+    var res = await sh('git checkout $target');
 
     res.print();
 

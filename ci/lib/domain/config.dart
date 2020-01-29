@@ -6,7 +6,8 @@ import 'package:path/path.dart';
 /// TODO: заполнение и парсинг не из кодового представления
 abstract class Config {
   static final String _resourcesPath = join(
-    Directory.current.parent.path,
+    Directory.current.path,
+    'lib'
     'resources',
   );
 
@@ -15,7 +16,7 @@ abstract class Config {
     'license',
   );
 
-  static final String _standardPath = Directory.current.parent.parent.parent.path;
+  static final String _standardPath = Directory.current.parent.path;
 
   /// Путь до файла с лицензией
   static final String licenseFilePath = join(
