@@ -48,9 +48,9 @@ class StandardErrorHandler extends NetworkErrorHandler {
 
   void _handleClientHttpException(ClientHttpException e) {
     final statusCode = e.response.statusCode;
-    if (statusCode == HttpCodes.CODE_403) {
+    if (statusCode == HttpCodes.code403) {
       _show(forbiddenErrorMessage);
-    } else if (statusCode == HttpCodes.CODE_404) {
+    } else if (statusCode == HttpCodes.code404) {
       _show(serverErrorMessage);
     } else {
       _show(defaultHttpErrorMessage);

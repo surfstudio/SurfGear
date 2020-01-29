@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  localstorage: 2.0.0
+  localstorage: 3.0.1+4
 
 dev_dependencies:
   flutter_test:
