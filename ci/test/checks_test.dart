@@ -1,5 +1,6 @@
 import 'package:ci/domain/element.dart';
-import 'package:ci/tasks/stable_modules_for_changes_check.dart';
+import 'package:ci/exceptions/exceptions.dart';
+import 'package:ci/tasks/checks.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -29,25 +30,25 @@ void main() {
     );
 
     expect(
-      () => CheckStableModulesForChanges(
+      () => checkStableModulesForChanges(
         [
           stableChanged,
           notStableChanged,
           stableNotChanged,
           notStableNotChanged,
         ],
-      ).run(),
-      throwsException,
+      ),
+      throwsA(isA<StableModulesWasModifiedException>()),
     );
 
     expect(
-      () => CheckStableModulesForChanges(
+      () => checkStableModulesForChanges(
         [
           notStableChanged,
           stableNotChanged,
           notStableNotChanged,
         ],
-      ).run(),
+      ),
       returnsNormally,
     );
   });
