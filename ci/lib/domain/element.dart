@@ -31,10 +31,20 @@ class Element {
   /// Использует ли библиотека специфичный для платформы код.
   final bool isPlugin;
 
-  /// Относительный путь до библиотеки.
-  /// Фактически, это название директории, в которой
-  /// она находится.
-  final String path;
+  /// Путь до библиотеки.
+  /// 
+  /// Использование:
+  /// ```dart
+  /// element.uri.toFilePath(windows: Platform.isWindows);
+  /// ```
+  final Uri uri;
+
+  /// Название директории, в которой находится библиотека,
+  /// обычно совпадает с названием.
+  /// URI для директорий заканчивается на `/`, из-за этого в
+  /// `pathSegments.last` будет пустая строка. Поэтому мы берём
+  /// предпоследний элемент.
+  String get path => uri.pathSegments[uri.pathSegments.length - 1];
 
   /// Модуль был изменён в рамках пулл реквеста.
   bool changed;
@@ -47,7 +57,7 @@ class Element {
     this.isStable,
     this.unstableVersion,
     this.isPlugin,
-    this.path,
+    this.uri,
     this.changed = false,
   });
 }

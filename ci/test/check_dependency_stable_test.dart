@@ -10,7 +10,6 @@ void main() {
       var stable = Element(isStable: true);
       var unstable = Element(isStable: false);
       var element = Element(
-        path: 'test/package',
         dependencies: [
           PathDependency(element: stable),
           PathDependency(element: unstable),
@@ -30,7 +29,6 @@ void main() {
       var stable2 = Element(isStable: true);
       var stable3 = Element(isStable: true);
       var element = Element(
-        path: 'test/package',
         dependencies: [
           PathDependency(element: stable1),
           PathDependency(element: stable2),
@@ -46,11 +44,10 @@ void main() {
 
   test(
     'check dependency stable should not affect not repo dependencies',
-        () async {
+    () async {
       var element = Element(
-        path: 'test/package',
         dependencies: [
-          GitDependency()
+          GitDependency(),
         ],
       );
 
