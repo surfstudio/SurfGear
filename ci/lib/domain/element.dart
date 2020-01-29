@@ -44,7 +44,7 @@ class Element {
   /// URI для директорий заканчивается на `/`, из-за этого в
   /// `pathSegments.last` будет пустая строка. Поэтому мы берём
   /// предпоследний элемент.
-  String get directoryName => uri.pathSegments[uri.pathSegments.length - 1];
+  String get path => uri.pathSegments[uri.pathSegments.length - 1];
 
   /// Модуль был изменён в рамках пулл реквеста.
   bool changed;

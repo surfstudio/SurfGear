@@ -14,5 +14,5 @@ Future<List<Element>> findChangedElements(List<Element> elements) async {
 
   print('Файлы, изменённые в последнем коммите:\n$diff');
 
-  return elements.where((e) => diff.contains(e.directoryName)).toList();
+  return elements.where((e) => diff.contains(e.path)).toList();
 }

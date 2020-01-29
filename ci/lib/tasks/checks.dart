@@ -1,5 +1,6 @@
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
+import 'package:ci/tasks/check_dependency_stable.dart';
 import 'package:ci/tasks/linter_check.dart';
 
 import 'package:ci/tasks/pub_check_release_version_task.dart';
@@ -65,3 +66,7 @@ Future<bool> checkDryRunTask(Element element) {
 Future<bool> checkPubCheckReleaseVersionTask(Element element) {
   return PubCheckReleaseVersionTask(element).run();
 }
+
+/// Проверка стабильности зависимостей элемента
+Future<bool> checkDependenciesStable(Element element) =>
+    CheckDependencyStable(element).run();
