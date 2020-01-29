@@ -1,32 +1,55 @@
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
-import 'package:ci/services/runner/shell_runner.dart';
 import 'package:ci/tasks/check_dependency_stable.dart';
+import 'package:ci/tasks/linter_check.dart';
+
 import 'package:ci/tasks/pub_check_release_version_task.dart';
 import 'package:ci/tasks/pub_dry_run_task.dart';
+import 'package:ci/tasks/stable_modules_for_changes_check.dart';
+
+/// Проверка модулей с помощью `flutter analyze`.
+Future<bool> checkModulesWithLinter(List<Element> elements) async {
+  var errorMessages = <String>[];
+
+  for (var element in elements) {
+    try {
+      await CheckModuleWithLinter(element).run();
+    } catch (errorMessage) {
+      errorMessages.add(errorMessage);
+    }
+  }
+
+  if (errorMessages.isNotEmpty) {
+    errorMessages.insert(
+        0, 'Пожалуйста, исправьте ошибки в следующих модулях:\n\n');
+
+    throw AnalyzerFailedException(errorMessages.join());
+  }
+
+  return true;
+}
 
 /// Проверяет изменились ли модули, отмеченные как stable.
 /// Если есть изменённые — выбрасывает исключение со списком модулей.
-void checkStableModulesForChanges(List<Element> elements) {
-  final changedModules =
-      elements.where((e) => e.isStable && e.changed).toList();
+Future<bool> checkStableModulesForChanges(List<Element> elements) async {
+  final stableModules = elements.where((e) => e.isStable).toList();
+  final changedModules = <Element>[];
+
+  for (var stableModule in stableModules) {
+    if (await CheckStableModuleForChanges(stableModule).run()) {
+      changedModules.add(stableModule);
+    }
+  }
 
   if (changedModules.isNotEmpty) {
     final modulesNames = changedModules.map((e) => e.name).join(', ');
-    throw StableModulesWasModifiedException(
-        'Модули, отмеченные как stable, были изменены: $modulesNames');
+    return Future.error(
+      StableModulesWasModifiedException(
+          'Модули, отмеченные как stable, были изменены: $modulesNames'),
+    );
   }
-}
 
-/// Ищет изменения в указанных модулях, опираясь на разницу
-/// между двумя последними коммитами.
-Future<List<Element>> findChangedElements(List<Element> elements) async {
-  final result = await sh('git diff --name-only HEAD HEAD~');
-  final diff = result.stdout as String;
-
-  print('Файлы, изменённые в последнем коммите:\n$diff');
-
-  return elements.where((e) => diff.contains(e.path)).toList();
+  return Future.value(true);
 }
 
 /// Проверка на возможность публикации пакета  модулей openSource

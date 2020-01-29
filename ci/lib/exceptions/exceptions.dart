@@ -21,6 +21,15 @@ class PackageBuildException implements Exception {
   PackageBuildException(this.message);
 }
 
+/// Модуль не прошёл проверку статического анализатора
+/// `flutter analyze`
+class AnalyzerFailedException implements Exception {
+  final String message;
+
+  AnalyzerFailedException(this.message);
+}
+
+
 /// Не можем опубликовать модуль OpenSource
 class ModuleNotPublishOpenSourceException implements Exception {
   final String message;
