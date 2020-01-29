@@ -7,6 +7,7 @@ pathToCopyright=./license/copyright.txt
 ### region FUNCTION
 
 ## add copyright to files .dart in dir
+## !!!deprecated use ci task instead
 function addCopyright() {
     i=$1
     if ! grep -q Copyright $i; then
@@ -17,12 +18,14 @@ function addCopyright() {
     fi
 }
 
+## !!!deprecated use ci task instead
 function addCopyrightInCurrentDir() {
     for dir in $(find . -iname ${pattern}); do
         addCopyright $dir
     done
 }
 
+## !!!deprecated use ci task instead
 function usage() {
     echo "usage: $0 [-p pattern for search ] [-cp | --copyright-path path to copyright]| [-h]]"
 }

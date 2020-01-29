@@ -2,7 +2,8 @@ import 'dart:io';
 
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
-import 'package:ci/services/managers/directory_manager.dart';
+import 'package:ci/exceptions/exceptions_strings.dart';
+import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/runner/shell_runner.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:ci/utils/process_result_extension.dart';
@@ -14,7 +15,7 @@ class PackageBuilderTask extends Action {
   static const String exampleName = 'example';
   static const String buildCmd = 'flutter build apk';
 
-  final DirectoryManager directoryManager;
+  final FileSystemManager directoryManager;
 
   final Element _package;
 
@@ -28,7 +29,7 @@ class PackageBuilderTask extends Action {
     var res = await _build(_package);
     if (res == false) {
       return Future.error(
-        PackageBuildException('Не удалось собрать модуль ${_package.name}'),
+        getPackageBuildExceptionText(_package.name),
       );
     }
   }
@@ -45,7 +46,7 @@ class PackageBuilderTask extends Action {
 
   Future<bool> _buildExample(Element package) async {
     var list = directoryManager.getEntitiesInDirectory(
-      package.path,
+      package.uri.path,
       recursive: true,
     );
 

@@ -1,3 +1,21 @@
+import 'exceptions_strings.dart';
+
+/// Базовая ошибка модуля ci
+abstract class BaseCiException implements Exception {
+  final String message;
+
+  BaseCiException(this.message);
+}
+
+/// Общие ошибки
+
+/// Не найден файл лицензии для модуля.
+class FileNotFoundException extends BaseCiException {
+  FileNotFoundException(String message) : super(message);
+}
+
+/// Ошибки функционала
+
 /// Не найдены модули. Например, пользователь указал неправильный путь.
 class ModulesNotFoundException implements Exception {
   final String message;
@@ -15,11 +33,69 @@ class StableModulesWasModifiedException implements Exception {
 /// Ошибка при сборке модуля.
 ///
 /// Выбрасывается как в случае сборки единичного модуля так и списка модулей.
-class PackageBuildException implements Exception {
+class PackageBuildException extends BaseCiException {
+  PackageBuildException(String message) : super(message);
+}
+
+/// Не найден образец лицензии.
+class LicenseSampleNotFoundException extends FileNotFoundException {
+  LicenseSampleNotFoundException({
+    String message = licenseSampleNotFoundExceptionText,
+  }) : super(message);
+}
+
+/// Не найден образец копирайта.
+class CopyrightSampleNotFoundException extends FileNotFoundException {
+  CopyrightSampleNotFoundException({
+    String message = copyrightSampleNotFoundExceptionText,
+  }) : super(message);
+}
+
+/// Не найден файл лицензии для модуля.
+class LicenseFileNotFoundException extends BaseCiException {
+  LicenseFileNotFoundException(String message) : super(message);
+}
+
+/// Ошибка - лицензия модуля устарела.
+class LicenseFileObsoleteException extends BaseCiException {
+  LicenseFileObsoleteException(String message) : super(message);
+}
+
+/// Ошибка - копирайт файла отсутствует.
+class FileCopyrightMissedException extends BaseCiException {
+  FileCopyrightMissedException(String message) : super(message);
+}
+
+/// Ошибка - копирайт файла устарел.
+class FileCopyrightObsoleteException extends BaseCiException {
+  FileCopyrightObsoleteException(String message) : super(message);
+}
+
+/// Ошибка лицензирования модуля.
+/// 
+/// Выбрасывается как в случае проверки единичного модуля так и списка модулей.
+class PackageLicensingException extends BaseCiException {
+  PackageLicensingException(String message) : super(message);
+}
+
+/// Ошибка при добавлении лицензии.
+class AddLicenseFailException extends BaseCiException {
+  AddLicenseFailException(String message) : super(message);
+}
+
+/// Ошибка при добавлении копирайта.
+class AddCopyrightFailException extends BaseCiException {
+  AddCopyrightFailException(String message) : super(message);
+}
+
+/// Модуль не прошёл проверку статического анализатора
+/// `flutter analyze`
+class AnalyzerFailedException implements Exception {
   final String message;
 
-  PackageBuildException(this.message);
+  AnalyzerFailedException(this.message);
 }
+
 
 /// Не можем опубликовать модуль OpenSource
 class ModuleNotPublishOpenSourceException implements Exception {

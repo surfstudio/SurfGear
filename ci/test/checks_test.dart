@@ -1,4 +1,5 @@
 import 'package:ci/domain/element.dart';
+import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:test/test.dart';
 
@@ -37,7 +38,7 @@ void main() {
           notStableNotChanged,
         ],
       ),
-      throwsException,
+      throwsA(isA<StableModulesWasModifiedException>()),
     );
 
     expect(

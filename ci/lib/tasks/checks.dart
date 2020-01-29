@@ -1,32 +1,60 @@
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
-import 'package:ci/services/runner/shell_runner.dart';
+import 'package:ci/exceptions/exceptions_strings.dart';
+import 'package:ci/services/managers/file_system_manager.dart';
+import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/tasks/check_dependency_stable.dart';
+import 'package:ci/tasks/factories/license_task_factory.dart';
+import 'package:ci/tasks/impl/license/copyright_check.dart';
+import 'package:ci/tasks/impl/license/licensing_check.dart';
+import 'package:ci/tasks/linter_check.dart';
 import 'package:ci/tasks/pub_check_release_version_task.dart';
 import 'package:ci/tasks/pub_dry_run_task.dart';
+import 'package:ci/tasks/stable_modules_for_changes_check.dart';
+
+/// Проверка модулей с помощью `flutter analyze`.
+Future<bool> checkModulesWithLinter(List<Element> elements) async {
+  var errorMessages = <String>[];
+
+  for (var element in elements) {
+    try {
+      await CheckModuleWithLinter(element).run();
+    } catch (errorMessage) {
+      errorMessages.add(errorMessage);
+    }
+  }
+
+  if (errorMessages.isNotEmpty) {
+    errorMessages.insert(
+        0, 'Пожалуйста, исправьте ошибки в следующих модулях:\n\n');
+
+    throw AnalyzerFailedException(errorMessages.join());
+  }
+
+  return true;
+}
 
 /// Проверяет изменились ли модули, отмеченные как stable.
 /// Если есть изменённые — выбрасывает исключение со списком модулей.
-void checkStableModulesForChanges(List<Element> elements) {
-  final changedModules =
-      elements.where((e) => e.isStable && e.changed).toList();
+Future<bool> checkStableModulesForChanges(List<Element> elements) async {
+  final stableModules = elements.where((e) => e.isStable).toList();
+  final changedModules = <Element>[];
+
+  for (var stableModule in stableModules) {
+    if (await CheckStableModuleForChanges(stableModule).run()) {
+      changedModules.add(stableModule);
+    }
+  }
 
   if (changedModules.isNotEmpty) {
     final modulesNames = changedModules.map((e) => e.name).join(', ');
-    throw StableModulesWasModifiedException(
-        'Модули, отмеченные как stable, были изменены: $modulesNames');
+    return Future.error(
+      StableModulesWasModifiedException(
+          'Модули, отмеченные как stable, были изменены: $modulesNames'),
+    );
   }
-}
 
-/// Ищет изменения в указанных модулях, опираясь на разницу
-/// между двумя последними коммитами.
-Future<List<Element>> findChangedElements(List<Element> elements) async {
-  final result = await sh('git diff --name-only HEAD HEAD~');
-  final diff = result.stdout as String;
-
-  print('Файлы, изменённые в последнем коммите:\n$diff');
-
-  return elements.where((e) => diff.contains(e.path)).toList();
+  return Future.value(true);
 }
 
 /// Проверка на возможность публикации пакета  модулей openSource
@@ -47,3 +75,57 @@ Future<bool> checkPubCheckReleaseVersionTask(Element element) {
 /// Проверка стабильности зависимостей элемента
 Future<bool> checkDependenciesStable(Element element) =>
     CheckDependencyStable(element).run();
+
+/// Проверка лицензирования переданных пакетов.
+///
+/// Проверяется наличие лицензии и её актуальность а так же наличие
+/// и правильность копирайтов у файлов.
+///
+/// dart ci check_licensing elements
+Future<bool> checkLicensing(List<Element> elements) async {
+  var failList = <Element, Exception>{};
+
+  for (var element in elements) {
+    var licenseCheck = LicensingCheck(
+      element,
+      LicenseManager(),
+      FileSystemManager(),
+      LicenseTaskFactory(),
+    );
+
+    try {
+      await licenseCheck.run();
+    } on Exception catch (e) {
+      failList[element] = e;
+    }
+  }
+
+  if (failList.isNotEmpty) {
+    var errorString;
+
+    failList.forEach((key, value) {
+      errorString += key.name + ':\n';
+      errorString += value.toString() + '\n';
+    });
+
+    return Future.error(
+      PackageLicensingException(
+        getPackageLicensingExceptionText(errorString),
+      ),
+    );
+  }
+
+  return true;
+}
+
+/// Проверяет копирайт файла.
+Future<bool> checkCopyright(
+  String filePath,
+  FileSystemManager fileSystemManager,
+  LicenseManager licenseManager,
+) async =>
+    CopyrightCheck(
+      filePath,
+      fileSystemManager,
+      licenseManager,
+    ).run();
