@@ -6,11 +6,13 @@
 
 ## check is directory flutter(dart) package
 ## $1 - input dir
+## !!!deprecated use ci task instead
 function hasPubspec() {
     ls -la $1/ | grep -q pubspec.yaml
 }
 
 ## check existing LICENSE
+## !!!deprecated use ci task instead
 function hasLicense() {
    grep -q -f $1/LICENSE ./license/LICENSE
 }

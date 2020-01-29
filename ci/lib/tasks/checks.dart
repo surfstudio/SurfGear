@@ -1,8 +1,13 @@
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
+import 'package:ci/exceptions/exceptions_strings.dart';
+import 'package:ci/services/managers/file_system_manager.dart';
+import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/tasks/check_dependency_stable.dart';
+import 'package:ci/tasks/factories/license_task_factory.dart';
+import 'package:ci/tasks/impl/license/copyright_check.dart';
+import 'package:ci/tasks/impl/license/licensing_check.dart';
 import 'package:ci/tasks/linter_check.dart';
-
 import 'package:ci/tasks/pub_check_release_version_task.dart';
 import 'package:ci/tasks/pub_dry_run_task.dart';
 import 'package:ci/tasks/stable_modules_for_changes_check.dart';
@@ -70,3 +75,57 @@ Future<bool> checkPubCheckReleaseVersionTask(Element element) {
 /// Проверка стабильности зависимостей элемента
 Future<bool> checkDependenciesStable(Element element) =>
     CheckDependencyStable(element).run();
+
+/// Проверка лицензирования переданных пакетов.
+///
+/// Проверяется наличие лицензии и её актуальность а так же наличие
+/// и правильность копирайтов у файлов.
+///
+/// dart ci check_licensing elements
+Future<bool> checkLicensing(List<Element> elements) async {
+  var failList = <Element, Exception>{};
+
+  for (var element in elements) {
+    var licenseCheck = LicensingCheck(
+      element,
+      LicenseManager(),
+      FileSystemManager(),
+      LicenseTaskFactory(),
+    );
+
+    try {
+      await licenseCheck.run();
+    } on Exception catch (e) {
+      failList[element] = e;
+    }
+  }
+
+  if (failList.isNotEmpty) {
+    var errorString;
+
+    failList.forEach((key, value) {
+      errorString += key.name + ':\n';
+      errorString += value.toString() + '\n';
+    });
+
+    return Future.error(
+      PackageLicensingException(
+        getPackageLicensingExceptionText(errorString),
+      ),
+    );
+  }
+
+  return true;
+}
+
+/// Проверяет копирайт файла.
+Future<bool> checkCopyright(
+  String filePath,
+  FileSystemManager fileSystemManager,
+  LicenseManager licenseManager,
+) async =>
+    CopyrightCheck(
+      filePath,
+      fileSystemManager,
+      licenseManager,
+    ).run();

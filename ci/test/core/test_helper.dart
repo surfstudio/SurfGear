@@ -1,6 +1,10 @@
-import 'package:ci/services/managers/directory_manager.dart';
+import 'package:ci/domain/element.dart';
+import 'package:ci/services/managers/file_system_manager.dart';
+import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/services/managers/shell_manager.dart';
 import 'package:ci/services/runner/shell_runner.dart';
+import 'package:ci/tasks/core/task.dart';
+import 'package:ci/tasks/factories/license_task_factory.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shell/shell.dart';
 import 'package:test/test.dart';
@@ -15,6 +19,26 @@ void expectNoThrow(
 }) =>
     expect(actual, returnsNormally, reason: reason, skip: skip);
 
+/// Подмена задачи
+class TaskMock<T> extends Mock implements Task<T> {}
+
+/// Замена задачи, которая завершается успешно
+TaskMock<T> createSuccessTask<T>({T result}) {
+  var mock = TaskMock<T>();
+  when(mock.run()).thenAnswer((_) => Future.value(result));
+
+  return mock;
+}
+
+/// Замена задачи, которая завершается ошибкой
+TaskMock<T> createFailTask<T>({Exception exception}) {
+  exception ??= Exception('test');
+  var mock = TaskMock<T>();
+  when(mock.run()).thenAnswer((_) => Future.error(exception));
+
+  return mock;
+}
+
 /// Shell part
 
 class ShellMock extends Mock implements Shell {}
@@ -26,9 +50,9 @@ ShellMock substituteShell({ShellManager manager}) {
   return mock;
 }
 
-/// Directory Manager
+/// File System Manager
 
-class DirectoryManagerMock extends Mock implements DirectoryManager {}
+class FileSystemManagerMock extends Mock implements FileSystemManager {}
 
 /// Shell Manager
 
@@ -39,3 +63,32 @@ ShellManagerMock createShellManagerMock({Shell copy}) {
   when(mock.copy(any)).thenReturn(copy);
   return mock;
 }
+
+/// License manager
+
+class LicenseManagerMock extends Mock implements LicenseManager {}
+
+LicenseManagerMock createLicenseManagerMock({
+  String license,
+  String copyright,
+}) {
+  var mock = LicenseManagerMock();
+
+  if (license != null) {
+    when(mock.getLicense()).thenAnswer((_) => Future.value(license));
+  }
+
+  if (copyright != null) {
+    when(mock.getCopyright()).thenAnswer((_) => Future.value(copyright));
+  }
+}
+
+/// Element
+
+Element createTestElement({String path = 'test/path'}) {
+  return Element(uri: Uri.directory(path));
+}
+
+/// License Task Factory
+
+class LicenseTaskFactoryMock extends Mock implements LicenseTaskFactory {}
