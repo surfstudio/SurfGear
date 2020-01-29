@@ -17,6 +17,11 @@ dependencies:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
       ref: project-ROS-27
       path: injector
+  logger:
+    git:
+      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      ref: project-ROS-28
+      path: logger
 
   #rx
   rxdart: 0.22.0

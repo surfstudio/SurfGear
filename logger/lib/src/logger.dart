@@ -15,7 +15,9 @@
 import 'package:logger/src/const.dart';
 import 'package:logger/src/strategies/log_strategy.dart';
 
-/// Wrapping for logging using various strategies
+/// Logger util.
+///
+/// Wrapper class for simple logging through various strategies.
 class Logger {
   static final _strategies = Map<Type, LogStrategy>();
 
@@ -23,6 +25,13 @@ class Logger {
   static void d(String msg, [Exception error]) {
     _forAllStrategies(
       (strategy) => strategy.log(msg, PRIORITY_LOG_DEBUG, error),
+    );
+  }
+
+  ///info
+  static void i(String msg, [Exception error]) {
+    _forAllStrategies(
+          (strategy) => strategy.log(msg, PRIORITY_LOG_INFO, error),
     );
   }
 
