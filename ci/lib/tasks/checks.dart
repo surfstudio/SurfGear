@@ -10,6 +10,7 @@ import 'package:ci/tasks/impl/license/licensing_check.dart';
 import 'package:ci/tasks/linter_check.dart';
 import 'package:ci/tasks/pub_check_release_version_task.dart';
 import 'package:ci/tasks/pub_dry_run_task.dart';
+import 'package:ci/tasks/run_module_tests_check.dart';
 import 'package:ci/tasks/stable_modules_for_changes_check.dart';
 
 /// Проверка модулей с помощью `flutter analyze`.
@@ -55,6 +56,28 @@ Future<bool> checkStableModulesForChanges(List<Element> elements) async {
   }
 
   return Future.value(true);
+}
+
+/// Запуск тестов в модулях
+Future<bool> runTests(List<Element> elements) async {
+  var errorMessages = <String>[];
+
+  for (var element in elements) {
+    try {
+      await RunModuleTests(element).run();
+    } catch (errorMessage) {
+      errorMessages.add(errorMessage);
+    }
+  }
+
+  if (errorMessages.isNotEmpty) {
+    errorMessages.insert(0,
+        'Тесты провалились в следующих ${errorMessages.length} модулях:\n\n');
+
+    throw TestsFailedException(errorMessages.join());
+  }
+
+  return true;
 }
 
 /// Проверка на возможность публикации пакета  модулей openSource
