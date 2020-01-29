@@ -1,8 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:mwwm/src/mixins/lifecycle_logging_mixin.dart';
 import 'package:mwwm/src/widget_model_creator.dart';
+
+import 'mixins/lifecycle_remote_logging_mixin.dart';
 
 typedef WidgetStateBuilder = State Function();
 typedef DependenciesBuilder<C> = C Function(BuildContext);
@@ -74,7 +75,7 @@ class _MwwmWidget extends StatefulWidget {
 /// Base class for state of [MwwmWidget].
 /// Has [WidgetModel] from [initState].
 abstract class WidgetState<WM extends WidgetModel> extends State<_MwwmWidget>
-    with LifecycleLoggingMixin<_MwwmWidget> {
+    with LifecycleRemoteLoggingMixin<_MwwmWidget> {
   final WidgetModelCreator _wmc = WidgetModelCreator<WM>();
 
   /// [WidgetModel] for widget.
