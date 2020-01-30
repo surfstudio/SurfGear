@@ -31,10 +31,10 @@ class CheckStabilityDev extends Check {
     if (stableWithChange.isNotEmpty) {
       // выполняем проверку только если у нас есть потенциальная проблема
 
-      // для начала запомним хеш коммита, нам еще сюда возвращаться
-      var hash;
+      // для начала запомним название текущей ветки, нам еще сюда возвращаться
+      var branch;
       try {
-        hash = await _getCurrentHash();
+        branch = await _getCurrentBranch();
       } on GitProcessException catch (e) {
         return Future.error(e);
       }
@@ -50,7 +50,7 @@ class CheckStabilityDev extends Check {
 
       // переключаемся на актуальное состояние ветки
       try {
-        await _checkout(hash);
+        await _checkout(branch);
       } on GitProcessException catch (e) {
         // а вот это очень плохо, вообще не понятно что делать, мы получается
         // остаемся в состоянии отдельного HEAD которое совсем не актуально.
@@ -78,8 +78,8 @@ class CheckStabilityDev extends Check {
     return true;
   }
 
-  Future<String> _getCurrentHash() async {
-    var res = await sh('git rev-parse HEAD');
+  Future<String> _getCurrentBranch() async {
+    var res = await sh('git rev-parse --abbrev-ref HEAD');
 
     res.print();
 

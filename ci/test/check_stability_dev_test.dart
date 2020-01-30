@@ -115,7 +115,7 @@ void main() {
     () async {
       _gitFailTest(
         <String, dynamic>{
-          'git rev-parse HEAD': false,
+          'git rev-parse --abbrev-ref HEAD': false,
         },
         throwsA(
           TypeMatcher<CommitHashException>(),
@@ -126,10 +126,11 @@ void main() {
 
   test(
     'Fail checkout head should throw exception',
-        () async {
+    () async {
       _gitFailTest(
         <String, dynamic>{
-          'git rev-parse HEAD': createPositiveResult(stdout: 'testhash'),
+          'git rev-parse --abbrev-ref HEAD':
+              createPositiveResult(stdout: 'testbranch'),
           'git checkout HEAD~': false,
         },
         throwsA(
@@ -141,12 +142,13 @@ void main() {
 
   test(
     'Fail checkout hash should throw exception',
-        () async {
+    () async {
       _gitFailTest(
         <String, dynamic>{
-          'git rev-parse HEAD': createPositiveResult(stdout: 'testhash'),
+          'git rev-parse --abbrev-ref HEAD':
+              createPositiveResult(stdout: 'testbranch'),
           'git checkout HEAD~': true,
-          'git checkout testhash': false,
+          'git checkout testbranch': false,
         },
         throwsA(
           TypeMatcher<CheckoutException>(),
@@ -162,9 +164,10 @@ void _testChangeStability(
   matcher,
 ) {
   var callingMap = <String, dynamic>{
-    'git rev-parse HEAD': createPositiveResult(stdout: 'testhash'),
+    'git rev-parse --abbrev-ref HEAD':
+        createPositiveResult(stdout: 'testbranch'),
     'git checkout HEAD~': true,
-    'git checkout testhash': true,
+    'git checkout testbranch': true,
   };
 
   substituteShell(callingMap: callingMap);
