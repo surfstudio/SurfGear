@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:ci/domain/element.dart';
+import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/services/runner/shell_runner.dart';
 import 'package:ci/tasks/core/task.dart';
 
@@ -19,7 +20,10 @@ class RunModuleTests implements Check {
     );
 
     if (analyzeResult.exitCode != 0) {
-      throw '${element.name}\n$stderr\n\n';
+      final out = analyzeResult.stdout;
+      final err = analyzeResult.stderr;
+
+      throw TestsFailedException('${element.name}\n$out$err\n\n');
     }
 
     return true;

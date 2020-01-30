@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
@@ -59,22 +61,26 @@ Future<bool> checkStableModulesForChanges(List<Element> elements) async {
 }
 
 /// Запуск тестов в модулях
-Future<bool> runTests(List<Element> elements) async {
+Future<bool> runTests(List<Element> elements, {bool report = false}) async {
   var errorMessages = <String>[];
 
   for (var element in elements) {
     try {
       await RunModuleTests(element).run();
-    } catch (errorMessage) {
-      errorMessages.add(errorMessage);
+    } on TestsFailedException catch (e) {
+      errorMessages.add(e.message);
     }
   }
 
   if (errorMessages.isNotEmpty) {
-    errorMessages.insert(0,
-        'Тесты провалились в следующих ${errorMessages.length} модулях:\n\n');
+    final message =
+        getTestsFailedExceptionText(errorMessages.length, errorMessages.join());
 
-    throw TestsFailedException(errorMessages.join());
+    if (report) {
+      File('tests_report').writeAsStringSync(message, flush: true);
+    }
+
+    throw TestsFailedException(message);
   }
 
   return true;
