@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:path/path.dart';
 
 /// Конфигурация приложения
+///
+/// Данный конфиг позволяет уйти на уровень абстракции от
+/// конкретного указания параметров, путей, etc в коде.
 /// TODO: заполнение и парсинг не из кодового представления
 abstract class Config {
   static final String _resourcesPath = join(
