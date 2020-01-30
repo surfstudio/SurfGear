@@ -1,5 +1,5 @@
-import 'package:ci/ci.dart' as ci;
+import 'package:ci/ci.dart';
 
 void main(List<String> arguments) {
-  print('Hello world: ${ci.calculate()}!');
+  Ci.instance.execute(arguments);
 }
