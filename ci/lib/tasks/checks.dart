@@ -3,7 +3,9 @@ import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
+import 'package:ci/services/pubspec_parser.dart';
 import 'package:ci/tasks/check_dependency_stable.dart';
+import 'package:ci/tasks/check_stability_dev.dart';
 import 'package:ci/tasks/factories/license_task_factory.dart';
 import 'package:ci/tasks/impl/license/copyright_check.dart';
 import 'package:ci/tasks/impl/license/licensing_check.dart';
@@ -11,6 +13,7 @@ import 'package:ci/tasks/linter_check.dart';
 import 'package:ci/tasks/pub_check_release_version_task.dart';
 import 'package:ci/tasks/pub_dry_run_task.dart';
 import 'package:ci/tasks/stable_modules_for_changes_check.dart';
+import 'package:ci/tasks/utils.dart';
 
 /// Проверка модулей с помощью `flutter analyze`.
 Future<bool> checkModulesWithLinter(List<Element> elements) async {
@@ -129,3 +132,11 @@ Future<bool> checkCopyright(
       fileSystemManager,
       licenseManager,
     ).run();
+
+/// Проверяет, что модули не стали стабильными от изменений в dev ветке.
+Future<bool> checkStabilityNotChangeInDev(List<Element> elements) async {
+  // у измененных элементов должен быть выставлен флаг
+  elements = await findChangedElements(elements);
+
+  return CheckStabilityDev(elements, PubspecParser()).run();
+}

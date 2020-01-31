@@ -14,6 +14,11 @@ class FileNotFoundException extends BaseCiException {
   FileNotFoundException(String message) : super(message);
 }
 
+/// Базовая ошибка выполнения команд Git
+abstract class GitProcessException extends BaseCiException {
+  GitProcessException(String message) : super(message);
+}
+
 /// Ошибки функционала
 
 /// Не найдены модули. Например, пользователь указал неправильный путь.
@@ -111,4 +116,19 @@ class ModuleNotReadyReleaseVersion implements Exception {
 
   /// Вызывается [PubCheckReleaseVersionTask]
   ModuleNotReadyReleaseVersion(this.message);
+}
+
+/// Ошибка получения hash комита.
+class CommitHashException extends GitProcessException {
+  CommitHashException(String message) : super(message);
+}
+
+/// Ошибка выполнения checkout.
+class CheckoutException extends GitProcessException {
+  CheckoutException(String message) : super(message);
+}
+
+/// Модуль поменял значение стабильности в dev ветке.
+class StabilityDevChangedException extends BaseCiException {
+  StabilityDevChangedException(String message) : super(message);
 }
