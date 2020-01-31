@@ -26,7 +26,20 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final _controller = StreamController<SwipeRefreshState>.broadcast();
 
+  final _scrollColnfroller = ScrollController();
+  final _scrollStreamController = StreamController<ScrollPosition>.broadcast();
+
   get _stream => _controller.stream;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollColnfroller.addListener(
+      () {
+        _scrollStreamController.add(_scrollColnfroller.position);
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,16 +56,35 @@ class _MainPageState extends State<MainPage> {
                   _buildTab(SwipeRefreshStyle.cupertino)
                 ],
               ),
+              StreamBuilder<ScrollPosition>(
+                stream: _scrollStreamController.stream,
+                builder: (context, snapshot) {
+                  return Row(
+                    children: <Widget>[
+                      Text(
+                          'offset: ${snapshot.data != null ? snapshot.data.pixels.toStringAsFixed(2) : ''}'),
+                      Spacer(),
+                      Text(
+                          'viewPort: ${snapshot.data != null ? snapshot.data.viewportDimension.toStringAsFixed(2) : ''}'),
+                      Spacer(),
+                      Text(
+                          'after: ${snapshot.data != null ? snapshot.data.extentAfter.toStringAsFixed(2) : ''}'),
+                    ],
+                  );
+                },
+              ),
               Expanded(
                 child: TabBarView(children: <Widget>[
                   SwipeRefresh.material(
                     stateStream: _stream,
                     onRefresh: _refresh,
+                    scrollController: _scrollColnfroller,
                     children: _buildExampleBody(SwipeRefreshStyle.material),
                   ),
                   SwipeRefresh.cupertino(
                     stateStream: _stream,
                     onRefresh: _refresh,
+                    scrollController: _scrollColnfroller,
                     children: _buildExampleBody(SwipeRefreshStyle.cupertino),
                   ),
                 ]),
@@ -67,6 +99,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void dispose() {
     _controller.close();
+    _scrollStreamController.close();
 
     super.dispose();
   }
@@ -102,6 +135,13 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
       ),
+      Container(height: 200.0, color: Colors.grey[200]),
+      Container(height: 200.0, color: Colors.grey[300]),
+      Container(height: 200.0, color: Colors.grey[400]),
+      Container(height: 200.0, color: Colors.grey[500]),
+      Container(height: 200.0, color: Colors.grey[600]),
+      Container(height: 200.0, color: Colors.grey[700]),
+      Container(height: 200.0, color: Colors.grey[800]),
     ];
   }
 

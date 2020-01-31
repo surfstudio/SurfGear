@@ -12,6 +12,7 @@ class CupertinoSwipeRefresh extends SwipeRefreshBase {
   final double refreshTriggerPullDistance;
   final double refreshIndicatorExtent;
   final RefreshControlIndicatorBuilder indicatorBuilder;
+  // final ScrollController scrollController;
 
   const CupertinoSwipeRefresh({
     Key key,
@@ -23,11 +24,13 @@ class CupertinoSwipeRefresh extends SwipeRefreshBase {
     this.refreshIndicatorExtent = DEFAULT_REFRESH_INDICATOR_EXTENT,
     this.indicatorBuilder =
         CupertinoSliverRefreshControl.buildSimpleRefreshIndicator,
+    ScrollController scrollController,
   }) : super(
             key: key,
             children: children,
             stateStream: stateStream,
             initState: initState,
+            scrollController: scrollController,
             onRefresh: onRefresh);
 
   @override
@@ -36,7 +39,13 @@ class CupertinoSwipeRefresh extends SwipeRefreshBase {
 
 class _CupertinoSwipeRefreshState
     extends SwipeRefreshBaseState<CupertinoSwipeRefresh> {
-  ScrollController _scrollController = ScrollController();
+  ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = widget.scrollController ?? ScrollController();
+  }
 
   @override
   Widget buildRefresher(Key key, List<Widget> children, onRefresh) {

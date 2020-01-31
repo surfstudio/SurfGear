@@ -24,6 +24,7 @@ class SwipeRefresh extends StatelessWidget {
   final double refreshTriggerPullDistance;
   final double refreshIndicatorExtent;
   final RefreshControlIndicatorBuilder indicatorBuilder;
+  final ScrollController scrollController;
 
   final SwipeRefreshStyle style;
 
@@ -39,6 +40,7 @@ class SwipeRefresh extends StatelessWidget {
     double refreshTriggerPullDistance,
     double refreshIndicatorExtent,
     RefreshControlIndicatorBuilder indicatorBuilder,
+    this.scrollController,
   })  : this.indicatorColor = indicatorColor ?? const Color(0xFFFF0000),
         this.backgroundColor = backgroundColor ?? const Color(0xFFFFFFFF),
         this.refreshTriggerPullDistance = refreshTriggerPullDistance ??
@@ -60,6 +62,7 @@ class SwipeRefresh extends StatelessWidget {
     double refreshTriggerPullDistance,
     double refreshIndicatorExtent,
     RefreshControlIndicatorBuilder indicatorBuilder,
+    ScrollController scrollController,
   }) : this(
           SwipeRefreshStyle.adaptive,
           key: key,
@@ -72,6 +75,7 @@ class SwipeRefresh extends StatelessWidget {
           refreshTriggerPullDistance: refreshTriggerPullDistance,
           refreshIndicatorExtent: refreshIndicatorExtent,
           indicatorBuilder: indicatorBuilder,
+          scrollController: scrollController,
         );
 
   /// Create refresh indicator with Material Design style.
@@ -83,6 +87,7 @@ class SwipeRefresh extends StatelessWidget {
     VoidCallback onRefresh,
     Color indicatorColor,
     Color backgroundColor,
+    ScrollController scrollController,
   }) : this(
           SwipeRefreshStyle.material,
           key: key,
@@ -92,6 +97,7 @@ class SwipeRefresh extends StatelessWidget {
           onRefresh: onRefresh,
           indicatorColor: indicatorColor,
           backgroundColor: backgroundColor,
+          scrollController: scrollController,
         );
 
   /// Create refresh indicator with Cupertino style.
@@ -104,6 +110,7 @@ class SwipeRefresh extends StatelessWidget {
     double refreshTriggerPullDistance,
     double refreshIndicatorExtent,
     RefreshControlIndicatorBuilder indicatorBuilder,
+    ScrollController scrollController,
   }) : this(
           SwipeRefreshStyle.cupertino,
           key: key,
@@ -114,6 +121,7 @@ class SwipeRefresh extends StatelessWidget {
           refreshTriggerPullDistance: refreshTriggerPullDistance,
           refreshIndicatorExtent: refreshIndicatorExtent,
           indicatorBuilder: indicatorBuilder,
+          scrollController: scrollController,
         );
 
   @override
@@ -132,6 +140,7 @@ class SwipeRefresh extends StatelessWidget {
           onRefresh: onRefresh,
           backgroundColor: backgroundColor,
           indicatorColor: indicatorColor,
+          scrollController: scrollController,
         );
       case SwipeRefreshStyle.cupertino:
         return CupertinoSwipeRefresh(
@@ -143,6 +152,7 @@ class SwipeRefresh extends StatelessWidget {
           refreshIndicatorExtent: refreshIndicatorExtent,
           refreshTriggerPullDistance: refreshTriggerPullDistance,
           indicatorBuilder: indicatorBuilder,
+          scrollController: scrollController,
         );
       case SwipeRefreshStyle.adaptive:
         if (Platform.isAndroid) {
