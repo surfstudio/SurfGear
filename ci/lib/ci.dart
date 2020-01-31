@@ -1,3 +1,6 @@
+import 'package:ci/services/parsers/command_parser.dart';
+import 'package:ci/services/runner/command_runner.dart';
+
 /// Приложение для Continuous Integration.
 ///
 /// TODO: было бы не плохо чтоб всё это жило дольше чем выполнение 1 команды,
@@ -8,8 +11,31 @@ class Ci {
 
   static Ci get instance => _instance ??= Ci._();
 
-  Ci._();
+  CommandParser _commandParser;
+  CommandRunner _commandRunner;
+
+  Ci.init({CommandParser commandParser, CommandRunner commandRunner}) {
+    _instance ??= Ci._(
+      commandParser: commandParser,
+      commandRunner: commandRunner,
+    );
+  }
+
+  Ci._({
+    CommandParser commandParser,
+    CommandRunner commandRunner,
+  })  : _commandParser = commandParser ?? CommandParser(),
+        _commandRunner = commandRunner ?? CommandRunner();
 
   /// Выполняет действие исходя из переданных параметров.
-  void execute(List<String> arguments) async {}
+  Future<void> execute(List<String> arguments) async {
+    var command = _commandParser.parse(arguments);
+
+    // TODO: нормальную ошибку
+    if (command == null) {
+      return Future.error('');
+    }
+
+    return _commandRunner.run(command);
+  }
 }

@@ -6,7 +6,7 @@ class CommandParser {
   final ArgParser _argParser = ArgParser();
 
   CommandParser() {
-    initParser();
+    _initParser();
   }
 
   Command parse(List<String> arguments) {
@@ -15,7 +15,8 @@ class CommandParser {
     var rest = parsed.rest;
   }
 
-  void initParser() {
-
+  /// В данном методе необходимо провести инициализацию
+  /// у парсера всевозможных опций.
+  void _initParser() {
   }
 }
