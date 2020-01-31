@@ -132,3 +132,8 @@ class CheckoutException extends GitProcessException {
 class StabilityDevChangedException extends BaseCiException {
   StabilityDevChangedException(String message) : super(message);
 }
+
+/// Ошибка парсинга команды
+class ParseCommandException extends BaseCiException {
+  ParseCommandException(String message) : super(message);
+}

@@ -1,3 +1,5 @@
+import 'package:ci/exceptions/exceptions.dart';
+import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/parsers/command_parser.dart';
 import 'package:ci/services/runner/command_runner.dart';
 
@@ -31,9 +33,14 @@ class Ci {
   Future<void> execute(List<String> arguments) async {
     var command = _commandParser.parse(arguments);
 
-    // TODO: нормальную ошибку
     if (command == null) {
-      return Future.error('');
+      return Future.error(
+        ParseCommandException(
+          getParseCommandExceptionText(
+            arguments.join(' '),
+          ),
+        ),
+      );
     }
 
     return _commandRunner.run(command);
