@@ -4,7 +4,7 @@ import 'package:ci/domain/element.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/services/managers/shell_manager.dart';
-import 'package:ci/services/pubspec_parser.dart';
+import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/services/runner/shell_runner.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:ci/tasks/factories/license_task_factory.dart';

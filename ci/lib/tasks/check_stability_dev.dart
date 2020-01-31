@@ -2,7 +2,7 @@ import 'package:ci/domain/config.dart';
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
-import 'package:ci/services/pubspec_parser.dart';
+import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/services/runner/shell_runner.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:ci/utils/process_result_extension.dart';
