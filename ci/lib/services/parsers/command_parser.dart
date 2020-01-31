@@ -1,6 +1,8 @@
 import 'package:args/args.dart';
 import 'package:ci/domain/command.dart';
 
+const String _optionAll = 'all';
+
 /// Парсер команд
 class CommandParser {
   final ArgParser _argParser = ArgParser();
@@ -18,5 +20,6 @@ class CommandParser {
   /// В данном методе необходимо провести инициализацию
   /// у парсера всевозможных опций.
   void _initParser() {
+    _argParser.addFlag(_optionAll, negatable: false);
   }
 }
