@@ -19,6 +19,7 @@ enum Permission {
   calendar,
   contacts,
   microphone,
+  phone
 }
 
 /// Сервис запросов и проверки разрешений

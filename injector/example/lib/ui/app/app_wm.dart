@@ -37,7 +37,7 @@ class AppWidgetModel {
 
   Stream<bool> initApp() {
     /// имитация задержки на инициализацию приложения
-    return Stream.fromFuture(Future.delayed(Duration(seconds: 2), () => true));
+    return Stream.value(true).delay(Duration(seconds: 2));
   }
 
   void _openScreen(PageRoute route) {
