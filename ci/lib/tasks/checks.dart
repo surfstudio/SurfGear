@@ -18,6 +18,8 @@ import 'package:ci/tasks/run_module_tests_check.dart';
 import 'package:ci/tasks/stable_modules_for_changes_check.dart';
 import 'package:ci/tasks/utils.dart';
 
+const _testsReportName = 'tests_report.txt';
+
 /// Проверка модулей с помощью `flutter analyze`.
 Future<bool> checkModulesWithLinter(List<Element> elements) async {
   var errorMessages = <String>[];
@@ -80,7 +82,7 @@ Future<bool> runTests(List<Element> elements, {bool report = false}) async {
         getTestsFailedExceptionText(errorMessages.length, errorMessages.join());
 
     if (report) {
-      File('tests_report').writeAsStringSync(message, flush: true);
+      File(_testsReportName).writeAsStringSync(message, flush: true);
     }
 
     throw TestsFailedException(message);
