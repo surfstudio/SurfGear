@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:ci/domain/element.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/services/managers/shell_manager.dart';
+import 'package:ci/services/pubspec_parser.dart';
 import 'package:ci/services/runner/shell_runner.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:ci/tasks/factories/license_task_factory.dart';
@@ -44,11 +47,61 @@ TaskMock<T> createFailTask<T>({Exception exception}) {
 class ShellMock extends Mock implements Shell {}
 
 /// Подменяет шелл у раннера и возвращает экземпляр замены.
-ShellMock substituteShell({ShellManager manager}) {
+ShellMock substituteShell({
+  ShellManager manager,
+  Map<String, dynamic> callingMap,
+}) {
   var mock = ShellMock();
+
+  callingMap?.forEach((command, result) {
+    var parsed = command.split(' ');
+    var cmd = parsed[0];
+    parsed.remove(cmd);
+
+    ProcessResult answer;
+    if (result is ProcessResult) {
+      answer = result;
+    }
+
+    if (result is bool) {
+      answer = result ? createPositiveResult() : createErrorResult();
+    }
+
+    when(mock.run(cmd, parsed)).thenAnswer(
+      (_) => Future.value(
+        answer ?? createPositiveResult(),
+      ),
+    );
+  });
+
   ShellRunner.init(shell: mock, manager: manager);
   return mock;
 }
+
+/// Тестовый ответ на консольную команду, сценарий без ошибки.
+ProcessResult createPositiveResult({
+  dynamic stdout = 'test out',
+  dynamic stderr,
+}) =>
+    ProcessResult(
+      0,
+      0,
+      stdout,
+      stderr,
+    );
+
+/// Тестовый ответ на консольную команду, сценарий с ошибкой.
+ProcessResult createErrorResult({
+  int exitCode = 1,
+  dynamic stdout,
+  dynamic stderr = 'test error',
+}) =>
+    ProcessResult(
+      0,
+      exitCode,
+      stdout,
+      stderr,
+    );
 
 /// File System Manager
 
@@ -85,10 +138,24 @@ LicenseManagerMock createLicenseManagerMock({
 
 /// Element
 
-Element createTestElement({String path = 'test/path'}) {
-  return Element(uri: Uri.directory(path));
+Element createTestElement({
+  String name = 'testName',
+  String path = 'test/path',
+  bool isStable = false,
+  bool isChanged = false,
+}) {
+  return Element(
+    name: name,
+    uri: Uri.directory(path),
+    isStable: isStable,
+    changed: isChanged,
+  );
 }
 
 /// License Task Factory
 
 class LicenseTaskFactoryMock extends Mock implements LicenseTaskFactory {}
+
+/// Pubspec Parser
+
+class PubspecParserMock extends Mock implements PubspecParser {}

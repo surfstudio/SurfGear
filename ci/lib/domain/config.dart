@@ -3,17 +3,23 @@ import 'dart:io';
 import 'package:path/path.dart';
 
 /// Конфигурация приложения
+///
+/// Данный конфиг позволяет уйти на уровень абстракции от
+/// конкретного указания параметров, путей, etc в коде.
 /// TODO: заполнение и парсинг не из кодового представления
 abstract class Config {
   static final String _resourcesPath = join(
-    Directory.current.parent.path,
+    Directory.current.path,
+    'lib'
     'resources',
   );
+
   static final String _licensePath = join(
     _resourcesPath,
     'license',
   );
 
+  static final String _standardPath = Directory.current.parent.path;
 
   /// Путь до файла с лицензией
   static final String licenseFilePath = join(
@@ -25,5 +31,11 @@ abstract class Config {
   static final String copyrightFilePath = join(
     _licensePath,
     'copyright',
+  );
+
+  /// Путь до директории с модулями
+  static final String packagesPath = join(
+    _standardPath,
+    'packages',
   );
 }
