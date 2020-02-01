@@ -40,7 +40,7 @@ class RenderMetricsBox extends RenderProxyBox {
     return RenderData(
       yTop: dy - height,
       yBottom: dy,
-      yCenter: dy + height / 2,
+      yCenter: dy - height / 2,
       xLeft: dx - width,
       xRight: dx,
       xCenter: dx - width / 2,
