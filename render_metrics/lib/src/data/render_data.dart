@@ -37,10 +37,10 @@ class RenderData {
       secondData: other,
       yTop: yTop - other.yTop,
       yBottom: yBottom - other.yBottom,
-      yCenter: yTop + other.height / 2,
+      yCenter: yCenter - other.yCenter,
       xLeft: xLeft - other.xLeft,
       xRight: xRight - other.xRight,
-      xCenter: xLeft - other.width / 2,
+      xCenter: xCenter - other.xCenter,
       width: width - other.width,
       height: height - other.height,
     );
@@ -48,7 +48,7 @@ class RenderData {
 
   @override
   String toString() {
-    return 'ComparisonData(\n'
+    return 'RenderData(\n'
         '    yTop = $yTop;\n'
         '    yBottom = $yBottom;\n'
         '    yCenter = $yCenter;\n'
