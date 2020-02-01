@@ -147,8 +147,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Text(
                     'Разница между text0 и синим квадратом: ${renderManager.getDiff(
-                  _text0Id,
                   _containerId,
+                  _text0Id,
                 )}'),
               ],
             ),
