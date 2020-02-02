@@ -10,6 +10,10 @@ import 'package:render_metrics/src/render/render_metrics.dart';
 class RenderParametersManager<T> extends RenderManager<T> {
   HashMap<T, RenderMetricsBox> _renderObjects = HashMap();
 
+  RenderMetricsBox operator [](T id) {
+    return _renderObjects[id];
+  }
+
   /// Добавить экземпляр [RenderObject]
   void addRenderObject(T id, RenderObject renderObject) {
     _renderObjects[id] = renderObject;
@@ -23,6 +27,10 @@ class RenderParametersManager<T> extends RenderManager<T> {
   /// Получить экземпляр [RenderData] по [id]
   RenderData getRenderData(T id) {
     return _renderObjects[id].data;
+  }
+
+  void removeRenderObject(T id) {
+    _renderObjects.remove(id);
   }
 
   /// Получить разницу между
