@@ -24,6 +24,11 @@ class RenderMetricsObject extends SingleChildRenderObjectWidget {
     manager.addRenderObject(id, r);
     return r;
   }
+
+  @override
+  void didUnmountRenderObject(covariant RenderObject renderObject) {
+    manager.removeRenderObject(id);
+  }
 }
 
 /// [RenderBox] для получения метрик виджета
