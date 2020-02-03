@@ -46,12 +46,15 @@ TaskMock<T> createFailTask<T>({Exception exception}) {
 
 class ShellMock extends Mock implements Shell {}
 
+final ShellMock _shellForTest = ShellMock();
+final ShellManagerMock _shellManagerForTest = ShellManagerMock();
+
 /// Подменяет шелл у раннера и возвращает экземпляр замены.
 ShellMock substituteShell({
-  ShellManager manager,
   Map<String, dynamic> callingMap,
 }) {
-  var mock = ShellMock();
+  var mock = _shellForTest;
+  reset(mock);
 
   callingMap?.forEach((command, result) {
     var parsed = command.split(' ');
@@ -74,8 +77,17 @@ ShellMock substituteShell({
     );
   });
 
-  ShellRunner.init(shell: mock, manager: manager);
+  ShellRunner.init(shell: mock, manager: _shellManagerForTest);
   return mock;
+}
+
+/// Возвращает замену менеджера shell, зарегистрированную в runner.
+///
+/// Метод может быть вызван только после вызова substituteShell, иначе бесполезен.
+ShellManagerMock getTestShellManager() {
+  reset(_shellManagerForTest);
+
+  return _shellManagerForTest;
 }
 
 /// Тестовый ответ на консольную команду, сценарий без ошибки.
@@ -110,12 +122,6 @@ class FileSystemManagerMock extends Mock implements FileSystemManager {}
 /// Shell Manager
 
 class ShellManagerMock extends Mock implements ShellManager {}
-
-ShellManagerMock createShellManagerMock({Shell copy}) {
-  var mock = ShellManagerMock();
-  when(mock.copy(any)).thenReturn(copy);
-  return mock;
-}
 
 /// License manager
 
