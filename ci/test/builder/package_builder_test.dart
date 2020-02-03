@@ -41,8 +41,9 @@ void main() {
           ProcessResult(0, 0, '', ''),
         ),
       );
-      var shm = createShellManagerMock(copy: shell);
-      substituteShell(manager: shm);
+      substituteShell();
+      var shm = getTestShellManager();
+      when(shm.copy(any)).thenReturn(shell);
 
       var buildTask = PackageBuilderTask(element, dm);
 
@@ -85,8 +86,9 @@ void _testBuild(bool success) async {
       ProcessResult(0, success ? 0 : 1, '', ''),
     ),
   );
-  var shm = createShellManagerMock(copy: shell);
-  substituteShell(manager: shm);
+  substituteShell();
+  var shm = getTestShellManager();
+  when(shm.copy(any)).thenReturn(shell);
 
   var buildTask = PackageBuilderTask(element, dm);
 
