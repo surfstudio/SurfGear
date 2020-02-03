@@ -1,14 +1,24 @@
 import 'package:render_metrics/src/data/comparison_diff.dart';
+import 'package:render_metrics/src/data/coords_metrics.dart';
 
-/// Объект с данными метрик рендера
-/// [yTop] - верхняя Y позиция относительно экрана
-/// [yBottom] - нижняя Y позиция относительно экрана
-/// [yCenter] - центральная Y позиция относительно экрана
-/// [xLeft] - левая X позиция относительно экрана
-/// [xRight] - правая X позиция относительно экрана
-/// [xCenter] - центральная X позиция относительно экрана
-/// [width] - ширина элемента
-/// [height] - высота элемента
+/// Object with render metrics data
+/// [yTop] - top Y position relative to the screen
+/// [yBottom] - lower Y position relative to the screen
+/// [yCenter] - center Y position relative to the screen
+/// [xLeft] - left X position relative to the screen
+/// [xRight] - right X position relative to the screen
+/// [xCenter] - center X position relative to the screen
+/// [width] - element width
+/// [height] - element height
+/// [topLeft] - upper left coordinate
+/// [topRight] - upper right coordinate
+/// [bottomLeft] - lower left coordinate
+/// [bottomRight] - lower right coordinate
+/// [center] - central coordinate
+/// [topCenter] - upper center coordinate
+/// [bottomCenter] - lower central coordinate
+/// [centerLeft] - center left coordinate
+/// [centerRight] - center right coordinate
 
 class RenderData {
   final double yTop;
@@ -19,6 +29,24 @@ class RenderData {
   final double xCenter;
   final double width;
   final double height;
+
+  CoordsMetrics get topLeft => CoordsMetrics(y: yTop, x: xLeft);
+
+  CoordsMetrics get topRight => CoordsMetrics(y: yTop, x: xRight);
+
+  CoordsMetrics get bottomLeft => CoordsMetrics(y: yBottom, x: xLeft);
+
+  CoordsMetrics get bottomRight => CoordsMetrics(y: yBottom, x: xRight);
+
+  CoordsMetrics get center => CoordsMetrics(y: yCenter, x: xCenter);
+
+  CoordsMetrics get topCenter => CoordsMetrics(y: yTop, x: xCenter);
+
+  CoordsMetrics get bottomCenter => CoordsMetrics(y: yBottom, x: xCenter);
+
+  CoordsMetrics get centerLeft => CoordsMetrics(y: yCenter, x: xLeft);
+
+  CoordsMetrics get centerRight => CoordsMetrics(y: yCenter, x: xRight);
 
   RenderData({
     this.yTop,
@@ -41,6 +69,10 @@ class RenderData {
       xLeft: xLeft - other.xLeft,
       xRight: xRight - other.xRight,
       xCenter: xCenter - other.xCenter,
+      diffTopToBottom: yTop - other.yBottom,
+      diffBottomToTop: yBottom - other.yTop,
+      diffLeftToRight: xLeft - other.xRight,
+      diffRightToLeft: xRight - other.xLeft,
       width: width - other.width,
       height: height - other.height,
     );

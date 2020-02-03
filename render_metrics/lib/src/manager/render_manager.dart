@@ -1,10 +1,10 @@
 import 'package:flutter/rendering.dart';
 
-/// Базовый класс для менеджеров взаимодействия с рендером
+/// Base class for rendering interaction managers
 abstract class RenderManager<T> {
-  /// Обработка вызова добавления RenderObject
+  /// Handling the RenderObject Add Call
   void addRenderObject(T id, RenderObject object);
 
-  /// Обработка вызова удаления RenderObject
+  /// Handling the RenderObject Delete Call
   void removeRenderObject(T id);
 }
