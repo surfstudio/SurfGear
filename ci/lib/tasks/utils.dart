@@ -29,7 +29,7 @@ Future<void> markChangedElements(List<Element> elements) async {
 
   elements
       .where(
-        (e) => diff.contains(e.path),
+        (e) => diff.contains(e.directoryName),
       )
       .toList()
       .forEach(
