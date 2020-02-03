@@ -1,5 +1,7 @@
 import 'package:args/args.dart';
 import 'package:ci/domain/command.dart';
+import 'package:ci/exceptions/exceptions.dart';
+import 'package:ci/exceptions/exceptions_strings.dart';
 
 const String _optionAll = 'all';
 
@@ -11,8 +13,19 @@ class CommandParser {
     _initParser();
   }
 
-  Command parse(List<String> arguments) {
+  /// Выполняет парсинг переданных аргументов и возвращает команду на исполнение.
+  Future<Command> parse(List<String> arguments) async {
     var parsed = _argParser.parse(arguments);
+
+    if (parsed.rest.isNotEmpty) {
+      return Future.error(
+        ParseCommandException(
+          getParseCommandExceptionText(
+            arguments.join(' '),
+          ),
+        ),
+      );
+    }
 
     return _getCommandByArgs(parsed);
   }
@@ -20,15 +33,17 @@ class CommandParser {
   /// В данном методе необходимо провести инициализацию
   /// у парсера всевозможных опций.
   void _initParser() {
-    _argParser.addFlag(_optionAll, negatable: false);
+    _argParser
+        .addCommand('check_licensing')
+        .addFlag(_optionAll, negatable: false);
   }
 
-  Command _getCommandByArgs(ArgResults results) {
-    var rest = results.rest;
-    var command = rest[0];
+  Future<Command> _getCommandByArgs(ArgResults results) {
+   var command = results.command;
 
-    switch (command) {
-      case ''
+    switch (command.name) {
+      case 'check_licensing':
+
 
       default:
         return null;

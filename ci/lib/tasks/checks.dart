@@ -84,7 +84,7 @@ Future<bool> checkDependenciesStable(Element element) =>
 /// Проверяется наличие лицензии и её актуальность а так же наличие
 /// и правильность копирайтов у файлов.
 ///
-/// dart ci check_licensing
+/// dart ci check_licensing push / dart ci check_licensing --all
 Future<bool> checkLicensing(List<Element> elements) async {
   var failList = <Element, Exception>{};
 

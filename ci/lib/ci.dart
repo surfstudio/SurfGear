@@ -31,7 +31,7 @@ class Ci {
 
   /// Выполняет действие исходя из переданных параметров.
   Future<void> execute(List<String> arguments) async {
-    var command = _commandParser.parse(arguments);
+    var command = await _commandParser.parse(arguments);
 
     if (command == null) {
       return Future.error(
