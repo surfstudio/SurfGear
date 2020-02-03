@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Auto reload Demo',
+      title: 'Render Metrics Example',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -33,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   RenderParametersManager renderManager;
 
   String _text0Id = 'text0Id';
-  String _paddingId = 'paddingKey';
+  int _paddingId = 1;
   String _containerId = 'containerId';
   String _containerPositionedId = 'containerPositionedId';
 
@@ -59,11 +59,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 RenderMetricsObject(
                   id: _text0Id,
                   manager: renderManager,
-                  child: Text('Текст0'),
+                  child: Container(
+                    color: Colors.black.withOpacity(.2),
+                    child: Text('Текст0'),
+                  ),
                 ),
                 RenderMetricsObject(
                   id: _paddingId,
-                  manager: renderManager,
+                  onMount: (_, RenderMetricsBox box) {
+                    print('mount');
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: Text('Текст1'),
@@ -98,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: RaisedButton(
-        child: Text('Получить разницу между\nТекст0 и синим квадратом'),
+        child: Text('Get the difference between\nText0 and the blue square'),
         onPressed: () {
           showDialog(
             context: scaffoldKey.currentContext,
@@ -121,11 +126,11 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 RaisedButton(
-                  child: Text('Назад'),
+                  child: Text('Back'),
                   onPressed: Navigator.of(context).pop,
                 ),
                 const SizedBox(height: 20),
-                Text('Даннные text0: ${renderManager.getRenderData(
+                Text('Data text0: ${renderManager.getRenderData(
                   _text0Id,
                 )}'),
                 const SizedBox(
@@ -135,8 +140,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 10,
                 ),
-                Text('Даннные Синего квадрата: ${renderManager.getRenderData(
-                  _containerId,
+                Text('Data blue square: ${renderManager.getRenderData(
+                  _containerPositionedId,
                 )}'),
                 const SizedBox(
                   height: 10,
@@ -146,8 +151,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: 10,
                 ),
                 Text(
-                    'Разница между text0 и синим квадратом: ${renderManager.getDiff(
-                  _containerId,
+                    'The difference between text0 and the blue square: ${renderManager.getDiff(
+                  _containerPositionedId,
                   _text0Id,
                 )}'),
               ],

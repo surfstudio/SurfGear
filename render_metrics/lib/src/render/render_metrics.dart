@@ -3,36 +3,45 @@ import 'package:flutter/widgets.dart';
 import 'package:render_metrics/src/data/render_data.dart';
 import 'package:render_metrics/src/manager/render_manager.dart';
 
-/// [RenderObject] для получения метрик виджета
-/// [id] - id виджета
-/// [manager] - экземпляр RenderManager для болучения и обработки метрик
-class RenderMetricsObject extends SingleChildRenderObjectWidget {
-  final dynamic id;
+typedef void MountCallback<T>(T id, RenderMetricsBox box);
+typedef void UnMountCallback<T>(T id);
+
+/// [RenderObjectWidget] for getting widget metrics
+/// [id] - widget id
+/// [manager] - an instance of the RenderManager for getting and processing metrics
+/// [onMount] - mount / create instance callback [RenderMetricsObject]
+/// [onUnMount] - unmount / uninstall instance callback [RenderMetricsObject]
+class RenderMetricsObject<T> extends SingleChildRenderObjectWidget {
+  final T id;
   final RenderManager manager;
+  final MountCallback onMount;
+  final UnMountCallback onUnMount;
 
   const RenderMetricsObject({
     Key key,
     Widget child,
     this.id,
     this.manager,
-  })  : assert(id != null && manager != null),
+    this.onMount,
+    this.onUnMount,
+  })  : assert(manager == null || id != null && manager != null),
         super(key: key, child: child);
 
-  @override
   RenderMetricsBox createRenderObject(BuildContext context) {
     final r = RenderMetricsBox();
-    manager.addRenderObject(id, r);
+    onMount?.call(id, r);
+    manager?.addRenderObject(id, r);
     return r;
   }
 
-  @override
   void didUnmountRenderObject(covariant RenderObject renderObject) {
-    manager.removeRenderObject(id);
+    manager?.removeRenderObject(id);
+    onUnMount?.call(id);
   }
 }
 
-/// [RenderBox] для получения метрик виджета
-/// [data] - геттер для получения данных в экземпляре [RenderData]
+/// [RenderBox] for getting widget metrics
+/// [data] - getter for receiving data in the instance [RenderData]
 class RenderMetricsBox extends RenderProxyBox {
   RenderData get data {
     Size size = this.size;
