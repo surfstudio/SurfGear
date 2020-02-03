@@ -13,13 +13,25 @@ class CommandParser {
 
   Command parse(List<String> arguments) {
     var parsed = _argParser.parse(arguments);
-    var args = parsed.arguments;
-    var rest = parsed.rest;
+
+    return _getCommandByArgs(parsed);
   }
 
   /// В данном методе необходимо провести инициализацию
   /// у парсера всевозможных опций.
   void _initParser() {
     _argParser.addFlag(_optionAll, negatable: false);
+  }
+
+  Command _getCommandByArgs(ArgResults results) {
+    var rest = results.rest;
+    var command = rest[0];
+
+    switch (command) {
+      case ''
+
+      default:
+        return null;
+    }
   }
 }
