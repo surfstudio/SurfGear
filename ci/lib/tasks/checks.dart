@@ -66,7 +66,7 @@ Future<bool> checkStableModulesForChanges(List<Element> elements) async {
 }
 
 /// Запуск тестов в модулях
-Future<bool> runTests(List<Element> elements, {bool report = false}) async {
+Future<bool> runTests(List<Element> elements, {bool needReport = false}) async {
   var errorMessages = <String>[];
 
   for (var element in elements) {
@@ -81,7 +81,7 @@ Future<bool> runTests(List<Element> elements, {bool report = false}) async {
     final message =
         getTestsFailedExceptionText(errorMessages.length, errorMessages.join());
 
-    if (report) {
+    if (needReport) {
       File(_testsReportName).writeAsStringSync(message, flush: true);
     }
 
