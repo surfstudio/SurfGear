@@ -77,7 +77,7 @@ class FileCopyrightObsoleteException extends BaseCiException {
 }
 
 /// Ошибка лицензирования модуля.
-/// 
+///
 /// Выбрасывается как в случае проверки единичного модуля так и списка модулей.
 class PackageLicensingException extends BaseCiException {
   PackageLicensingException(String message) : super(message);
@@ -100,7 +100,6 @@ class AnalyzerFailedException implements Exception {
 
   AnalyzerFailedException(this.message);
 }
-
 
 /// Не можем опубликовать модуль OpenSource
 class ModuleNotPublishOpenSourceException implements Exception {
@@ -131,4 +130,9 @@ class CheckoutException extends GitProcessException {
 /// Модуль поменял значение стабильности в dev ветке.
 class StabilityDevChangedException extends BaseCiException {
   StabilityDevChangedException(String message) : super(message);
+}
+
+/// CHANGELOG.md содержит кириллицу
+class ModuleContainsCyrillicException extends BaseCiException {
+  ModuleContainsCyrillicException(String message) : super(message);
 }

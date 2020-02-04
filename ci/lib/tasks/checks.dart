@@ -7,6 +7,7 @@ import 'package:ci/services/pubspec_parser.dart';
 import 'package:ci/tasks/check_dependency_stable.dart';
 import 'package:ci/tasks/check_stability_dev.dart';
 import 'package:ci/tasks/factories/license_task_factory.dart';
+import 'package:ci/tasks/find_cyrillic_changelog_task.dart';
 import 'package:ci/tasks/impl/license/copyright_check.dart';
 import 'package:ci/tasks/impl/license/licensing_check.dart';
 import 'package:ci/tasks/linter_check.dart';
@@ -78,6 +79,15 @@ Future<bool> checkPubCheckReleaseVersionTask(Element element) {
 /// Проверка стабильности зависимостей элемента
 Future<bool> checkDependenciesStable(Element element) =>
     CheckDependencyStable(element).run();
+
+/// Проверяем на кириллицу в файле CHANGELOG.md
+/// dart ci check_cyrillic_changelog_task element
+Future<bool> checkCyrillicChangelog(Element element) {
+  return FindCyrillicChangelogTask(
+    element,
+    FileSystemManager(),
+  ).run();
+}
 
 /// Проверка лицензирования переданных пакетов.
 ///
