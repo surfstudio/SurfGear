@@ -19,12 +19,12 @@ dependencies:
   injector:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-29
+      ref: project-ROS-30
       path: injector
   mwwm:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-29
+      ref: project-ROS-30
       path: mwwm
 
   event_filter:

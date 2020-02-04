@@ -16,7 +16,7 @@ dependencies:
   surf_util:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-29
+      ref: project-ROS-30
       path: surf_util
 
 dev_dependencies:
