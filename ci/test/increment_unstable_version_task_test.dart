@@ -17,6 +17,7 @@ void main() {
           expect(res.unstableVersion, 1);
         },
       );
+
       test(
         'If the module was changed as part of a pull request.',
             () async {
@@ -27,6 +28,7 @@ void main() {
           expect(res.unstableVersion, 1);
         },
       );
+
       test(
         'If the library is not ready to be used in production or If the module was changed as part of a pull request.',
             () async {
