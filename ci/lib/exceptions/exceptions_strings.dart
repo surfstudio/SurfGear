@@ -18,3 +18,7 @@ String getCheckoutExceptionText(String error) => 'Не удалось перек
 String getStabilityDevChangedExceptionText(String module) => 'Модуль $module стал стабильным в dev ветке';
 
 String getParseCommandExceptionText(String command) => 'Не удалось распарсить команду $command';
+String getCommandHandlerNotFoundExceptionText(String command) => 'Не найден обработчик для команды $command';
+String getCommandFormatExceptionText(String cmd, String error) => 'Неправильная конфигурация команды $cmd : $error';
+
+String getElementNotFoundExceptionText(String moduleName) => 'Модуль $moduleName не найден';

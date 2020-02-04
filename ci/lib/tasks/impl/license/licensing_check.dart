@@ -8,6 +8,10 @@ import 'package:ci/tasks/factories/license_task_factory.dart';
 
 /// Выполняет проверку лицензии в модуле и копирайтов у файлов.
 class LicensingCheck extends Check {
+  static const String commandName = 'check_licensing';
+  static const String allFlag = 'all';
+  static const String nameOption = 'name';
+
   final Element _package;
 
   final LicenseManager _licenseManager;

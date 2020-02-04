@@ -1,6 +1,7 @@
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/parsers/command_parser.dart';
+import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/services/runner/command_runner.dart';
 
 /// Приложение для Continuous Integration.
@@ -27,20 +28,15 @@ class Ci {
     CommandParser commandParser,
     CommandRunner commandRunner,
   })  : _commandParser = commandParser ?? CommandParser(),
-        _commandRunner = commandRunner ?? CommandRunner();
+        _commandRunner = commandRunner ?? CommandRunner(PubspecParser());
 
   /// Выполняет действие исходя из переданных параметров.
   Future<void> execute(List<String> arguments) async {
-    var command = await _commandParser.parse(arguments);
-
-    if (command == null) {
-      return Future.error(
-        ParseCommandException(
-          getParseCommandExceptionText(
-            arguments.join(' '),
-          ),
-        ),
-      );
+    var command;
+    try {
+      command = await _commandParser.parse(arguments);
+    } on ParseCommandException {
+      rethrow;
     }
 
     return _commandRunner.run(command);

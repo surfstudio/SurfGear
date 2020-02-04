@@ -9,6 +9,11 @@ abstract class BaseCiException implements Exception {
 
 /// Общие ошибки
 
+/// Не найден модуль.
+class ElementNotFoundException extends BaseCiException {
+  ElementNotFoundException(String message) : super(message);
+}
+
 /// Не найден файл лицензии для модуля.
 class FileNotFoundException extends BaseCiException {
   FileNotFoundException(String message) : super(message);
@@ -136,4 +141,14 @@ class StabilityDevChangedException extends BaseCiException {
 /// Ошибка парсинга команды
 class ParseCommandException extends BaseCiException {
   ParseCommandException(String message) : super(message);
+}
+
+/// Не правильная конфигурация команды
+class CommandFormatException extends BaseCiException {
+  CommandFormatException(String message) : super(message);
+}
+
+/// Не найден обработчик команды
+class CommandHandlerNotFoundException extends BaseCiException {
+  CommandHandlerNotFoundException(String message) : super(message);
 }

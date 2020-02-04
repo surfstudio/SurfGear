@@ -2,8 +2,9 @@ import 'package:args/args.dart';
 import 'package:ci/domain/command.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
-
-const String _optionAll = 'all';
+import 'package:ci/tasks/impl/license/licensing_check.dart';
+import 'package:ci/utils/arg_results_extension.dart';
+import 'package:ci/utils/string_util.dart';
 
 /// Парсер команд
 class CommandParser {
@@ -21,32 +22,44 @@ class CommandParser {
       return Future.error(
         ParseCommandException(
           getParseCommandExceptionText(
-            arguments.join(' '),
+            arguments.join(defaultStringSeparator),
           ),
         ),
       );
     }
 
-    return _getCommandByArgs(parsed);
+    var command = await _getCommandByArgs(parsed);
+    if (command == null) {
+      return Future.error(
+        ParseCommandException(
+          getParseCommandExceptionText(
+            arguments.join(defaultStringSeparator),
+          ),
+        ),
+      );
+    }
+
+    return command;
   }
 
   /// В данном методе необходимо провести инициализацию
   /// у парсера всевозможных опций.
   void _initParser() {
-    _argParser
-        .addCommand('check_licensing')
-        .addFlag(_optionAll, negatable: false);
+    _argParser.addCommand(LicensingCheck.commandName)
+      ..addFlag(LicensingCheck.allFlag, negatable: false)
+      ..addOption(LicensingCheck.nameOption);
   }
 
-  Future<Command> _getCommandByArgs(ArgResults results) {
-   var command = results.command;
+  Future<Command> _getCommandByArgs(ArgResults results) async {
+    var command = results.command;
+
+    if (command == null) {
+      return null;
+    }
 
     switch (command.name) {
-      case 'check_licensing':
-
-
       default:
-        return null;
+        return Command(command.name, command.getParsed());
     }
   }
 }
