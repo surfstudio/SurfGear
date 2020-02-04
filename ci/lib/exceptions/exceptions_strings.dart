@@ -14,5 +14,6 @@ String getAddCopyrightFailExceptionText(String error) => 'Не удалось д
 
 String getCommitHashExceptionText(String error) => 'Не удалось получить commit hash:\n$error';
 String getCheckoutExceptionText(String error) => 'Не удалось переключиться в нужное состояние:\n$error';
+String getMirroringExceptionText(String module, String error) => 'Не удалось выполнить зеркалирование модуля $module: $error';
 
 String getStabilityDevChangedExceptionText(String module) => 'Модуль $module стал стабильным в dev ветке';

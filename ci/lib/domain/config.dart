@@ -38,4 +38,7 @@ abstract class Config {
     _standardPath,
     'packages',
   );
+
+  /// Путь до toplevel-директории гит-репозитория
+  static final String repoRootPath = _standardPath;
 }
