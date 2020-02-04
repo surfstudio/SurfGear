@@ -16,3 +16,6 @@ String getCommitHashExceptionText(String error) => 'Не удалось полу
 String getCheckoutExceptionText(String error) => 'Не удалось переключиться в нужное состояние:\n$error';
 
 String getStabilityDevChangedExceptionText(String module) => 'Модуль $module стал стабильным в dev ветке';
+
+String getPubCheckReleaseVersionExceptionText(String module) => '$module: модуль, с непрописанной версией Release Notes';
+String getPubCheckReleaseVersionFailExceptionText(String module) => '$module: не удалось проверить совпадает ли версия c прописанной в CHANGELOG.md';
