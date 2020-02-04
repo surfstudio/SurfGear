@@ -7,6 +7,7 @@ import 'package:ci/services/pubspec_parser.dart';
 import 'package:ci/tasks/check_dependency_stable.dart';
 import 'package:ci/tasks/check_stability_dev.dart';
 import 'package:ci/tasks/factories/license_task_factory.dart';
+import 'package:ci/tasks/generates_release_notes_task.dart';
 import 'package:ci/tasks/impl/license/copyright_check.dart';
 import 'package:ci/tasks/impl/license/licensing_check.dart';
 import 'package:ci/tasks/linter_check.dart';
@@ -28,8 +29,7 @@ Future<bool> checkModulesWithLinter(List<Element> elements) async {
   }
 
   if (errorMessages.isNotEmpty) {
-    errorMessages.insert(
-        0, 'Пожалуйста, исправьте ошибки в следующих модулях:\n\n');
+    errorMessages.insert(0, 'Пожалуйста, исправьте ошибки в следующих модулях:\n\n');
 
     throw AnalyzerFailedException(errorMessages.join());
   }
@@ -76,8 +76,16 @@ Future<bool> checkPubCheckReleaseVersionTask(Element element) {
 }
 
 /// Проверка стабильности зависимостей элемента
-Future<bool> checkDependenciesStable(Element element) =>
-    CheckDependencyStable(element).run();
+Future<bool> checkDependenciesStable(Element element) => CheckDependencyStable(element).run();
+
+/// Создаём общий RELEASE_NOTES.md и коммитим его
+/// dart ci generates_release_notes_task List<Element>
+Future<void> writeReleaseNotes(List<Element> elements) {
+  return GeneratesReleaseNotesTask(
+    elements,
+    FileSystemManager(),
+  ).run();
+}
 
 /// Проверка лицензирования переданных пакетов.
 ///
