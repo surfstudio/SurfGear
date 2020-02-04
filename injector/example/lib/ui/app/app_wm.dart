@@ -14,6 +14,7 @@
 
 import 'package:counter/ui/screen/counter/counter_route.dart';
 import 'package:flutter/widgets.dart';
+import 'package:rxdart/rxdart.dart';
 
 /// WidgetModel приложения
 class AppWidgetModel {
