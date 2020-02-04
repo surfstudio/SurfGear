@@ -143,6 +143,7 @@ Element createTestElement({
   String path = 'test/path',
   bool isStable = false,
   bool isChanged = false,
+  OpenSourceInfo openSourceInfo,
 }) {
   return Element(
     name: name,

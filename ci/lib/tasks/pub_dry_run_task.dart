@@ -8,17 +8,17 @@ import 'package:ci/utils/process_result_extension.dart';
 
 /// Проверка на возможность публикации пакета модулей openSource
 class PubDryRunTask extends Check {
-  final Element element;
+  final Element _element;
 
-  PubDryRunTask(this.element) : assert(element != null);
+  PubDryRunTask(this._element) : assert(_element != null);
 
   @override
   Future<bool> run() async {
-    if (element.hosted) {
-      final result = await _getProcessResult(element);
+    if (_element.hosted) {
+      final result = await _getProcessResult(_element);
       if (result.exitCode != 0) {
         return _getErrorElement(
-          element,
+          _element,
           result,
         );
       }
@@ -28,7 +28,7 @@ class PubDryRunTask extends Check {
     return true;
   }
 
-  /// Получаем [ProcessResult]  и выводим в консоль результат
+  /// Получаем [ProcessResult] и выводим в консоль результат
   Future<ProcessResult> _getProcessResult(Element element) async {
     final result = await runDryPublish(element);
     result.print();
