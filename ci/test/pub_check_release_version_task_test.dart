@@ -10,17 +10,11 @@ import 'core/test_helper.dart';
 void main() {
   group(
     'Check if the module version matches the specified CHANGELOG.md.',
-        () {
+    () {
       test(
         'If the module version matches, we will return true.',
-            () async {
-          var shell = ShellMock();
-          when(shell.run('pub', ['publish', '--dry-run']))
-              .thenAnswer((_) => Future.value(ProcessResult(0, 0, 'test123', '')));
-          substituteShell();
-          var shm = getTestShellManager();
-          when(shm.copy(any)).thenReturn(shell);
-
+        () async {
+          _testPreparedShellMock(ProcessResult(0, 0, 'test123', ''));
           var task = PubCheckReleaseVersionTask(createTestElement());
           var actual = await task.run();
 
@@ -33,17 +27,12 @@ void main() {
 
       test(
         'If an error occurred while checking the module version, we will return an exception.',
-            () async {
-          var shell = ShellMock();
-          when(shell.run('pub', ['publish', '--dry-run']))
-              .thenAnswer((_) => Future.value(ProcessResult(0, 1, 'test123', '')));
-          substituteShell();
-          var shm = getTestShellManager();
-          when(shm.copy(any)).thenReturn(shell);
+        () async {
+          _testPreparedShellMock(ProcessResult(0, 1, 'test123', ''));
 
           var task = PubCheckReleaseVersionTask(createTestElement());
           expect(
-                () async => await task.run(),
+            () async => await task.run(),
             throwsA(
               TypeMatcher<ModuleNotReadyReleaseVersionFail>(),
             ),
@@ -53,17 +42,13 @@ void main() {
 
       test(
         'If the module version does not match CHANGELOG.md, we will return an exception',
-            () async {
-          var shell = ShellMock();
-          when(shell.run('pub', ['publish', '--dry-run'])).thenAnswer((_) => Future.value(
-              ProcessResult(0, 1, 'CHANGELOG.md doesn\'t mention current version', '')));
-          substituteShell();
-          var shm = getTestShellManager();
-          when(shm.copy(any)).thenReturn(shell);
+        () async {
+          _testPreparedShellMock(
+              ProcessResult(0, 1, '', ' CHANGELOG.md doesn\'t mention current version '));
 
           var task = PubCheckReleaseVersionTask(createTestElement());
           expect(
-                () async => await task.run(),
+            () async => await task.run(),
             throwsA(
               TypeMatcher<ModuleNotReadyReleaseVersion>(),
             ),
@@ -72,4 +57,13 @@ void main() {
       );
     },
   );
+}
+
+void _testPreparedShellMock(ProcessResult processResult) {
+  var callingMap = <String, dynamic>{
+    'pub publish --dry-run': processResult,
+  };
+  var shell = substituteShell(callingMap: callingMap);
+  var shm = getTestShellManager();
+  when(shm.copy(any)).thenReturn(shell);
 }

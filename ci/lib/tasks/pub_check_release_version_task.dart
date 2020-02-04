@@ -20,6 +20,15 @@ class PubCheckReleaseVersionTask extends Check {
     if (processResult.exitCode != 0) {
       processResult.print();
 
+      if (processResult.stderr.contains(_findText)) {
+        return Future.error(
+          ModuleNotReadyReleaseVersion(
+            getPubCheckReleaseVersionExceptionText(
+              _element.name.toString(),
+            ),
+          ),
+        );
+      }
       return Future.error(
         ModuleNotReadyReleaseVersionFail(
           getPubCheckReleaseVersionFailExceptionText(
@@ -29,15 +38,6 @@ class PubCheckReleaseVersionTask extends Check {
       );
     }
 
-    if (processResult.toString().contains(_findText)) {
-      return Future.error(
-        ModuleNotReadyReleaseVersion(
-          getPubCheckReleaseVersionExceptionText(
-            _element.name.toString(),
-          ),
-        ),
-      );
-    }
     return true;
   }
 }
