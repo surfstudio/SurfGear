@@ -14,19 +14,19 @@ dependencies:
   logger:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-28
+      ref: project-ROS-29
       path: logger
 
   mwwm:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-28
+      ref: project-ROS-29
       path: mwwm
 
   swipe_refresh:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-28
+      ref: project-ROS-29
       path: swipe_refresh
 
 dev_dependencies:
