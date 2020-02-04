@@ -7,6 +7,6 @@ import 'package:ci/services/runner/shell_runner.dart';
 Future<ProcessResult> runDryPublish(Element element) {
   return sh(
     'pub publish --dry-run',
-    path: element.uri.toFilePath(windows: Platform.isWindows),
+    path: element.path,
   );
 }
