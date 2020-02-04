@@ -23,13 +23,13 @@ dependencies:
   mwwm:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-29
+      ref: project-ROS-30
       path: mwwm
 
   datalist:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-29
+      ref: project-ROS-30
       path: datalist
 
   flutter_crashlytics: 0.3.0

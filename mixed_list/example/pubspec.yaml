@@ -25,7 +25,7 @@ dependencies:
   datalist:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-29
+      ref: project-ROS-30
       path: datalist
 
 dev_dependencies:
