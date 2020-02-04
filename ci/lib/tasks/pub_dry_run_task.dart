@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
+import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/pub_publish_manager.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:ci/utils/process_result_extension.dart';
@@ -15,12 +14,10 @@ class PubDryRunTask extends Check {
   @override
   Future<bool> run() async {
     if (_element.hosted) {
-      final result = await _getProcessResult(_element);
+      final result = await runDryPublish(_element);
+      result.print();
       if (result.exitCode != 0) {
-        return _getErrorElement(
-          _element,
-          result,
-        );
+        return _getErrorElement(_element.name.toString());
       }
     } else {
       return false;
@@ -28,22 +25,12 @@ class PubDryRunTask extends Check {
     return true;
   }
 
-  /// Получаем [ProcessResult] и выводим в консоль результат
-  Future<ProcessResult> _getProcessResult(Element element) async {
-    final result = await runDryPublish(element);
-    result.print();
-    return result;
-  }
-
   /// Модуль OpenSource не может быть опубликован
   Future<bool> _getErrorElement(
-    Element element,
-    ProcessResult result,
+    String nameElement,
   ) {
     return Future.error(
-      ModuleNotPublishOpenSourceException(
-        element.name.toString() + ': ' + result.stderr.toString(),
-      ),
+      ModuleNotPublishOpenSourceException(getOpenSourceModuleCannotBePublishedExceptionText(nameElement)),
     );
   }
 }

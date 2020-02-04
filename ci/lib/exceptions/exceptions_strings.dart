@@ -16,3 +16,5 @@ String getCommitHashExceptionText(String error) => 'Не удалось полу
 String getCheckoutExceptionText(String error) => 'Не удалось переключиться в нужное состояние:\n$error';
 
 String getStabilityDevChangedExceptionText(String module) => 'Модуль $module стал стабильным в dev ветке';
+
+String getOpenSourceModuleCannotBePublishedExceptionText(String module) => 'OpenSource модуль: $module не может быть опубликован';

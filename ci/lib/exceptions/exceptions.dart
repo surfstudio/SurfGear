@@ -77,7 +77,7 @@ class FileCopyrightObsoleteException extends BaseCiException {
 }
 
 /// Ошибка лицензирования модуля.
-/// 
+///
 /// Выбрасывается как в случае проверки единичного модуля так и списка модулей.
 class PackageLicensingException extends BaseCiException {
   PackageLicensingException(String message) : super(message);
@@ -101,13 +101,9 @@ class AnalyzerFailedException implements Exception {
   AnalyzerFailedException(this.message);
 }
 
-
 /// Не можем опубликовать модуль OpenSource
-class ModuleNotPublishOpenSourceException implements Exception {
-  final String message;
-
-  /// Вызывается [PubDryRunTask]
-  ModuleNotPublishOpenSourceException(this.message);
+class ModuleNotPublishOpenSourceException extends BaseCiException {
+  ModuleNotPublishOpenSourceException(String message) : super(message);
 }
 
 /// Нет описание версии в CHANGELOG.md
