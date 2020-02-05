@@ -17,3 +17,4 @@ String getCheckoutExceptionText(String error) => 'Не удалось перек
 String getMirroringExceptionText(String module, String error) => 'Не удалось выполнить зеркалирование модуля $module: $error';
 
 String getStabilityDevChangedExceptionText(String module) => 'Модуль $module стал стабильным в dev ветке';
+String getTestsFailedExceptionText(int modulesCount, String error) => 'Тесты провалились в следующих $modulesCount модулях:\n\n$error';
