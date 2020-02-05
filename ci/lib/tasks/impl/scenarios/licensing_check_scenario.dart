@@ -23,27 +23,36 @@ class LicensingCheckScenario extends Scenario {
 
   @override
   Future<void> run() async {
-    var args = command.arguments;
+    try {
+      var args = command.arguments;
 
-    /// валидация аргументов
-    var isArgCorrect = await validateCommandParamForElements(args);
+      /// валидация аргументов
+      var isArgCorrect = await validateCommandParamForElements(args);
 
-    if (!isArgCorrect) {
-      return Future.error(
-        CommandParamsValidationException(
-          getCommandFormatExceptionText(commandName,
-              'ожидалось check_licensing --all или check_licensing --name=anyName'),
-        ),
+      if (!isArgCorrect) {
+        return Future.error(
+          CommandParamsValidationException(
+            getCommandFormatExceptionText(
+              commandName,
+              'ожидалось check_licensing --all или check_licensing --name=anyName',
+            ),
+          ),
+        );
+      }
+
+      /// получаем все элементы
+      var elements = _pubspecParser.parsePubspecs(Config.packagesPath);
+
+      /// Фильтруем по переданным параметрам список элементов
+      elements = await filterElementsByCommandParams(
+        elements,
+        command.arguments,
       );
+
+      /// Валидируем лицензирование по отфильтрованному списку
+      await checkLicensing(elements);
+    } on BaseCiException {
+      rethrow;
     }
-
-    /// получаем все элементы
-    var elements = _pubspecParser.parsePubspecs(Config.packagesPath);
-
-    /// Фильтруем по переданным параметрам список элементов
-    elements = await filterElementsByCommandParams(elements, command.arguments);
-
-    /// Валидируем лицензирование по отфильтрованному списку
-    await checkLicensing(elements);
   }
 }

@@ -27,17 +27,13 @@ abstract class GitProcessException extends BaseCiException {
 /// Ошибки функционала
 
 /// Не найдены модули. Например, пользователь указал неправильный путь.
-class ModulesNotFoundException implements Exception {
-  final String message;
-
-  ModulesNotFoundException(this.message);
+class ModulesNotFoundException extends BaseCiException {
+  ModulesNotFoundException(String message) : super(message);
 }
 
 /// Модуль, помеченный как stable, был изменён.
-class StableModulesWasModifiedException implements Exception {
-  final String message;
-
-  StableModulesWasModifiedException(this.message);
+class StableModulesWasModifiedException extends BaseCiException {
+  StableModulesWasModifiedException(String message) : super(message);
 }
 
 /// Ошибка при сборке модуля.
@@ -100,27 +96,19 @@ class AddCopyrightFailException extends BaseCiException {
 
 /// Модуль не прошёл проверку статического анализатора
 /// `flutter analyze`
-class AnalyzerFailedException implements Exception {
-  final String message;
-
-  AnalyzerFailedException(this.message);
+class AnalyzerFailedException extends BaseCiException {
+  AnalyzerFailedException(String message) : super(message);
 }
 
 
 /// Не можем опубликовать модуль OpenSource
-class ModuleNotPublishOpenSourceException implements Exception {
-  final String message;
-
-  /// Вызывается [PubDryRunTask]
-  ModuleNotPublishOpenSourceException(this.message);
+class ModuleNotPublishOpenSourceException extends BaseCiException{
+  ModuleNotPublishOpenSourceException(String message) : super(message);
 }
 
 /// Нет описание версии в CHANGELOG.md
-class ModuleNotReadyReleaseVersion implements Exception {
-  final String message;
-
-  /// Вызывается [PubCheckReleaseVersionTask]
-  ModuleNotReadyReleaseVersion(this.message);
+class ChangeLogNotContainVersionException extends BaseCiException {
+  ChangeLogNotContainVersionException(String message) : super(message);
 }
 
 /// Ошибка получения hash комита.

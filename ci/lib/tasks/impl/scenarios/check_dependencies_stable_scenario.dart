@@ -22,35 +22,41 @@ class CheckDependenciesStableScenario extends Scenario {
 
   @override
   Future<void> run() async {
-    /// валидация аргументов
-    var elementName = command.arguments[nameOption];
+    try {
+      /// валидация аргументов
+      var elementName = command.arguments[nameOption];
 
-    if (elementName == null) {
-      return Future.error(
-        CommandParamsValidationException(
-          getCommandFormatExceptionText(commandName,
-              'ожидалось check_dependencies_stable --name=anyName'),
-        ),
+      if (elementName == null) {
+        return Future.error(
+          CommandParamsValidationException(
+            getCommandFormatExceptionText(
+              commandName,
+              'ожидалось check_dependencies_stable --name=anyName',
+            ),
+          ),
+        );
+      }
+
+      /// получаем все элементы
+      var elements = _pubspecParser.parsePubspecs(Config.packagesPath);
+
+      var element = elements.firstWhere(
+        (e) => e.name == elementName,
+        orElse: () => null,
       );
+
+      if (element == null) {
+        return Future.error(
+          ElementNotFoundException(
+            getElementNotFoundExceptionText(elementName),
+          ),
+        );
+      }
+
+      /// Проверяем что зависимости элемента стабильны
+      await checkDependenciesStable(element);
+    } on BaseCiException {
+      rethrow;
     }
-
-    /// получаем все элементы
-    var elements = _pubspecParser.parsePubspecs(Config.packagesPath);
-
-    var element = elements.firstWhere(
-      (e) => e.name == elementName,
-      orElse: () => null,
-    );
-
-    if (element == null) {
-      return Future.error(
-        ElementNotFoundException(
-          getElementNotFoundExceptionText(elementName),
-        ),
-      );
-    }
-
-    /// Проверяем что зависимости элемента стабильны
-    await checkDependenciesStable(element);
   }
 }

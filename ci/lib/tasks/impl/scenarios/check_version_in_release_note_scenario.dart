@@ -22,35 +22,41 @@ class CheckVersionInReleaseNoteScenario extends Scenario {
 
   @override
   Future<void> run() async {
-    /// валидация аргументов
-    var elementName = command.arguments[nameOption];
+    try {
+      /// валидация аргументов
+      var elementName = command.arguments[nameOption];
 
-    if (elementName == null) {
-      return Future.error(
-        CommandParamsValidationException(
-          getCommandFormatExceptionText(
-              commandName, 'ожидалось check_version_in_release_note --name=anyName'),
-        ),
+      if (elementName == null) {
+        return Future.error(
+          CommandParamsValidationException(
+            getCommandFormatExceptionText(
+              commandName,
+              'ожидалось check_version_in_release_note --name=anyName',
+            ),
+          ),
+        );
+      }
+
+      /// получаем все элементы
+      var elements = _pubspecParser.parsePubspecs(Config.packagesPath);
+
+      var element = elements.firstWhere(
+        (e) => e.name == elementName,
+        orElse: () => null,
       );
+
+      if (element == null) {
+        return Future.error(
+          ElementNotFoundException(
+            getElementNotFoundExceptionText(elementName),
+          ),
+        );
+      }
+
+      /// проверяем наличие версии в релизноуте
+      await checkVersionInReleaseNote(element);
+    } on BaseCiException {
+      rethrow;
     }
-
-    /// получаем все элементы
-    var elements = _pubspecParser.parsePubspecs(Config.packagesPath);
-
-    var element = elements.firstWhere(
-      (e) => e.name == elementName,
-      orElse: () => null,
-    );
-
-    if (element == null) {
-      return Future.error(
-        ElementNotFoundException(
-          getElementNotFoundExceptionText(elementName),
-        ),
-      );
-    }
-
-    /// проверяем наличие версии в релизноуте
-    await checkVersionInReleaseNote(element);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:ci/domain/command.dart';
 import 'package:ci/domain/config.dart';
+import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/task.dart';
@@ -18,10 +19,14 @@ class CheckStabilityNotChangedInDevScenario extends Scenario {
 
   @override
   Future<void> run() async {
-    /// получаем все элементы
-    var elements = _pubspecParser.parsePubspecs(Config.packagesPath);
+    try {
+      /// получаем все элементы
+      var elements = _pubspecParser.parsePubspecs(Config.packagesPath);
 
-    /// проверяем, что не поменялась стабильность модулей
-    await checkStabilityNotChangeInDev(elements);
+      /// проверяем, что не поменялась стабильность модулей
+      await checkStabilityNotChangeInDev(elements);
+    } on BaseCiException {
+      rethrow;
+    }
   }
 }

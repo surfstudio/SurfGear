@@ -22,35 +22,41 @@ class CheckPublishAvailableScenario extends Scenario {
 
   @override
   Future<void> run() async {
-    /// валидация аргументов
-    var elementName = command.arguments[nameOption];
+    try {
+      /// валидация аргументов
+      var elementName = command.arguments[nameOption];
 
-    if (elementName == null) {
-      return Future.error(
-        CommandParamsValidationException(
-          getCommandFormatExceptionText(
-              commandName, 'ожидалось check_publish_available --name=anyName'),
-        ),
+      if (elementName == null) {
+        return Future.error(
+          CommandParamsValidationException(
+            getCommandFormatExceptionText(
+              commandName,
+              'ожидалось check_publish_available --name=anyName',
+            ),
+          ),
+        );
+      }
+
+      /// получаем все элементы
+      var elements = _pubspecParser.parsePubspecs(Config.packagesPath);
+
+      var element = elements.firstWhere(
+        (e) => e.name == elementName,
+        orElse: () => null,
       );
+
+      if (element == null) {
+        return Future.error(
+          ElementNotFoundException(
+            getElementNotFoundExceptionText(elementName),
+          ),
+        );
+      }
+
+      /// проверяем возможность публикации
+      await checkPublishAvailable(element);
+    } on BaseCiException {
+      rethrow;
     }
-
-    /// получаем все элементы
-    var elements = _pubspecParser.parsePubspecs(Config.packagesPath);
-
-    var element = elements.firstWhere(
-      (e) => e.name == elementName,
-      orElse: () => null,
-    );
-
-    if (element == null) {
-      return Future.error(
-        ElementNotFoundException(
-          getElementNotFoundExceptionText(elementName),
-        ),
-      );
-    }
-
-    /// проверяем возможность публикации
-    await checkPublishAvailable(element);
   }
 }

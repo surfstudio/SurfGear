@@ -1,5 +1,6 @@
 import 'package:ci/domain/command.dart';
 import 'package:ci/domain/config.dart';
+import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:ci/tasks/tasks.dart';
@@ -18,14 +19,18 @@ class BuildScenario extends Scenario {
 
   @override
   Future<void> run() async {
-    /// получаем все элементы
-    var elements = _pubspecParser.parsePubspecs(Config.packagesPath);
+    try {
+      /// получаем все элементы
+      var elements = _pubspecParser.parsePubspecs(Config.packagesPath);
 
-    /// ищем измененные элементы и фильтруем
-    await markChangedElements(elements);
-    elements = await filterChangedElements(elements);
+      /// ищем измененные элементы и фильтруем
+      await markChangedElements(elements);
+      elements = await filterChangedElements(elements);
 
-    /// запускаем сборку для полученного списка
-    await build(elements);
+      /// запускаем сборку для полученного списка
+      await build(elements);
+    } on BaseCiException {
+      rethrow;
+    }
   }
 }

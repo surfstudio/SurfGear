@@ -17,7 +17,7 @@ class PubCheckReleaseVersionTask extends Check {
     var processResult = await runDryPublish(element);
     if (processResult.toString().contains(findText)) {
       return Future.error(
-        ModuleNotReadyReleaseVersion(
+        ChangeLogNotContainVersionException(
             element.name.toString() + ': модуль, с непрописанной версией Release Notes: \n'),
       );
     }
