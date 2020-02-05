@@ -5,6 +5,7 @@ import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/tasks/impl/scenarios/add_copyrights_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/add_license_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/build_scenario.dart';
+import 'package:ci/tasks/impl/scenarios/check_dependencies_stable_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/check_linter_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/check_publish_available_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/check_version_in_release_note_scenario.dart';
@@ -79,7 +80,11 @@ class CommandParser {
 
       /// check_version_in_release_note
       ..addCommand(CheckVersionInReleaseNoteScenario.commandName)
-          .addOption(CheckPublishAvailableScenario.nameOption);
+          .addOption(CheckVersionInReleaseNoteScenario.nameOption)
+
+      /// check_dependencies_stable
+      ..addCommand(CheckDependenciesStableScenario.commandName)
+          .addOption(CheckDependenciesStableScenario.nameOption);
   }
 
   Future<Command> _getCommandByArgs(ArgResults results) async {
