@@ -6,6 +6,8 @@ import 'package:ci/tasks/impl/scenarios/add_copyrights_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/add_license_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/build_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/check_linter_scenario.dart';
+import 'package:ci/tasks/impl/scenarios/check_publish_available_scenario.dart';
+import 'package:ci/tasks/impl/scenarios/check_version_in_release_note_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/licensing_check_scenario.dart';
 import 'package:ci/utils/arg_results_extension.dart';
 import 'package:ci/utils/string_util.dart';
@@ -69,7 +71,15 @@ class CommandParser {
       ..addCommand(AddCopyrightsScenario.commandName)
 
       /// check_linter
-      ..addCommand(CheckLinterScenario.commandName);
+      ..addCommand(CheckLinterScenario.commandName)
+
+      /// check_publish_available
+      ..addCommand(CheckPublishAvailableScenario.commandName)
+          .addOption(CheckPublishAvailableScenario.nameOption)
+
+      /// check_version_in_release_note
+      ..addCommand(CheckVersionInReleaseNoteScenario.commandName)
+          .addOption(CheckPublishAvailableScenario.nameOption);
   }
 
   Future<Command> _getCommandByArgs(ArgResults results) async {

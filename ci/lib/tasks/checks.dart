@@ -64,14 +64,12 @@ Future<bool> checkStableModulesForChanges(List<Element> elements) async {
 /// true - документ openSource и можно публиковать
 /// false - документ не openSource
 /// error -  докумет openSource, но публиковать нельзя
-/// dart ci check_dry_run element
-Future<bool> checkDryRunTask(Element element) {
+Future<bool> checkPublishAvailable(Element element) {
   return PubDryRunTask(element).run();
 }
 
 /// Проверка на наличие актуальной версии в Release Notes
-/// dart ci pub_check_release_version element
-Future<bool> checkPubCheckReleaseVersionTask(Element element) {
+Future<bool> checkVersionInReleaseNote(Element element) {
   return PubCheckReleaseVersionTask(element).run();
 }
 
