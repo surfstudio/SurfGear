@@ -9,6 +9,7 @@ import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/impl/license/add_copyright_task.dart';
 import 'package:ci/tasks/impl/license/add_license_task.dart';
 import 'package:ci/tasks/impl/license/license_file_check.dart';
+import 'package:ci/tasks/mirror_module_task.dart';
 import 'package:ci/tasks/package_builder_task.dart';
 
 /// Набор глобальных точек входа для выполнения задач
@@ -164,3 +165,11 @@ Future<void> addCopyright(
       licenseManager,
       fileSystemManager,
     ).run();
+
+/// Пушит open source модули в отдельные репозитории
+Future<void> mirrorOpenSourceModules(List<Element> elements) async {
+  final hasRepo = (Element e) => e.openSourceInfo?.separateRepoUrl != null;
+  final openSourceModules = elements.where(hasRepo).toList();
+
+  openSourceModules.forEach((e) => MirrorOpenSourceModuleTask(e).run());
+}
