@@ -6,39 +6,43 @@ import 'core/test_helper.dart';
 void main() {
   group(
     'Check task to increase unstable version.',
-        () {
+    () {
       test(
-        'If the library is not ready for use, will return',
-            () async {
-          var element = createTestElement(isStable: false);
-          var task = IncrementUnstableVersionTask(element);
-          var res = await task.run();
-
+        'If the library is not ready to be used in production, task should return 1.',
+        () async {
+          var res = await _test(isStable: false).run();
           expect(res.unstableVersion, 1);
         },
       );
 
       test(
-        'If the module was changed as part of a pull request.',
-            () async {
-          var element = createTestElement(isChanged: true);
-          var task = IncrementUnstableVersionTask(element);
-          var res = await task.run();
-
+        'If the library was changed as part of the pull request, task should return 1.',
+        () async {
+          var res = await _test(isChanged: true).run();
           expect(res.unstableVersion, 1);
         },
       );
 
       test(
-        'If the library is not ready to be used in production or If the module was changed as part of a pull request.',
-            () async {
-          var element = createTestElement(isChanged: true, isStable: false);
-          var task = IncrementUnstableVersionTask(element);
-          var res = await task.run();
-
+        'If the library was changed as part of the pull request and if the library is not ready to be used in production, task should return 1.',
+        () async {
+          var res = await _test(isChanged: true, isStable: false).run();
           expect(res.unstableVersion, 1);
+        },
+      );
+
+      test(
+        'If the library has not been modified as part of the retrieval request and if the library is ready for use in a production environment, the task should return 0.',
+        () async {
+          var res = await _test(isChanged: false, isStable: true).run();
+          expect(res.unstableVersion, 0);
         },
       );
     },
   );
+}
+
+IncrementUnstableVersionTask _test({bool isChanged = false, bool isStable = true}) {
+  var element = createTestElement(isChanged: isChanged, isStable: isStable);
+  return IncrementUnstableVersionTask(element);
 }

@@ -143,13 +143,14 @@ Element createTestElement({
   String path = 'test/path',
   bool isStable = false,
   bool isChanged = false,
+  int unstableVersion = 0,
 }) {
   return Element(
-    name: name,
-    uri: Uri.directory(path),
-    isStable: isStable,
-    changed: isChanged,
-  );
+      name: name,
+      uri: Uri.directory(path),
+      isStable: isStable,
+      changed: isChanged,
+      unstableVersion: unstableVersion);
 }
 
 /// License Task Factory
