@@ -2,6 +2,7 @@ import 'package:args/args.dart';
 import 'package:ci/domain/command.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
+import 'package:ci/tasks/impl/scenarios/add_copyrights_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/add_license_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/build_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/licensing_check_scenario.dart';
@@ -55,11 +56,16 @@ class CommandParser {
       ..addFlag(LicensingCheckScenario.allFlag, negatable: false)
       ..addOption(LicensingCheckScenario.nameOption);
 
-    /// build
-    _argParser.addCommand(BuildScenario.commandName);
+    _argParser
 
-    /// add_license
-    _argParser.addCommand(AddLicenseScenario.commandName);
+      /// build
+      ..addCommand(BuildScenario.commandName)
+
+      /// add_license
+      ..addCommand(AddLicenseScenario.commandName)
+
+      /// add_copyrights
+      ..addCommand(AddCopyrightsScenario.commandName);
   }
 
   Future<Command> _getCommandByArgs(ArgResults results) async {

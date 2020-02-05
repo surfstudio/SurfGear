@@ -1,6 +1,7 @@
 import 'package:ci/domain/command.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/task.dart';
+import 'package:ci/tasks/impl/scenarios/add_copyrights_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/add_license_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/build_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/licensing_check_scenario.dart';
@@ -18,6 +19,9 @@ class ScenarioTaskFactory {
 
       case AddLicenseScenario.commandName:
         return AddLicenseScenario(command, PubspecParser());
+
+      case AddCopyrightsScenario.commandName:
+        return AddCopyrightsScenario(command, PubspecParser());
 
       default:
         return null;
