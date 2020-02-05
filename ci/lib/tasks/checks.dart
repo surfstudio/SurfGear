@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
@@ -12,10 +14,13 @@ import 'package:ci/tasks/impl/license/licensing_check.dart';
 import 'package:ci/tasks/linter_check.dart';
 import 'package:ci/tasks/pub_check_release_version_task.dart';
 import 'package:ci/tasks/pub_dry_run_task.dart';
+import 'package:ci/tasks/run_module_tests_check.dart';
 import 'package:ci/tasks/stable_modules_for_changes_check.dart';
 import 'package:ci/tasks/utils.dart';
 
 import 'increment_unstable_version_task.dart';
+
+const _testsReportName = 'tests_report.txt';
 
 /// Проверка модулей с помощью `flutter analyze`.
 Future<bool> checkModulesWithLinter(List<Element> elements) async {
@@ -60,6 +65,32 @@ Future<bool> checkStableModulesForChanges(List<Element> elements) async {
   }
 
   return Future.value(true);
+}
+
+/// Запуск тестов в модулях
+Future<bool> runTests(List<Element> elements, {bool needReport = false}) async {
+  var errorMessages = <String>[];
+
+  for (var element in elements) {
+    try {
+      await RunModuleTests(element).run();
+    } on TestsFailedException catch (e) {
+      errorMessages.add(e.message);
+    }
+  }
+
+  if (errorMessages.isNotEmpty) {
+    final message =
+        getTestsFailedExceptionText(errorMessages.length, errorMessages.join());
+
+    if (needReport) {
+      File(_testsReportName).writeAsStringSync(message, flush: true);
+    }
+
+    throw TestsFailedException(message);
+  }
+
+  return true;
 }
 
 /// Проверка на возможность публикации пакета  модулей openSource

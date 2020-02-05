@@ -11,8 +11,7 @@ String getAddLicenseFailExceptionText(String error) => 'Не удалось до
 String getCopyrightFileNotFoundExceptionText(String filepath) => 'Копирайт файла $filepath не найден';
 String getCopyrightFileObsoleteExceptionText(String filepath) => 'Копирайт файла $filepath устарел';
 String getAddCopyrightFailExceptionText(String error) => 'Не удалось добавить копирайты в файлы:\n $error';
-
 String getCommitHashExceptionText(String error) => 'Не удалось получить commit hash:\n$error';
 String getCheckoutExceptionText(String error) => 'Не удалось переключиться в нужное состояние:\n$error';
-
 String getStabilityDevChangedExceptionText(String module) => 'Модуль $module стал стабильным в dev ветке';
+String getTestsFailedExceptionText(int modulesCount, String error) => 'Тесты провалились в следующих $modulesCount модулях:\n\n$error';
