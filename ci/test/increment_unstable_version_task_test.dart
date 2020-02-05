@@ -10,7 +10,7 @@ void main() {
       test(
         'If the library is not ready to be used in production, task should return 1.',
         () async {
-          var res = await _test(isStable: false).run();
+          var res = await _testReturnPreparedTask(isStable: false).run();
           expect(res.unstableVersion, 1);
         },
       );
@@ -18,7 +18,7 @@ void main() {
       test(
         'If the library was changed as part of the pull request, task should return 1.',
         () async {
-          var res = await _test(isChanged: true).run();
+          var res = await _testReturnPreparedTask(isChanged: true).run();
           expect(res.unstableVersion, 1);
         },
       );
@@ -26,7 +26,7 @@ void main() {
       test(
         'If the library was changed as part of the pull request and if the library is not ready to be used in production, task should return 1.',
         () async {
-          var res = await _test(isChanged: true, isStable: false).run();
+          var res = await _testReturnPreparedTask(isChanged: true, isStable: false).run();
           expect(res.unstableVersion, 1);
         },
       );
@@ -34,7 +34,7 @@ void main() {
       test(
         'If the library has not been modified as part of the retrieval request and if the library is ready for use in a production environment, the task should return 0.',
         () async {
-          var res = await _test(isChanged: false, isStable: true).run();
+          var res = await _testReturnPreparedTask(isChanged: false, isStable: true).run();
           expect(res.unstableVersion, 0);
         },
       );
@@ -42,7 +42,7 @@ void main() {
   );
 }
 
-IncrementUnstableVersionTask _test({bool isChanged = false, bool isStable = true}) {
+IncrementUnstableVersionTask _testReturnPreparedTask({bool isChanged = false, bool isStable = true}) {
   var element = createTestElement(isChanged: isChanged, isStable: isStable);
   return IncrementUnstableVersionTask(element);
 }
