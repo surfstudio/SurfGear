@@ -30,8 +30,28 @@ class GeneratesReleaseNotesTask extends Action {
   Future<void> run() async {
     var strFile = await _generateChangeLog();
     await _fileSystemManager.writeToFileAsString(_releaseNote, strFile, mode: FileMode.write);
+
     try {
-      await _commit();
+      await _handleResult(
+        await sh('git add ../RELEASE_NOTES.md'),
+        GitAddException(
+          getGitAddExceptionText(_releaseNote),
+        ),
+      );
+
+      await _handleResult(
+        await sh("git commit -m 'update RELEASE_NOTES.md file'"),
+        CommitException(
+          getGitCommitExceptionText(_releaseNote),
+        ),
+      );
+
+      await _handleResult(
+        await sh('git push origin master'),
+        PushException(
+          getGitPushExceptionText(_releaseNote),
+        ),
+      );
     } on GitProcessException {
       rethrow;
     }
@@ -47,49 +67,10 @@ class GeneratesReleaseNotesTask extends Action {
     return strFile;
   }
 
-  /// Коммитим результат
-  Future<void> _commit() async {
-    var processResult = await sh('git add ../RELEASE_NOTES.md');
-    if (processResult.exitCode != 0) {
-      return _exceptionProcessResultGitAdd(processResult);
-    }
-    processResult = await sh("git commit -m 'update RELEASE_NOTES.md file'");
-    if (processResult.exitCode != 0) {
-      return _exceptionProcessResultGitCommit(processResult);
-    }
-    processResult = await sh('git push origin master');
-    if (processResult.exitCode != 0) {
-      return _exceptionProcessResultGitPush(processResult);
-    }
-  }
-
-  /// Выводим в консоль [ProcessResult] и ошибку: добавление файла в git
-  Future<void> _exceptionProcessResultGitAdd(ProcessResult processResult) async {
+  Future<void> _handleResult(ProcessResult processResult, GitProcessException error) async {
     processResult.print();
-    return Future.error(
-      GitAddException(
-        getCommitExceptionTextGitAdd(_releaseNote),
-      ),
-    );
-  }
-
-  /// Выводим в консоль [ProcessResult] и ошибку: коммит файла в git
-  Future<void> _exceptionProcessResultGitCommit(ProcessResult processResult) async {
-    processResult.print();
-    return Future.error(
-      CommitException(
-        getCommitExceptionTextGitCommit(_releaseNote),
-      ),
-    );
-  }
-
-  /// Выводим в консоль [ProcessResult] и ошибку: push в репозиторий
-  Future<void> _exceptionProcessResultGitPush(ProcessResult processResult) async {
-    processResult.print();
-    return Future.error(
-      PushException(
-        getCommitExceptionTextGitPush(_releaseNote),
-      ),
-    );
+    if (processResult.exitCode != 0) {
+      return Future.error(error);
+    }
   }
 }

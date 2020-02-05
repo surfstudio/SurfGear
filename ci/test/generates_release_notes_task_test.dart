@@ -13,7 +13,7 @@ import 'core/test_helper.dart';
 void main() {
   test(
     'generate release notes should write correct changelog',
-        () async {
+    () async {
       var fileSystemManager = FileSystemManagerMock();
       var elements = <Element>[
         _testElement(0),
@@ -47,7 +47,7 @@ void main() {
 
   test(
     'if git add failed should throw exception',
-        () async {
+    () async {
       var fileSystemManager = FileSystemManagerMock();
       var elements = <Element>[
         _testElement(0),
@@ -61,7 +61,7 @@ void main() {
 
       var task = GeneratesReleaseNotesTask(elements, fileSystemManager);
       expect(
-            () async => await task.run(),
+        () async => await task.run(),
         throwsA(
           TypeMatcher<GitAddException>(),
         ),
@@ -71,7 +71,7 @@ void main() {
 
   test(
     'if git commit failed should throw exception',
-        () async {
+    () async {
       var fileSystemManager = FileSystemManagerMock();
       var elements = <Element>[
         _testElement(0),
@@ -86,7 +86,7 @@ void main() {
 
       var task = GeneratesReleaseNotesTask(elements, fileSystemManager);
       expect(
-            () async => await task.run(),
+        () async => await task.run(),
         throwsA(
           TypeMatcher<CommitException>(),
         ),
@@ -95,7 +95,7 @@ void main() {
   );
   test(
     'if git push failed should throw exception',
-        () async {
+    () async {
       var fileSystemManager = FileSystemManagerMock();
       var elements = <Element>[
         _testElement(0),
@@ -111,7 +111,7 @@ void main() {
 
       var task = GeneratesReleaseNotesTask(elements, fileSystemManager);
       expect(
-            () async => await task.run(),
+        () async => await task.run(),
         throwsA(
           TypeMatcher<PushException>(),
         ),
@@ -132,8 +132,8 @@ void _prepareReadValue(FileSystemManagerMock mock, Element element) {
 }
 
 Element _testElement(int index) => createTestElement(
-  path: 'test$index/path',
-  name: 'test$index',
-);
+      path: 'test$index/path',
+      name: 'test$index',
+    );
 const String _expectChangeLogValue =
     '# test0test value for test0# test1test value for test1# test2test value for test2';
