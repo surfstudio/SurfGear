@@ -77,7 +77,7 @@ class FileCopyrightObsoleteException extends BaseCiException {
 }
 
 /// Ошибка лицензирования модуля.
-/// 
+///
 /// Выбрасывается как в случае проверки единичного модуля так и списка модулей.
 class PackageLicensingException extends BaseCiException {
   PackageLicensingException(String message) : super(message);
@@ -101,6 +101,12 @@ class AnalyzerFailedException implements Exception {
   AnalyzerFailedException(this.message);
 }
 
+/// Тесты в модуле не прошли.
+class TestsFailedException implements Exception {
+  final String message;
+
+  TestsFailedException(this.message);
+}
 
 /// Не можем опубликовать модуль OpenSource
 class ModuleNotPublishOpenSourceException implements Exception {
