@@ -1,7 +1,7 @@
 import 'package:ci/domain/element.dart';
 import 'package:ci/tasks/core/task.dart';
 
-/// Утилита для увеличения нестабильной версии
+/// Задача для увеличения нестабильной версии
 class IncrementUnstableVersionTask extends Action {
   final Element element;
 

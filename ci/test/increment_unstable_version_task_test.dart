@@ -5,10 +5,10 @@ import 'core/test_helper.dart';
 
 void main() {
   group(
-    'Check utility to increase unstable version.',
+    'Check task to increase unstable version.',
         () {
       test(
-        'If the library is not ready to be used in production ',
+        'If the library is not ready for use, will return',
             () async {
           var element = createTestElement(isStable: false);
           var task = IncrementUnstableVersionTask(element);
