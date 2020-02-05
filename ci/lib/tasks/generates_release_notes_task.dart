@@ -33,7 +33,7 @@ class GeneratesReleaseNotesTask extends Action {
 
     try {
       await _handleResult(
-        await sh('git add ../RELEASE_NOTES.md'),
+        await sh('git add $_releaseNote'),
         GitAddException(
           getGitAddExceptionText(_releaseNote),
         ),
