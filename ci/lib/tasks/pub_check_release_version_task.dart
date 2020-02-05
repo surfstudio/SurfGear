@@ -29,13 +29,6 @@ class PubCheckReleaseVersionTask extends Check {
           ),
         );
       }
-      return Future.error(
-        FailedToVerifyVersionMatch(
-          getFailedToVerifyVersionMatchExceptionText(
-            _element.name.toString(),
-          ),
-        ),
-      );
     }
 
     return true;

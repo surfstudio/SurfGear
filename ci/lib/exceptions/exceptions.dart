@@ -116,11 +116,6 @@ class ModuleNotPublishOpenSourceException implements Exception {
   ModuleNotPublishOpenSourceException(this.message);
 }
 
-/// Не удалось проверить совпадает ли версия c прописанной в CHANGELOG.md
-class FailedToVerifyVersionMatch extends BaseCiException {
-  FailedToVerifyVersionMatch(String message) : super(message);
-}
-
 /// Нет описание версии в CHANGELOG.md
 class ChangeLogDoesNotContainCurrentVersionException implements Exception {
   final String message;

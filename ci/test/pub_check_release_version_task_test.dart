@@ -9,10 +9,10 @@ import 'core/test_helper.dart';
 
 void main() {
   group(
-    'Check if the module version matches the specified CHANGELOG.md.',
+    'Check whether the module version matches the specified CHANGELOG.md:',
     () {
       test(
-        'If the module version matches, we will return true.',
+        'The version matched.',
         () async {
           var task = _testPreparedPubCheckReleaseVersionTask(stderr: ' test123 ');
           var actual = await task.run();
@@ -25,20 +25,7 @@ void main() {
       );
 
       test(
-        'If an error occurred while checking the module version, task should return an exception.',
-        () async {
-          var task = _testPreparedPubCheckReleaseVersionTask(exitCode: 1, stderr: ' test123 ');
-          expect(
-            () async => await task.run(),
-            throwsA(
-              TypeMatcher<FailedToVerifyVersionMatch>(),
-            ),
-          );
-        },
-      );
-
-      test(
-        'If the module version does not match CHANGELOG.md, task should return an exception',
+        'The version didn\'t match',
         () async {
           var task = _testPreparedPubCheckReleaseVersionTask(
               exitCode: 1, stderr: ' CHANGELOG.md doesn\'t mention current version ');
@@ -54,7 +41,8 @@ void main() {
   );
 }
 
-PubCheckReleaseVersionTask _testPreparedPubCheckReleaseVersionTask({int exitCode = 0, String stderr = ''}) {
+PubCheckReleaseVersionTask _testPreparedPubCheckReleaseVersionTask(
+    {int exitCode = 0, String stderr = ''}) {
   var processResult = ProcessResult(0, exitCode, '', stderr);
   var callingMap = <String, dynamic>{
     'pub publish --dry-run': processResult,

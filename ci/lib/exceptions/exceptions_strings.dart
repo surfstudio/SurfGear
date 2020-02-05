@@ -17,4 +17,3 @@ String getStabilityDevChangedExceptionText(String module) => 'Модуль $modu
 String getTestsFailedExceptionText(int modulesCount, String error) => 'Тесты провалились в следующих $modulesCount модулях:\n\n$error';
 
 String getPubCheckReleaseVersionExceptionText(String module) => '$module: модуль, с непрописанной версией Release Notes';
-String getFailedToVerifyVersionMatchExceptionText(String module) => '$module: не удалось проверить совпадает ли версия c прописанной в CHANGELOG.md';
