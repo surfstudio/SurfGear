@@ -83,47 +83,12 @@ Future<bool> checkDependenciesStable(Element element) =>
 ///
 /// Проверяется наличие лицензии и её актуальность а так же наличие
 /// и правильность копирайтов у файлов.
-///
-/// dart ci check_licensing --name=push / dart ci check_licensing --all
 Future<bool> checkLicensing(
   List<Element> elements,
-  Map<String, dynamic> arguments,
 ) async {
-  var targetList = <Element>[];
-  var isAll = arguments[LicensingCheck.allFlag];
-  if (isAll) {
-    targetList.addAll(elements);
-  } else {
-    var name = arguments[LicensingCheck.nameOption];
-
-    if (name == null) {
-      return Future.error(
-        CommandFormatException(
-          getCommandFormatExceptionText(LicensingCheck.commandName,
-              'ожидалось check_licensing --all или check_licensing --name=anyName'),
-        ),
-      );
-    }
-
-    var element = elements.firstWhere(
-          (e) => e.name == name,
-      orElse: () => null,
-    );
-
-    if (element == null) {
-      return Future.error(
-        ElementNotFoundException(
-          getElementNotFoundExceptionText(name),
-        ),
-      );
-    }
-
-    targetList.add(element);
-  }
-
   var failList = <Element, Exception>{};
 
-  for (var element in targetList) {
+  for (var element in elements) {
     var licenseCheck = LicensingCheck(
       element,
       LicenseManager(),
@@ -161,7 +126,7 @@ Future<bool> checkCopyright(
   String filePath,
   FileSystemManager fileSystemManager,
   LicenseManager licenseManager,
-) async =>
+) =>
     CopyrightCheck(
       filePath,
       fileSystemManager,

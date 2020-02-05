@@ -143,9 +143,9 @@ class ParseCommandException extends BaseCiException {
   ParseCommandException(String message) : super(message);
 }
 
-/// Не правильная конфигурация команды
-class CommandFormatException extends BaseCiException {
-  CommandFormatException(String message) : super(message);
+/// Ошибка валидации параметров команды
+class CommandParamsValidationException extends BaseCiException {
+  CommandParamsValidationException(String message) : super(message);
 }
 
 /// Не найден обработчик команды

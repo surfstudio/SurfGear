@@ -3,6 +3,7 @@ import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/parsers/command_parser.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/services/runner/command_runner.dart';
+import 'package:ci/tasks/factories/scenario_task_factory.dart';
 
 /// Приложение для Continuous Integration.
 ///
@@ -28,7 +29,7 @@ class Ci {
     CommandParser commandParser,
     CommandRunner commandRunner,
   })  : _commandParser = commandParser ?? CommandParser(),
-        _commandRunner = commandRunner ?? CommandRunner(PubspecParser());
+        _commandRunner = commandRunner ?? CommandRunner(ScenarioTaskFactory());
 
   /// Выполняет действие исходя из переданных параметров.
   Future<void> execute(List<String> arguments) async {

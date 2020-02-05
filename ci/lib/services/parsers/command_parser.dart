@@ -8,6 +8,9 @@ import 'package:ci/utils/string_util.dart';
 
 /// Парсер команд
 class CommandParser {
+  static const String defaultAllFlag = 'all';
+  static const String defaultNameOption = 'name';
+
   final ArgParser _argParser = ArgParser();
 
   CommandParser() {
