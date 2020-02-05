@@ -5,7 +5,7 @@ import 'package:ci/tasks/core/task.dart';
 import 'package:ci/tasks/tasks.dart';
 import 'package:ci/tasks/utils.dart';
 
-/// Сценарий для команды build
+/// Сценарий для команды build.
 ///
 /// Пример вызова:
 /// dart ci build
@@ -25,7 +25,7 @@ class BuildScenario extends Scenario {
     await markChangedElements(elements);
     elements = await filterChangedElements(elements);
 
-    /// Валидируем лицензирование по отфильтрованному списку
+    /// запускаем сборку для полученного списка
     await build(elements);
   }
 }

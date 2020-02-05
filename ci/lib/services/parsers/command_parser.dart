@@ -2,6 +2,7 @@ import 'package:args/args.dart';
 import 'package:ci/domain/command.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
+import 'package:ci/tasks/impl/scenarios/add_license_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/build_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/licensing_check_scenario.dart';
 import 'package:ci/utils/arg_results_extension.dart';
@@ -49,11 +50,16 @@ class CommandParser {
   /// В данном методе необходимо провести инициализацию
   /// у парсера всевозможных опций.
   void _initParser() {
+    /// check_licensing
     _argParser.addCommand(LicensingCheckScenario.commandName)
       ..addFlag(LicensingCheckScenario.allFlag, negatable: false)
       ..addOption(LicensingCheckScenario.nameOption);
 
+    /// build
     _argParser.addCommand(BuildScenario.commandName);
+
+    /// add_license
+    _argParser.addCommand(AddLicenseScenario.commandName);
   }
 
   Future<Command> _getCommandByArgs(ArgResults results) async {
