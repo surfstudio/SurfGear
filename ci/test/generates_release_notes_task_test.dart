@@ -51,7 +51,7 @@ void main() {
   );
 
   group(
-    'Git exception test:',
+    'Git fail should throw exception tests:',
     () {
       test(
         'add file',
