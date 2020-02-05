@@ -50,7 +50,7 @@ void main() {
           expect(
                 () async => await task.run(),
             throwsA(
-              TypeMatcher<ModuleNotPublishOpenSourceException>(),
+              TypeMatcher<OpenSourceModuleCanNotBePublishException>(),
             ),
           );
         },

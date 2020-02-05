@@ -102,8 +102,8 @@ class AnalyzerFailedException implements Exception {
 }
 
 /// Не можем опубликовать модуль OpenSource
-class ModuleNotPublishOpenSourceException extends BaseCiException {
-  ModuleNotPublishOpenSourceException(String message) : super(message);
+class OpenSourceModuleCanNotBePublishException extends BaseCiException {
+  OpenSourceModuleCanNotBePublishException(String message) : super(message);
 }
 
 /// Нет описание версии в CHANGELOG.md
