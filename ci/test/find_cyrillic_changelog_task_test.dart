@@ -13,7 +13,7 @@ void main() {
       test(
         'There is no Cyrillic in the text, it will return true',
         () async {
-          var task = _testReturnPreparedTask('The quick brown fox jumps over the lazy dog.');
+          var task = _prepareTestTask('The quick brown fox jumps over the lazy dog.');
           expect(
             await task.run(),
             isTrue,
@@ -24,7 +24,7 @@ void main() {
       test(
         'The text has Cyrillic, will return Exception',
         () async {
-          var task = _testReturnPreparedTask(
+          var task = _prepareTestTask(
               'The quick brown fox jumps over the lazy dog. Съешь ещё ж этих мягких французских булок, да выпей чаю');
 
           expect(
@@ -39,7 +39,7 @@ void main() {
   );
 }
 
-FindCyrillicChangelogTask _testReturnPreparedTask(String textInFile) {
+FindCyrillicChangelogTask _prepareTestTask(String textInFile) {
   var mock = FileSystemManagerMock();
   var element = createTestElement();
   when(
