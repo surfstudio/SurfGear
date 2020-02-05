@@ -2,6 +2,7 @@ import 'package:ci/domain/command.dart';
 import 'package:ci/domain/config.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
+import 'package:ci/services/parsers/command_parser.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/task.dart';
@@ -13,6 +14,8 @@ import 'package:ci/tasks/utils.dart';
 /// dart ci check_licensing --name=push / dart ci check_licensing --all
 class LicensingCheckScenario extends Scenario {
   static const String commandName = 'check_licensing';
+  static const String allFlag = CommandParser.defaultAllFlag;
+  static const String nameOption = CommandParser.defaultNameOption;
 
   final PubspecParser _pubspecParser;
 

@@ -3,15 +3,11 @@ import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
-import 'package:ci/services/parsers/command_parser.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:ci/tasks/factories/license_task_factory.dart';
 
 /// Выполняет проверку лицензии в модуле и копирайтов у файлов.
 class LicensingCheck extends Check {
-  static const String commandName = 'check_licensing';
-  static const String allFlag = CommandParser.defaultAllFlag;
-  static const String nameOption = CommandParser.defaultNameOption;
 
   final Element _package;
 
