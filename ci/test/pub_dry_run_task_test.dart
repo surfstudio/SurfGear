@@ -9,14 +9,14 @@ import 'core/test_helper.dart';
 void main() {
   group(
     'Testing for the possibility of publishing an openSource module package.',
-        () {
+    () {
       test(
         'If the module is open source and can be published, will return true.',
-            () async {
-          _testPreparedShellMock(true);
-
-          var task = PubDryRunTask(_openSourceTestElement());
-
+        () async {
+          var task = _test(
+            true,
+            _openSourceTestElement(),
+          );
           var actual = await task.run();
 
           expect(
@@ -28,10 +28,11 @@ void main() {
 
       test(
         'If the module is not open source, it will return false.',
-            () async {
-          _testPreparedShellMock(true);
-          var task = PubDryRunTask(createTestElement());
-
+        () async {
+          var task = _test(
+            true,
+            createTestElement(),
+          );
           var actual = await task.run();
 
           expect(
@@ -43,12 +44,14 @@ void main() {
 
       test(
         'If the open source module is not ready for publication, it will return an exception.',
-            () async {
-          _testPreparedShellMock(false);
-          var task = PubDryRunTask(_openSourceTestElement());
+        () async {
+          var task = _test(
+            false,
+            _openSourceTestElement(),
+          );
 
           expect(
-                () async => await task.run(),
+            () async => await task.run(),
             throwsA(
               TypeMatcher<OpenSourceModuleCanNotBePublishException>(),
             ),
@@ -59,18 +62,19 @@ void main() {
   );
 }
 
-void _testPreparedShellMock(bool isError) {
+PubDryRunTask _test(bool isError, Element element) {
   var callingMap = <String, dynamic>{
     'pub publish --dry-run': isError,
   };
   var shell = substituteShell(callingMap: callingMap);
   var shm = getTestShellManager();
   when(shm.copy(any)).thenReturn(shell);
+  return PubDryRunTask(element);
 }
 
 Element _openSourceTestElement() => createTestElement(
-  openSourceInfo: OpenSourceInfo(
-    hostUrl: 'https://www.test.com/opensourceinfo',
-    separateRepoUrl: 'https://pub.test/test/opensourceinfo',
-  ),
-);
+      openSourceInfo: OpenSourceInfo(
+        hostUrl: 'https://www.test.com/opensourceinfo',
+        separateRepoUrl: 'https://pub.test/test/opensourceinfo',
+      ),
+    );
