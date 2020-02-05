@@ -4,6 +4,7 @@ import 'package:ci/tasks/core/task.dart';
 import 'package:ci/tasks/impl/scenarios/add_copyrights_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/add_license_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/build_scenario.dart';
+import 'package:ci/tasks/impl/scenarios/check_linter_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/licensing_check_scenario.dart';
 
 /// Фабрика для создания сценариев.
@@ -22,6 +23,9 @@ class ScenarioTaskFactory {
 
       case AddCopyrightsScenario.commandName:
         return AddCopyrightsScenario(command, PubspecParser());
+
+      case CheckLinterScenario.commandName:
+        return CheckLinterScenario(command, PubspecParser());
 
       default:
         return null;
