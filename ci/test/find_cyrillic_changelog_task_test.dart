@@ -8,10 +8,10 @@ import 'core/test_helper.dart';
 
 void main() {
   group(
-    'Cyrillic search check',
+    'Find cyrillic changelog task test:',
     () {
       test(
-        'There is no Cyrillic in the text, it will return true',
+        'No cyrillic.',
         () async {
           var task = _prepareTestTask('The quick brown fox jumps over the lazy dog.');
           expect(
@@ -22,7 +22,7 @@ void main() {
       );
 
       test(
-        'The text has Cyrillic, will return Exception',
+        'There are cyrillic characters throws an exception',
         () async {
           var task = _prepareTestTask(
               'The quick brown fox jumps over the lazy dog. Съешь ещё ж этих мягких французских булок, да выпей чаю');
