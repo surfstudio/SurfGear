@@ -13,7 +13,7 @@ void main() {
       test(
         'If the module is open source and can be published, will return true.',
         () async {
-          var task = _testReturnPreparedTask(
+          var task = _prepareTestTask(
             true,
             _openSourceTestElement(),
           );
@@ -29,7 +29,7 @@ void main() {
       test(
         'If the module is not open source, it will return false.',
         () async {
-          var task = _testReturnPreparedTask(
+          var task = _prepareTestTask(
             true,
             createTestElement(),
           );
@@ -45,7 +45,7 @@ void main() {
       test(
         'If the open source module is not ready for publication, it will return an exception.',
         () async {
-          var task = _testReturnPreparedTask(
+          var task = _prepareTestTask(
             false,
             _openSourceTestElement(),
           );
@@ -62,7 +62,7 @@ void main() {
   );
 }
 
-PubDryRunTask _testReturnPreparedTask(bool isError, Element element) {
+PubDryRunTask _prepareTestTask(bool isError, Element element) {
   var callingMap = <String, dynamic>{
     'pub publish --dry-run': isError,
   };
