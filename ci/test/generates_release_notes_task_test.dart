@@ -11,110 +11,97 @@ import 'package:test/test.dart';
 import 'core/test_helper.dart';
 
 void main() {
-  test(
-    'generate release notes should write correct changelog',
-    () async {
-      var fileSystemManager = FileSystemManagerMock();
-      var elements = <Element>[
-        _testElement(0),
-        _testElement(1),
-        _testElement(2),
-      ];
-      _prepareReadValue(fileSystemManager, elements[0]);
-      _prepareReadValue(fileSystemManager, elements[1]);
-      _prepareReadValue(fileSystemManager, elements[2]);
+  group(
+    'Generate release notes should write correct changelog:',
+    () {
+      test(
+        'test',
+        () async {
+          var fileSystemManager = FileSystemManagerMock();
+          var elements = <Element>[
+            _testElement(0),
+            _testElement(1),
+            _testElement(2),
+          ];
+          _prepareReadValue(fileSystemManager, elements[0]);
+          _prepareReadValue(fileSystemManager, elements[1]);
+          _prepareReadValue(fileSystemManager, elements[2]);
 
-      var callingMap = <String, dynamic>{
-        'git add ../RELEASE_NOTES.md': true,
-        "git commit -m 'update RELEASE_NOTES.md file'": true,
-        'git push origin master': true,
-      };
-      substituteShell(callingMap: callingMap);
+          var callingMap = <String, dynamic>{
+            'git add ../RELEASE_NOTES.md': true,
+            "git commit -m 'update RELEASE_NOTES.md file'": true,
+            'git push origin master': true,
+          };
+          substituteShell(callingMap: callingMap);
 
-      var task = GeneratesReleaseNotesTask(elements, fileSystemManager);
+          var task = GeneratesReleaseNotesTask(elements, fileSystemManager);
 
-      await task.run();
+          await task.run();
 
-      verify(
-        fileSystemManager.writeToFileAsString(
-          Config.releaseNoteFilePath,
-          _expectChangeLogValue,
-          mode: FileMode.write,
-        ),
-      ).called(1);
-    },
-  );
-
-  test(
-    'if git add failed should throw exception',
-    () async {
-      var fileSystemManager = FileSystemManagerMock();
-      var elements = <Element>[
-        _testElement(0),
-      ];
-      _prepareReadValue(fileSystemManager, elements[0]);
-
-      var callingMap = <String, dynamic>{
-        'git add ../RELEASE_NOTES.md': false,
-      };
-      substituteShell(callingMap: callingMap);
-
-      var task = GeneratesReleaseNotesTask(elements, fileSystemManager);
-      expect(
-        () async => await task.run(),
-        throwsA(
-          TypeMatcher<GitAddException>(),
-        ),
+          verify(
+            fileSystemManager.writeToFileAsString(
+              Config.releaseNoteFilePath,
+              _expectChangeLogValue,
+              mode: FileMode.write,
+            ),
+          ).called(1);
+        },
       );
     },
   );
 
-  test(
-    'if git commit failed should throw exception',
-    () async {
-      var fileSystemManager = FileSystemManagerMock();
-      var elements = <Element>[
-        _testElement(0),
-      ];
-      _prepareReadValue(fileSystemManager, elements[0]);
+  group(
+    'Git exception test:',
+    () {
+      test(
+        'add file',
+        () async {
+          var callingMap = <String, dynamic>{
+            'git add ../RELEASE_NOTES.md': false,
+          };
 
-      var callingMap = <String, dynamic>{
-        'git add ../RELEASE_NOTES.md': true,
-        "git commit -m 'update RELEASE_NOTES.md file'": false,
-      };
-      substituteShell(callingMap: callingMap);
-
-      var task = GeneratesReleaseNotesTask(elements, fileSystemManager);
-      expect(
-        () async => await task.run(),
-        throwsA(
-          TypeMatcher<CommitException>(),
-        ),
+          _testGitCommand(
+            callingMap,
+            throwsA(
+              TypeMatcher<GitAddException>(),
+            ),
+          );
+        },
       );
-    },
-  );
-  test(
-    'if git push failed should throw exception',
-    () async {
-      var fileSystemManager = FileSystemManagerMock();
-      var elements = <Element>[
-        _testElement(0),
-      ];
-      _prepareReadValue(fileSystemManager, elements[0]);
 
-      var callingMap = <String, dynamic>{
-        'git add ../RELEASE_NOTES.md': true,
-        "git commit -m 'update RELEASE_NOTES.md file'": true,
-        'git push origin master': false,
-      };
-      substituteShell(callingMap: callingMap);
+      test(
+        'commit file',
+        () async {
+          var callingMap = <String, dynamic>{
+            'git add ../RELEASE_NOTES.md': true,
+            "git commit -m 'update RELEASE_NOTES.md file'": false,
+          };
 
-      var task = GeneratesReleaseNotesTask(elements, fileSystemManager);
-      expect(
-        () async => await task.run(),
-        throwsA(
-          TypeMatcher<PushException>(),
-        ),
+          _testGitCommand(
+            callingMap,
+            throwsA(
+              TypeMatcher<CommitException>(),
+            ),
+          );
+        },
+      );
+
+      test(
+        'push file',
+        () async {
+          var callingMap = <String, dynamic>{
+            'git add ../RELEASE_NOTES.md': true,
+            "git commit -m 'update RELEASE_NOTES.md file'": true,
+            'git push origin master': false,
+          };
+
+          _testGitCommand(
+            callingMap,
+            throwsA(
+              TypeMatcher<PushException>(),
+            ),
+          );
+        },
       );
     },
   );
@@ -137,3 +124,16 @@ Element _testElement(int index) => createTestElement(
     );
 const String _expectChangeLogValue =
     '# test0test value for test0# test1test value for test1# test2test value for test2';
+
+void _testGitCommand(Map<String, dynamic> callingMap, matcher) {
+  var fileSystemManager = FileSystemManagerMock();
+  var elements = <Element>[
+    _testElement(0),
+  ];
+  _prepareReadValue(fileSystemManager, elements[0]);
+
+  substituteShell(callingMap: callingMap);
+
+  var task = GeneratesReleaseNotesTask(elements, fileSystemManager);
+  expect(() async => await task.run(), matcher);
+}
