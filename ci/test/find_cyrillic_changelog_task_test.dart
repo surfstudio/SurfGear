@@ -1,4 +1,3 @@
-import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/tasks/find_cyrillic_changelog_task.dart';
 import 'package:mockito/mockito.dart';
@@ -14,17 +13,7 @@ void main() {
       test(
         'There is no Cyrillic in the text, it will return true',
         () async {
-          var fileSystemManager = FileSystemManagerMock();
-
-          var element = createTestElement();
-
-          _prepareReadValueWithoutCyrillic(
-            fileSystemManager,
-            element,
-            'qwertyuiopasdfghjklzxcvbnm',
-          );
-          var task = FindCyrillicChangelogTask(element, fileSystemManager);
-
+          var task = _testReturnPreparedTask('The quick brown fox jumps over the lazy dog.');
           expect(
             await task.run(),
             isTrue,
@@ -35,16 +24,8 @@ void main() {
       test(
         'The text has Cyrillic, will return Exception',
         () async {
-          var fileSystemManager = FileSystemManagerMock();
-
-          var element = createTestElement();
-
-          _prepareReadValueWithoutCyrillic(
-            fileSystemManager,
-            element,
-            'qwertyuiopasdfghjklzxcvbnmа',
-          );
-          var task = FindCyrillicChangelogTask(element, fileSystemManager);
+          var task = _testReturnPreparedTask(
+              'The quick brown fox jumps over the lazy dog. Съешь ещё ж этих мягких французских булок, да выпей чаю');
 
           expect(
             () async => await task.run(),
@@ -58,14 +39,14 @@ void main() {
   );
 }
 
-void _prepareReadValueWithoutCyrillic(
-  FileSystemManagerMock mock,
-  Element element,
-  String textInFile,
-) {
+FindCyrillicChangelogTask _testReturnPreparedTask(String textInFile) {
+  var mock = FileSystemManagerMock();
+  var element = createTestElement();
   when(
     mock.readFileAsString(
       join(element.path, 'CHANGELOG.md'),
     ),
   ).thenReturn(textInFile);
+
+  return FindCyrillicChangelogTask(element, mock);
 }
