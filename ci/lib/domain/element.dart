@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ci/domain/dependency.dart';
 
 /// Представление библиотеки
@@ -32,7 +34,7 @@ class Element {
   final bool isPlugin;
 
   /// Путь до библиотеки.
-  /// 
+  ///
   /// Использование:
   /// ```dart
   /// element.uri.toFilePath(windows: Platform.isWindows);
@@ -44,7 +46,10 @@ class Element {
   /// URI для директорий заканчивается на `/`, из-за этого в
   /// `pathSegments.last` будет пустая строка. Поэтому мы берём
   /// предпоследний элемент.
-  String get path => uri.pathSegments[uri.pathSegments.length - 1];
+  String get directoryName => uri.pathSegments[uri.pathSegments.length - 2];
+
+  /// Путь до директории модуля
+  String get path => uri.toFilePath(windows: Platform.isWindows);
 
   /// Модуль был изменён в рамках пулл реквеста.
   bool changed;

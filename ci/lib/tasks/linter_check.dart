@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:ci/domain/element.dart';
 import 'package:ci/services/runner/shell_runner.dart';
 import 'package:ci/tasks/core/task.dart';
@@ -16,7 +14,7 @@ class CheckModuleWithLinter implements Check {
   Future<bool> run() async {
     final analyzeResult = await sh(
       'flutter analyze',
-      path: element.uri.toFilePath(windows: Platform.isWindows),
+      path: element.path,
     );
 
     if (analyzeResult.exitCode != 0) {
