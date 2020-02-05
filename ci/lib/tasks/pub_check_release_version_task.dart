@@ -22,7 +22,7 @@ class PubCheckReleaseVersionTask extends Check {
 
       if (processResult.stderr.contains(_findText)) {
         return Future.error(
-          ModuleNotReadyReleaseVersion(
+          ChangeLogDoesNotContainCurrentVersionException(
             getPubCheckReleaseVersionExceptionText(
               _element.name.toString(),
             ),
@@ -30,8 +30,8 @@ class PubCheckReleaseVersionTask extends Check {
         );
       }
       return Future.error(
-        ModuleNotReadyReleaseVersionFail(
-          getPubCheckReleaseVersionFailExceptionText(
+        FailedToVerifyVersionMatch(
+          getFailedToVerifyVersionMatchExceptionText(
             _element.name.toString(),
           ),
         ),

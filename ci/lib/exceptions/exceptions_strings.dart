@@ -18,4 +18,4 @@ String getCheckoutExceptionText(String error) => 'Не удалось перек
 String getStabilityDevChangedExceptionText(String module) => 'Модуль $module стал стабильным в dev ветке';
 
 String getPubCheckReleaseVersionExceptionText(String module) => '$module: модуль, с непрописанной версией Release Notes';
-String getPubCheckReleaseVersionFailExceptionText(String module) => '$module: не удалось проверить совпадает ли версия c прописанной в CHANGELOG.md';
+String getFailedToVerifyVersionMatchExceptionText(String module) => '$module: не удалось проверить совпадает ли версия c прописанной в CHANGELOG.md';

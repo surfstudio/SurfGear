@@ -110,16 +110,16 @@ class ModuleNotPublishOpenSourceException implements Exception {
 }
 
 /// Не удалось проверить совпадает ли версия c прописанной в CHANGELOG.md
-class ModuleNotReadyReleaseVersionFail extends BaseCiException {
-  ModuleNotReadyReleaseVersionFail(String message) : super(message);
+class FailedToVerifyVersionMatch extends BaseCiException {
+  FailedToVerifyVersionMatch(String message) : super(message);
 }
 
 /// Нет описание версии в CHANGELOG.md
-class ModuleNotReadyReleaseVersion implements Exception {
+class ChangeLogDoesNotContainCurrentVersionException implements Exception {
   final String message;
 
   /// Вызывается [PubCheckReleaseVersionTask]
-  ModuleNotReadyReleaseVersion(this.message);
+  ChangeLogDoesNotContainCurrentVersionException(this.message);
 }
 
 /// Ошибка получения hash комита.

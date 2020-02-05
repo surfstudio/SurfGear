@@ -14,8 +14,7 @@ void main() {
       test(
         'If the module version matches, we will return true.',
         () async {
-          _testPreparedShellMock(ProcessResult(0, 0, 'test123', ''));
-          var task = PubCheckReleaseVersionTask(createTestElement());
+          var task = _testPreparedPubCheckReleaseVersionTask(stderr: ' test123 ');
           var actual = await task.run();
 
           expect(
@@ -26,31 +25,27 @@ void main() {
       );
 
       test(
-        'If an error occurred while checking the module version, we will return an exception.',
+        'If an error occurred while checking the module version, task should return an exception.',
         () async {
-          _testPreparedShellMock(ProcessResult(0, 1, 'test123', ''));
-
-          var task = PubCheckReleaseVersionTask(createTestElement());
+          var task = _testPreparedPubCheckReleaseVersionTask(exitCode: 1, stderr: ' test123 ');
           expect(
             () async => await task.run(),
             throwsA(
-              TypeMatcher<ModuleNotReadyReleaseVersionFail>(),
+              TypeMatcher<FailedToVerifyVersionMatch>(),
             ),
           );
         },
       );
 
       test(
-        'If the module version does not match CHANGELOG.md, we will return an exception',
+        'If the module version does not match CHANGELOG.md, task should return an exception',
         () async {
-          _testPreparedShellMock(
-              ProcessResult(0, 1, '', ' CHANGELOG.md doesn\'t mention current version '));
-
-          var task = PubCheckReleaseVersionTask(createTestElement());
+          var task = _testPreparedPubCheckReleaseVersionTask(
+              exitCode: 1, stderr: ' CHANGELOG.md doesn\'t mention current version ');
           expect(
             () async => await task.run(),
             throwsA(
-              TypeMatcher<ModuleNotReadyReleaseVersion>(),
+              TypeMatcher<ChangeLogDoesNotContainCurrentVersionException>(),
             ),
           );
         },
@@ -59,11 +54,13 @@ void main() {
   );
 }
 
-void _testPreparedShellMock(ProcessResult processResult) {
+PubCheckReleaseVersionTask _testPreparedPubCheckReleaseVersionTask({int exitCode = 0, String stderr = ''}) {
+  var processResult = ProcessResult(0, exitCode, '', stderr);
   var callingMap = <String, dynamic>{
     'pub publish --dry-run': processResult,
   };
   var shell = substituteShell(callingMap: callingMap);
   var shm = getTestShellManager();
   when(shm.copy(any)).thenReturn(shell);
+  return PubCheckReleaseVersionTask(createTestElement());
 }
