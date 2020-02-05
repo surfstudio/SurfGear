@@ -12,10 +12,10 @@ import 'core/test_helper.dart';
 
 void main() {
   group(
-    'Generate release notes should write correct changelog:',
+    'Generate release notes task test:',
     () {
       test(
-        'test',
+        'Generate release notes should write correct changelog.',
         () async {
           var fileSystemManager = FileSystemManagerMock();
           var elements = <Element>[
