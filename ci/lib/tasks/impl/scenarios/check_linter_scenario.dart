@@ -25,7 +25,7 @@ class CheckLinterScenario extends Scenario {
     await markChangedElements(elements);
     elements = await filterChangedElements(elements);
 
-    /// запускаем сборку для полученного списка
+    /// запускаем проверку
     await checkModulesWithLinter(elements);
   }
 }

@@ -50,7 +50,7 @@ class CheckVersionInReleaseNoteScenario extends Scenario {
       );
     }
 
-    /// Валидируем лицензирование по отфильтрованному списку
+    /// проверяем наличие версии в релизноуте
     await checkVersionInReleaseNote(element);
   }
 }

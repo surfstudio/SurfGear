@@ -20,7 +20,7 @@ class AddCopyrightsScenario extends Scenario {
     /// получаем все элементы
     var elements = _pubspecParser.parsePubspecs(Config.packagesPath);
 
-    /// Добавляем лиценизии
+    /// Добавляем копирайты
     await addCopyrights(elements);
   }
 }

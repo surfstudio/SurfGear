@@ -50,7 +50,7 @@ class CheckPublishAvailableScenario extends Scenario {
       );
     }
 
-    /// Валидируем лицензирование по отфильтрованному списку
+    /// проверяем возможность публикации
     await checkPublishAvailable(element);
   }
 }

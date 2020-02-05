@@ -7,6 +7,7 @@ import 'package:ci/tasks/impl/scenarios/build_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/check_dependencies_stable_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/check_linter_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/check_publish_available_scenario.dart';
+import 'package:ci/tasks/impl/scenarios/check_stability_not_changed_in_dev_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/check_version_in_release_note_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/licensing_check_scenario.dart';
 
@@ -38,6 +39,9 @@ class ScenarioTaskFactory {
 
       case CheckDependenciesStableScenario.commandName:
         return CheckDependenciesStableScenario(command, PubspecParser());
+
+      case CheckStabilityNotChangedInDevScenario.commandName:
+        return CheckStabilityNotChangedInDevScenario(command, PubspecParser());
 
       default:
         return null;

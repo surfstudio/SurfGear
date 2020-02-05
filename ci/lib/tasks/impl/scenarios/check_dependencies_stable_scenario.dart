@@ -17,18 +17,19 @@ class CheckDependenciesStableScenario extends Scenario {
 
   final PubspecParser _pubspecParser;
 
-  CheckDependenciesStableScenario(Command command, this._pubspecParser) : super(command);
+  CheckDependenciesStableScenario(Command command, this._pubspecParser)
+      : super(command);
 
   @override
   Future<void> run() async {
-// валидация аргументов
+    /// валидация аргументов
     var elementName = command.arguments[nameOption];
 
     if (elementName == null) {
       return Future.error(
         CommandParamsValidationException(
-          getCommandFormatExceptionText(
-              commandName, 'ожидалось check_dependencies_stable --name=anyName'),
+          getCommandFormatExceptionText(commandName,
+              'ожидалось check_dependencies_stable --name=anyName'),
         ),
       );
     }
@@ -37,7 +38,7 @@ class CheckDependenciesStableScenario extends Scenario {
     var elements = _pubspecParser.parsePubspecs(Config.packagesPath);
 
     var element = elements.firstWhere(
-          (e) => e.name == elementName,
+      (e) => e.name == elementName,
       orElse: () => null,
     );
 
@@ -49,7 +50,7 @@ class CheckDependenciesStableScenario extends Scenario {
       );
     }
 
-    /// Валидируем лицензирование по отфильтрованному списку
+    /// Проверяем что зависимости элемента стабильны
     await checkDependenciesStable(element);
   }
 }
