@@ -101,6 +101,13 @@ class AnalyzerFailedException implements Exception {
   AnalyzerFailedException(this.message);
 }
 
+/// Тесты в модуле не прошли.
+class TestsFailedException implements Exception {
+  final String message;
+
+  TestsFailedException(this.message);
+}
+
 /// Не можем опубликовать модуль OpenSource
 class OpenSourceModuleCanNotBePublishException extends BaseCiException {
   OpenSourceModuleCanNotBePublishException(String message) : super(message);
