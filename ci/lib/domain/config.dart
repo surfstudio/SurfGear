@@ -38,4 +38,10 @@ abstract class Config {
     _standardPath,
     'packages',
   );
+
+  /// Путь до директории с модулями
+  static final String releaseNoteFilePath = join(
+    _standardPath,
+    'RELEASE_NOTES.md',
+  );
 }
