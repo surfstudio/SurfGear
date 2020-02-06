@@ -9,7 +9,7 @@ class IncrementUnstableVersionTask extends Action {
 
   @override
   Future<Element> run() async {
-    if (!element.isStable || element.changed) {
+    if (!element.isStable && element.changed) {
       return Element.byTemplate(element, unstableVersion: element.unstableVersion + 1);
     }
     return element;

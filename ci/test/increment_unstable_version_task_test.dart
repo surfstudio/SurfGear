@@ -3,43 +3,30 @@ import 'package:test/test.dart';
 
 import 'core/test_helper.dart';
 
+/// Тест для [IncrementUnstableVersionTask]
 void main() {
   group(
-    'Check task to increase unstable version:',
+    'IncrementUnstableVersionTask test:',
     () {
       test(
-        'The module is ready for use in production.',
+        'If the version is stable and has not been changed, it returns 0.',
         () async {
-          var res = await _prepareTestTask(isChanged: false, isStable: true).run();
+          var res = await _prepareTestTask(isStable: true, isChanged: false).run();
           expect(res.unstableVersion, 0);
         },
       );
-    },
-  );
-
-  group(
-    'A module that is not ready for production throws an error:',
-    () {
       test(
-        'Not ready to be used in production.',
+        'If the version is stable but has been changed , it returns 0.',
         () async {
-          var res = await _prepareTestTask(isStable: false).run();
-          expect(res.unstableVersion, 1);
+          var res = await _prepareTestTask(isStable: true, isChanged: true).run();
+          expect(res.unstableVersion, 0);
         },
       );
 
       test(
-        'The module was changed.',
+        'The version is not stable and has been changed.',
         () async {
-          var res = await _prepareTestTask(isChanged: true).run();
-          expect(res.unstableVersion, 1);
-        },
-      );
-
-      test(
-        'The module was changed and not ready to be used in production.',
-        () async {
-          var res = await _prepareTestTask(isChanged: true, isStable: false).run();
+          var res = await _prepareTestTask(isStable: false, isChanged: true).run();
           expect(res.unstableVersion, 1);
         },
       );
@@ -47,7 +34,7 @@ void main() {
   );
 }
 
-IncrementUnstableVersionTask _prepareTestTask({bool isChanged = false, bool isStable = true}) {
+IncrementUnstableVersionTask _prepareTestTask({bool isChanged, bool isStable}) {
   var element = createTestElement(isChanged: isChanged, isStable: isStable);
   return IncrementUnstableVersionTask(element);
 }
