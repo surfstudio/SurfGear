@@ -47,59 +47,59 @@ void main() {
           ).called(1);
         },
       );
-    },
-  );
 
-  group(
-    'Git fail should throw exception tests:',
-    () {
-      test(
-        'add file',
-        () async {
-          var callingMap = <String, dynamic>{
-            'git add ../RELEASE_NOTES.md': false,
-          };
+      group(
+        'Git fail should throw exception tests:',
+        () {
+          test(
+            'add file',
+            () async {
+              var callingMap = <String, dynamic>{
+                'git add ../RELEASE_NOTES.md': false,
+              };
 
-          _testGitCommand(
-            callingMap,
-            throwsA(
-              TypeMatcher<GitAddException>(),
-            ),
+              _testGitCommand(
+                callingMap,
+                throwsA(
+                  TypeMatcher<GitAddException>(),
+                ),
+              );
+            },
           );
-        },
-      );
 
-      test(
-        'commit file',
-        () async {
-          var callingMap = <String, dynamic>{
-            'git add ../RELEASE_NOTES.md': true,
-            "git commit -m 'update RELEASE_NOTES.md file'": false,
-          };
+          test(
+            'commit file',
+            () async {
+              var callingMap = <String, dynamic>{
+                'git add ../RELEASE_NOTES.md': true,
+                "git commit -m 'update RELEASE_NOTES.md file'": false,
+              };
 
-          _testGitCommand(
-            callingMap,
-            throwsA(
-              TypeMatcher<CommitException>(),
-            ),
+              _testGitCommand(
+                callingMap,
+                throwsA(
+                  TypeMatcher<CommitException>(),
+                ),
+              );
+            },
           );
-        },
-      );
 
-      test(
-        'push file',
-        () async {
-          var callingMap = <String, dynamic>{
-            'git add ../RELEASE_NOTES.md': true,
-            "git commit -m 'update RELEASE_NOTES.md file'": true,
-            'git push origin master': false,
-          };
+          test(
+            'push file',
+            () async {
+              var callingMap = <String, dynamic>{
+                'git add ../RELEASE_NOTES.md': true,
+                "git commit -m 'update RELEASE_NOTES.md file'": true,
+                'git push origin master': false,
+              };
 
-          _testGitCommand(
-            callingMap,
-            throwsA(
-              TypeMatcher<PushException>(),
-            ),
+              _testGitCommand(
+                callingMap,
+                throwsA(
+                  TypeMatcher<PushException>(),
+                ),
+              );
+            },
           );
         },
       );
