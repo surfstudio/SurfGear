@@ -6,12 +6,13 @@ import 'package:test/test.dart';
 
 import 'core/test_helper.dart';
 
+/// Тесты для [PubDryRunTask].
 void main() {
   group(
-    'Is the module OpenSource:',
+    'PubDryRunTask tests:',
     () {
       test(
-        'Is OpenSource.',
+        'If the open source module and it can be published, we should return true.',
         () async {
           var task = _prepareTestTask(
             true,
@@ -27,7 +28,7 @@ void main() {
       );
 
       test(
-        'Isn\'t open source.',
+        'If the module isn\'t open source, it should return false.',
         () async {
           var task = _prepareTestTask(
             true,
@@ -41,14 +42,9 @@ void main() {
           );
         },
       );
-    },
-  );
 
-  group(
-    'A module that is not ready for publication throws an error:',
-    () {
       test(
-        'Is OpenSource but not ready for publication.',
+        'If the module is open source but it isn\'t ready for publication, it will return an exception.',
         () async {
           var task = _prepareTestTask(
             false,
