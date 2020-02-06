@@ -7,12 +7,13 @@ import 'package:test/test.dart';
 
 import 'core/test_helper.dart';
 
+/// Тестируем класс [PubCheckReleaseVersionTask]
 void main() {
   group(
-    'Check whether the module version matches the specified CHANGELOG.md:',
+    'PubCheckReleaseVersionTask test:',
     () {
       test(
-        'The version matched.',
+        'If the version matches with CHANGELOG.md, then returns true.',
         () async {
           var task = _testPreparedPubCheckReleaseVersionTask(stderr: ' test123 ');
           var actual = await task.run();
@@ -25,7 +26,7 @@ void main() {
       );
 
       test(
-        'The version didn\'t match',
+        'If the version does not match with CHANGELOG.md, then returns false.',
         () async {
           var task = _testPreparedPubCheckReleaseVersionTask(
               exitCode: 1, stderr: ' CHANGELOG.md doesn\'t mention current version ');

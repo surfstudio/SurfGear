@@ -24,7 +24,7 @@ class PubCheckReleaseVersionTask extends Check {
         return Future.error(
           ChangeLogDoesNotContainCurrentVersionException(
             getPubCheckReleaseVersionExceptionText(
-              _element.name.toString(),
+              _element.name,
             ),
           ),
         );
