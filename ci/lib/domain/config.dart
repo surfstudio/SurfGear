@@ -39,6 +39,12 @@ abstract class Config {
     'packages',
   );
 
+  /// Путь до директории с модулями
+  static final String releaseNoteFilePath = join(
+    _standardPath,
+    'RELEASE_NOTES.md',
+  );
+
   /// Путь до toplevel-директории гит-репозитория
   static final String repoRootPath = _standardPath;
 }

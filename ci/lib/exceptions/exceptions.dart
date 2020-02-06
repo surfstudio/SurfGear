@@ -139,6 +139,21 @@ class StabilityDevChangedException extends BaseCiException {
   StabilityDevChangedException(String message) : super(message);
 }
 
+/// Невозможно добавить файл
+class GitAddException extends GitProcessException {
+  GitAddException(String message) : super(message);
+}
+
+/// Невозможно сделать коммит
+class CommitException extends GitProcessException {
+  CommitException(String message) : super(message);
+}
+
+/// Невозможно сделать пуш
+class PushException extends GitProcessException {
+  PushException(String message) : super(message);
+}
+
 /// Ошибка во время зеркалирования модуля в отдельный репозиторий.
 class ModuleMirroringException extends GitProcessException {
   ModuleMirroringException(String message) : super(message);
