@@ -5,6 +5,8 @@ String getGitAddExceptionText(String filepath) => 'Не возможно вып�
 String getGitCommitExceptionText(String filepath) => 'Не возможно выполнить git commit $filepath';
 String getGitPushExceptionText(String filepath) => 'Не возможно выполнить git push $filepath';
 String getCommitHashExceptionText(String error) => 'Не удалось получить commit hash:\n$error';
+String getCheckoutExceptionText(String error) => 'Не удалось переключиться в нужное состояние:\n$error';
+String getMirroringExceptionText(String module, String error) => 'Не удалось выполнить зеркалирование модуля $module: $error';
 
 String getFileNotFoundExceptionText(String filepath) => 'File $filepath not found';
 String getLicenseFileNotFoundExceptionText(String licensePath) => 'Файл лицензии $licensePath не найден';
@@ -16,10 +18,6 @@ String getAddLicenseFailExceptionText(String error) => 'Не удалось до
 String getCopyrightFileNotFoundExceptionText(String filepath) => 'Копирайт файла $filepath не найден';
 String getCopyrightFileObsoleteExceptionText(String filepath) => 'Копирайт файла $filepath устарел';
 String getAddCopyrightFailExceptionText(String error) => 'Не удалось добавить копирайты в файлы:\n $error';
-
-String getCommitHashExceptionText(String error) => 'Не удалось получить commit hash:\n$error';
-String getCheckoutExceptionText(String error) => 'Не удалось переключиться в нужное состояние:\n$error';
-String getMirroringExceptionText(String module, String error) => 'Не удалось выполнить зеркалирование модуля $module: $error';
 
 String getStabilityDevChangedExceptionText(String module) => 'Модуль $module стал стабильным в dev ветке';
 String getTestsFailedExceptionText(int modulesCount, String error) => 'Тесты провалились в следующих $modulesCount модулях:\n\n$error';
