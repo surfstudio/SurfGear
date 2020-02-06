@@ -6,12 +6,13 @@ import 'package:test/test.dart';
 
 import 'core/test_helper.dart';
 
+/// Тест для [FindCyrillicChangelogTask]
 void main() {
   group(
     'Find cyrillic changelog task test:',
     () {
       test(
-        'No cyrillic.',
+        'when changelog not contains cyrillic should return true.',
         () async {
           var task = _prepareTestTask('The quick brown fox jumps over the lazy dog.');
           expect(
@@ -22,7 +23,7 @@ void main() {
       );
 
       test(
-        'There are cyrillic characters throws an exception',
+        'If changelog contains cyrillic, task should throw exception.',
         () async {
           var task = _prepareTestTask(
               'The quick brown fox jumps over the lazy dog. Съешь ещё ж этих мягких французских булок, да выпей чаю');
