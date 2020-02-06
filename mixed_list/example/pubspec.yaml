@@ -25,7 +25,7 @@ dependencies:
   datalist:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-RIG-4
+      ref: project-RIG-5
       path: datalist
 
 dev_dependencies:

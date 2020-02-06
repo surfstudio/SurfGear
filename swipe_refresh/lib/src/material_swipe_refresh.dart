@@ -27,7 +27,7 @@ class MaterialSwipeRefresh extends SwipeRefreshBase {
             children: children,
             stateStream: stateStream,
             initState: initState,
-            scrollController:scrollController,
+            scrollController: scrollController,
             onRefresh: onRefresh);
 
   @override
@@ -43,6 +43,7 @@ class _MaterialSwipeRefreshState
       child: ListView(
         controller: widget.scrollController ?? ScrollController(),
         children: children,
+        physics: AlwaysScrollableScrollPhysics(),
       ),
       onRefresh: onRefresh,
       color: widget.indicatorColor,
