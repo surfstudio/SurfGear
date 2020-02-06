@@ -1,7 +1,11 @@
 const String licenseSampleNotFoundExceptionText = 'Образец лицензии не найден. Проверьте наличие файла лиценизии и конфигурацию приложения.';
 const String copyrightSampleNotFoundExceptionText = 'Образец копирайта не найден. Проверьте наличие файла копирайта и конфигурацию приложения.';
 
-/// Common
+String getGitAddExceptionText(String filepath) => 'Не возможно выполнить git add $filepath';
+String getGitCommitExceptionText(String filepath) => 'Не возможно выполнить git commit $filepath';
+String getGitPushExceptionText(String filepath) => 'Не возможно выполнить git push $filepath';
+String getCommitHashExceptionText(String error) => 'Не удалось получить commit hash:\n$error';
+
 String getFileNotFoundExceptionText(String filepath) => 'File $filepath not found';
 String getElementNotFoundExceptionText(String moduleName) => 'Модуль $moduleName не найден';
 

@@ -132,6 +132,21 @@ class StabilityDevChangedException extends BaseCiException {
   StabilityDevChangedException(String message) : super(message);
 }
 
+/// Невозможно добавить файл
+class GitAddException extends GitProcessException {
+  GitAddException(String message) : super(message);
+}
+
+/// Невозможно сделать коммит
+class CommitException extends GitProcessException {
+  CommitException(String message) : super(message);
+}
+
+/// Невозможно сделать пуш
+class PushException extends GitProcessException {
+  PushException(String message) : super(message);
+}
+
 /// Ошибка парсинга команды
 class ParseCommandException extends BaseCiException {
   ParseCommandException(String message) : super(message);
