@@ -29,7 +29,9 @@ class PackageBuilderTask extends Action {
     var res = await _build(_package);
     if (res == false) {
       return Future.error(
-        getPackageBuildExceptionText(_package.name),
+        PackageBuildException(
+          getPackageBuildExceptionText(_package.name),
+        ),
       );
     }
   }
