@@ -1,11 +1,11 @@
-import 'package:yaml/yaml.dart';
-import 'package:yamlicious/yamlicious.dart';
+import 'package:pubspec_yaml/pubspec_yaml.dart';
 
 /// Менеджер работы с yaml документами.
 class YamlManager {
   /// Парсит документ yaml.
-  YamlDocument parseYamlDocument(String content) => loadYamlDocument(content);
+  PubspecYaml parseYamlDocument(String content) =>
+      PubspecYaml.loadFromYamlString(content);
 
   /// Возвращает представление yaml в виде строки для записи в файл.
-  String convertToYamlFile(YamlNode node) => toYamlString(node);
+  String convertToYamlFile(PubspecYaml yaml) => yaml.toYamlString();
 }

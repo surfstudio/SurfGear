@@ -4,10 +4,9 @@ import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/yaml_manager.dart';
 import 'package:ci/services/pubspec_parser.dart';
 import 'package:ci/tasks/core/task.dart';
+import 'package:ci/utils/pubspec_yaml_extension.dart';
 import 'package:path/path.dart';
 import 'package:pubspec_yaml/pubspec_yaml.dart';
-import 'package:yaml/yaml.dart';
-import 'package:yamlicious/yamlicious.dart';
 
 void main() {
   var list = PubspecParser().parsePubspecs(Config.packagesPath);
@@ -34,28 +33,40 @@ class SaveElementTask extends Action {
 
   @override
   Future<void> run() async {
-    var fileContent = _fileSystemManager.readFileAsString(
-      join(
-        _element.path,
-        PubspecParser.pubspecFilename,
-      ),
+    var filePath = join(
+      _element.path,
+      PubspecParser.pubspecFilename,
     );
-//    var yaml = _yamlManager.parseYamlDocument(fileContent);
-    var yaml = PubspecYaml.loadFromYamlString(fileContent);
-//    var map = yaml.contents as YamlMap;
-//
-//    var modified = Map.from(map);
-//    modified['name'] = 'test';
-//
-//    var ym = YamlMap.wrap(
-//      modified,
-//      sourceUrl: join(
-//        _element.path,
-//        PubspecParser.pubspecFilename,
-//      ),
-//    );
 
-    var string = yaml.toYamlString();
-    return null;
+    var yaml = _getYamlByElement(_element);
+    _fileSystemManager.writeToFileAsString(
+      filePath,
+      _yamlManager.convertToYamlFile(yaml),
+    );
+  }
+
+  /// Возвращает yaml файл для представления модуля.
+  PubspecYaml _getYamlByElement(Element element) {
+    var filePath = join(
+      _element.path,
+      PubspecParser.pubspecFilename,
+    );
+    var fileContent = _fileSystemManager.readFileAsString(filePath);
+
+    var yaml = _yamlManager.parseYamlDocument(fileContent);
+
+    // заполнение
+    List<PackageDependencySpec> dependencies;
+    var elementDependencies = element.dependencies;
+    for (var dep in elementDependencies) {
+      if (!dep.thirdParty) {
+        // Какая то обработка
+      }
+    }
+
+    return yaml.change(
+      version: element.version,
+      dependencies: dependencies,
+    );
   }
 }
