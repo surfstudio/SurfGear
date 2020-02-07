@@ -143,3 +143,19 @@ class StabilityDevChangedException extends BaseCiException {
 class ModuleContainsCyrillicException extends BaseCiException {
   ModuleContainsCyrillicException(String message) : super(message);
 }
+
+
+/// Невозможно добавить файл
+class GitAddException extends GitProcessException {
+  GitAddException(String message) : super(message);
+}
+
+/// Невозможно сделать коммит
+class CommitException extends GitProcessException {
+  CommitException(String message) : super(message);
+}
+
+/// Невозможно сделать пуш
+class PushException extends GitProcessException {
+  PushException(String message) : super(message);
+}

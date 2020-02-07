@@ -65,6 +65,30 @@ class Element {
     this.uri,
     this.changed = false,
   });
+
+  /// Создадим новый Element по образцу старого
+  Element.byTemplate(
+      Element oldElement, {
+        String name,
+        String version,
+        List<Dependency> dependencies,
+        OpenSourceInfo openSourceInfo,
+        bool isStable,
+        int unstableVersion,
+        bool isPlugin,
+        Uri uri,
+        bool changed = false,
+      }) : this(
+    name: name ?? oldElement.name,
+    version: version ?? oldElement.version,
+    dependencies: dependencies ?? oldElement.dependencies,
+    openSourceInfo: openSourceInfo ?? oldElement.openSourceInfo,
+    isStable: isStable ?? oldElement.isStable,
+    unstableVersion: unstableVersion ?? unstableVersion,
+    isPlugin: isPlugin ?? oldElement.isPlugin,
+    uri: uri ?? oldElement.uri,
+    changed: changed ?? oldElement.changed,
+  );
 }
 
 /// Информация для open source библиотек.

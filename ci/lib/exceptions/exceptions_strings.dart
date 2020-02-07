@@ -1,6 +1,11 @@
 const String licenseSampleNotFoundExceptionText = 'Образец лицензии не найден. Проверьте наличие файла лиценизии и конфигурацию приложения.';
 const String copyrightSampleNotFoundExceptionText = 'Образец копирайта не найден. Проверьте наличие файла копирайта и конфигурацию приложения.';
 
+String getGitAddExceptionText(String filepath) => 'Не возможно выполнить git add $filepath';
+String getGitCommitExceptionText(String filepath) => 'Не возможно выполнить git commit $filepath';
+String getGitPushExceptionText(String filepath) => 'Не возможно выполнить git push $filepath';
+String getCommitHashExceptionText(String error) => 'Не удалось получить commit hash:\n$error';
+
 String getFileNotFoundExceptionText(String filepath) => 'File $filepath not found';
 String getLicenseFileNotFoundExceptionText(String licensePath) => 'Файл лицензии $licensePath не найден';
 String getLicenseFileObsoleteExceptionText(String licensePath) => 'Файл лицензии $licensePath устарел';
@@ -11,7 +16,7 @@ String getAddLicenseFailExceptionText(String error) => 'Не удалось до
 String getCopyrightFileNotFoundExceptionText(String filepath) => 'Копирайт файла $filepath не найден';
 String getCopyrightFileObsoleteExceptionText(String filepath) => 'Копирайт файла $filepath устарел';
 String getAddCopyrightFailExceptionText(String error) => 'Не удалось добавить копирайты в файлы:\n $error';
-String getCommitHashExceptionText(String error) => 'Не удалось получить commit hash:\n$error';
+
 String getCheckoutExceptionText(String error) => 'Не удалось переключиться в нужное состояние:\n$error';
 String getStabilityDevChangedExceptionText(String module) => 'Модуль $module стал стабильным в dev ветке';
 
