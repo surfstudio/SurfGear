@@ -13,9 +13,22 @@ void main() {
     'PubCheckReleaseVersionTask test:',
     () {
       test(
+        "If 'pub publish --dry-run' was successful, it returns true.",
+        () async {
+          var task = _testPreparedPubCheckReleaseVersionTask(exitCode: 0);
+          var actual = await task.run();
+
+          expect(
+            actual,
+            isTrue,
+          );
+        },
+      );
+
+      test(
         'If the version matches with CHANGELOG.md, then returns true.',
         () async {
-          var task = _testPreparedPubCheckReleaseVersionTask(stderr: ' test123 ');
+          var task = _testPreparedPubCheckReleaseVersionTask(exitCode: 1, stderr: ' test123 ');
           var actual = await task.run();
 
           expect(
