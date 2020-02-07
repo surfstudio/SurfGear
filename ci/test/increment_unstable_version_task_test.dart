@@ -9,14 +9,15 @@ void main() {
     'IncrementUnstableVersionTask test:',
     () {
       test(
-        'If the version is stable and has not been changed, it returns 0.',
+        'If the element is stable and has not been changed, it returns 0.',
         () async {
           var res = await _prepareTestTask(isStable: true, isChanged: false).run();
           expect(res.unstableVersion, 0);
         },
       );
+
       test(
-        'If the version is stable but has been changed , it returns 0.',
+        'If the element is stable but has been changed , it returns 0.',
         () async {
           var res = await _prepareTestTask(isStable: true, isChanged: true).run();
           expect(res.unstableVersion, 0);
@@ -24,7 +25,7 @@ void main() {
       );
 
       test(
-        'The version is not stable and has been changed.',
+        'The element is not stable and has been changed.',
         () async {
           var res = await _prepareTestTask(isStable: false, isChanged: true).run();
           expect(res.unstableVersion, 1);
