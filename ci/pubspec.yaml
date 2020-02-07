@@ -9,6 +9,8 @@ environment:
 dependencies:
   pubspec_parse: 0.1.5
   yaml: 2.2.0
+  pubspec_yaml: ^1.0.0+1
+  yamlicious: ^0.1.0
   shell: ^1.0.1
   path: ^1.6.4
 
