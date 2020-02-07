@@ -12,7 +12,7 @@ void main() {
     'PubDryRunTask tests:',
     () {
       test(
-        'If the open source module and it can be published, we should return true.',
+        'If the open source module and it can be published, exception should be thrown.',
         () async {
           var task = _prepareTestTask(
             true,
@@ -28,7 +28,7 @@ void main() {
       );
 
       test(
-        'If the module isn\'t open source, it should return false.',
+        'If the module is not open source, it should return false.',
         () async {
           var task = _prepareTestTask(
             true,
@@ -44,7 +44,7 @@ void main() {
       );
 
       test(
-        'If the module is open source but it isn\'t ready for publication, it will return an exception.',
+        'If the module is open source but it is not ready for publication, it will return an exception.',
         () async {
           var task = _prepareTestTask(
             false,
