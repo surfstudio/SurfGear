@@ -1,5 +1,5 @@
 import 'package:ci/domain/command.dart';
-import 'package:ci/domain/config.dart';
+import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/parsers/command_parser.dart';
@@ -17,38 +17,42 @@ class LicensingCheckScenario extends Scenario {
   static const String allFlag = CommandParser.defaultAllFlag;
   static const String nameOption = CommandParser.defaultNameOption;
 
-  final PubspecParser _pubspecParser;
-
-  LicensingCheckScenario(Command command, this._pubspecParser) : super(command);
+  LicensingCheckScenario(Command command, PubspecParser pubspecParser)
+      : super(command, pubspecParser);
 
   @override
-  Future<void> run() async {
-    try {
-      var args = command.arguments;
+  Future<void> validate(Command command) async {
+    var args = command.arguments;
 
-      /// валидация аргументов
-      var isArgCorrect = await validateCommandParamForElements(args);
+    /// валидация аргументов
+    var isArgCorrect = await validateCommandParamForElements(args);
 
-      if (!isArgCorrect) {
-        return Future.error(
-          CommandParamsValidationException(
-            getCommandFormatExceptionText(
-              commandName,
-              'ожидалось check_licensing --all или check_licensing --name=anyName',
-            ),
+    if (!isArgCorrect) {
+      return Future.error(
+        CommandParamsValidationException(
+          getCommandFormatExceptionText(
+            commandName,
+            'ожидалось check_licensing --all или check_licensing --name=anyName',
           ),
-        );
-      }
-
-      /// получаем все элементы
-      var elements = _pubspecParser.parsePubspecs(Config.packagesPath);
-
-      /// Фильтруем по переданным параметрам список элементов
-      elements = await filterElementsByCommandParams(
-        elements,
-        command.arguments,
+        ),
       );
+    }
+  }
 
+  @override
+  Future<List<Element>> preExecute() async {
+    var elements = await super.preExecute();
+
+    /// Фильтруем по переданным параметрам список элементов
+    return filterElementsByCommandParams(
+      elements,
+      command.arguments,
+    );
+  }
+
+  @override
+  Future<void> doExecute(List<Element> elements) async {
+    try {
       /// Валидируем лицензирование по отфильтрованному списку
       await checkLicensing(elements);
     } on BaseCiException {

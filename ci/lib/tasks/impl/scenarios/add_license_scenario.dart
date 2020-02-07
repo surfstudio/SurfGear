@@ -1,6 +1,5 @@
 import 'package:ci/domain/command.dart';
-import 'package:ci/domain/config.dart';
-import 'package:ci/exceptions/exceptions.dart';
+import 'package:ci/domain/element.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:ci/tasks/tasks.dart';
@@ -12,20 +11,17 @@ import 'package:ci/tasks/tasks.dart';
 class AddLicenseScenario extends Scenario {
   static const String commandName = 'add_license';
 
-  final PubspecParser _pubspecParser;
-
-  AddLicenseScenario(Command command, this._pubspecParser) : super(command);
+  AddLicenseScenario(
+      Command command,
+      PubspecParser pubspecParser,
+      ) : super(
+    command,
+    pubspecParser,
+  );
 
   @override
-  Future<void> run() async {
-    try {
-      /// получаем все элементы
-      var elements = _pubspecParser.parsePubspecs(Config.packagesPath);
-
-      /// Добавляем лиценизии
-      await addLicense(elements);
-    } on BaseCiException {
-      rethrow;
-    }
+  Future<void> doExecute(List<Element> elements) {
+    /// Добавляем лиценизии
+    return addLicense(elements);
   }
 }

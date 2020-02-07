@@ -1,6 +1,5 @@
 import 'package:ci/domain/command.dart';
-import 'package:ci/domain/config.dart';
-import 'package:ci/exceptions/exceptions.dart';
+import 'package:ci/domain/element.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:ci/tasks/tasks.dart';
@@ -13,24 +12,27 @@ import 'package:ci/tasks/utils.dart';
 class BuildScenario extends Scenario {
   static const String commandName = 'build';
 
-  final PubspecParser _pubspecParser;
-
-  BuildScenario(Command command, this._pubspecParser) : super(command);
+  BuildScenario(
+    Command command,
+    PubspecParser pubspecParser,
+  ) : super(
+          command,
+          pubspecParser,
+        );
 
   @override
-  Future<void> run() async {
-    try {
-      /// получаем все элементы
-      var elements = _pubspecParser.parsePubspecs(Config.packagesPath);
+  Future<List<Element>> preExecute() async {
+    var elements = await super.preExecute();
 
-      /// ищем измененные элементы и фильтруем
-      await markChangedElements(elements);
-      elements = await filterChangedElements(elements);
+    /// ищем измененные элементы и фильтруем
+    await markChangedElements(elements);
 
-      /// запускаем сборку для полученного списка
-      await build(elements);
-    } on BaseCiException {
-      rethrow;
-    }
+    return filterChangedElements(elements);
+  }
+
+  @override
+  Future<void> doExecute(List<Element> elements) {
+    /// запускаем сборку для полученного списка
+    return build(elements);
   }
 }
