@@ -19,6 +19,8 @@ import 'package:ci/tasks/run_module_tests_check.dart';
 import 'package:ci/tasks/stable_modules_for_changes_check.dart';
 import 'package:ci/tasks/utils.dart';
 
+import 'increment_unstable_version_task.dart';
+
 const _testsReportName = 'tests_report.txt';
 
 /// Проверка модулей с помощью `flutter analyze`.
@@ -177,3 +179,8 @@ Future<bool> checkStabilityNotChangeInDev(List<Element> elements) async {
 
   return CheckStabilityDev(elements, PubspecParser()).run();
 }
+
+/// Увеличение нестабильной версии
+/// dart ci increment_unstable_version element
+Future<Element> checkIncrementUnstableVersion(Element element) async =>
+    IncrementUnstableVersionTask(element).run();
