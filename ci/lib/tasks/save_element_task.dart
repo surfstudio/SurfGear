@@ -1,4 +1,5 @@
 import 'package:ci/domain/config.dart';
+import 'package:ci/domain/dependency.dart';
 import 'package:ci/domain/element.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/yaml_manager.dart';
@@ -6,6 +7,7 @@ import 'package:ci/services/pubspec_parser.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:ci/utils/pubspec_yaml_extension.dart';
 import 'package:path/path.dart';
+import 'package:plain_optional/plain_optional.dart';
 import 'package:pubspec_yaml/pubspec_yaml.dart';
 
 void main() {
@@ -39,10 +41,12 @@ class SaveElementTask extends Action {
     );
 
     var yaml = _getYamlByElement(_element);
-    _fileSystemManager.writeToFileAsString(
-      filePath,
-      _yamlManager.convertToYamlFile(yaml),
-    );
+    var str = _yamlManager.convertToYamlFile(yaml);
+    var a = 1;
+//    _fileSystemManager.writeToFileAsString(
+//      filePath,
+//      _yamlManager.convertToYamlFile(yaml),
+//    );
   }
 
   /// Возвращает yaml файл для представления модуля.
@@ -56,17 +60,49 @@ class SaveElementTask extends Action {
     var yaml = _yamlManager.parseYamlDocument(fileContent);
 
     // заполнение
-    List<PackageDependencySpec> dependencies;
+    var yamlDependencies = yaml.dependencies.toList();
     var elementDependencies = element.dependencies;
     for (var dep in elementDependencies) {
       if (!dep.thirdParty) {
         // Какая то обработка
+        var packageName = dep.element.name;
+        var yamlDep = yamlDependencies.firstWhere(
+          (dep) => dep.package() == packageName,
+          orElse: () => null,
+        );
+
+        // рассматриваем только гит сценарий, у нас других тут быть не должно,
+        // при необходимости добавить с обработкой ошибок и тд
+
+        GitPackageDependencySpec gitDep;
+
+        yamlDep.iswitch(
+            sdk: null,
+            git: (g) {
+              gitDep = g;
+            },
+            path: null,
+            hosted: null);
+
+        var updatedYamlDep = PackageDependencySpec.git(
+          GitPackageDependencySpec(
+            package: yamlDep.package(),
+            url: gitDep.url,
+            path: gitDep.path,
+            ref: Optional('test0',/*(dep as GitDependency).ref*/),
+          ),
+        );
+
+        yamlDependencies.insert(
+          yamlDependencies.indexOf(yamlDep),
+          updatedYamlDep,
+        );
       }
     }
 
     return yaml.change(
       version: element.version,
-      dependencies: dependencies,
+      dependencies: yamlDependencies,
     );
   }
 }
