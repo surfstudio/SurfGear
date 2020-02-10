@@ -4,7 +4,7 @@ import 'package:ci/domain/element.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/services/managers/shell_manager.dart';
-import 'package:ci/services/parsers/pubspec_parser.dart';
+import 'package:ci/services/pubspec_parser.dart';
 import 'package:ci/services/runner/shell_runner.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:ci/tasks/factories/license_task_factory.dart';
@@ -54,7 +54,27 @@ ShellMock substituteShell({
   Map<String, dynamic> callingMap,
 }) {
   var mock = _shellForTest;
-  reset(mock);
+  setupShell(mock, callingMap);
+
+  ShellRunner.init(shell: mock, manager: _shellManagerForTest);
+  return mock;
+}
+
+/// Создает экземпляр шелл, но не регистрирует его у раннера.
+///
+/// Например может быть полезно для создания копии шелл который вернет менеджер.
+ShellMock createShell({
+  Map<String, dynamic> callingMap,
+}) {
+  var mock = ShellMock();
+  setupShell(mock, callingMap);
+
+  return mock;
+}
+
+/// Выполняет настройку шелл по переданной мапе вызывов.
+void setupShell(ShellMock shell, Map<String, dynamic> callingMap) {
+  reset(shell);
 
   callingMap?.forEach((command, result) {
     var parsed = command.split(' ');
@@ -70,15 +90,12 @@ ShellMock substituteShell({
       answer = result ? createPositiveResult() : createErrorResult();
     }
 
-    when(mock.run(cmd, parsed)).thenAnswer(
+    when(shell.run(cmd, parsed)).thenAnswer(
       (_) => Future.value(
         answer ?? createPositiveResult(),
       ),
     );
   });
-
-  ShellRunner.init(shell: mock, manager: _shellManagerForTest);
-  return mock;
 }
 
 /// Возвращает замену менеджера shell, зарегистрированную в runner.
@@ -127,6 +144,7 @@ class ShellManagerMock extends Mock implements ShellManager {}
 
 class LicenseManagerMock extends Mock implements LicenseManager {}
 
+/// Замена менеджера лицензий
 LicenseManagerMock createLicenseManagerMock({
   String license,
   String copyright,
@@ -140,6 +158,8 @@ LicenseManagerMock createLicenseManagerMock({
   if (copyright != null) {
     when(mock.getCopyright()).thenAnswer((_) => Future.value(copyright));
   }
+
+  return mock;
 }
 
 /// Element

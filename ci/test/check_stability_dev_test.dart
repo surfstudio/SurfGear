@@ -8,154 +8,157 @@ import 'package:test/test.dart';
 import 'core/test_helper.dart';
 
 void main() {
-  test(
-    'Unstable element should not be affected',
-    () async {
-      var elements = <Element>[
-        createTestElement(),
-        createTestElement(),
-        createTestElement(),
-        createTestElement(),
-      ];
-      var pp = PubspecParserMock();
-
-      var check = CheckStabilityDev(elements, pp);
-
-      expect(await check.run(), true);
-    },
-  );
-
-  test(
-    'Stable elements than was not changed should not be affected',
-    () async {
-      var elements = <Element>[
-        createTestElement(isStable: true),
-        createTestElement(isStable: true),
-        createTestElement(isStable: true),
-        createTestElement(isStable: true),
-      ];
-      var pp = PubspecParserMock();
-
-      var check = CheckStabilityDev(elements, pp);
-
-      expect(await check.run(), true);
-    },
-  );
-
-  test(
-    'New stable elements should throw exception',
+  group(
+    'Check stability dev tests:',
     () {
-      _testChangeStability(
-        <Element>[
-          createTestElement(
-            name: 'very new module',
-            isStable: true,
-            isChanged: true,
-          ),
-          createTestElement(),
-        ],
-        <Element>[
-          createTestElement(),
-        ],
-        throwsA(
-          TypeMatcher<StabilityDevChangedException>(),
-        ),
-      );
-    },
-  );
-
-  test(
-    'Became stable elements should throw exception',
-    () {
-      _testChangeStability(
-        <Element>[
-          createTestElement(
-            name: 'became stable module',
-            isStable: true,
-            isChanged: true,
-          ),
-        ],
-        <Element>[
-          createTestElement(
-            name: 'became stable module',
-            isStable: false,
-          ),
-        ],
-        throwsA(
-          TypeMatcher<StabilityDevChangedException>(),
-        ),
-      );
-    },
-  );
-
-  test(
-    'Stable elements that was stable should not throw exception',
-    () {
-      _testChangeStability(
-        <Element>[
-          createTestElement(
-            name: 'stable module',
-            isStable: true,
-            isChanged: true,
-          ),
-        ],
-        <Element>[
-          createTestElement(
-            name: 'stable module',
-            isStable: true,
-          ),
-        ],
-        returnsNormally,
-      );
-    },
-  );
-
-  test(
-    'Fail get hash should throw exception',
-    () async {
-      _gitFailTest(
-        <String, dynamic>{
-          'git rev-parse --abbrev-ref HEAD': false,
+      test(
+        'Unstable element should not be affected',
+        () async {
+          await _testNotAffectedElements(<Element>[
+            createTestElement(),
+            createTestElement(),
+            createTestElement(),
+            createTestElement(),
+          ]);
         },
-        throwsA(
-          TypeMatcher<CommitHashException>(),
-        ),
       );
-    },
-  );
 
-  test(
-    'Fail checkout head should throw exception',
-    () async {
-      _gitFailTest(
-        <String, dynamic>{
-          'git rev-parse --abbrev-ref HEAD':
-              createPositiveResult(stdout: 'testbranch'),
-          'git checkout HEAD~': false,
+      test(
+        'Stable elements than was not changed should not be affected',
+        () async {
+          await _testNotAffectedElements(<Element>[
+            createTestElement(isStable: true),
+            createTestElement(isStable: true),
+            createTestElement(isStable: true),
+            createTestElement(isStable: true),
+          ]);
         },
-        throwsA(
-          TypeMatcher<CheckoutException>(),
-        ),
       );
-    },
-  );
 
-  test(
-    'Fail checkout hash should throw exception',
-    () async {
-      _gitFailTest(
-        <String, dynamic>{
-          'git rev-parse --abbrev-ref HEAD':
-              createPositiveResult(stdout: 'testbranch'),
-          'git checkout HEAD~': true,
-          'git checkout testbranch': false,
+      test(
+        'New stable elements should throw exception',
+        () {
+          _testChangeStability(
+            <Element>[
+              createTestElement(
+                name: 'very new module',
+                isStable: true,
+                isChanged: true,
+              ),
+              createTestElement(),
+            ],
+            <Element>[
+              createTestElement(),
+            ],
+            throwsA(
+              TypeMatcher<StabilityDevChangedException>(),
+            ),
+          );
         },
-        throwsA(
-          TypeMatcher<CheckoutException>(),
-        ),
+      );
+
+      test(
+        'Became stable elements should throw exception',
+        () {
+          _testChangeStability(
+            <Element>[
+              createTestElement(
+                name: 'became stable module',
+                isStable: true,
+                isChanged: true,
+              ),
+            ],
+            <Element>[
+              createTestElement(
+                name: 'became stable module',
+                isStable: false,
+              ),
+            ],
+            throwsA(
+              TypeMatcher<StabilityDevChangedException>(),
+            ),
+          );
+        },
+      );
+
+      test(
+        'Stable elements that was stable should not throw exception',
+        () {
+          _testChangeStability(
+            <Element>[
+              createTestElement(
+                name: 'stable module',
+                isStable: true,
+                isChanged: true,
+              ),
+            ],
+            <Element>[
+              createTestElement(
+                name: 'stable module',
+                isStable: true,
+              ),
+            ],
+            returnsNormally,
+          );
+        },
+      );
+
+      test(
+        'Fail get hash should throw exception',
+        () async {
+          _gitFailTest(
+            <String, dynamic>{
+              'git rev-parse --abbrev-ref HEAD': false,
+            },
+            throwsA(
+              TypeMatcher<CommitHashException>(),
+            ),
+          );
+        },
+      );
+
+      test(
+        'Fail checkout head should throw exception',
+        () async {
+          _gitFailTest(
+            <String, dynamic>{
+              'git rev-parse --abbrev-ref HEAD':
+                  createPositiveResult(stdout: 'testbranch'),
+              'git checkout HEAD~': false,
+            },
+            throwsA(
+              TypeMatcher<CheckoutException>(),
+            ),
+          );
+        },
+      );
+
+      test(
+        'Fail checkout hash should throw exception',
+        () async {
+          _gitFailTest(
+            <String, dynamic>{
+              'git rev-parse --abbrev-ref HEAD':
+                  createPositiveResult(stdout: 'testbranch'),
+              'git checkout HEAD~': true,
+              'git checkout testbranch': false,
+            },
+            throwsA(
+              TypeMatcher<CheckoutException>(),
+            ),
+          );
+        },
       );
     },
   );
+}
+
+void _testNotAffectedElements(List<Element> elements) async {
+  var pp = PubspecParserMock();
+
+  var check = CheckStabilityDev(elements, pp);
+
+  expect(await check.run(), true);
 }
 
 void _testChangeStability(
