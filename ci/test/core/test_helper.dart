@@ -66,7 +66,8 @@ ShellMock substituteShell({
 ShellMock createShell({
   Map<String, dynamic> callingMap,
 }) {
-  var mock = ShellMock();
+  var mock = _shellForTest;
+  reset(mock);
   setupShell(mock, callingMap);
 
   return mock;
