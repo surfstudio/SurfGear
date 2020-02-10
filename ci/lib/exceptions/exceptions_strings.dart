@@ -33,3 +33,6 @@ String getTestsFailedExceptionText(int modulesCount, String error) => 'Тест�
 String getParseCommandExceptionText(String command) => 'Не удалось распарсить команду $command';
 String getCommandHandlerNotFoundExceptionText(String command) => 'Не найден обработчик для команды $command';
 String getCommandFormatExceptionText(String cmd, String error) => 'Неправильная конфигурация команды $cmd : $error';
+
+/// Publish
+String getPubCheckReleaseVersionExceptionText(String module) => '$module: модуль, с непрописанной версией Release Notes';

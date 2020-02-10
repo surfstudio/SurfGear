@@ -113,8 +113,11 @@ class ModuleNotPublishOpenSourceException extends BaseCiException{
 }
 
 /// Нет описание версии в CHANGELOG.md
-class ChangeLogNotContainVersionException extends BaseCiException {
-  ChangeLogNotContainVersionException(String message) : super(message);
+class ChangeLogDoesNotContainCurrentVersionException implements Exception {
+  final String message;
+
+  /// Вызывается [PubCheckReleaseVersionTask]
+  ChangeLogDoesNotContainCurrentVersionException(this.message);
 }
 
 /// Ошибка получения hash комита.
