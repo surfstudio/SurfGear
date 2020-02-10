@@ -1,6 +1,6 @@
 import 'package:ci/domain/dependency.dart';
 import 'package:ci/domain/element.dart';
-import 'package:ci/tasks/check_dependency_stable.dart';
+import 'package:ci/tasks/impl/building/check_dependency_stable.dart';
 import 'package:test/test.dart';
 
 void main() {

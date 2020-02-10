@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:ci/domain/config.dart';
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
-import 'package:ci/tasks/generates_release_notes_task.dart';
+import 'package:ci/tasks/impl/publish/generates_release_notes_task.dart';
 import 'package:mockito/mockito.dart';
 import 'package:path/path.dart';
 import 'package:test/test.dart';
 
-import 'core/test_helper.dart';
+import '../core/test_helper.dart';
 
 void main() {
   group(

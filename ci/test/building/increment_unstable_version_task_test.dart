@@ -1,7 +1,7 @@
-import 'package:ci/tasks/increment_unstable_version_task.dart';
+import 'package:ci/tasks/impl/building/increment_unstable_version_task.dart';
 import 'package:test/test.dart';
 
-import 'core/test_helper.dart';
+import '../core/test_helper.dart';
 
 /// Тест для [IncrementUnstableVersionTask]
 void main() {
