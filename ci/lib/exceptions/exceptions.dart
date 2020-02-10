@@ -114,11 +114,11 @@ class OpenSourceModuleCanNotBePublishException extends BaseCiException {
 }
 
 /// Нет описание версии в CHANGELOG.md
-class ModuleNotReadyReleaseVersion implements Exception {
+class ChangeLogDoesNotContainCurrentVersionException implements Exception {
   final String message;
 
   /// Вызывается [PubCheckReleaseVersionTask]
-  ModuleNotReadyReleaseVersion(this.message);
+  ChangeLogDoesNotContainCurrentVersionException(this.message);
 }
 
 /// Ошибка получения hash комита.

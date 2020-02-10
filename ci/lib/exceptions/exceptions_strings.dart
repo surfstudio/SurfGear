@@ -22,3 +22,5 @@ String getStabilityDevChangedExceptionText(String module) => 'Модуль $modu
 
 String getOpenSourceModuleCanNotBePublishExceptionText(String module) => 'OpenSource модуль: $module не может быть опубликован';
 String getTestsFailedExceptionText(int modulesCount, String error) => 'Тесты провалились в следующих $modulesCount модулях:\n\n$error';
+
+String getPubCheckReleaseVersionExceptionText(String module) => '$module: модуль, с непрописанной версией Release Notes';
