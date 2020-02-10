@@ -26,7 +26,7 @@ void main() {
       );
 
       test(
-        'If the version matches with CHANGELOG.md, then returns true.',
+        'If pub publish returned error without changelog problem, task should return true.',
         () async {
           var task = _testPreparedPubCheckReleaseVersionTask(exitCode: 1, stderr: ' test123 ');
           var actual = await task.run();
@@ -39,7 +39,7 @@ void main() {
       );
 
       test(
-        'If the version does not match with CHANGELOG.md, then returns false.',
+        'If pub publish returns an error with problems with the changelog, the task should return true.',
         () async {
           var task = _testPreparedPubCheckReleaseVersionTask(
               exitCode: 1, stderr: ' CHANGELOG.md doesn\'t mention current version ');
