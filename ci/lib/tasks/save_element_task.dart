@@ -50,7 +50,6 @@ class SaveElementTask extends Action {
     var elementDependencies = element.dependencies;
     for (var dep in elementDependencies) {
       if (!dep.thirdParty) {
-        // Какая то обработка
         var packageName = dep.element.name;
         var yamlDep = yamlDependencies.firstWhere(
           (dep) => dep.package() == packageName,
