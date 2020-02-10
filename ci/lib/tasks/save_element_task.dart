@@ -62,6 +62,9 @@ class SaveElementTask extends Action {
 
         GitPackageDependencySpec gitDep;
 
+        // Страшный хак конечно, но все только потому что все необходимое
+        // запривачено так что не добраться.
+        // В идеале бы сделать на все это свой нормальный парсер
         yamlDep.iswitch(
             sdk: null,
             git: (g) {
