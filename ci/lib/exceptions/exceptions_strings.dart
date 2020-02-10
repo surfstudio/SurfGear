@@ -20,3 +20,5 @@ String getAddCopyrightFailExceptionText(String error) => 'Не удалось д
 String getCheckoutExceptionText(String error) => 'Не удалось переключиться в нужное состояние:\n$error';
 String getStabilityDevChangedExceptionText(String module) => 'Модуль $module стал стабильным в dev ветке';
 String getTestsFailedExceptionText(int modulesCount, String error) => 'Тесты провалились в следующих $modulesCount модулях:\n\n$error';
+
+String getPubCheckReleaseVersionExceptionText(String module) => '$module: модуль, с непрописанной версией Release Notes';
