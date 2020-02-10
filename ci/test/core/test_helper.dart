@@ -46,12 +46,35 @@ TaskMock<T> createFailTask<T>({Exception exception}) {
 
 class ShellMock extends Mock implements Shell {}
 
+final ShellMock _shellForTest = ShellMock();
+final ShellManagerMock _shellManagerForTest = ShellManagerMock();
+
 /// Подменяет шелл у раннера и возвращает экземпляр замены.
 ShellMock substituteShell({
-  ShellManager manager,
+  Map<String, dynamic> callingMap,
+}) {
+  var mock = _shellForTest;
+  setupShell(mock, callingMap);
+
+  ShellRunner.init(shell: mock, manager: _shellManagerForTest);
+  return mock;
+}
+
+/// Создает экземпляр шелл, но не регистрирует его у раннера.
+///
+/// Например может быть полезно для создания копии шелл который вернет менеджер.
+ShellMock createShell({
   Map<String, dynamic> callingMap,
 }) {
   var mock = ShellMock();
+  setupShell(mock, callingMap);
+
+  return mock;
+}
+
+/// Выполняет настройку шелл по переданной мапе вызывов.
+void setupShell(ShellMock shell, Map<String, dynamic> callingMap) {
+  reset(shell);
 
   callingMap?.forEach((command, result) {
     var parsed = command.split(' ');
@@ -67,15 +90,21 @@ ShellMock substituteShell({
       answer = result ? createPositiveResult() : createErrorResult();
     }
 
-    when(mock.run(cmd, parsed)).thenAnswer(
+    when(shell.run(cmd, parsed)).thenAnswer(
       (_) => Future.value(
         answer ?? createPositiveResult(),
       ),
     );
   });
+}
 
-  ShellRunner.init(shell: mock, manager: manager);
-  return mock;
+/// Возвращает замену менеджера shell, зарегистрированную в runner.
+///
+/// Метод может быть вызван только после вызова substituteShell, иначе бесполезен.
+ShellManagerMock getTestShellManager() {
+  reset(_shellManagerForTest);
+
+  return _shellManagerForTest;
 }
 
 /// Тестовый ответ на консольную команду, сценарий без ошибки.
@@ -111,16 +140,11 @@ class FileSystemManagerMock extends Mock implements FileSystemManager {}
 
 class ShellManagerMock extends Mock implements ShellManager {}
 
-ShellManagerMock createShellManagerMock({Shell copy}) {
-  var mock = ShellManagerMock();
-  when(mock.copy(any)).thenReturn(copy);
-  return mock;
-}
-
 /// License manager
 
 class LicenseManagerMock extends Mock implements LicenseManager {}
 
+/// Замена менеджера лицензий
 LicenseManagerMock createLicenseManagerMock({
   String license,
   String copyright,
@@ -134,6 +158,8 @@ LicenseManagerMock createLicenseManagerMock({
   if (copyright != null) {
     when(mock.getCopyright()).thenAnswer((_) => Future.value(copyright));
   }
+
+  return mock;
 }
 
 /// Element
