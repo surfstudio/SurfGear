@@ -150,13 +150,14 @@ Element createTestElement({
   bool isStable = false,
   bool isChanged = false,
   OpenSourceInfo openSourceInfo,
+  int unstableVersion = 0,
 }) {
   return Element(
-    name: name,
-    uri: Uri.directory(path),
-    isStable: isStable,
-    changed: isChanged,
-  );
+      name: name,
+      uri: Uri.directory(path),
+      isStable: isStable,
+      changed: isChanged,
+      unstableVersion: unstableVersion);
 }
 
 /// License Task Factory
