@@ -90,9 +90,22 @@ class SaveElementTask extends Action {
       }
     }
 
+    var updatedCustom = Map<String, dynamic>.from(yaml.customFields);
+    var custom = updatedCustom['custom'];
+    if (custom != null) {
+      custom['is_stable'] = element.isStable;
+      custom['unstable_version'] = element.unstableVersion;
+
+      custom['is_plugin'] = element.isPlugin;
+      custom['path'] = element.directoryName;
+      custom['separate_repo_url'] = element.openSourceInfo?.separateRepoUrl;
+      custom['hostUrl'] = element.openSourceInfo?.hostUrl;
+    }
+
     return yaml.change(
       version: element.version,
       dependencies: yamlDependencies,
+      customFields: updatedCustom,
     );
   }
 }
