@@ -31,7 +31,7 @@ void main() {
           expect(
             () async => await task.run(),
             throwsA(
-              TypeMatcher<ModuleContainsCyrillicException>(),
+              TypeMatcher<ContainsCyrillicInChangelogException>(),
             ),
           );
         },

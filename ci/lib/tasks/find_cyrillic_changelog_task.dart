@@ -22,16 +22,16 @@ class FindCyrillicChangelogTask extends Check {
   final FileSystemManager _fileSystemManager;
 
   FindCyrillicChangelogTask(
-      this.element,
-      this._fileSystemManager,
-      ) : assert(element != null);
+    this.element,
+    this._fileSystemManager,
+  ) : assert(element != null);
 
   @override
   Future<bool> run() async {
     var strFile = await _fileSystemManager.readFileAsString(join(element.path, _nameFile));
     if (strFile.contains(_regExp)) {
       return Future.error(
-        ModuleContainsCyrillicException.ContainsCyrillicInChangelogException(
+        ContainsCyrillicInChangelogException(
           getContainsCyrillicInChangelogExceptionText(element.path, element.name),
         ),
       );
