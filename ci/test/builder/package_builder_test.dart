@@ -9,69 +9,71 @@ import 'package:test/test.dart';
 import '../core/test_helper.dart';
 
 void main() {
-  test(
-    'build module without example should not throw exception',
-    () async {
-      var element = Element(uri: Uri.directory('test/package'));
-      var dm = FileSystemManagerMock();
-      when(dm.getEntitiesInDirectory(element.uri.path, recursive: true))
-          .thenReturn([]);
+  group(
+    'Package builder tests:',
+    () {
+      test(
+        'build module without example should not throw exception',
+        () async {
+          var element = Element(uri: Uri.directory('test/package'));
+          var dm = FileSystemManagerMock();
+          when(dm.getEntitiesInDirectory(element.uri.path, recursive: true))
+              .thenReturn([]);
 
-      var buildTask = PackageBuilderTask(element, dm);
+          var buildTask = PackageBuilderTask(element, dm);
 
-      expectNoThrow(() async {
-        await buildTask.run();
-      });
-    },
-  );
-
-  test(
-    'build module shuld call flutter build',
-    () async {
-      var examplePath = 'test/package/example';
-      var element = Element(uri: Uri.directory('test/package'));
-      var dm = FileSystemManagerMock();
-      when(dm.getEntitiesInDirectory(element.uri.path, recursive: true))
-          .thenReturn([Directory('test/package/example')]);
-      when(dm.isDirectory(examplePath)).thenReturn(true);
-
-      var shell = ShellMock();
-      when(shell.run('flutter', ['build', 'apk'])).thenAnswer(
-        (_) => Future.value(
-          ProcessResult(0, 0, '', ''),
-        ),
+          expectNoThrow(() async {
+            await buildTask.run();
+          });
+        },
       );
-      var shm = createShellManagerMock(copy: shell);
-      substituteShell(manager: shm);
 
-      var buildTask = PackageBuilderTask(element, dm);
+      test(
+        'build module shuld call flutter build',
+        () async {
+          var examplePath = 'test/package/example';
+          var element = Element(uri: Uri.directory('test/package'));
+          var dm = FileSystemManagerMock();
+          when(dm.getEntitiesInDirectory(element.uri.path, recursive: true))
+              .thenReturn([Directory('test/package/example')]);
+          when(dm.isDirectory(examplePath)).thenReturn(true);
 
-      await buildTask.run();
+          var shell = ShellMock();
+          when(shell.run('flutter', ['build', 'apk'])).thenAnswer(
+            (_) => Future.value(
+              ProcessResult(0, 0, '', ''),
+            ),
+          );
+          substituteShell();
+          var shm = getTestShellManager();
+          when(shm.copy(any)).thenReturn(shell);
 
-      verify(shell.run('flutter', ['build', 'apk'])).called(1);
-    },
-  );
+          var buildTask = PackageBuilderTask(element, dm);
 
-  test(
-    'build module shuld not throw exception if build success',
-    () async {
-      expectNoThrow(() async {
-        await _testBuild(true);
-      });
-    },
-  );
+          await buildTask.run();
 
-  test(
-    'build module shuld not throw PackageBuildException if build fail',
-    () async {
-      expect(() async {
-        await _testBuild(false);
-      }, throwsA(TypeMatcher<PackageBuildException>()));
+          verify(shell.run('flutter', ['build', 'apk'])).called(1);
+        },
+      );
+
+      test(
+        'build module shuld not throw exception if build success',
+        () {
+          _testBuild(true, returnsNormally);
+        },
+      );
+
+      test(
+        'build module shuld not throw PackageBuildException if build fail',
+        () {
+          _testBuild(false, throwsA(TypeMatcher<PackageBuildException>()));
+        },
+      );
     },
   );
 }
 
-void _testBuild(bool success) async {
+Future<void> _testBuild(bool success, matcher) async {
   var examplePath = 'test/package/example';
   var element = Element(uri: Uri.directory('test/package'));
   var dm = FileSystemManagerMock();
@@ -85,10 +87,11 @@ void _testBuild(bool success) async {
       ProcessResult(0, success ? 0 : 1, '', ''),
     ),
   );
-  var shm = createShellManagerMock(copy: shell);
-  substituteShell(manager: shm);
+  substituteShell();
+  var shm = getTestShellManager();
+  when(shm.copy(any)).thenReturn(shell);
 
   var buildTask = PackageBuilderTask(element, dm);
 
-  await buildTask.run();
+  expect(() async => await buildTask.run(), matcher);
 }
