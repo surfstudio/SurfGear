@@ -135,6 +135,12 @@ class StabilityDevChangedException extends BaseCiException {
   StabilityDevChangedException(String message) : super(message);
 }
 
+/// CHANGELOG.md содержит кириллицу
+class ContainsCyrillicInChangelogException extends BaseCiException {
+  ContainsCyrillicInChangelogException(String message) : super(message);
+}
+
+
 /// Невозможно добавить файл
 class GitAddException extends GitProcessException {
   GitAddException(String message) : super(message);
