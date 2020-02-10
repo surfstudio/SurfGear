@@ -1,25 +1,13 @@
-import 'package:ci/domain/config.dart';
 import 'package:ci/domain/dependency.dart';
 import 'package:ci/domain/element.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/yaml_manager.dart';
-import 'package:ci/services/pubspec_parser.dart';
+import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:ci/utils/pubspec_yaml_extension.dart';
 import 'package:path/path.dart';
 import 'package:plain_optional/plain_optional.dart';
 import 'package:pubspec_yaml/pubspec_yaml.dart';
-
-void main() {
-  var list = PubspecParser().parsePubspecs(Config.packagesPath);
-  var element = list.firstWhere((e) => e.name == 'bottom_navigation_bar');
-
-  SaveElementTask(
-    element,
-    FileSystemManager(),
-    YamlManager(),
-  ).run();
-}
 
 /// Задача сохранения состояния [Element].
 class SaveElementTask extends Action {
@@ -41,12 +29,10 @@ class SaveElementTask extends Action {
     );
 
     var yaml = _getYamlByElement(_element);
-    var str = _yamlManager.convertToYamlFile(yaml);
-    var a = 1;
-//    _fileSystemManager.writeToFileAsString(
-//      filePath,
-//      _yamlManager.convertToYamlFile(yaml),
-//    );
+    _fileSystemManager.writeToFileAsString(
+      filePath,
+      _yamlManager.convertToYamlFile(yaml),
+    );
   }
 
   /// Возвращает yaml файл для представления модуля.
@@ -86,15 +72,17 @@ class SaveElementTask extends Action {
 
         var updatedYamlDep = PackageDependencySpec.git(
           GitPackageDependencySpec(
-            package: yamlDep.package(),
+            package: gitDep.package,
             url: gitDep.url,
             path: gitDep.path,
-            ref: Optional('test0',/*(dep as GitDependency).ref*/),
+            ref: Optional((dep as GitDependency).ref),
           ),
         );
 
+        var updateIndex = yamlDependencies.indexOf(yamlDep);
+        yamlDependencies.removeAt(updateIndex);
         yamlDependencies.insert(
-          yamlDependencies.indexOf(yamlDep),
+          updateIndex,
           updatedYamlDep,
         );
       }

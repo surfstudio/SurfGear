@@ -30,8 +30,7 @@ extension PubspecYamlExtension on PubspecYaml {
       documentation:
       documentation == null ? this.documentation : Optional(documentation),
       publishTo: publishTo == null ? this.publishTo : Optional(publishTo),
-      dependencies:
-      dependencies == null ? this.dependencies : this.dependencies,
+      dependencies: dependencies ?? this.dependencies,
       devDependencies: devDependencies ?? this.devDependencies,
       dependencyOverrides: dependencyOverrides ?? this.dependencyOverrides,
       environment: environment ?? this.environment,
