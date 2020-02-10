@@ -1,0 +1,35 @@
+import 'package:ci/domain/command.dart';
+import 'package:ci/domain/element.dart';
+import 'package:ci/exceptions/exceptions.dart';
+import 'package:ci/exceptions/exceptions_strings.dart';
+import 'package:ci/services/parsers/command_parser.dart';
+import 'package:ci/services/parsers/pubspec_parser.dart';
+import 'package:ci/tasks/checks.dart';
+import 'package:ci/tasks/core/task.dart';
+
+/// Сценарий для команды check_publish_available.
+///
+/// Пример вызова:
+/// dart ci check_publish_available --name=anyName
+class CheckPublishAvailableScenario extends OneElementScenario {
+  static const String commandName = 'check_publish_available';
+  static const String nameOption = CommandParser.defaultNameOption;
+
+  @override
+  String get formatExceptionText => getCommandFormatExceptionText(
+        commandName,
+        'ожидалось check_publish_available --name=anyName',
+      );
+
+  CheckPublishAvailableScenario(Command command, PubspecParser pubspecParser)
+      : super(command, pubspecParser);
+
+  @override
+  Future<void> handleElement(Element element) async {
+    try {
+      await checkPublishAvailable(element);
+    } on BaseCiException {
+      rethrow;
+    }
+  }
+}
