@@ -31,7 +31,7 @@ class FindCyrillicChangelogTask extends Check {
     var strFile = await _fileSystemManager.readFileAsString(join(element.path, _nameFile));
     if (strFile.contains(_regExp)) {
       return Future.error(
-        ModuleContainsCyrillicException(
+        ModuleContainsCyrillicException.ContainsCyrillicInChangelogException(
           getContainsCyrillicInChangelogExceptionText(element.path, element.name),
         ),
       );

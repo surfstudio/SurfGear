@@ -141,7 +141,7 @@ class StabilityDevChangedException extends BaseCiException {
 
 /// CHANGELOG.md содержит кириллицу
 class ModuleContainsCyrillicException extends BaseCiException {
-  ModuleContainsCyrillicException(String message) : super(message);
+  ModuleContainsCyrillicException.ContainsCyrillicInChangelogException(String message) : super(message);
 }
 
 
