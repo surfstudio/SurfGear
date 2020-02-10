@@ -5,10 +5,11 @@ import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
-import 'package:ci/services/pubspec_parser.dart';
+import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/check_dependency_stable.dart';
 import 'package:ci/tasks/check_stability_dev.dart';
 import 'package:ci/tasks/factories/license_task_factory.dart';
+import 'package:ci/tasks/find_cyrillic_changelog_task.dart';
 import 'package:ci/tasks/generates_release_notes_task.dart';
 import 'package:ci/tasks/impl/license/copyright_check.dart';
 import 'package:ci/tasks/impl/license/licensing_check.dart';
@@ -93,18 +94,16 @@ Future<bool> runTests(List<Element> elements, {bool needReport = false}) async {
   return true;
 }
 
-/// Проверка на возможность публикации пакета  модулей openSource
+/// Проверка на возможность публикации пакета модулей openSource
 /// true - документ openSource и можно публиковать
 /// false - документ не openSource
 /// error -  докумет openSource, но публиковать нельзя
-/// dart ci check_dry_run element
-Future<bool> checkDryRunTask(Element element) {
+Future<bool> checkPublishAvailable(Element element) {
   return PubDryRunTask(element).run();
 }
 
 /// Проверка на наличие актуальной версии в Release Notes
-/// dart ci pub_check_release_version element
-Future<bool> checkPubCheckReleaseVersionTask(Element element) {
+Future<bool> checkVersionInReleaseNote(Element element) {
   return PubCheckReleaseVersionTask(element).run();
 }
 
@@ -120,13 +119,22 @@ Future<void> writeReleaseNotes(List<Element> elements) {
   ).run();
 }
 
+/// Проверяем на кириллицу в файле CHANGELOG.md
+/// dart ci check_cyrillic_changelog_task element
+Future<bool> checkCyrillicChangelog(Element element) {
+  return FindCyrillicChangelogTask(
+    element,
+    FileSystemManager(),
+  ).run();
+}
+
 /// Проверка лицензирования переданных пакетов.
 ///
 /// Проверяется наличие лицензии и её актуальность а так же наличие
 /// и правильность копирайтов у файлов.
-///
-/// dart ci check_licensing elements
-Future<bool> checkLicensing(List<Element> elements) async {
+Future<bool> checkLicensing(
+  List<Element> elements,
+) async {
   var failList = <Element, Exception>{};
 
   for (var element in elements) {
@@ -167,7 +175,7 @@ Future<bool> checkCopyright(
   String filePath,
   FileSystemManager fileSystemManager,
   LicenseManager licenseManager,
-) async =>
+) =>
     CopyrightCheck(
       filePath,
       fileSystemManager,

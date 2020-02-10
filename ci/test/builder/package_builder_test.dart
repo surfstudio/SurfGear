@@ -45,8 +45,8 @@ void main() {
             ),
           );
           substituteShell();
-          var shm = getTestShellManager();
-          when(shm.copy(any)).thenReturn(shell);
+      var shm = getTestShellManager();
+      when(shm.copy(any)).thenReturn(shell);
 
           var buildTask = PackageBuilderTask(element, dm);
 

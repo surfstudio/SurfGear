@@ -9,6 +9,11 @@ abstract class BaseCiException implements Exception {
 
 /// Общие ошибки
 
+/// Не найден модуль.
+class ElementNotFoundException extends BaseCiException {
+  ElementNotFoundException(String message) : super(message);
+}
+
 /// Не найден файл лицензии для модуля.
 class FileNotFoundException extends BaseCiException {
   FileNotFoundException(String message) : super(message);
@@ -22,17 +27,13 @@ abstract class GitProcessException extends BaseCiException {
 /// Ошибки функционала
 
 /// Не найдены модули. Например, пользователь указал неправильный путь.
-class ModulesNotFoundException implements Exception {
-  final String message;
-
-  ModulesNotFoundException(this.message);
+class ModulesNotFoundException extends BaseCiException {
+  ModulesNotFoundException(String message) : super(message);
 }
 
 /// Модуль, помеченный как stable, был изменён.
-class StableModulesWasModifiedException implements Exception {
-  final String message;
-
-  StableModulesWasModifiedException(this.message);
+class StableModulesWasModifiedException extends BaseCiException {
+  StableModulesWasModifiedException(String message) : super(message);
 }
 
 /// Ошибка при сборке модуля.
@@ -95,10 +96,8 @@ class AddCopyrightFailException extends BaseCiException {
 
 /// Модуль не прошёл проверку статического анализатора
 /// `flutter analyze`
-class AnalyzerFailedException implements Exception {
-  final String message;
-
-  AnalyzerFailedException(this.message);
+class AnalyzerFailedException extends BaseCiException {
+  AnalyzerFailedException(String message) : super(message);
 }
 
 /// Тесты в модуле не прошли.
@@ -136,6 +135,12 @@ class StabilityDevChangedException extends BaseCiException {
   StabilityDevChangedException(String message) : super(message);
 }
 
+/// CHANGELOG.md содержит кириллицу
+class ContainsCyrillicInChangelogException extends BaseCiException {
+  ContainsCyrillicInChangelogException(String message) : super(message);
+}
+
+
 /// Невозможно добавить файл
 class GitAddException extends GitProcessException {
   GitAddException(String message) : super(message);
@@ -149,4 +154,19 @@ class CommitException extends GitProcessException {
 /// Невозможно сделать пуш
 class PushException extends GitProcessException {
   PushException(String message) : super(message);
+}
+
+/// Ошибка парсинга команды
+class ParseCommandException extends BaseCiException {
+  ParseCommandException(String message) : super(message);
+}
+
+/// Ошибка валидации параметров команды
+class CommandParamsValidationException extends BaseCiException {
+  CommandParamsValidationException(String message) : super(message);
+}
+
+/// Не найден обработчик команды
+class CommandHandlerNotFoundException extends BaseCiException {
+  CommandHandlerNotFoundException(String message) : super(message);
 }
