@@ -37,3 +37,4 @@ String getCommandFormatExceptionText(String cmd, String error) => 'Неправ�
 /// Publish
 String getPubCheckReleaseVersionExceptionText(String module) => '$module: модуль, с непрописанной версией Release Notes';
 String getContainsCyrillicInChangelogExceptionText(String package, String name) => 'Библиоткека $name содержит киррилицу в $package/CHANGELOG.md';
+String getOpenSourceModuleCanNotBePublishExceptionText(String module) => 'OpenSource модуль: $module не может быть опубликован';
