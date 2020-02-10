@@ -14,6 +14,12 @@ class ElementNotFoundException extends BaseCiException {
   ElementNotFoundException(String message) : super(message);
 }
 
+// TODO: не стоит ли испльзовать ElementNotFoundException
+/// Не найдены модули. Например, пользователь указал неправильный путь.
+class ModulesNotFoundException extends BaseCiException {
+  ModulesNotFoundException(String message) : super(message);
+}
+
 /// Не найден файл лицензии для модуля.
 class FileNotFoundException extends BaseCiException {
   FileNotFoundException(String message) : super(message);
@@ -26,15 +32,7 @@ abstract class GitProcessException extends BaseCiException {
 
 /// Ошибки функционала
 
-/// Не найдены модули. Например, пользователь указал неправильный путь.
-class ModulesNotFoundException extends BaseCiException {
-  ModulesNotFoundException(String message) : super(message);
-}
-
-/// Модуль, помеченный как stable, был изменён.
-class StableModulesWasModifiedException extends BaseCiException {
-  StableModulesWasModifiedException(String message) : super(message);
-}
+/// Build
 
 /// Ошибка при сборке модуля.
 ///
@@ -42,6 +40,24 @@ class StableModulesWasModifiedException extends BaseCiException {
 class PackageBuildException extends BaseCiException {
   PackageBuildException(String message) : super(message);
 }
+
+/// Модуль, помеченный как stable, был изменён.
+class StableModulesWasModifiedException extends BaseCiException {
+  StableModulesWasModifiedException(String message) : super(message);
+}
+
+/// Модуль не прошёл проверку статического анализатора
+/// `flutter analyze`
+class AnalyzerFailedException extends BaseCiException {
+  AnalyzerFailedException(String message) : super(message);
+}
+
+/// Модуль поменял значение стабильности в dev ветке.
+class StabilityDevChangedException extends BaseCiException {
+  StabilityDevChangedException(String message) : super(message);
+}
+
+/// Licensing
 
 /// Не найден образец лицензии.
 class LicenseSampleNotFoundException extends FileNotFoundException {
@@ -94,11 +110,7 @@ class AddCopyrightFailException extends BaseCiException {
   AddCopyrightFailException(String message) : super(message);
 }
 
-/// Модуль не прошёл проверку статического анализатора
-/// `flutter analyze`
-class AnalyzerFailedException extends BaseCiException {
-  AnalyzerFailedException(String message) : super(message);
-}
+/// Test
 
 /// Тесты в модуле не прошли.
 class TestsFailedException implements Exception {
@@ -107,18 +119,25 @@ class TestsFailedException implements Exception {
   TestsFailedException(this.message);
 }
 
+/// Publish
+
 /// Не можем опубликовать модуль OpenSource
 class OpenSourceModuleCanNotBePublishException extends BaseCiException {
   OpenSourceModuleCanNotBePublishException(String message) : super(message);
 }
 
 /// Нет описание версии в CHANGELOG.md
-class ChangeLogDoesNotContainCurrentVersionException implements Exception {
-  final String message;
-
-  /// Вызывается [PubCheckReleaseVersionTask]
-  ChangeLogDoesNotContainCurrentVersionException(this.message);
+class ChangeLogDoesNotContainCurrentVersionException extends BaseCiException {
+  ChangeLogDoesNotContainCurrentVersionException(String message)
+      : super(message);
 }
+
+/// CHANGELOG.md содержит кириллицу
+class ContainsCyrillicInChangelogException extends BaseCiException {
+  ContainsCyrillicInChangelogException(String message) : super(message);
+}
+
+/// Git
 
 /// Ошибка получения hash комита.
 class CommitHashException extends GitProcessException {
@@ -129,17 +148,6 @@ class CommitHashException extends GitProcessException {
 class CheckoutException extends GitProcessException {
   CheckoutException(String message) : super(message);
 }
-
-/// Модуль поменял значение стабильности в dev ветке.
-class StabilityDevChangedException extends BaseCiException {
-  StabilityDevChangedException(String message) : super(message);
-}
-
-/// CHANGELOG.md содержит кириллицу
-class ContainsCyrillicInChangelogException extends BaseCiException {
-  ContainsCyrillicInChangelogException(String message) : super(message);
-}
-
 
 /// Невозможно добавить файл
 class GitAddException extends GitProcessException {
@@ -155,6 +163,8 @@ class CommitException extends GitProcessException {
 class PushException extends GitProcessException {
   PushException(String message) : super(message);
 }
+
+/// Commands
 
 /// Ошибка парсинга команды
 class ParseCommandException extends BaseCiException {
