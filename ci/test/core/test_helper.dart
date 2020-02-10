@@ -68,7 +68,6 @@ ShellMock createShell({
 }) {
   var mock = _shellForTest;
   reset(mock);
-  var mock = ShellMock();
   setupShell(mock, callingMap);
 
   return mock;
@@ -98,15 +97,6 @@ void setupShell(ShellMock shell, Map<String, dynamic> callingMap) {
       ),
     );
   });
-}
-
-/// Возвращает замену менеджера shell, зарегистрированную в runner.
-///
-/// Метод может быть вызван только после вызова substituteShell, иначе бесполезен.
-ShellManagerMock getTestShellManager() {
-  reset(_shellManagerForTest);
-
-  return _shellManagerForTest;
 }
 
 /// Возвращает замену менеджера shell, зарегистрированную в runner.
