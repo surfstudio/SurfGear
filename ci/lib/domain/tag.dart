@@ -1,3 +1,6 @@
+import 'package:ci/exceptions/exceptions.dart';
+import 'package:ci/exceptions/exceptions_strings.dart';
+
 /// Представление тега.
 class Tag {
   final String name;
@@ -19,6 +22,8 @@ const String _projectTagStart = 'project-';
 ///
 /// Тег проектной ветки ОБЯЗАТЕЛЬНО начинается с project-.
 class ProjectTag extends Tag {
+  static final RegExp _projectTagExp = RegExp(r'^(project-\w+)-(\d+)$');
+
   ProjectTag(
     String name,
     int version,
@@ -29,4 +34,17 @@ class ProjectTag extends Tag {
           name,
           version,
         );
+
+  static ProjectTag parseFrom(String tagString) {
+    if (!_projectTagExp.hasMatch(tagString)) {
+      throw FormatException(
+        getFormatExceptionText(
+          'Формат проектного тега должен быть project-name-#',
+        ),
+      );
+    }
+
+    var match = _projectTagExp.firstMatch(tagString);
+    return ProjectTag(match.group(1), int.parse(match.group(2)));
+  }
 }

@@ -20,9 +20,14 @@ class ModulesNotFoundException extends BaseCiException {
   ModulesNotFoundException(String message) : super(message);
 }
 
-/// Не найден файл лицензии для модуля.
+/// Не найден файл.
 class FileNotFoundException extends BaseCiException {
   FileNotFoundException(String message) : super(message);
+}
+
+/// Ошибка использования неверного формата.
+class FormatException extends BaseCiException {
+  FormatException(String message) : super(message);
 }
 
 /// Базовая ошибка выполнения команд Git
@@ -162,6 +167,13 @@ class CommitException extends GitProcessException {
 /// Невозможно сделать пуш
 class PushException extends GitProcessException {
   PushException(String message) : super(message);
+}
+
+/// Ошибка при получении описания ветки.
+class GitDescribeException extends GitProcessException {
+  GitDescribeException({
+    String message = gitDescribeExceptionText,
+  }) : super(message);
 }
 
 /// Commands
