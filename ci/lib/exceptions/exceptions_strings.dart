@@ -26,7 +26,8 @@ String getCommitHashExceptionText(String error) => 'Не удалось полу
 String getCheckoutExceptionText(String error) => 'Не удалось переключиться в нужное состояние:\n$error';
 String getGitAddExceptionText(String filepath) => 'Не возможно выполнить git add $filepath';
 String getGitCommitExceptionText(String filepath) => 'Не возможно выполнить git commit $filepath';
-String getGitPushExceptionText(String filepath) => 'Не возможно выполнить git push $filepath';
+String getGitPushExceptionText(String error) => 'Не возможно выполнить git push $error';
+String getGitAddTagExceptionText(String tag) => 'Не удалось добавить тег $tag на текущее состояние';
 
 /// Tests
 String getTestsFailedExceptionText(int modulesCount, String error) => 'Тесты провалились в следующих $modulesCount модулях:\n\n$error';

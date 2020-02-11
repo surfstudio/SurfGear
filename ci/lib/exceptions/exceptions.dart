@@ -176,6 +176,11 @@ class GitDescribeException extends GitProcessException {
   }) : super(message);
 }
 
+/// Не удалось добавить тег.
+class GitAddTagException extends GitProcessException {
+  GitAddTagException(String message) : super(message);
+}
+
 /// Commands
 
 /// Ошибка парсинга команды
