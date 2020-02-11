@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:ci/exceptions/exceptions.dart';
-import 'package:ci/tasks/pub_check_release_version_task.dart';
+import 'package:ci/tasks/impl/publish/pub_check_release_version_task.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-import 'core/test_helper.dart';
+import '../core/test_helper.dart';
 
 /// Тестируем класс [PubCheckReleaseVersionTask]
 void main() {

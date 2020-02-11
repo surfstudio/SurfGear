@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
-import 'package:ci/tasks/package_builder_task.dart';
+import 'package:ci/tasks/impl/building/package_builder_task.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 

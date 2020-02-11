@@ -1,11 +1,11 @@
 import 'package:ci/domain/config.dart';
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
-import 'package:ci/tasks/check_stability_dev.dart';
+import 'package:ci/tasks/impl/building/check_stability_dev.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-import 'core/test_helper.dart';
+import '../core/test_helper.dart';
 
 void main() {
   group(

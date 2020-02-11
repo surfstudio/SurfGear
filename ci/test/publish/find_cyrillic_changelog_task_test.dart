@@ -1,10 +1,10 @@
 import 'package:ci/exceptions/exceptions.dart';
-import 'package:ci/tasks/find_cyrillic_changelog_task.dart';
+import 'package:ci/tasks/impl/publish/find_cyrillic_changelog_task.dart';
 import 'package:mockito/mockito.dart';
 import 'package:path/path.dart';
 import 'package:test/test.dart';
 
-import 'core/test_helper.dart';
+import '../core/test_helper.dart';
 
 /// Тест для [FindCyrillicChangelogTask]
 void main() {
