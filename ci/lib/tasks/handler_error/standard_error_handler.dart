@@ -8,21 +8,21 @@ class StandardErrorHandler extends ErrorHandler {
 
   StandardErrorHandler(this._baseStrategyFactory);
 
-  void _baseError(BaseCiException error) {
+  void _baseError(BaseCiException error) async {
     var fun = _baseStrategyFactory.handleError(error);
-    fun(error);
+    await fun(error);
   }
 
-  void _unknownError(Exception error) {
-    _baseStrategyFactory.unknownError(error);
+  void _unknownError(Exception error) async {
+    await _baseStrategyFactory.unknownError(error);
   }
 
   @override
-  void handler(Exception exception) {
+  Future<void> handler(Exception exception) async {
     if (exception is BaseCiException) {
-      _baseError(exception);
+      await _baseError(exception);
     } else {
-      _unknownError(exception);
+      await _unknownError(exception);
     }
   }
 }

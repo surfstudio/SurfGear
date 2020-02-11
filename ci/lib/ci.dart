@@ -61,7 +61,7 @@ class Ci {
       command = await _commandParser.parse(arguments);
       await _commandRunner.run(command);
     } catch (e) {
-      _standardErrorHandler.handler(e);
+      await _standardErrorHandler.handler(e);
     }
   }
 }
