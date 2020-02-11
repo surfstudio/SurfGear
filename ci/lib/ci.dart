@@ -1,11 +1,10 @@
-import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/services/parsers/command_parser.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/services/runner/command_runner.dart';
 import 'package:ci/tasks/factories/scenario_helper.dart';
 import 'package:ci/tasks/factories/scenario_task_factory.dart';
 import 'package:ci/tasks/handler_error/base_strategy_factory.dart';
-import 'package:ci/tasks/handler_error/map_strategy.dart';
+import 'package:ci/tasks/handler_error/map_error_strategy.dart';
 import 'package:ci/tasks/handler_error/standard_error_handler.dart';
 
 /// Приложение для Continuous Integration.
@@ -61,10 +60,8 @@ class Ci {
     try {
       command = await _commandParser.parse(arguments);
       await _commandRunner.run(command);
-    } on BaseCiException catch (e) {
-      _standardErrorHandler.errorHandler(e);
-    } on Exception catch (e) {
-      _standardErrorHandler.unknownError(e);
+    } catch (e) {
+      _standardErrorHandler.handler(e);
     }
   }
 }

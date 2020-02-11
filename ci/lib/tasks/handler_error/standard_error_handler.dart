@@ -8,14 +8,21 @@ class StandardErrorHandler extends ErrorHandler {
 
   StandardErrorHandler(this._baseStrategyFactory);
 
-  @override
-  void errorHandler(BaseCiException error) {
+  void _baseError(BaseCiException error) {
     var fun = _baseStrategyFactory.handleError(error);
     fun(error);
   }
 
-  @override
-  void unknownError(Exception error) {
+  void _unknownError(Exception error) {
     _baseStrategyFactory.unknownError(error);
+  }
+
+  @override
+  void handler(Exception exception) {
+    if (exception is BaseCiException) {
+      _baseError(exception);
+    } else {
+      _unknownError(exception);
+    }
   }
 }
