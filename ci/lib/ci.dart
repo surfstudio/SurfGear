@@ -49,7 +49,6 @@ class Ci {
             StandardErrorHandler(
               BaseStrategyFactory(
                 mapErrorStrategy,
-                baseErrorStrategy,
                 unknownErrorStrategy,
               ),
             );
