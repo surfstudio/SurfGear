@@ -4,6 +4,7 @@ import 'package:ci/domain/tag.dart';
 import 'package:ci/tasks/core/task.dart';
 
 /// Обновляет зависимости модуля по переданному тегу.
+// TODO: @zotyev покрыть тестами
 class UpdateDependenciesByTagTask extends Task<Element> {
   final Element _element;
   final ProjectTag _projectTag;

@@ -8,6 +8,7 @@ import 'package:ci/utils/process_result_extension.dart';
 ///
 /// Возвращает ошибку в случае если тег не найден, или не удалось
 /// представить его в виде ProjectTag.
+// TODO: @zotyev покрыть тестами
 class GetLastProjectTagTask extends Task<ProjectTag> {
   @override
   Future<ProjectTag> run() async {
