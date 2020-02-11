@@ -1,5 +1,3 @@
-import 'package:ci/exceptions/exceptions.dart';
-
 abstract class ErrorHandler {
-  Future<void> handler(BaseCiException e);
+  Future<void> handler(Exception e, StackTrace stackTrace);
 }
