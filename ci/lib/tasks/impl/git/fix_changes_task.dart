@@ -17,7 +17,7 @@ class FixChangesTask extends Action {
     var res = await sh('git add -A');
     res.print();
 
-    if (res.exitCode != null) {
+    if (res.exitCode != 0) {
       return Future.error(
         GitAddException(
           getGitAddExceptionText('-A'),
@@ -25,10 +25,10 @@ class FixChangesTask extends Action {
       );
     }
 
-    res = await sh('git commit -m  $message');
+    res = await sh('git commit -m', arguments: [message]);
     res.print();
 
-    if (res.exitCode != null) {
+    if (res.exitCode != 0) {
       return Future.error(
         CommitException(
           getGitCommitExceptionText(''),
@@ -39,7 +39,7 @@ class FixChangesTask extends Action {
     res = await sh('git push');
     res.print();
 
-    if (res.exitCode != null) {
+    if (res.exitCode != 0) {
       return Future.error(
         PushException(
           getGitPushExceptionText(''),

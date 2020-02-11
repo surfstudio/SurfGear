@@ -10,7 +10,7 @@ Future<ProcessResult> sh(String command,
   var cmd = parsed[0];
   parsed.remove(cmd);
 
-  arguments = (arguments ?? <String>[])..addAll(parsed);
+  arguments = <String>[...parsed, ...(arguments ?? <String>[])];
 
   return ShellRunner.instance.run(
     cmd,
