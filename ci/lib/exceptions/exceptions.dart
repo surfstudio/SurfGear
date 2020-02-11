@@ -9,6 +9,17 @@ abstract class BaseCiException implements Exception {
 
 /// Общие ошибки
 
+/// Не найден модуль.
+class ElementNotFoundException extends BaseCiException {
+  ElementNotFoundException(String message) : super(message);
+}
+
+// TODO: не стоит ли испльзовать ElementNotFoundException
+/// Не найдены модули. Например, пользователь указал неправильный путь.
+class ModulesNotFoundException extends BaseCiException {
+  ModulesNotFoundException(String message) : super(message);
+}
+
 /// Не найден файл лицензии для модуля.
 class FileNotFoundException extends BaseCiException {
   FileNotFoundException(String message) : super(message);
@@ -21,19 +32,7 @@ abstract class GitProcessException extends BaseCiException {
 
 /// Ошибки функционала
 
-/// Не найдены модули. Например, пользователь указал неправильный путь.
-class ModulesNotFoundException implements Exception {
-  final String message;
-
-  ModulesNotFoundException(this.message);
-}
-
-/// Модуль, помеченный как stable, был изменён.
-class StableModulesWasModifiedException implements Exception {
-  final String message;
-
-  StableModulesWasModifiedException(this.message);
-}
+/// Build
 
 /// Ошибка при сборке модуля.
 ///
@@ -41,6 +40,24 @@ class StableModulesWasModifiedException implements Exception {
 class PackageBuildException extends BaseCiException {
   PackageBuildException(String message) : super(message);
 }
+
+/// Модуль, помеченный как stable, был изменён.
+class StableModulesWasModifiedException extends BaseCiException {
+  StableModulesWasModifiedException(String message) : super(message);
+}
+
+/// Модуль не прошёл проверку статического анализатора
+/// `flutter analyze`
+class AnalyzerFailedException extends BaseCiException {
+  AnalyzerFailedException(String message) : super(message);
+}
+
+/// Модуль поменял значение стабильности в dev ветке.
+class StabilityDevChangedException extends BaseCiException {
+  StabilityDevChangedException(String message) : super(message);
+}
+
+/// Licensing
 
 /// Не найден образец лицензии.
 class LicenseSampleNotFoundException extends FileNotFoundException {
@@ -93,13 +110,7 @@ class AddCopyrightFailException extends BaseCiException {
   AddCopyrightFailException(String message) : super(message);
 }
 
-/// Модуль не прошёл проверку статического анализатора
-/// `flutter analyze`
-class AnalyzerFailedException implements Exception {
-  final String message;
-
-  AnalyzerFailedException(this.message);
-}
+/// Test
 
 /// Тесты в модуле не прошли.
 class TestsFailedException implements Exception {
@@ -108,21 +119,25 @@ class TestsFailedException implements Exception {
   TestsFailedException(this.message);
 }
 
-/// Не можем опубликовать модуль OpenSource
-class ModuleNotPublishOpenSourceException implements Exception {
-  final String message;
+/// Publish
 
-  /// Вызывается [PubDryRunTask]
-  ModuleNotPublishOpenSourceException(this.message);
+/// Не можем опубликовать модуль OpenSource
+class OpenSourceModuleCanNotBePublishException extends BaseCiException {
+  OpenSourceModuleCanNotBePublishException(String message) : super(message);
 }
 
 /// Нет описание версии в CHANGELOG.md
-class ModuleNotReadyReleaseVersion implements Exception {
-  final String message;
-
-  /// Вызывается [PubCheckReleaseVersionTask]
-  ModuleNotReadyReleaseVersion(this.message);
+class ChangeLogDoesNotContainCurrentVersionException extends BaseCiException {
+  ChangeLogDoesNotContainCurrentVersionException(String message)
+      : super(message);
 }
+
+/// CHANGELOG.md содержит кириллицу
+class ContainsCyrillicInChangelogException extends BaseCiException {
+  ContainsCyrillicInChangelogException(String message) : super(message);
+}
+
+/// Git
 
 /// Ошибка получения hash комита.
 class CommitHashException extends GitProcessException {
@@ -132,11 +147,6 @@ class CommitHashException extends GitProcessException {
 /// Ошибка выполнения checkout.
 class CheckoutException extends GitProcessException {
   CheckoutException(String message) : super(message);
-}
-
-/// Модуль поменял значение стабильности в dev ветке.
-class StabilityDevChangedException extends BaseCiException {
-  StabilityDevChangedException(String message) : super(message);
 }
 
 /// Невозможно добавить файл
@@ -157,4 +167,21 @@ class PushException extends GitProcessException {
 /// Ошибка во время зеркалирования модуля в отдельный репозиторий.
 class ModuleMirroringException extends GitProcessException {
   ModuleMirroringException(String message) : super(message);
+}
+
+/// Commands
+
+/// Ошибка парсинга команды
+class ParseCommandException extends BaseCiException {
+  ParseCommandException(String message) : super(message);
+}
+
+/// Ошибка валидации параметров команды
+class CommandParamsValidationException extends BaseCiException {
+  CommandParamsValidationException(String message) : super(message);
+}
+
+/// Не найден обработчик команды
+class CommandHandlerNotFoundException extends BaseCiException {
+  CommandHandlerNotFoundException(String message) : super(message);
 }

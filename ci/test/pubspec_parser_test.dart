@@ -1,4 +1,4 @@
-import 'package:ci/services/pubspec_parser.dart';
+import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:test/test.dart';
 
 void main() {
