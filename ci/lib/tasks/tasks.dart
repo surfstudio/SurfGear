@@ -8,10 +8,12 @@ import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/services/managers/yaml_manager.dart';
 import 'package:ci/tasks/checks.dart';
+import 'package:ci/tasks/impl/git/fix_changes_task.dart';
 import 'package:ci/tasks/impl/license/add_copyright_task.dart';
 import 'package:ci/tasks/impl/license/add_license_task.dart';
 import 'package:ci/tasks/impl/license/license_file_check.dart';
 import 'package:ci/tasks/impl/building/package_builder_task.dart';
+import 'package:ci/tasks/impl/project/add_project_tag_task.dart';
 import 'package:ci/tasks/impl/project/update_dependencies_by_tag_task.dart';
 import 'package:ci/tasks/save_element_task.dart';
 
@@ -188,12 +190,18 @@ Future<List<Element>> updateDependenciesByTag(
   return updatedList;
 }
 
+/// Добавляет переданный тег к текущему состоянию
+Future<void> addTag(ProjectTag tag) => AddProjectTagTask(tag).run();
+
 /// Сохраняет переданные представления модулей.
 Future<void> saveElements(
-  List<Element> list,
+  List<Element> list, {
   FileSystemManager fileSystemManager,
   YamlManager yamlManager,
-) async {
+}) async {
+  fileSystemManager ??= FileSystemManager();
+  yamlManager ??= YamlManager();
+
   for (var element in list) {
     await SaveElementTask(
       element,
@@ -202,3 +210,8 @@ Future<void> saveElements(
     ).run();
   }
 }
+
+/// Фиксирует текущие изменения на репозитории.
+Future<void> fixChanges({String message}) => FixChangesTask(
+      message: message,
+    ).run();
