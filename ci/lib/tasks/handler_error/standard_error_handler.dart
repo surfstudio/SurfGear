@@ -8,8 +8,8 @@ class StandardErrorHandler extends ErrorHandler {
   StandardErrorHandler(this._baseStrategyFactory);
 
   @override
-  Future<void> handler(Exception exception, StackTrace stackTrace) async {
+  Future<void> handle(Exception exception, StackTrace stackTrace) async {
     var fun = _baseStrategyFactory.getStrategy(exception);
-    return await fun(exception, stackTrace);
+    return fun(exception, stackTrace);
   }
 }

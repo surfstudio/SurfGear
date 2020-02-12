@@ -1,3 +1,3 @@
 abstract class ErrorHandler {
-  Future<void> handler(Exception e, StackTrace stackTrace);
+  Future<void> handle(Exception e, StackTrace stackTrace);
 }

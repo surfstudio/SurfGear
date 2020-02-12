@@ -3,21 +3,20 @@ import 'dart:io';
 import 'package:ci/exceptions/exceptions.dart';
 
 /// Стратегии обработки ошибки
-typedef errorStrategy = Future<void> Function(Exception exception, StackTrace stackTrace);
+typedef ErrorStrategy = Future<void> Function(Exception exception, StackTrace stackTrace);
 
 Future<void> unknownErrorStrategy(Exception exception, StackTrace stackTrace) async {
   exitCode = 1;
-  throw exception;
+  return Future.error(exception, stackTrace,);
 }
 
 Future<void> _baseErrorStrategy(Exception exception, StackTrace stackTrace) async {
-  print(stackTrace);
-  await print('baseHandling');
+  await print(stackTrace);
   exitCode = 1;
 }
 
-Map<Type, errorStrategy> _mapErrorStrategy = {
+Map<Type, ErrorStrategy> _mapErrorStrategy = {
   BaseCiException: _baseErrorStrategy,
 };
 
-Map<Type, errorStrategy> get mapErrorStrategy => _mapErrorStrategy;
+Map<Type, ErrorStrategy> get mapErrorStrategy => _mapErrorStrategy;
