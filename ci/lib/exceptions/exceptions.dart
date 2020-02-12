@@ -5,6 +5,12 @@ abstract class BaseCiException implements Exception {
   final String message;
 
   BaseCiException(this.message);
+
+  @override
+  String toString() {
+    if (message == null) return "Exception";
+    return "Exception: $message";
+  }
 }
 
 /// Общие ошибки
@@ -128,8 +134,7 @@ class OpenSourceModuleCanNotBePublishException extends BaseCiException {
 
 /// Нет описание версии в CHANGELOG.md
 class ChangeLogDoesNotContainCurrentVersionException extends BaseCiException {
-  ChangeLogDoesNotContainCurrentVersionException(String message)
-      : super(message);
+  ChangeLogDoesNotContainCurrentVersionException(String message) : super(message);
 }
 
 /// CHANGELOG.md содержит кириллицу

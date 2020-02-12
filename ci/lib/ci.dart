@@ -3,9 +3,9 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/services/runner/command_runner.dart';
 import 'package:ci/tasks/factories/scenario_helper.dart';
 import 'package:ci/tasks/factories/scenario_task_factory.dart';
-import 'package:ci/tasks/handler_error/strategy_factory.dart';
 import 'package:ci/tasks/handler_error/map_error_strategy.dart';
 import 'package:ci/tasks/handler_error/standard_error_handler.dart';
+import 'package:ci/tasks/handler_error/strategy_factory.dart';
 
 /// Приложение для Continuous Integration.
 ///
@@ -49,7 +49,6 @@ class Ci {
             StandardErrorHandler(
               StrategyFactory(
                 mapErrorStrategy,
-                unknownErrorStrategy,
               ),
             );
 
