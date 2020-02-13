@@ -10,25 +10,18 @@ import 'package:path/path.dart' as path;
 
 /// Зеркалирует open source модуль в его отдельный репозиторий
 class MirrorOpenSourceModuleTask implements Task<bool> {
-  static const remoteAlreadyExistsCode = 128;
-
   final Element element;
 
-  MirrorOpenSourceModuleTask(this.element)
-      : assert(element.openSourceInfo?.separateRepoUrl != null);
+  MirrorOpenSourceModuleTask(this.element) {
+    if (element.openSourceInfo?.separateRepoUrl == null) {
+      final message = getModuleIsNotOpenSourceExceptionText(element.name);
+      throw ModuleIsNotOpenSourceException(message);
+    }
+  }
 
   @override
   Future<bool> run() async {
     final repoUrl = element.openSourceInfo.separateRepoUrl;
-    final remoteName = '${element.name}-subtree';
-
-    final addRemote = 'git remote add $remoteName $repoUrl';
-    final addRemoteResult = await sh(addRemote, path: Config.repoRootPath);
-
-    if (addRemoteResult.exitCode != 0 &&
-        addRemoteResult.exitCode != remoteAlreadyExistsCode) {
-      _throwModuleMirroringException(element.name, addRemoteResult);
-    }
 
     final modulePath = path
         .relative(element.path, from: Config.repoRootPath)
@@ -36,7 +29,7 @@ class MirrorOpenSourceModuleTask implements Task<bool> {
 
     final prefix = '--prefix=${modulePath}';
 
-    final pushSubtree = 'git subtree push $prefix $remoteName master';
+    final pushSubtree = 'git subtree push $prefix $repoUrl master';
     final pushResult = await sh(pushSubtree, path: Config.repoRootPath);
 
     if (pushResult.exitCode != 0) {

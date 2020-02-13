@@ -137,6 +137,11 @@ class ContainsCyrillicInChangelogException extends BaseCiException {
   ContainsCyrillicInChangelogException(String message) : super(message);
 }
 
+/// У модуля отсутствует информация о репозитории с его исходным кодом.
+class ModuleIsNotOpenSourceException extends BaseCiException {
+  ModuleIsNotOpenSourceException(String message) : super(message);
+}
+
 /// Git
 
 /// Ошибка получения hash комита.
