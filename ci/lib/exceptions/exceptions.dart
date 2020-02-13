@@ -142,6 +142,11 @@ class ContainsCyrillicInChangelogException extends BaseCiException {
   ContainsCyrillicInChangelogException(String message) : super(message);
 }
 
+/// У модуля отсутствует информация о репозитории с его исходным кодом.
+class ModuleIsNotOpenSourceException extends BaseCiException {
+  ModuleIsNotOpenSourceException(String message) : super(message);
+}
+
 /// Git
 
 /// Ошибка получения hash комита.
@@ -167,6 +172,11 @@ class CommitException extends GitProcessException {
 /// Невозможно сделать пуш
 class PushException extends GitProcessException {
   PushException(String message) : super(message);
+}
+
+/// Ошибка во время зеркалирования модуля в отдельный репозиторий.
+class ModuleMirroringException extends GitProcessException {
+  ModuleMirroringException(String message) : super(message);
 }
 
 /// Commands
