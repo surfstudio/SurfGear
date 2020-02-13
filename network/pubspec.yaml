@@ -14,11 +14,11 @@ dependencies:
   logger:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-30
+      ref: project-ROS-31
       path: logger
 
   dio: 3.0.8
-  http: 0.12.0+1
+  http: 0.12.0+4
   rxdart: 0.22.0
 
 dev_dependencies:

@@ -15,7 +15,7 @@ dependencies:
   permission_handler:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-30
+      ref: project-ROS-31
       path: flutter-permission-handler
 
 dev_dependencies:
