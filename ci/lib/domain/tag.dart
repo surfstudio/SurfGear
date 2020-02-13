@@ -9,7 +9,7 @@ abstract class Tag {
 }
 
 /// Тег содержащий версию.
-class VersionedTag {
+class VersionedTag implements Tag {
   final String name;
   final int version;
 
