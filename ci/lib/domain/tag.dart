@@ -1,18 +1,26 @@
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
+import 'package:meta/meta.dart';
 
 /// Представление тега.
-class Tag {
+abstract class Tag {
+  /// Возвращает строковое представление тега.
+  String get tagName;
+}
+
+/// Тег содержащий версию.
+class VersionedTag {
   final String name;
   final int version;
 
-  Tag(this.name, this.version);
+  VersionedTag({this.name, @required this.version});
 
   /// Возвращает строковое представление тега.
-  String get tagName => name + '-' + version.toString();
+  String get tagName =>
+      (name != null && name.isNotEmpty ? name + '-' : '') + version.toString();
 
   /// Возвращает новый Tag c увеличением версии на 1
-  Tag inc() => Tag(name, version + 1);
+  VersionedTag inc() => VersionedTag(name: name, version: version + 1);
 }
 
 /// Начало названия проектной ветки.
@@ -21,7 +29,7 @@ const String _projectTagStart = 'project-';
 /// Представление тега проектной ветки.
 ///
 /// Тег проектной ветки ОБЯЗАТЕЛЬНО начинается с project-.
-class ProjectTag extends Tag {
+class ProjectTag extends VersionedTag {
   static final RegExp _projectTagExp = RegExp(r'^(project-\w+)-(\d+)$');
 
   ProjectTag(
@@ -31,8 +39,8 @@ class ProjectTag extends Tag {
           name.startsWith(_projectTagStart),
         ),
         super(
-          name,
-          version,
+          name: name,
+          version: version,
         );
 
   static ProjectTag parseFrom(String tagString) {
