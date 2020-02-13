@@ -15,8 +15,8 @@ Future<void> standardErrorHandlingStrategy(Exception exception, StackTrace stack
 }
 
 /// Map со стратегиями обработок ошибок,
-Map<Type, ErrorHandlingStrategies> _mapErrorStrategy = {};
+Map<Type, ErrorHandlingStrategyFactory> _mapErrorStrategy = {};
 
 /// Геттер мапы, со стратегиями обработок ошибок.
-/// [Type] тип ошибки, [ErrorHandlingStrategies] - как обрабатываем ошибку
-Map<Type, ErrorHandlingStrategies> get mapErrorStrategy => _mapErrorStrategy;
+/// [Type] тип ошибки, [ErrorHandlingStrategyFactory] - как обрабатываем ошибку
+Map<Type, ErrorHandlingStrategyFactory> get mapErrorStrategy => _mapErrorStrategy;

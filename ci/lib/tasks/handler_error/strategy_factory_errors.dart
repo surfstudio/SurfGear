@@ -1,14 +1,14 @@
 import 'package:ci/exceptions/exceptions.dart';
 
 /// Стратегии обработки ошибок
-typedef ErrorHandlingStrategies = Future<void> Function(Exception exception, StackTrace stackTrace);
+typedef ErrorHandlingStrategyFactory = Future<void> Function(Exception exception, StackTrace stackTrace);
 
 /// Factory of strategy.
 class StrategyFactoryErrors {
   /// Map стратегий обработок ошибок
-  final Map<Type, ErrorHandlingStrategies> _mapErrorStrategy;
-  final ErrorHandlingStrategies strategyForUnknownErrors;
-  final ErrorHandlingStrategies standardErrorHandlingStrategy;
+  final Map<Type, ErrorHandlingStrategyFactory> _mapErrorStrategy;
+  final ErrorHandlingStrategyFactory strategyForUnknownErrors;
+  final ErrorHandlingStrategyFactory standardErrorHandlingStrategy;
 
   StrategyFactoryErrors(
     this._mapErrorStrategy,
@@ -17,7 +17,7 @@ class StrategyFactoryErrors {
   );
 
   /// Проверяем тип ошибки для выбора стратегия
-  ErrorHandlingStrategies getStrategy(Exception exception) {
+  ErrorHandlingStrategyFactory getStrategy(Exception exception) {
     var typeException = exception.runtimeType;
     if (exception is BaseCiException) {
       if (_mapErrorStrategy.containsKey(typeException)) {
