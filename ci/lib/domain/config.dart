@@ -44,4 +44,7 @@ abstract class Config {
     _standardPath,
     'RELEASE_NOTES.md',
   );
+
+  /// Путь до toplevel-директории гит-репозитория
+  static final String repoRootPath = _standardPath;
 }

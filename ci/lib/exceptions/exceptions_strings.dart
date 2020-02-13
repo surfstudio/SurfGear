@@ -28,6 +28,7 @@ String getGitAddExceptionText(String filepath) => 'Не возможно вып�
 String getGitCommitExceptionText(String filepath) => 'Не возможно выполнить git commit $filepath';
 String getGitPushExceptionText(String error) => 'Не возможно выполнить git push $error';
 String getGitAddTagExceptionText(String tag) => 'Не удалось добавить тег $tag на текущее состояние';
+String getMirroringExceptionText(String module, String error) => 'Не удалось выполнить зеркалирование модуля $module: $error';
 
 /// Tests
 String getTestsFailedExceptionText(int modulesCount, String error) => 'Тесты провалились в следующих $modulesCount модулях:\n\n$error';
@@ -41,3 +42,4 @@ String getCommandFormatExceptionText(String cmd, String error) => 'Неправ�
 String getPubCheckReleaseVersionExceptionText(String module) => '$module: модуль, с непрописанной версией Release Notes';
 String getContainsCyrillicInChangelogExceptionText(String package, String name) => 'Библиоткека $name содержит киррилицу в $package/CHANGELOG.md';
 String getOpenSourceModuleCanNotBePublishExceptionText(String module) => 'OpenSource модуль: $module не может быть опубликован';
+String getModuleIsNotOpenSourceExceptionText(String module) => 'У open source модуля $module отсутствует информация о репозитории';
