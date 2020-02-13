@@ -57,11 +57,12 @@ class CommandParser {
   /// у парсера всевозможных опций.
   void _initParser() {
     /// check_licensing
-    _argParser.addCommand(
-        LicensingCheckScenario.commandName,
-        ArgParser()
-          ..addFlag(LicensingCheckScenario.allFlag, negatable: false)
-          ..addOption(LicensingCheckScenario.nameOption))
+    _argParser
+      ..addCommand(
+          LicensingCheckScenario.commandName,
+          ArgParser()
+            ..addFlag(LicensingCheckScenario.allFlag, negatable: false)
+            ..addOption(LicensingCheckScenario.nameOption))
 
       /// build
       ..addCommand(BuildScenario.commandName)
