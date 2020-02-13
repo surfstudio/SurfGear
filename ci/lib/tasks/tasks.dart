@@ -13,9 +13,9 @@ import 'package:ci/tasks/impl/git/fix_changes_task.dart';
 import 'package:ci/tasks/impl/license/add_copyright_task.dart';
 import 'package:ci/tasks/impl/license/add_license_task.dart';
 import 'package:ci/tasks/impl/license/license_file_check.dart';
-import 'package:ci/tasks/mirror_module_task.dart';
 import 'package:ci/tasks/impl/project/add_project_tag_task.dart';
 import 'package:ci/tasks/impl/project/update_dependencies_by_tag_task.dart';
+import 'package:ci/tasks/mirror_module_task.dart';
 import 'package:ci/tasks/save_element_task.dart';
 
 /// Набор глобальных точек входа для выполнения задач
