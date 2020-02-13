@@ -177,6 +177,7 @@ Element createTestElement({
       uri: Uri.directory(path),
       isStable: isStable,
       changed: isChanged,
+      openSourceInfo: openSourceInfo,
       unstableVersion: unstableVersion);
 }
 

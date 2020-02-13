@@ -28,7 +28,7 @@ void main() {
           _prepareReadValue(fileSystemManager, elements[2]);
 
           var callingMap = <String, dynamic>{
-            'git add ../RELEASE_NOTES.md': true,
+            'git add ${Config.releaseNoteFilePath}': true,
             "git commit -m 'update RELEASE_NOTES.md file'": true,
             'git push origin master': true,
           };
@@ -55,7 +55,7 @@ void main() {
             'add file',
             () async {
               var callingMap = <String, dynamic>{
-                'git add ../RELEASE_NOTES.md': false,
+                'git add ${Config.releaseNoteFilePath}': false,
               };
 
               _testGitCommand(
@@ -71,7 +71,7 @@ void main() {
             'commit file',
             () async {
               var callingMap = <String, dynamic>{
-                'git add ../RELEASE_NOTES.md': true,
+                'git add ${Config.releaseNoteFilePath}': true,
                 "git commit -m 'update RELEASE_NOTES.md file'": false,
               };
 
@@ -88,7 +88,7 @@ void main() {
             'push file',
             () async {
               var callingMap = <String, dynamic>{
-                'git add ../RELEASE_NOTES.md': true,
+                'git add ${Config.releaseNoteFilePath}': true,
                 "git commit -m 'update RELEASE_NOTES.md file'": true,
                 'git push origin master': false,
               };
