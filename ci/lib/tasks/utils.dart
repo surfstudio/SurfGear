@@ -85,11 +85,6 @@ Future<void> markChangedElements(List<Element> elements) async {
   print('Файлы, изменённые в последнем коммите:\n$diff');
 
   elements
-      .where(
-        (e) => diff.contains(e.directoryName),
-      )
-      .toList()
-      .forEach(
-        (e) => e.changed = true,
-      );
+      .where((e) => diff.contains(e.directoryName))
+      .forEach((e) => e.changed = true);
 }
