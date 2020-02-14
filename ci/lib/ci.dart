@@ -3,9 +3,9 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/services/runner/command_runner.dart';
 import 'package:ci/tasks/factories/scenario_helper.dart';
 import 'package:ci/tasks/factories/scenario_task_factory.dart';
-import 'package:ci/tasks/handler_error/standard_error_handler.dart';
+import 'package:ci/tasks/handler_error/standard_error_handler_strategies.dart';
 import 'package:ci/tasks/handler_error/strategies_errors.dart';
-import 'package:ci/tasks/handler_error/strategy_factory_errors.dart';
+import 'package:ci/tasks/handler_error/error_handling_strategy_factory.dart';
 
 /// Приложение для Continuous Integration.
 ///
@@ -19,24 +19,11 @@ class Ci {
 
   CommandParser _commandParser;
   CommandRunner _commandRunner;
-  StandardErrorHandler _standardErrorHandler;
-
-  Ci.init({
-    CommandParser commandParser,
-    CommandRunner commandRunner,
-    StandardErrorHandler standardErrorHandler,
-  }) {
-    _instance ??= Ci._(
-      commandParser: commandParser,
-      commandRunner: commandRunner,
-      standardErrorHandler: standardErrorHandler,
-    );
-  }
 
   Ci._({
     CommandParser commandParser,
     CommandRunner commandRunner,
-    StandardErrorHandler standardErrorHandler,
+    StandardErrorHandlerStrategies standardErrorHandler,
   })  : _commandParser = commandParser ?? CommandParser(),
         _commandRunner = commandRunner ??
             CommandRunner(
@@ -46,13 +33,27 @@ class Ci {
               ),
             ),
         _standardErrorHandler = standardErrorHandler ??
-            StandardErrorHandler(
-              StrategyFactoryErrors(
+            StandardErrorHandlerStrategies(
+              ErrorHandlingStrategyFactory(
                 mapErrorStrategy,
-                strategyForUnknownErrors,
                 standardErrorHandlingStrategy,
+                strategyForUnknownErrors,
               ),
             );
+
+  StandardErrorHandlerStrategies _standardErrorHandler;
+
+  Ci.init({
+    CommandParser commandParser,
+    CommandRunner commandRunner,
+    StandardErrorHandlerStrategies standardErrorHandler,
+  }) {
+    _instance ??= Ci._(
+      commandParser: commandParser,
+      commandRunner: commandRunner,
+      standardErrorHandler: standardErrorHandler,
+    );
+  }
 
   /// Выполняет действие исходя из переданных параметров.
   Future<void> execute(List<String> arguments) async {
@@ -60,7 +61,7 @@ class Ci {
     try {
       command = await _commandParser.parse(arguments);
       await _commandRunner.run(command);
-    } catch (e, stackTrace) {
+    } on Exception catch (e, stackTrace) {
       await _standardErrorHandler.handle(e, stackTrace);
     }
   }
