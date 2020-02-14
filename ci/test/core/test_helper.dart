@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:ci/domain/dependency.dart';
 import 'package:ci/domain/element.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/services/managers/shell_manager.dart';
+import 'package:ci/services/managers/yaml_manager.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/services/runner/shell_runner.dart';
 import 'package:ci/tasks/core/task.dart';
@@ -171,14 +173,17 @@ Element createTestElement({
   bool isChanged = false,
   OpenSourceInfo openSourceInfo,
   int unstableVersion = 0,
+  List<Dependency> dependencies,
 }) {
   return Element(
-      name: name,
-      uri: Uri.directory(path),
-      isStable: isStable,
-      changed: isChanged,
-      openSourceInfo: openSourceInfo,
-      unstableVersion: unstableVersion);
+    name: name,
+    uri: Uri.directory(path),
+    isStable: isStable,
+    changed: isChanged,
+    openSourceInfo: openSourceInfo,
+    unstableVersion: unstableVersion,
+    dependencies: dependencies ?? <Dependency>[],
+  );
 }
 
 /// License Task Factory
@@ -188,3 +193,7 @@ class LicenseTaskFactoryMock extends Mock implements LicenseTaskFactory {}
 /// Pubspec Parser
 
 class PubspecParserMock extends Mock implements PubspecParser {}
+
+/// Yaml Manager
+
+class YamlManagerMock extends Mock implements YamlManager {}
