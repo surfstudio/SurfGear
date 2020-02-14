@@ -1,11 +1,12 @@
-const String licenseSampleNotFoundExceptionText = 'Образец лицензии не найден. Проверьте наличие файла лиценизии и конфигурацию приложения.';
-const String copyrightSampleNotFoundExceptionText = 'Образец копирайта не найден. Проверьте наличие файла копирайта и конфигурацию приложения.';
-
 /// Common
 String getFileNotFoundExceptionText(String filepath) => 'File $filepath not found';
 String getElementNotFoundExceptionText(String moduleName) => 'Модуль $moduleName не найден';
+String getFormatExceptionText(String error) => 'Неправильный формат!\n$error';
+
 
 /// Licensing
+const String licenseSampleNotFoundExceptionText = 'Образец лицензии не найден. Проверьте наличие файла лиценизии и конфигурацию приложения.';
+const String copyrightSampleNotFoundExceptionText = 'Образец копирайта не найден. Проверьте наличие файла копирайта и конфигурацию приложения.';
 String getLicenseFileNotFoundExceptionText(String licensePath) => 'Файл лицензии $licensePath не найден';
 String getLicenseFileObsoleteExceptionText(String licensePath) => 'Файл лицензии $licensePath устарел';
 String getPackageLicensingExceptionText(String error) => 'Обнаружены проблемы с лицензиями:\n $error';
@@ -20,11 +21,13 @@ String getPackageBuildExceptionText(String error) => 'Не удалось соб
 String getStabilityDevChangedExceptionText(String module) => 'Модуль $module стал стабильным в dev ветке';
 
 /// Git
+const String gitDescribeExceptionText = 'Ну удалось получить описание текущей ветки';
 String getCommitHashExceptionText(String error) => 'Не удалось получить commit hash:\n$error';
 String getCheckoutExceptionText(String error) => 'Не удалось переключиться в нужное состояние:\n$error';
 String getGitAddExceptionText(String filepath) => 'Не возможно выполнить git add $filepath';
 String getGitCommitExceptionText(String filepath) => 'Не возможно выполнить git commit $filepath';
-String getGitPushExceptionText(String filepath) => 'Не возможно выполнить git push $filepath';
+String getGitPushExceptionText(String error) => 'Не возможно выполнить git push $error';
+String getGitAddTagExceptionText(String tag) => 'Не удалось добавить тег $tag на текущее состояние';
 String getMirroringExceptionText(String module, String error) => 'Не удалось выполнить зеркалирование модуля $module: $error';
 
 /// Tests

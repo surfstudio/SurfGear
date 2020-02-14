@@ -1,16 +1,22 @@
 import 'dart:io';
 
 import 'package:ci/domain/element.dart';
+import 'package:ci/domain/tag.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
+import 'package:ci/services/managers/yaml_manager.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/impl/building/package_builder_task.dart';
+import 'package:ci/tasks/impl/git/fix_changes_task.dart';
 import 'package:ci/tasks/impl/license/add_copyright_task.dart';
 import 'package:ci/tasks/impl/license/add_license_task.dart';
 import 'package:ci/tasks/impl/license/license_file_check.dart';
+import 'package:ci/tasks/impl/project/add_project_tag_task.dart';
+import 'package:ci/tasks/impl/project/update_dependencies_by_tag_task.dart';
 import 'package:ci/tasks/mirror_module_task.dart';
+import 'package:ci/tasks/save_element_task.dart';
 
 /// Набор глобальных точек входа для выполнения задач
 
@@ -173,3 +179,48 @@ Future<void> mirrorOpenSourceModules(List<Element> elements) async {
 
   openSourceModules.forEach((e) => MirrorOpenSourceModuleTask(e).run());
 }
+
+/// Обновляет зависимости переданных модулей по данным тега.
+Future<List<Element>> updateDependenciesByTag(
+  List<Element> list,
+  ProjectTag tag,
+) async {
+  var updatedList = <Element>[];
+
+  for (var element in list) {
+    var newElement = await UpdateDependenciesByTagTask(
+      element,
+      tag,
+    ).run();
+
+    updatedList.add(newElement);
+  }
+
+  return updatedList;
+}
+
+/// Добавляет переданный тег к текущему состоянию
+Future<void> addTag(ProjectTag tag) => AddProjectTagTask(tag).run();
+
+/// Сохраняет переданные представления модулей.
+Future<void> saveElements(
+  List<Element> list, {
+  FileSystemManager fileSystemManager,
+  YamlManager yamlManager,
+}) async {
+  fileSystemManager ??= FileSystemManager();
+  yamlManager ??= YamlManager();
+
+  for (var element in list) {
+    await SaveElementTask(
+      element,
+      fileSystemManager,
+      yamlManager,
+    ).run();
+  }
+}
+
+/// Фиксирует текущие изменения на репозитории.
+Future<void> fixChanges({String message}) => FixChangesTask(
+      message: message,
+    ).run();

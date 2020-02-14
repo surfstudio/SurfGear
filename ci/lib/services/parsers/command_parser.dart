@@ -11,6 +11,7 @@ import 'package:ci/tasks/impl/scenarios/check_publish_available_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/check_stability_not_changed_in_dev_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/check_version_in_release_note_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/licensing_check_scenario.dart';
+import 'package:ci/tasks/impl/scenarios/upgrade_project_tag_scenario.dart';
 import 'package:ci/utils/arg_results_extension.dart';
 import 'package:ci/utils/string_util.dart';
 
@@ -88,7 +89,10 @@ class CommandParser {
           .addOption(CheckDependenciesStableScenario.nameOption)
 
       /// check_stability_not_changed
-      ..addCommand(CheckStabilityNotChangedInDevScenario.commandName);
+      ..addCommand(CheckStabilityNotChangedInDevScenario.commandName)
+
+      /// upgrade_project_tag
+      ..addCommand(UpgradeProjectTagScenario.commandName);
   }
 
   Future<Command> _getCommandByArgs(ArgResults results) async {
