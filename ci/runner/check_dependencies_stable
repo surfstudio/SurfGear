@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+dart ../bin/main.dart check_dependencies_stable "$1"
