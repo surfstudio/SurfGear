@@ -8,6 +8,7 @@ import 'package:ci/tasks/impl/scenarios/check_publish_available_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/check_stability_not_changed_in_dev_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/check_version_in_release_note_scenario.dart';
 import 'package:ci/tasks/impl/scenarios/licensing_check_scenario.dart';
+import 'package:ci/tasks/impl/scenarios/upgrade_project_tag_scenario.dart';
 
 /// Набор методов и значений для работы со сценариями
 
@@ -30,4 +31,6 @@ Map<String, ScenarioBuilder> scenarioMap = <String, ScenarioBuilder>{
       CheckDependenciesStableScenario(command, parser),
   CheckStabilityNotChangedInDevScenario.commandName: (command, parser) =>
       CheckStabilityNotChangedInDevScenario(command, parser),
+  UpgradeProjectTagScenario.commandName: (command, parser) =>
+      UpgradeProjectTagScenario(command, parser),
 };
