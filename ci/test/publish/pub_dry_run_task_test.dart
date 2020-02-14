@@ -15,7 +15,7 @@ void main() {
         'If the open source module and it can be published, it should return true.',
         () async {
           var task = _prepareTestTask(
-            true,
+            false,
             _openSourceTestElement(),
           );
           var actual = await task.run();
@@ -31,7 +31,7 @@ void main() {
         'If the module is not open source, it should return false.',
         () async {
           var task = _prepareTestTask(
-            true,
+            false,
             createTestElement(),
           );
           var actual = await task.run();
@@ -47,7 +47,7 @@ void main() {
         'Exception should be thrown when opensource module not ready to publish.',
         () async {
           var task = _prepareTestTask(
-            false,
+            true,
             _openSourceTestElement(),
           );
 
@@ -65,7 +65,7 @@ void main() {
 
 PubDryRunTask _prepareTestTask(bool isError, Element element) {
   var callingMap = <String, dynamic>{
-    'pub publish --dry-run': isError,
+    'pub publish --dry-run': !isError,
   };
   var shell = substituteShell(callingMap: callingMap);
   var shm = getTestShellManager();
