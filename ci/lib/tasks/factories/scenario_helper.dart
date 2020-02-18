@@ -1,14 +1,14 @@
 import 'package:ci/tasks/factories/scenario_task_factory.dart';
-import 'package:ci/tasks/impl/scenarios/add_copyrights_scenario.dart';
-import 'package:ci/tasks/impl/scenarios/add_license_scenario.dart';
-import 'package:ci/tasks/impl/scenarios/build_scenario.dart';
-import 'package:ci/tasks/impl/scenarios/check_dependencies_stable_scenario.dart';
-import 'package:ci/tasks/impl/scenarios/check_linter_scenario.dart';
-import 'package:ci/tasks/impl/scenarios/check_publish_available_scenario.dart';
-import 'package:ci/tasks/impl/scenarios/check_stability_not_changed_in_dev_scenario.dart';
-import 'package:ci/tasks/impl/scenarios/check_version_in_release_note_scenario.dart';
-import 'package:ci/tasks/impl/scenarios/licensing_check_scenario.dart';
-import 'package:ci/tasks/impl/scenarios/upgrade_project_tag_scenario.dart';
+import 'package:ci/scenarios/add_copyrights_scenario.dart';
+import 'package:ci/scenarios/add_license_scenario.dart';
+import 'package:ci/scenarios/build_scenario.dart';
+import 'package:ci/scenarios/check_dependencies_stable_scenario.dart';
+import 'package:ci/scenarios/check_linter_scenario.dart';
+import 'package:ci/scenarios/check_publish_available_scenario.dart';
+import 'package:ci/scenarios/check_stability_not_changed_in_dev_scenario.dart';
+import 'package:ci/scenarios/check_version_in_release_note_scenario.dart';
+import 'package:ci/scenarios/licensing_check_scenario.dart';
+import 'package:ci/scenarios/upgrade_project_tag_scenario.dart';
 
 /// Набор методов и значений для работы со сценариями
 
