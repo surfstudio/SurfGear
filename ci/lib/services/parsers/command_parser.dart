@@ -9,6 +9,7 @@ import 'package:ci/scenarios/check_dependencies_stable_scenario.dart';
 import 'package:ci/scenarios/check_linter_scenario.dart';
 import 'package:ci/scenarios/check_publish_available_scenario.dart';
 import 'package:ci/scenarios/check_stability_not_changed_in_dev_scenario.dart';
+import 'package:ci/scenarios/check_stable_modules_not_changed_scenario.dart';
 import 'package:ci/scenarios/check_version_in_release_note_scenario.dart';
 import 'package:ci/scenarios/licensing_check_scenario.dart';
 import 'package:ci/scenarios/upgrade_project_tag_scenario.dart';
@@ -88,6 +89,9 @@ class CommandParser {
 
       /// check_stability_not_changed
       ..addCommand(CheckStabilityNotChangedInDevScenario.commandName)
+
+      /// check_stable_modules_not_changed
+      ..addCommand(CheckStableModulesNotChangedScenario.commandName)
 
       /// upgrade_project_tag
       ..addCommand(UpgradeProjectTagScenario.commandName);
