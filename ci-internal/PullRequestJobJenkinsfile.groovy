@@ -15,14 +15,14 @@ import static ru.surfstudio.ci.CommonUtil.extractValueFromEnvOrParamsAndRun
 // Stage names
 def PRE_MERGE = 'PreMerge'
 def CHECK_STABLE_MODULES_NOT_CHANGED = 'Check Stable Modules Not Changed'
+def CHECK_MODULES_IN_DEPENDENCY_TREE_OF_STABLE_MODULE_ALSO_STABLE = 'Check dependencies of stable element also stable'
 def CHECK_UNSTABLE_MODULES_DO_NOT_BECAME_STABLE = 'Check Unstable Modules Do Not Became Stable'
 def CHECK_RELEASE_NOTES_VALID = 'Check Release Notes Valid'
 def CHECK_RELEASE_NOTES_CHANGED = 'Check Release Notes Changed'
-def CHECK_LINT = "Check Lint"
-def CHECK_LICENSE = "Check license"
+def CHECK_LINT = 'Check Lint'
+def CHECK_LICENSE = 'Check license'
+def CHECK_OPENSOURCE_PUBLISH = 'Check publish for OpenSource modules'
 def CHECKS_RESULT = 'All Checks Result'
-
-def RELEASE_NOTES_DIFF = 'Release notes diff'
 
 def UNIT_TEST = 'Unit Test'
 def BUILD = 'Build'
@@ -49,18 +49,30 @@ def stagesForProjectMode = [
         UNIT_TEST
 ]
 
+def stagesForTargetBranchChangedMode = [
+        PRE_MERGE
+]
+
 def stagesForReleaseMode = [
         PRE_MERGE,
+        CHECK_STABLE_MODULES_NOT_CHANGED,
         CHECK_MODULES_IN_DEPENDENCY_TREE_OF_STABLE_MODULE_ALSO_STABLE,
+        CHECK_LICENSE,
+        CHECK_LINT,
         CHECK_RELEASE_NOTES_VALID,
         CHECK_RELEASE_NOTES_CHANGED,
+        CHECK_OPENSOURCE_PUBLISH,
         CHECKS_RESULT,
         BUILD,
         UNIT_TEST,
 ]
-
-def stagesForTargetBranchChangedMode = [
-        PRE_MERGE
+def stagesForDevMode = [
+        PRE_MERGE,
+        CHECK_STABLE_MODULES_NOT_CHANGED,
+        CHECK_LICENSE,
+        CHECK_LINT,
+        BUILD,
+        UNIT_TEST,
 ]
 
 //init
@@ -81,7 +93,6 @@ pipeline.postExecuteStageBody = { stage ->
 
 pipeline.initializeBody = {
     CommonUtil.printInitialStageStrategies(pipeline)
-
 
 
     //если триггером был webhook параметры устанавливаются как env, если запустили вручную, то устанавливается как params
@@ -122,6 +133,14 @@ pipeline.initializeBody = {
             "Build triggered by project destination branch, run only ${stagesForProjectMode} stages"
     )
 
+    configureStageSkipping(
+            script,
+            pipeline,
+            isDestinationBranchDev(destinationBranch),
+            stagesForDevMode,
+            "Build triggered by dev destination branch, run only ${stagesForDevMode} stages"
+    )
+
     def buildDescription = targetBranchChanged ?
             "$sourceBranch to $destinationBranch: target branch changed" :
             "$sourceBranch to $destinationBranch"
@@ -151,16 +170,12 @@ pipeline.stages = [
             script.sh "git merge origin/$destinationBranch --no-ff"
         },
 
-        pipeline.stage(RELEASE_NOTES_DIFF, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("command")
-        },
-
         pipeline.stage(CHECK_STABLE_MODULES_NOT_CHANGED, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./gradlew checkStableComponentsChanged -PrevisionToCompare=${lastDestinationBranchCommitHash}")
+            script.sh("./ci/runner/check_stability_not_changed") // todo поменять
         },
 
         pipeline.stage(CHECK_UNSTABLE_MODULES_DO_NOT_BECAME_STABLE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./gradlew checkUnstableToStableChanged -PrevisionToCompare=${lastDestinationBranchCommitHash}")
+            script.sh("./ci/runner/check_stability_not_changed")
         },
 
         pipeline.stage(CHECK_MODULES_IN_DEPENDENCY_TREE_OF_STABLE_MODULE_ALSO_STABLE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
@@ -244,4 +259,8 @@ def static isSourceBranchRelease(String sourceBranch) {
 
 def static isDestinationBranchProjectSnapshot(String destinationBranch) {
     return destinationBranch.startsWith("project-snapshot")
+}
+
+def static isDestinationBranchDev(String destinationBranch) {
+    return destinationBranch.startsWith("feature-ci") //todo переименовать
 }
