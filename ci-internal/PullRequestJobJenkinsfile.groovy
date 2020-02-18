@@ -18,7 +18,7 @@ def CHECK_STABLE_MODULES_NOT_CHANGED = 'Check Stable Modules Not Changed'
 def CHECK_MODULES_IN_DEPENDENCY_TREE_OF_STABLE_MODULE_ALSO_STABLE = 'Check dependencies of stable element also stable'
 def CHECK_UNSTABLE_MODULES_DO_NOT_BECAME_STABLE = 'Check Unstable Modules Do Not Became Stable'
 def CHECK_RELEASE_NOTES_VALID = 'Check Release Notes Valid'
-def CHECK_RELEASE_NOTES_CHANGED = 'Check Release Notes Changed'
+def WRITE_RELEASE_NOTE = 'Write Release Notes'
 def CHECK_LINT = 'Check Lint'
 def CHECK_LICENSE = 'Check license'
 def CHECK_OPENSOURCE_PUBLISH = 'Check publish for OpenSource modules'
@@ -60,7 +60,7 @@ def stagesForReleaseMode = [
         CHECK_LICENSE,
         CHECK_LINT,
         CHECK_RELEASE_NOTES_VALID,
-        CHECK_RELEASE_NOTES_CHANGED,
+        WRITE_RELEASE_NOTE,
         CHECK_OPENSOURCE_PUBLISH,
         CHECKS_RESULT,
         BUILD,
@@ -171,7 +171,7 @@ pipeline.stages = [
         },
 
         pipeline.stage(CHECK_STABLE_MODULES_NOT_CHANGED, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./ci/runner/check_stability_not_changed") // todo поменять
+            script.sh("./ci/runner/check_stable_modules_not_changed")
         },
 
         pipeline.stage(CHECK_UNSTABLE_MODULES_DO_NOT_BECAME_STABLE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
@@ -179,16 +179,18 @@ pipeline.stages = [
         },
 
         pipeline.stage(CHECK_MODULES_IN_DEPENDENCY_TREE_OF_STABLE_MODULE_ALSO_STABLE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./gradlew checkStableComponentStandardDependenciesStableTask")
+            script.sh("./ci/runner/check_dependencies_stable")
         },
 
         pipeline.stage(CHECK_RELEASE_NOTES_VALID, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./gradlew checkReleaseNotesContainCurrentVersion")
-            script.sh("./gradlew checkReleaseNotesNotContainCyrillic")
+            //todo не созданы сценарии
+//            script.sh("./gradlew checkReleaseNotesContainCurrentVersion")
+//            script.sh("./gradlew checkReleaseNotesNotContainCyrillic")
         },
 
-        pipeline.stage(CHECK_RELEASE_NOTES_CHANGED, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./gradlew checkReleaseNotesChanged -PrevisionToCompare=${lastDestinationBranchCommitHash}")
+        pipeline.stage(WRITE_RELEASE_NOTE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
+            //todo не созданы сценарии
+//            script.sh("./gradlew checkReleaseNotesChanged -PrevisionToCompare=${lastDestinationBranchCommitHash}")
         },
 
         pipeline.stage(CHECKS_RESULT) {
@@ -199,7 +201,7 @@ pipeline.stages = [
                     CHECK_UNSTABLE_MODULES_DO_NOT_BECAME_STABLE,
                     CHECK_MODULES_IN_DEPENDENCY_TREE_OF_STABLE_MODULE_ALSO_STABLE,
                     CHECK_RELEASE_NOTES_VALID,
-                    CHECK_RELEASE_NOTES_CHANGED
+                    WRITE_RELEASE_NOTE
             ].each { stageName ->
                 def stageResult = pipeline.getStage(stageName).result
                 checksPassed = checksPassed && (stageResult == Result.SUCCESS || stageResult == Result.NOT_BUILT)
