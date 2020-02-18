@@ -79,15 +79,12 @@ class CommandParser {
 
       /// check_publish_available
       ..addCommand(CheckPublishAvailableScenario.commandName)
-          .addOption(CheckPublishAvailableScenario.nameOption)
 
       /// check_version_in_release_note
       ..addCommand(CheckVersionInReleaseNoteScenario.commandName)
-          .addOption(CheckVersionInReleaseNoteScenario.nameOption)
 
       /// check_dependencies_stable
       ..addCommand(CheckDependenciesStableScenario.commandName)
-          .addOption(CheckDependenciesStableScenario.nameOption)
 
       /// check_stability_not_changed
       ..addCommand(CheckStabilityNotChangedInDevScenario.commandName)
