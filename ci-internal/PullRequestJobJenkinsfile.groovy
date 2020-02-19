@@ -14,6 +14,7 @@ import static ru.surfstudio.ci.CommonUtil.extractValueFromEnvOrParamsAndRun
 
 // Stage names
 def PRE_MERGE = 'PreMerge'
+def GET_DEPENDENCIES = 'Getting dependencies'
 def CHECK_STABLE_MODULES_NOT_CHANGED = 'Check Stable Modules Not Changed'
 def CHECK_MODULES_IN_DEPENDENCY_TREE_OF_STABLE_MODULE_ALSO_STABLE = 'Check dependencies of stable element also stable'
 def CHECK_UNSTABLE_MODULES_DO_NOT_BECAME_STABLE = 'Check Unstable Modules Do Not Became Stable'
@@ -45,6 +46,7 @@ final String TEMP_FOLDER_NAME = "temp"
 
 def stagesForProjectMode = [
         PRE_MERGE,
+        GET_DEPENDENCIES,
         BUILD,
         UNIT_TEST
 ]
@@ -55,6 +57,7 @@ def stagesForTargetBranchChangedMode = [
 
 def stagesForReleaseMode = [
         PRE_MERGE,
+        GET_DEPENDENCIES,
         CHECK_STABLE_MODULES_NOT_CHANGED,
         CHECK_MODULES_IN_DEPENDENCY_TREE_OF_STABLE_MODULE_ALSO_STABLE,
         CHECK_LICENSE,
@@ -68,6 +71,7 @@ def stagesForReleaseMode = [
 ]
 def stagesForDevMode = [
         PRE_MERGE,
+        GET_DEPENDENCIES,
         CHECK_STABLE_MODULES_NOT_CHANGED,
         CHECK_LICENSE,
         CHECK_LINT,
@@ -169,6 +173,10 @@ pipeline.stages = [
             //local merge with destination
             script.sh "git merge origin/$destinationBranch --no-ff"
         },
+
+        pipeline.stage(GET_DEPENDENCIES) {
+            script.sh "pub get"
+        }
 
         pipeline.stage(CHECK_STABLE_MODULES_NOT_CHANGED, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
             script.sh("./ci/runner/check_stable_modules_not_changed")
