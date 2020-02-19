@@ -175,7 +175,7 @@ pipeline.stages = [
         },
 
         pipeline.stage(GET_DEPENDENCIES) {
-            script.sh "pub get"
+            script.sh "cd ci/ && pub get"
         },
 
         pipeline.stage(CHECK_STABLE_MODULES_NOT_CHANGED, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
