@@ -179,7 +179,7 @@ pipeline.stages = [
         },
 
         pipeline.stage(CHECK_STABLE_MODULES_NOT_CHANGED, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./ci/runner/check_stable_modules_not_changed")
+            script.sh("pwd && ./ci/runner/check_stable_modules_not_changed")
         },
 
         pipeline.stage(CHECK_UNSTABLE_MODULES_DO_NOT_BECAME_STABLE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
