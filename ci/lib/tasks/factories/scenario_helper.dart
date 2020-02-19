@@ -1,3 +1,6 @@
+import 'package:ci/scenarios/check_cyrillic_in_changelog_scenario.dart';
+import 'package:ci/scenarios/check_stable_modules_not_changed_scenario.dart';
+import 'package:ci/scenarios/write_release_note_scenario.dart';
 import 'package:ci/tasks/factories/scenario_task_factory.dart';
 import 'package:ci/scenarios/add_copyrights_scenario.dart';
 import 'package:ci/scenarios/add_license_scenario.dart';
@@ -31,6 +34,12 @@ Map<String, ScenarioBuilder> scenarioMap = <String, ScenarioBuilder>{
       CheckDependenciesStableScenario(command, parser),
   CheckStabilityNotChangedInDevScenario.commandName: (command, parser) =>
       CheckStabilityNotChangedInDevScenario(command, parser),
+  CheckStableModulesNotChangedScenario.commandName: (command, parser) =>
+      CheckStableModulesNotChangedScenario(command, parser),
+  CheckCyrillicInChangelogScenario.commandName: (command, parser) =>
+      CheckCyrillicInChangelogScenario(command, parser),
+  WriteReleaseNoteScenario.commandName: (command, parser) =>
+      WriteReleaseNoteScenario(command, parser),
   UpgradeProjectTagScenario.commandName: (command, parser) =>
       UpgradeProjectTagScenario(command, parser),
 };
