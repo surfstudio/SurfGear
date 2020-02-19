@@ -5,6 +5,7 @@ import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/scenarios/add_copyrights_scenario.dart';
 import 'package:ci/scenarios/add_license_scenario.dart';
 import 'package:ci/scenarios/build_scenario.dart';
+import 'package:ci/scenarios/check_cyrillic_in_changelog_scenario.dart';
 import 'package:ci/scenarios/check_dependencies_stable_scenario.dart';
 import 'package:ci/scenarios/check_linter_scenario.dart';
 import 'package:ci/scenarios/check_publish_available_scenario.dart';
@@ -13,6 +14,7 @@ import 'package:ci/scenarios/check_stable_modules_not_changed_scenario.dart';
 import 'package:ci/scenarios/check_version_in_release_note_scenario.dart';
 import 'package:ci/scenarios/licensing_check_scenario.dart';
 import 'package:ci/scenarios/upgrade_project_tag_scenario.dart';
+import 'package:ci/scenarios/write_release_note_scenario.dart';
 import 'package:ci/utils/arg_results_extension.dart';
 import 'package:ci/utils/string_util.dart';
 
@@ -92,6 +94,12 @@ class CommandParser {
 
       /// check_stable_modules_not_changed
       ..addCommand(CheckStableModulesNotChangedScenario.commandName)
+      
+      /// check_cyrillic_in_changelog
+      ..addCommand(CheckCyrillicInChangelogScenario.commandName)
+      
+      /// write_release_note
+      ..addCommand(WriteReleaseNoteScenario.commandName)
 
       /// upgrade_project_tag
       ..addCommand(UpgradeProjectTagScenario.commandName);

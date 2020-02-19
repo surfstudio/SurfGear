@@ -111,7 +111,6 @@ Future<bool> checkVersionInReleaseNote(Element element) {
 Future<bool> checkDependenciesStable(Element element) => CheckDependencyStable(element).run();
 
 /// Создаём общий RELEASE_NOTES.md и коммитим его
-/// dart ci generates_release_notes_task List<Element>
 Future<void> writeReleaseNotes(List<Element> elements) {
   return GeneratesReleaseNotesTask(
     elements,
@@ -120,7 +119,6 @@ Future<void> writeReleaseNotes(List<Element> elements) {
 }
 
 /// Проверяем на кириллицу в файле CHANGELOG.md
-/// dart ci check_cyrillic_changelog_task element
 Future<bool> checkCyrillicChangelog(Element element) {
   return FindCyrillicChangelogTask(
     element,

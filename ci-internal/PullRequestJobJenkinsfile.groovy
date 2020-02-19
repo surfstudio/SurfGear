@@ -183,14 +183,12 @@ pipeline.stages = [
         },
 
         pipeline.stage(CHECK_RELEASE_NOTES_VALID, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            //todo не созданы сценарии
-//            script.sh("./gradlew checkReleaseNotesContainCurrentVersion")
-//            script.sh("./gradlew checkReleaseNotesNotContainCyrillic")
+            script.sh("./ci/runner/check_version_in_release_note")
+            script.sh("./ci/runner/check_cyrillic_in_changelog")
         },
 
         pipeline.stage(WRITE_RELEASE_NOTE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            //todo не созданы сценарии
-//            script.sh("./gradlew checkReleaseNotesChanged -PrevisionToCompare=${lastDestinationBranchCommitHash}")
+            script.sh("./ci/runner/write_release_note_scenario")
         },
 
         pipeline.stage(CHECKS_RESULT) {
