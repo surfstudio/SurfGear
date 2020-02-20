@@ -14,7 +14,8 @@ void main() {
       test(
         'when changelog not contains cyrillic should return true.',
         () async {
-          var task = _prepareTestTask('The quick brown fox jumps over the lazy dog.');
+          var task =
+              _prepareTestTask('The quick brown fox jumps over the lazy dog.');
           expect(
             await task.run(),
             isTrue,
@@ -36,18 +37,40 @@ void main() {
           );
         },
       );
+
+      test(
+        'If changelog not exist, task should throw correct exception.',
+            () async {
+          var task = _prepareTestTask(
+              '', isExistFile: false);
+
+          expect(
+                () async => await task.run(),
+            throwsA(
+              TypeMatcher<FileNotFoundException>(),
+            ),
+          );
+        },
+      );
     },
   );
 }
 
-FindCyrillicChangelogTask _prepareTestTask(String textInFile) {
+FindCyrillicChangelogTask _prepareTestTask(String textInFile,
+    {bool isExistFile = true}) {
   var mock = FileSystemManagerMock();
   var element = createTestElement();
+  var filePath = join(element.path, 'CHANGELOG.md');
   when(
     mock.readFileAsString(
-      join(element.path, 'CHANGELOG.md'),
+      filePath,
     ),
   ).thenReturn(textInFile);
+  when(
+    mock.isExist(
+      filePath,
+    ),
+  ).thenReturn(isExistFile);
 
   return FindCyrillicChangelogTask(element, mock);
 }

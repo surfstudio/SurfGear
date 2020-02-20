@@ -28,7 +28,17 @@ class FindCyrillicChangelogTask extends Check {
 
   @override
   Future<bool> run() async {
-    var strFile = await _fileSystemManager.readFileAsString(join(element.path, _nameFile));
+    var filePath = join(element.path, _nameFile);
+
+    if (!_fileSystemManager.isExist(filePath)) {
+      return Future.error(
+        FileNotFoundException(
+          getFileNotFoundExceptionText(filePath),
+        ),
+      );
+    }
+
+    var strFile = await _fileSystemManager.readFileAsString(filePath);
     if (strFile.contains(_regExp)) {
       return Future.error(
         ContainsCyrillicInChangelogException(
