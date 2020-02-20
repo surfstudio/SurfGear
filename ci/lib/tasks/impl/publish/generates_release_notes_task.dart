@@ -29,7 +29,11 @@ class GeneratesReleaseNotesTask extends Action {
   @override
   Future<void> run() async {
     var strFile = await _generateChangeLog();
-    await _fileSystemManager.writeToFileAsString(_releaseNote, strFile, mode: FileMode.write);
+    await _fileSystemManager.writeToFileAsString(
+      _releaseNote,
+      strFile,
+      mode: FileMode.write,
+    );
 
     try {
       await _handleResult(
@@ -62,12 +66,15 @@ class GeneratesReleaseNotesTask extends Action {
     var strFile = '';
     for (var element in _elements) {
       strFile = strFile + '# ' + element.name.toString();
-      strFile = strFile + await _fileSystemManager.readFileAsString(join(element.path, _changelog));
+      strFile = strFile +
+          await _fileSystemManager
+              .readFileAsString(join(element.path, _changelog));
     }
     return strFile;
   }
 
-  Future<void> _handleResult(ProcessResult processResult, GitProcessException error) async {
+  Future<void> _handleResult(
+      ProcessResult processResult, GitProcessException error) async {
     processResult.print();
     if (processResult.exitCode != 0) {
       return Future.error(error);
