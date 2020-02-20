@@ -228,10 +228,7 @@ pipeline.stages = [
         },
 
         pipeline.stage(UNIT_TEST) {
-            AndroidPipelineHelper.unitTestStageBodyAndroid(script,
-                    "testReleaseUnitTest",
-                    "**/test-results/testReleaseUnitTest/*.xml",
-                    "app/build/reports/tests/testReleaseUnitTest/")
+            //TODO: запуск тестов
         },
 ]
 pipeline.finalizeBody = {
