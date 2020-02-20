@@ -151,7 +151,7 @@ Future<bool> checkLicensing(
   }
 
   if (failList.isNotEmpty) {
-    var errorString;
+    var errorString = '';
 
     failList.forEach((key, value) {
       errorString += key.name + ':\n';
