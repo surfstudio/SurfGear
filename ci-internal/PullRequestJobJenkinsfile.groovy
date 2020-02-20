@@ -196,7 +196,7 @@ pipeline.stages = [
         },
 
         pipeline.stage(WRITE_RELEASE_NOTE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./ci/runner/write_release_note_scenario")
+            script.sh("./ci/runner/write_release_note")
         },
 
         pipeline.stage(CHECKS_RESULT) {
@@ -224,8 +224,9 @@ pipeline.stages = [
         },
 
         pipeline.stage(BUILD) {
-            script.sh("./ci/runner/build_scenario")
+            script.sh("./ci/runner/build")
         },
+
         pipeline.stage(UNIT_TEST) {
             AndroidPipelineHelper.unitTestStageBodyAndroid(script,
                     "testReleaseUnitTest",
