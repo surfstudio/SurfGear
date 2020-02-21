@@ -51,7 +51,7 @@ class GeneratesReleaseNotesTask extends Action {
       );
 
       await _handleResult(
-        await sh('git push origin master'),
+        await sh('git push'),
         PushException(
           getGitPushExceptionText(_releaseNote),
         ),
