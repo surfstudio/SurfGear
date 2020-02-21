@@ -11,7 +11,7 @@ import 'package:ci/tasks/tasks.dart';
 ///
 /// Пример вызова:
 /// dart ci run_tests
-class RunTestScenario extends Scenario {
+class RunTestScenario extends ChangedElementScenario {
   static const String commandName = 'run_tests';
 
   RunTestScenario(

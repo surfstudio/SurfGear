@@ -12,7 +12,7 @@ List<Element> getStableModules(List<Element> elements) {
 /// Ищет изменения в указанных модулях, опираясь на разницу
 /// между двумя последними коммитами.
 Future<List<Element>> findChangedElements(List<Element> elements) async {
-  await markChangedElements(elements);
+  elements = await markChangedElements(elements);
 
   return filterChangedElements(elements);
 }
@@ -78,13 +78,19 @@ Future<bool> validateCommandParamForElements(
 
 /// Помечает измененные модули, опираясь на разницу
 /// между двумя последними коммитами.
-Future<void> markChangedElements(List<Element> elements) async {
+Future<List<Element>> markChangedElements(List<Element> elements) async {
   final result = await sh('git diff --name-only HEAD HEAD~');
   final diff = result.stdout as String;
 
   print('Файлы, изменённые в последнем коммите:\n$diff');
 
-  elements
-      .where((e) => diff.contains(e.directoryName))
-      .forEach((e) => e.changed = true);
+  return elements.map(
+    (e) {
+      if (diff.contains(e.directoryName)) {
+        e.changed = true;
+      }
+
+      return e;
+    },
+  ).toList();
 }

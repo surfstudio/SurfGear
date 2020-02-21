@@ -9,7 +9,7 @@ import 'package:ci/tasks/core/scenario.dart';
 ///
 /// Пример вызова:
 /// dart ci check_version_in_release_note
-class CheckVersionInReleaseNoteScenario extends Scenario {
+class CheckVersionInReleaseNoteScenario extends ChangedElementScenario {
   static const String commandName = 'check_version_in_release_note';
 
   CheckVersionInReleaseNoteScenario(

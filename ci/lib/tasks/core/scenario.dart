@@ -6,6 +6,8 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:meta/meta.dart';
 
+import '../utils.dart';
+
 /// Интерфейс некоторого сценария исполнения команды
 abstract class Scenario extends Action {
   final Command command;
@@ -49,4 +51,14 @@ abstract class Scenario extends Action {
   /// Доступна для переопределения, чтобы выполнить некоторые действия после.
   @protected
   Future<void> postExecute() async {}
+}
+
+/// Интерфейс сценария, работающего только по измененным элементам
+abstract class ChangedElementScenario extends Scenario {
+  ChangedElementScenario(Command command, PubspecParser pubspecParser)
+      : super(command, pubspecParser);
+
+  @override
+  Future<List<Element>> preExecute() async =>
+      await findChangedElements(await super.preExecute());
 }

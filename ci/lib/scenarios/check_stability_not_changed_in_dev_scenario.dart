@@ -9,7 +9,7 @@ import 'package:ci/tasks/core/scenario.dart';
 ///
 /// Пример вызова:
 /// dart ci check_stability_not_changed
-class CheckStabilityNotChangedInDevScenario extends Scenario {
+class CheckStabilityNotChangedInDevScenario extends ChangedElementScenario {
   static const String commandName = 'check_stability_not_changed';
 
   CheckStabilityNotChangedInDevScenario(
