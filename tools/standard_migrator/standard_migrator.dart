@@ -47,11 +47,15 @@ void main(List<String> arguments) {
     throw Exception("Packages directory not found.");
   }
 
-  var elementList = packagesDir.listSync().where((e) => FileSystemEntity.isDirectorySync(e.path)).toList();
+  var elementList = packagesDir
+      .listSync()
+      .where((e) => FileSystemEntity.isDirectorySync(e.path))
+      .toList();
 
   for (var element in elementList) {
     var elementName = basename(element.path);
-    pubspec = pubspec.replaceAll('path: $elementName', 'path: packages/$elementName');
+    pubspec =
+        pubspec.replaceAll('path: $elementName', 'path: packages/$elementName');
   }
 
   pubspecFile.writeAsStringSync(pubspec);
