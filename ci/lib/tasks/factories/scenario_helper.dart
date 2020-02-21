@@ -4,6 +4,7 @@ import 'package:ci/scenarios/clear_changed_scenario.dart';
 import 'package:ci/scenarios/find_changed_modules_scenario.dart';
 import 'package:ci/scenarios/increment_unstable_versions_scenario.dart';
 import 'package:ci/scenarios/run_test_scenario.dart';
+import 'package:ci/scenarios/helper_scenario.dart';
 import 'package:ci/scenarios/write_release_note_scenario.dart';
 import 'package:ci/tasks/factories/scenario_task_factory.dart';
 import 'package:ci/scenarios/add_copyrights_scenario.dart';
@@ -46,6 +47,8 @@ Map<String, ScenarioBuilder> scenarioMap = <String, ScenarioBuilder>{
       WriteReleaseNoteScenario(command, parser),
   UpgradeProjectTagScenario.commandName: (command, parser) =>
       UpgradeProjectTagScenario(command, parser),
+  HelperScenario.commandName: (command, parser) =>
+      HelperScenario(command, parser),
   RunTestScenario.commandName: (command, parser) =>
       RunTestScenario(command, parser),
   FindChangedModulesScenario.commandName: (command, parser) =>

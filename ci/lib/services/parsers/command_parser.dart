@@ -19,6 +19,7 @@ import 'package:ci/scenarios/licensing_check_scenario.dart';
 import 'package:ci/scenarios/run_test_scenario.dart';
 import 'package:ci/scenarios/upgrade_project_tag_scenario.dart';
 import 'package:ci/scenarios/write_release_note_scenario.dart';
+import 'package:ci/scenarios/helper_scenario.dart';
 import 'package:ci/utils/arg_results_extension.dart';
 import 'package:ci/utils/string_util.dart';
 
@@ -35,9 +36,9 @@ class CommandParser {
 
   /// Выполняет парсинг переданных аргументов и возвращает команду на исполнение.
   Future<Command> parse(List<String> arguments) async {
-    var parsed = _argParser.parse(arguments);
+    var argResults = _argParser.parse(arguments);
 
-    if (parsed.rest.isNotEmpty) {
+    if (argResults.rest.isNotEmpty) {
       return Future.error(
         ParseCommandException(
           getParseCommandExceptionText(
@@ -47,7 +48,8 @@ class CommandParser {
       );
     }
 
-    var command = await _getCommandByArgs(parsed);
+    var command = await _getCommandByArgs(argResults);
+
     if (command == null) {
       return Future.error(
         ParseCommandException(
@@ -108,13 +110,16 @@ class CommandParser {
       /// upgrade_project_tag
       ..addCommand(UpgradeProjectTagScenario.commandName)
 
+      /// help
+      ..addFlag(HelperScenario.flag, abbr: HelperScenario.abbrFlag)
+
       /// find_changed_modules
       ..addCommand(
         FindChangedModulesScenario.commandName,
         ArgParser()..addOption(FindChangedModulesScenario.targetOptionName),
       )
 
-    /// increment_unstable
+      /// increment_unstable
       ..addCommand(IncrementUnstableVersionsScenario.commandName)
 
       /// clear_changed
@@ -126,9 +131,17 @@ class CommandParser {
 
   Future<Command> _getCommandByArgs(ArgResults results) async {
     var command = results.command;
+    var showHelp = results[HelperScenario.flag] as bool;
+//    if (showHelp) {
+//      if (command == null) {
+//        return Command(HelperScenario.commandName, null);
+//      } else {
+//        return Command(HelperScenario.commandName, command.getParsed());
+//      }
+//    }
 
     if (command == null) {
-      return null;
+      return Command(HelperScenario.commandName, null);
     }
 
     switch (command.name) {
