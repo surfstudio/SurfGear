@@ -2,16 +2,19 @@ import 'package:args/args.dart';
 import 'package:ci/domain/command.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
-import 'package:ci/tasks/impl/scenarios/add_copyrights_scenario.dart';
-import 'package:ci/tasks/impl/scenarios/add_license_scenario.dart';
-import 'package:ci/tasks/impl/scenarios/build_scenario.dart';
-import 'package:ci/tasks/impl/scenarios/check_dependencies_stable_scenario.dart';
-import 'package:ci/tasks/impl/scenarios/check_linter_scenario.dart';
-import 'package:ci/tasks/impl/scenarios/check_publish_available_scenario.dart';
-import 'package:ci/tasks/impl/scenarios/check_stability_not_changed_in_dev_scenario.dart';
-import 'package:ci/tasks/impl/scenarios/check_version_in_release_note_scenario.dart';
-import 'package:ci/tasks/impl/scenarios/licensing_check_scenario.dart';
-import 'package:ci/tasks/impl/scenarios/upgrade_project_tag_scenario.dart';
+import 'package:ci/scenarios/add_copyrights_scenario.dart';
+import 'package:ci/scenarios/add_license_scenario.dart';
+import 'package:ci/scenarios/build_scenario.dart';
+import 'package:ci/scenarios/check_cyrillic_in_changelog_scenario.dart';
+import 'package:ci/scenarios/check_dependencies_stable_scenario.dart';
+import 'package:ci/scenarios/check_linter_scenario.dart';
+import 'package:ci/scenarios/check_publish_available_scenario.dart';
+import 'package:ci/scenarios/check_stability_not_changed_in_dev_scenario.dart';
+import 'package:ci/scenarios/check_stable_modules_not_changed_scenario.dart';
+import 'package:ci/scenarios/check_version_in_release_note_scenario.dart';
+import 'package:ci/scenarios/licensing_check_scenario.dart';
+import 'package:ci/scenarios/upgrade_project_tag_scenario.dart';
+import 'package:ci/scenarios/write_release_note_scenario.dart';
 import 'package:ci/utils/arg_results_extension.dart';
 import 'package:ci/utils/string_util.dart';
 
@@ -79,18 +82,24 @@ class CommandParser {
 
       /// check_publish_available
       ..addCommand(CheckPublishAvailableScenario.commandName)
-          .addOption(CheckPublishAvailableScenario.nameOption)
 
       /// check_version_in_release_note
       ..addCommand(CheckVersionInReleaseNoteScenario.commandName)
-          .addOption(CheckVersionInReleaseNoteScenario.nameOption)
 
       /// check_dependencies_stable
       ..addCommand(CheckDependenciesStableScenario.commandName)
-          .addOption(CheckDependenciesStableScenario.nameOption)
 
       /// check_stability_not_changed
       ..addCommand(CheckStabilityNotChangedInDevScenario.commandName)
+
+      /// check_stable_modules_not_changed
+      ..addCommand(CheckStableModulesNotChangedScenario.commandName)
+      
+      /// check_cyrillic_in_changelog
+      ..addCommand(CheckCyrillicInChangelogScenario.commandName)
+      
+      /// write_release_note
+      ..addCommand(WriteReleaseNoteScenario.commandName)
 
       /// upgrade_project_tag
       ..addCommand(UpgradeProjectTagScenario.commandName);

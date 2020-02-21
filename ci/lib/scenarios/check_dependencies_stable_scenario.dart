@@ -1,25 +1,16 @@
 import 'package:ci/domain/command.dart';
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
-import 'package:ci/exceptions/exceptions_strings.dart';
-import 'package:ci/services/parsers/command_parser.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
-import 'package:ci/tasks/core/task.dart';
+import 'package:ci/tasks/core/scenario.dart';
 
 /// Сценарий для команды check_dependencies_stable.
 ///
 /// Пример вызова:
-/// dart ci check_dependencies_stable --name=anyName
-class CheckDependenciesStableScenario extends OneElementScenario {
+/// dart ci check_dependencies_stable
+class CheckDependenciesStableScenario extends Scenario {
   static const String commandName = 'check_dependencies_stable';
-  static const String nameOption = CommandParser.defaultNameOption;
-
-  @override
-  String get formatExceptionText => getCommandFormatExceptionText(
-        commandName,
-        'ожидалось check_dependencies_stable --name=anyName',
-      );
 
   CheckDependenciesStableScenario(
     Command command,
@@ -34,6 +25,18 @@ class CheckDependenciesStableScenario extends OneElementScenario {
     try {
       /// Проверяем что зависимости элемента стабильны
       await checkDependenciesStable(element);
+    } on BaseCiException {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> doExecute(List<Element> elements) async {
+    try {
+      for (var element in elements) {
+        /// Проверяем что зависимости элемента стабильны
+        await checkDependenciesStable(element);
+      }
     } on BaseCiException {
       rethrow;
     }

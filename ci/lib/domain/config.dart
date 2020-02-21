@@ -19,7 +19,7 @@ abstract class Config {
     'license',
   );
 
-  static final String _standardPath = Directory.current.parent.path;
+  static final String _standardPath = Directory.current.path;
 
   /// Путь до файла с лицензией
   static final String licenseFilePath = join(

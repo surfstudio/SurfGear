@@ -48,7 +48,7 @@ class FileSystemManager {
     );
 
     if (filter != null) {
-      res = res.where(filter);
+      res = res.where(filter).toList();
     }
 
     return res;
