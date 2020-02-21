@@ -1,6 +1,7 @@
 @Library('surf-lib@version-2.0.0-SNAPSHOT') // https://bitbucket.org/surfstudio/jenkins-pipeline-lib/
 
 import ru.surfstudio.ci.pipeline.empty.EmptyScmPipeline
+import ru.surfstudio.ci.pipeline.pr.PrPipeline
 import ru.surfstudio.ci.JarvisUtil
 import ru.surfstudio.ci.CommonUtil
 import ru.surfstudio.ci.RepositoryUtil
