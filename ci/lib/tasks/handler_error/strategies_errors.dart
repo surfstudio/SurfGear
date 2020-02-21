@@ -11,6 +11,7 @@ Future<void> strategyForUnknownErrors(Exception exception, StackTrace stackTrace
 /// Стандартная стратегия обработки ошибок модуля CI
 Future<void> standardErrorHandlingStrategy(Exception exception, StackTrace stackTrace) async {
   print(exception);
+  print(stackTrace);
   exitCode = 1;
 }
 

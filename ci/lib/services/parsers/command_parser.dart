@@ -15,6 +15,7 @@ import 'package:ci/scenarios/check_version_in_release_note_scenario.dart';
 import 'package:ci/scenarios/licensing_check_scenario.dart';
 import 'package:ci/scenarios/upgrade_project_tag_scenario.dart';
 import 'package:ci/scenarios/write_release_note_scenario.dart';
+import 'package:ci/scenarios/helper_scenario.dart';
 import 'package:ci/utils/arg_results_extension.dart';
 import 'package:ci/utils/string_util.dart';
 
@@ -31,9 +32,9 @@ class CommandParser {
 
   /// Выполняет парсинг переданных аргументов и возвращает команду на исполнение.
   Future<Command> parse(List<String> arguments) async {
-    var parsed = _argParser.parse(arguments);
+    var argResults = _argParser.parse(arguments);
 
-    if (parsed.rest.isNotEmpty) {
+    if (argResults.rest.isNotEmpty) {
       return Future.error(
         ParseCommandException(
           getParseCommandExceptionText(
@@ -43,7 +44,8 @@ class CommandParser {
       );
     }
 
-    var command = await _getCommandByArgs(parsed);
+    var command = await _getCommandByArgs(argResults);
+
     if (command == null) {
       return Future.error(
         ParseCommandException(
@@ -94,22 +96,33 @@ class CommandParser {
 
       /// check_stable_modules_not_changed
       ..addCommand(CheckStableModulesNotChangedScenario.commandName)
-      
+
       /// check_cyrillic_in_changelog
       ..addCommand(CheckCyrillicInChangelogScenario.commandName)
-      
+
       /// write_release_note
       ..addCommand(WriteReleaseNoteScenario.commandName)
 
       /// upgrade_project_tag
-      ..addCommand(UpgradeProjectTagScenario.commandName);
+      ..addCommand(UpgradeProjectTagScenario.commandName)
+
+      /// help
+      ..addFlag(HelperScenario.flag, abbr: HelperScenario.abbrFlag);
   }
 
   Future<Command> _getCommandByArgs(ArgResults results) async {
     var command = results.command;
+    var showHelp = results[HelperScenario.flag] as bool;
+//    if (showHelp) {
+//      if (command == null) {
+//        return Command(HelperScenario.commandName, null);
+//      } else {
+//        return Command(HelperScenario.commandName, command.getParsed());
+//      }
+//    }
 
     if (command == null) {
-      return null;
+      return Command(HelperScenario.commandName, null);
     }
 
     switch (command.name) {
