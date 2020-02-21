@@ -40,6 +40,13 @@ pipeline.postExecuteStageBody = { stage ->
 pipeline.initializeBody = {
     CommonUtil.printInitialStageStrategies(pipeline)
 
+    //Выбираем значения веток из параметров, Установка их в параметры происходит
+    // если триггером был webhook или если стартанули Job вручную
+    //Используется имя branchName_0 из за особенностей jsonPath в GenericWebhook plugin
+    CommonUtil.extractValueFromEnvOrParamsAndRun(script, 'branchName_0') {
+        value -> branchName = value
+    }
+
     if (branchName.contains("origin/")) {
         branchName = branchName.replace("origin/", "")
     }
