@@ -13,6 +13,7 @@ import 'package:ci/scenarios/check_stability_not_changed_in_dev_scenario.dart';
 import 'package:ci/scenarios/check_stable_modules_not_changed_scenario.dart';
 import 'package:ci/scenarios/check_version_in_release_note_scenario.dart';
 import 'package:ci/scenarios/licensing_check_scenario.dart';
+import 'package:ci/scenarios/run_test_scenario.dart';
 import 'package:ci/scenarios/upgrade_project_tag_scenario.dart';
 import 'package:ci/scenarios/write_release_note_scenario.dart';
 import 'package:ci/utils/arg_results_extension.dart';
@@ -102,7 +103,10 @@ class CommandParser {
       ..addCommand(WriteReleaseNoteScenario.commandName)
 
       /// upgrade_project_tag
-      ..addCommand(UpgradeProjectTagScenario.commandName);
+      ..addCommand(UpgradeProjectTagScenario.commandName)
+
+      /// run_tests
+      ..addCommand(RunTestScenario
   }
 
   Future<Command> _getCommandByArgs(ArgResults results) async {
