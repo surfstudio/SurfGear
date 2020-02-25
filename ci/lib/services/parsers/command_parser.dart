@@ -106,7 +106,7 @@ class CommandParser {
       ..addCommand(UpgradeProjectTagScenario.commandName)
 
       /// run_tests
-      ..addCommand(RunTestScenario
+      ..addCommand(RunTestScenario.commandName);
   }
 
   Future<Command> _getCommandByArgs(ArgResults results) async {
