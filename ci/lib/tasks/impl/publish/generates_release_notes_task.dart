@@ -44,7 +44,7 @@ class GeneratesReleaseNotesTask extends Action {
       );
 
       await _handleResult(
-        await sh("git commit -m 'update RELEASE_NOTES.md file'"),
+        await sh("git commit -m 'update RELEASE_NOTES.md test test'"),
         CommitException(
           getGitCommitExceptionText(_releaseNote),
         ),
