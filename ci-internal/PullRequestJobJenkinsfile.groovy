@@ -227,7 +227,7 @@ pipeline.stages = [
         },
 
         pipeline.stage(UNIT_TEST) {
-            //TODO: запуск тестов
+            script.sh("./ci/runner/run_tests")
         },
 ]
 pipeline.finalizeBody = {

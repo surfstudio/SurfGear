@@ -9,7 +9,7 @@ import 'package:ci/tasks/utils.dart';
 ///
 /// Пример вызова:
 /// dart ci build
-class BuildScenario extends Scenario {
+class BuildScenario extends ChangedElementScenario {
   static const String commandName = 'build';
 
   BuildScenario(
@@ -19,16 +19,6 @@ class BuildScenario extends Scenario {
           command,
           pubspecParser,
         );
-
-  @override
-  Future<List<Element>> preExecute() async {
-    var elements = await super.preExecute();
-
-    /// ищем измененные элементы и фильтруем
-    await markChangedElements(elements);
-
-    return filterChangedElements(elements);
-  }
 
   @override
   Future<void> doExecute(List<Element> elements) {

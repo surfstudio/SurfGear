@@ -9,7 +9,7 @@ import 'package:ci/tasks/core/scenario.dart';
 ///
 /// Пример вызова:
 /// dart ci check_publish_available
-class CheckPublishAvailableScenario extends Scenario {
+class CheckPublishAvailableScenario extends ChangedElementScenario {
   static const String commandName = 'check_publish_available';
 
   CheckPublishAvailableScenario(Command command, PubspecParser pubspecParser)

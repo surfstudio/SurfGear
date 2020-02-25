@@ -9,7 +9,7 @@ import 'package:ci/tasks/core/scenario.dart';
 ///
 /// Пример вызова:
 /// dart ci check_dependencies_stable
-class CheckDependenciesStableScenario extends Scenario {
+class CheckDependenciesStableScenario extends ChangedElementScenario {
   static const String commandName = 'check_dependencies_stable';
 
   CheckDependenciesStableScenario(
