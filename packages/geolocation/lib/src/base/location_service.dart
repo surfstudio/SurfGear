@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:geolocation/src/base/data/location.dart';
-import 'package:rxdart/rxdart.dart';
 
 /// Service for location handling.
 ///
@@ -38,5 +37,5 @@ abstract class LocationService {
   Future<bool> isLocationServiceEnabled();
 
   /// Returns a stream of location information.
-  Observable<Location> observeLocation();
+  Stream<Location> observeLocation();
 }

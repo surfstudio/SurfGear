@@ -7,8 +7,11 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  flutter:
+    sdk: flutter
+
   #connection
-  connectivity: 0.4.5+3
+  connectivity: 0.4.6+2
 
 custom:
   is_stable: false

@@ -41,17 +41,24 @@ class AppComponent implements Component {
   PushHandler pushHandler;
 
   AppComponent(BuildContext context) {
+    rebuildDependencies();
+  }
+
+  void rebuildDependencies() {
+    _initDependencies();
+  }
+
+  void _initDependencies() {
     messageController = MaterialMessageController(scaffoldKey);
     dialogController = DefaultDialogController(scaffoldKey);
     authStorage = AuthInfoStorage(preferencesHelper);
     http = _initHttp(authStorage);
     scInteractor = SessionChangedInteractor(authStorage);
     pushHandler = PushHandler(
-      PushStrategyFactory(),
-      notificationController,
-      //messagingService,
-      null
-    );
+        PushStrategyFactory(),
+        notificationController,
+        //messagingService,
+        null);
 
     counterInteractor = CounterInteractor(
       CounterRepository(preferencesHelper),
