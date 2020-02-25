@@ -26,6 +26,7 @@ class TabNavigator extends StatefulWidget {
   final ObserversBuilder observersBuilder;
   final RouteTransitionsBuilder transitionsBuilder;
   final Duration transitionDuration;
+  final RouteFactory onGenerateRoute;
 
   static TabNavigatorState of(BuildContext context) {
     Type type = _typeOf<TabNavigatorState>();
@@ -49,6 +50,7 @@ class TabNavigator extends StatefulWidget {
     this.observersBuilder,
     RouteTransitionsBuilder transitionsBuilder,
     this.transitionDuration = const Duration(milliseconds: 300),
+    this.onGenerateRoute,
   })  : assert(mappedTabs != null),
         assert(selectedTabStream != null),
         assert(initialTab != null),
@@ -126,20 +128,22 @@ class TabNavigatorState extends State<TabNavigator> {
               observers: widget.observersBuilder != null
                   ? widget.observersBuilder(tabType)
                   : [],
-              onGenerateRoute: (rs) => PageRouteBuilder(
-                settings: RouteSettings(
-                  isInitialRoute: true,
-                  name: Navigator.defaultRouteName,
-                ),
-                transitionsBuilder: widget.transitionsBuilder,
-                transitionDuration: widget.transitionDuration,
-                pageBuilder: (
-                  context,
-                  animation,
-                  secondaryAnimation,
-                ) =>
-                    widget.mappedTabs[tabType](),
-              ),
+              onGenerateRoute: (rs) => rs.name == Navigator.defaultRouteName
+                  ? PageRouteBuilder(
+                      settings: RouteSettings(
+                        isInitialRoute: true,
+                        name: Navigator.defaultRouteName,
+                      ),
+                      transitionsBuilder: widget.transitionsBuilder,
+                      transitionDuration: widget.transitionDuration,
+                      pageBuilder: (
+                        context,
+                        animation,
+                        secondaryAnimation,
+                      ) =>
+                          widget.mappedTabs[tabType](),
+                    )
+                  : widget.onGenerateRoute?.call(rs),
             ),
           ),
         )
