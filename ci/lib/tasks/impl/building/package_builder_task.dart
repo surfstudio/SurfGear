@@ -61,6 +61,7 @@ class PackageBuilderTask extends Action {
     );
 
     if (example != null) {
+      print('Start build example for ${package.name}');
       var res = await sh(buildCmd, path: example.path);
       res.print();
       return res.exitCode == 0;

@@ -37,7 +37,7 @@ Future<void> build(List<Element> elements) async {
   if (failList.isNotEmpty) {
     return Future.error(
       PackageBuildException(
-        getPackageBuildExceptionText(failList.join(', ')),
+        getPackageBuildExceptionText(failList.map((e) => e.name).join(', ')),
       ),
     );
   }
