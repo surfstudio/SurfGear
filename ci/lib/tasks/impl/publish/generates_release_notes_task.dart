@@ -12,6 +12,7 @@ import 'package:path/path.dart';
 
 /// Файл, который читаем
 const String _changelog = 'CHANGELOG.md';
+const String _message = 'update RELEASE_NOTES.md file';
 
 /// Создаём файл RELEASE_NOTES.md, который содержит CHANGELOG.md из всех библиотек
 class GeneratesReleaseNotesTask extends Action {
@@ -34,7 +35,7 @@ class GeneratesReleaseNotesTask extends Action {
       strFile,
       mode: FileMode.write,
     );
-    await sh('cd ..');
+
     try {
       await _handleResult(
         await sh('git add $_releaseNote'),
@@ -44,7 +45,7 @@ class GeneratesReleaseNotesTask extends Action {
       );
 
       await _handleResult(
-        await sh("git commit -m 'update RELEASE_NOTES.md test test'"),
+        await sh('git commit -m', arguments: [_message]),
         CommitException(
           getGitCommitExceptionText(_releaseNote),
         ),
