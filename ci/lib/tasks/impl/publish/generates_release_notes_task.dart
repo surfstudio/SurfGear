@@ -34,7 +34,7 @@ class GeneratesReleaseNotesTask extends Action {
       strFile,
       mode: FileMode.write,
     );
-
+    await sh('cd ..');
     try {
       await _handleResult(
         await sh('git add $_releaseNote'),
