@@ -28,6 +28,8 @@ def CHECKS_RESULT = 'All Checks Result'
 def UNIT_TEST = 'Unit Test'
 def BUILD = 'Build'
 
+def CLEAR_CHANGED = 'Clear changed'
+
 // git variables
 def sourceBranch = ""
 def destinationBranch = ""
@@ -236,6 +238,10 @@ pipeline.stages = [
 
         pipeline.stage(UNIT_TEST) {
             script.sh("./ci/runner/run_tests")
+        },
+
+        pipeline.stage(CLEAR_CHANGED) {
+            script.sh "./ci/runner/clear_changed"
         },
 ]
 pipeline.finalizeBody = {
