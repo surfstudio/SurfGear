@@ -231,7 +231,7 @@ pipeline.stages = [
         },
 
         pipeline.stage(BUILD) {
-//            script.sh("./ci/runner/build")
+            script.sh("./ci/runner/build")
         },
 
         pipeline.stage(UNIT_TEST) {
