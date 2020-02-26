@@ -49,7 +49,6 @@ class PackageBuilderTask extends Action {
   Future<bool> _buildExample(Element package) async {
     var list = directoryManager.getEntitiesInDirectory(
       package.uri.path,
-      recursive: true,
     );
 
     var example = list.firstWhere(
