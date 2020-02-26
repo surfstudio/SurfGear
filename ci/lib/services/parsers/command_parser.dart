@@ -110,7 +110,7 @@ class CommandParser {
       /// find_changed
       ..addCommand(
         FindChangedScenario.commandName,
-        ArgParser()..addOption(FindChangedScenario.commandName),
+        ArgParser()..addOption(FindChangedScenario.targetOptionName),
       )
 
       /// clear_changed
