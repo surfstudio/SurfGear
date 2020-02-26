@@ -124,10 +124,8 @@ class AddCopyrightFailException extends BaseCiException {
 /// Test
 
 /// Тесты в модуле не прошли.
-class TestsFailedException implements Exception {
-  final String message;
-
-  TestsFailedException(this.message);
+class TestsFailedException extends BaseCiException {
+  TestsFailedException(String message) : super(message);
 }
 
 /// Publish
