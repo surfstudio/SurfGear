@@ -17,6 +17,8 @@ def GET_DEPENDENCIES = 'Getting dependencies'
 def UPGRADE_TAG = 'Upgrade tag'
 def CHECKS_RESULT = 'Checks Result'
 
+def CLEAR_CHANGED = 'Clear changed'
+
 //vars
 def branchName = ""
 def buildDescription = ""
@@ -94,6 +96,10 @@ pipeline.stages = [
             if(!checksPassed) {
                 script.error("Checks Failed")
             }
+        },
+
+        pipeline.stage(FIND_CHANGED) {
+            script.sh "./ci/runner/clear_changed"
         },
 ]
 
