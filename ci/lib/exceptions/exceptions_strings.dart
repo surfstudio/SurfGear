@@ -1,4 +1,5 @@
 /// Common
+const String changedListFileMissedExceptionText = 'Для выполнения pipeline необходимо выполнить предварительный поиск измененных модулей';
 String getFileNotFoundExceptionText(String filepath) => 'File $filepath not found';
 String getElementNotFoundExceptionText(String moduleName) => 'Модуль $moduleName не найден';
 String getFormatExceptionText(String error) => 'Неправильный формат!\n$error';

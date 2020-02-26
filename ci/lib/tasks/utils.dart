@@ -1,8 +1,14 @@
+import 'dart:io';
+
+import 'package:ci/domain/config.dart';
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/parsers/command_parser.dart';
 import 'package:ci/services/runner/shell_runner.dart';
+import 'package:path/path.dart';
+
+const String _changedListFileName = '~changed_list_file';
 
 /// Получить модули, помеченные как stable.
 List<Element> getStableModules(List<Element> elements) {
@@ -76,21 +82,59 @@ Future<bool> validateCommandParamForElements(
   return true;
 }
 
-/// Помечает измененные модули, опираясь на разницу
-/// между двумя последними коммитами.
+/// Помечает измененные модули, опираясь на файл со списком измененных модулей.
 Future<List<Element>> markChangedElements(List<Element> elements) async {
-  final result = await sh('git diff --name-only HEAD HEAD~');
-  final diff = result.stdout as String;
+  var file = File(_getChangedListFilePath());
 
-  print('Файлы, изменённые в последнем коммите:\n$diff');
+  if (!file.existsSync()) {
+    return Future.error(
+      ElementNotFoundException(
+        changedListFileMissedExceptionText,
+      ),
+    );
+  }
+
+  var content = file.readAsStringSync();
 
   return elements.map(
     (e) {
-      if (diff.contains(e.directoryName)) {
+      if (content.contains(e.directoryName)) {
         e.changed = true;
       }
 
       return e;
     },
   ).toList();
+}
+
+/// Создаёт файл со списком измененных файлов.
+Future<void> createChangedListFile(
+    List<Element> elements, String target) async {
+  final result = await sh('git diff --name-only HEAD $target');
+  final diff = result.stdout as String;
+
+  var list = elements.map(
+    (e) {
+      if (diff.contains(e.directoryName)) {
+        e.changed = true;
+      }
+
+      return e.name;
+    },
+  ).join('\n');
+
+  await File(_getChangedListFilePath()).writeAsString(list);
+}
+
+/// Удаляет файл со списком измененных файлов.
+Future<void> clearChangedListFile() async {
+  var file = File(_getChangedListFilePath());
+
+  if (!file.existsSync()) {
+    await file.delete();
+  }
+}
+
+String _getChangedListFilePath() {
+  return join(Config.repoRootPath, _changedListFileName);
 }

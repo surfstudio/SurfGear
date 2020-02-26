@@ -12,6 +12,8 @@ import 'package:ci/scenarios/check_publish_available_scenario.dart';
 import 'package:ci/scenarios/check_stability_not_changed_in_dev_scenario.dart';
 import 'package:ci/scenarios/check_stable_modules_not_changed_scenario.dart';
 import 'package:ci/scenarios/check_version_in_release_note_scenario.dart';
+import 'package:ci/scenarios/clear_changed_scenario.dart';
+import 'package:ci/scenarios/find_changed_scenario.dart';
 import 'package:ci/scenarios/licensing_check_scenario.dart';
 import 'package:ci/scenarios/run_test_scenario.dart';
 import 'package:ci/scenarios/upgrade_project_tag_scenario.dart';
@@ -95,15 +97,24 @@ class CommandParser {
 
       /// check_stable_modules_not_changed
       ..addCommand(CheckStableModulesNotChangedScenario.commandName)
-      
+
       /// check_cyrillic_in_changelog
       ..addCommand(CheckCyrillicInChangelogScenario.commandName)
-      
+
       /// write_release_note
       ..addCommand(WriteReleaseNoteScenario.commandName)
 
       /// upgrade_project_tag
       ..addCommand(UpgradeProjectTagScenario.commandName)
+
+      /// find_changed
+      ..addCommand(
+        FindChangedScenario.commandName,
+        ArgParser()..addOption(FindChangedScenario.commandName),
+      )
+
+      /// clear_changed
+      ..addCommand(ClearChangedScenario.commandName)
 
       /// run_tests
       ..addCommand(RunTestScenario.commandName);
