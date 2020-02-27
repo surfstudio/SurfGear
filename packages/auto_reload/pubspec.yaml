@@ -13,6 +13,10 @@ dependencies:
   #connection
   connectivity: 0.4.6+2
 
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
 custom:
   is_stable: false
   unstable_version: 0
