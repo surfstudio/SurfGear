@@ -188,7 +188,13 @@ Future<bool> checkStabilityNotChangeInDev(List<Element> elements) async {
   return CheckStabilityDev(elements, PubspecParser()).run();
 }
 
-/// Увеличение нестабильной версии
-/// dart ci increment_unstable_version element
-Future<Element> checkIncrementUnstableVersion(Element element) async =>
-    IncrementUnstableVersionTask(element).run();
+/// Увеличение нестабильных версий
+Future<List<Element>> incrementUnstableVersion(List<Element> elements) async {
+  var updatedList = <Element>[];
+
+  for (var element in elements) {
+    updatedList.add(await IncrementUnstableVersionTask(element).run());
+  }
+
+  return updatedList;
+}
