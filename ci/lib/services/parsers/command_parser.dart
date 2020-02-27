@@ -14,6 +14,7 @@ import 'package:ci/scenarios/check_stable_modules_not_changed_scenario.dart';
 import 'package:ci/scenarios/check_version_in_release_note_scenario.dart';
 import 'package:ci/scenarios/clear_changed_scenario.dart';
 import 'package:ci/scenarios/find_changed_scenario.dart';
+import 'package:ci/scenarios/increment_unstable_versions_scenario.dart';
 import 'package:ci/scenarios/licensing_check_scenario.dart';
 import 'package:ci/scenarios/run_test_scenario.dart';
 import 'package:ci/scenarios/upgrade_project_tag_scenario.dart';
@@ -112,6 +113,9 @@ class CommandParser {
         FindChangedScenario.commandName,
         ArgParser()..addOption(FindChangedScenario.targetOptionName),
       )
+
+    /// increment_unstable
+      ..addCommand(IncrementUnstableVersionsScenario.commandName)
 
       /// clear_changed
       ..addCommand(ClearChangedScenario.commandName)
