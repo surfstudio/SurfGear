@@ -233,11 +233,11 @@ pipeline.stages = [
         },
 
         pipeline.stage(BUILD) {
-//            script.sh("./ci/runner/build")
+            script.sh("./ci/runner/build")
         },
 
         pipeline.stage(UNIT_TEST) {
-            script.sh("./ci/runner/run_tests")
+            script.sh("./ci/runner/run_tests", StageStrategy.UNSTABLE_WHEN_STAGE_ERROR)
         },
 
         pipeline.stage(CLEAR_CHANGED) {
