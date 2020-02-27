@@ -16,6 +16,7 @@ class VersionedTag implements Tag {
   VersionedTag({this.name, @required this.version});
 
   /// Возвращает строковое представление тега.
+  @override
   String get tagName =>
       (name != null && name.isNotEmpty ? name + '-' : '') + version.toString();
 

@@ -4,7 +4,6 @@ import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
-import 'package:ci/tasks/utils.dart';
 
 /// Сценарий для команды check_linter.
 ///

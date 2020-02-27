@@ -184,7 +184,7 @@ pipeline.stages = [
         },
 
         pipeline.stage(FIND_CHANGED) {
-            script.sh "./ci/runner/find_changed --target=${destinationBranch}"
+            script.sh "./ci/runner/find_changed_modules --target=${destinationBranch}"
         },
 
         pipeline.stage(CHECK_STABLE_MODULES_NOT_CHANGED, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {

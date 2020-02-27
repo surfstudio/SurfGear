@@ -16,15 +16,6 @@ class CheckPublishAvailableScenario extends ChangedElementScenario {
       : super(command, pubspecParser);
 
   @override
-  Future<void> handleElement(Element element) async {
-    try {
-      await checkPublishAvailable(element);
-    } on BaseCiException {
-      rethrow;
-    }
-  }
-
-  @override
   Future<void> doExecute(List<Element> elements) async {
     try {
       for (var element in elements) {
