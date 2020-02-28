@@ -6,13 +6,25 @@ mixin MixinShowHelpScenario {
   String get helpInfo;
 
   /// Показать help по командам
-  Future<void> showHelpCommand() async {
+  ///
+  /// [maxLengthNameCommand]  длина имени самой длинной команды.
+  /// '8' эквивалетно двум табам
+  Future<void> showHelpCommand([int maxLengthNameCommand]) async {
     var stringBuffer = StringBuffer();
     stringBuffer.write('$getCommandName:');
-    stringBuffer.write('\t\t');
+    if (maxLengthNameCommand == null || maxLengthNameCommand < 8) {
+      stringBuffer.write('\t\t');
+    } else {
+      stringBuffer.write(_indent(maxLengthNameCommand));
+    }
     stringBuffer.write(helpInfo);
     print(stringBuffer);
     await showHelpOption();
+  }
+
+  String _indent(int maxLengthNameCommand) {
+    var amountTab = (maxLengthNameCommand - getCommandName.length);
+    return ' ' * amountTab + '\t\t';
   }
 
   /// Переопределить и описать, если есть оптиции или флаги
