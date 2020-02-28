@@ -60,11 +60,6 @@ class CheckLicensingScenario extends Scenario {
       rethrow;
     }
   }
-//  @override
-//  Future<void> showHelpOption() async {
-//    print('\toption:');
-//    print('\t--${targetOptionName}: \t target branch name');
-//  }
 
   @override
   Future<void> showHelpOption() async {
