@@ -45,8 +45,8 @@ class ShowHelpScenario extends Scenario {
     return maxLengthNameCommand;
   }
 
-  Future<void> _show(String key, [int amountTab = 0]) async {
-    await scenarioMap[key](null, null).showHelpCommand(amountTab);
+  Future<void> _show(String key, [int maxLengthNameCommand = 0]) async {
+    await scenarioMap[key](null, null).showHelpCommand(maxLengthNameCommand);
   }
 
   /// Метод пуст по причине того, что данный сценарий полностью выбивается
