@@ -12,29 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/widgets.dart' show ValueNotifier;
+import 'package:mwwm/src/error/error_handler.dart';
 
-import 'package:mwwm/src/relation/event/action.dart';
+/// dependencies for [WidgetModel]
+class WidgetModelDependencies {
+  final ErrorHandler errorHandler;
 
-/// Wrapper on controller
-class Controller<T, C extends ValueNotifier<T>> extends Action<T> {
-  final C controller;
-
-  Controller(this.controller, void Function(C controller, Controller) onChanged)
-      : super() {
-    controller.addListener(() {
-      onChanged(controller, this);
-    });
-  }
-
-  @override
-  call([T data]) {
-    controller.value = data;
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+  WidgetModelDependencies({this.errorHandler});
 }

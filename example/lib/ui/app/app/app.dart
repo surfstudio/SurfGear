@@ -12,18 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:counter/ui/app/app_wm.dart';
-import 'package:counter/ui/app/di/app.dart';
+import 'package:counter/ui/app/app/app_wm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:injector/injector.dart';
 
-/// Widget приложения
-class App extends MwwmWidget<AppComponent> {
+/// Main widget in app
+class App extends CoreMwwmWidget {
   App()
       : super(
-          dependenciesBuilder: (BuildContext context) => AppComponent(),
+          widgetModelBuilder: (BuildContext context) =>
+              AppWidgetModel(WidgetModelDependencies()),
           widgetStateBuilder: () => _AppState(),
         );
 }
@@ -34,7 +33,7 @@ class _AppState extends WidgetState<AppWidgetModel> {
   @override
   void initState() {
     super.initState();
-    _navKey = Injector.of<AppComponent>(context).component.navigatorKey;
+    _navKey = wm.navigatorKey;
   }
 
   @override
