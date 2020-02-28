@@ -81,7 +81,7 @@ pipeline.stages = [
         },
 
         pipeline.stage(CHECK_PUBLISH_AVAILABLE) {
-            script.sh ".tools/ci/runner/check_publish_available"
+            script.sh "./tools/ci/runner/check_publish_available"
         },
 
         pipeline.stage(MIRRORING) {
