@@ -5,7 +5,7 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 
-const String _helpInfo = 'Builds the transferred modules.';
+const String _helpInfo = 'Checks that the modules are not stable against changes in the dev branch.';
 
 /// Сценарий для команды check_stability_not_changed.
 ///

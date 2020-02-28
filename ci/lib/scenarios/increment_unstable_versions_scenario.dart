@@ -5,7 +5,7 @@ import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/tasks.dart';
 
-const String _helpInfo = 'Builds the transferred modules.';
+const String _helpInfo = 'Unstable version increase in modules.';
 
 /// Сценарий для команды increment_unstable.
 ///

@@ -5,7 +5,7 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 
-const String _helpInfo = 'Builds the transferred modules.';
+const String _helpInfo = 'Check for the latest version in RELEASE_NOTES.md.';
 
 /// Сценарий для команды check_version_in_release_note.
 ///

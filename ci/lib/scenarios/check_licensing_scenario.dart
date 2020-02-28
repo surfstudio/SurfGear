@@ -8,7 +8,7 @@ import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/utils.dart';
 
-const String _helpInfo = 'Builds the transferred modules.';
+const String _helpInfo = 'Checking the license of files of transferred modules';
 
 /// Сценарий для команды check_licensing.
 ///
@@ -60,10 +60,17 @@ class CheckLicensingScenario extends Scenario {
       rethrow;
     }
   }
+//  @override
+//  Future<void> showHelpOption() async {
+//    print('\toption:');
+//    print('\t--${targetOptionName}: \t target branch name');
+//  }
 
   @override
   Future<void> showHelpOption() async {
-    print('object');
+    print('\toption:');
+    print('\t--${CommandParser.defaultAllFlag} \t check all modules');
+    print('\t--${CommandParser.defaultNameOption}=anyName \t verification of the specified module');
   }
 
   @override

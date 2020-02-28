@@ -19,7 +19,7 @@ class ShowHelpScenario extends Scenario {
   ) : super(command, pubspecParser);
 
   @override
-  Future<void> doExecute(List<Element> elements) async {
+  Future<void> run() async {
     ArgParser _argParser = command.arguments[parser];
     ArgResults _argResults = command.arguments[results];
     var _command = Command(CommandParser.helpFlag, null);
@@ -33,6 +33,17 @@ class ShowHelpScenario extends Scenario {
       }
     }
   }
+
+  /// Метод пуст по причине того, что данный сценарий полностью выбивается
+  /// из общего флоу использования сценариев - он не использует список элементов,
+  /// ему не нужна валидация и тд, он просто показывает help для всех комманд.
+  /// Поэтому чтобы не выполнялись лишние операции переопределен
+  /// именно метод запуска.
+  ///
+  /// ВНИМАНИЕ!!! Метод вызван не будет.
+  ///
+  @override
+  Future<void> doExecute(List<Element> elements) async {}
 
   Future<void> _show(String key, Command command) async {
     await scenarioMap[key](command, PubspecParser()).showHelpCommand();
