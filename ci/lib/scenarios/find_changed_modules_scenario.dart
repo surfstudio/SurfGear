@@ -10,12 +10,12 @@ import 'package:ci/tasks/utils.dart';
 /// Данный сценарий должен быть обязательно вызван в начале пайплайна.
 ///
 /// Пример вызова:
-/// dart ci find_changed --target=target_branch_name
-class FindChangedScenario extends Scenario {
-  static const String commandName = 'find_changed';
+/// dart ci find_changed_modules --target=target_branch_name
+class FindChangedModulesScenario extends Scenario {
+  static const String commandName = 'find_changed_modules';
   static const String targetOptionName = 'target';
 
-  FindChangedScenario(Command command, PubspecParser pubspecParser)
+  FindChangedModulesScenario(Command command, PubspecParser pubspecParser)
       : super(command, pubspecParser);
 
   @override
@@ -30,7 +30,7 @@ class FindChangedScenario extends Scenario {
         CommandParamsValidationException(
           getCommandFormatExceptionText(
             commandName,
-            'ожидалось find_changed --target=target_branch_name',
+            'ожидалось find_changed_modules --target=target_branch_name',
           ),
         ),
       );

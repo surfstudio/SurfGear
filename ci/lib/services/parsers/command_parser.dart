@@ -13,7 +13,7 @@ import 'package:ci/scenarios/check_stability_not_changed_in_dev_scenario.dart';
 import 'package:ci/scenarios/check_stable_modules_not_changed_scenario.dart';
 import 'package:ci/scenarios/check_version_in_release_note_scenario.dart';
 import 'package:ci/scenarios/clear_changed_scenario.dart';
-import 'package:ci/scenarios/find_changed_scenario.dart';
+import 'package:ci/scenarios/find_changed_modules_scenario.dart';
 import 'package:ci/scenarios/increment_unstable_versions_scenario.dart';
 import 'package:ci/scenarios/licensing_check_scenario.dart';
 import 'package:ci/scenarios/run_test_scenario.dart';
@@ -108,10 +108,10 @@ class CommandParser {
       /// upgrade_project_tag
       ..addCommand(UpgradeProjectTagScenario.commandName)
 
-      /// find_changed
+      /// find_changed_modules
       ..addCommand(
-        FindChangedScenario.commandName,
-        ArgParser()..addOption(FindChangedScenario.targetOptionName),
+        FindChangedModulesScenario.commandName,
+        ArgParser()..addOption(FindChangedModulesScenario.targetOptionName),
       )
 
     /// increment_unstable

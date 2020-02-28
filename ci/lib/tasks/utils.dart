@@ -113,6 +113,8 @@ Future<void> createChangedListFile(
   final result = await sh('git diff --name-only HEAD $target');
   final diff = result.stdout as String;
 
+  print('Файлы, изменённые в сравнении с целевой веткой :\n$diff');
+
   var list = elements.map(
     (e) {
       if (diff.contains(e.directoryName)) {
@@ -122,6 +124,8 @@ Future<void> createChangedListFile(
       return e.name;
     },
   ).join('\n');
+
+  print('Модули были изменены:\n$list');
 
   await File(_getChangedListFilePath()).writeAsString(list);
 }

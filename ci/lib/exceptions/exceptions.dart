@@ -9,7 +9,7 @@ abstract class BaseCiException implements Exception {
   @override
   String toString() {
     if (message == null) return runtimeType.toString();
-    return "Exception: $message";
+    return 'Exception: $message';
   }
 }
 

@@ -1,7 +1,7 @@
 import 'package:ci/scenarios/check_cyrillic_in_changelog_scenario.dart';
 import 'package:ci/scenarios/check_stable_modules_not_changed_scenario.dart';
 import 'package:ci/scenarios/clear_changed_scenario.dart';
-import 'package:ci/scenarios/find_changed_scenario.dart';
+import 'package:ci/scenarios/find_changed_modules_scenario.dart';
 import 'package:ci/scenarios/increment_unstable_versions_scenario.dart';
 import 'package:ci/scenarios/run_test_scenario.dart';
 import 'package:ci/scenarios/write_release_note_scenario.dart';
@@ -48,8 +48,8 @@ Map<String, ScenarioBuilder> scenarioMap = <String, ScenarioBuilder>{
       UpgradeProjectTagScenario(command, parser),
   RunTestScenario.commandName: (command, parser) =>
       RunTestScenario(command, parser),
-  FindChangedScenario.commandName: (command, parser) =>
-      FindChangedScenario(command, parser),
+  FindChangedModulesScenario.commandName: (command, parser) =>
+      FindChangedModulesScenario(command, parser),
   ClearChangedScenario.commandName: (command, parser) =>
       ClearChangedScenario(command, parser),
   IncrementUnstableVersionsScenario.commandName: (command, parser) =>

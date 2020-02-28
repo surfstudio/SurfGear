@@ -21,16 +21,6 @@ class CheckDependenciesStableScenario extends ChangedElementScenario {
         );
 
   @override
-  Future<void> handleElement(Element element) async {
-    try {
-      /// Проверяем что зависимости элемента стабильны
-      await checkDependenciesStable(element);
-    } on BaseCiException {
-      rethrow;
-    }
-  }
-
-  @override
   Future<void> doExecute(List<Element> elements) async {
     try {
       for (var element in elements) {
