@@ -12,19 +12,18 @@ mixin MixinShowHelpScenario {
   Future<void> showHelpCommand([int maxLengthNameCommand]) async {
     var stringBuffer = StringBuffer();
     stringBuffer.write('$getCommandName:');
-    if (maxLengthNameCommand == null || maxLengthNameCommand < 8) {
-      stringBuffer.write('\t\t');
-    } else {
-      stringBuffer.write(_indent(maxLengthNameCommand));
-    }
+    stringBuffer.write(_indent(maxLengthNameCommand));
+
     stringBuffer.write(helpInfo);
     print(stringBuffer);
     await showHelpOption();
   }
 
+  ///  Возвращает отступ в консоли между название команды и её help
+  ///  нужен для выравнивания
   String _indent(int maxLengthNameCommand) {
-    var amountTab = (maxLengthNameCommand - getCommandName.length);
-    return ' ' * amountTab + '\t\t';
+    var lengthNameCommand = (maxLengthNameCommand - getCommandName.length).abs();
+    return ' ' * lengthNameCommand + '\t\t';
   }
 
   /// Переопределить и описать, если есть оптиции или флаги
