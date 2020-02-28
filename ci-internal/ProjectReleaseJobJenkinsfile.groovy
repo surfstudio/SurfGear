@@ -79,7 +79,7 @@ pipeline.stages = [
         },
 
         pipeline.stage(UPGRADE_TAG) {
-            script.sh "./ci/runner/upgrade_project_tag"
+            script.sh ".tools/ci/runner/upgrade_project_tag"
         },
 
         pipeline.stage(CHECKS_RESULT) {

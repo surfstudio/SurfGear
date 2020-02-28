@@ -184,28 +184,28 @@ pipeline.stages = [
         },
 
         pipeline.stage(FIND_CHANGED) {
-            script.sh "./ci/runner/find_changed_modules --target=${destinationBranch}"
+            script.sh ".tools/ci/runner/find_changed_modules --target=${destinationBranch}"
         },
 
         pipeline.stage(CHECK_STABLE_MODULES_NOT_CHANGED, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./ci/runner/check_stable_modules_not_changed")
+            script.sh(".tools/ci/runner/check_stable_modules_not_changed")
         },
 
         pipeline.stage(CHECK_UNSTABLE_MODULES_DO_NOT_BECAME_STABLE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./ci/runner/check_stability_not_changed")
+            script.sh(".tools/ci/runner/check_stability_not_changed")
         },
 
         pipeline.stage(CHECK_MODULES_IN_DEPENDENCY_TREE_OF_STABLE_MODULE_ALSO_STABLE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./ci/runner/check_dependencies_stable")
+            script.sh(".tools/ci/runner/check_dependencies_stable")
         },
 
         pipeline.stage(CHECK_RELEASE_NOTES_VALID, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./ci/runner/check_version_in_release_note")
-            script.sh("./ci/runner/check_cyrillic_in_changelog")
+            script.sh(".tools/ci/runner/check_version_in_release_note")
+            script.sh(".tools/ci/runner/check_cyrillic_in_changelog")
         },
 
         pipeline.stage(WRITE_RELEASE_NOTE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./ci/runner/write_release_note")
+            script.sh(".tools/ci/runner/write_release_note")
         },
 
         pipeline.stage(CHECKS_RESULT) {
@@ -233,15 +233,15 @@ pipeline.stages = [
         },
 
         pipeline.stage(BUILD) {
-            script.sh("./ci/runner/build")
+            script.sh(".tools/ci/runner/build")
         },
 
         pipeline.stage(UNIT_TEST, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./ci/runner/run_tests")
+            script.sh(".tools/ci/runner/run_tests")
         },
 
         pipeline.stage(CLEAR_CHANGED) {
-            script.sh "./ci/runner/clear_changed"
+            script.sh ".tools/ci/runner/clear_changed"
         },
 ]
 pipeline.finalizeBody = {
