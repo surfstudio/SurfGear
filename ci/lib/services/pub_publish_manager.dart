@@ -10,3 +10,12 @@ Future<ProcessResult> runDryPublish(Element element) {
     path: element.path,
   );
 }
+
+/// Для [Element] запускает проверку на возможность публикации пакета
+Future<ProcessResult> runPubPublish(Element element, {String pathServer}) {
+  var urlServer = pathServer == null ? '' : '--server $pathServer';
+  return sh(
+    'pub publish $urlServer',
+    path: element.path,
+  );
+}
