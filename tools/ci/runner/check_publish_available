@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+dart ci/bin/main.dart check_publish_available
