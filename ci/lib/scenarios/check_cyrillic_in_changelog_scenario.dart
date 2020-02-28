@@ -5,7 +5,7 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 
-const String _helpInfo = 'Builds the transferred modules.';
+const String _helpInfo = 'Checking the presence of Cyrillic in the file CHANGELOG.md.';
 
 /// Сценарий для команды check_cyrillic_in_changelog.
 ///

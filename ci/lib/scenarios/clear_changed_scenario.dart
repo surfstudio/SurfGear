@@ -4,7 +4,7 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/utils.dart';
 
-const String _helpInfo = 'Builds the transferred modules.';
+const String _helpInfo = 'Deletes a file with a list of modified files.';
 
 /// Сценарий очистки файла со списком измненнных элементов.
 /// Данный сценарий необходимо вызывать в самом конце пайплайна.

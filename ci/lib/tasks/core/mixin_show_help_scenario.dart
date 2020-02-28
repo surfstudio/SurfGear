@@ -15,6 +15,6 @@ mixin MixinShowHelpScenario {
     await showHelpOption();
   }
 
-  /// Переопределить, если есть оптиции или флаги
+  /// Переопределить и описать, если есть оптиции или флаги
   Future<void> showHelpOption() async {}
 }

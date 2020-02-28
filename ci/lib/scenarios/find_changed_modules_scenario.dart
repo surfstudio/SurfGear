@@ -6,7 +6,7 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/utils.dart';
 
-const String _helpInfo = 'Builds the transferred modules.';
+const String _helpInfo = 'A script to search for modified items and write a list to a file.';
 
 /// Сценарий поиска измененных элементов и записи списка в файл.
 /// Данный сценарий должен быть обязательно вызван в начале пайплайна.
@@ -44,10 +44,14 @@ class FindChangedModulesScenario extends Scenario {
   }
 
   @override
-  // TODO: implement getCommandName
+  Future<void> showHelpOption() async {
+    print('\toption:');
+    print('\t--${targetOptionName}: \t target branch name');
+  }
+
+  @override
   String get getCommandName => commandName;
 
   @override
-  // TODO: implement helpInfo
   String get helpInfo => _helpInfo;
 }

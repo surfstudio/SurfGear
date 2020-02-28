@@ -74,7 +74,6 @@ class CommandParser {
     _argParser
       ..addCommand(
           CheckLicensingScenario.commandName,
-//          argParserHelp
           ArgParser()
             ..addFlag(CheckLicensingScenario.allFlag, negatable: false)
             ..addOption(CheckLicensingScenario.nameOption))
