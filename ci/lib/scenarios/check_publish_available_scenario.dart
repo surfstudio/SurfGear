@@ -11,18 +11,10 @@ const String _helpInfo = 'Builds the transferred modules.';
 ///
 /// Пример вызова:
 /// dart ci check_publish_available
-class CheckPublishAvailableScenario extends Scenario {
+class CheckPublishAvailableScenario extends ChangedElementScenario {
   static const String commandName = 'check_publish_available';
 
   CheckPublishAvailableScenario(Command command, PubspecParser pubspecParser) : super(command, pubspecParser);
-
-  Future<void> handleElement(Element element) async {
-    try {
-      await checkPublishAvailable(element);
-    } on BaseCiException {
-      rethrow;
-    }
-  }
 
   @override
   Future<void> doExecute(List<Element> elements) async {

@@ -49,7 +49,6 @@ class PackageBuilderTask extends Action {
   Future<bool> _buildExample(Element package) async {
     var list = directoryManager.getEntitiesInDirectory(
       package.uri.path,
-      recursive: true,
     );
 
     var example = list.firstWhere(
@@ -61,6 +60,7 @@ class PackageBuilderTask extends Action {
     );
 
     if (example != null) {
+      print('Start build example for ${package.name}');
       var res = await sh(buildCmd, path: example.path);
       res.print();
       return res.exitCode == 0;

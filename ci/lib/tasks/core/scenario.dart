@@ -7,6 +7,8 @@ import 'package:ci/tasks/core/mixin_show_help_scenario.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:meta/meta.dart';
 
+import '../utils.dart';
+
 /// Интерфейс некоторого сценария исполнения команды
 abstract class Scenario extends Action with MixinShowHelpScenario {
   final Command command;
@@ -50,4 +52,14 @@ abstract class Scenario extends Action with MixinShowHelpScenario {
   /// Доступна для переопределения, чтобы выполнить некоторые действия после.
   @protected
   Future<void> postExecute() async {}
+}
+
+/// Интерфейс сценария, работающего только по измененным элементам
+abstract class ChangedElementScenario extends Scenario {
+  ChangedElementScenario(Command command, PubspecParser pubspecParser)
+      : super(command, pubspecParser);
+
+  @override
+  Future<List<Element>> preExecute() async =>
+      await findChangedElements(await super.preExecute());
 }

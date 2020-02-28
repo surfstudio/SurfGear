@@ -11,7 +11,7 @@ const String _helpInfo = 'Checking the stability of module dependencies.';
 ///
 /// Пример вызова:
 /// dart ci check_dependencies_stable
-class CheckDependenciesStableScenario extends Scenario {
+class CheckDependenciesStableScenario extends ChangedElementScenario {
   static const String commandName = 'check_dependencies_stable';
 
   CheckDependenciesStableScenario(
@@ -21,15 +21,6 @@ class CheckDependenciesStableScenario extends Scenario {
           command,
           pubspecParser,
         );
-
-  Future<void> handleElement(Element element) async {
-    try {
-      /// Проверяем что зависимости элемента стабильны
-      await checkDependenciesStable(element);
-    } on BaseCiException {
-      rethrow;
-    }
-  }
 
   @override
   Future<void> doExecute(List<Element> elements) async {

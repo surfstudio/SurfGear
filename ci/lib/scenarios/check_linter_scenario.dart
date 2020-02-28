@@ -4,7 +4,6 @@ import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
-import 'package:ci/tasks/utils.dart';
 
 const String _helpInfo = 'Builds the transferred modules.';
 
@@ -12,7 +11,7 @@ const String _helpInfo = 'Builds the transferred modules.';
 ///
 /// Пример вызова:
 /// dart ci check_linter
-class CheckLinterScenario extends Scenario {
+class CheckLinterScenario extends ChangedElementScenario {
   static const String commandName = 'check_linter';
 
   CheckLinterScenario(
@@ -22,16 +21,6 @@ class CheckLinterScenario extends Scenario {
           command,
           pubspecParser,
         );
-
-  @override
-  Future<List<Element>> preExecute() async {
-    var elements = await super.preExecute();
-
-    /// ищем измененные элементы и фильтруем
-    await markChangedElements(elements);
-
-    return filterChangedElements(elements);
-  }
 
   @override
   Future<void> doExecute(List<Element> elements) async {

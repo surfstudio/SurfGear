@@ -17,7 +17,7 @@ void main() {
         () async {
           var element = Element(uri: Uri.directory('test/package'));
           var dm = FileSystemManagerMock();
-          when(dm.getEntitiesInDirectory(element.uri.path, recursive: true))
+          when(dm.getEntitiesInDirectory(element.uri.path))
               .thenReturn([]);
 
           var buildTask = PackageBuilderTask(element, dm);
@@ -34,7 +34,7 @@ void main() {
           var examplePath = 'test/package/example';
           var element = Element(uri: Uri.directory('test/package'));
           var dm = FileSystemManagerMock();
-          when(dm.getEntitiesInDirectory(element.uri.path, recursive: true))
+          when(dm.getEntitiesInDirectory(element.uri.path))
               .thenReturn([Directory('test/package/example')]);
           when(dm.isDirectory(examplePath)).thenReturn(true);
 
@@ -77,7 +77,7 @@ Future<void> _testBuild(bool success, matcher) async {
   var examplePath = 'test/package/example';
   var element = Element(uri: Uri.directory('test/package'));
   var dm = FileSystemManagerMock();
-  when(dm.getEntitiesInDirectory(element.uri.path, recursive: true))
+  when(dm.getEntitiesInDirectory(element.uri.path))
       .thenReturn([Directory('test/package/example')]);
   when(dm.isDirectory(examplePath)).thenReturn(true);
 

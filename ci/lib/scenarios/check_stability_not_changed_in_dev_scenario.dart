@@ -11,7 +11,7 @@ const String _helpInfo = 'Builds the transferred modules.';
 ///
 /// Пример вызова:
 /// dart ci check_stability_not_changed
-class CheckStabilityNotChangedInDevScenario extends Scenario {
+class CheckStabilityNotChangedInDevScenario extends ChangedElementScenario {
   static const String commandName = 'check_stability_not_changed';
 
   CheckStabilityNotChangedInDevScenario(

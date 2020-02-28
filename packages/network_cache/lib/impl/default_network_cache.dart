@@ -41,14 +41,16 @@ class DefaultNetworkCache implements NetworkCache {
   void clearCache() => _storage.clear();
 
   @override
-  Observable<Response> hybridGet(
+  Stream<Response> hybridGet(
     String url, {
     Map<String, dynamic> query,
     Map<String, String> headers,
     Duration lifetime,
   }) {
     final key = _buildStorageKey(url, query);
-    final cacheResponse = Observable.fromFuture(_storage.get(key))
+    final cacheResponse = _storage
+        .get(key)
+        .asStream()
         .map((data) => _extractResponse(data, key))
         .where((data) => data != null);
 

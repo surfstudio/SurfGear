@@ -11,7 +11,7 @@ const String _helpInfo = 'Builds the transferred modules.';
 ///
 /// Пример вызова:
 /// dart ci check_cyrillic_in_changelog
-class CheckCyrillicInChangelogScenario extends Scenario {
+class CheckCyrillicInChangelogScenario extends ChangedElementScenario {
   static const String commandName = 'check_cyrillic_in_changelog';
 
   CheckCyrillicInChangelogScenario(Command command, PubspecParser pubspecParser)
