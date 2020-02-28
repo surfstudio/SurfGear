@@ -5,6 +5,8 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 
+const String _helpInfo = 'Builds the transferred modules.';
+
 /// Сценарий для команды check_publish_available.
 ///
 /// Пример вызова:
@@ -12,8 +14,15 @@ import 'package:ci/tasks/core/scenario.dart';
 class CheckPublishAvailableScenario extends ChangedElementScenario {
   static const String commandName = 'check_publish_available';
 
-  CheckPublishAvailableScenario(Command command, PubspecParser pubspecParser)
-      : super(command, pubspecParser);
+  CheckPublishAvailableScenario(Command command, PubspecParser pubspecParser) : super(command, pubspecParser);
+
+  Future<void> handleElement(Element element) async {
+    try {
+      await checkPublishAvailable(element);
+    } on BaseCiException {
+      rethrow;
+    }
+  }
 
   @override
   Future<void> doExecute(List<Element> elements) async {
@@ -25,4 +34,10 @@ class CheckPublishAvailableScenario extends ChangedElementScenario {
       rethrow;
     }
   }
+
+  @override
+  String get getCommandName => commandName;
+
+  @override
+  String get helpInfo => _helpInfo;
 }

@@ -5,6 +5,8 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 
+const String _helpInfo = 'Builds the transferred modules.';
+
 /// Сценарий для команды check_stability_not_changed.
 ///
 /// Пример вызова:
@@ -29,4 +31,10 @@ class CheckStabilityNotChangedInDevScenario extends ChangedElementScenario {
       rethrow;
     }
   }
+
+  @override
+  String get getCommandName => commandName;
+
+  @override
+  String get helpInfo => _helpInfo;
 }

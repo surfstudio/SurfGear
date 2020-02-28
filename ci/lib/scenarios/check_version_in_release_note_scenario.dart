@@ -5,6 +5,8 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 
+const String _helpInfo = 'Builds the transferred modules.';
+
 /// Сценарий для команды check_version_in_release_note.
 ///
 /// Пример вызова:
@@ -12,8 +14,7 @@ import 'package:ci/tasks/core/scenario.dart';
 class CheckVersionInReleaseNoteScenario extends ChangedElementScenario {
   static const String commandName = 'check_version_in_release_note';
 
-  CheckVersionInReleaseNoteScenario(
-      Command command, PubspecParser pubspecParser)
+  CheckVersionInReleaseNoteScenario(Command command, PubspecParser pubspecParser)
       : super(command, pubspecParser);
 
   @override
@@ -26,4 +27,10 @@ class CheckVersionInReleaseNoteScenario extends ChangedElementScenario {
       rethrow;
     }
   }
+
+  @override
+  String get getCommandName => commandName;
+
+  @override
+  String get helpInfo => _helpInfo;
 }

@@ -5,6 +5,8 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 
+const String _helpInfo = 'Builds the transferred modules.';
+
 /// Сценарий для команды check_stable_modules_not_changed.
 ///
 /// Пример вызова:
@@ -13,12 +15,12 @@ class CheckStableModulesNotChangedScenario extends ChangedElementScenario {
   static const String commandName = 'check_stable_modules_not_changed';
 
   CheckStableModulesNotChangedScenario(
-      Command command,
-      PubspecParser pubspecParser,
-      ) : super(
-    command,
-    pubspecParser,
-  );
+    Command command,
+    PubspecParser pubspecParser,
+  ) : super(
+          command,
+          pubspecParser,
+        );
 
   @override
   Future<void> doExecute(List<Element> elements) async {
@@ -29,4 +31,10 @@ class CheckStableModulesNotChangedScenario extends ChangedElementScenario {
       rethrow;
     }
   }
+
+  @override
+  String get getCommandName => commandName;
+
+  @override
+  String get helpInfo => _helpInfo;
 }
