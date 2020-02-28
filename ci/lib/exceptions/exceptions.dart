@@ -140,6 +140,11 @@ class OpenSourceModuleCanNotBePublishException extends BaseCiException {
   OpenSourceModuleCanNotBePublishException(String message) : super(message);
 }
 
+/// Ошибка при побликации модуля
+class ModuleCannotBePublishedException extends BaseCiException {
+  ModuleCannotBePublishedException(String message) : super(message);
+}
+
 /// Нет описание версии в CHANGELOG.md
 class ChangeLogDoesNotContainCurrentVersionException extends BaseCiException {
   ChangeLogDoesNotContainCurrentVersionException(String message) : super(message);

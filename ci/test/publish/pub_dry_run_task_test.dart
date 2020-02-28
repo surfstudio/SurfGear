@@ -52,7 +52,7 @@ void main() {
           );
 
           expect(
-            () async => await task.run(),
+                () async => await task.run(),
             throwsA(
               TypeMatcher<OpenSourceModuleCanNotBePublishException>(),
             ),

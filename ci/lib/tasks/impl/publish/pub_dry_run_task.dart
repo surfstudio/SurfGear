@@ -17,8 +17,11 @@ class PubDryRunTask extends Check {
       final result = await runDryPublish(_element);
       result.print();
       if (result.exitCode != 0) {
-        return Future.error(OpenSourceModuleCanNotBePublishException(
-            getOpenSourceModuleCanNotBePublishExceptionText(_element.name.toString())));
+        return Future.error(
+          OpenSourceModuleCanNotBePublishException(
+            getOpenSourceModuleCanNotBePublishExceptionText(_element.name),
+          ),
+        );
       }
     } else {
       return false;
