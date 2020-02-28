@@ -6,6 +6,8 @@ import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/impl/project/get_last_project_tag_task.dart';
 import 'package:ci/tasks/tasks.dart';
 
+const String _helpInfo = 'Builds the transferred modules.';
+
 /// Сценарий для команды upgrade_project_tag.
 ///
 /// Пример вызова:
@@ -45,4 +47,10 @@ class UpgradeProjectTagScenario extends Scenario {
       rethrow;
     }
   }
+
+  @override
+  String get getCommandName => commandName;
+
+  @override
+  String get helpInfo => _helpInfo;
 }

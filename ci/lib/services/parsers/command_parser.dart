@@ -12,10 +12,10 @@ import 'package:ci/scenarios/check_publish_available_scenario.dart';
 import 'package:ci/scenarios/check_stability_not_changed_in_dev_scenario.dart';
 import 'package:ci/scenarios/check_stable_modules_not_changed_scenario.dart';
 import 'package:ci/scenarios/check_version_in_release_note_scenario.dart';
-import 'package:ci/scenarios/licensing_check_scenario.dart';
+import 'package:ci/scenarios/check_licensing_scenario.dart';
 import 'package:ci/scenarios/upgrade_project_tag_scenario.dart';
 import 'package:ci/scenarios/write_release_note_scenario.dart';
-import 'package:ci/scenarios/helper_scenario.dart';
+import 'package:ci/scenarios/show_help_scenario.dart';
 import 'package:ci/utils/arg_results_extension.dart';
 import 'package:ci/utils/string_util.dart';
 
@@ -24,6 +24,9 @@ class CommandParser {
   static const String defaultAllFlag = 'all';
   static const String defaultNameOption = 'name';
 
+  /// Флаг для вызова help
+  static const String helpFlag = 'help';
+  static const String helpAbbr = 'h';
   final ArgParser _argParser = ArgParser();
 
   CommandParser() {
@@ -65,10 +68,11 @@ class CommandParser {
     /// check_licensing
     _argParser
       ..addCommand(
-          LicensingCheckScenario.commandName,
+          CheckLicensingScenario.commandName,
+//          argParserHelp
           ArgParser()
-            ..addFlag(LicensingCheckScenario.allFlag, negatable: false)
-            ..addOption(LicensingCheckScenario.nameOption))
+            ..addFlag(CheckLicensingScenario.allFlag, negatable: false)
+            ..addOption(CheckLicensingScenario.nameOption))
 
       /// build
       ..addCommand(BuildScenario.commandName)
@@ -107,22 +111,19 @@ class CommandParser {
       ..addCommand(UpgradeProjectTagScenario.commandName)
 
       /// help
-      ..addFlag(HelperScenario.flag, abbr: HelperScenario.abbrFlag);
+      ..addFlag(helpFlag, negatable: false, abbr: helpAbbr);
   }
 
+  /// Проверяем, требовался ли вызов help, если нет, то запускаем команду
   Future<Command> _getCommandByArgs(ArgResults results) async {
     var command = results.command;
-    var showHelp = results[HelperScenario.flag] as bool;
-//    if (showHelp) {
-//      if (command == null) {
-//        return Command(HelperScenario.commandName, null);
-//      } else {
-//        return Command(HelperScenario.commandName, command.getParsed());
-//      }
-//    }
 
-    if (command == null) {
-      return Command(HelperScenario.commandName, null);
+    var isShowHelp = results[CommandParser.helpFlag] as bool;
+    if (isShowHelp || command == null) {
+      return Command(ShowHelpScenario.commandName, <String, dynamic>{
+        ShowHelpScenario.parser: _argParser,
+        ShowHelpScenario.results: command,
+      });
     }
 
     switch (command.name) {

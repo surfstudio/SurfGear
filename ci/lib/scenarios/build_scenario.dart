@@ -5,6 +5,8 @@ import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/tasks.dart';
 import 'package:ci/tasks/utils.dart';
 
+const String _helpInfo = 'Builds the transferred modules.';
+
 /// Сценарий для команды build.
 ///
 /// Пример вызова:
@@ -35,4 +37,10 @@ class BuildScenario extends Scenario {
     /// запускаем сборку для полученного списка
     return build(elements);
   }
+
+  @override
+  String get getCommandName => commandName;
+
+  @override
+  String get helpInfo => _helpInfo;
 }

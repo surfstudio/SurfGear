@@ -4,6 +4,8 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/tasks.dart';
 
+const String _helpInfo = 'Adds copyright to files of transferred modules.';
+
 /// Сценарий для команды add_copyrights.
 ///
 /// Пример вызова:
@@ -24,4 +26,10 @@ class AddCopyrightsScenario extends Scenario {
     /// Добавляем копирайты
     return addCopyrights(elements);
   }
+
+  @override
+  String get getCommandName => commandName;
+
+  @override
+  String get helpInfo => _helpInfo;
 }

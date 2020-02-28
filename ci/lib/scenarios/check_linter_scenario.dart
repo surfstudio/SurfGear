@@ -6,6 +6,8 @@ import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/utils.dart';
 
+const String _helpInfo = 'Builds the transferred modules.';
+
 /// Сценарий для команды check_linter.
 ///
 /// Пример вызова:
@@ -40,4 +42,10 @@ class CheckLinterScenario extends Scenario {
       rethrow;
     }
   }
+
+  @override
+  String get getCommandName => commandName;
+
+  @override
+  String get helpInfo => _helpInfo;
 }

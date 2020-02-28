@@ -5,6 +5,8 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 
+const String _helpInfo = 'Checking the stability of module dependencies.';
+
 /// Сценарий для команды check_dependencies_stable.
 ///
 /// Пример вызова:
@@ -20,7 +22,6 @@ class CheckDependenciesStableScenario extends Scenario {
           pubspecParser,
         );
 
-  @override
   Future<void> handleElement(Element element) async {
     try {
       /// Проверяем что зависимости элемента стабильны
@@ -41,4 +42,10 @@ class CheckDependenciesStableScenario extends Scenario {
       rethrow;
     }
   }
+
+  @override
+  String get getCommandName => commandName;
+
+  @override
+  String get helpInfo => _helpInfo;
 }
