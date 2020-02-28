@@ -6,6 +6,8 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/utils.dart';
 
+const String _helpInfo = 'Builds the transferred modules.';
+
 /// Сценарий поиска измененных элементов и записи списка в файл.
 /// Данный сценарий должен быть обязательно вызван в начале пайплайна.
 ///
@@ -15,8 +17,7 @@ class FindChangedModulesScenario extends Scenario {
   static const String commandName = 'find_changed_modules';
   static const String targetOptionName = 'target';
 
-  FindChangedModulesScenario(Command command, PubspecParser pubspecParser)
-      : super(command, pubspecParser);
+  FindChangedModulesScenario(Command command, PubspecParser pubspecParser) : super(command, pubspecParser);
 
   @override
   Future<void> validate(Command command) async {
@@ -41,4 +42,12 @@ class FindChangedModulesScenario extends Scenario {
   Future<void> doExecute(List<Element> elements) async {
     await createChangedListFile(elements, command.arguments[targetOptionName]);
   }
+
+  @override
+  // TODO: implement getCommandName
+  String get getCommandName => commandName;
+
+  @override
+  // TODO: implement helpInfo
+  String get helpInfo => _helpInfo;
 }
