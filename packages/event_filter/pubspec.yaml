@@ -1,0 +1,24 @@
+name: event_filter
+description: Mecanism for filtering events.
+version: 0.0.1
+author:
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+custom:
+  is_stable: false
+  unstable_version: 0
+  is_plugin: false
+  path: event_filter
+  separate_repo_url:
+  hostUrl:
