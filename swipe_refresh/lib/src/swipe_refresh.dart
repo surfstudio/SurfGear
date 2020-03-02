@@ -25,7 +25,7 @@ class SwipeRefresh extends StatelessWidget {
   final double refreshIndicatorExtent;
   final RefreshControlIndicatorBuilder indicatorBuilder;
   final ScrollController scrollController;
-
+  final SliverChildDelegate childrenDelegate;
   final SwipeRefreshStyle style;
 
   const SwipeRefresh(
@@ -35,6 +35,7 @@ class SwipeRefresh extends StatelessWidget {
     this.stateStream,
     this.initState,
     this.onRefresh,
+    this.childrenDelegate,
     Color indicatorColor,
     Color backgroundColor,
     double refreshTriggerPullDistance,
@@ -124,6 +125,42 @@ class SwipeRefresh extends StatelessWidget {
           scrollController: scrollController,
         );
 
+  factory SwipeRefresh.builder({
+    Key key,
+    IndexedWidgetBuilder itemBuilder,
+    int itemCount,
+    Stream<SwipeRefreshState> stateStream,
+    SwipeRefreshState initState,
+    VoidCallback onRefresh,
+    Color indicatorColor,
+    Color backgroundColor,
+    double refreshTriggerPullDistance,
+    double refreshIndicatorExtent,
+    RefreshControlIndicatorBuilder indicatorBuilder,
+    ScrollController scrollController,
+  }) {
+    return SwipeRefresh(
+      SwipeRefreshStyle.adaptive,
+      key: key,
+      stateStream: stateStream,
+      initState: initState,
+      onRefresh: onRefresh,
+      indicatorColor: indicatorColor,
+      backgroundColor: backgroundColor,
+      refreshTriggerPullDistance: refreshTriggerPullDistance,
+      refreshIndicatorExtent: refreshIndicatorExtent,
+      indicatorBuilder: indicatorBuilder,
+      scrollController: scrollController,
+      childrenDelegate: SliverChildBuilderDelegate(
+        itemBuilder,
+        childCount: itemCount,
+        addAutomaticKeepAlives: true,
+        addRepaintBoundaries: true,
+        addSemanticIndexes: true,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return _buildByStyle(style);
@@ -135,6 +172,7 @@ class SwipeRefresh extends StatelessWidget {
         return MaterialSwipeRefresh(
           key: key,
           children: children,
+          childrenDelegate: childrenDelegate,
           stateStream: stateStream,
           initState: initState,
           onRefresh: onRefresh,
@@ -149,11 +187,13 @@ class SwipeRefresh extends StatelessWidget {
           stateStream: stateStream,
           initState: initState,
           onRefresh: onRefresh,
+          childrenDelegate: childrenDelegate,
           refreshIndicatorExtent: refreshIndicatorExtent,
           refreshTriggerPullDistance: refreshTriggerPullDistance,
           indicatorBuilder: indicatorBuilder,
           scrollController: scrollController,
         );
+      case SwipeRefreshStyle.builder:
       case SwipeRefreshStyle.adaptive:
         if (Platform.isAndroid) {
           return _buildByStyle(SwipeRefreshStyle.material);
@@ -176,4 +216,7 @@ enum SwipeRefreshStyle {
 
   /// Adaptive
   adaptive,
+
+  /// Builder
+  builder,
 }

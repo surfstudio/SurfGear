@@ -12,11 +12,13 @@ class CupertinoSwipeRefresh extends SwipeRefreshBase {
   final double refreshTriggerPullDistance;
   final double refreshIndicatorExtent;
   final RefreshControlIndicatorBuilder indicatorBuilder;
+
   // final ScrollController scrollController;
 
   const CupertinoSwipeRefresh({
     Key key,
     List<Widget> children,
+    SliverChildDelegate childrenDelegate,
     Stream<SwipeRefreshState> stateStream,
     SwipeRefreshState initState,
     VoidCallback onRefresh,
@@ -31,6 +33,7 @@ class CupertinoSwipeRefresh extends SwipeRefreshBase {
             stateStream: stateStream,
             initState: initState,
             scrollController: scrollController,
+            childrenDelegate: childrenDelegate,
             onRefresh: onRefresh);
 
   @override
@@ -64,9 +67,11 @@ class _CupertinoSwipeRefreshState
         ),
         SliverSafeArea(
           sliver: SliverList(
-            delegate: SliverChildListDelegate(
-              children,
-            ),
+            delegate: widget.childrenDelegate == null
+                ? SliverChildListDelegate(
+                    children,
+                  )
+                : widget.childrenDelegate,
           ),
         )
       ],

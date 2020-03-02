@@ -9,11 +9,13 @@ import 'package:swipe_refresh/src/swipe_refresh_state.dart';
 class MaterialSwipeRefresh extends SwipeRefreshBase {
   final Color indicatorColor;
   final Color backgroundColor;
+
   // final ScrollController scrollController;
 
   const MaterialSwipeRefresh({
     Key key,
     List<Widget> children,
+    SliverChildDelegate childrenDelegate,
     Stream<SwipeRefreshState> stateStream,
     SwipeRefreshState initState,
     VoidCallback onRefresh,
@@ -25,6 +27,7 @@ class MaterialSwipeRefresh extends SwipeRefreshBase {
         super(
             key: key,
             children: children,
+            childrenDelegate: childrenDelegate,
             stateStream: stateStream,
             initState: initState,
             scrollController: scrollController,
@@ -40,11 +43,16 @@ class _MaterialSwipeRefreshState
   Widget buildRefresher(Key key, List<Widget> children, onRefresh) {
     return RefreshIndicator(
       key: key,
-      child: ListView(
-        controller: widget.scrollController ?? ScrollController(),
-        children: children,
-        physics: AlwaysScrollableScrollPhysics(),
-      ),
+      child: widget.childrenDelegate == null
+          ? ListView(
+              controller: widget.scrollController ?? ScrollController(),
+              children: children,
+              physics: AlwaysScrollableScrollPhysics(),
+            )
+          : ListView.custom(
+              childrenDelegate: widget.childrenDelegate,
+              physics: AlwaysScrollableScrollPhysics(),
+            ),
       onRefresh: onRefresh,
       color: widget.indicatorColor,
       backgroundColor: widget.backgroundColor,
