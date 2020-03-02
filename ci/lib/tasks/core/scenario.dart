@@ -56,10 +56,8 @@ abstract class Scenario extends Action with MixinShowHelpScenario {
 
 /// Интерфейс сценария, работающего только по измененным элементам
 abstract class ChangedElementScenario extends Scenario {
-  ChangedElementScenario(Command command, PubspecParser pubspecParser)
-      : super(command, pubspecParser);
+  ChangedElementScenario(Command command, PubspecParser pubspecParser) : super(command, pubspecParser);
 
   @override
-  Future<List<Element>> preExecute() async =>
-      await findChangedElements(await super.preExecute());
+  Future<List<Element>> preExecute() async => await findChangedElements(await super.preExecute());
 }

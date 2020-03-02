@@ -61,12 +61,12 @@ class CheckLicensingScenario extends Scenario {
     }
   }
 
-  @override
-  Future<void> showHelpOption() async {
-    print('\toption:');
-    print('\t--${CommandParser.defaultAllFlag} \t check all modules');
-    print('\t--${CommandParser.defaultNameOption}=anyName \t verification of the specified module');
-  }
+//  @override
+//  Future<void> showHelpOption() async {
+//    print('\toption:');
+//    print('\t--${CommandParser.defaultAllFlag} \t check all modules');
+//    print('\t--${CommandParser.defaultNameOption}=anyName \t verification of the specified module');
+//  }
 
   @override
   String get getCommandName => commandName;

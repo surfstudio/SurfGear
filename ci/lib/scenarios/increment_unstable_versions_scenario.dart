@@ -29,10 +29,8 @@ class IncrementUnstableVersionsScenario extends ChangedElementScenario {
   }
 
   @override
-  // TODO: implement getCommandName
   String get getCommandName => commandName;
 
   @override
-  // TODO: implement helpInfo
   String get helpInfo => _helpInfo;
 }
