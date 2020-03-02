@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-dart ci/bin/main.dart check_cyrillic_in_changelog
+dart tools/ci/bin/main.dart check_cyrillic_in_changelog
