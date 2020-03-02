@@ -29,7 +29,7 @@ pipeline.init()
 
 //configuration
 pipeline.node = "android"
-pipeline.propertiesProvider = { PrPipeline.properties(pipeline) }
+pipeline.propertiesProvider = { initProperties(pipeline) }
 
 pipeline.preExecuteStageBody = { stage ->
     if (stage.name != CHECKOUT) RepositoryUtil.notifyBitbucketAboutStageStart(script, pipeline.repoUrl, stage.name)
@@ -113,3 +113,29 @@ pipeline.finalizeBody = {
 }
 
 pipeline.run()
+
+static List<Object> initProperties(ScmPipeline ctx) {
+    def script = ctx.script
+    return [
+            initBuildDiscarder(script),
+            initParameters(script)
+    ]
+}
+
+def static initBuildDiscarder(script) {
+    return script.buildDiscarder(
+            script.logRotator(
+                    artifactDaysToKeepStr: '3',
+                    artifactNumToKeepStr: '10',
+                    daysToKeepStr: '60',
+                    numToKeepStr: '200')
+    )
+}
+
+def static initParameters(script) {
+    return script.parameters([
+            script.string(
+                    name: "branchName_0",
+                    description: 'Ветка с исходным кодом')
+    ])
+}
