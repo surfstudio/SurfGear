@@ -5,7 +5,7 @@ mixin MixinShowHelpScenario {
   /// Описание команды
   String get helpInfo;
 
-  /// Показать help по командам
+  /// Показать help по команде
   ///
   /// [maxLengthNameCommand]  длина имени самой длинной команды.
   /// '8' эквивалетно двум табам
@@ -26,6 +26,6 @@ mixin MixinShowHelpScenario {
     return ' ' * lengthNameCommand + '\t\t';
   }
 
-  /// Переопределить и описать, если есть оптиции или флаги
+  /// Переопределить и описать, если есть опции или флаги
   Future<void> showHelpOption() async {}
 }

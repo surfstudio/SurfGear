@@ -32,10 +32,8 @@ class ClearChangedScenario extends Scenario {
   Future<void> doExecute(List<Element> elements) async {}
 
   @override
-  // TODO: implement getCommandName
   String get getCommandName => commandName;
 
   @override
-  // TODO: implement helpInfo
   String get helpInfo => _helpInfo;
 }
