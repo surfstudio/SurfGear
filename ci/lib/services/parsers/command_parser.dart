@@ -23,6 +23,7 @@ import 'package:ci/scenarios/write_release_note_scenario.dart';
 import 'package:ci/scenarios/show_help_scenario.dart';
 import 'package:ci/utils/arg_results_extension.dart';
 import 'package:ci/utils/string_util.dart';
+import 'dart:io';
 
 /// Парсер команд
 class CommandParser {
@@ -75,8 +76,8 @@ class CommandParser {
       ..addCommand(
           CheckLicensingScenario.commandName,
           ArgParser()
-            ..addFlag(CheckLicensingScenario.allFlag, negatable: false)
-            ..addOption(CheckLicensingScenario.nameOption))
+            ..addFlag(CheckLicensingScenario.allFlag, negatable: false, help: 'testtest', abbr: 'k')
+            ..addOption(CheckLicensingScenario.nameOption, help: 'testtesttesttesttesttest'))
 
       /// build
       ..addCommand(BuildScenario.commandName)

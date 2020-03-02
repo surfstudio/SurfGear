@@ -1,31 +1,41 @@
+import 'package:args/args.dart';
+import 'package:meta/meta.dart';
+
 mixin MixinShowHelpScenario {
   /// Имя команды
+  @protected
   String get getCommandName;
 
   /// Описание команды
+  @protected
   String get helpInfo;
 
-  /// Показать help по команде
-  ///
-  /// [maxLengthNameCommand]  длина имени самой длинной команды.
-  /// '8' эквивалетно двум табам
-  Future<void> showHelpCommand([int maxLengthNameCommand]) async {
-    var stringBuffer = StringBuffer();
-    stringBuffer.write('$getCommandName:');
-    stringBuffer.write(_indent(maxLengthNameCommand));
-
-    stringBuffer.write(helpInfo);
-    print(stringBuffer);
-    await showHelpOption();
-  }
-
-  ///  Возвращает отступ в консоли между название команды и её help
-  ///  нужен для выравнивания
-  String _indent(int maxLengthNameCommand) {
-    var lengthNameCommand = (maxLengthNameCommand - getCommandName.length).abs();
-    return ' ' * lengthNameCommand + '\t\t';
-  }
-
   /// Переопределить и описать, если есть опции или флаги
-  Future<void> showHelpOption() async {}
+  @protected
+  Map<String, String> getHelpMap(ArgParser argParser) {
+    return <String, String>{
+      getCommandName: helpInfo,
+      ..._showHelpOption(argParser),
+      ...addHelpData(),
+    };
+  }
+
+  /// Генерим мапу, где key - [option + abbr]
+  Map<String, String> _showHelpOption(ArgParser argParser) {
+    var mapHelp = <String, String>{};
+    var keys = argParser.options.keys;
+    for (var key in keys) {
+      var val = '--' + argParser.options[key].name;
+      if (argParser.options[key].abbr != null) {
+        val += ', -' + argParser.options[key].abbr;
+      }
+      mapHelp.addAll({val: argParser.options[key].help});
+    }
+    return mapHelp;
+  }
+
+  /// Переопределить, если нужно добавить ещё информацию в help
+  Map<String, String> addHelpData() {
+    return {};
+  }
 }

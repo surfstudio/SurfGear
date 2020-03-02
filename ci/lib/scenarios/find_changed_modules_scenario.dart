@@ -43,11 +43,11 @@ class FindChangedModulesScenario extends Scenario {
     await createChangedListFile(elements, command.arguments[targetOptionName]);
   }
 
-  @override
-  Future<void> showHelpOption() async {
-    print('\toption:');
-    print('\t--${targetOptionName}: \t target branch name');
-  }
+//  @override
+//  Future<void> showHelpOption() async {
+//    print('\toption:');
+//    print('\t--${targetOptionName}: \t target branch name');
+//  }
 
   @override
   String get getCommandName => commandName;

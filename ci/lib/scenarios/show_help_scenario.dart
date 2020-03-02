@@ -20,34 +20,87 @@ class ShowHelpScenario extends Scenario {
 
   @override
   Future<void> run() async {
-    ArgParser _argParser = command.arguments[parser];
-    ArgResults _argResults = command.arguments[results];
-    if (_argResults != null) {
-      await _show(_argResults.name);
+    var argResults = command.arguments[results];
+    var argParser = command.arguments[parser];
+    var stringBuffer = StringBuffer();
+    var keys = argParser.commands.keys.toList();
+    if (argResults != null) {
+      stringBuffer.write(_createBufferHelp(await scenarioMap[argResults.name](null, null)));
     } else {
-      var keys = _argParser.commands.keys.toList();
-      var maxLengthCommandName = _getMaxLengthCommandName(keys);
-      for (var key in keys) {
-        await _show(key, maxLengthCommandName);
-      }
+      var helpCommands = getHelpList(keys, argParser);
+      var maxLengthNameCommand = _getMaxLengthCommandName(keys);
+
+
+
+
+//      var scenarios = await _getScenarios();
+//      var maxLengthNameCommand = _getMaxLengthCommandName(scenarios);
+//
+//      for (var scenario in scenarios) {
+//        stringBuffer.write(_createBufferHelp(scenario, maxLengthNameCommand));
+//      }
     }
+
+    print(stringBuffer);
   }
 
-  /// Считаем колличество табов эквивалетное
-  /// самой длинной команде.
+  List<Map<String, String>> getHelpList(List<String> keys, ArgParser argParser) {
+    var _helpCommands = <Map<String, String>>[];
+    argParser = command.arguments[parser];
+    for (var key in keys) {
+      _helpCommands.add(scenarioMap[key](null, null).getHelpMap(argParser.commands[key]));
+    }
+    return _helpCommands;
+  }
+
   int _getMaxLengthCommandName(List<String> keys) {
     var maxLengthNameCommand = 0;
     for (var key in keys) {
-      var lengthNameCommand = scenarioMap[key](null, null).getCommandName.length;
-      if (maxLengthNameCommand < lengthNameCommand) {
-        maxLengthNameCommand = lengthNameCommand;
-      }
+      maxLengthNameCommand = maxLengthNameCommand > key.length ? maxLengthNameCommand : key.length;
     }
     return maxLengthNameCommand;
   }
 
-  Future<void> _show(String key, [int maxLengthNameCommand = 0]) async {
-    await scenarioMap[key](null, null).showHelpCommand(maxLengthNameCommand);
+//  Future<List<Scenario>> _getScenarios() async {
+//    var scenarios = <Scenario>[];
+//    _argParser = command.arguments[parser];
+//    var keys = _argParser.commands.keys.toList();
+//    for (var key in keys) {
+//      scenarios.add(await scenarioMap[key](null, null));
+//    }
+//    return scenarios;
+//  }
+
+  /// Считаем колличество табов эквивалетное
+  /// самой длинной команде.
+//  int _getMaxLengthCommandName(List<Scenario> scenarios) {
+//    var maxLengthNameCommand = 0;
+//    for (var scenario in scenarios) {
+//      var lengthNameCommand = scenario.getCommandName.length;
+//      maxLengthNameCommand =
+//          maxLengthNameCommand > lengthNameCommand ? maxLengthNameCommand : lengthNameCommand;
+//    }
+//    return maxLengthNameCommand;
+//  }
+
+  /// Создаём хелп для каждой команды
+  StringBuffer _createBufferHelp(Scenario scenario, [int maxLengthNameCommand = 0]) {
+    var stringBuffer = StringBuffer();
+//    _mapHelp = scenario.getHelp(_argParser.commands[scenario.getCommandName]);
+//    stringBuffer.write(scenario.getCommandName);
+//				stringBuffer.write(_mapHelp.)
+
+//    stringBuffer.write(scenario.getCommandName);
+//    var lengthNameCommand = (maxLengthNameCommand - scenario.getCommandName.length).abs();
+//    stringBuffer.write(' ' * lengthNameCommand + '\t\t');
+//    stringBuffer.write(scenario.helpInfo);
+//    stringBuffer.write('\n');
+//    var strHelp = _argParser.commands[scenario.getCommandName].usage;
+//    if (strHelp.isNotEmpty) {
+//      stringBuffer.write(strHelp + '\n');
+//    }
+
+    return stringBuffer;
   }
 
   /// Метод пуст по причине того, что данный сценарий полностью выбивается
