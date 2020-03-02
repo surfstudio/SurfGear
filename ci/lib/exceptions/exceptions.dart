@@ -210,3 +210,8 @@ class CommandParamsValidationException extends BaseCiException {
 class CommandHandlerNotFoundException extends BaseCiException {
   CommandHandlerNotFoundException(String message) : super(message);
 }
+
+/// Недопустимый вызов
+class NotSupportedMethodCallException extends BaseCiException {
+  NotSupportedMethodCallException(String message) : super(message);
+}

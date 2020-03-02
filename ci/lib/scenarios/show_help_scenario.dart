@@ -1,6 +1,8 @@
 import 'package:args/args.dart';
 import 'package:ci/domain/command.dart';
 import 'package:ci/domain/element.dart';
+import 'package:ci/exceptions/exceptions.dart';
+import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/factories/scenario_helper.dart';
@@ -10,11 +12,10 @@ class ShowHelpScenario extends Scenario {
   static const String commandName = 'showHelpScenario';
   static const String parser = 'parser';
   static const String results = 'results';
-  final PubspecParser pubspecParser;
 
   ShowHelpScenario(
     Command command,
-    this.pubspecParser,
+    PubspecParser pubspecParser,
   ) : super(command, pubspecParser);
 
   @override
@@ -61,8 +62,10 @@ class ShowHelpScenario extends Scenario {
   Future<void> doExecute(List<Element> elements) async {}
 
   @override
-  String get getCommandName => '';
+  String get getCommandName =>
+      throw NotSupportedMethodCallException(getNotSupportedMethodCallExceptionText('getCommandName'));
 
   @override
-  String get helpInfo => '';
+  String get helpInfo =>
+      throw NotSupportedMethodCallException(getNotSupportedMethodCallExceptionText('helpInfo'));
 }
