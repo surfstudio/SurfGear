@@ -76,7 +76,7 @@ pipeline.stages = [
         },
 
         pipeline.stage(GET_DEPENDENCIES) {
-            script.sh "cd ci/ && pub get"
+            script.sh "cd tools/ci/ && pub get"
         },
 
         pipeline.stage(MIRRORING) {
