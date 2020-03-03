@@ -7,11 +7,11 @@ void main() {
   });
 
   test('correct path', () {
-    expect(() => PubspecParser().parsePubspecs('../packages'), returnsNormally);
+    expect(() => PubspecParser().parsePubspecs('../../packages'), returnsNormally);
   });
 
   test('reference equivalence', () {
-    final elements = PubspecParser().parsePubspecs('../packages');
+    final elements = PubspecParser().parsePubspecs('../../packages');
     final analytics = elements.firstWhere((e) => e.name == 'analytics');
 
     final logger = elements.firstWhere((e) => e.name == 'logger');
