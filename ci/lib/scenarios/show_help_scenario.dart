@@ -10,9 +10,12 @@ import 'package:ci/tasks/factories/scenario_helper.dart';
 /// Дефолтный отступ
 const String _wTab = '\t\t';
 
-/// Выводит help команд в консоль
+/// Выводит help команд в консоль, включая опций и субкоманд
+///
+/// dart ci --help / dart ci -h
 class ShowHelpScenario extends Scenario {
   static const String commandName = 'showHelpScenario';
+  /// key для
   static const String parser = 'parser';
   static const String results = 'results';
 
@@ -21,45 +24,57 @@ class ShowHelpScenario extends Scenario {
     PubspecParser pubspecParser,
   ) : super(command, pubspecParser);
 
+  /// Проверяем, запрошен общий хелп или для одной команды
   @override
   Future<void> run() async {
     ArgResults argResults = command.arguments[results];
     ArgParser argParser = command.arguments[parser];
-    var helpBuffer = StringBuffer();
-    if (argResults != null) {
-      var maxLengthNames = _getMaxLengthNames(argResults.name);
-      helpBuffer.write(
-        _generate(scenarioMap[argResults.name](null, null).getHelp(argParser.commands[argResults.name]),
-            maxLengthNames: maxLengthNames),
-      );
-    } else {
-      var keys = argParser.commands.keys.toList();
-      var maxLengthNames = _getMaxLengthNames(keys);
-      for (var key in keys) {
-        var mapHelp = scenarioMap[key](null, null).getHelp(argParser.commands[key]);
 
-        helpBuffer.write(_generate(mapHelp, maxLengthNames: maxLengthNames));
-      }
+    if (argResults != null) {
+      print(_getInfoCommand(argResults, argParser));
+    } else {
+      print(_getInfoCommands(argParser));
     }
-    print(helpBuffer);
+  }
+
+  /// Собираем хелп для указанной команды
+  StringBuffer _getInfoCommand(ArgResults argResults, ArgParser argParser) {
+    var helpBuffer = StringBuffer();
+    var maxLengthNames = _getMaxLengthNames(argResults.name);
+    var mapHelp = scenarioMap[argResults.name](null, null).getHelp(argParser.commands[argResults.name]);
+    helpBuffer.write(_generate(mapHelp, maxLengthName: maxLengthNames));
+    return helpBuffer;
+  }
+
+  /// Если команда не указана, собираем хелп по всем командам
+  StringBuffer _getInfoCommands(ArgParser argParser) {
+    var helpBuffer = StringBuffer();
+    var keys = argParser.commands.keys.toList();
+    var maxLengthNames = _getMaxLengthNames(keys);
+
+    for (var key in keys) {
+      var mapHelp = scenarioMap[key](null, null).getHelp(argParser.commands[key]);
+      helpBuffer.write(_generate(mapHelp, maxLengthName: maxLengthNames));
+    }
+    return helpBuffer;
   }
 
   /// Генерируем хелпу рекурсивно
-  StringBuffer _generate(Map<String, dynamic> mapHelp, {int maxLengthNames, int line = 0}) {
+  StringBuffer _generate(Map<String, dynamic> mapHelp, {int maxLengthName, int lineIndent = 0}) {
     var helpBuffer = StringBuffer();
     var keys = mapHelp.keys.toList();
 
     for (var key in keys) {
       if (mapHelp[key] is! Map<String, dynamic>) {
-        helpBuffer.write(_wTab * line);
+        helpBuffer.write(_wTab * lineIndent);
         helpBuffer.write(key);
-        helpBuffer.write(_getIndent(maxLengthNames, key));
+        helpBuffer.write(_getIndent(maxLengthName, key));
         helpBuffer.write(mapHelp[key]);
         helpBuffer.write('\n');
       } else {
         Map<String, dynamic> subMapHelp = mapHelp[key];
         var maxLengthNames = _getMaxLengthNames(subMapHelp.keys.toList());
-        helpBuffer.write(_generate(subMapHelp, maxLengthNames: maxLengthNames, line: ++line));
+        helpBuffer.write(_generate(subMapHelp, maxLengthName: maxLengthNames, lineIndent: ++lineIndent));
       }
     }
     return helpBuffer;
@@ -77,10 +92,9 @@ class ShowHelpScenario extends Scenario {
     return (namesCommands as String).length;
   }
 
-  /// Считаем колличество табов эквивалетное
-  /// самой длинной команде.
-  String _getIndent(int maxLengthNames, String key) {
-    var lengthNameCommand = (maxLengthNames - key.length).abs();
+  /// Возвращает общий отступ для всех команд, ориентируясь на самое длинное имя
+  String _getIndent(int maxLengthName, String name) {
+    var lengthNameCommand = (maxLengthName - name.length).abs();
     return ' ' * lengthNameCommand + '\t\t';
   }
 
@@ -95,6 +109,7 @@ class ShowHelpScenario extends Scenario {
   @override
   Future<void> doExecute(List<Element> elements) async {}
 
+  /// [ShowHelpScenario] не должен возвращать имя и хелп
   @override
   String get getCommandName =>
       throw NotSupportedMethodCallException(getNotSupportedMethodCallExceptionText('getCommandName'));
