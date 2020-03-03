@@ -1,6 +1,7 @@
 import 'package:args/args.dart';
 import 'package:meta/meta.dart';
 
+/// Генерит мапу содержащую хелп для команды
 mixin MixinShowHelpScenario {
   /// Имя команды
   @protected
@@ -10,18 +11,21 @@ mixin MixinShowHelpScenario {
   @protected
   String get helpInfo;
 
-  /// Переопределить и описать, если есть опции или флаги
+  /// key для мапы с опциями
+  static final _keyMapOption = 'options';
+
+  /// Возвращает хелп опций и субкоманд командя
   @protected
-  Map<String, dynamic> getHelp(ArgParser argParser) {
+  Map<String, dynamic> getHelp(ArgParser argParser, [String nameSubCommand]) {
     return <String, dynamic>{
-      getCommandName: helpInfo,
-      'option': _showHelpOption(argParser),
-      'data': addSubCommandInHelp(),
+      nameSubCommand ?? getCommandName:
+          nameSubCommand == null ? helpInfo : getSubCommandInHelp()[nameSubCommand] ?? '',
+      _keyMapOption: _showHelpOption(argParser),
     };
   }
 
-  /// Генерим мапу, где key - [option + abbr]
-  /// Делаем рекурсивно, на случай подкоманд
+  /// Генерим мапу, где key - [option + abbr] / [nameSubCommand], если имеются субкоманды,
+  /// то рукерсивно находим её опции и флаги
   Map<String, dynamic> _showHelpOption(ArgParser argParser) {
     var mapHelp = <String, dynamic>{};
     var keys = argParser.options.keys;
@@ -32,17 +36,20 @@ mixin MixinShowHelpScenario {
       }
       mapHelp.addAll({val: argParser.options[key].help});
     }
+
     if (argParser.commands != null && argParser.commands.isNotEmpty) {
       var _keys = argParser.commands.keys;
       for (var _key in _keys) {
-        mapHelp.addAll(_showHelpOption(argParser.commands[_key]));
+        mapHelp.addAll(getHelp(argParser.commands[_key], _key));
       }
     }
+
     return mapHelp;
   }
 
-  /// Переопределить, если нужно добавить ещё информацию в help
-  Map<String, dynamic> addSubCommandInHelp() {
+  /// Переопределить, если нужно добавить ещё информацию в help для субкоманд, где
+  /// Map<String = nameSubCommand , String = help>
+  Map<String, String> getSubCommandInHelp() {
     return {};
   }
 }
