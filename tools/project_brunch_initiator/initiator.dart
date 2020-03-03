@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:path/path.dart';
 import 'package:shell/shell.dart';
 
 const String _projectCommandName = 'project';
@@ -60,7 +59,7 @@ void main(List<String> arguments) async {
 
   /// Create new branch for project variant of standard and switch to there.
   var branchName = _projectPrefix + _projectName;
-  sh.run('git checkout -b branchName', []);
+  sh.run('git checkout -b $branchName', []);
 
   /// Change pubspecs - we need git dependencies instead local.
 
