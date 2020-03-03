@@ -12,17 +12,18 @@ mixin MixinShowHelpScenario {
 
   /// Переопределить и описать, если есть опции или флаги
   @protected
-  Map<String, String> getHelpMap(ArgParser argParser) {
-    return <String, String>{
+  Map<String, dynamic> getHelp(ArgParser argParser) {
+    return <String, dynamic>{
       getCommandName: helpInfo,
-      ..._showHelpOption(argParser),
-      ...addHelpData(),
+      'option': _showHelpOption(argParser),
+      'data': addSubCommandInHelp(),
     };
   }
 
   /// Генерим мапу, где key - [option + abbr]
-  Map<String, String> _showHelpOption(ArgParser argParser) {
-    var mapHelp = <String, String>{};
+  /// Делаем рекурсивно, на случай подкоманд
+  Map<String, dynamic> _showHelpOption(ArgParser argParser) {
+    var mapHelp = <String, dynamic>{};
     var keys = argParser.options.keys;
     for (var key in keys) {
       var val = '--' + argParser.options[key].name;
@@ -31,11 +32,17 @@ mixin MixinShowHelpScenario {
       }
       mapHelp.addAll({val: argParser.options[key].help});
     }
+    if (argParser.commands != null && argParser.commands.isNotEmpty) {
+      var _keys = argParser.commands.keys;
+      for (var _key in _keys) {
+        mapHelp.addAll(_showHelpOption(argParser.commands[_key]));
+      }
+    }
     return mapHelp;
   }
 
   /// Переопределить, если нужно добавить ещё информацию в help
-  Map<String, String> addHelpData() {
+  Map<String, dynamic> addSubCommandInHelp() {
     return {};
   }
 }

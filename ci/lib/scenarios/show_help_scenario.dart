@@ -7,6 +7,9 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/factories/scenario_helper.dart';
 
+/// Дефолтный отступ
+const String _wTab = '\t\t';
+
 /// Выводит help команд в консоль
 class ShowHelpScenario extends Scenario {
   static const String commandName = 'showHelpScenario';
@@ -20,87 +23,65 @@ class ShowHelpScenario extends Scenario {
 
   @override
   Future<void> run() async {
-    var argResults = command.arguments[results];
-    var argParser = command.arguments[parser];
-    var stringBuffer = StringBuffer();
-    var keys = argParser.commands.keys.toList();
+    ArgResults argResults = command.arguments[results];
+    ArgParser argParser = command.arguments[parser];
+    var helpBuffer = StringBuffer();
     if (argResults != null) {
-      stringBuffer.write(_createBufferHelp(await scenarioMap[argResults.name](null, null)));
+      var maxLengthNames = _getMaxLengthNames(argResults.name);
+      helpBuffer.write(
+        _generate(scenarioMap[argResults.name](null, null).getHelp(argParser.commands[argResults.name]),
+            maxLengthNames: maxLengthNames),
+      );
     } else {
-      var helpCommands = getHelpList(keys, argParser);
-      var maxLengthNameCommand = _getMaxLengthCommandName(keys);
+      var keys = argParser.commands.keys.toList();
+      var maxLengthNames = _getMaxLengthNames(keys);
+      for (var key in keys) {
+        var mapHelp = scenarioMap[key](null, null).getHelp(argParser.commands[key]);
 
-
-
-
-//      var scenarios = await _getScenarios();
-//      var maxLengthNameCommand = _getMaxLengthCommandName(scenarios);
-//
-//      for (var scenario in scenarios) {
-//        stringBuffer.write(_createBufferHelp(scenario, maxLengthNameCommand));
-//      }
+        helpBuffer.write(_generate(mapHelp, maxLengthNames: maxLengthNames));
+      }
     }
-
-    print(stringBuffer);
+    print(helpBuffer);
   }
 
-  List<Map<String, String>> getHelpList(List<String> keys, ArgParser argParser) {
-    var _helpCommands = <Map<String, String>>[];
-    argParser = command.arguments[parser];
+  /// Генерируем хелпу рекурсивно
+  StringBuffer _generate(Map<String, dynamic> mapHelp, {int maxLengthNames, int line = 0}) {
+    var helpBuffer = StringBuffer();
+    var keys = mapHelp.keys.toList();
+
     for (var key in keys) {
-      _helpCommands.add(scenarioMap[key](null, null).getHelpMap(argParser.commands[key]));
+      if (mapHelp[key] is! Map<String, dynamic>) {
+        helpBuffer.write(_wTab * line);
+        helpBuffer.write(key);
+        helpBuffer.write(_getIndent(maxLengthNames, key));
+        helpBuffer.write(mapHelp[key]);
+        helpBuffer.write('\n');
+      } else {
+        Map<String, dynamic> subMapHelp = mapHelp[key];
+        var maxLengthNames = _getMaxLengthNames(subMapHelp.keys.toList());
+        helpBuffer.write(_generate(subMapHelp, maxLengthNames: maxLengthNames, line: ++line));
+      }
     }
-    return _helpCommands;
+    return helpBuffer;
   }
 
-  int _getMaxLengthCommandName(List<String> keys) {
-    var maxLengthNameCommand = 0;
-    for (var key in keys) {
-      maxLengthNameCommand = maxLengthNameCommand > key.length ? maxLengthNameCommand : key.length;
+  ///  Определяет максимальную длинну команды, для корректного вывода в консоль
+  int _getMaxLengthNames(dynamic namesCommands) {
+    if (namesCommands is List<String>) {
+      var maxLengthNameCommand = 0;
+      for (var key in namesCommands) {
+        maxLengthNameCommand = maxLengthNameCommand > key.length ? maxLengthNameCommand : key.length;
+      }
+      return maxLengthNameCommand;
     }
-    return maxLengthNameCommand;
+    return (namesCommands as String).length;
   }
-
-//  Future<List<Scenario>> _getScenarios() async {
-//    var scenarios = <Scenario>[];
-//    _argParser = command.arguments[parser];
-//    var keys = _argParser.commands.keys.toList();
-//    for (var key in keys) {
-//      scenarios.add(await scenarioMap[key](null, null));
-//    }
-//    return scenarios;
-//  }
 
   /// Считаем колличество табов эквивалетное
   /// самой длинной команде.
-//  int _getMaxLengthCommandName(List<Scenario> scenarios) {
-//    var maxLengthNameCommand = 0;
-//    for (var scenario in scenarios) {
-//      var lengthNameCommand = scenario.getCommandName.length;
-//      maxLengthNameCommand =
-//          maxLengthNameCommand > lengthNameCommand ? maxLengthNameCommand : lengthNameCommand;
-//    }
-//    return maxLengthNameCommand;
-//  }
-
-  /// Создаём хелп для каждой команды
-  StringBuffer _createBufferHelp(Scenario scenario, [int maxLengthNameCommand = 0]) {
-    var stringBuffer = StringBuffer();
-//    _mapHelp = scenario.getHelp(_argParser.commands[scenario.getCommandName]);
-//    stringBuffer.write(scenario.getCommandName);
-//				stringBuffer.write(_mapHelp.)
-
-//    stringBuffer.write(scenario.getCommandName);
-//    var lengthNameCommand = (maxLengthNameCommand - scenario.getCommandName.length).abs();
-//    stringBuffer.write(' ' * lengthNameCommand + '\t\t');
-//    stringBuffer.write(scenario.helpInfo);
-//    stringBuffer.write('\n');
-//    var strHelp = _argParser.commands[scenario.getCommandName].usage;
-//    if (strHelp.isNotEmpty) {
-//      stringBuffer.write(strHelp + '\n');
-//    }
-
-    return stringBuffer;
+  String _getIndent(int maxLengthNames, String key) {
+    var lengthNameCommand = (maxLengthNames - key.length).abs();
+    return ' ' * lengthNameCommand + '\t\t';
   }
 
   /// Метод пуст по причине того, что данный сценарий полностью выбивается
