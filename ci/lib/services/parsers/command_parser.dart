@@ -138,15 +138,15 @@ class CommandParser {
 
     var isShowHelp = results[CommandParser.helpFlag] as bool;
 
+    if (isShowHelp) {
+      return Command(ShowHelpScenario.commandName, <String, dynamic>{
+        ShowHelpScenario.parser: _argParser,
+        ShowHelpScenario.results: command,
+      });
+    }
+
     if (command == null) {
-      if (isShowHelp) {
-        return Command(ShowHelpScenario.commandName, <String, dynamic>{
-          ShowHelpScenario.parser: _argParser,
-          ShowHelpScenario.results: command,
-        });
-      } else {
-        return null;
-      }
+      return null;
     }
 
     switch (command.name) {
