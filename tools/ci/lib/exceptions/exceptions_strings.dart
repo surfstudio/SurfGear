@@ -3,6 +3,7 @@ const String changedListFileMissedExceptionText = 'Для выполнения p
 String getFileNotFoundExceptionText(String filepath) => 'File $filepath not found';
 String getElementNotFoundExceptionText(String moduleName) => 'Модуль $moduleName не найден';
 String getFormatExceptionText(String error) => 'Неправильный формат!\n$error';
+String getElementCustomParamsMissedExceptionText(String pubspecPath) => 'Pubspec $pubspecPath не содержит custom параметры';
 
 
 /// Licensing

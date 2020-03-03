@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:ci/domain/dependency.dart';
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
+import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:pubspec_parse/pubspec_parse.dart' as lib;
 import 'package:yaml/yaml.dart';
 
 /// Парсер pubspec.yaml
 class PubspecParser {
   static const pubspecFilename = 'pubspec.yaml';
+
   static String _getModulesNotFoundMsg(String dirPath) =>
       'Не найдены модули по заданному пути: $dirPath. Необходимо передать путь к папке, в которой находятся пакеты dart.';
 
@@ -65,6 +67,14 @@ class PubspecParser {
 
       final pubspecMap = loadYamlDocument(pubspec).contents as YamlMap;
       final custom = pubspecMap['custom'];
+
+      if (custom == null) {
+        throw ElementCustomParamsMissedException(
+          getElementCustomParamsMissedExceptionText(
+            file.path,
+          ),
+        );
+      }
 
       final separateRepoUrl = custom['separate_repo_url'];
       final hostUrl = custom['host_url'];
