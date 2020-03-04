@@ -59,7 +59,7 @@ void main(List<String> arguments) async {
 
   /// Create new branch for project variant of standard and switch to there.
   var branchName = _projectPrefix + _projectName;
-  sh.run('git checkout -b $branchName', []);
+  await sh.run('git checkout -b $branchName', []);
 
   /// Change pubspecs - we need git dependencies instead local.
 
@@ -72,9 +72,9 @@ void main(List<String> arguments) async {
     _changeDependencies(package);
   }
 
-  sh.run('git commit -am "Init project $_projectName branch"', []);
-  sh.run('git tag ${_projectName}-0', []);
-  sh.run('git git push origin --tags', []);
+  await sh.run('git commit -am "Init project $_projectName branch"', []);
+  await sh.run('git tag ${_projectName}-0', []);
+  await sh.run('git git push origin --tags', []);
 }
 
 void _changeDependencies(FileSystemEntity fileSystemEntity) {
