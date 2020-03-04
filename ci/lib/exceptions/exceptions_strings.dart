@@ -3,7 +3,7 @@ const String changedListFileMissedExceptionText = 'Для выполнения p
 String getFileNotFoundExceptionText(String filepath) => 'File $filepath not found';
 String getElementNotFoundExceptionText(String moduleName) => 'Модуль $moduleName не найден';
 String getFormatExceptionText(String error) => 'Неправильный формат!\n$error';
-
+String getNotSupportedMethodCallExceptionText(String error) => 'Вызов метода $error не поддерживается ';
 
 /// Licensing
 const String licenseSampleNotFoundExceptionText = 'Образец лицензии не найден. Проверьте наличие файла лиценизии и конфигурацию приложения.';
@@ -38,7 +38,6 @@ String getTestsFailedExceptionText(int modulesCount, String error) => 'Тест�
 String getParseCommandExceptionText(String command) => 'Не удалось распарсить команду $command';
 String getCommandHandlerNotFoundExceptionText(String command) => 'Не найден обработчик для команды $command';
 String getCommandFormatExceptionText(String cmd, String error) => 'Неправильная конфигурация команды $cmd : $error';
-String getNotSupportedMethodCallExceptionText(String error) => 'Вызов метода $error не поддерживается ';
 
 /// Publish
 String getPubCheckReleaseVersionExceptionText(String module) => '$module: модуль, с непрописанной версией Release Notes';

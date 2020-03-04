@@ -41,6 +41,11 @@ abstract class GitProcessException extends BaseCiException {
   GitProcessException(String message) : super(message);
 }
 
+/// Недопустимый вызов
+class NotSupportedMethodCallException extends BaseCiException {
+  NotSupportedMethodCallException(String message) : super(message);
+}
+
 /// Ошибки функционала
 
 /// Build
@@ -209,9 +214,4 @@ class CommandParamsValidationException extends BaseCiException {
 /// Не найден обработчик команды
 class CommandHandlerNotFoundException extends BaseCiException {
   CommandHandlerNotFoundException(String message) : super(message);
-}
-
-/// Недопустимый вызов
-class NotSupportedMethodCallException extends BaseCiException {
-  NotSupportedMethodCallException(String message) : super(message);
 }
