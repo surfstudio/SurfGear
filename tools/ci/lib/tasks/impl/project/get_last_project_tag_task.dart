@@ -23,7 +23,7 @@ class GetLastProjectTagTask extends Task<ProjectTag> {
 
     try {
       var out = res.stdout;
-      out.toString().trimRight();
+      out = out.toString().trimRight();
       return ProjectTag.parseFrom(out);
     } on FormatException {
       rethrow;
