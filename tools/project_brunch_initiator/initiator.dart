@@ -61,8 +61,12 @@ void main(List<String> arguments) async {
   var branchName = _projectPrefix + _projectName;
   _printRes(
     await sh.run(
-      'git checkout -b $branchName',
-      [],
+      'git',
+      [
+        'checkout',
+        '-b',
+        branchName,
+      ],
     ),
   );
 
@@ -79,20 +83,31 @@ void main(List<String> arguments) async {
 
   _printRes(
     await sh.run(
-      'git commit -am "Init project $_projectName branch"',
-      [],
+      'git',
+      [
+        'commit',
+        '-am',
+        'Init project $_projectName branch',
+      ],
     ),
   );
   _printRes(
     await sh.run(
-      'git tag ${_projectName}-0',
-      [],
+      'git',
+      [
+        'tag',
+        '${_projectName}-0',
+      ],
     ),
   );
   _printRes(
     await sh.run(
-      'git git push origin --tags',
-      [],
+      'git',
+      [
+        'push',
+        'origin',
+        '--tags',
+      ],
     ),
   );
 }
