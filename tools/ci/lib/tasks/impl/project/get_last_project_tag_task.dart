@@ -13,7 +13,7 @@ class GetLastProjectTagTask extends Task<ProjectTag> {
   Future<ProjectTag> run() async {
     /// опция тег обязательна, иначе вернется только последняя
     /// аннотированная пометка
-    var res = await sh('git describe --tag --abbrev=0 ');
+    var res = await sh('git describe --tag --abbrev=0');
 
     res.print();
 

@@ -56,4 +56,7 @@ class ProjectTag extends VersionedTag {
     var match = _projectTagExp.firstMatch(tagString);
     return ProjectTag(match.group(1), int.parse(match.group(2)));
   }
+
+  @override
+  ProjectTag inc() => ProjectTag(name, version + 1);
 }
