@@ -118,6 +118,7 @@ void main(List<String> arguments) async {
       [
         'push',
         'origin',
+        '-f',
         tagName,
       ],
     ),
