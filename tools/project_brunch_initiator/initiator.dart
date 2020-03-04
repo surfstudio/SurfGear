@@ -20,6 +20,14 @@ String _standardPath = '../../';
 String _projectName = '';
 
 /// Script for initialization of project brunch flutter-standard.
+/// You should set a name of project branch. Use for this case option project
+/// or "p" abbreviation.
+/// If you run this script another there place, you should set a path to
+/// flutter-standard root path. Use for this case option standard
+/// or "s" abbreviation. It's not important if you run it from
+/// standard-root/tools/project_branch_initiator.
+///
+/// For example: dart initiator.dart -p TEST --standard="path/to/std-root"
 ///
 /// Exit codes:
 /// 0 - success
