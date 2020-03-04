@@ -16,6 +16,7 @@ import 'package:ci/tasks/impl/license/licensing_check.dart';
 import 'package:ci/tasks/impl/building/linter_check.dart';
 import 'package:ci/tasks/impl/publish/pub_check_release_version_task.dart';
 import 'package:ci/tasks/impl/publish/pub_dry_run_task.dart';
+import 'package:ci/tasks/impl/publish/pub_publish_modules.dart';
 import 'package:ci/tasks/impl/testing/run_module_tests_check.dart';
 import 'package:ci/tasks/impl/building/stable_modules_for_changes_check.dart';
 import 'package:ci/tasks/utils.dart';
@@ -60,8 +61,7 @@ Future<bool> checkStableModulesForChanges(List<Element> elements) async {
   if (changedModules.isNotEmpty) {
     final modulesNames = changedModules.map((e) => e.name).join(', ');
     return Future.error(
-      StableModulesWasModifiedException(
-          'Модули, отмеченные как stable, были изменены: $modulesNames'),
+      StableModulesWasModifiedException('Модули, отмеченные как stable, были изменены: $modulesNames'),
     );
   }
 
@@ -81,8 +81,7 @@ Future<bool> runTests(List<Element> elements, {bool needReport = false}) async {
   }
 
   if (errorMessages.isNotEmpty) {
-    final message =
-        getTestsFailedExceptionText(errorMessages.length, errorMessages.join());
+    final message = getTestsFailedExceptionText(errorMessages.length, errorMessages.join());
 
     if (needReport) {
       File(_testsReportName).writeAsStringSync(message, flush: true);
@@ -100,6 +99,12 @@ Future<bool> runTests(List<Element> elements, {bool needReport = false}) async {
 /// error -  докумет openSource, но публиковать нельзя
 Future<bool> checkPublishAvailable(Element element) {
   return PubDryRunTask(element).run();
+}
+
+/// Публикуем модули
+/// [pathServer] принимать адрес сервера куда паблишить, необзательный параметр
+Future<void> pubPublishModules(Element element, {String pathServer}) {
+  return PubPublishModules(element, pathServer: pathServer).run();
 }
 
 /// Проверка на наличие актуальной версии в Release Notes

@@ -6,6 +6,7 @@ import 'package:test/test.dart';
 
 import '../core/test_helper.dart';
 
+/// Тестируем класс [PubPublishModules]
 void main() {
   group(
     'PubPublishModules tests:',
@@ -24,6 +25,7 @@ void main() {
           );
         },
       );
+
       test(
         'If the module is published, it should return void',
         () async {
@@ -31,11 +33,9 @@ void main() {
             false,
             createTestElement(),
           );
-
-          expect(
-            () async => await task.run(),
-            isA<void>(),
-          );
+          expectNoThrow(() async {
+            await task.run();
+          });
         },
       );
     },
@@ -45,7 +45,7 @@ void main() {
 PubPublishModules _prepareTestTask(bool isError, Element element, {String pathServer}) {
   var urlServer = pathServer == null ? '' : '--server $pathServer';
   var callingMap = <String, dynamic>{
-    'pub publish $urlServer': !isError,
+    'pub publish --force $urlServer': !isError,
   };
   var shell = substituteShell(callingMap: callingMap);
   var shm = getTestShellManager();

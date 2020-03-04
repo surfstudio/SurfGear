@@ -16,6 +16,7 @@ import 'package:ci/scenarios/check_version_in_release_note_scenario.dart';
 import 'package:ci/scenarios/clear_changed_scenario.dart';
 import 'package:ci/scenarios/find_changed_modules_scenario.dart';
 import 'package:ci/scenarios/increment_unstable_versions_scenario.dart';
+import 'package:ci/scenarios/publish_modules_scenario.dart';
 import 'package:ci/scenarios/run_test_scenario.dart';
 import 'package:ci/scenarios/show_help_scenario.dart';
 import 'package:ci/scenarios/upgrade_project_tag_scenario.dart';
@@ -127,6 +128,14 @@ class CommandParser {
 
       /// run_tests
       ..addCommand(RunTestScenario.commandName)
+
+      /// publish
+      ..addCommand(
+          PublishModulesScenario.commandName,
+          ArgParser()
+            ..addOption(PublishModulesScenario.server, help: 'server address')
+            ..addFlag(CheckLicensingScenario.allFlag, negatable: false, help: 'check all modules')
+            ..addOption(CheckLicensingScenario.nameOption, help: 'verification of the specified module'))
 
       /// help
       ..addFlag(helpFlag, negatable: false, abbr: helpAbbr);
