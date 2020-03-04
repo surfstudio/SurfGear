@@ -13,7 +13,7 @@ const String _pubspecName = 'pubspec.yaml';
 
 const String _projectPrefix = 'project-';
 
-const String _regExpLocal = '\s(\w+)\:(.|\n)*path:\s\.\.\/(\1)';
+const String _regExpLocal = r'\s(\w+)\:(\s)*path:\s\.\.\/(\1)';
 
 String _standardPath = '../../';
 
@@ -93,13 +93,10 @@ void _changeDependencies(FileSystemEntity fileSystemEntity) {
   var pubspecFile = File(pubspecFileEntity.path);
   var pubspec = pubspecFile.readAsStringSync();
   pubspec = pubspec.replaceAllMapped(
-    RegExp(
-      _regExpLocal,
-      multiLine: true,
-    ),
+    RegExp(_regExpLocal, multiLine: true, caseSensitive: false),
     (match) {
       var packageName = match.group(1);
-      return "${packageName}:\ngit:\nurl: https://bitbucket.org/surfstudio/flutter-standard.git\nref: ${_projectName}-0\npath: ${packageName}";
+      return "${packageName}:\n    git:\n     url: https://bitbucket.org/surfstudio/flutter-standard.git\n     ref: ${_projectName}-0\n     path: ${packageName}";
     },
   );
 
