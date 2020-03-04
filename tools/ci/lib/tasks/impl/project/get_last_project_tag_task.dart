@@ -22,7 +22,9 @@ class GetLastProjectTagTask extends Task<ProjectTag> {
     }
 
     try {
-      return ProjectTag.parseFrom(res.stdout);
+      var out = res.stdout;
+      out.toString().trimRight();
+      return ProjectTag.parseFrom(out);
     } on FormatException {
       rethrow;
     }
