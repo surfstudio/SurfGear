@@ -28,6 +28,7 @@ class ShowHelpScenario extends Scenario {
   /// Проверяем, запрошен общий хелп или для одной команды
   @override
   Future<void> run() async {
+    getCommandName;
     ArgResults argResults = command.arguments[results];
     ArgParser argParser = command.arguments[parser];
     var helpBuffer = StringBuffer();
@@ -104,10 +105,10 @@ class ShowHelpScenario extends Scenario {
 
   /// [ShowHelpScenario] не должен возвращать имя и хелп
   @override
-  String get getCommandName =>
-      throw NotSupportedMethodCallException(getNotSupportedMethodCallExceptionText('getCommandName'));
+  String get getCommandName => throw NotSupportedMethodCallException(
+      getNotSupportedMethodCallExceptionText('ShowHelpScenario#getCommandName'));
 
   @override
-  String get helpInfo =>
-      throw NotSupportedMethodCallException(getNotSupportedMethodCallExceptionText('helpInfo'));
+  String get helpInfo => throw NotSupportedMethodCallException(
+      getNotSupportedMethodCallExceptionText('ShowHelpScenario#helpInfo'));
 }
