@@ -15,6 +15,7 @@ const String _wTab = '\t\t';
 /// dart ci --help / dart ci -h
 class ShowHelpScenario extends Scenario {
   static const String commandName = 'showHelpScenario';
+
   /// key для
   static const String parser = 'parser';
   static const String results = 'results';
@@ -29,34 +30,26 @@ class ShowHelpScenario extends Scenario {
   Future<void> run() async {
     ArgResults argResults = command.arguments[results];
     ArgParser argParser = command.arguments[parser];
+    var helpBuffer = StringBuffer();
 
     if (argResults != null) {
-      print(_getInfoCommand(argResults, argParser));
+      var nameCommand = argResults.name;
+      var maxLengthNames = _getMaxLengthNames(nameCommand);
+      helpBuffer.write(_getInfoCommand(nameCommand, maxLengthNames, argParser));
     } else {
-      print(_getInfoCommands(argParser));
+      var keys = argParser.commands.keys.toList();
+      var maxLengthNames = _getMaxLengthNames(keys);
+      for (var key in keys) {
+        helpBuffer.write(_getInfoCommand(key, maxLengthNames, argParser));
+      }
     }
+    print(helpBuffer);
   }
 
   /// Собираем хелп для указанной команды
-  StringBuffer _getInfoCommand(ArgResults argResults, ArgParser argParser) {
-    var helpBuffer = StringBuffer();
-    var maxLengthNames = _getMaxLengthNames(argResults.name);
-    var mapHelp = scenarioMap[argResults.name](null, null).getHelp(argParser.commands[argResults.name]);
-    helpBuffer.write(_generate(mapHelp, maxLengthName: maxLengthNames));
-    return helpBuffer;
-  }
-
-  /// Если команда не указана, собираем хелп по всем командам
-  StringBuffer _getInfoCommands(ArgParser argParser) {
-    var helpBuffer = StringBuffer();
-    var keys = argParser.commands.keys.toList();
-    var maxLengthNames = _getMaxLengthNames(keys);
-
-    for (var key in keys) {
-      var mapHelp = scenarioMap[key](null, null).getHelp(argParser.commands[key]);
-      helpBuffer.write(_generate(mapHelp, maxLengthName: maxLengthNames));
-    }
-    return helpBuffer;
+  StringBuffer _getInfoCommand(String nameCommand, int maxLengthNames, ArgParser argParser) {
+    var mapHelp = scenarioMap[nameCommand](null, null).getHelp(argParser.commands[nameCommand]);
+    return _generate(mapHelp, maxLengthName: maxLengthNames);
   }
 
   /// Генерируем хелпу рекурсивно

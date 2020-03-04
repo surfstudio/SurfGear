@@ -39,9 +39,9 @@ class CommandParser {
 
   /// Выполняет парсинг переданных аргументов и возвращает команду на исполнение.
   Future<Command> parse(List<String> arguments) async {
-    var argResults = _argParser.parse(arguments);
+    var parsedArgs = _argParser.parse(arguments);
 
-    if (argResults.rest.isNotEmpty) {
+    if (parsedArgs.rest.isNotEmpty) {
       return Future.error(
         ParseCommandException(
           getParseCommandExceptionText(
@@ -51,7 +51,7 @@ class CommandParser {
       );
     }
 
-    var command = await _getCommandByArgs(argResults);
+    var command = await _getCommandByArgs(parsedArgs);
 
     if (command == null) {
       return Future.error(
