@@ -2,7 +2,7 @@
 // https://bitbucket.org/surfstudio/jenkins-pipeline-lib/
 
 import ru.surfstudio.ci.pipeline.empty.EmptyScmPipeline
-import ru.surfstudio.ci.pipeline.pr.PrPipeline
+import ru.surfstudio.ci.pipeline.ScmPipeline
 import ru.surfstudio.ci.JarvisUtil
 import ru.surfstudio.ci.CommonUtil
 import ru.surfstudio.ci.RepositoryUtil
@@ -20,8 +20,8 @@ def MIRRORING = 'Mirroring'
 def CHECKS_RESULT = 'Checks Result'
 
 //vars
-def branchName = ""
-def buildDescription = ""
+def branchName = "stable"
+def buildDescription = "stable release"
 
 //init
 def script = this
@@ -31,7 +31,7 @@ pipeline.init()
 
 //configuration
 pipeline.node = "android"
-pipeline.propertiesProvider = { PrPipeline.properties(pipeline) }
+pipeline.propertiesProvider = { initProperties(pipeline) }
 
 pipeline.preExecuteStageBody = { stage ->
     if (stage.name != CHECKOUT) RepositoryUtil.notifyBitbucketAboutStageStart(script, pipeline.repoUrl, stage.name)
@@ -43,20 +43,18 @@ pipeline.postExecuteStageBody = { stage ->
 pipeline.initializeBody = {
     CommonUtil.printInitialStageStrategies(pipeline)
 
-    //Выбираем значения веток из параметров, Установка их в параметры происходит
-    // если триггером был webhook или если стартанули Job вручную
-    //Используется имя branchName_0 из за особенностей jsonPath в GenericWebhook plugin
+    /// Данный джоб должен работать только в ветке stable, поэтому в случае
+    // если было переданно неправильное имя для запуска кидаем исключение.
+    // Параметр не имеет никакого смысла но нужен для триггеринга
+    def branchFromParam = ''
+
     CommonUtil.extractValueFromEnvOrParamsAndRun(script, 'branchName_0') {
-        value -> branchName = value
+        value -> branchFromParam = value
     }
 
-    if (branchName.contains("origin/")) {
-        branchName = branchName.replace("origin/", "")
+    if (branchFromParam != branchName) {
+        throw new Exception("This pipeline work only on stable brunch")
     }
-
-    buildDescription = branchName
-    CommonUtil.setBuildDescription(script, buildDescription)
-
 }
 
 pipeline.stages = [
@@ -77,7 +75,7 @@ pipeline.stages = [
         },
 
         pipeline.stage(GET_DEPENDENCIES) {
-            script.sh "cd ci/ && pub get"
+            script.sh "cd tools/ci/ && pub get"
         },
 
         pipeline.stage(CHECK_PUBLISH_AVAILABLE) {
@@ -121,3 +119,29 @@ pipeline.finalizeBody = {
 }
 
 pipeline.run()
+
+static List<Object> initProperties(ScmPipeline ctx) {
+    def script = ctx.script
+    return [
+            initBuildDiscarder(script),
+            initParameters(script)
+    ]
+}
+
+def static initBuildDiscarder(script) {
+    return script.buildDiscarder(
+            script.logRotator(
+                    artifactDaysToKeepStr: '3',
+                    artifactNumToKeepStr: '10',
+                    daysToKeepStr: '60',
+                    numToKeepStr: '200')
+    )
+}
+
+def static initParameters(script) {
+    return script.parameters([
+            script.string(
+                    name: "branchName_0",
+                    description: 'Ветка с исходным кодом')
+    ])
+}

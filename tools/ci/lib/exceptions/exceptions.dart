@@ -20,6 +20,11 @@ class ElementNotFoundException extends BaseCiException {
   ElementNotFoundException(String message) : super(message);
 }
 
+/// Пабспек элемента не содержит кастомных параметров.
+class ElementCustomParamsMissedException extends BaseCiException {
+  ElementCustomParamsMissedException(String message) : super(message);
+}
+
 // TODO: не стоит ли испльзовать ElementNotFoundException
 /// Не найдены модули. Например, пользователь указал неправильный путь.
 class ModulesNotFoundException extends BaseCiException {
