@@ -130,12 +130,8 @@ class CommandParser {
       ..addCommand(RunTestScenario.commandName)
 
       /// publish
-      ..addCommand(
-          PublishModulesScenario.commandName,
-          ArgParser()
-            ..addOption(PublishModulesScenario.server, help: 'server address')
-            ..addFlag(CheckLicensingScenario.allFlag, negatable: false, help: 'check all modules')
-            ..addOption(CheckLicensingScenario.nameOption, help: 'verification of the specified module'))
+      ..addCommand(PublishModulesScenario.commandName,
+          ArgParser()..addOption(PublishModulesScenario.server, help: 'server address'))
 
       /// help
       ..addFlag(helpFlag, negatable: false, abbr: helpAbbr);
