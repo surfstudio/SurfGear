@@ -96,7 +96,7 @@ void main(List<String> arguments) async {
       'git',
       [
         'tag',
-        '${_projectName}-0',
+        '${branchName}-0',
       ],
     ),
   );
