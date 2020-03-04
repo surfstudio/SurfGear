@@ -28,7 +28,6 @@ class ShowHelpScenario extends Scenario {
   /// Проверяем, запрошен общий хелп или для одной команды
   @override
   Future<void> run() async {
-    getCommandName;
     ArgResults argResults = command.arguments[results];
     ArgParser argParser = command.arguments[parser];
     var helpBuffer = StringBuffer();
