@@ -59,6 +59,7 @@ void main(List<String> arguments) async {
 
   /// Create new branch for project variant of standard and switch to there.
   var branchName = _projectPrefix + _projectName;
+  var tagName = branchName + '-0';
   _printRes(
     await sh.run(
       'git',
@@ -96,7 +97,18 @@ void main(List<String> arguments) async {
       'git',
       [
         'tag',
-        '${branchName}-0',
+        tagName,
+      ],
+    ),
+  );
+  _printRes(
+    await sh.run(
+      'git',
+      [
+        'push',
+        '-u',
+        'origin',
+        branchName,
       ],
     ),
   );
@@ -106,8 +118,7 @@ void main(List<String> arguments) async {
       [
         'push',
         'origin',
-        '-f'
-        '--tags',
+        tagName,
       ],
     ),
   );
