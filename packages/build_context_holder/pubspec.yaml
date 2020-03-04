@@ -1,0 +1,27 @@
+name: build_context_holder
+description: The BuildContext store received from the last created widget.
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: ">=2.4.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  pedantic: ^1.8.0+1
+
+flutter:
+custom:
+  is_stable: false
+  unstable_version: 0
+  is_plugin: false
+  path: build_context_holder
+  separate_repo_url:
+  hostUrl:
