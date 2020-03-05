@@ -15,9 +15,11 @@ import ru.surfstudio.ci.AbortDuplicateStrategy
 
 def CHECKOUT = 'Checkout'
 def GET_DEPENDENCIES = 'Getting dependencies'
+def FIND_CHANGED = 'Find changed'
 def CHECK_PUBLISH_AVAILABLE = 'Check publish available'
 def MIRRORING = 'Mirroring'
 def CHECKS_RESULT = 'Checks Result'
+def CLEAR_CHANGED = 'Clear changed'
 
 //vars
 def branchName = "stable"
@@ -78,6 +80,10 @@ pipeline.stages = [
             script.sh "cd tools/ci/ && pub get"
         },
 
+        pipeline.stage(FIND_CHANGED) {
+            script.sh "./tools/ci/runner/find_changed_modules --target=${branchName}"
+        },
+
         pipeline.stage(CHECK_PUBLISH_AVAILABLE) {
             script.sh "./tools/ci/runner/check_publish_available"
         },
@@ -100,6 +106,10 @@ pipeline.stages = [
             if (!checksPassed) {
                 script.error("Checks Failed")
             }
+        },
+
+        pipeline.stage(CLEAR_CHANGED) {
+            script.sh "./tools/ci/runner/clear_changed"
         },
 ]
 
