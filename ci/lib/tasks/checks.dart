@@ -6,6 +6,7 @@ import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
+import 'package:ci/services/pub_publish_manager.dart';
 import 'package:ci/tasks/impl/building/check_dependency_stable.dart';
 import 'package:ci/tasks/impl/building/check_stability_dev.dart';
 import 'package:ci/tasks/factories/license_task_factory.dart';
@@ -98,18 +99,18 @@ Future<bool> runTests(List<Element> elements, {bool needReport = false}) async {
 /// false - документ не openSource
 /// error -  докумет openSource, но публиковать нельзя
 Future<bool> checkPublishAvailable(Element element) {
-  return PubDryRunTask(element).run();
+  return PubDryRunTask(element, PubPublishManager()).run();
 }
 
 /// Публикуем модули
 /// [pathServer] принимать адрес сервера куда паблишить, необзательный параметр
 Future<void> pubPublishModules(Element element, {String pathServer}) {
-  return PubPublishModuleTask(element, pathServer: pathServer).run();
+  return PubPublishModuleTask(element, PubPublishManager(), pathServer: pathServer).run();
 }
 
 /// Проверка на наличие актуальной версии в Release Notes
 Future<bool> checkVersionInReleaseNote(Element element) {
-  return PubCheckReleaseVersionTask(element).run();
+  return PubCheckReleaseVersionTask(element, PubPublishManager()).run();
 }
 
 /// Проверка стабильности зависимостей модуля.

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/tasks/impl/publish/pub_dry_run_task.dart';
@@ -52,7 +54,7 @@ void main() {
           );
 
           expect(
-                () async => await task.run(),
+            () async => await task.run(),
             throwsA(
               TypeMatcher<OpenSourceModuleCanNotBePublishException>(),
             ),
@@ -64,13 +66,10 @@ void main() {
 }
 
 PubDryRunTask _prepareTestTask(bool isError, Element element) {
-  var callingMap = <String, dynamic>{
-    'pub publish --dry-run': !isError,
-  };
-  var shell = substituteShell(callingMap: callingMap);
-  var shm = getTestShellManager();
-  when(shm.copy(any)).thenReturn(shell);
-  return PubDryRunTask(element);
+  var pubPublishMock = PubPublishManagerMock();
+  when(pubPublishMock.runDryPublish(element))
+      .thenAnswer((_) => Future.value(ProcessResult(0, isError ? 1 : 0, '', '')));
+  return PubDryRunTask(element, pubPublishMock);
 }
 
 Element _openSourceTestElement() => createTestElement(

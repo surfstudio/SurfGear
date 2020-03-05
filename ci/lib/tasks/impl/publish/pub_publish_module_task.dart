@@ -7,16 +7,17 @@ import 'package:ci/utils/process_result_extension.dart';
 
 /// Команда на паблишинг модуля
 class PubPublishModuleTask extends Action {
-  final String _pathServer;
   final Element _element;
+  final PubPublishManager _pubManager;
+  final String _pathServer;
 
-  PubPublishModuleTask(this._element, {String pathServer})
+  PubPublishModuleTask(this._element, this._pubManager, {String pathServer})
       : _pathServer = pathServer,
         assert(_element != null);
 
   @override
   Future<void> run() async {
-    final result = await runPubPublish(
+    final result = await _pubManager.runPubPublish(
       _element,
       pathServer: _pathServer,
     );

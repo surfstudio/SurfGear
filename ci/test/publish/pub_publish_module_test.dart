@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/tasks/impl/publish/pub_publish_module_task.dart';
@@ -9,7 +11,7 @@ import '../core/test_helper.dart';
 /// Тестируем класс [PubPublishModuleTask]
 void main() {
   group(
-    'PubPublishModules tests:',
+    'PubPublishModule tests:',
     () {
       test(
         'Exception should be thrown when module not ready to publish.',
@@ -43,12 +45,8 @@ void main() {
 }
 
 PubPublishModuleTask _prepareTestTask(bool isError, Element element, {String pathServer}) {
-  var urlServer = pathServer == null ? '' : '--server $pathServer';
-  var callingMap = <String, dynamic>{
-    'pub publish --force $urlServer': !isError,
-  };
-  var shell = substituteShell(callingMap: callingMap);
-  var shm = getTestShellManager();
-  when(shm.copy(any)).thenReturn(shell);
-  return PubPublishModuleTask(element);
+  var pubPublishMock = PubPublishManagerMock();
+  when(pubPublishMock.runPubPublish(element))
+      .thenAnswer((_) => Future.value(ProcessResult(0, isError ? 1 : 0, '', '')));
+  return PubPublishModuleTask(element, pubPublishMock);
 }

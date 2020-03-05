@@ -11,12 +11,13 @@ const String _findText = 'CHANGELOG.md doesn\'t mention current version';
 /// Проверяем, совпадает ли версия [Element] c прописанной CHANGELOG.md
 class PubCheckReleaseVersionTask extends Check {
   final Element _element;
+  final PubPublishManager _pubManager;
 
-  PubCheckReleaseVersionTask(this._element) : assert(_element != null);
+  PubCheckReleaseVersionTask(this._element, this._pubManager) : assert(_element != null);
 
   @override
   Future<bool> run() async {
-    var processResult = await runDryPublish(_element);
+    var processResult = await _pubManager.runDryPublish(_element);
     if (processResult.exitCode != 0) {
       processResult.print();
 

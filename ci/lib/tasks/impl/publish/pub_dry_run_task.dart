@@ -8,13 +8,14 @@ import 'package:ci/utils/process_result_extension.dart';
 /// Проверка на возможность публикации пакета модулей openSource
 class PubDryRunTask extends Check {
   final Element _element;
+  final PubPublishManager _pubManager;
 
-  PubDryRunTask(this._element) : assert(_element != null);
+  PubDryRunTask(this._element, this._pubManager) : assert(_element != null);
 
   @override
   Future<bool> run() async {
     if (_element.hosted) {
-      final result = await runDryPublish(_element);
+      final result = await _pubManager.runDryPublish(_element);
       result.print();
       if (result.exitCode != 0) {
         return Future.error(
