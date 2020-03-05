@@ -1,9 +1,9 @@
 import 'package:args/args.dart';
 import 'package:meta/meta.dart';
 
-/// Миксмин возвращает Мапу, содержащую help, где key -это имя команды, подкоманды или опции, а
+/// Миксин для генерации помощи по использованию сценария,, где key -это имя команды, подкоманды или опции, а
 /// value - текст help соответствующему key
-mixin MixinShowHelpScenario {
+mixin ScenarioHelpMixin {
   /// Имя команды
   @protected
   String get getCommandName;
