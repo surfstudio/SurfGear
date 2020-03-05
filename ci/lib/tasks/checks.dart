@@ -16,7 +16,7 @@ import 'package:ci/tasks/impl/license/licensing_check.dart';
 import 'package:ci/tasks/impl/building/linter_check.dart';
 import 'package:ci/tasks/impl/publish/pub_check_release_version_task.dart';
 import 'package:ci/tasks/impl/publish/pub_dry_run_task.dart';
-import 'package:ci/tasks/impl/publish/pub_publish_modules.dart';
+import 'package:ci/tasks/impl/publish/pub_publish_module_task.dart';
 import 'package:ci/tasks/impl/testing/run_module_tests_check.dart';
 import 'package:ci/tasks/impl/building/stable_modules_for_changes_check.dart';
 import 'package:ci/tasks/utils.dart';
@@ -104,7 +104,7 @@ Future<bool> checkPublishAvailable(Element element) {
 /// Публикуем модули
 /// [pathServer] принимать адрес сервера куда паблишить, необзательный параметр
 Future<void> pubPublishModules(Element element, {String pathServer}) {
-  return PubPublishModules(element, pathServer: pathServer).run();
+  return PubPublishModuleTask(element, pathServer: pathServer).run();
 }
 
 /// Проверка на наличие актуальной версии в Release Notes

@@ -7,8 +7,10 @@ import 'package:ci/tasks/core/scenario.dart';
 
 /// Сценарий для команды publish.
 /// Публикует модули на указанный сервер, по умолчанию pub.dev
-/// Так как используется опция [--force] для публикации,
-/// то необходимо сначала вызвать команду [CheckPublishAvailableScenario]
+///
+/// Для публикации используется опция [--force]. Важно помнить,
+/// что в случаи предупреждений пакет будет загружен. что бы гарантировать,
+/// что пакет не будет иметь предупреждений, нужно вызвать перед публикацией [CheckPublishAvailableScenario]
 ///
 /// Пример вызова:
 /// dart ci publish / dart ci publish --server=serverAddress /
@@ -24,7 +26,7 @@ class PublishModulesScenario extends ChangedElementScenario {
           pubspecParser,
         );
 
-  /// [targetServer] передаём адресс сервера, не важно был ли он введён
+  /// [targetServer] содержит переданный сервер
   @override
   Future<void> doExecute(List<Element> elements) async {
     var targetServer = command.arguments[server];

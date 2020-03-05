@@ -131,7 +131,7 @@ class CommandParser {
 
       /// publish
       ..addCommand(PublishModulesScenario.commandName,
-          ArgParser()..addOption(PublishModulesScenario.server, help: 'server address'))
+          ArgParser()..addOption(PublishModulesScenario.server, help: 'Server for publish module.'))
 
       /// help
       ..addFlag(helpFlag, negatable: false, abbr: helpAbbr);

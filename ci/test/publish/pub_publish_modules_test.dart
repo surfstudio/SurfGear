@@ -1,12 +1,12 @@
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
-import 'package:ci/tasks/impl/publish/pub_publish_modules.dart';
+import 'package:ci/tasks/impl/publish/pub_publish_module_task.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 import '../core/test_helper.dart';
 
-/// Тестируем класс [PubPublishModules]
+/// Тестируем класс [PubPublishModuleTask]
 void main() {
   group(
     'PubPublishModules tests:',
@@ -42,7 +42,7 @@ void main() {
   );
 }
 
-PubPublishModules _prepareTestTask(bool isError, Element element, {String pathServer}) {
+PubPublishModuleTask _prepareTestTask(bool isError, Element element, {String pathServer}) {
   var urlServer = pathServer == null ? '' : '--server $pathServer';
   var callingMap = <String, dynamic>{
     'pub publish --force $urlServer': !isError,
@@ -50,5 +50,5 @@ PubPublishModules _prepareTestTask(bool isError, Element element, {String pathSe
   var shell = substituteShell(callingMap: callingMap);
   var shm = getTestShellManager();
   when(shm.copy(any)).thenReturn(shell);
-  return PubPublishModules(element);
+  return PubPublishModuleTask(element);
 }

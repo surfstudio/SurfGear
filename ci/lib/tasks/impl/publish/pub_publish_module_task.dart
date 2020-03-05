@@ -5,12 +5,12 @@ import 'package:ci/services/pub_publish_manager.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:ci/utils/process_result_extension.dart';
 
-/// Команда на паблишинг модулей
-class PubPublishModules extends Action {
+/// Команда на паблишинг модуля
+class PubPublishModuleTask extends Action {
   final String _pathServer;
   final Element _element;
 
-  PubPublishModules(this._element, {String pathServer})
+  PubPublishModuleTask(this._element, {String pathServer})
       : _pathServer = pathServer,
         assert(_element != null);
 
