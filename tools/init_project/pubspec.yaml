@@ -1,0 +1,9 @@
+name: init_project
+
+environment:
+  sdk: ">=2.2.0 <3.0.0"
+
+dependencies:
+  args: ^1.5.3
+  shell: ^1.0.1
+  path: ^1.6.4
