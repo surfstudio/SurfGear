@@ -1,7 +1,7 @@
 import 'package:args/args.dart';
 import 'package:meta/meta.dart';
 
-/// Миксин для генерации помощи по использованию сценария,, где key -это имя команды, подкоманды или опции, а
+/// Миксин для генерации помощи по использованию сценария, где key -это имя команды, подкоманды или опции, а
 /// value - текст help соответствующему key
 mixin ScenarioHelpMixin {
   /// Имя команды
@@ -21,13 +21,13 @@ mixin ScenarioHelpMixin {
     return <String, dynamic>{
       nameSubCommand ?? getCommandName:
           nameSubCommand == null ? helpInfo : getSubCommandInHelp()[nameSubCommand] ?? '',
-      _keyMapOption: _showHelpOption(argParser),
+      _keyMapOption: _getOptionHelp(argParser),
     };
   }
 
   /// Возвращаем мапу, где key - это [option + abbr] / [nameSubCommand], если имеются подкоманды,
   /// то рекурсивно находим её опции и флаги
-  Map<String, dynamic> _showHelpOption(ArgParser argParser) {
+  Map<String, dynamic> _getOptionHelp(ArgParser argParser) {
     var mapHelp = <String, dynamic>{};
     var keys = argParser.options.keys;
     for (var key in keys) {
