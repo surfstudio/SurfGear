@@ -1,15 +1,15 @@
 import 'package:init_project/domain/command.dart';
-import 'package:init_project/services/directory_manager.dart';
+import 'package:init_project/services/repository_manager.dart';
 
 class CommandRunner {
-  final DirectoryManager _directoryManager;
+  final RepositoryManager _directoryManager;
 
   CommandRunner(this._directoryManager);
 
   Future<void> run(Command command) async {
     try {
-
-		} catch (e) {
+      await _directoryManager.run(command);
+    } catch (e) {
       rethrow;
     }
   }
