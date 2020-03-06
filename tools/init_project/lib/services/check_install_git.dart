@@ -4,7 +4,7 @@ import 'package:shell/shell.dart';
 class CheckInstallGit {
   Future<void> check() async {
     var shell = new Shell();
-    var processResult = await shell.run('gt', ['help']);
+    var processResult = await shell.run('git', ['help']);
     if (processResult.exitCode != 0) {
       return Future.error('git not found, install git of https://git-scm.com');
     }
