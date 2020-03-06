@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 
 import '../core/test_helper.dart';
 
-/// Тестируем класс [PubPublishModuleTask]
+/// Тесты класса [PubPublishModuleTask]
 void main() {
   group(
     'PubPublishModule tests:',

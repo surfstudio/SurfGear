@@ -10,7 +10,9 @@ class PubDryRunTask extends Check {
   final Element _element;
   final PubPublishManager _pubManager;
 
-  PubDryRunTask(this._element, this._pubManager) : assert(_element != null);
+  PubDryRunTask(this._element, this._pubManager)
+      : assert(_element != null),
+        assert(_pubManager != null);
 
   @override
   Future<bool> run() async {

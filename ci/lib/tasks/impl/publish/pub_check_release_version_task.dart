@@ -13,7 +13,9 @@ class PubCheckReleaseVersionTask extends Check {
   final Element _element;
   final PubPublishManager _pubManager;
 
-  PubCheckReleaseVersionTask(this._element, this._pubManager) : assert(_element != null);
+  PubCheckReleaseVersionTask(this._element, this._pubManager)
+      : assert(_element != null),
+        assert(_pubManager != null);
 
   @override
   Future<bool> run() async {

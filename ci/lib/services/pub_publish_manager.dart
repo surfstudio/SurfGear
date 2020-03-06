@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:ci/domain/element.dart';
 import 'package:ci/services/runner/shell_runner.dart';
 
+/// Менеджер для работы с публикацией модуля.
 class PubPublishManager {
   /// Для [Element] запускает проверку на возможность публикации пакета
   Future<ProcessResult> runDryPublish(Element element) {

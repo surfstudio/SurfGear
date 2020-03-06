@@ -5,7 +5,10 @@ import 'package:ci/services/pub_publish_manager.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:ci/utils/process_result_extension.dart';
 
-/// Команда на паблишинг модуля
+/// Задача производящая публикацию модуля на сервер.
+///
+/// [pathServer] - можно указать свой сервер для публикации,
+/// если не указан, то публикуется на сервер [https://pub.dev/]
 class PubPublishModuleTask extends Action {
   final Element _element;
   final PubPublishManager _pubManager;
@@ -13,7 +16,8 @@ class PubPublishModuleTask extends Action {
 
   PubPublishModuleTask(this._element, this._pubManager, {String pathServer})
       : _pathServer = pathServer,
-        assert(_element != null);
+        assert(_element != null),
+        assert(_pubManager != null);
 
   @override
   Future<void> run() async {
