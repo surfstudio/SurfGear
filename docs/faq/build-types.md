@@ -14,8 +14,6 @@
     В ней будет указано имя Build Configuration, которое не удалось найти.
     Нужно будет создать такую Build Configuration в вашем проекте через
     XCode.
-    <br>
-    *(Проблема была на Rosbank, можно взять за образец).*
     <br><br>
     ![build_settings](img/profile_build_config.png)
     <br><br>
@@ -26,8 +24,6 @@
     отсутствие значения в настройки Objective-C Bridging Header для
     использумой вами Build Configuration. Чтобы пофиксить это - просто
     используйте тоже значение, которое указано у других конфигураций.
-    <br>
-    *(Проблема была на Rosbank, можно взять за образец).*
     <br><br>
     ![build_settings](img/obj_c_build_header.png)
     <br><br>
