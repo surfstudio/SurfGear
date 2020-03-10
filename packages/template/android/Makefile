@@ -33,8 +33,7 @@ init:
   		-gem install bundler -v 1.17.3;\
 	fi
 
-	bash -lc "source ~/.rvm/scripts/rvm && rvm use ${RVM_VERSION}@${PROJECT_TAG} --create && rvm gemset name"
-	-bundle install
+	-bundle install --path .bundle
 
 ## Used to upload debug build in fabric. Usually, it is not called manually, it is necessary for the CI to work.
 beta:
