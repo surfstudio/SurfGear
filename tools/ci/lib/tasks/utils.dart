@@ -115,19 +115,16 @@ Future<void> createChangedListFile(
 
   print('Файлы, изменённые в сравнении с целевой веткой :\n$diff');
 
-  var list = elements.map(
-    (e) {
-      if (diff.contains(e.directoryName)) {
-        e.changed = true;
-      }
+  final changedList = elements
+      .where((e) => diff.contains(e.directoryName))
+      .toList()
+        ..forEach((e) => e.changed = true);
 
-      return e.name;
-    },
-  ).join('\n');
+  final names = changedList.map((e) => e.name).join('\n');
 
-  print('Модули были изменены:\n$list');
+  print('Модули были изменены:\n$names');
 
-  await File(_getChangedListFilePath()).writeAsString(list);
+  await File(_getChangedListFilePath()).writeAsString(names);
 }
 
 /// Удаляет файл со списком измененных файлов.
