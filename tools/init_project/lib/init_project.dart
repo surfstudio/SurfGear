@@ -37,7 +37,9 @@ class InitProject {
     try {
       await _checkInstallGit.check();
       var command = await _commandParser.parser(arguments);
-      await _commandRunner.run(command);
+      if (command != null) {
+        await _commandRunner.run(command);
+      }
     } catch (e) {
       rethrow;
     }

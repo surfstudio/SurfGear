@@ -3,15 +3,19 @@ import 'dart:io';
 import 'package:init_project/domain/command.dart';
 import 'package:path/path.dart' as p;
 
-const String urlGit = '';
+//import 'package:process_run/shell_run.dart';
+import 'package:shell/shell.dart';
+
+//const String urlGit = '';
 
 /// Отвечает за загрузку проекта из git репозитория
 class RepositoryManager {
   Future<void> run(Command command) async {
-    var path = command.path;
-    var nameProject = command.nameProject;
+//    var path = command.path;
+//    var nameProject = command.nameProject;
     try {
-      var directory = await _createDirectory(path, nameProject);
+//      var directory = await _createDirectory(path, nameProject);
+      await _loadTemplateProject(command.path, command.nameProject, command.url);
     } catch (e) {
       rethrow;
     }
@@ -19,16 +23,22 @@ class RepositoryManager {
   }
 
   /// Проверярка возможности создать директорию
-  Future<Directory> _createDirectory(String path, String nameProject) async {
-    try {
-      var pathDirectory = path == null ? p.join(nameProject) : p.join(path, nameProject);
-      return Directory(pathDirectory).create(recursive: true);
-    } catch (e) {
-      rethrow;
-    }
-  }
+//  Future<Directory> _createDirectory(String path, String nameProject) async {
+//    try {
+//      var pathDirectory = path == null ? p.join(nameProject) : p.join(path, nameProject);
+//      return Directory(pathDirectory).create(recursive: true);
+//    } catch (e) {
+//      rethrow;
+//    }
+//  }
 
-  Future<void> _loadTemplateProject(Directory directory, String name) async {
-    ///
+  Future<void> _loadTemplateProject(String path, String nameProject, String url) async {
+    Shell shell = Shell();
+
+    var str = 'git clone $url $path$nameProject --progress --depth 1';
+    var f = await shell.startAndReadAsString(str, []);
+//    var wrappedProcess = await shell.run(str, []);
+//    print(await wrappedProcess.exitCode);
+//    print(await  wrappedProcess.stderr);
   }
 }
