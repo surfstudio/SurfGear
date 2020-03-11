@@ -140,7 +140,7 @@ class OpenSourceModuleCanNotBePublishException extends BaseCiException {
   OpenSourceModuleCanNotBePublishException(String message) : super(message);
 }
 
-/// Ошибка при побликации модуля
+/// Ошибка при публикации модуля
 class ModuleCannotBePublishedException extends BaseCiException {
   ModuleCannotBePublishedException(String message) : super(message);
 }
