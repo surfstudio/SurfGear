@@ -1,7 +1,3 @@
-//import 'package:shell/shell.dart';
-
-//import 'package:process_run/shell.dart';
-
 import 'package:shell/shell.dart';
 
 /// Проверяем, установлен ли git

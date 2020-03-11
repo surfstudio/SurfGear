@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:args/args.dart';
 import 'package:init_project/domain/command.dart';
+import 'package:path/path.dart' as p;
 
 /// Путь до репозитория по умолчанию, ссылка https
-const String _url = 'https://osipov-e-surf@bitbucket.org/surfstudio/park-flutter-clients.git';
+const String _url = 'https://osipov-e-surf@bitbucket.org/surfstudio/flutter-standard.git';
 
 class CommandParser {
   final ArgParser _argParser = ArgParser();
@@ -34,7 +37,7 @@ class CommandParser {
 
       /// Путь до проекта
       ..addOption(CommandParser._path,
-          abbr: CommandParser._pathAbbr, help: 'Way to the project', valueHelp: 'path')
+          abbr: CommandParser._pathAbbr, help: 'Way to the project', valueHelp: 'path', defaultsTo: p.current)
 
       /// Имя проекта
       ..addOption(CommandParser._nameProject,
@@ -64,8 +67,7 @@ class CommandParser {
     if (parsed[CommandParser._nameProject] == null) {
       print(_argParser.usage);
 
-      ///TODO: Exception заполнить
-      return Future.error(Exception('enter project name'));
+      return Future.error(Exception('Enter project name'));
     }
 
     return Command(
