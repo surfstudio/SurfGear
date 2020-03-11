@@ -33,12 +33,15 @@ class RepositoryManager {
 //  }
 
   Future<void> _loadTemplateProject(String path, String nameProject, String url) async {
+    path ??= p.current;
+    var str = p.join(path, nameProject);
     Shell shell = Shell();
 
-    var str = 'git clone $url $path$nameProject --progress --depth 1';
-    var f = await shell.startAndReadAsString(str, []);
-//    var wrappedProcess = await shell.run(str, []);
-//    print(await wrappedProcess.exitCode);
-//    print(await  wrappedProcess.stderr);
+    print(str);
+
+    var processResult = await shell.run('git', ['clone', url, str, '--depth', '1']);
+    if (processResult.exitCode!=0){
+      return Future.error(processResult.stderr);
+    }
   }
 }
