@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:args/args.dart';
 import 'package:init_project/domain/command.dart';
 import 'package:path/path.dart' as p;

@@ -7,3 +7,4 @@ dependencies:
   args: ^1.5.3
   shell: ^1.0.1
   path: ^1.6.4
+  io: ^0.3.3

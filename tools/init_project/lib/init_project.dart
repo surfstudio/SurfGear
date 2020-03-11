@@ -1,3 +1,4 @@
+import 'package:init_project/domain/path_directory.dart';
 import 'package:init_project/services/tasks/check_install_git.dart';
 import 'package:init_project/services/parcer/command_parser.dart';
 import 'package:init_project/services/command_runner.dart';
@@ -11,16 +12,18 @@ import 'package:init_project/services/manager/message_console_manager.dart';
 class InitProject {
   static InitProject _instance;
 
-  /// Временная директория для скачанного проекта, должна удаляться после завершения работы
-  static Directory _pathDirectoryTemp;
-
   static InitProject get instance => _instance ??= InitProject._();
+
   static final ShowMessageManager _showMessageConsole = ShowMessageManager();
+  final PathDirectory _pathDirectory = PathDirectory();
 
   CommandParser _commandParser;
   CommandRunner _commandRunner;
   RemoveDirectoryTemp _removeDirectoryTemp;
   CheckInstallGit _checkInstallGit;
+
+  /// Временная директория для скачанного проекта, должна удаляться после завершения работы
+  Directory pathDirectoryTemp;
 
   InitProject._({
     CommandParser commandParser,
@@ -32,12 +35,11 @@ class InitProject {
   })  : _commandParser = commandParser ?? CommandParser(),
         _commandRunner = commandRunner ??
             CommandRunner(
-              DownloadingRepository(_pathDirectoryTemp, _showMessageConsole),
-              CreateTemplateProject(_pathDirectoryTemp, _showMessageConsole),
+              DownloadingRepository(_showMessageConsole),
+              CreateTemplateProject(_showMessageConsole),
             ),
         _checkInstallGit = checkInstallGit ?? CheckInstallGit(),
-        _removeDirectoryTemp =
-            removeDirectoryTemp ?? RemoveDirectoryTemp(_pathDirectoryTemp, _showMessageConsole);
+        _removeDirectoryTemp = removeDirectoryTemp ?? RemoveDirectoryTemp(_showMessageConsole);
 
   InitProject.init({
     CommandParser commandParser,
@@ -60,7 +62,7 @@ class InitProject {
       await _checkInstallGit.check();
       var command = await _commandParser.parser(arguments);
       if (command != null) {
-        await _commandRunner.run(command);
+        await _commandRunner.run(command, _pathDirectory);
       }
     } catch (e) {
       rethrow;
