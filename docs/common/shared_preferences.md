@@ -1,6 +1,6 @@
-# SharedPreferences
-
 [Главная](../main.md)
+
+# SharedPreferences
 
 SharedPreferences — постоянное хранилище на платформе Android и IOS, 
 используемое приложениями для хранения своих настроек, ключей, токенов и тд...

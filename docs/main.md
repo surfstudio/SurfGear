@@ -10,7 +10,7 @@
     1. [Git flow в репозитории](repo_guides/gitflow.md)
     2. [Синхронизация модулей](repo_guides/sync.md)
 1. **Общие сведения о построении приложения**
-    1. [Требования к коду](todo)
+    1. Требования к коду
         1. [Java Code Style][java_codestyle]
         1. [Koltin Code Style][kotlin_codestyle]
         1. [Dart Code Style](common/code_style.md)
@@ -18,20 +18,18 @@
     1. [Инъекция зависимостей](common/di.md)
     1. [Логгирование](common/logging.md)
     1. [Асинхронные взаимодействия](common/async.md)
-    1. [Пуш-уведомления](../push/README.md)
     1. [Тестирование](common/testing.md)
 
-1. [**Слой Model**](todo)
+1. Слой Model
     1. [Interactor](common/interactor.md)
-    1. [Проверка соединения](todo)
     1. [Работа с файловым хранилищем](common/file_storage.md)
     1. [Работа с SharedPrefs](common/shared_preferences.md)
 
-1. [UI слой]()
+1. Cлой UI
     1. [Структура UI-слоя](ui/structure.md)
         1. [WidgetModel](ui/widget_model.md)
         1. [Widget](ui/widget.md)
-    1. [Навигация](сommon/navigation.md)
+    1. [Навигация](common/navigation.md)
     1. [Создание экрана](ui/create_screen.md)
     1. [Диалоги](ui/dialog.md)
     1. [Сообщения](common/message.md)
@@ -42,11 +40,9 @@
     1. [Continious Delivery](common/cd.md)
     1. [Подключение зависимостей в проект](common/dependencies.md)
 
-1. [Лучшие практики](best_practice/best_practice.md)
-    1. [Поиск утечек](best_practice/memory_leak.md)
+1. Лучшие практики
     1. [CI](https://github.com/surfstudio/jenkins-pipeline-lib)
-    1. [Настройки и плагины для Android Studio](best_practice/android_studio_settings.md)
-    1. [Flutter Flavors](best_practices/flavors_for_devs.md)
+    1. [Flutter Flavors](best_practice/flavors/flavors_for_devs.md)
     1. [Уменьшение размеров сборки](best_practice/reduce_app_size.md)
 
 1. [FAQ](faq/faq.md)

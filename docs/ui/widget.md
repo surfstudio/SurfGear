@@ -1,7 +1,8 @@
-# Widget
-
 [Главная](../main.md)
+
 [Структура UI](structure.md)
+
+# Widget
 
 При использовании WM должен использоваться StatefulWidget.
 
