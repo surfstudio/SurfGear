@@ -1,5 +1,3 @@
-import 'dart:cli';
-
 class ShowMessageManager {
   void printMessageConsole(String message) {
     print(message);

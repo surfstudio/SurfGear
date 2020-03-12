@@ -15,7 +15,7 @@ class CommandRunner {
   Future<void> run(Command command, PathDirectory pathDirectory) async {
     try {
       await _directoryManager.run(command, pathDirectory);
-      _createTemplateProject.run(pathDirectory);
+      _createTemplateProject.run(command, pathDirectory);
     } catch (e) {
       rethrow;
     }
