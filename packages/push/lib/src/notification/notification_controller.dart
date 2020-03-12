@@ -1,17 +1,16 @@
 import 'dart:collection';
-import 'dart:convert';
 
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:logger/logger.dart';
 import 'package:push/push.dart';
+import 'package:push/src/notification/notificator/android/android_notiffication_specifics.dart';
 
 typedef NotificationCallback = void Function(Map<String, dynamic> payload);
 
 const String pushIdParam = 'localPushId';
 
-/// Wrapper over local notifications
+/// Wrapper over surf notifications
 class NotificationController {
-  FlutterLocalNotificationsPlugin _notificationPlugin;
+  Notificator _surfNotification;
 
   Map<int, NotificationCallback> callbackMap =
       HashMap<int, NotificationCallback>();
@@ -19,20 +18,14 @@ class NotificationController {
   NotificationController(
     String androidDefaultIcon,
   ) {
-    _notificationPlugin = FlutterLocalNotificationsPlugin()
-      ..initialize(
-        InitializationSettings(
-          AndroidInitializationSettings(androidDefaultIcon),
-          IOSInitializationSettings(
-              requestAlertPermission: false,
-              requestBadgePermission: false,
-              requestSoundPermission: false,
-              onDidReceiveLocalNotification: (id, title, body, payload) async {
-                Logger.d("handle notification% $id , $title, $body, $payload");
-              }),
+    _surfNotification = Notificator(
+        initSettings: InitSettings(
+          iosInitSettings: IOSInitSettings(
+            requestSoundPermission: false,
+            requestAlertPermission: false,
+          ),
         ),
-        onSelectNotification: _internalOnSelectNotification,
-      );
+        onNotificationTapCallback: _internalOnSelectNotification);
   }
 
   /// displaying notification from the strategy
@@ -40,18 +33,15 @@ class NotificationController {
     PushHandleStrategy strategy,
     NotificationCallback onSelectNotification,
   ) {
-    final androidSpecific = AndroidNotificationDetails(
-      strategy.notificationChannelId,
-      strategy.notificationChannelName,
-      strategy.notificationDescription,
-      ongoing: strategy.ongoing,
-      playSound: strategy.playSound,
+    final androidSpecifics = AndroidNotificationSpecifics(
+      channelId: strategy.notificationChannelId,
+      channelName: strategy.notificationChannelName,
+      autoCancelable: strategy.autoCancelable,
+      color: strategy.color,
+      icon: strategy.icon,
     );
-    final iosSpecific = IOSNotificationDetails(
-      presentSound: strategy.playSound,
-      presentAlert: strategy.presentAlert,
-    );
-    final platformSpecifics = NotificationDetails(androidSpecific, iosSpecific);
+
+    final platformSpecifics = NotificationSpecifics(androidSpecifics);
 
     Logger.d(
         "DEV_INFO receive for show push : ${strategy.payload.title}, ${strategy.payload.body}");
@@ -61,19 +51,19 @@ class NotificationController {
     tmpPayload[pushIdParam] = pushId;
     callbackMap[pushId] = onSelectNotification;
 
-    return _notificationPlugin.show(
+    return _surfNotification.show(
       strategy.pushId,
       strategy.payload.title,
       strategy.payload.body,
-      platformSpecifics,
-      payload: jsonEncode(tmpPayload),
+      data: tmpPayload,
+      notificationSpecifics: platformSpecifics,
     );
   }
 
-  Future<dynamic> _internalOnSelectNotification(String payload) async {
+  Future<dynamic> _internalOnSelectNotification(Map payload) async {
     Logger.d('DEV_INFO onSelectNotification, payload: $payload');
 
-    Map<String, dynamic> tmpPayload = jsonDecode(payload);
+    Map<String, dynamic> tmpPayload = payload;
     int pushId = tmpPayload[pushIdParam];
     var onSelectNotification = callbackMap[pushId];
     callbackMap.remove(pushId);

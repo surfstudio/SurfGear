@@ -8,10 +8,20 @@ abstract class PushHandleStrategy<PT extends NotificationPayload> {
   /// android chanel setting
   String notificationChannelId = 'default_push_chanel_id';
   String notificationChannelName = 'Chanel name';
-  String notificationDescription = 'Chanel description';
 
   /// push id
   int pushId = 0;
+
+  /// Auto close notification
+  bool autoCancelable = false;
+
+  /// Path to string resource color notification icons
+  /// "@color/notificaion_icon_color_name"
+  String color;
+
+  /// Path to string resource notification icons
+  /// "@mipmap/notificaion_icon_name"
+  String icon;
 
   /// non-removable notification
   /// Android only
