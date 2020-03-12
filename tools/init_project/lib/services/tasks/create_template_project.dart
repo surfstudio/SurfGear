@@ -98,25 +98,11 @@ class CreateTemplateProject {
     try {
       final pubspecYaml = PubspecYaml.loadFromYamlString(file.readAsStringSync());
 
-      final replacePubspec = PubspecYaml(
-        name: pubspecYaml.name,
-        authors: pubspecYaml.authors,
-        customFields: pubspecYaml.customFields,
-        dependencyOverrides: pubspecYaml.dependencyOverrides,
-        description: pubspecYaml.description,
-        version: Optional('0.0.1+1'),
-        devDependencies: pubspecYaml.devDependencies,
-        documentation: pubspecYaml.documentation,
-        environment: pubspecYaml.environment,
-        executables: pubspecYaml.executables,
-        homepage: pubspecYaml.homepage,
-        repository: pubspecYaml.repository,
-        issueTracker: pubspecYaml.issueTracker,
-        publishTo: pubspecYaml.publishTo,
-        dependencies: _replaceDependencies(pubspecYaml.dependencies.toList()),
-      ).toYamlString();
+      var replacePubspec = pubspecYaml.copyWith(
+          version: Optional('0.0.1+1'),
+          dependencies: _replaceDependencies(pubspecYaml.dependencies.toList()));
 
-      file.writeAsStringSync(replacePubspec);
+      file.writeAsStringSync(replacePubspec.toYamlString());
     } catch (e) {
       rethrow;
     }
@@ -125,6 +111,7 @@ class CreateTemplateProject {
   /// TODO: костыль?
   Iterable<PackageDependencySpec> _replaceDependencies(List<PackageDependencySpec> dependencies) {
     for (var i = 0; dependencies.length > i; ++i) {
+
       if (dependencies[i].path != null) {
         var dep = dependencies[i];
         dependencies[i] = PackageDependencySpec.git(GitPackageDependencySpec(
