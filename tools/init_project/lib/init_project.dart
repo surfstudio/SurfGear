@@ -7,14 +7,12 @@ import 'package:init_project/services/tasks/remove_directory_temp.dart';
 import 'package:init_project/services/tasks/downloading_repository.dart';
 import 'dart:io';
 
-import 'package:init_project/services/manager/message_console_manager.dart';
+import 'package:init_project/services/utils/print_message_console.dart';
 
 class InitProject {
   static InitProject _instance;
 
   static InitProject get instance => _instance ??= InitProject._();
-
-  static final ShowMessageManager _showMessageConsole = ShowMessageManager();
   final PathDirectory _pathDirectory = PathDirectory();
 
   CommandParser _commandParser;
@@ -30,16 +28,15 @@ class InitProject {
     CommandRunner commandRunner,
     CheckInstallGit checkInstallGit,
     RemoveDirectoryTemp removeDirectoryTemp,
-    ShowMessageManager showMessageConsole,
     CreateTemplateProject createTemplateProject,
   })  : _commandParser = commandParser ?? CommandParser(),
         _commandRunner = commandRunner ??
             CommandRunner(
-              DownloadingRepository(_showMessageConsole),
-              CreateTemplateProject(_showMessageConsole),
+              DownloadingRepository(),
+              CreateTemplateProject(),
             ),
         _checkInstallGit = checkInstallGit ?? CheckInstallGit(),
-        _removeDirectoryTemp = removeDirectoryTemp ?? RemoveDirectoryTemp(_showMessageConsole);
+        _removeDirectoryTemp = removeDirectoryTemp ?? RemoveDirectoryTemp();
 
   InitProject.init({
     CommandParser commandParser,
@@ -68,7 +65,7 @@ class InitProject {
       rethrow;
     } finally {
       try {
-        await _removeDirectoryTemp.remove();
+        await _removeDirectoryTemp.remove(_pathDirectory);
       } catch (e) {
         rethrow;
       }

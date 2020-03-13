@@ -5,7 +5,7 @@ import 'package:init_project/domain/command.dart';
 import 'package:path/path.dart' as p;
 
 /// Путь до репозитория по умолчанию, ссылка https
-const String _url = 'https://osipov-e-surf@bitbucket.org/surfstudio/flutter-standard.git';
+const String _remoteUrl = 'https://osipov-e-surf@bitbucket.org/surfstudio/flutter-standard.git';
 
 class CommandParser {
   final ArgParser _argParser = ArgParser();
@@ -24,14 +24,20 @@ class CommandParser {
     _init_parser();
   }
 
+  /// Парсим
+  ///
+  ///  [sleep] необходим в случаи неправильно введённых комманд/опций/флагов,
+  ///  в редких случаях вывод ошибки смешавается с help
   Future<Command> parser(List<String> arguments) async {
-    var parsed = _argParser.parse(arguments);
+    try {
+      var parsed = _argParser.parse(arguments);
 
-    ///TODO: Exception заполнить
-    if (parsed.rest.isNotEmpty) {
-      return Future.error(Exception('parsed.rest.isNotEmpty'));
+      return _getCommandByArgs(parsed);
+    } catch (e) {
+      print(_argParser.usage);
+      sleep(Duration(microseconds: 10));
+      rethrow;
     }
-    return _getCommandByArgs(parsed);
   }
 
   void _init_parser() {
@@ -69,7 +75,7 @@ class CommandParser {
         abbr: CommandParser._remoteAbbr,
         help: 'Path to repository https',
         valueHelp: 'url',
-        defaultsTo: _url,
+        defaultsTo: _remoteUrl,
       )
 
       /// Help
@@ -77,29 +83,23 @@ class CommandParser {
   }
 
   /// Если опции введены верно, парсим их в [Command], иначе возвращаем help
-  ///
-  ///  [sleep] необходим в случаи неправильных введённых опций,
-  ///  в редких случаях вывод ошибки смешавается с help
   Future<Command> _getCommandByArgs(ArgResults parsed) async {
     var isShowHelp = parsed[CommandParser._helpFlag] as bool;
 
     if (isShowHelp) {
       print(_argParser.usage);
-      sleep(const Duration(microseconds: 10));
       return null;
     }
 
     if (parsed[CommandParser._nameProject] == null) {
-      print(_argParser.usage);
-      sleep(const Duration(microseconds: 10));
       return Future.error(Exception('Enter project name'));
     }
 
     return Command(
       parsed[CommandParser._nameProject],
-      parsed[CommandParser._path],
-      parsed[CommandParser._remote],
-      parsed[CommandParser._branch],
+      path: parsed[CommandParser._path],
+      remoteUrl: parsed[CommandParser._remote],
+      branch: parsed[CommandParser._branch],
     );
   }
 }

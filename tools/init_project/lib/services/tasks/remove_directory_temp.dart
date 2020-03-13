@@ -1,13 +1,14 @@
-import 'package:init_project/services/manager/message_console_manager.dart';
+import 'dart:io';
+
+import 'package:init_project/domain/path_directory.dart';
+import 'package:init_project/services/utils/print_message_console.dart';
 
 /// Удаляет временную директорию, где загружен проект
 class RemoveDirectoryTemp {
-  final ShowMessageManager _showMessageConsole;
-
-  RemoveDirectoryTemp(this._showMessageConsole);
-
-  /// TODO: реализовать удаление
-  Future<void> remove() async {
-    _showMessageConsole.printMessageConsole('тут будем удаем темп');
+  Future<void> remove(PathDirectory _pathDirectory) async {
+    printMessageConsole('clean...');
+    if (_pathDirectory.pathTemp != null) {
+      await Directory(_pathDirectory.pathTemp).delete(recursive: true);
+    }
   }
 }

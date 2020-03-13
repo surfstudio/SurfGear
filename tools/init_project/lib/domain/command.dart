@@ -2,16 +2,24 @@
 class Command {
   final String _nameProject;
   final String _path;
-  final String _url;
+  final String _remoteUrl;
   final String _branch;
 
-  Command(this._nameProject, this._path, this._url, this._branch) : assert(_nameProject != null);
+  Command(this._nameProject, {String path, String remoteUrl, String branch})
+      : assert(_nameProject != null),
+        _remoteUrl = remoteUrl,
+        _path = path,
+        _branch = branch;
 
+  /// Имя проекта
   String get nameProject => _nameProject;
 
+  /// Путь до дирректории
   String get path => _path;
 
-  String get url => _url;
+  /// url зависимостей
+  String get url => _remoteUrl;
 
+  /// Вектка зависимостей
   String get branch => _branch;
 }

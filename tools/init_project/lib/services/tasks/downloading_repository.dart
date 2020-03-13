@@ -2,16 +2,14 @@ import 'dart:io';
 
 import 'package:init_project/domain/command.dart';
 import 'package:init_project/domain/path_directory.dart';
-import 'package:init_project/services/manager/message_console_manager.dart';
+import 'package:init_project/services/utils/print_message_console.dart';
 import 'package:path/path.dart' as p;
 
 import 'package:shell/shell.dart';
 
 /// Отвечает за загрузку проекта из git репозитория
 class DownloadingRepository {
-  final ShowMessageManager _showMessageConsole;
 
-  DownloadingRepository(this._showMessageConsole);
 
   Future<PathDirectory> run(Command command, PathDirectory pathDirectory) async {
     var path = command.path;
@@ -40,7 +38,7 @@ class DownloadingRepository {
     var directory = await Directory(pathDirectory.path).parent.createTemp();
     pathDirectory.pathTemp = directory.path;
 
-    _showMessageConsole.printMessageConsole('Project download...');
+    printMessageConsole('Project download...');
     var processResult = await shell.run('git', ['clone', url, pathDirectory.pathTemp, '--depth', '1']);
 
     if (processResult.exitCode != 0) {

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:init_project/domain/command.dart';
 import 'package:init_project/domain/path_directory.dart';
-import 'package:init_project/services/manager/message_console_manager.dart';
+import 'package:init_project/services/utils/print_message_console.dart';
 import 'package:io/io.dart';
 import 'package:path/path.dart' as p;
 import 'package:plain_optional/plain_optional.dart';
@@ -27,17 +27,13 @@ String _pubspecFile = 'pubspec.yaml';
 
 /// Создает шаблонный проект
 class CreateTemplateProject {
-  final ShowMessageManager _showMessageConsole;
+//  final ShowMessageManager _showMessageConsole;
   Command _command;
-
-  CreateTemplateProject(
-    this._showMessageConsole,
-  );
 
   Future<void> run(Command command, PathDirectory pathDirectory) async {
     _command = command;
     try {
-      _showMessageConsole.printMessageConsole('Prepare project...');
+      printMessageConsole('Prepare project...');
       await _copyTemplateFolder(pathDirectory);
       final files = await _searchFile(pathDirectory);
       await _replaceTextInFile(files);
@@ -115,8 +111,6 @@ class CreateTemplateProject {
           version: Optional('0.0.1+1'),
           dependencies: _replaceDependencies(pubspecYaml.dependencies.toList()));
 
-      print(file.path);
-      print(replacePubspec.toYamlString());
       await file.writeAsStringSync(replacePubspec.toYamlString());
     } catch (e) {
       rethrow;
