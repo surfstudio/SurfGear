@@ -52,10 +52,21 @@ class CreateTemplateProject {
   }
 
   /// Ищем файлы
-  Future<List<FileSystemEntity>> _searchFile(Command command, PathDirectory pathDirectory) async {
+  Future<List<File>> _searchFile(Command command, PathDirectory pathDirectory) async {
     final List<File> files = [];
-    final dirs = Directory(pathDirectory.path).listSync(recursive: true, followLinks: false);
+    final dirProject = Directory(p.join(pathDirectory.path, 'lib'))
+        .listSync(recursive: true, followLinks: false)
+          ..addAll(Directory(pathDirectory.path).listSync(recursive: false, followLinks: false));
 
+    var fileSystemEntities = await _getFiles(dirProject);
+
+    files.addAll(fileSystemEntities);
+
+    return files as List<File>;
+  }
+
+  Future<List<File>> _getFiles(List<FileSystemEntity> dirs) async {
+    final List<File> files = [];
     for (var dir in dirs) {
       String fileName = p.basename(dir.path);
       if (await FileSystemEntity.isFile(dir.path)) {
@@ -102,7 +113,9 @@ class CreateTemplateProject {
           version: Optional('0.0.1+1'),
           dependencies: _replaceDependencies(pubspecYaml.dependencies.toList()));
 
-      file.writeAsStringSync(replacePubspec.toYamlString());
+      print(file.path);
+      print(replacePubspec.toYamlString());
+      await file.writeAsStringSync(replacePubspec.toYamlString());
     } catch (e) {
       rethrow;
     }
@@ -111,15 +124,16 @@ class CreateTemplateProject {
   /// TODO: костыль?
   Iterable<PackageDependencySpec> _replaceDependencies(List<PackageDependencySpec> dependencies) {
     for (var i = 0; dependencies.length > i; ++i) {
-
       if (dependencies[i].path != null) {
         var dep = dependencies[i];
-        dependencies[i] = PackageDependencySpec.git(GitPackageDependencySpec(
-          package: dep.path.package,
-          url: _urls,
-          ref: Optional('dev'),
-          path: Optional(dep.path.package),
-        ));
+        dependencies[i] = PackageDependencySpec.git(
+          GitPackageDependencySpec(
+            package: dep.path.package,
+            url: _urls,
+            ref: Optional('dev'),
+            path: Optional(p.join('packages', dep.path.package)),
+          ),
+        );
       }
     }
 

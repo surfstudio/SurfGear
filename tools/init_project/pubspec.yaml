@@ -8,6 +8,5 @@ dependencies:
   shell: ^1.0.1
   path: ^1.6.4
   io: ^0.3.3
-#  pubspec: ^0.1.4
   pubspec_yaml: ^1.0.0+1
   plain_optional: ^0.1.3
