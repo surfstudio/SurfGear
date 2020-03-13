@@ -62,7 +62,7 @@ class CreateTemplateProject {
 
     files.addAll(fileSystemEntities);
 
-    return files as List<File>;
+    return files;
   }
 
   Future<List<File>> _getFiles(List<FileSystemEntity> dirs) async {
@@ -71,7 +71,7 @@ class CreateTemplateProject {
       String fileName = p.basename(dir.path);
       if (await FileSystemEntity.isFile(dir.path)) {
         if (fileName.contains(_fileDart) || fileName.contains(_fileYAML)) {
-          files.add(File(dir.path));
+          files.add(dir as File);
         }
       }
     }
@@ -121,22 +121,32 @@ class CreateTemplateProject {
     }
   }
 
-  /// TODO: костыль?
+  /// Если [PathPackageDependencySpec] не null, то заменяем на гитовую зависисмость
   Iterable<PackageDependencySpec> _replaceDependencies(List<PackageDependencySpec> dependencies) {
     for (var i = 0; dependencies.length > i; ++i) {
-      if (dependencies[i].path != null) {
-        var dep = dependencies[i];
+      var path = dependencies[i].dump(_getPathPackageDependencySpec);
+      if (path != null) {
         dependencies[i] = PackageDependencySpec.git(
           GitPackageDependencySpec(
-            package: dep.path.package,
+            package: path.package,
             url: _urls,
             ref: Optional('dev'),
-            path: Optional(p.join('packages', dep.path.package)),
+            path: Optional(p.join('packages', path.package)),
           ),
         );
       }
     }
 
     return dependencies;
+  }
+
+  /// [PathPackageDependencySpec] содержит зависимости для замены
+  PathPackageDependencySpec _getPathPackageDependencySpec({
+    GitPackageDependencySpec git,
+    HostedPackageDependencySpec hosted,
+    PathPackageDependencySpec path,
+    SdkPackageDependencySpec sdk,
+  }) {
+    return path;
   }
 }
