@@ -69,6 +69,11 @@ class DioHttp extends Http {
     }));
   }
 
+  /// Подмена baseUrl без перезапуска приложения
+  void changeBaseUrl(String newUrl) {
+    _dio.options.baseUrl = newUrl;
+  }
+
   ///Proxy config for tracking data
   ///
   /// @param config - HttpConfig of client. Get proxy url
