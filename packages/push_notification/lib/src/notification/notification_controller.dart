@@ -1,6 +1,5 @@
 import 'dart:collection';
 
-import 'package:logger/logger.dart';
 import 'package:push_notification/src/base/push_handle_strategy.dart';
 import 'package:push_notification/src/notification/notificator/android/android_notiffication_specifics.dart';
 import 'package:push_notification/src/notification/notificator/init_settings.dart';
@@ -47,7 +46,7 @@ class NotificationController {
 
     final platformSpecifics = NotificationSpecifics(androidSpecifics);
 
-    Logger.d(
+    print(
         "DEV_INFO receive for show push : ${strategy.payload.title}, ${strategy.payload.body}");
 
     int pushId = DateTime.now().millisecondsSinceEpoch;
@@ -65,7 +64,7 @@ class NotificationController {
   }
 
   Future<dynamic> _internalOnSelectNotification(Map payload) async {
-    Logger.d('DEV_INFO onSelectNotification, payload: $payload');
+    print('DEV_INFO onSelectNotification, payload: $payload');
 
     Map<String, dynamic> tmpPayload = payload;
     int pushId = tmpPayload[pushIdParam];
