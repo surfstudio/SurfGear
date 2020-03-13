@@ -11,9 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  surf_util:
-    path: ../surf_util
-
   logger:
     path: ../logger
 

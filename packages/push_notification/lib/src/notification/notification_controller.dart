@@ -25,8 +25,8 @@ class NotificationController {
     _surfNotification = Notificator(
         initSettings: InitSettings(
           iosInitSettings: IOSInitSettings(
-            requestSoundPermission: false,
-            requestAlertPermission: false,
+            requestSoundPermission: true,
+            requestAlertPermission: true,
           ),
         ),
         onNotificationTapCallback: _internalOnSelectNotification);
