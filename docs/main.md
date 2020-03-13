@@ -16,7 +16,7 @@
         1. [Dart Code Style](common/code_style.md)
     1. [Архитектура приложения](common/arch.md)
     1. [Инъекция зависимостей](common/di.md)
-    1. [Логгирование](common/logging.md)
+    1. [Логирование](common/logging.md)
     1. [Асинхронные взаимодействия](common/async.md)
     1. [Тестирование](common/testing.md)
 
