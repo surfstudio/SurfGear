@@ -33,7 +33,7 @@ class CreateTemplateProject {
   Future<void> run(Command command, PathDirectory pathDirectory) async {
     _command = command;
     try {
-      printMessageConsole('Prepare project...');
+      printMessageConsole('Prepare project "${command.nameProject}"...');
       await _copyTemplateFolder(pathDirectory);
       final files = await _searchFile(pathDirectory);
       await _replaceTextInFile(files);

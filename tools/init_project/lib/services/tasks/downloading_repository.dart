@@ -38,7 +38,7 @@ class DownloadingRepository {
     var directory = await Directory(pathDirectory.path).parent.createTemp();
     pathDirectory.pathTemp = directory.path;
 
-    printMessageConsole('Project download...');
+    printMessageConsole('Template download...');
     var processResult = await shell.run('git', ['clone', url, pathDirectory.pathTemp, '--depth', '1']);
 
     if (processResult.exitCode != 0) {
