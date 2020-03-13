@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:args/args.dart';
 import 'package:init_project/domain/command.dart';
 import 'package:path/path.dart' as p;
@@ -15,6 +17,8 @@ class CommandParser {
   static const String _helpAbbr = 'h';
   static const String _remote = 'remote';
   static const String _remoteAbbr = 'r';
+  static const String _branch = 'branch';
+  static const String _branchAbbr = 'b';
 
   CommandParser() {
     _init_parser();
@@ -34,12 +38,30 @@ class CommandParser {
     _argParser
 
       /// Путь до проекта
-      ..addOption(CommandParser._path,
-          abbr: CommandParser._pathAbbr, help: 'Way to the project', valueHelp: 'path', defaultsTo: p.current)
+      ..addOption(
+        CommandParser._path,
+        abbr: CommandParser._pathAbbr,
+        help: 'Way to the project',
+        valueHelp: 'path',
+        defaultsTo: p.current,
+      )
 
       /// Имя проекта
-      ..addOption(CommandParser._nameProject,
-          abbr: CommandParser._nameProjectAbbr, help: 'Name project', valueHelp: 'nameProject')
+      ..addOption(
+        CommandParser._nameProject,
+        abbr: CommandParser._nameProjectAbbr,
+        help: 'Name project',
+        valueHelp: 'nameProject',
+      )
+
+      /// Ветка зависимостей
+      ..addOption(
+        CommandParser._branch,
+        abbr: CommandParser._branchAbbr,
+        help: 'Dependency branch',
+        valueHelp: 'branch',
+        defaultsTo: 'dev',
+      )
 
       /// Путь до репозитория
       ..addOption(
@@ -54,17 +76,22 @@ class CommandParser {
       ..addFlag(CommandParser._helpFlag, abbr: CommandParser._helpAbbr, negatable: false, help: 'Help');
   }
 
+  /// Если опции введены верно, парсим их в [Command], иначе возвращаем help
+  ///
+  ///  [sleep] необходим в случаи неправильных введённых опций,
+  ///  в редких случаях вывод ошибки смешавается с help
   Future<Command> _getCommandByArgs(ArgResults parsed) async {
     var isShowHelp = parsed[CommandParser._helpFlag] as bool;
 
     if (isShowHelp) {
       print(_argParser.usage);
+      sleep(const Duration(microseconds: 10));
       return null;
     }
 
     if (parsed[CommandParser._nameProject] == null) {
       print(_argParser.usage);
-
+      sleep(const Duration(microseconds: 10));
       return Future.error(Exception('Enter project name'));
     }
 
@@ -72,6 +99,7 @@ class CommandParser {
       parsed[CommandParser._nameProject],
       parsed[CommandParser._path],
       parsed[CommandParser._remote],
+      parsed[CommandParser._branch],
     );
   }
 }

@@ -28,17 +28,19 @@ String _pubspecFile = 'pubspec.yaml';
 /// Создает шаблонный проект
 class CreateTemplateProject {
   final ShowMessageManager _showMessageConsole;
+  Command _command;
 
   CreateTemplateProject(
     this._showMessageConsole,
   );
 
   Future<void> run(Command command, PathDirectory pathDirectory) async {
+    _command = command;
     try {
       _showMessageConsole.printMessageConsole('Prepare project...');
       await _copyTemplateFolder(pathDirectory);
-      final files = await _searchFile(command, pathDirectory);
-      await _replaceTextInFile(command, files);
+      final files = await _searchFile(pathDirectory);
+      await _replaceTextInFile(files);
       await _searchPubspec(files);
     } catch (e) {
       rethrow;
@@ -52,7 +54,7 @@ class CreateTemplateProject {
   }
 
   /// Ищем файлы
-  Future<List<File>> _searchFile(Command command, PathDirectory pathDirectory) async {
+  Future<List<File>> _searchFile(PathDirectory pathDirectory) async {
     final List<File> files = [];
     final dirProject = Directory(p.join(pathDirectory.path, 'lib'))
         .listSync(recursive: true, followLinks: false)
@@ -79,11 +81,11 @@ class CreateTemplateProject {
   }
 
   /// Перезаписывем текст в файле, заменяя зависимости
-  Future<void> _replaceTextInFile(Command command, List<File> files) async {
+  Future<void> _replaceTextInFile(List<File> files) async {
     for (var file in files) {
       try {
         var sourceText = await file.readAsString();
-        var outText = sourceText.replaceAll(_expDependency, command.nameProject);
+        var outText = sourceText.replaceAll(_expDependency, _command.nameProject);
         await file.writeAsString(outText);
       } catch (e) {
         rethrow;
@@ -130,7 +132,7 @@ class CreateTemplateProject {
           GitPackageDependencySpec(
             package: path.package,
             url: _urls,
-            ref: Optional('dev'),
+            ref: Optional(_command.branch),
             path: Optional(p.join('packages', path.package)),
           ),
         );
