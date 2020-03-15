@@ -1,14 +1,14 @@
-import 'package:init_project/domain/path_directory.dart';
-import 'package:init_project/services/tasks/check_install_git.dart';
-import 'package:init_project/services/parcer/command_parser.dart';
-import 'package:init_project/services/command_runner.dart';
-import 'package:init_project/services/tasks/create_template_project.dart';
-import 'package:init_project/services/tasks/remove_directory_temp.dart';
-import 'package:init_project/services/tasks/downloading_repository.dart';
 import 'dart:io';
 
-import 'package:init_project/services/utils/print_message_console.dart';
+import 'package:init_project/domain/path_directory.dart';
+import 'package:init_project/services/command_runner.dart';
+import 'package:init_project/services/parcer/command_parser.dart';
+import 'package:init_project/tasks/check_install_git.dart';
+import 'package:init_project/tasks/create_template_project.dart';
+import 'package:init_project/tasks/downloading_repository.dart';
+import 'package:init_project/tasks/remove_directory_temp.dart';
 
+/// Проложение для инилицизации проекта на основе шаблона.
 class InitProject {
   static InitProject _instance;
 
@@ -20,7 +20,7 @@ class InitProject {
   RemoveDirectoryTemp _removeDirectoryTemp;
   CheckInstallGit _checkInstallGit;
 
-  /// Временная директория для скачанного проекта, должна удаляться после завершения работы
+  /// Временная директория для скачанного проекта, должна удаляться после завершения работы.
   Directory pathDirectoryTemp;
 
   InitProject._({
@@ -53,7 +53,7 @@ class InitProject {
     );
   }
 
-  /// TODO:  тут нужно добавить удаление скачанного репозитория [RemoveDirectoryTemp]
+  /// Выполняет действие исходя из переданных параметров.
   Future<void> execute(List<String> arguments) async {
     try {
       await _checkInstallGit.check();

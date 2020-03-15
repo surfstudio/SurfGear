@@ -9,11 +9,9 @@ import 'package:shell/shell.dart';
 
 /// Отвечает за загрузку проекта из git репозитория
 class DownloadingRepository {
-
-
   Future<PathDirectory> run(Command command, PathDirectory pathDirectory) async {
-    var path = command.path;
-    var nameProject = command.nameProject;
+    final path = command.path;
+    final nameProject = command.nameProject;
     try {
       await _createDirectory(path, nameProject, pathDirectory);
       await _loadTemplateProject(command.url, pathDirectory);
@@ -33,13 +31,14 @@ class DownloadingRepository {
     }
   }
 
+  /// Загружаем из репозитория проект
   Future<void> _loadTemplateProject(String url, PathDirectory pathDirectory) async {
-    var shell = Shell();
-    var directory = await Directory(pathDirectory.path).parent.createTemp();
+    final shell = Shell();
+    final directory = await Directory(pathDirectory.path).createTemp();
     pathDirectory.pathTemp = directory.path;
 
     printMessageConsole('Template download...');
-    var processResult = await shell.run('git', ['clone', url, pathDirectory.pathTemp, '--depth', '1']);
+    final processResult = await shell.run('git', ['clone', url, pathDirectory.pathTemp, '--depth', '1']);
 
     if (processResult.exitCode != 0) {
       return Future.error(processResult.stderr);

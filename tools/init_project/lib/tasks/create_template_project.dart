@@ -8,33 +8,32 @@ import 'package:path/path.dart' as p;
 import 'package:plain_optional/plain_optional.dart';
 import 'package:pubspec_yaml/pubspec_yaml.dart';
 
-/// Путь до папки с template
+/// Путь до папки с template.
 const String _pathPackagesTemplate = 'packages/template';
 
-/// Репозиторий
+/// Репозиторий.
 const String _urls = 'https://bitbucket.org/surfstudio/flutter-standard.git';
 
-/// Для поиска файлов *.dart
+/// Для поиска файлов *.dart.
 const String _fileDart = '.dart';
 
 /// Для поиска файлов *.yaml
 const String _fileYAML = '.yaml';
 
-/// Регулярка для замены на название пароекта
+/// Регулярка для замены на название пароекта.
 RegExp _expDependency = RegExp('template');
 
 String _pubspecFile = 'pubspec.yaml';
 
-/// Создает шаблонный проект
+/// Создает шаблонный проект.
 class CreateTemplateProject {
-//  final ShowMessageManager _showMessageConsole;
   Command _command;
 
   Future<void> run(Command command, PathDirectory pathDirectory) async {
     _command = command;
     try {
       printMessageConsole('Prepare project "${command.nameProject}"...');
-      await _copyTemplateFolder(pathDirectory);
+      await _copyTemplateInFolder(pathDirectory);
       final files = await _searchFile(pathDirectory);
       await _replaceTextInFile(files);
       await _searchPubspec(files);
@@ -43,26 +42,27 @@ class CreateTemplateProject {
     }
   }
 
-  /// Копируем template
-  Future<void> _copyTemplateFolder(PathDirectory pathDirectory) async {
+  /// Копируем template.
+  Future<void> _copyTemplateInFolder(PathDirectory pathDirectory) async {
     final pathFolder = p.join(pathDirectory.pathTemp, _pathPackagesTemplate);
     await copyPath(pathFolder, pathDirectory.path);
   }
 
-  /// Ищем файлы
+  /// Ищем файлы для замены template на имя проекта.
   Future<List<File>> _searchFile(PathDirectory pathDirectory) async {
     final List<File> files = [];
     final dirProject = Directory(p.join(pathDirectory.path, 'lib'))
         .listSync(recursive: true, followLinks: false)
           ..addAll(Directory(pathDirectory.path).listSync(recursive: false, followLinks: false));
 
-    var fileSystemEntities = await _getFiles(dirProject);
+    final fileSystemEntities = await _getFiles(dirProject);
 
     files.addAll(fileSystemEntities);
 
     return files;
   }
 
+  /// Из списка файлов возвращает файлы .dart и .yaml.
   Future<List<File>> _getFiles(List<FileSystemEntity> dirs) async {
     final List<File> files = [];
     for (var dir in dirs) {
@@ -76,12 +76,12 @@ class CreateTemplateProject {
     return files;
   }
 
-  /// Перезаписывем текст в файле, заменяя зависимости
+  /// Перезаписывем текст в файлах, заменяя зависимости.
   Future<void> _replaceTextInFile(List<File> files) async {
     for (var file in files) {
       try {
-        var sourceText = await file.readAsString();
-        var outText = sourceText.replaceAll(_expDependency, _command.nameProject);
+        final sourceText = await file.readAsString();
+        final outText = sourceText.replaceAll(_expDependency, _command.nameProject);
         await file.writeAsString(outText);
       } catch (e) {
         rethrow;
@@ -89,10 +89,11 @@ class CreateTemplateProject {
     }
   }
 
+  /// Ищем pubspec.yaml
   Future<void> _searchPubspec(List<File> files) async {
     try {
       for (var file in files) {
-        var nameFile = p.basename(file.path);
+        final nameFile = p.basename(file.path);
         if (nameFile == _pubspecFile) {
           await _replacePubspec(file);
           break;
@@ -103,6 +104,7 @@ class CreateTemplateProject {
     }
   }
 
+  /// Перезаписываем pubspec.yaml файл
   Future<void> _replacePubspec(File file) async {
     try {
       final pubspecYaml = PubspecYaml.loadFromYamlString(file.readAsStringSync());
