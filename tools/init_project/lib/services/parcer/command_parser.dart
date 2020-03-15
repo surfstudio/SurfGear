@@ -37,17 +37,12 @@ class CommandParser {
   }
 
   /// Выполняет парсинг переданных аргументов и возвращает команду на исполнение.
-  ///
-  ///  [sleep] необходим в случаи неправильно введённых комманд/опций/флагов,
-  ///  в редких случаях вывод ошибки смешавается с help.
   Future<Command> parser(List<String> arguments) async {
     try {
       final parsed = _argParser.parse(arguments);
 
       return _getCommandByArgs(parsed);
     } catch (e) {
-      printMessageConsole(_argParser.usage);
-      sleep(Duration(microseconds: 10));
       rethrow;
     }
   }
@@ -97,6 +92,9 @@ class CommandParser {
   }
 
   /// Если опции введены верно, парсим их в [Command], иначе возвращаем help.
+  ///
+  ///  [sleep] необходим в случаи неправильно введённых комманд/опций/флагов,
+  ///  в редких случаях вывод ошибки смешавается с help.
   Future<Command> _getCommandByArgs(ArgResults parsed) async {
     final isShowHelp = parsed[CommandParser._helpFlag] as bool;
 
@@ -106,6 +104,8 @@ class CommandParser {
     }
 
     if (parsed[CommandParser._nameProject] == null) {
+      printMessageConsole(_argParser.usage);
+      sleep(Duration(microseconds: 10));
       return Future.error(Exception('Enter project name'));
     }
 

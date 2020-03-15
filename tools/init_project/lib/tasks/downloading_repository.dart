@@ -41,7 +41,7 @@ class DownloadingRepository {
     final processResult = await shell.run('git', ['clone', url, pathDirectory.pathTemp, '--depth', '1']);
 
     if (processResult.exitCode != 0) {
-      return Future.error(processResult.stderr);
+      return Future.error(Exception(processResult.stderr));
     }
   }
 }

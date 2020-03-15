@@ -49,6 +49,8 @@ class CreateTemplateProject {
   }
 
   /// Ищем файлы для замены template на имя проекта.
+  ///
+  /// Для папки 'lib' рекурсивно и отдельно в коневой, для поиска '.yaml'
   Future<List<File>> _searchFile(PathDirectory pathDirectory) async {
     final List<File> files = [];
     final dirProject = Directory(p.join(pathDirectory.path, 'lib'))

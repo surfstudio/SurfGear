@@ -7,7 +7,7 @@ class CheckInstallGit {
 
     final processResult = await shell.run('git', ['--help']);
     if (processResult.exitCode != 0) {
-      return Future.error('git not found, install git of https://git-scm.com');
+      return Future.error(Exception('git not found, install git of https://git-scm.com'));
     }
   }
 }
