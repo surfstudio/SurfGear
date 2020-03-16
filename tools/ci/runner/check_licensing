@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#chmod +x ./myscript
+dart tools/ci/bin/main.dart check_licensing "$@"

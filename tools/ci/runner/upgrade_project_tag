@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+dart tools/ci/bin/main.dart upgrade_project_tag
