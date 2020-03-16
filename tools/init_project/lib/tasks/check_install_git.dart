@@ -3,7 +3,7 @@ import 'package:shell/shell.dart';
 /// Проверяем, установлен ли git
 class CheckInstallGit {
   Future<void> check() async {
-    final shell = new Shell();
+    final shell = Shell();
 
     final processResult = await shell.run('git', ['--help']);
     if (processResult.exitCode != 0) {

@@ -27,16 +27,13 @@ String _pubspecFile = 'pubspec.yaml';
 
 /// Создает шаблонный проект.
 class CreateTemplateProject {
-  Command _command;
-
   Future<void> run(Command command, PathDirectory pathDirectory) async {
-    _command = command;
     try {
       printMessageConsole('Prepare project "${command.nameProject}"...');
       await _copyTemplateInFolder(pathDirectory);
       final files = await _searchFile(pathDirectory);
-      await _replaceTextInFile(files);
-      await _searchPubspec(files);
+      await _replaceTextInFile(command, files);
+      await _searchPubspec(command, files);
     } catch (e) {
       rethrow;
     }
@@ -79,11 +76,11 @@ class CreateTemplateProject {
   }
 
   /// Перезаписывем текст в файлах, заменяя зависимости.
-  Future<void> _replaceTextInFile(List<File> files) async {
+  Future<void> _replaceTextInFile(Command command, List<File> files) async {
     for (var file in files) {
       try {
         final sourceText = await file.readAsString();
-        final outText = sourceText.replaceAll(_expDependency, _command.nameProject);
+        final outText = sourceText.replaceAll(_expDependency, command.nameProject);
         await file.writeAsString(outText);
       } catch (e) {
         rethrow;
@@ -92,12 +89,12 @@ class CreateTemplateProject {
   }
 
   /// Ищем pubspec.yaml
-  Future<void> _searchPubspec(List<File> files) async {
+  Future<void> _searchPubspec(Command command, List<File> files) async {
     try {
       for (var file in files) {
         final nameFile = p.basename(file.path);
         if (nameFile == _pubspecFile) {
-          await _replacePubspec(file);
+          await _replacePubspec(command, file);
           break;
         }
       }
@@ -107,13 +104,13 @@ class CreateTemplateProject {
   }
 
   /// Перезаписываем pubspec.yaml файл
-  Future<void> _replacePubspec(File file) async {
+  Future<void> _replacePubspec(Command command, File file) async {
     try {
       final pubspecYaml = PubspecYaml.loadFromYamlString(file.readAsStringSync());
 
       var replacePubspec = pubspecYaml.copyWith(
           version: Optional('0.0.1+1'),
-          dependencies: _replaceDependencies(pubspecYaml.dependencies.toList()));
+          dependencies: _replaceDependencies(command, pubspecYaml.dependencies.toList()));
 
       await file.writeAsStringSync(replacePubspec.toYamlString());
     } catch (e) {
@@ -122,7 +119,8 @@ class CreateTemplateProject {
   }
 
   /// Если [PathPackageDependencySpec] не null, то заменяем на гитовую зависисмость
-  Iterable<PackageDependencySpec> _replaceDependencies(List<PackageDependencySpec> dependencies) {
+  Iterable<PackageDependencySpec> _replaceDependencies(
+      Command command, List<PackageDependencySpec> dependencies) {
     for (var i = 0; dependencies.length > i; ++i) {
       var path = dependencies[i].dump(_getPathPackageDependencySpec);
       if (path != null) {
@@ -130,7 +128,7 @@ class CreateTemplateProject {
           GitPackageDependencySpec(
             package: path.package,
             url: _urls,
-            ref: Optional(_command.branch),
+            ref: Optional(command.branch),
             path: Optional(p.join('packages', path.package)),
           ),
         );

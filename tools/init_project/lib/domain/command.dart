@@ -1,8 +1,15 @@
-/// TODO заполнить
+/// Параметры команды, которую необходимо выполнить.
 class Command {
+  /// Имя проекта
   final String _nameProject;
+
+  /// Путь до дирректории
   final String _path;
+
+  /// url зависимостей
   final String _remoteUrl;
+
+  /// Вектка зависимостей
   final String _branch;
 
   Command(this._nameProject, {String path, String remoteUrl, String branch})
@@ -11,15 +18,11 @@ class Command {
         _path = path,
         _branch = branch;
 
-  /// Имя проекта
   String get nameProject => _nameProject;
 
-  /// Путь до дирректории
   String get path => _path;
 
-  /// url зависимостей
   String get url => _remoteUrl;
 
-  /// Вектка зависимостей
   String get branch => _branch;
 }
