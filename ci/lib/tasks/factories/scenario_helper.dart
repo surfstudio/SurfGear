@@ -4,7 +4,6 @@ import 'package:ci/scenarios/clear_changed_scenario.dart';
 import 'package:ci/scenarios/find_changed_modules_scenario.dart';
 import 'package:ci/scenarios/increment_unstable_versions_scenario.dart';
 import 'package:ci/scenarios/run_test_scenario.dart';
-import 'package:ci/scenarios/helper_scenario.dart';
 import 'package:ci/scenarios/show_help_scenario.dart';
 import 'package:ci/scenarios/write_release_note_scenario.dart';
 import 'package:ci/tasks/factories/scenario_task_factory.dart';
