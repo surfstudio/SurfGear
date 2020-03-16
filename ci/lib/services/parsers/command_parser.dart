@@ -16,6 +16,7 @@ import 'package:ci/scenarios/check_version_in_release_note_scenario.dart';
 import 'package:ci/scenarios/clear_changed_scenario.dart';
 import 'package:ci/scenarios/find_changed_modules_scenario.dart';
 import 'package:ci/scenarios/increment_unstable_versions_scenario.dart';
+import 'package:ci/scenarios/publish_modules_scenario.dart';
 import 'package:ci/scenarios/run_test_scenario.dart';
 import 'package:ci/scenarios/show_help_scenario.dart';
 import 'package:ci/scenarios/upgrade_project_tag_scenario.dart';
@@ -113,9 +114,6 @@ class CommandParser {
       /// upgrade_project_tag
       ..addCommand(UpgradeProjectTagScenario.commandName)
 
-      /// help
-      ..addFlag(helpFlag, negatable: false, abbr: helpAbbr)
-
       /// find_changed_modules
       ..addCommand(
         FindChangedModulesScenario.commandName,
@@ -129,7 +127,14 @@ class CommandParser {
       ..addCommand(ClearChangedScenario.commandName)
 
       /// run_tests
-      ..addCommand(RunTestScenario.commandName);
+      ..addCommand(RunTestScenario.commandName)
+
+      /// publish
+      ..addCommand(PublishModulesScenario.commandName,
+          ArgParser()..addOption(PublishModulesScenario.server, help: 'Server for publish module.'))
+
+      /// help
+      ..addFlag(helpFlag, negatable: false, abbr: helpAbbr);
   }
 
   /// Проверяем, требовался ли вызов help, если нет, то запускаем команду
