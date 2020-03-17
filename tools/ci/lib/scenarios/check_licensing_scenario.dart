@@ -8,17 +8,18 @@ import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/utils.dart';
 
+const String _helpInfo = 'Checking the license of files of transferred modules';
+
 /// Сценарий для команды check_licensing.
 ///
 /// Пример вызова:
-/// dart ci check_licensing --name=push / dart ci check_licensing --all
-class LicensingCheckScenario extends Scenario {
+/// dart ci check_licensing --name=anyName / dart ci check_licensing --all
+class CheckLicensingScenario extends Scenario {
   static const String commandName = 'check_licensing';
   static const String allFlag = CommandParser.defaultAllFlag;
   static const String nameOption = CommandParser.defaultNameOption;
 
-  LicensingCheckScenario(Command command, PubspecParser pubspecParser)
-      : super(command, pubspecParser);
+  CheckLicensingScenario(Command command, PubspecParser pubspecParser) : super(command, pubspecParser);
 
   @override
   Future<void> validate(Command command) async {
@@ -59,4 +60,10 @@ class LicensingCheckScenario extends Scenario {
       rethrow;
     }
   }
+
+  @override
+  String get getCommandName => commandName;
+
+  @override
+  String get helpInfo => _helpInfo;
 }

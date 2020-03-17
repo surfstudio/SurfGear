@@ -5,6 +5,8 @@ import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/tasks.dart';
 
+const String _helpInfo = 'Unstable version increase in modules.';
+
 /// Сценарий для команды increment_unstable.
 ///
 /// Пример вызова:
@@ -25,4 +27,10 @@ class IncrementUnstableVersionsScenario extends ChangedElementScenario {
     /// фиксируем изменения на репозитории
     await fixChanges(message: 'Increment unstable versions by ci.');
   }
+
+  @override
+  String get getCommandName => commandName;
+
+  @override
+  String get helpInfo => _helpInfo;
 }

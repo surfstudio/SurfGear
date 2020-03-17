@@ -107,7 +107,7 @@ Future<bool> checkVersionInReleaseNote(Element element) {
   return PubCheckReleaseVersionTask(element).run();
 }
 
-/// Проверка стабильности зависимостей элемента
+/// Проверка стабильности зависимостей модуля.
 Future<bool> checkDependenciesStable(Element element) => CheckDependencyStable(element).run();
 
 /// Создаём общий RELEASE_NOTES.md и коммитим его

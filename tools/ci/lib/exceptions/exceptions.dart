@@ -46,6 +46,11 @@ abstract class GitProcessException extends BaseCiException {
   GitProcessException(String message) : super(message);
 }
 
+/// Недопустимый вызов
+class NotSupportedMethodCallException extends BaseCiException {
+  NotSupportedMethodCallException(String message) : super(message);
+}
+
 /// Ошибки функционала
 
 /// Build
