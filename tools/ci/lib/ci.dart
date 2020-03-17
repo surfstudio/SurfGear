@@ -19,6 +19,7 @@ class Ci {
 
   CommandParser _commandParser;
   CommandRunner _commandRunner;
+  StandardErrorHandlerStrategies _standardErrorHandler;
 
   Ci._({
     CommandParser commandParser,
@@ -40,8 +41,6 @@ class Ci {
                 strategyForUnknownErrors,
               ),
             );
-
-  StandardErrorHandlerStrategies _standardErrorHandler;
 
   Ci.init({
     CommandParser commandParser,
