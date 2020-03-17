@@ -12,8 +12,13 @@
    <br><br>
    Проблема решилась предоставлением расширенных прав на директорию:
    <br>
-   `sudo chmod 755 -R /Users/{user}/Library/Logs/gym/`
-
+   `sudo chmod 755 /Users/{username}/Library/Logs/gym/`
+   <br><br>
+ - **Permission denied @ rb_sysopen - /Users/{username}/{project-dir}/ios/{cer-name}.cer**
+   <br><br>
+   Проблема решилась предоставлением расширенных прав на директорию:
+   <br>
+   `sudo chmod 755 /Users/{username}/{project-dir}/ios/*`
 
 ## Не получается собрать profile-сборку под iOS
 
