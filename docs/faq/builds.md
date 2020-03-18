@@ -6,6 +6,20 @@
 
 Если вы пришли сюда за ответами на вопросы, но ещё не читали [рукводство по орагнизации Flavors во Flutter](../best_practice/flavors/flavors_long.md) - сначала обязательно прочитайте его.
 
+## Падает локальная сборка iOS через Fastlane
+
+ - **No profile for team 'XXXXXXXXX' matching. Install the profile (by dragging and dropping it onto Xcode's dock item) or select a different one in the General tab of the target editor.**
+   <br><br>
+   Проблема решилась предоставлением расширенных прав на директорию:
+   <br>
+   `sudo chmod 755 /Users/{username}/Library/Logs/gym/`
+   <br><br>
+ - **Permission denied @ rb_sysopen - /Users/{username}/{project-dir}/ios/{cer-name}.cer**
+   <br><br>
+   Проблема решилась предоставлением расширенных прав на директорию:
+   <br>
+   `sudo chmod 755 /Users/{username}/{project-dir}/ios/*`
+
 ## Не получается собрать profile-сборку под iOS
 
  - **Отсутствует нужная Build Configuration в XCode.**
