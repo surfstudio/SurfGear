@@ -6,6 +6,7 @@ import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
+import 'package:ci/services/pub_publish_manager.dart';
 import 'package:ci/tasks/impl/building/check_dependency_stable.dart';
 import 'package:ci/tasks/impl/building/check_stability_dev.dart';
 import 'package:ci/tasks/factories/license_task_factory.dart';
@@ -16,6 +17,7 @@ import 'package:ci/tasks/impl/license/licensing_check.dart';
 import 'package:ci/tasks/impl/building/linter_check.dart';
 import 'package:ci/tasks/impl/publish/pub_check_release_version_task.dart';
 import 'package:ci/tasks/impl/publish/pub_dry_run_task.dart';
+import 'package:ci/tasks/impl/publish/pub_publish_module_task.dart';
 import 'package:ci/tasks/impl/testing/run_module_tests_check.dart';
 import 'package:ci/tasks/impl/building/stable_modules_for_changes_check.dart';
 import 'package:ci/tasks/utils.dart';
@@ -60,8 +62,7 @@ Future<bool> checkStableModulesForChanges(List<Element> elements) async {
   if (changedModules.isNotEmpty) {
     final modulesNames = changedModules.map((e) => e.name).join(', ');
     return Future.error(
-      StableModulesWasModifiedException(
-          'Модули, отмеченные как stable, были изменены: $modulesNames'),
+      StableModulesWasModifiedException('Модули, отмеченные как stable, были изменены: $modulesNames'),
     );
   }
 
@@ -81,8 +82,7 @@ Future<bool> runTests(List<Element> elements, {bool needReport = false}) async {
   }
 
   if (errorMessages.isNotEmpty) {
-    final message =
-        getTestsFailedExceptionText(errorMessages.length, errorMessages.join());
+    final message = getTestsFailedExceptionText(errorMessages.length, errorMessages.join());
 
     if (needReport) {
       File(_testsReportName).writeAsStringSync(message, flush: true);
@@ -99,15 +99,21 @@ Future<bool> runTests(List<Element> elements, {bool needReport = false}) async {
 /// false - документ не openSource
 /// error -  докумет openSource, но публиковать нельзя
 Future<bool> checkPublishAvailable(Element element) {
-  return PubDryRunTask(element).run();
+  return PubDryRunTask(element, PubPublishManager()).run();
+}
+
+/// Публикуем модули
+/// [pathServer] принимать адрес сервера куда паблишить, необзательный параметр
+Future<void> pubPublishModules(Element element, {String pathServer}) {
+  return PubPublishModuleTask(element, PubPublishManager(), pathServer: pathServer).run();
 }
 
 /// Проверка на наличие актуальной версии в Release Notes
 Future<bool> checkVersionInReleaseNote(Element element) {
-  return PubCheckReleaseVersionTask(element).run();
+  return PubCheckReleaseVersionTask(element, PubPublishManager()).run();
 }
 
-/// Проверка стабильности зависимостей элемента
+/// Проверка стабильности зависимостей модуля.
 Future<bool> checkDependenciesStable(Element element) => CheckDependencyStable(element).run();
 
 /// Создаём общий RELEASE_NOTES.md и коммитим его

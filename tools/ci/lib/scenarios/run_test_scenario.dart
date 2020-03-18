@@ -5,6 +5,8 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 
+const String _helpInfo = 'Running tests in modules.';
+
 /// Сценарий для команды upgrade_project_tag.
 ///
 /// Пример вызова:
@@ -28,4 +30,10 @@ class RunTestScenario extends ChangedElementScenario {
       rethrow;
     }
   }
+
+  @override
+  String get getCommandName => commandName;
+
+  @override
+  String get helpInfo => _helpInfo;
 }
