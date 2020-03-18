@@ -110,7 +110,7 @@ Future<List<Element>> markChangedElements(List<Element> elements) async {
 /// Создаёт файл со списком измененных файлов.
 Future<void> createChangedListFile(
     List<Element> elements, String target) async {
-  final result = await sh('git diff --name-only HEAD $target');
+  final result = await sh('git diff --name-only $target');
   final diff = result.stdout as String;
 
   print('Файлы, изменённые в сравнении с целевой веткой :\n$diff');
