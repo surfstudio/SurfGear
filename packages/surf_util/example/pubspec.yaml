@@ -15,8 +15,8 @@ dependencies:
   surf_util:
     path: ..
 
-  mwwm:
-    path: ../../mwwm
+  relation:
+    path: ../../relation
 
 
 dev_dependencies:

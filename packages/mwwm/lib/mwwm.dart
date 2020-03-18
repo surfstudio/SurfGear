@@ -18,28 +18,15 @@ library mwwm;
 export 'package:mwwm/src/controller/dialog_controller.dart';
 export 'package:mwwm/src/controller/message_controller.dart';
 
-//di
-export 'package:mwwm/src/di/base_wm_component.dart';
-export 'package:mwwm/src/di/wm_dependencies.dart';
-
 //errors
 export 'package:mwwm/src/error/error_handler.dart';
 
-//relations
-export 'package:mwwm/src/relation/event/entity_state.dart';
-export 'package:mwwm/src/relation/event/action.dart';
-export 'package:mwwm/src/relation/event/actions/controller_action.dart';
-export 'package:mwwm/src/relation/event/actions/scroll_action.dart';
-export 'package:mwwm/src/relation/event/actions/text_editing_action.dart';
-export 'package:mwwm/src/relation/event/event.dart';
-export 'package:mwwm/src/relation/event/streamed_state.dart';
-
-//builders
-export 'package:mwwm/src/relation/builder/entity_stream_builder.dart';
-export 'package:mwwm/src/relation/builder/streamed_state_builder.dart';
-export 'package:mwwm/src/relation/builder/textfield_state_builder.dart';
-
 //main
-export 'package:mwwm/src/mwwm_widget.dart';
+export 'package:mwwm/src/widget_state.dart';
 export 'package:mwwm/src/wm_factory.dart';
 export 'package:mwwm/src/widget_model.dart';
+export 'package:mwwm/src/dependencies/wm_dependencies.dart';
+
+export 'package:mwwm/src/model/model.dart';
+export 'package:mwwm/src/model/changes/changes.dart';
+export 'package:mwwm/src/model/performer/performer.dart';

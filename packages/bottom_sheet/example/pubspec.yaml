@@ -18,7 +18,7 @@ dependencies:
   pedantic: ^1.7.0
 
   #rx
-  rxdart: ^0.22.0
+  rxdart: ^0.23.1
 
   #surfstudio
   bottom_sheet:
