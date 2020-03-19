@@ -31,7 +31,7 @@ dependencies:
     path: ../surf_util
 
   intl: ^0.16.1
-
+  args: ^1.5.2
   flutter_svg: ^0.15.0
 
   #networking

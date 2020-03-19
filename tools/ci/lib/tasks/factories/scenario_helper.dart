@@ -5,6 +5,7 @@ import 'package:ci/scenarios/find_changed_modules_scenario.dart';
 import 'package:ci/scenarios/increment_unstable_versions_scenario.dart';
 import 'package:ci/scenarios/publish_modules_scenario.dart';
 import 'package:ci/scenarios/run_test_scenario.dart';
+import 'package:ci/scenarios/show_dependency_graph.dart';
 import 'package:ci/scenarios/show_help_scenario.dart';
 import 'package:ci/scenarios/write_release_note_scenario.dart';
 import 'package:ci/tasks/factories/scenario_task_factory.dart';
@@ -60,4 +61,6 @@ Map<String, ScenarioBuilder> scenarioMap = <String, ScenarioBuilder>{
       IncrementUnstableVersionsScenario(command, parser),
   ShowHelpScenario.commandName: (command, parser) =>
       ShowHelpScenario(command, parser),
+  ShowDependencyGraph.commandName: (command, parser) =>
+      ShowDependencyGraph(command, parser),
 };
