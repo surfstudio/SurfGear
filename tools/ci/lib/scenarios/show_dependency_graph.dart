@@ -4,10 +4,11 @@ import 'package:ci/services/parsers/command_parser.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/scenario.dart';
 
+/// Строки для визуализации зависимостей в консоле.
 const String _arrowDep = ' | ';
 const String _arrow = ' ---->';
 
-///  Выводит в консоль граф зависимостей елемента
+/// Выводит в консоль граф зависимостей елемента.
 ///
 /// dart ci graph / dart ci graph --name=anyName
 class ShowDependencyGraph extends Scenario {
@@ -23,37 +24,36 @@ class ShowDependencyGraph extends Scenario {
   Future<void> doExecute(List<Element> elements) async {
     /// Хранит данные для вывода в консоль
     final str = StringBuffer();
-
     for (var element in elements) {
       str.write('\n');
-      _test(element, str, -_arrowDep.length);
+      _createOutputOnConsole(element, str, -_arrowDep.length);
     }
     print(str);
   }
 
-  void _test(Element element, StringBuffer str, int length) {
+  /// Если у элемнета есть зависимости "флаттер стандарта", то генерим строку для вывода в консоль.
+  void _createOutputOnConsole(Element element, StringBuffer str, int length) {
     str.write(element.name);
     if (_isDependency(element)) {
       str.write(_arrow);
-      _dep(element, str, length + element.name.length + _arrow.length + _arrowDep.length);
+      _dependency(element, str, length + element.name.length + _arrow.length + _arrowDep.length);
     }
   }
 
-  void _dep(Element element, StringBuffer str, int length) {
-    var dependencies = element.dependencies;
-    for (var i = 0; i < dependencies.length; i++) {
-      var dep = dependencies[i];
-
-      if (!dep.thirdParty) {
-        i == 0 ? str.write(_arrowDep) : str.write('\n' + ' ' * length + '$_arrowDep');
-        _test(dep.element, str, length);
+  ///
+  void _dependency(Element element, StringBuffer str, int length) {
+    for (var i = 0; i < element.dependencies.length; i++) {
+      if (_isDependency(element)) {
+        i == 0 ? str.write(_arrowDep) : str.write('\n' + ' ' * length + _arrowDep);
+        _createOutputOnConsole(element.dependencies[i].element, str, length);
       }
     }
   }
 
+  /// Есть ли зависимости "флаттер стандарта" у элемента
   bool _isDependency(Element element) {
-    for (var dep in element.dependencies) {
-      if (!dep.thirdParty) {
+    for (var dependency in element.dependencies) {
+      if (!dependency.thirdParty) {
         return true;
       }
     }
