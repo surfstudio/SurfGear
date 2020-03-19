@@ -6,6 +6,7 @@ import UserNotifications
 let CHANNEL = "surf_notification"
 let CALL_SHOW = "show"
 let CALL_INIT = "initialize"
+let CALL_REQUEST = "request"
 let CALLBACK_OPEN = "notificationOpen"
 // Arguments names
 let ARG_PUSH_ID = "pushId"
@@ -39,6 +40,9 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
             break
         case CALL_SHOW:
             show(args: args)
+            break;
+        case CALL_REQUEST:
+            requestPermissions(args: args)
             break;
         default:
             result(FlutterMethodNotImplemented)
@@ -75,6 +79,10 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
                 return
             }
         }
+    }
+
+    func requestPermissions(args: NSDictionary) {
+        // TODO
     }
 
     // Show notifications
