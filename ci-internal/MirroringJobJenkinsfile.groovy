@@ -38,7 +38,7 @@ pipeline.stages = [
             }
         },
         pipeline.stage("Sanitize", StageStrategy.FAIL_WHEN_STAGE_ERROR) {
-            dir("android-standard.git") {
+            dir("flutter-standard.git") {
                 def packedRefsFile = "packed-refs"
                 def packedRefs = readFile file: packedRefsFile
                 echo "packed_refs: $packedRefs"
@@ -54,7 +54,7 @@ pipeline.stages = [
             }
         },
         pipeline.stage("Mirroring", StageStrategy.FAIL_WHEN_STAGE_ERROR) {
-            dir("android-standard.git") {
+            dir("flutter-standard.git") {
                 withCredentials([usernamePassword(credentialsId: mirrorRepoCredentialID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     echo "credentialsId: $mirrorRepoCredentialID"
                     sh "git push --mirror https://${encodeUrl(USERNAME)}:${encodeUrl(PASSWORD)}@github.com/surfstudio/SurfGear.git"
