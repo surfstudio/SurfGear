@@ -16,7 +16,7 @@ const String _arrow = ' ---->';
 ///
 /// dart ci deps / dart ci deps --name=anyName
 class ShowDependencyGraph extends Scenario {
-  static const String commandName = 'graph';
+  static const String commandName = 'deps';
   static const String nameOption = CommandParser.defaultNameOption;
 
   ShowDependencyGraph(
@@ -36,7 +36,7 @@ class ShowDependencyGraph extends Scenario {
         CommandParamsValidationException(
           getCommandFormatExceptionText(
             commandName,
-            'ожидалось graph --all или graph --name=anyName',
+            'ожидалось deps --all или deps --name=anyName',
           ),
         ),
       );
