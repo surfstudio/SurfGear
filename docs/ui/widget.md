@@ -4,26 +4,35 @@
 
 # Widget
 
-При использовании WM должен использоваться StatefulWidget.
+Для взаимодействия с WidgetModel используется [MwwmWidget](../../packages/mwwm/lib/src/mwwm_widget.dart) — наследник StatefulWidget, умеющий управлять жизненным циклом WidgetModel. Для его инициализации необходимы следующие компоненты:
 
-State такого виджета должен быть наследником `WidgetState<>`.
-Этот класс, расширяет State и добавляет автоматическую отписку потоков внутри модели,
-а также автоматически связывает и конфигурирует WM.
+1. *widgetStateBuilder* — возвращает WidgetState для конструируемого виджета. Аналог createState() в StatefulWidget.
 
-Для конфигурации зависимостей для экрана(виджета) необходимо переопределить метод 
-`getComponent()` у WidgetState, в котором указать необходимый экрану `BaseWidgetModelComponent`.
-Также WidgetState необходимо типизировать:
-1. Widget - виджет, котрому принадлежит стейт
-1. WidgetModel - тип WM, который используется в виджете.
-1. WidgetComponent - тип  компонента ждля внедрения зависимостей на виджет.
+1. *dependenciesBuilder* — возвращает реализацию интерфейса [Component](../../packages/injector/lib/src/component.dart). Содержит только зависимости для WidgetModel, которые либо получает через конструктор, либо находит с помощью [Injector](../../packages/injector/lib/src/injector.dart) из контекста.
 
-**Важно**: 
+1. *widgetModelBuilder* — возвращает WidgetModel. Для возможности подмены WidgetModel во время тестирования можно объявить этот билдер необязательным параметром в конструкторе виджета.
 
-- При использовании `Injector` правильно выбирайте context.
+Пример:
+```dart
+SplashScreenWidgetModel createSplashScreenWidgetModel(BuildContext context) {
+  var component = Injector.of<SplashScreenComponent>(context).component;
 
-- В Widget не должно попадать экранной логики. В этой сущности происходит только связывание 
-элементов пользовательского интерфейса в WidgetModel.
+  return SplashScreenWidgetModel(
+    component.wmDependencies,
+    component.navigator,
+    component.debugScreenInteractor,
+  );
+}
 
-*Примечания*:
-- Widget - это любой виджет из Flutter.
-- Для подписки на изменение модели используется StreamBuilder.
+class SplashScreen extends MwwmWidget<SplashScreenComponent> {
+  SplashScreen([
+    WidgetModelBuilder widgetModelBuilder = createSplashScreenWidgetModel,
+  ]) : super(
+    dependenciesBuilder: (context) => SplashScreenComponent(context),
+    widgetStateBuilder: () => _SplashScreenState(),
+    widgetModelBuilder: widgetModelBuilder,
+  );
+}
+
+class _SplashScreenState extends WidgetState<SplashScreenWidgetModel> {…}
+```
