@@ -14,7 +14,7 @@ const String _arrow = ' ---->';
 
 /// Выводит в консоль граф зависимостей елемента.
 ///
-/// dart ci graph / dart ci graph --name=anyName
+/// dart ci deps / dart ci deps --name=anyName
 class ShowDependencyGraph extends Scenario {
   static const String commandName = 'graph';
   static const String nameOption = CommandParser.defaultNameOption;
@@ -66,25 +66,25 @@ class ShowDependencyGraph extends Scenario {
   }
 
   /// Если у элемнета есть зависимости "флаттер стандарта", то генерим строку для вывода в консоль.
-  void _createOutputOnConsole(Element element, StringBuffer str, int length) {
+  void _createOutputOnConsole(Element element, StringBuffer str, int indentLength) {
     str.write(element.name);
     if (_getDependency(element).isNotEmpty) {
       str.write(_arrow);
-      length += element.name.length + _arrow.length + _arrowDep.length;
+      indentLength += element.name.length + _arrow.length + _arrowDep.length;
       _dependencyOutputOnConsole(
         element,
         str,
-        length,
+        indentLength,
       );
     }
   }
 
   ///  Зависимости рекурсивно добавляем в вывод
-  void _dependencyOutputOnConsole(Element element, StringBuffer str, int length) {
+  void _dependencyOutputOnConsole(Element element, StringBuffer str, int indentLength) {
     var dependencies = _getDependency(element);
     for (var i = 0; i < dependencies.length; i++) {
-      i == 0 ? str.write(_arrowDep) : str.write('\n' + ' ' * length + _arrowDep);
-      _createOutputOnConsole(dependencies[i].element, str, length);
+      i == 0 ? str.write(_arrowDep) : str.write('\n' + ' ' * indentLength + _arrowDep);
+      _createOutputOnConsole(dependencies[i].element, str, indentLength);
     }
   }
 
