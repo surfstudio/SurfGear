@@ -76,8 +76,8 @@ class CommandParser {
       ..addCommand(
           CheckLicensingScenario.commandName,
           ArgParser()
-            ..addFlag(CheckLicensingScenario.allFlag, negatable: false, help: 'check all modules')
-            ..addOption(CheckLicensingScenario.nameOption, help: 'verification of the specified module'))
+            ..addFlag(CheckLicensingScenario.allFlag, negatable: false, help: 'Check all modules')
+            ..addOption(CheckLicensingScenario.nameOption, help: 'Verification of the specified module'))
 
       /// build
       ..addCommand(BuildScenario.commandName)
@@ -118,7 +118,7 @@ class CommandParser {
       /// find_changed_modules
       ..addCommand(
         FindChangedModulesScenario.commandName,
-        ArgParser()..addOption(FindChangedModulesScenario.targetOptionName, help: 'target branch name'),
+        ArgParser()..addOption(FindChangedModulesScenario.targetOptionName, help: 'Target branch name'),
       )
 
       /// increment_unstable
@@ -140,7 +140,7 @@ class CommandParser {
           ArgParser()
             ..addFlag(CheckLicensingScenario.allFlag, negatable: false, help: 'Check all modules')
             ..addOption(ShowDependencyGraph.nameOption,
-                help: 'show dependency graph of the specified module'))
+                help: 'Show dependency graph of the specified module'))
 
       /// help
       ..addFlag(helpFlag, negatable: false, abbr: helpAbbr);

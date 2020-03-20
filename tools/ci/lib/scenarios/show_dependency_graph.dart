@@ -70,8 +70,12 @@ class ShowDependencyGraph extends Scenario {
     str.write(element.name);
     if (_getDependency(element).isNotEmpty) {
       str.write(_arrow);
+      length += element.name.length + _arrow.length + _arrowDep.length;
       _dependencyOutputOnConsole(
-          element, str, length + element.name.length + _arrow.length + _arrowDep.length);
+        element,
+        str,
+        length,
+      );
     }
   }
 
