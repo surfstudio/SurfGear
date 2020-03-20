@@ -1,8 +1,12 @@
 import 'package:ci/domain/command.dart';
+import 'package:ci/domain/dependency.dart';
 import 'package:ci/domain/element.dart';
+import 'package:ci/exceptions/exceptions.dart';
+import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/parsers/command_parser.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/scenario.dart';
+import 'package:ci/tasks/utils.dart';
 
 /// Строки для визуализации зависимостей в консоле.
 const String _arrowDep = ' | ';
@@ -21,12 +25,42 @@ class ShowDependencyGraph extends Scenario {
   ) : super(command, pubspecParser);
 
   @override
+  Future<void> validate(Command command) async {
+    var args = command.arguments;
+
+    /// валидация аргументов
+    var isArgCorrect = await validateCommandParamForElements(args);
+
+    if (!isArgCorrect) {
+      return Future.error(
+        CommandParamsValidationException(
+          getCommandFormatExceptionText(
+            commandName,
+            'ожидалось graph --all или graph --name=anyName',
+          ),
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<List<Element>> preExecute() async {
+    var elements = await super.preExecute();
+
+    /// Фильтруем по переданным параметрам список элементов
+    return filterElementsByCommandParams(
+      elements,
+      command.arguments,
+    );
+  }
+
+  @override
   Future<void> doExecute(List<Element> elements) async {
     /// Хранит данные для вывода в консоль
     final str = StringBuffer();
     for (var element in elements) {
-      str.write('\n');
       _createOutputOnConsole(element, str, -_arrowDep.length);
+      str.write('\n');
     }
     print(str);
   }
@@ -34,30 +68,31 @@ class ShowDependencyGraph extends Scenario {
   /// Если у элемнета есть зависимости "флаттер стандарта", то генерим строку для вывода в консоль.
   void _createOutputOnConsole(Element element, StringBuffer str, int length) {
     str.write(element.name);
-    if (_isDependency(element)) {
+    if (_getDependency(element).isNotEmpty) {
       str.write(_arrow);
-      _dependency(element, str, length + element.name.length + _arrow.length + _arrowDep.length);
+      _dependencyOutputOnConsole(
+          element, str, length + element.name.length + _arrow.length + _arrowDep.length);
     }
   }
 
-  ///
-  void _dependency(Element element, StringBuffer str, int length) {
-    for (var i = 0; i < element.dependencies.length; i++) {
-      if (_isDependency(element)) {
-        i == 0 ? str.write(_arrowDep) : str.write('\n' + ' ' * length + _arrowDep);
-        _createOutputOnConsole(element.dependencies[i].element, str, length);
-      }
+  ///  Зависимости рекурсивно добавляем в вывод
+  void _dependencyOutputOnConsole(Element element, StringBuffer str, int length) {
+    var dependencies = _getDependency(element);
+    for (var i = 0; i < dependencies.length; i++) {
+      i == 0 ? str.write(_arrowDep) : str.write('\n' + ' ' * length + _arrowDep);
+      _createOutputOnConsole(dependencies[i].element, str, length);
     }
   }
 
-  /// Есть ли зависимости "флаттер стандарта" у элемента
-  bool _isDependency(Element element) {
+  /// Список зависимостей "флаттер стандарта" у элемента
+  List<Dependency> _getDependency(Element element) {
+    var dependencies = <Dependency>[];
     for (var dependency in element.dependencies) {
       if (!dependency.thirdParty) {
-        return true;
+        dependencies.add(dependency);
       }
     }
-    return false;
+    return dependencies;
   }
 
   @override

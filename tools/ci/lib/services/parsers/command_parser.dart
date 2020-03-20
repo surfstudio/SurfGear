@@ -138,6 +138,7 @@ class CommandParser {
       ..addCommand(
           ShowDependencyGraph.commandName,
           ArgParser()
+            ..addFlag(CheckLicensingScenario.allFlag, negatable: false, help: 'Check all modules')
             ..addOption(ShowDependencyGraph.nameOption,
                 help: 'show dependency graph of the specified module'))
 
