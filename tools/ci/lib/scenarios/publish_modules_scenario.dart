@@ -16,6 +16,12 @@ import 'package:ci/tasks/core/scenario.dart';
 class PublishModulesScenario extends ChangedElementScenario {
   static const String commandName = 'publish';
   static const String server = 'server';
+  static const String helpServer = 'Server for publish module.';
+
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Publishes modules to the server.',
+      };
 
   PublishModulesScenario(
     Command command,
@@ -40,7 +46,4 @@ class PublishModulesScenario extends ChangedElementScenario {
 
   @override
   String get getCommandName => commandName;
-
-  @override
-  String get helpInfo => 'publishes modules to the server';
 }

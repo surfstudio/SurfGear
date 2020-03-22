@@ -5,14 +5,17 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 
-const String _helpInfo = 'Create a shared RELEASE_NOTES.md and commit it.';
-
 /// Сценарий для команды write_release_note.
 ///
 /// Пример вызова:
 /// dart ci write_release_note
 class WriteReleaseNoteScenario extends Scenario {
   static const String commandName = 'write_release_note';
+
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Create a shared RELEASE_NOTES.md and commit it.',
+      };
 
   WriteReleaseNoteScenario(Command command, PubspecParser pubspecParser) : super(command, pubspecParser);
 
@@ -27,7 +30,4 @@ class WriteReleaseNoteScenario extends Scenario {
 
   @override
   String get getCommandName => commandName;
-
-  @override
-  String get helpInfo => _helpInfo;
 }

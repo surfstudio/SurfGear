@@ -73,10 +73,18 @@ class CommandParser {
     /// check_licensing
     _argParser
       ..addCommand(
-          CheckLicensingScenario.commandName,
-          ArgParser()
-            ..addFlag(CheckLicensingScenario.allFlag, negatable: false, help: 'check all modules')
-            ..addOption(CheckLicensingScenario.nameOption, help: 'verification of the specified module'))
+        CheckLicensingScenario.commandName,
+        ArgParser()
+          ..addFlag(
+            CheckLicensingScenario.allFlag,
+            negatable: false,
+            help: CheckLicensingScenario.helpAllFlag,
+          )
+          ..addOption(
+            CheckLicensingScenario.nameOption,
+            help: CheckLicensingScenario.helpNameOption,
+          ),
+      )
 
       /// build
       ..addCommand(BuildScenario.commandName)
@@ -117,7 +125,11 @@ class CommandParser {
       /// find_changed_modules
       ..addCommand(
         FindChangedModulesScenario.commandName,
-        ArgParser()..addOption(FindChangedModulesScenario.targetOptionName, help: 'target branch name'),
+        ArgParser()
+          ..addOption(
+            FindChangedModulesScenario.targetOptionName,
+            help: FindChangedModulesScenario.helpTargetOptionName,
+          ),
       )
 
       /// increment_unstable
@@ -130,8 +142,13 @@ class CommandParser {
       ..addCommand(RunTestScenario.commandName)
 
       /// publish
-      ..addCommand(PublishModulesScenario.commandName,
-          ArgParser()..addOption(PublishModulesScenario.server, help: 'Server for publish module.'))
+      ..addCommand(
+          PublishModulesScenario.commandName,
+          ArgParser()
+            ..addOption(
+              PublishModulesScenario.server,
+              help: PublishModulesScenario.helpServer,
+            ))
 
       /// help
       ..addFlag(helpFlag, negatable: false, abbr: helpAbbr);
