@@ -1,6 +1,8 @@
 import 'package:push/push.dart';
 import 'package:rxdart/subjects.dart';
 
+import 'base/base_messaging_service.dart';
+
 typedef HandleMessageFunction = void Function(
     Map<String, dynamic> message, MessageHandlerType handlerType);
 
@@ -35,6 +37,9 @@ class PushHandler {
     }
 
     var strategy = _strategyFactory.createByData(message);
+    if (handlerType == MessageHandlerType.onLaunch && message != null) {
+      strategy.onBackgroundProcess(message);
+    }
     _notificationController.show(
       strategy,
       (_) {

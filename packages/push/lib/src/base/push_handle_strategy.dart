@@ -29,4 +29,7 @@ abstract class PushHandleStrategy<PT extends NotificationPayload> {
 
   /// function that is called to process notification clicks
   void onTapNotification(NavigatorState navigator);
+
+  /// function that is called to process notification background
+  void onBackgroundProcess(Map<String, dynamic>message);
 }
