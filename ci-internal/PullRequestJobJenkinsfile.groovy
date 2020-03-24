@@ -282,5 +282,5 @@ def static isDestinationBranchProjectSnapshot(String destinationBranch) {
 }
 
 def static isDestinationBranchDev(String destinationBranch) {
-    return destinationBranch.startsWith("feature-ci") //todo переименовать
+    return destinationBranch.startsWith("dev")
 }
