@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/ui/base/owners/dialog_owner.dart';
@@ -48,25 +49,77 @@ class DefaultDialogController implements DialogController {
     );
   }
 
+  /// Создание кастомного диалога
+  Future<R> showCustomAlertDialog<R>(Widget alertDialog) {
+    return showDialog(context: _scaffoldContext, builder: (ctx) => alertDialog);
+  }
+
   @override
-  Future<R> showSheet<R>(type, {VoidCallback onDismiss}) {
+  Future<R> showSheet<R>(type, {VoidCallback onDismiss, DialogData data}) {
     assert(dialogOwner != null);
+
+    final buildDialog = dialogOwner?.registeredDialogs[type];
 
     if (_scaffoldState == null) {
       _sheetController = showBottomSheet(
         context: _context,
-        builder: dialogOwner?.registeredDialogs[type],
+        builder: (ctx) => buildDialog(ctx, data: data),
       );
     } else {
-      _sheetController = _scaffoldState.currentState
-          .showBottomSheet(dialogOwner?.registeredDialogs[type]);
+      _sheetController = _scaffoldState.currentState.showBottomSheet(
+        (ctx) => buildDialog(ctx, data: data),
+      );
     }
 
     _sheetController.closed.then((_) {
       _sheetController = null;
       onDismiss();
     });
+
     return _sheetController.closed;
+  }
+
+  Future<R> showFlexibleModalSheet<R>(
+    type, {
+    double minHeight,
+    double initHeight,
+    double maxHeight,
+    bool isCollapsible = true,
+    bool isExpand = true,
+    bool useRootNavigator = false,
+    bool isModal = true,
+    List<double> anchors,
+    DialogData data,
+  }) {
+    assert(dialogOwner != null);
+    FlexibleDialogBuilder buildDialog = dialogOwner?.registeredDialogs[type];
+
+    final BuildContext context =
+        _scaffoldState == null ? _context : _scaffoldState.currentState.context;
+
+    return showFlexibleBottomSheet(
+        context: context,
+        minHeight: minHeight,
+        initHeight: initHeight,
+        maxHeight: maxHeight,
+        isCollapsible: isCollapsible,
+        isExpand: isExpand,
+        useRootNavigator: useRootNavigator,
+        isModal: isModal,
+        anchors: anchors,
+        builder: (
+          BuildContext context,
+          ScrollController controller,
+          offset
+        ) {
+          return Material(
+            child: buildDialog(
+              context,
+              data: data,
+              scrollController: controller,
+            ),
+          );
+        });
   }
 
   void hideBottomSheet() {
@@ -76,12 +129,18 @@ class DefaultDialogController implements DialogController {
   }
 
   @override
-  Future<R> showModalSheet<R>(type, {VoidCallback onDismiss}) {
+  Future<R> showModalSheet<R>(
+    type, {
+    VoidCallback onDismiss,
+    DialogData data,
+    bool isScrollControlled = false,
+  }) {
     assert(dialogOwner != null);
 
     return showModalBottomSheet(
       context: _scaffoldContext,
-      builder: dialogOwner?.registeredDialogs[type],
+      isScrollControlled: isScrollControlled,
+      builder: (ctx) => dialogOwner?.registeredDialogs[type](ctx, data: data),
     );
   }
 }
@@ -160,7 +219,7 @@ class DatePickerDialogController {
             children: <Widget>[
               iosCloseButton ??
                   CupertinoButton(
-                    padding: EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
                     child: Text(
                       "Сбросить",
                       style: TextStyle(color: CupertinoColors.destructiveRed),
@@ -170,7 +229,7 @@ class DatePickerDialogController {
                   ),
               iosDoneButton ??
                   CupertinoButton(
-                    padding: EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
                     child: Text(
                       "Готово",
                       style: TextStyle(color: CupertinoColors.activeBlue),

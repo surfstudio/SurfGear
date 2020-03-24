@@ -23,6 +23,8 @@ dependencies:
     path: ../geolocation
   analytics:
     path: ../analytics
+  bottom_sheet:
+    path: ../bottom_sheet
 
   # модуль push уведомлений
   push:

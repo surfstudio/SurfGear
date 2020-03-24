@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _showSheet() {
     showFlexibleBottomSheet(
       context: context,
-      builder: (context, scrollController) {
+      builder: (context, scrollController, offset) {
         return Container(
           decoration: BoxDecoration(
             color: Color(0xFFFFFFFF),
