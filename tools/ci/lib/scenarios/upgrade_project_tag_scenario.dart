@@ -6,14 +6,17 @@ import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/impl/project/get_last_project_tag_task.dart';
 import 'package:ci/tasks/tasks.dart';
 
-const String _helpInfo = 'Returning representation of the last git tag as a project tag.';
-
 /// Сценарий для команды upgrade_project_tag.
 ///
 /// Пример вызова:
 /// dart ci upgrade_project_tag
 class UpgradeProjectTagScenario extends Scenario {
   static const String commandName = 'upgrade_project_tag';
+
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Returning representation of the last git tag as a project tag.',
+      };
 
   UpgradeProjectTagScenario(
     Command command,
@@ -50,7 +53,4 @@ class UpgradeProjectTagScenario extends Scenario {
 
   @override
   String get getCommandName => commandName;
-
-  @override
-  String get helpInfo => _helpInfo;
 }

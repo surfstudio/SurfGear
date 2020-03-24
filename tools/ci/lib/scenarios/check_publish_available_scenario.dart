@@ -5,14 +5,17 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 
-const String _helpInfo = 'Checking for the possibility of publishing the openSource module package';
-
 /// Сценарий для команды check_publish_available.
 ///
 /// Пример вызова:
 /// dart ci check_publish_available
 class CheckPublishAvailableScenario extends ChangedElementScenario {
   static const String commandName = 'check_publish_available';
+
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Checking for the possibility of publishing the openSource module package.',
+      };
 
   CheckPublishAvailableScenario(Command command, PubspecParser pubspecParser) : super(command, pubspecParser);
 
@@ -37,7 +40,4 @@ class CheckPublishAvailableScenario extends ChangedElementScenario {
 
   @override
   String get getCommandName => commandName;
-
-  @override
-  String get helpInfo => _helpInfo;
 }

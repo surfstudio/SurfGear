@@ -5,14 +5,17 @@ import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/tasks.dart';
 
-const String _helpInfo = 'Unstable version increase in modules.';
-
 /// Сценарий для команды increment_unstable.
 ///
 /// Пример вызова:
 /// dart ci increment_unstable
 class IncrementUnstableVersionsScenario extends ChangedElementScenario {
   static const String commandName = 'increment_unstable';
+
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Unstable version increase in modules.',
+      };
 
   IncrementUnstableVersionsScenario(Command command, PubspecParser pubspecParser)
       : super(command, pubspecParser);
@@ -30,7 +33,4 @@ class IncrementUnstableVersionsScenario extends ChangedElementScenario {
 
   @override
   String get getCommandName => commandName;
-
-  @override
-  String get helpInfo => _helpInfo;
 }

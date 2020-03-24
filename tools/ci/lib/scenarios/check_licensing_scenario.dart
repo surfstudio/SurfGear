@@ -8,8 +8,6 @@ import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/utils.dart';
 
-const String _helpInfo = 'Checking the license of files of transferred modules';
-
 /// Сценарий для команды check_licensing.
 ///
 /// Пример вызова:
@@ -18,6 +16,13 @@ class CheckLicensingScenario extends Scenario {
   static const String commandName = 'check_licensing';
   static const String allFlag = CommandParser.defaultAllFlag;
   static const String nameOption = CommandParser.defaultNameOption;
+  static const String helpAllFlag = 'Check all modules.';
+  static const String helpNameOption = 'Verification of the specified module.';
+
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Checking the license of files of transferred modules',
+      };
 
   CheckLicensingScenario(Command command, PubspecParser pubspecParser) : super(command, pubspecParser);
 
@@ -63,7 +68,4 @@ class CheckLicensingScenario extends Scenario {
 
   @override
   String get getCommandName => commandName;
-
-  @override
-  String get helpInfo => _helpInfo;
 }

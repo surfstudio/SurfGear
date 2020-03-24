@@ -5,14 +5,17 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 
-const String _helpInfo = 'Checks if modules marked as stable have changed.';
-
 /// Сценарий для команды check_stable_modules_not_changed.
 ///
 /// Пример вызова:
 /// dart ci check_stable_modules_not_changed
 class CheckStableModulesNotChangedScenario extends ChangedElementScenario {
   static const String commandName = 'check_stable_modules_not_changed';
+
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Checks if modules marked as stable have changed.',
+      };
 
   CheckStableModulesNotChangedScenario(
     Command command,
@@ -34,7 +37,4 @@ class CheckStableModulesNotChangedScenario extends ChangedElementScenario {
 
   @override
   String get getCommandName => commandName;
-
-  @override
-  String get helpInfo => _helpInfo;
 }

@@ -6,8 +6,6 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/utils.dart';
 
-const String _helpInfo = 'A script to search for modified items and write a list to a file.';
-
 /// Сценарий поиска измененных элементов и записи списка в файл.
 /// Данный сценарий должен быть обязательно вызван в начале пайплайна.
 ///
@@ -16,6 +14,12 @@ const String _helpInfo = 'A script to search for modified items and write a list
 class FindChangedModulesScenario extends Scenario {
   static const String commandName = 'find_changed_modules';
   static const String targetOptionName = 'target';
+  static const String helpTargetOptionName = 'Target branch name.';
+
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'A script to search for modified items and write a list to a file.',
+      };
 
   FindChangedModulesScenario(Command command, PubspecParser pubspecParser) : super(command, pubspecParser);
 
@@ -45,7 +49,4 @@ class FindChangedModulesScenario extends Scenario {
 
   @override
   String get getCommandName => commandName;
-
-  @override
-  String get helpInfo => _helpInfo;
 }
