@@ -11,6 +11,11 @@ import 'package:ci/tasks/tasks.dart';
 class BuildScenario extends ChangedElementScenario {
   static const String commandName = 'build';
 
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Builds the transferred modules.',
+      };
+
   BuildScenario(
     Command command,
     PubspecParser pubspecParser,
@@ -24,4 +29,7 @@ class BuildScenario extends ChangedElementScenario {
     /// запускаем сборку для полученного списка
     return build(elements);
   }
+
+  @override
+  String get getCommandName => commandName;
 }

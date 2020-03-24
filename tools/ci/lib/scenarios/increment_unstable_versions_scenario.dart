@@ -12,6 +12,11 @@ import 'package:ci/tasks/tasks.dart';
 class IncrementUnstableVersionsScenario extends ChangedElementScenario {
   static const String commandName = 'increment_unstable';
 
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Unstable version increase in modules.',
+      };
+
   IncrementUnstableVersionsScenario(Command command, PubspecParser pubspecParser)
       : super(command, pubspecParser);
 
@@ -25,4 +30,7 @@ class IncrementUnstableVersionsScenario extends ChangedElementScenario {
     /// фиксируем изменения на репозитории
     await fixChanges(message: 'Increment unstable versions by ci.');
   }
+
+  @override
+  String get getCommandName => commandName;
 }

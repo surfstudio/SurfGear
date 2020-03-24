@@ -13,17 +13,18 @@
 // limitations under the License.
 
 import 'package:counter/ui/screen/counter/counter_wm.dart';
-import 'package:counter/ui/screen/counter/di/counter.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:injector/injector.dart';
 
-/// Widget для экрана счетчика
-class CounterScreen extends MwwmWidget<CounterComponent> {
+/// Widget counter screen
+class CounterScreen extends CoreMwwmWidget {
   CounterScreen()
       : super(
-          dependenciesBuilder: (BuildContext context) =>
-              CounterComponent(Navigator.of(context)),
+          widgetModelBuilder: (BuildContext context) => CounterWidgetModel(
+            WidgetModelDependencies(),
+            Navigator.of(context),
+            GlobalKey(),
+          ),
           widgetStateBuilder: () => _CounterScreenState(),
         );
 }
@@ -32,7 +33,7 @@ class _CounterScreenState extends WidgetState<CounterWidgetModel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: Injector.of<CounterComponent>(context).component.scaffoldKey,
+      key: wm.key,
       appBar: AppBar(
         title: Text('Counter Demo'),
       ),
@@ -48,7 +49,7 @@ class _CounterScreenState extends WidgetState<CounterWidgetModel> {
   Widget _buildBody() {
     return StreamBuilder<int>(
       stream: wm.counterState.stream,
-      initialData: 0,
+      initialData: wm.currentCounter,
       builder: (context, snapshot) {
         return Center(
           child: Column(
@@ -61,9 +62,7 @@ class _CounterScreenState extends WidgetState<CounterWidgetModel> {
               ),
               TextField(
                 autofocus: true,
-                onChanged: (_) {
-
-                },
+                onChanged: (_) {},
               ),
             ],
           ),

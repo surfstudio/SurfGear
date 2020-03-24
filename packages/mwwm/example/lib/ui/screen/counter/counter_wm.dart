@@ -12,49 +12,44 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+import 'package:counter/ui/screen/counter/performer/performer.dart';
 import 'package:flutter/material.dart' show NavigatorState;
 import 'package:flutter/material.dart' as w;
 import 'package:mwwm/mwwm.dart';
 
-/// WidgetModel для экрана счетчика
+/// WidgetModel for counter screen
 class CounterWidgetModel extends WidgetModel {
   final NavigatorState navigator;
-  final w.GlobalKey<w.ScaffoldState> _key;
+  final w.GlobalKey<w.ScaffoldState> key;
 
-  StreamedState<int> counterState = StreamedState(0);
-
-  Action incrementAction = Action();
-  final showInit = Action();
+  /// relations
+  final counterState = StreamController<int>.broadcast();
+  int currentCounter = 0;
 
   CounterWidgetModel(
     WidgetModelDependencies dependencies,
     this.navigator,
-    this._key,
-  ) : super(dependencies);
+    this.key,
+  ) : super(dependencies,
+            model: Model([
+              Incrementor(),
+            ]));
 
   @override
   void onLoad() {
-    _listenToActions();
+    _listenToStates();
     super.onLoad();
   }
 
-  void _listenToActions() {
-    bind(
-      incrementAction,
-      (_) => counterState.accept(counterState.value + 1),
-    );
+  void incrementAction() {
+    doFuture<int>(model.perform(Increment(1)), counterState.add);
+    doFuture<int>(model.perform(Decrement(1)), counterState.add);
+  }
 
-    bind(
-      showInit,
-      (_) => _key.currentState.showSnackBar(
-        w.SnackBar(
-          content: w.Text('init'),
-        ),
-      ),
-    );
-
+  void _listenToStates() {
     subscribe(
-      counterState.stream.where((c) => c % 2 == 0).skip(1),
+      model.listen<int, Increment>().where((c) => c % 2 == 0).skip(1),
       (c) {
         navigator.push(
           w.MaterialPageRoute(

@@ -46,6 +46,11 @@ abstract class GitProcessException extends BaseCiException {
   GitProcessException(String message) : super(message);
 }
 
+/// Недопустимый вызов
+class NotSupportedMethodCallException extends BaseCiException {
+  NotSupportedMethodCallException(String message) : super(message);
+}
+
 /// Ошибки функционала
 
 /// Build
@@ -138,6 +143,11 @@ class TestsFailedException extends BaseCiException {
 /// Не можем опубликовать модуль OpenSource
 class OpenSourceModuleCanNotBePublishException extends BaseCiException {
   OpenSourceModuleCanNotBePublishException(String message) : super(message);
+}
+
+/// Ошибка при публикации модуля
+class ModuleCannotBePublishedException extends BaseCiException {
+  ModuleCannotBePublishedException(String message) : super(message);
 }
 
 /// Нет описание версии в CHANGELOG.md

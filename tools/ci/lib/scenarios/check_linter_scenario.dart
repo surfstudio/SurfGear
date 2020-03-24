@@ -12,6 +12,11 @@ import 'package:ci/tasks/core/scenario.dart';
 class CheckLinterScenario extends ChangedElementScenario {
   static const String commandName = 'check_linter';
 
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Checking modules with "flutter analyze".',
+      };
+
   CheckLinterScenario(
     Command command,
     PubspecParser pubspecParser,
@@ -29,4 +34,7 @@ class CheckLinterScenario extends ChangedElementScenario {
       rethrow;
     }
   }
+
+  @override
+  String get getCommandName => commandName;
 }

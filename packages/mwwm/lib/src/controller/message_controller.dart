@@ -12,10 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-///Базовый класс контроллера отображения сообщений
+/// Controller for call messages
+/// should be used in [WidgetModel]
 abstract class MessageController {
-
   /// Show msg according to msgType
   /// msgType is defined on concrete widget(UI Layer)
   dynamic show({String msg, dynamic msgType});

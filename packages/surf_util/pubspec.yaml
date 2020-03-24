@@ -14,8 +14,8 @@ dependencies:
   logger:
     path: ../logger
 
-  mwwm:
-    path: ../mwwm
+  relation:
+    path: ../relation
 
   swipe_refresh:
     path: ../swipe_refresh
