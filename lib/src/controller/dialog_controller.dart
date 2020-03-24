@@ -24,7 +24,18 @@ abstract class DialogController {
     void Function(BuildContext context) onDisagreeClicked,
   });
 
-  Future<R> showSheet<R>(dynamic type, {VoidCallback onDismiss});
+  Future<R> showSheet<R>(
+    dynamic type, {
+    VoidCallback onDismiss,
+    DialogData data,
+  });
 
-  Future<R> showModalSheet<R>(dynamic type);
+  Future<R> showModalSheet<R>(
+    dynamic type, {
+    DialogData data,
+    bool isScrollControlled,
+  });
 }
+
+/// Dialog parameters
+abstract class DialogData {}
