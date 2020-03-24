@@ -7,6 +7,7 @@ import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/services/managers/yaml_manager.dart';
+import 'package:ci/services/pub_publish_manager.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/impl/building/package_builder_task.dart';
 import 'package:ci/tasks/impl/git/fix_changes_task.dart';
@@ -17,6 +18,8 @@ import 'package:ci/tasks/impl/project/add_project_tag_task.dart';
 import 'package:ci/tasks/impl/project/update_dependencies_by_tag_task.dart';
 import 'package:ci/tasks/mirror_module_task.dart';
 import 'package:ci/tasks/save_element_task.dart';
+
+import 'impl/publish/pub_publish_module_task.dart';
 
 /// Набор глобальных точек входа для выполнения задач
 
@@ -224,3 +227,11 @@ Future<void> saveElements(
 Future<void> fixChanges({String message}) => FixChangesTask(
       message: message,
     ).run();
+
+/// Публикуем модули
+/// [pathServer] принимать адрес сервера куда паблишить, необзательный параметр
+Future<void> pubPublishModules(Element element, {String pathServer}) {
+  return PubPublishModuleTask(element, PubPublishManager(),
+          pathServer: pathServer)
+      .run();
+}
