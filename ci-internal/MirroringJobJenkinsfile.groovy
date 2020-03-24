@@ -1,4 +1,5 @@
-@Library('surf-lib@version-2.0.0-SNAPSHOT') // https://bitbucket.org/surfstudio/jenkins-pipeline-lib/
+@Library('surf-lib@version-2.0.0-SNAPSHOT')
+// https://bitbucket.org/surfstudio/jenkins-pipeline-lib/
 import ru.surfstudio.ci.pipeline.empty.EmptyScmPipeline
 import ru.surfstudio.ci.stage.StageStrategy
 import ru.surfstudio.ci.CommonUtil
@@ -7,7 +8,7 @@ import ru.surfstudio.ci.NodeProvider
 import ru.surfstudio.ci.Result
 import java.net.URLEncoder
 
-def encodeUrl(string){
+def encodeUrl(string) {
     URLEncoder.encode(string, "UTF-8")
 }
 
@@ -43,10 +44,22 @@ pipeline.stages = [
                 def packedRefs = readFile file: packedRefsFile
                 echo "packed_refs: $packedRefs"
                 def sanitizedPackedRefs = ""
-                for(ref in packedRefs.split("\n")) {
-                    if(!ref.contains("project")) {
+                def checkNextToHash = false
+                for (ref in packedRefs.split("\n")) {
+                    if (checkNextToHash) {
+                        checkNextToHash = false
+
+                        if (ref.startsWith("^")) {
+                            continue
+                        }
+                    }
+
+                    if (!ref.contains("project")) {
                         sanitizedPackedRefs += ref
                         sanitizedPackedRefs += "\n"
+                    } else {
+                        // we should remove hash of commit which can follow next with ^ marker, when tag removed
+                        checkNextToHash = ref.contains("/tags/")
                     }
                 }
                 echo "sanitizedPackedRefs: $sanitizedPackedRefs"
