@@ -1,10 +1,8 @@
-Стандарты разработки приложений в Surf
-=============================
+# Стандарты разработки приложений в Surf
 
 [Правила ведения и оформления](rules.md)
 
-Общая структура вики
---------------------
+## Общая структура вики
 
 1. **Работа с репозиторием**
     1. [Git flow в репозитории](repo_guides/gitflow.md)
@@ -20,10 +18,10 @@
     1. [Асинхронные взаимодействия](common/async.md)
     1. [Тестирование](common/testing.md)
 
-1. Слой Model
-    1. [Interactor](common/interactor.md)
-    1. [Работа с файловым хранилищем](common/file_storage.md)
-    1. [Работа с SharedPrefs](common/shared_preferences.md)
+1. Слой [Model](model/model.md)
+    1. [Interactor](model/interactor.md)
+    1. [Работа с файловым хранилищем](model/file_storage.md)
+    1. [Работа с SharedPrefs](model/shared_preferences.md)
 
 1. Cлой UI
     1. [Структура UI-слоя](ui/structure.md)
@@ -35,7 +33,7 @@
     1. [Сообщения](common/message.md)
 
 1. [Инициализация приложения](common/init_project.md)
-    1. [Подготовка проекта к выгрузке в fabric](todo link to android)
+    1. Подготовка проекта к выгрузке в fabric
     1. [Сборка и выгрузка проекта](common/build.md)
     1. [Continious Delivery](common/cd.md)
     1. [Подключение зависимостей в проект](common/dependencies.md)
