@@ -278,7 +278,7 @@ def static isSourceBranchRelease(String sourceBranch) {
 }
 
 def static isDestinationBranchProjectSnapshot(String destinationBranch) {
-    return destinationBranch.startsWith("project-snapshot")
+    return destinationBranch.startsWith("project-")
 }
 
 def static isDestinationBranchDev(String destinationBranch) {
