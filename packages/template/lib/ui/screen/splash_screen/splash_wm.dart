@@ -4,8 +4,8 @@ import 'package:flutter_template/interactor/debug/debug_screen_interactor.dart';
 import 'package:flutter_template/ui/app/app.dart';
 import 'package:flutter_template/ui/screen/splash_screen/di/splash_screen_component.dart';
 import 'package:injector/injector.dart';
-import 'package:mwwm/mwwm.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:surf_mwwm/surf_mwwm.dart';
 
 /// Билдер для [WelcomeScreenWidgetModel].
 SplashScreenWidgetModel createSplashScreenWidgetModel(BuildContext context) {
