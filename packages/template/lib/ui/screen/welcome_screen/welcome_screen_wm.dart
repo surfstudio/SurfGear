@@ -4,7 +4,8 @@ import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/ui/screen/welcome_screen/di/welcome_screen_component.dart';
 import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:mwwm/mwwm.dart' as m;
+import 'package:surf_mwwm/surf_mwwm.dart' as m;
+import 'package:surf_mwwm/surf_mwwm.dart';
 
 /// Билдер для [WelcomeScreenWidgetModel].
 WelcomeScreenWidgetModel createWelcomeWidgetModel(BuildContext context) {

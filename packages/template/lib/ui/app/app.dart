@@ -11,6 +11,7 @@ import 'package:flutter_template/util/error_wiget.dart' as error_widget;
 import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:push/push.dart';
+import 'package:surf_mwwm/surf_mwwm.dart';
 
 // todo оставить здесь только необходимые маршруты
 class Router {

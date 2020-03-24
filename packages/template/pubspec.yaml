@@ -17,8 +17,8 @@ dependencies:
     path: ../logger
   injector:
     path: ../injector
-  mwwm:
-    path: ../mwwm
+  surf_mwwm:
+    path: ../surf_mwwm
   geolocation:
     path: ../geolocation
   analytics:
