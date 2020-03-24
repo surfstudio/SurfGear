@@ -5,14 +5,17 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 
-const String _helpInfo = 'Running tests in modules.';
-
 /// Сценарий для команды upgrade_project_tag.
 ///
 /// Пример вызова:
 /// dart ci run_tests
 class RunTestScenario extends ChangedElementScenario {
   static const String commandName = 'run_tests';
+
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Running tests in modules.',
+      };
 
   RunTestScenario(
     Command command,
@@ -33,7 +36,4 @@ class RunTestScenario extends ChangedElementScenario {
 
   @override
   String get getCommandName => commandName;
-
-  @override
-  String get helpInfo => _helpInfo;
 }

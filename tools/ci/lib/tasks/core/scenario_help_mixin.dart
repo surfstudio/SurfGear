@@ -1,26 +1,23 @@
 import 'package:args/args.dart';
 import 'package:meta/meta.dart';
 
-/// Миксин для генерации помощи по использованию сценария, где key -это имя команды, подкоманды или опции, а
+/// Миксин для генерации помощи по использованию сценария, где key - это имя команды, подкоманды или опции, а
 /// value - текст help соответствующему key
 mixin ScenarioHelpMixin {
   /// Имя команды
   @protected
   String get getCommandName;
 
-  /// Описание команды
-  @protected
-  String get helpInfo;
-
   /// key для мапы с опциями
-  static final _keyMapOption = 'options';
+  static final _keyMapOption = 'keyOptions';
 
   /// Возвращает хелп опций и подкоманд команды
+  /// Вид мапы принимает варианты Map<String, String> или Map<String, Map>
   @protected
   Map<String, dynamic> getHelp(ArgParser argParser, [String nameSubCommand]) {
+    var command = nameSubCommand ?? getCommandName;
     return <String, dynamic>{
-      nameSubCommand ?? getCommandName:
-          nameSubCommand == null ? helpInfo : getSubCommandInHelp()[nameSubCommand] ?? '',
+      command: getCommandsHelp()[command],
       _keyMapOption: _getOptionHelp(argParser),
     };
   }
@@ -50,7 +47,6 @@ mixin ScenarioHelpMixin {
 
   /// Переопределить, если нужно добавить информацию в help для подкоманды, где
   /// Map<String = nameSubCommand , String = help>
-  Map<String, String> getSubCommandInHelp() {
-    return {};
-  }
+  @protected
+  Map<String, String> getCommandsHelp();
 }

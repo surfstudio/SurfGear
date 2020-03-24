@@ -5,14 +5,17 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 
-const String _helpInfo = 'Checking modules with "flutter analyze".';
-
 /// Сценарий для команды check_linter.
 ///
 /// Пример вызова:
 /// dart ci check_linter
 class CheckLinterScenario extends ChangedElementScenario {
   static const String commandName = 'check_linter';
+
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Checking modules with "flutter analyze".',
+      };
 
   CheckLinterScenario(
     Command command,
@@ -34,7 +37,4 @@ class CheckLinterScenario extends ChangedElementScenario {
 
   @override
   String get getCommandName => commandName;
-
-  @override
-  String get helpInfo => _helpInfo;
 }

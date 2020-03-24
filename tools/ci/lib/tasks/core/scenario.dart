@@ -4,7 +4,6 @@ import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/scenario_help_mixin.dart';
-import 'package:ci/tasks/core/mixin_show_help_scenario.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:meta/meta.dart';
 
