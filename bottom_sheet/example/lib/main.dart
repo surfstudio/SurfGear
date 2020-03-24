@@ -67,12 +67,25 @@ class _MyHomePageState extends State<MyHomePage> {
       maxHeight: .8,
       headerHeight: 200,
       context: context,
-      backgroundColor: Colors.white,
+      decoration: BoxDecoration(
+        color: Colors.teal,
+        borderRadius: BorderRadius.only(
+          topLeft: const Radius.circular(40.0),
+          topRight: const Radius.circular(40.0),
+        ),
+      ),
       headerBuilder: (BuildContext context, double offset) {
-        return Container(
+        return AnimatedContainer(
+          duration: Duration(milliseconds: 300),
           width: double.infinity,
           height: 200,
-          color: Colors.green,
+          decoration: BoxDecoration(
+            color: Colors.green,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(offset == 0.8 ? 0 : 40),
+              topRight: Radius.circular(offset == 0.8 ? 0 : 40),
+            ),
+          ),
           child: Text('Заголовок', style: TextStyle(color: Colors.black)),
         );
       },
