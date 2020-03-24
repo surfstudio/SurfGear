@@ -1,37 +1,97 @@
 [Главная](../main.md)
 
-# Диалоги 
+# Диалоги
 
-Для разделения ответственности и возможности показывать диалоги с виджет модели используется DefaultDialogController для обычных диалогов и
-DatePickerDialogController - для выбора даты. Виджеты, используемые контроллерами для отображения диалоговых окон,
-автоматически определяют исполняемую среду и адаптируют диалоговое окно в нативный вид.
+Для отображения диалогов существует два вида [контроллеров](../../packages/template/lib/ui/base/default_dialog_controller.dart):
 
-# Примечание
+* `DefaultDialogController` для всплывающих диалогов и шторок (bottom sheet)
+* `DatePickerDialogController` для выбора даты
 
-- Кастомизация внешнего вида диалогового окна происходит в ui слое.
+С помощью showAlertDialog() у DefaultDialogController можно отобразить всплывающий диалог, внешний вид которого автоматически подстроится под платформу. Если же необходимо переопределить пользовательский интерфейс диалога, то для этого нужно воспользоваться DialogOwner.
 
-- Вызов диалогового окна совершается из WidgetModel.
+## DialogOwner
 
-Кастомизация внешнего вида и вызов диалогов во Flutter происходит в одном месте. Такой подход
-нарушет принцип единственной ответственности и ухудшает читабельность и тестируемость кода.
-В связи с этим, чтобы не нарушать принципы CleanArchitecture был разработан свой подход в использовании диалоговых окон.
+Работа с диалогами строится вокруг миксина [DialogOwner](../../packages/template/lib/ui/base/owners/dialog_owner.dart). Чтобы описать необходимые диалоги, нужно создать класс, в котором переопределяется геттер *registeredDialogs* этого миксина. Геттер возвращает Map, где значения — билдеры, которые возвращают виджеты диалогов. В WidgetModel нужный диалог находится по ключу этой Map.
 
-Решением стал mixin DialogOwner. Эта сущность реализуется на экране где будут использоваться диалоги и
-передается в DefaultDialogController, который используется в WidgetModel текущего экрана и содержит карту именованных WidgetBuilder'ов,
-в которых хранятся кастомные интерфейсы диалогов. Поэтому, когда из WidgetModel происходит вызов диалога по имени,
-в DialogController попадает тот ui, который был определен на ui слое. Таким образом ui слой отвечает только за настройку внешнего вида,
-а WidgetModel - за логику открытия диалогов.
+Применение:
 
-# Виды диалогов
+1. Для нужного экрана необходимо создать свой DialogOwner:
 
-- AlertDialog - всплывающее окно. 
+```dart
+// Ключи для registeredDialogs, по ним будем находить
+// нужные диалоги в WidgetModel.
+enum OnboardingDialog {
+  requestPermission,
+  openSystemSettings,
+}
 
-- ModalSheet - модальное всплывающее окно, которое появляется снизу экрана.
-Имеет кастомизируемый ui. Для настройки внешнего вида, использутеся WidgetBuilder,
-который хранится в ```Map<dynamic, WidgetBuilder> registeredDialogs``` в миксине DialogOwner.
-    
-- Sheet - обычное всплывающее окно. Принцип работы такой же как у ModalSheet
+// Класс, содержащий данные для диалога.
+// Объект этого класса передаётся в качестве аргумента при вызове
+// диалога из WidgetModel.
+class OnboardingDialogData implements DialogData {
+  final Function(BuildContext) onButtonPressed;
 
-- DatePicker - всплывающее окно с выбором даты. Для получения даты из DatePicker, необходимо
-совершить подписку на метод show(), который представляет реактивный поток, в который возвращается
-выбраная дата.
+  OnboardingDialogData({
+    this.onButtonPressed,
+  });
+}
+
+// Набор диалогов
+class OnboardingDialogOwner with DialogOwner {
+  @override
+  Map<dynamic, DialogBuilder> get registeredDialogs => {
+        OnboardingDialog.requestPermissionAgain:
+            DialogBuilder<OnboardingDialogData>(_buildRequestPermissionDialog),
+        OnboardingDialog.openSystemSettings:
+            DialogBuilder<OnboardingDialogData>(_buildOpenSettingsDialog),
+      };
+}
+
+Widget _buildRequestPermissionDialog(
+  BuildContext context, {
+  OnboardingDialogData data,
+}) {
+  return FooBottomSheet(
+      // …
+  );
+}
+
+Widget _buildOpenSettingsDialog(
+  BuildContext context, {
+  OnboardingDialogData data,
+}) {
+  return BarBottomSheet(
+      // …
+  );
+}
+
+```
+2. В Component экрана объявить контроллер диалогов и в его конструктор передать созданный DialogOwner:
+
+```dart
+class OnboardingScreenComponent implements Component {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  DefaultDialogController dialogController;
+
+  OnboardingScreenComponent(BuildContext context) {
+    dialogController = DefaultDialogController(
+      scaffoldKey,
+      dialogOwner: OnboardingDialogOwner(),
+    );
+  }
+}
+```
+3. В WidgetModel, используя контроллер диалогов из компонента, вызвать нужный диалог и передать ему необходимые данные:
+```dart
+    _dialogController.showModalSheet(
+      OnboardingDialog.openSystemSettings,
+      isScrollControlled: true,
+      data: OnboardingDialogData(
+        onButtonPressed: (context) {
+          w.Navigator.pop(context);
+          _permissionInteractor.openSettings();
+        },
+      ),
+    );
+```
