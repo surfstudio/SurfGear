@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:bottom_sheet/src/widgets/flexible_bottom_sheet_scroll_notifyer.dart';
 import 'package:bottom_sheet/src/widgets/flexible_draggable_scrollable_sheet.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 /// Flexible and scrollable bottom sheet.
@@ -41,45 +40,45 @@ class FlexibleBottomSheet extends StatefulWidget {
   final List<double> anchors;
   final double minHeaderHeight;
   final double maxHeaderHeight;
-  final Color backgroundColor;
+  final Decoration decoration;
+  final VoidCallback onDismiss;
 
-  const FlexibleBottomSheet({
-    Key key,
-    this.minHeight,
-    this.initHeight,
-    this.maxHeight,
-    this.builder,
-    this.headerBuilder,
-    this.bodyBuilder,
-    this.isCollapsible = false,
-    this.isExpand = true,
-    this.animationController,
-    this.anchors,
-    this.minHeaderHeight,
-    this.maxHeaderHeight,
-    this.backgroundColor,
-  })  : assert(minHeight == null || minHeight >= 0 && minHeight <= 1),
+  const FlexibleBottomSheet(
+      {Key key,
+      this.minHeight = 0,
+      this.initHeight = 0.5,
+      this.maxHeight = 1,
+      this.builder,
+      this.headerBuilder,
+      this.bodyBuilder,
+      this.isCollapsible = false,
+      this.isExpand = true,
+      this.animationController,
+      this.anchors,
+      this.minHeaderHeight,
+      this.maxHeaderHeight,
+      this.decoration,
+      this.onDismiss})
+      : assert(minHeight == null || minHeight >= 0 && minHeight <= 1),
         assert(maxHeight == null || maxHeight > 0 && maxHeight <= 1),
         assert(
             !(maxHeight != null && minHeight != null) || maxHeight > minHeight),
         assert(!isCollapsible || minHeight == 0),
-        assert(animationController != null),
         super(key: key);
 
   const FlexibleBottomSheet.collapsible({
     Key key,
-    double initHeight,
-    double maxHeight,
+    double initHeight = 0.5,
+    double maxHeight = 1,
     FlexibleDraggableScrollableWidgetBuilder builder,
     FlexibleDraggableScrollableHeaderWidgetBuilder headerBuilder,
     FlexibleDraggableScrollableWidgetBodyBuilder bodyBuilder,
     bool isExpand,
     AnimationController animationController,
     List<double> anchors,
-    BoxDecoration decoration,
     double minHeaderHeight,
     double maxHeaderHeight,
-    Color backgroundColor,
+    Decoration decoration,
   }) : this(
           maxHeight: maxHeight,
           builder: builder,
@@ -93,7 +92,7 @@ class FlexibleBottomSheet extends StatefulWidget {
           anchors: anchors,
           minHeaderHeight: minHeaderHeight,
           maxHeaderHeight: maxHeaderHeight,
-          backgroundColor: backgroundColor,
+          decoration: decoration,
         );
 
   @override
@@ -166,7 +165,7 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
               controller as FlexibleDraggableScrollableSheetScrollController;
 
           return AnimatedPadding(
-            duration: Duration(milliseconds: 50),
+            duration: Duration(milliseconds: 100),
             padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
@@ -190,14 +189,14 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
     return Material(
       type: MaterialType.transparency,
       child: Container(
-        color: widget.backgroundColor,
+        decoration: widget.decoration,
         child: CustomScrollView(
           controller: _controller,
           slivers: <Widget>[
             if (widget.headerBuilder != null)
               SliverPersistentHeader(
                 pinned: true,
-                delegate: _FlexibleBottomSheetHeaderDelegate(
+                delegate: FlexibleBottomSheetHeaderDelegate(
                   minHeight: widget.minHeaderHeight,
                   maxHeight: widget.maxHeaderHeight,
                   child: widget.headerBuilder(context, _currentExtent),
@@ -286,7 +285,7 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
       if (notification.extent == widget.minHeight) {
         setState(() {
           _isClosing = true;
-          Navigator.of(context).pop();
+          _dismiss();
         });
       }
     }
@@ -298,8 +297,12 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
       initVal = currentVal;
     }
 
-    widget.animationController.value =
-        (1 + (currentVal - initVal) / (initVal)).clamp(0.0, 1.0);
+    if (widget.animationController != null) {
+      widget.animationController.value =
+          (1 + (currentVal - initVal) / (initVal)).clamp(0.0, 1.0);
+    }
+
+    _checkNeedCloseBottomSheet();
 
     return false;
   }
@@ -309,12 +312,20 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
       _scrollToNearestAnchor(notification.dragDetails);
     }
 
+    _checkNeedCloseBottomSheet();
+
     return false;
+  }
+
+  void _checkNeedCloseBottomSheet() {
+    if (_controller.extent.currentExtent <= widget.minHeight && !_isClosing) {
+      _isClosing = true;
+      _dismiss();
+    }
   }
 
   void _scrollToNearestAnchor(DragEndDetails oldDragDetails) {
     List<double> screenAnchors = _screenAnchors;
-    if (screenAnchors.contains(_controller.extent.currentExtent)) return;
 
     double nextAnchor = _calculateNextAnchor(screenAnchors);
 
@@ -323,6 +334,10 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
   }
 
   double _calculateNextAnchor(List<double> screenAnchor) {
+    if (screenAnchor.contains(_controller.extent.currentExtent)) {
+      return _controller.extent.currentExtent;
+    }
+
     List<double> nearestAnchor =
         _findNearestAnchors(screenAnchor, _controller.extent.currentExtent);
     double firstAnchor = nearestAnchor[0];
@@ -370,8 +385,10 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
 
     _animationController.forward();
 
-    if (widget.minHeight != null && nextAnchor <= widget.minHeight) {
-      Navigator.of(context).pop();
+    if (widget.minHeight != null &&
+        nextAnchor <= widget.minHeight &&
+        !_isClosing) {
+      _dismiss();
     }
   }
 
@@ -381,10 +398,14 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
         if (widget.minHeight != null) widget.minHeight,
         if (widget.initHeight != null) widget.initHeight,
       ].toSet().toList();
+
+  void _dismiss() {
+    if (widget.onDismiss != null) widget.onDismiss();
+    Navigator.pop(context);
+  }
 }
 
-class _FlexibleBottomSheetHeaderDelegate
-    extends SliverPersistentHeaderDelegate {
+class FlexibleBottomSheetHeaderDelegate extends SliverPersistentHeaderDelegate {
   final Widget child;
 
   final double minHeight;
@@ -400,7 +421,7 @@ class _FlexibleBottomSheetHeaderDelegate
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
 
-  _FlexibleBottomSheetHeaderDelegate({
+  FlexibleBottomSheetHeaderDelegate({
     this.minHeight = 0,
     @required this.maxHeight,
     @required this.child,

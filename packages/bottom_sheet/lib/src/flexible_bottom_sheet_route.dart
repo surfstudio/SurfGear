@@ -12,7 +12,6 @@ const Duration _bottomSheetDuration = Duration(milliseconds: 500);
 /// [maxHeight] - init height in percent for bottom sheet. e.g. 0.5
 /// [isModal] - if true, overlay background with dark color
 /// [anchors] - percent height that bottom sheet can be
-
 Future<T> showFlexibleBottomSheet<T>({
   @required BuildContext context,
   FlexibleDraggableScrollableWidgetBuilder builder,
@@ -61,7 +60,7 @@ Future<T> showFlexibleBottomSheet<T>({
 /// [minHeaderHeight] - minimum head size
 /// [maxHeaderHeight] - maximum head size
 /// [headerHeight] - head size.
-/// [backgroundColor] - color for content part
+/// [decoratedBox] - decoration for header and content
 /// Sets both [minHeaderHeight] and [maxHeaderHeight]
 Future<T> showStickyFlexibleBottomSheet<T>({
   @required BuildContext context,
@@ -78,7 +77,7 @@ Future<T> showStickyFlexibleBottomSheet<T>({
   double minHeaderHeight,
   double maxHeaderHeight,
   double headerHeight,
-  Color backgroundColor,
+  Decoration decoration,
 }) {
   assert(context != null);
   assert(builder != null && headerBuilder != null);
@@ -102,7 +101,7 @@ Future<T> showStickyFlexibleBottomSheet<T>({
       anchors: anchors,
       minHeaderHeight: minHeaderHeight ?? headerHeight ?? maxHeaderHeight / 2,
       maxHeaderHeight: maxHeaderHeight ?? headerHeight,
-      backgroundColor: backgroundColor,
+      decoration: decoration,
     ),
   );
 }
@@ -121,7 +120,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   final List<double> anchors;
   final double minHeaderHeight;
   final double maxHeaderHeight;
-  final Color backgroundColor;
+  final Decoration decoration;
 
   final ThemeData theme;
 
@@ -140,7 +139,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     this.anchors,
     this.minHeaderHeight,
     this.maxHeaderHeight,
-    this.backgroundColor,
+    this.decoration,
     RouteSettings settings,
   }) : super(settings: settings);
 
@@ -191,7 +190,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
                 anchors: anchors,
                 minHeaderHeight: minHeaderHeight,
                 maxHeaderHeight: maxHeaderHeight,
-                backgroundColor: backgroundColor,
+                decoration: decoration,
               )
             : FlexibleBottomSheet(
                 minHeight: minHeight,
@@ -205,7 +204,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
                 anchors: anchors,
                 minHeaderHeight: minHeaderHeight,
                 maxHeaderHeight: maxHeaderHeight,
-                backgroundColor: backgroundColor,
+                decoration: decoration,
               ));
 
     if (theme != null) {

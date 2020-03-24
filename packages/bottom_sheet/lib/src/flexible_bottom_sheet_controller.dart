@@ -7,25 +7,19 @@ class FlexibleBottomSheetController {
   final BuildContext _context;
   final FlexibleBottomSheetOwner owner;
 
-  FlexibleBottomSheetController.from(this._context, {this.owner});
-
-  BuildContext get _scaffoldContext => Scaffold.of(_context).context;
+  FlexibleBottomSheetController(
+    this._context, {
+    this.owner,
+  });
 
   /// Show registered bottom sheet.
   Future<T> show<T>(
     type, {
-    double minHeight,
-    double initHeight,
-    double maxHeight,
+    BottomSheetData data,
   }) {
-    return showFlexibleBottomSheet(
-      context: _scaffoldContext,
-      minHeight: minHeight,
-      initHeight: initHeight,
-      maxHeight: maxHeight,
-      isExpand: true,
-      isCollapsible: true,
-      builder: owner?.registeredBottomSheet[type],
+    return owner.registeredBottomSheetShowers[type](
+      _context,
+      data: data,
     );
   }
 }
