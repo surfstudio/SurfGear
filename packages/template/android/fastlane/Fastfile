@@ -1,63 +1,70 @@
-# This file contains the fastlane.tools configuration
-# You can find the documentation at https://docs.fastlane.tools
+# Конфигурация Fastlane для Android-сборки.
 #
-# For a list of all available actions, check out
+# ВАЖНО: в релизном цикле Android-сборки Fastlane используется только для CD (выгрузка приложения в
+# Firebase App Distribution).
 #
-#     https://docs.fastlane.tools/actions
-#
-# For a list of all available plugins, check out
-#
-#     https://docs.fastlane.tools/plugins/available-plugins
-#
+# Документация:https://docs.fastlane.tools
 
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
-fastlane_version "2.108.0"
+fastlane_version "2.108.0" todo your fastlane version
 
 default_platform(:android)
 
 platform :android do
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
+  desc "Submit a new debug build to Firebase App Distribution"
   lane :beta do
-    puts "upload 32 bit version"
-    crashlytics(
-        api_token: 'YOUR_API_KEY',
-        build_secret: 'YOUR_BUILD_SECRET',
-        apk_path: "../build/app/outputs/apk/release/app-qa-armeabi-v7a.apk",
-        emails: ["surfstudio36@gmail.com", ],
-        notes: "x32 | qa",
+    puts "Firebase App Distribution | QA Build | 32-bit"
+    firebase_app_distribution(
+        app: "1:408916197886:android:cb9a7fce044b7a857240af", todo input your app_id
+        apk_path: "../build/app/outputs/apk/dev/release/app-qa-armeabi-v7a.apk",
+        groups: "surf", todo input your app_id
+        release_notes: "QA x32",
+        firebase_cli_path: "/usr/local/bin/firebase",
+        firebase_cli_token: "$FIREBASE_TOKEN",
     )
-    puts "end upload 32 bit version"
 
-    puts "upload 64 bit version"
-    crashlytics(
-        api_token: 'YOUR_API_KEY',
-        build_secret: 'YOUR_BUILD_SECRET',
-        apk_path: "../build/app/outputs/apk/release/app-qa-arm64-v8a.apk",
-        emails: ["surfstudio36@gmail.com", ],
-        notes: "x64 | qa",
+    puts "Firebase App Distribution | QA Build | 64-bit"
+    firebase_app_distribution(
+        app: "1:408916197886:android:cb9a7fce044b7a857240af", todo input your app_id
+        apk_path: "../build/app/outputs/apk/dev/release/app-qa-arm64-v8a.apk",
+        groups: "surf",  todo input your app_id
+        release_notes: "QA x64",
+        firebase_cli_path: "/usr/local/bin/firebase",
+        firebase_cli_token: "$FIREBASE_TOKEN",
     )
-    puts "end upload 64 bit version"
+
+    puts "Firebase App Distribution | Prod Build | 32-bit"
+    firebase_app_distribution(
+        app: "1:408916197886:android:cb9a7fce044b7a857240af", todo input your app_id
+        apk_path: "../build/app/outputs/apk/prod/release/app-release-armeabi-v7a.apk",
+        release_notes: "Prod x32",
+        firebase_cli_path: "/usr/local/bin/firebase",
+        firebase_cli_token: "$FIREBASE_TOKEN",
+    )
+
+    puts "Firebase App Distribution | Prod Build | 64-bit"
+    firebase_app_distribution(
+        app: "1:408916197886:android:cb9a7fce044b7a857240af",todo input your app_id
+        apk_path: "../build/app/outputs/apk/prod/release/app-release-arm64-v8a.apk",
+        release_notes: "Prod x64",
+        firebase_cli_path: "/usr/local/bin/firebase",
+        firebase_cli_token: "$FIREBASE_TOKEN",
+    )
+
+    #upload_to_fad(app_id: "1:408916197886:android:cb9a7fce044b7a857240af") todo your id
   end
 
-  lane :release do
-    crashlytics(
-      api_token: 'YOUR_API_KEY',
-      build_secret: 'YOUR_BUILD_SECRET',
-      apk_path: "../build/app/outputs/apk/release/app-release-android-arm64.apk"
-    )
+   lane :upload_to_fad do |options|
+    app_id = options[:app_id]
+    firebase_app_distribution(
+        app: "#{app_id}",
+        groups: "surf", todo your group name
+        release_notes: "QA",
+        firebase_cli_path: "/usr/local/bin/firebase",
+        firebase_cli_token: "$FIREBASE_TOKEN",
+      )
+   end
 
-    crashlytics(
-          api_token: 'YOUR_API_KEY',
-          build_secret: 'YOUR_BUILD_SECRET',
-          apk_path: "../build/app/outputs/apk/release/app-release.apk"
-    )
-  end
-
-#  desc "Deploy a new version to the Google Play"
-#  lane :deploy do
-#    gradle(task: "clean assembleRelease")
-#    upload_to_play_store
-#  end
 end
