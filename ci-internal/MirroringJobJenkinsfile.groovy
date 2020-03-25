@@ -45,6 +45,9 @@ pipeline.stages = [
                 echo "packed_refs: $packedRefs"
                 def sanitizedPackedRefs = ""
                 def checkNextToHash = false
+
+                def taskPattern = ~/[A-Z]{3}-\d+-.+$/
+
                 for (ref in packedRefs.split("\n")) {
                     if (checkNextToHash) {
                         checkNextToHash = false
@@ -54,7 +57,7 @@ pipeline.stages = [
                         }
                     }
 
-                    if (!ref.contains("project")) {
+                    if (!(ref.contains("project") || ref =~ taskPattern)) {
                         sanitizedPackedRefs += ref
                         sanitizedPackedRefs += "\n"
                     } else {
