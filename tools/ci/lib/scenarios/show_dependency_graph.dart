@@ -19,6 +19,11 @@ class ShowDependencyGraph extends Scenario {
   static const String commandName = 'deps';
   static const String nameOption = CommandParser.defaultNameOption;
 
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Show module dependency graph.',
+      };
+
   ShowDependencyGraph(
     Command command,
     PubspecParser pubspecParser,
@@ -101,7 +106,4 @@ class ShowDependencyGraph extends Scenario {
 
   @override
   String get getCommandName => commandName;
-
-  @override
-  String get helpInfo => 'show module dependency graph';
 }
