@@ -23,6 +23,44 @@ Future<List<Element>> findChangedElements(List<Element> elements) async {
   return filterChangedElements(elements);
 }
 
+/// Ищет модули которые зависят от изменившегося элемента
+///
+/// elements - список всех элементов
+Future<List<Element>> findDependentByChangedElements(
+    List<Element> elements) async {
+  // Список модулей которые зависят от изменившегося элемента
+  final dependModulesByChangedElements = <Element>[];
+
+  // Найти изменившиеся элемента
+  final changedElements = await findChangedElements(elements);
+
+  // Пройтись по всем модулям
+  elements.forEach(
+    (element) {
+      // Пройтись по всем зависимостям модуля
+      element.dependencies.forEach(
+        (dependency) {
+          // Пройтись по изменившимся модулям
+          changedElements.forEach(
+            (changedElement) {
+              // Если зависимоть не third party
+              if (!dependency.thirdParty) {
+                // Если имя зависимости совпадает с имене изменившегося модуля
+                if (dependency.element.name == changedElement.name) {
+                  // Значит текущий элемент зависит от изменившегося модуля
+                  dependModulesByChangedElements.add(element);
+                }
+              }
+            },
+          );
+        },
+      );
+    },
+  );
+
+  return dependModulesByChangedElements;
+}
+
 /// Возвращает элеметны из списка, которые имеют отметку об изменении.
 Future<List<Element>> filterChangedElements(List<Element> elements) async {
   return elements.where((e) => e.changed).toList();
