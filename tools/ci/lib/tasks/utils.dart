@@ -43,9 +43,9 @@ Future<List<Element>> findDependentByChangedElements(
           // Пройтись по изменившимся модулям
           changedElements.forEach(
             (changedElement) {
-              // Если зависимоть не third party
+              // Если зависимость не third party
               if (!dependency.thirdParty) {
-                // Если имя зависимости совпадает с имене изменившегося модуля
+                // Если имя зависимости совпадает с именем изменившегося модуля
                 if (dependency.element.name == changedElement.name) {
                   // Значит текущий элемент зависит от изменившегося модуля
                   dependModulesByChangedElements.add(element);
