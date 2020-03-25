@@ -25,6 +25,10 @@ class ShowHelpScenario extends Scenario {
     PubspecParser pubspecParser,
   ) : super(command, pubspecParser);
 
+  @override
+  Map<String, String> getCommandsHelp() => throw NotSupportedMethodCallException(
+      getNotSupportedMethodCallExceptionText('ShowHelpScenario#getCommandName'));
+
   /// Проверяем, запрошен общий хелп или для одной команды
   @override
   Future<void> run() async {
@@ -106,8 +110,4 @@ class ShowHelpScenario extends Scenario {
   @override
   String get getCommandName => throw NotSupportedMethodCallException(
       getNotSupportedMethodCallExceptionText('ShowHelpScenario#getCommandName'));
-
-  @override
-  String get helpInfo => throw NotSupportedMethodCallException(
-      getNotSupportedMethodCallExceptionText('ShowHelpScenario#helpInfo'));
 }

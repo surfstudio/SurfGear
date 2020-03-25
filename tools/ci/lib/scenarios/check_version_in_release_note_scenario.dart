@@ -5,14 +5,17 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 
-const String _helpInfo = 'Check for the latest version in RELEASE_NOTES.md.';
-
 /// Сценарий для команды check_version_in_release_note.
 ///
 /// Пример вызова:
 /// dart ci check_version_in_release_note
 class CheckVersionInReleaseNoteScenario extends ChangedElementScenario {
   static const String commandName = 'check_version_in_release_note';
+
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Check for the latest version in RELEASE_NOTES.md.',
+      };
 
   CheckVersionInReleaseNoteScenario(Command command, PubspecParser pubspecParser)
       : super(command, pubspecParser);
@@ -30,7 +33,4 @@ class CheckVersionInReleaseNoteScenario extends ChangedElementScenario {
 
   @override
   String get getCommandName => commandName;
-
-  @override
-  String get helpInfo => _helpInfo;
 }

@@ -5,14 +5,17 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 
-const String _helpInfo = 'Checking the stability of module dependencies.';
-
 /// Сценарий для команды check_dependencies_stable.
 ///
 /// Пример вызова:
 /// dart ci check_dependencies_stable
 class CheckDependenciesStableScenario extends ChangedElementScenario {
   static const String commandName = 'check_dependencies_stable';
+
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Checking the stability of module dependencies.',
+      };
 
   CheckDependenciesStableScenario(
     Command command,
@@ -45,7 +48,4 @@ class CheckDependenciesStableScenario extends ChangedElementScenario {
 
   @override
   String get getCommandName => commandName;
-
-  @override
-  String get helpInfo => _helpInfo;
 }

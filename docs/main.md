@@ -21,11 +21,11 @@
     1. [Пуш-уведомления](../push/README.md)
     1. [Тестирование](common/testing.md)
 
-1. [**Слой Model**](todo)
-    1. [Interactor](common/interactor.md)
+1. [**Слой Model**](model/model.md)
+    1. [Interactor](model/interactor.md)
     1. [Проверка соединения](todo)
-    1. [Работа с файловым хранилищем](common/file_storage.md)
-    1. [Работа с SharedPrefs](common/shared_preferences.md)
+    1. [Работа с файловым хранилищем](model/file_storage.md)
+    1. [Работа с SharedPrefs](model/shared_preferences.md)
 
 1. [UI слой]()
     1. [Структура UI-слоя](ui/structure.md)

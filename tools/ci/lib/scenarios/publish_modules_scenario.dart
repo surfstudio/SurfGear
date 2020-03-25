@@ -2,8 +2,8 @@ import 'package:ci/domain/command.dart';
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
-import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
+import 'package:ci/tasks/tasks.dart';
 
 /// Сценарий для команды publish.
 /// Публикует модули на указанный сервер, по умолчанию pub.dev
@@ -16,6 +16,12 @@ import 'package:ci/tasks/core/scenario.dart';
 class PublishModulesScenario extends ChangedElementScenario {
   static const String commandName = 'publish';
   static const String server = 'server';
+  static const String helpServer = 'Server for publish module.';
+
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Publishes modules to the server.',
+      };
 
   PublishModulesScenario(
     Command command,
@@ -40,7 +46,4 @@ class PublishModulesScenario extends ChangedElementScenario {
 
   @override
   String get getCommandName => commandName;
-
-  @override
-  String get helpInfo => 'publishes modules to the server';
 }

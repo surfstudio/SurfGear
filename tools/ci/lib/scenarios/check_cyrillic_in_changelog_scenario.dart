@@ -5,14 +5,17 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/core/scenario.dart';
 
-const String _helpInfo = 'Checking the presence of Cyrillic in the file CHANGELOG.md.';
-
 /// Сценарий для команды check_cyrillic_in_changelog.
 ///
 /// Пример вызова:
 /// dart ci check_cyrillic_in_changelog
 class CheckCyrillicInChangelogScenario extends ChangedElementScenario {
   static const String commandName = 'check_cyrillic_in_changelog';
+
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Checking the presence of Cyrillic in the file CHANGELOG.md.',
+      };
 
   CheckCyrillicInChangelogScenario(Command command, PubspecParser pubspecParser)
       : super(command, pubspecParser);
@@ -31,7 +34,4 @@ class CheckCyrillicInChangelogScenario extends ChangedElementScenario {
 
   @override
   String get getCommandName => commandName;
-
-  @override
-  String get helpInfo => _helpInfo;
 }

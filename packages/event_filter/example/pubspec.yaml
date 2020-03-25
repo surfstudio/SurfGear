@@ -18,8 +18,8 @@ dependencies:
   #surfstudio
   injector:
     path: ../../injector
-  mwwm:
-    path: ../../mwwm
+  surf_mwwm:
+    path: ../../surf_mwwm
 
   event_filter:
     path: ..

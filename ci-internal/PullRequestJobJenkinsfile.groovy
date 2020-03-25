@@ -51,7 +51,8 @@ def stagesForProjectMode = [
         GET_DEPENDENCIES,
         FIND_CHANGED,
         BUILD,
-        UNIT_TEST
+        UNIT_TEST,
+        CLEAR_CHANGED,
 ]
 
 def stagesForTargetBranchChangedMode = [
@@ -72,6 +73,7 @@ def stagesForReleaseMode = [
         CHECKS_RESULT,
         BUILD,
         UNIT_TEST,
+        CLEAR_CHANGED,
 ]
 def stagesForDevMode = [
         PRE_MERGE,
@@ -82,6 +84,7 @@ def stagesForDevMode = [
         CHECK_LINT,
         BUILD,
         UNIT_TEST,
+        CLEAR_CHANGED,
 ]
 
 //init
@@ -278,9 +281,9 @@ def static isSourceBranchRelease(String sourceBranch) {
 }
 
 def static isDestinationBranchProjectSnapshot(String destinationBranch) {
-    return destinationBranch.startsWith("project-snapshot")
+    return destinationBranch.startsWith("project-")
 }
 
 def static isDestinationBranchDev(String destinationBranch) {
-    return destinationBranch.startsWith("feature-ci") //todo переименовать
+    return destinationBranch.startsWith("dev")
 }

@@ -4,14 +4,17 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/tasks.dart';
 
-const String _helpInfo = 'Adds copyright to files of transferred modules.';
-
 /// Сценарий для команды add_copyrights.
 ///
 /// Пример вызова:
 /// dart ci add_copyrights
 class AddCopyrightsScenario extends Scenario {
   static const String commandName = 'add_copyrights';
+
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Adds copyright to files of transferred modules.',
+      };
 
   AddCopyrightsScenario(
     Command command,
@@ -29,7 +32,4 @@ class AddCopyrightsScenario extends Scenario {
 
   @override
   String get getCommandName => commandName;
-
-  @override
-  String get helpInfo => _helpInfo;
 }

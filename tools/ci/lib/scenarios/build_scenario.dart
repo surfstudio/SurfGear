@@ -4,14 +4,17 @@ import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/tasks.dart';
 
-const String _helpInfo = 'Builds the transferred modules.';
-
 /// Сценарий для команды build.
 ///
 /// Пример вызова:
 /// dart ci build
 class BuildScenario extends ChangedElementScenario {
   static const String commandName = 'build';
+
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Builds the transferred modules.',
+      };
 
   BuildScenario(
     Command command,
@@ -29,7 +32,4 @@ class BuildScenario extends ChangedElementScenario {
 
   @override
   String get getCommandName => commandName;
-
-  @override
-  String get helpInfo => _helpInfo;
 }
