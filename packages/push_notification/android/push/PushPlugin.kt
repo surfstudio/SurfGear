@@ -80,17 +80,9 @@ public class PushPlugin(private var context: Context? = null,
             }
 
             override fun pushOpenListener(context: Context, intent: Intent) {
-                /**todo пуш открывает приложение только в свернутом виде
-                 * если выгрузить приложение пуш по тапу ничего не делает **/
                 val notificationTypeData = intent.getSerializableExtra(NOTIFICATION_DATA) as PushNotificationTypeData
                 val notificationData = HashMap(notificationTypeData.data?.notificationData)
-                val packageName = this@PushPlugin.context!!.packageName
 
-                val launchIntent = Intent("android.intent.category.LAUNCHER")
-                launchIntent.setClassName(packageName, "$packageName.MainActivity")
-                launchIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
-                this@PushPlugin.context!!.startActivity(launchIntent)
                 channel!!.invokeMethod(CALLBACK_OPEN, notificationData)
             }
         }
