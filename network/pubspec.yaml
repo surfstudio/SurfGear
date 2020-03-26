@@ -14,7 +14,7 @@ dependencies:
   logger:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-RIG-10
+      ref: project-RIG-11
       path: logger
 
   dio: 2.1.2
