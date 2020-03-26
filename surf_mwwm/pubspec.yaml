@@ -15,19 +15,19 @@ dependencies:
   injector:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-RIG-10
+      ref: project-RIG-11
       path: injector
 
   relation:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-RIG-10
+      ref: project-RIG-11
       path: relation
 
   mwwm:
     git:
       url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-RIG-10
+      ref: project-RIG-11
       path: mwwm
 
 
