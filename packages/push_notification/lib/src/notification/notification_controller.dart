@@ -31,6 +31,14 @@ class NotificationController {
         onNotificationTapCallback: _internalOnSelectNotification);
   }
 
+  /// Request notification permissions (iOS only)
+  Future<bool> requestPermissions() {
+    return _surfNotification.requestPermissions(
+      requestSoundPermission: true,
+      requestAlertPermission: true,
+    );
+  }
+
   /// displaying notification from the strategy
   Future<dynamic> show(
     PushHandleStrategy strategy,

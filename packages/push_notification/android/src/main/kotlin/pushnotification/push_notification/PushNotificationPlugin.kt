@@ -1,10 +1,10 @@
 package pushnotification.push_notification
 
-import io.flutter.embedding.engine.plugins.FlutterPlugin
-import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import io.flutter.plugin.common.MethodCall
+import io.flutter.plugin.common.PluginRegistry.Registrar
 import android.content.Context
 import android.content.Intent
 import androidx.annotation.NonNull;
@@ -48,15 +48,18 @@ private const val DEFAULT_AUTOCANCEL = true
 
 /** PushNotificationPlugin */
 public class PushNotificationPlugin(private var context: Context? = null,
-                                    private var channel: MethodChannel? = null): FlutterPlugin, MethodCallHandler {
+                                    private var channel: MethodChannel? = null): MethodCallHandler {
   private val activeActivityHolder = ActiveActivityHolder()
   private val pusInteractor = PushInteractor()
 
   private val pushHandler = PushHandler(activeActivityHolder, pusInteractor)
 
-  override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    val channel = MethodChannel(flutterPluginBinding.flutterEngine.dartExecutor, CHANNEL)
-    channel.setMethodCallHandler(PushNotificationPlugin(flutterPluginBinding.applicationContext, channel))
+  companion object {
+    @JvmStatic
+    fun registerWith(registrar: Registrar): Unit {
+      val channel = MethodChannel(registrar.messenger(), CHANNEL)
+      channel.setMethodCallHandler(PushNotificationPlugin(registrar.context(), channel))
+    }
   }
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
@@ -123,8 +126,6 @@ public class PushNotificationPlugin(private var context: Context? = null,
             pushHandleStrategy = strategy
     )
   }
-
-  override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {}
 
   private fun getResourceId(resName: String, defType: String): Int {
     return context!!.resources.getIdentifier(resName, defType, context!!.packageName)

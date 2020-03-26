@@ -32,6 +32,19 @@ class IOSSurfNotification {
     return channel.invokeMethod(CALL_INIT, initSettings.toMap());
   }
 
+  Future<bool> requestPermissions({
+    bool requestSoundPermission = false,
+    bool requestAlertPermission = false,
+  }) async {
+    return channel.invokeMethod<bool>(
+      CALL_REQUEST,
+      <String, dynamic>{
+        'requestAlertPermission': requestAlertPermission,
+        'requestSoundPermission': requestSoundPermission,
+      },
+    );
+  }
+
   /// Show notification
   /// id - notification identifier
   /// title - title
