@@ -17,6 +17,7 @@ const String _arrow = ' ---->';
 /// dart ci deps / dart ci deps --name=anyName
 class ShowDependencyGraph extends Scenario {
   static const String commandName = 'deps';
+  static const String allFlag = CommandParser.defaultAllFlag;
   static const String nameOption = CommandParser.defaultNameOption;
 
   @override
