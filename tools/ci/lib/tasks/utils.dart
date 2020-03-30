@@ -31,8 +31,13 @@ Future<List<Element>> findDependentByChangedElements(
   // Список модулей которые зависят от изменившегося элемента
   final dependModulesByChangedElements = <Element>[];
 
-  // Найти изменившиеся элемента
+  // Найти изменившиеся элементы
   final changedElements = await findChangedElements(elements);
+  final changedElementsNames = changedElements.map(
+    (changedElement) {
+      return changedElement.name;
+    },
+  ).toList();
 
   // Пройтись по всем модулям
   elements.forEach(
@@ -40,19 +45,19 @@ Future<List<Element>> findDependentByChangedElements(
       // Пройтись по всем зависимостям модуля
       element.dependencies.forEach(
         (dependency) {
-          // Пройтись по изменившимся модулям
-          changedElements.forEach(
-            (changedElement) {
-              // Если зависимость не third party
-              if (!dependency.thirdParty) {
+          // Если зависимость не third party
+          if (!dependency.thirdParty) {
+            // Пройтись по именам изменившихся модулей
+            changedElementsNames.forEach(
+              (name) {
                 // Если имя зависимости совпадает с именем изменившегося модуля
-                if (dependency.element.name == changedElement.name) {
+                if (dependency.element.name == name) {
                   // Значит текущий элемент зависит от изменившегося модуля
                   dependModulesByChangedElements.add(element);
                 }
-              }
-            },
-          );
+              },
+            );
+          }
         },
       );
     },
