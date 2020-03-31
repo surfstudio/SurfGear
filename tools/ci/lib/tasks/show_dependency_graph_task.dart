@@ -21,37 +21,38 @@ class ShowDependencyGraphTask extends Action {
     }
     print(str);
   }
-	/// Если у элемнета есть зависимости "флаттер стандарта", то генерим строку для вывода в консоль.
-	void _createOutputOnConsole(Element element, StringBuffer str, int indentLength) {
-			str.write(element.name);
-			if (_getDependency(element).isNotEmpty) {
-					str.write(_arrow);
-					indentLength += element.name.length + _arrow.length + _arrowDep.length;
-					_dependencyOutputOnConsole(
-							element,
-							str,
-							indentLength,
-					);
-			}
-	}
 
-	///  Зависимости рекурсивно добавляем в вывод
-	void _dependencyOutputOnConsole(Element element, StringBuffer str, int indentLength) {
-			var dependencies = _getDependency(element);
-			for (var i = 0; i < dependencies.length; i++) {
-					i == 0 ? str.write(_arrowDep) : str.write('\n' + ' ' * indentLength + _arrowDep);
-					_createOutputOnConsole(dependencies[i].element, str, indentLength);
-			}
-	}
+  /// Если у элемнета есть зависимости "флаттер стандарта", то генерим строку для вывода в консоль.
+  void _createOutputOnConsole(Element element, StringBuffer str, int indentLength) {
+    str.write(element.name);
+    if (_getDependency(element).isNotEmpty) {
+      str.write(_arrow);
+      indentLength += element.name.length + _arrow.length + _arrowDep.length;
+      _dependencyOutputOnConsole(
+        element,
+        str,
+        indentLength,
+      );
+    }
+  }
 
-	/// Список зависимостей "флаттер стандарта" у элемента
-	List<Dependency> _getDependency(Element element) {
-			var dependencies = <Dependency>[];
-			for (var dependency in element.dependencies) {
-					if (!dependency.thirdParty) {
-							dependencies.add(dependency);
-					}
-			}
-			return dependencies;
-	}
+  ///  Зависимости рекурсивно добавляем в вывод
+  void _dependencyOutputOnConsole(Element element, StringBuffer str, int indentLength) {
+    var dependencies = _getDependency(element);
+    for (var i = 0; i < dependencies.length; i++) {
+      i == 0 ? str.write(_arrowDep) : str.write('\n' + ' ' * indentLength + _arrowDep);
+      _createOutputOnConsole(dependencies[i].element, str, indentLength);
+    }
+  }
+
+  /// Список зависимостей "флаттер стандарта" у элемента
+  List<Dependency> _getDependency(Element element) {
+    var dependencies = <Dependency>[];
+    for (var dependency in element.dependencies) {
+      if (!dependency.thirdParty) {
+        dependencies.add(dependency);
+      }
+    }
+    return dependencies;
+  }
 }
