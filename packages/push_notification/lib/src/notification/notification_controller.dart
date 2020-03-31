@@ -13,15 +13,13 @@ const String pushIdParam = 'localPushId';
 
 /// Wrapper over surf notifications
 class NotificationController {
-  Notificator _surfNotification;
+  Notificator _notificator;
 
   Map<int, NotificationCallback> callbackMap =
       HashMap<int, NotificationCallback>();
 
-  NotificationController(
-    String androidDefaultIcon,
-  ) {
-    _surfNotification = Notificator(
+  NotificationController() {
+    _notificator = Notificator(
         initSettings: InitSettings(
           iosInitSettings: IOSInitSettings(
             requestSoundPermission: true,
@@ -33,7 +31,7 @@ class NotificationController {
 
   /// Request notification permissions (iOS only)
   Future<bool> requestPermissions() {
-    return _surfNotification.requestPermissions(
+    return _notificator.requestPermissions(
       requestSoundPermission: true,
       requestAlertPermission: true,
     );
@@ -62,7 +60,7 @@ class NotificationController {
     tmpPayload[pushIdParam] = pushId;
     callbackMap[pushId] = onSelectNotification;
 
-    return _surfNotification.show(
+    return _notificator.show(
       strategy.pushId,
       strategy.payload.title,
       strategy.payload.body,

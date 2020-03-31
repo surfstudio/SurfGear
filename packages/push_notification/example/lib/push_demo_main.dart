@@ -13,7 +13,7 @@ void main() {
   MessagingService messagingService = MessagingService();
   PushHandler pushHandler = PushHandler(
     ExampleFactory(),
-    NotificationController(androidMipMapIcon),
+    NotificationController(),
     messagingService,
   );
   messagingService.requestNotificationPermissions();

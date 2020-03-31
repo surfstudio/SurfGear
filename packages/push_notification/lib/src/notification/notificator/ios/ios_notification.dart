@@ -1,24 +1,22 @@
 import 'package:flutter/services.dart';
-import 'package:push_notification/src/notification/notificator/android/android_notiffication_specifics.dart';
+import 'package:push_notification/src/notification/notificator/ios/ios_init_settings.dart';
+import 'package:push_notification/src/notification/notificator/ios/ios_notification_specifics.dart';
 import 'package:push_notification/src/notification/notificator/notificator.dart';
 
-/// Notifications for the android platform
-class AndroidSurfNotification {
-  /// MethodChannel for connecting to android native code
+/// Notifications for the ios platform
+class IOSNotification {
+  /// MethodChannel for connecting to ios native platform
   final MethodChannel channel;
 
   /// Callback notification push
   final OnNotificationTapCallback onNotificationTap;
 
-  AndroidSurfNotification({
+  IOSNotification({
     this.channel,
     this.onNotificationTap,
   });
 
-  /// Initialize notification
-  ///
-  /// Initializes notification parameters and click listener
-  Future init() async {
+  Future init(IOSInitSettings initSettings) async {
     channel.setMethodCallHandler(
       (call) async {
         switch (call.method) {
@@ -31,21 +29,32 @@ class AndroidSurfNotification {
         }
       },
     );
-    return channel.invokeMethod(CALL_INIT);
+    return channel.invokeMethod(CALL_INIT, initSettings.toMap());
+  }
+
+  Future<bool> requestPermissions({
+    bool requestSoundPermission = false,
+    bool requestAlertPermission = false,
+  }) async {
+    return channel.invokeMethod<bool>(
+      CALL_REQUEST,
+      <String, dynamic>{
+        'requestAlertPermission': requestAlertPermission,
+        'requestSoundPermission': requestSoundPermission,
+      },
+    );
   }
 
   /// Show notification
-  ///
   /// id - notification identifier
   /// title - title
   /// body - the main text of the notification
-  /// notificationDetails - notification details
   Future show(
     int id,
     String title,
     String body,
     Map<String, String> data,
-    AndroidNotificationSpecifics notificationSpecifics,
+    IosNotificationSpecifics notificationSpecifics,
   ) async {
     return channel.invokeMethod(
       CALL_SHOW,
@@ -54,9 +63,6 @@ class AndroidSurfNotification {
         ARG_TITLE: title ?? "",
         ARG_BODY: body ?? "",
         ARG_DATA: data,
-        ARG_NOTIFICATION_SPECIFICS: notificationSpecifics != null
-            ? notificationSpecifics.toMap()
-            : Map(),
       },
     );
   }
