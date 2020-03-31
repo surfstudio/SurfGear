@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart';
-import 'package:push_notification/src/notification/notificator/ios/ios_init_settings.dart';
 import 'package:push_notification/src/notification/notificator/ios/ios_notification_specifics.dart';
 import 'package:push_notification/src/notification/notificator/notificator.dart';
 
@@ -16,7 +15,7 @@ class IOSNotification {
     this.onNotificationTap,
   });
 
-  Future init(IOSInitSettings initSettings) async {
+  Future init() async {
     channel.setMethodCallHandler(
       (call) async {
         switch (call.method) {
@@ -29,7 +28,6 @@ class IOSNotification {
         }
       },
     );
-    return channel.invokeMethod(CALL_INIT, initSettings.toMap());
   }
 
   Future<bool> requestPermissions({
