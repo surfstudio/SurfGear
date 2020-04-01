@@ -94,7 +94,7 @@ def pipeline = new EmptyScmPipeline(script)
 pipeline.init()
 
 //configuration
-pipeline.propertiesProvider = { PrPipeline.properties(pipeline) }
+pipeline.propertiesProvider = { return PrPipeline.properties(pipeline) }
 
 pipeline.preExecuteStageBody = { stage ->
     if (stage.name != PRE_MERGE) RepositoryUtil.notifyGitlabAboutStageStart(script, pipeline.repoUrl, stage.name)
