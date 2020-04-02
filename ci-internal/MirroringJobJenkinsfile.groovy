@@ -1,4 +1,4 @@
-@Library('surf-lib@version-2.0.0-SNAPSHOT')
+@Library('surf-lib@version-3.0.0-SNAPSHOT')
 // https://bitbucket.org/surfstudio/jenkins-pipeline-lib/
 import ru.surfstudio.ci.pipeline.empty.EmptyScmPipeline
 import ru.surfstudio.ci.stage.StageStrategy
@@ -35,7 +35,7 @@ pipeline.stages = [
             sh "rm -rf flutter-standard.git"
             withCredentials([usernamePassword(credentialsId: pipeline.repoCredentialsId, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 echo "credentialsId: $pipeline.repoCredentialsId"
-                sh "git clone --mirror https://${encodeUrl(USERNAME)}:${encodeUrl(PASSWORD)}@bitbucket.org/surfstudio/flutter-standard.git"
+                sh "git clone --mirror https://${encodeUrl(USERNAME)}:${encodeUrl(PASSWORD)}@gitlab.com/surfstudio/projects/standard/flutter-standard.git"
             }
         },
         pipeline.stage("Sanitize", StageStrategy.FAIL_WHEN_STAGE_ERROR) {
@@ -82,7 +82,7 @@ pipeline.stages = [
 pipeline.finalizeBody = {
     if (pipeline.jobResult == Result.FAILURE) {
         def message = "Ошибка зеркалирования AndroidStandard на GitHub. ${CommonUtil.getBuildUrlSlackLink(this)}"
-        JarvisUtil.sendMessageToGroup(this, message, pipeline.repoUrl, "bitbucket", false)
+        JarvisUtil.sendMessageToGroup(this, message, pipeline.repoUrl, "gitlab", false)
     }
 }
 
