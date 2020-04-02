@@ -1,6 +1,7 @@
 # SurfGear
 
-![logo](logo.gif)
+<!--![logo](logo.gif)-->
+<img src="logo.gif" alt="logo"	title="logo" width="350" height="300" />
 
 Набор библиотек для Flutter проектов.
 
