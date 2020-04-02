@@ -16,4 +16,9 @@ class FirstStrategy extends PushHandleStrategy<Message> {
       ),
     );
   }
+
+  @override
+  void onBackgroundProcess(Map<String, dynamic> message) {
+    debugPrint('on process notification in background');
+  }
 }
