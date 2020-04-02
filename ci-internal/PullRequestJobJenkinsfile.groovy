@@ -94,7 +94,20 @@ def pipeline = new EmptyScmPipeline(script)
 pipeline.init()
 
 //configuration
-pipeline.propertiesProvider = { return PrPipeline.properties(pipeline) }
+pipeline.propertiesProvider = {
+    [
+            script.buildDiscarder(
+                    script.logRotator(
+                            artifactDaysToKeepStr: '3',
+                            artifactNumToKeepStr: '10',
+                            daysToKeepStr: '30',
+                            numToKeepStr: '100')
+            ),
+            PrPipeline.parameters(script),
+            PrPipeline.triggers(script, pipeline.repoUrl),
+            script.gitLabConnection(pipeline.gitlabConnection)
+    ]
+}
 
 pipeline.preExecuteStageBody = { stage ->
     if (stage.name != PRE_MERGE) RepositoryUtil.notifyGitlabAboutStageStart(script, pipeline.repoUrl, stage.name)
