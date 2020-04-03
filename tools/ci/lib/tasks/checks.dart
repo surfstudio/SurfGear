@@ -7,19 +7,19 @@ import 'package:ci/services/managers/file_system_manager.dart';
 import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/services/pub_publish_manager.dart';
+import 'package:ci/tasks/factories/license_task_factory.dart';
 import 'package:ci/tasks/impl/building/check_dependency_stable.dart';
 import 'package:ci/tasks/impl/building/check_stability_dev.dart';
-import 'package:ci/tasks/factories/license_task_factory.dart';
-import 'package:ci/tasks/impl/publish/find_cyrillic_changelog_task.dart';
-import 'package:ci/tasks/impl/publish/generates_release_notes_task.dart';
+import 'package:ci/tasks/impl/building/linter_check.dart';
+import 'package:ci/tasks/impl/building/stable_modules_for_changes_check.dart';
 import 'package:ci/tasks/impl/license/copyright_check.dart';
 import 'package:ci/tasks/impl/license/licensing_check.dart';
-import 'package:ci/tasks/impl/building/linter_check.dart';
+import 'package:ci/tasks/impl/publish/find_cyrillic_changelog_task.dart';
+import 'package:ci/tasks/impl/publish/generates_release_notes_task.dart';
 import 'package:ci/tasks/impl/publish/pub_check_release_version_task.dart';
 import 'package:ci/tasks/impl/publish/pub_dry_run_task.dart';
-import 'package:ci/tasks/impl/publish/pub_publish_module_task.dart';
 import 'package:ci/tasks/impl/testing/run_module_tests_check.dart';
-import 'package:ci/tasks/impl/building/stable_modules_for_changes_check.dart';
+import 'package:ci/tasks/show_dependency_graph_task.dart';
 import 'package:ci/tasks/utils.dart';
 
 import 'impl/building/increment_unstable_version_task.dart';
@@ -102,12 +102,6 @@ Future<bool> checkPublishAvailable(Element element) {
   return PubDryRunTask(element, PubPublishManager()).run();
 }
 
-/// Публикуем модули
-/// [pathServer] принимать адрес сервера куда паблишить, необзательный параметр
-Future<void> pubPublishModules(Element element, {String pathServer}) {
-  return PubPublishModuleTask(element, PubPublishManager(), pathServer: pathServer).run();
-}
-
 /// Проверка на наличие актуальной версии в Release Notes
 Future<bool> checkVersionInReleaseNote(Element element) {
   return PubCheckReleaseVersionTask(element, PubPublishManager()).run();
@@ -130,6 +124,10 @@ Future<bool> checkCyrillicChangelog(Element element) {
     element,
     FileSystemManager(),
   ).run();
+}
+/// Выводим граф зависимостей
+Future<void> showDependencyGraph(List<Element> elements) {
+  return ShowDependencyGraphTask(elements).run();
 }
 
 /// Проверка лицензирования переданных пакетов.

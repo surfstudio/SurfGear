@@ -18,6 +18,7 @@ import 'package:ci/scenarios/find_changed_modules_scenario.dart';
 import 'package:ci/scenarios/increment_unstable_versions_scenario.dart';
 import 'package:ci/scenarios/publish_modules_scenario.dart';
 import 'package:ci/scenarios/run_test_scenario.dart';
+import 'package:ci/scenarios/show_dependency_graph_scenario.dart';
 import 'package:ci/scenarios/show_help_scenario.dart';
 import 'package:ci/scenarios/upgrade_project_tag_scenario.dart';
 import 'package:ci/scenarios/write_release_note_scenario.dart';
@@ -149,6 +150,14 @@ class CommandParser {
               PublishModulesScenario.server,
               help: PublishModulesScenario.helpServer,
             ))
+
+      /// graph dependency
+      ..addCommand(
+          ShowDependencyGraphScenario.commandName,
+          ArgParser()
+            ..addFlag(ShowDependencyGraphScenario.allFlag, negatable: false, help: 'Check all modules')
+            ..addOption(ShowDependencyGraphScenario.nameOption,
+                help: 'Show dependency graph of the specified module'))
 
       /// help
       ..addFlag(helpFlag, negatable: false, abbr: helpAbbr);

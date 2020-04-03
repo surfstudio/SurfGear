@@ -1,4 +1,5 @@
-@Library('surf-lib@version-2.0.0-SNAPSHOT') // https://bitbucket.org/surfstudio/jenkins-pipeline-lib/
+@Library('surf-lib@version-3.0.0-SNAPSHOT')
+// https://bitbucket.org/surfstudio/jenkins-pipeline-lib/
 import ru.surfstudio.ci.pipeline.empty.EmptyScmPipeline
 import ru.surfstudio.ci.stage.StageStrategy
 import ru.surfstudio.ci.CommonUtil
@@ -7,7 +8,7 @@ import ru.surfstudio.ci.NodeProvider
 import ru.surfstudio.ci.Result
 import java.net.URLEncoder
 
-def encodeUrl(string){
+def encodeUrl(string) {
     URLEncoder.encode(string, "UTF-8")
 }
 
@@ -34,7 +35,7 @@ pipeline.stages = [
             sh "rm -rf flutter-standard.git"
             withCredentials([usernamePassword(credentialsId: pipeline.repoCredentialsId, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 echo "credentialsId: $pipeline.repoCredentialsId"
-                sh "git clone --mirror https://${encodeUrl(USERNAME)}:${encodeUrl(PASSWORD)}@bitbucket.org/surfstudio/flutter-standard.git"
+                sh "git clone --mirror https://${encodeUrl(USERNAME)}:${encodeUrl(PASSWORD)}@gitlab.com/surfstudio/projects/standard/flutter-standard.git"
             }
         },
         pipeline.stage("Sanitize", StageStrategy.FAIL_WHEN_STAGE_ERROR) {
@@ -43,10 +44,25 @@ pipeline.stages = [
                 def packedRefs = readFile file: packedRefsFile
                 echo "packed_refs: $packedRefs"
                 def sanitizedPackedRefs = ""
-                for(ref in packedRefs.split("\n")) {
-                    if(!ref.contains("project")) {
+                def checkNextToHash = false
+
+                def taskPattern = ~/[A-Z]{3}-\d+-.+$/
+
+                for (ref in packedRefs.split("\n")) {
+                    if (checkNextToHash) {
+                        checkNextToHash = false
+
+                        if (ref.startsWith("^")) {
+                            continue
+                        }
+                    }
+
+                    if (!(ref.contains("project") || ref =~ taskPattern)) {
                         sanitizedPackedRefs += ref
                         sanitizedPackedRefs += "\n"
+                    } else {
+                        // we should remove hash of commit which can follow next with ^ marker, when tag removed
+                        checkNextToHash = ref.contains("/tags/")
                     }
                 }
                 echo "sanitizedPackedRefs: $sanitizedPackedRefs"
@@ -66,7 +82,7 @@ pipeline.stages = [
 pipeline.finalizeBody = {
     if (pipeline.jobResult == Result.FAILURE) {
         def message = "Ошибка зеркалирования AndroidStandard на GitHub. ${CommonUtil.getBuildUrlSlackLink(this)}"
-        JarvisUtil.sendMessageToGroup(this, message, pipeline.repoUrl, "bitbucket", false)
+        JarvisUtil.sendMessageToGroup(this, message, pipeline.repoUrl, "gitlab", false)
     }
 }
 
