@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:ci/domain/config.dart';
+import 'package:ci/domain/dependency.dart';
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
@@ -146,17 +147,14 @@ Future<List<Element>> markChangedElements(List<Element> elements) async {
 }
 
 /// Создаёт файл со списком измененных файлов.
-Future<void> createChangedListFile(
-    List<Element> elements, String target) async {
+Future<void> createChangedListFile(List<Element> elements, String target) async {
   final result = await sh('git diff --name-only $target');
   final diff = result.stdout as String;
 
   print('Файлы, изменённые в сравнении с целевой веткой :\n$diff');
 
-  final changedList = elements
-      .where((e) => diff.contains(e.directoryName))
-      .toList()
-        ..forEach((e) => e.changed = true);
+  final changedList = elements.where((e) => diff.contains(e.directoryName)).toList()
+    ..forEach((e) => e.changed = true);
 
   final names = changedList.map((e) => e.name).join('\n');
 
@@ -176,4 +174,15 @@ Future<void> clearChangedListFile() async {
 
 String _getChangedListFilePath() {
   return join(Config.repoRootPath, _changedListFileName);
+}
+
+/// Список зависимостей "флаттер стандарта" у элемента
+List<Dependency> getDependency(Element element) {
+  var dependencies = <Dependency>[];
+  for (var dependency in element.dependencies) {
+    if (!dependency.thirdParty) {
+      dependencies.add(dependency);
+    }
+  }
+  return dependencies;
 }

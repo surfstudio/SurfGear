@@ -19,6 +19,7 @@ import 'package:ci/tasks/impl/publish/generates_release_notes_task.dart';
 import 'package:ci/tasks/impl/publish/pub_check_release_version_task.dart';
 import 'package:ci/tasks/impl/publish/pub_dry_run_task.dart';
 import 'package:ci/tasks/impl/testing/run_module_tests_check.dart';
+import 'package:ci/tasks/show_dependency_graph_task.dart';
 import 'package:ci/tasks/utils.dart';
 
 import 'impl/building/increment_unstable_version_task.dart';
@@ -123,6 +124,10 @@ Future<bool> checkCyrillicChangelog(Element element) {
     element,
     FileSystemManager(),
   ).run();
+}
+/// Выводим граф зависимостей
+Future<void> showDependencyGraph(List<Element> elements) {
+  return ShowDependencyGraphTask(elements).run();
 }
 
 /// Проверка лицензирования переданных пакетов.
