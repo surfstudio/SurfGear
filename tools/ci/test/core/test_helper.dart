@@ -201,3 +201,23 @@ class PubspecParserMock extends Mock implements PubspecParser {}
 /// Yaml Manager
 
 class YamlManagerMock extends Mock implements YamlManager {}
+
+/// Dependency element
+
+GitDependency createGitDependency({Element element, bool thirdParty = true}) {
+  return GitDependency(element: element, thirdParty: thirdParty);
+}
+
+PathDependency createPathDependency({Element element, bool thirdParty = true}) {
+  return PathDependency(element: element, thirdParty: thirdParty);
+}
+
+HostedDependency createHostedDependency({Element element, bool thirdParty = true}) {
+  return HostedDependency(element: element, thirdParty: thirdParty);
+}
+
+class GitDependencyMock extends Mock implements GitDependency {}
+
+class PathDependencyMock extends Mock implements PathDependency {}
+
+class HostedDependencyMock extends Mock implements HostedDependency {}

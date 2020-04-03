@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart' as w;
+import 'package:flutter/widgets.dart' hide Action;
 import 'package:flutter_template/config/config.dart';
 import 'package:flutter_template/config/env/env.dart';
 import 'package:flutter_template/domain/debug_options.dart';
@@ -8,8 +7,6 @@ import 'package:flutter_template/interactor/debug/debug_screen_interactor.dart';
 import 'package:flutter_template/ui/screen/debug/di/debug_screen_component.dart';
 import 'package:flutter_template/ui/screen/welcome_screen/welcome_route.dart';
 import 'package:injector/injector.dart';
-import 'package:mwwm/mwwm.dart';
-import 'package:surf_mwwm/surf_mwwm.dart' as m;
 import 'package:surf_mwwm/surf_mwwm.dart';
 
 enum UrlType { test, prod, dev }
@@ -28,29 +25,29 @@ DebugWidgetModel createDebugWidgetModel(BuildContext context) {
 
 /// [WidgetModel] для экрана <Debug>
 class DebugWidgetModel extends WidgetModel {
-  final w.NavigatorState navigator;
+  final NavigatorState navigator;
   final DebugScreenInteractor _debugScreenInteractor;
-  final w.VoidCallback _rebuildApplication;
+  final VoidCallback _rebuildApplication;
 
   final urlState = StreamedState<UrlType>();
   TextFieldStreamedState proxyValueState;
   final debugOptionsState =
       StreamedState<DebugOptions>(Environment.instance().config.debugOptions);
 
-  final switchServer = m.Action<UrlType>();
-  final showDebugNotification = m.Action();
-  final closeScreenAction = m.Action();
-  final urlChangeAction = m.Action<UrlType>();
+  final switchServer = Action<UrlType>();
+  final showDebugNotification = Action();
+  final closeScreenAction = Action();
+  final urlChangeAction = Action<UrlType>();
 
   final proxyChanges = TextEditingAction();
 
-  final showPerformanceOverlayChangeAction = m.Action<bool>();
-  final debugShowMaterialGridChangeAction = m.Action<bool>();
-  final checkerboardRasterCacheImagesChangeAction = m.Action<bool>();
-  final checkerboardOffscreenLayersChangeAction = m.Action<bool>();
-  final showSemanticsDebuggerChangeAction = m.Action<bool>();
-  final debugShowCheckedModeBannerChangeAction = m.Action<bool>();
-  final setProxy = m.Action<void>();
+  final showPerformanceOverlayChangeAction = Action<bool>();
+  final debugShowMaterialGridChangeAction = Action<bool>();
+  final checkerboardRasterCacheImagesChangeAction = Action<bool>();
+  final checkerboardOffscreenLayersChangeAction = Action<bool>();
+  final showSemanticsDebuggerChangeAction = Action<bool>();
+  final debugShowCheckedModeBannerChangeAction = Action<bool>();
+  final setProxy = Action<void>();
 
   String currentUrl;
   String proxyUrl;

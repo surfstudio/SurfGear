@@ -23,6 +23,8 @@ dependencies:
     path: ../geolocation
   analytics:
     path: ../analytics
+  bottom_sheet:
+    path: ../bottom_sheet
 
   # модуль push уведомлений
   push:
@@ -39,7 +41,7 @@ dependencies:
   dio: ^3.0.8
 
   #storage
-  shared_preferences: ^0.5.6
+  shared_preferences: 0.5.6+3
   path_provider: ^1.5.1
 
   #rx

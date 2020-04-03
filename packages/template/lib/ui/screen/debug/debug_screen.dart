@@ -6,7 +6,6 @@ import 'package:flutter_template/ui/res/text_styles.dart';
 import 'package:flutter_template/ui/screen/debug/debug_wm.dart';
 import 'package:flutter_template/ui/screen/debug/di/debug_screen_component.dart';
 import 'package:injector/injector.dart';
-import 'package:mwwm/mwwm.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
 const String testServer = 'Тестовый';

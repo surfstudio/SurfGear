@@ -1,20 +1,10 @@
-# Работа с файловым хранилищем
-
 [Главная](../main.md)
 
-Для работы с хранилищами данных в студийной практике используются расширения класса [Storage][storage_link]
-Он предоставляет общий публичный апи для работы с данными: get - получить, put - вставить, remove - удалить, 
-clear - очистить хранилище.
+# Работа с файловым хранилищем
 
-Для сохранения данных на жесткий диск устройства сейчас имеется класс [LocalStorage][local_storage_link].
-Он предоставляет апи для работы с файловой системой исполняемой среды. Данный апи можно оборачивать
-в более высокоуровневые классы, которые будут сохранять данные на жесткий диск в различных форматах.
+Для работы с хранилищем используются классы, реализующие интерфейс [Storage][storage_link]. На текущий момент существует только один [JsonStorage][json_storage_link], который позволяет сохранять объекты в формате Json.
 
-Например, на текущий момент существует обертка [JsonStorage][json_storage_link].
-Данный класс является расширением Storage и сохраняет json-объекты на локальный жесткий диск, используя
-LocalStorage.
-
-# Пример использования
+## Пример использования
 
 ```dart
 StreamController<Counter> _counterController;
@@ -30,6 +20,5 @@ _storage
         .then(_counterController.add);
 ```
 
-[local_storage_link]:../../template/lib/interactor/common/storage/localstorage.dart
-[json_storage_link]:../../storage/lib/impl/json_storage.dart
-[storage_link]:../../storage/lib/base/storage.dart
+[json_storage_link]:../../packages/storage/lib/impl/json_storage.dart
+[storage_link]:../../packages/storage/lib/base/storage.dart
