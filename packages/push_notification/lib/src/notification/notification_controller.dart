@@ -2,8 +2,6 @@ import 'dart:collection';
 
 import 'package:push_notification/src/base/push_handle_strategy.dart';
 import 'package:push_notification/src/notification/notificator/android/android_notiffication_specifics.dart';
-import 'package:push_notification/src/notification/notificator/init_settings.dart';
-import 'package:push_notification/src/notification/notificator/ios/ios_init_settings.dart';
 import 'package:push_notification/src/notification/notificator/notification_specifics.dart';
 import 'package:push_notification/src/notification/notificator/notificator.dart';
 
@@ -18,15 +16,11 @@ class NotificationController {
   Map<int, NotificationCallback> callbackMap =
       HashMap<int, NotificationCallback>();
 
-  NotificationController() {
+  NotificationController(OnPemissionDeclineCallback onPermissionDecline) {
     _notificator = Notificator(
-        initSettings: InitSettings(
-          iosInitSettings: IOSInitSettings(
-            requestSoundPermission: true,
-            requestAlertPermission: true,
-          ),
-        ),
-        onNotificationTapCallback: _internalOnSelectNotification);
+      onNotificationTapCallback: _internalOnSelectNotification,
+      onPermissionDecline: onPermissionDecline,
+    );
   }
 
   /// Request notification permissions (iOS only)
