@@ -80,7 +80,7 @@ class CommandParser {
         CommandParser._remoteUrl,
         abbr: CommandParser._remoteUrlAbbr,
         help: 'Path to repository https',
-        valueHelp: 'url https',
+        valueHelp: 'url_https',
       )
 
       /// Help.
