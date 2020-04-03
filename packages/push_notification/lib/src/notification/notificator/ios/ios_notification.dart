@@ -10,9 +10,13 @@ class IOSNotification {
   /// Callback notification push
   final OnNotificationTapCallback onNotificationTap;
 
+  /// Callback notification decline
+  final OnPemissionDeclineCallback onPermissionDecline;
+
   IOSNotification({
     this.channel,
     this.onNotificationTap,
+    this.onPermissionDecline,
   });
 
   Future init() async {
@@ -25,11 +29,18 @@ class IOSNotification {
               onNotificationTap(notificationData);
             }
             break;
+          case CALLBACK_PERMISSION_DECLINE:
+            onPermissionDecline();
+            break;
         }
       },
     );
   }
 
+  /// Request permissions
+  ///
+  /// requestSoundPermission - is play sound
+  /// requestSoundPermission - is show alert
   Future<bool> requestPermissions({
     bool requestSoundPermission = false,
     bool requestAlertPermission = false,

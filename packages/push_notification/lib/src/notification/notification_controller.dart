@@ -16,9 +16,10 @@ class NotificationController {
   Map<int, NotificationCallback> callbackMap =
       HashMap<int, NotificationCallback>();
 
-  NotificationController() {
+  NotificationController(OnPemissionDeclineCallback onPermissionDecline) {
     _notificator = Notificator(
       onNotificationTapCallback: _internalOnSelectNotification,
+      onPermissionDecline: onPermissionDecline,
     );
   }
 

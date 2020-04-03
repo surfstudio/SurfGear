@@ -7,7 +7,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import android.content.Context
 import android.content.Intent
-import androidx.annotation.NonNull;
+import androidx.annotation.NonNull
 import pushnotification.push_notification.handler.PushHandler
 import pushnotification.push_notification.strategy.PushStrategy
 import pushnotification.push_notification.type.PushNotificationTypeData
@@ -81,17 +81,9 @@ public class PushNotificationPlugin(private var context: Context? = null,
       }
 
       override fun pushOpenListener(context: Context, intent: Intent) {
-        /**todo пуш открывает приложение только в свернутом виде
-         * если выгрузить приложение пуш по тапу ничего не делает **/
         val notificationTypeData = intent.getSerializableExtra(NOTIFICATION_DATA) as PushNotificationTypeData
         val notificationData = HashMap(notificationTypeData.data?.notificationData)
-        val packageName = this@PushNotificationPlugin.context!!.packageName
 
-        val launchIntent = Intent("android.intent.category.LAUNCHER")
-        launchIntent.setClassName(packageName, "$packageName.MainActivity")
-        launchIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
-        this@PushNotificationPlugin.context!!.startActivity(launchIntent)
         channel!!.invokeMethod(CALLBACK_OPEN, notificationData)
       }
     }

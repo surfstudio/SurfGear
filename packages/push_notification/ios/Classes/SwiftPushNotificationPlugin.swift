@@ -7,6 +7,7 @@ let CHANNEL = "surf_notification"
 let CALL_SHOW = "show"
 let CALL_REQUEST = "request"
 let CALLBACK_OPEN = "notificationOpen"
+let CALLBACK_PERMISSION_DECLINE = "permissionDecline"
 // Arguments names
 let ARG_PUSH_ID = "pushId"
 let ARG_TITLE = "title"
@@ -71,7 +72,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         notificationCenter.requestAuthorization(options: options) {
             (didAllow, error) in
             if !didAllow {
-                print("User has declined notifications")
+                self.channel.invokeMethod(CALLBACK_PERMISSION_DECLINE, arguments: nil)
                 return
             }
         }
@@ -110,11 +111,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
         // Add notification to notificationCenter
         // After that, a notification is displayed
-        notificationCenter.add(request) { (error) in
-            if let error = error {
-                print("Error \(error.localizedDescription)")
-            }
-        }
+        notificationCenter.add(request)
     }
 
     /*  Called when the application is in the foreground. We get a UNNotification object that contains the UNNotificationRequest request. In the body of the method, you need to make a completion handler call with a set of options to notify UNNotificationPresentationOptions

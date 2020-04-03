@@ -11,12 +11,16 @@ import 'package:push_notification/src/notification/notificator/notification_spec
 /// notificationData - notification data
 typedef void OnNotificationTapCallback(Map notificationData);
 
+/// Callback permission decline
+typedef void OnPemissionDeclineCallback();
+
 /// Channels and methods names
 const String CHANNEL_NAME = "surf_notification";
 const String CALL_INIT = "initialize";
 const String CALL_SHOW = "show";
 const String CALL_REQUEST = "request";
 const String CALLBACK_OPEN = "notificationOpen";
+const String CALLBACK_PERMISSION_DECLINE = "permissionDecline";
 
 /// Arguments names
 const String ARG_PUSH_ID = "pushId";
@@ -34,8 +38,12 @@ class Notificator {
   /// Callback notification clicks
   OnNotificationTapCallback onNotificationTapCallback;
 
+  /// Callback notification decline(ios only)
+  final OnPemissionDeclineCallback onPermissionDecline;
+
   Notificator({
     this.onNotificationTapCallback,
+    this.onPermissionDecline,
   }) {
     _init();
   }
@@ -53,6 +61,9 @@ class Notificator {
         channel: _channel,
         onNotificationTap: (notificationData) {
           return onNotificationTapCallback(notificationData);
+        },
+        onPermissionDecline: () {
+          return onPermissionDecline();
         },
       );
       return _iosNotification.init();
