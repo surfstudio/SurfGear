@@ -5,7 +5,6 @@ import UserNotifications
 // Channels and methods names
 let CHANNEL = "surf_notification"
 let CALL_SHOW = "show"
-let CALL_INIT = "initialize"
 let CALL_REQUEST = "request"
 let CALLBACK_OPEN = "notificationOpen"
 // Arguments names
@@ -20,7 +19,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
 
     let notificationCenter = UNUserNotificationCenter.current()
 
-     var channel :FlutterMethodChannel
+    var channel :FlutterMethodChannel
 
     init(channel channel: FlutterMethodChannel) {
             self.channel = channel
@@ -35,14 +34,11 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         let args = call.arguments as! NSDictionary
         switch call.method{
-        case CALL_INIT:
-            initialize(args: args)
+        case CALL_REQUEST:
+            requestPermissions(args: args)
             break
         case CALL_SHOW:
             show(args: args)
-            break;
-        case CALL_REQUEST:
-            requestPermissions(args: args)
             break;
         default:
             result(FlutterMethodNotImplemented)
@@ -51,7 +47,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
     }
 
     // Initialize Notifications
-    func initialize(args : NSDictionary) {
+    func requestPermissions(args : NSDictionary) {
         //Implements a notification display while the program is running
         notificationCenter.delegate = self;
 
@@ -81,10 +77,6 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         }
     }
 
-    func requestPermissions(args: NSDictionary) {
-        // TODO
-    }
-
     // Show notifications
     func show(args: NSDictionary) {
         // Notification id
@@ -107,7 +99,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         content.body = body
         content.sound = UNNotificationSound.default
         content.userInfo = data
-
+        
         /* Trigger when notification is displayed
            Now it is configured to show
            notification with a minimum delay without repetitions
