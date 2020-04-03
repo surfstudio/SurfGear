@@ -4,9 +4,6 @@
 
 ## Общая структура вики
 
-1. **Работа с репозиторием**
-    1. [Git flow в репозитории](repo_guides/gitflow.md)
-    2. [Синхронизация модулей](repo_guides/sync.md)
 1. **Общие сведения о построении приложения**
     1. Требования к коду
         1. [Java Code Style][java_codestyle]
@@ -31,12 +28,6 @@
     1. [Создание экрана](ui/create_screen.md)
     1. [Диалоги](ui/dialog.md)
     1. [Сообщения](common/message.md)
-
-1. [Инициализация приложения](common/init_project.md)
-    1. Подготовка проекта к выгрузке в fabric
-    1. [Сборка и выгрузка проекта](common/build.md)
-    1. [Continious Delivery](common/cd.md)
-    1. [Подключение зависимостей в проект](common/dependencies.md)
 
 1. Лучшие практики
     1. [CI](https://github.com/surfstudio/jenkins-pipeline-lib)
