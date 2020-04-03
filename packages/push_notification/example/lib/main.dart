@@ -18,12 +18,9 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     notification = Notificator(
-      initSettings: InitSettings(
-        iosInitSettings: IOSInitSettings(
-          requestAlertPermission: true,
-          requestSoundPermission: true,
-        ),
-      ),
+      onPermissionDecline: (){
+        print("permission decline");
+      },
       onNotificationTapCallback: (notificationData) {
         setState(
           () {
@@ -32,6 +29,11 @@ class _MyAppState extends State<MyApp> {
           },
         );
       },
+    );
+
+    notification.requestPermissions(
+      requestSoundPermission: true,
+      requestAlertPermission: true,
     );
   }
 

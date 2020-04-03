@@ -39,6 +39,9 @@ class PushHandler {
     }
 
     var strategy = _strategyFactory.createByData(message);
+    if (handlerType == MessageHandlerType.onLaunch && message != null) {
+      strategy.onBackgroundProcess(message);
+    }
     _notificationController.show(
       strategy,
       (_) {

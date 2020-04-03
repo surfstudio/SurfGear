@@ -5,9 +5,9 @@ import UserNotifications
 // Channels and methods names
 let CHANNEL = "surf_notification"
 let CALL_SHOW = "show"
-let CALL_INIT = "initialize"
 let CALL_REQUEST = "request"
 let CALLBACK_OPEN = "notificationOpen"
+let CALLBACK_PERMISSION_DECLINE = "permissionDecline"
 // Arguments names
 let ARG_PUSH_ID = "pushId"
 let ARG_TITLE = "title"
@@ -20,7 +20,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
 
     let notificationCenter = UNUserNotificationCenter.current()
 
-     var channel :FlutterMethodChannel
+    var channel :FlutterMethodChannel
 
     init(channel channel: FlutterMethodChannel) {
             self.channel = channel
@@ -35,14 +35,11 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         let args = call.arguments as! NSDictionary
         switch call.method{
-        case CALL_INIT:
-            initialize(args: args)
+        case CALL_REQUEST:
+            requestPermissions(args: args)
             break
         case CALL_SHOW:
             show(args: args)
-            break;
-        case CALL_REQUEST:
-            requestPermissions(args: args)
             break;
         default:
             result(FlutterMethodNotImplemented)
@@ -51,7 +48,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
     }
 
     // Initialize Notifications
-    func initialize(args : NSDictionary) {
+    func requestPermissions(args : NSDictionary) {
         //Implements a notification display while the program is running
         notificationCenter.delegate = self;
 
@@ -75,14 +72,10 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         notificationCenter.requestAuthorization(options: options) {
             (didAllow, error) in
             if !didAllow {
-                print("User has declined notifications")
+                self.channel.invokeMethod(CALLBACK_PERMISSION_DECLINE, arguments: nil)
                 return
             }
         }
-    }
-
-    func requestPermissions(args: NSDictionary) {
-        // TODO
     }
 
     // Show notifications
@@ -107,7 +100,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         content.body = body
         content.sound = UNNotificationSound.default
         content.userInfo = data
-
+        
         /* Trigger when notification is displayed
            Now it is configured to show
            notification with a minimum delay without repetitions
@@ -118,11 +111,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
         // Add notification to notificationCenter
         // After that, a notification is displayed
-        notificationCenter.add(request) { (error) in
-            if let error = error {
-                print("Error \(error.localizedDescription)")
-            }
-        }
+        notificationCenter.add(request)
     }
 
     /*  Called when the application is in the foreground. We get a UNNotification object that contains the UNNotificationRequest request. In the body of the method, you need to make a completion handler call with a set of options to notify UNNotificationPresentationOptions
