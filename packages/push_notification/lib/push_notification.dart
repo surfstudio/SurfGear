@@ -9,7 +9,5 @@ export 'package:push_notification/src/push_handler.dart';
 export 'package:push_notification/src/push_navigator_holder.dart';
 export 'package:push_notification/src/push_observer.dart';
 export 'package:push_notification/src/notification/notificator/notificator.dart';
-export 'package:push_notification/src/notification/notificator/init_settings.dart';
-export 'package:push_notification/src/notification/notificator/ios/ios_init_settings.dart';
 export 'package:push_notification/src/notification/notificator/android/android_notiffication_specifics.dart';
 export 'package:push_notification/src/notification/notificator/notification_specifics.dart';
