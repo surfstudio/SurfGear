@@ -53,7 +53,7 @@ platform :ios do
       export_xcargs: "-allowProvisioningUpdates"
     )
 
-    #upload_to_fad(app_id: "1:408916197886:ios:9789acc2112ee7e57240af") todo your id
+    #upload_to_fad(app_id: "1:408916197886:ios:9789acc2112ee7e57240af") #todo your id
 
     sh("rm ../*.mobileprovision")
   end
@@ -79,7 +79,7 @@ platform :ios do
       export_method: "app-store"
     )
 
-    #upload_to_fad(app_id: "1:353274792412:ios:c4c0307b647a34873b6719") todo your id
+    #upload_to_fad(app_id: "1:353274792412:ios:c4c0307b647a34873b6719") #todo your id
 
     sh("rm ../*.mobileprovision")
   end
@@ -88,7 +88,7 @@ platform :ios do
     app_id = options[:app_id]
     firebase_app_distribution(
         app: "#{app_id}",
-        groups: "surf", todo your group name
+        groups: "surf", #todo your group name
         release_notes: "QA",
         firebase_cli_path: "/usr/local/bin/firebase",
         firebase_cli_token: "$FIREBASE_TOKEN",
