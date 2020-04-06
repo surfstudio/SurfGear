@@ -21,7 +21,7 @@ dependencies:
     sdk: flutter
 
   geolocator: ^5.0.0
-  location: 2.4.0
+  location: ^2.3.5
 
 dev_dependencies:
   flutter_test:
