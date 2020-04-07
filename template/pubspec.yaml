@@ -13,44 +13,44 @@ dependencies:
   #внутренние библиотеки
   network:
     git:
-      url: https://gitlab.com/builder-surf/flutter-standard.git
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
       ref: project-RIG-12
       path: network
   logger:
     git:
-      url: https://gitlab.com/builder-surf/flutter-standard.git
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
       ref: project-RIG-12
       path: logger
   injector:
     git:
-      url: https://gitlab.com/builder-surf/flutter-standard.git
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
       ref: project-RIG-12
       path: injector
   mwwm:
     git:
-      url: https://gitlab.com/builder-surf/flutter-standard.git
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
       ref: project-RIG-12
       path: mwwm
   geolocation:
     git:
-      url: https://gitlab.com/builder-surf/flutter-standard.git
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
       ref: project-RIG-12
       path: geolocation
   analytics:
     git:
-      url: https://gitlab.com/builder-surf/flutter-standard.git
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
       ref: project-RIG-12
       path: analytics
 
   # модуль push уведомлений
   push:
     git:
-      url: https://gitlab.com/builder-surf/flutter-standard.git
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
       ref: project-RIG-12
       path: push
   surf_util:
     git:
-      url: https://gitlab.com/builder-surf/flutter-standard.git
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
       ref: project-RIG-12
       path: surf_util
 
