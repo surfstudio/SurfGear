@@ -22,16 +22,19 @@ class MaterialSwipeRefresh extends SwipeRefreshBase {
     Color indicatorColor,
     Color backgroundColor,
     ScrollController scrollController,
+    EdgeInsets padding,
   })  : indicatorColor = indicatorColor ?? const Color(0xFFFF0000),
         backgroundColor = backgroundColor ?? const Color(0xFFFFFFFF),
         super(
-            key: key,
-            children: children,
-            childrenDelegate: childrenDelegate,
-            stateStream: stateStream,
-            initState: initState,
-            scrollController: scrollController,
-            onRefresh: onRefresh);
+          key: key,
+          children: children,
+          childrenDelegate: childrenDelegate,
+          stateStream: stateStream,
+          initState: initState,
+          scrollController: scrollController,
+          onRefresh: onRefresh,
+          padding: padding,
+        );
 
   @override
   _MaterialSwipeRefreshState createState() => _MaterialSwipeRefreshState();
@@ -45,12 +48,15 @@ class _MaterialSwipeRefreshState
       key: key,
       child: widget.childrenDelegate == null
           ? ListView(
+              padding: widget.padding,
               controller: widget.scrollController ?? ScrollController(),
               children: children,
               physics: AlwaysScrollableScrollPhysics(),
             )
           : ListView.custom(
+              padding: widget.padding,
               childrenDelegate: widget.childrenDelegate,
+              controller: widget.scrollController ?? ScrollController(),
               physics: AlwaysScrollableScrollPhysics(),
             ),
       onRefresh: onRefresh,

@@ -22,19 +22,22 @@ class CupertinoSwipeRefresh extends SwipeRefreshBase {
     Stream<SwipeRefreshState> stateStream,
     SwipeRefreshState initState,
     VoidCallback onRefresh,
+    EdgeInsets padding,
     this.refreshTriggerPullDistance = DEFAULT_REFRESH_TRIGGER_PULL_DISTANCE,
     this.refreshIndicatorExtent = DEFAULT_REFRESH_INDICATOR_EXTENT,
     this.indicatorBuilder =
         CupertinoSliverRefreshControl.buildSimpleRefreshIndicator,
     ScrollController scrollController,
   }) : super(
-            key: key,
-            children: children,
-            stateStream: stateStream,
-            initState: initState,
-            scrollController: scrollController,
-            childrenDelegate: childrenDelegate,
-            onRefresh: onRefresh);
+    key: key,
+    children: children,
+    stateStream: stateStream,
+    initState: initState,
+    scrollController: scrollController,
+    childrenDelegate: childrenDelegate,
+    onRefresh: onRefresh,
+    padding: padding,
+  );
 
   @override
   SwipeRefreshBaseState createState() => _CupertinoSwipeRefreshState();
@@ -66,14 +69,8 @@ class _CupertinoSwipeRefreshState
           builder: widget.indicatorBuilder,
         ),
         SliverSafeArea(
-          sliver: SliverList(
-            delegate: widget.childrenDelegate == null
-                ? SliverChildListDelegate(
-                    children,
-                  )
-                : widget.childrenDelegate,
-          ),
-        )
+            sliver: _buildList(children),
+        ),
       ],
     );
   }
@@ -90,5 +87,25 @@ class _CupertinoSwipeRefreshState
         completer = null;
       }
     }
+  }
+
+  Widget _buildList(List<Widget> children) {
+    if (widget.padding != null) return SliverPadding(
+      padding: widget.padding,
+      sliver: SliverList(
+        delegate: widget.childrenDelegate == null
+            ? SliverChildListDelegate(
+          children,
+        )
+            : widget.childrenDelegate,
+      ),
+    );
+    return SliverList(
+      delegate: widget.childrenDelegate == null
+          ? SliverChildListDelegate(
+        children,
+      )
+          : widget.childrenDelegate,
+    );
   }
 }
