@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:permission/base/exceptions.dart';
 import 'package:permission/base/permission_manager.dart';
 import 'package:permission/impl/default_permission_manager.dart';
+import 'package:permission/permission.dart';
 
 void main() => runApp(MyApp());
 
@@ -42,8 +43,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final PermissionManager _permissionManager = DefaultPermissionManager();
+  ProceedPermissionStrategyStorage _strategyStorage;
+  PermissionManager _permissionManager;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
+  @override
+  void initState() {
+    _strategyStorage = DefaultProceedPermissionStrategyStorage(
+      strategies: Map(),
+      defaultStrategy: ProceedPermissionStrategyExample(),
+    );
+    _permissionManager = DefaultPermissionManager(_strategyStorage);
+
+    super.initState();
+  }
 
   void _requestPermission(Permission permission) async {
     try {

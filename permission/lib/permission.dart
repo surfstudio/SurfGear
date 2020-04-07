@@ -14,7 +14,11 @@
 
 library permission;
 
+export 'package:permission/base/strategy/proceed_permission_strategy.dart';
+export 'package:permission/base/strategy/deny_resolve_strategy_storage.dart';
 export 'package:permission/base/permission_manager.dart';
 export 'package:permission/base/exceptions.dart';
 
+export 'package:permission/impl/strategy/proceed_permission_strategy_example.dart';
+export 'package:permission/impl/strategy/default_proceed_permission_strategy_storage.dart';
 export 'package:permission/impl/default_permission_manager.dart';
