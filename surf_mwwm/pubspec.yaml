@@ -14,19 +14,19 @@ dependencies:
   #inner packages
   injector:
     git:
-      url: https://gitlab.com/builder-surf/flutter-standard.git
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
       ref: project-RIG-12
       path: injector
 
   relation:
     git:
-      url: https://gitlab.com/builder-surf/flutter-standard.git
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
       ref: project-RIG-12
       path: relation
 
   mwwm:
     git:
-      url: https://gitlab.com/builder-surf/flutter-standard.git
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
       ref: project-RIG-12
       path: mwwm
 
