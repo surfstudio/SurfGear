@@ -5,7 +5,7 @@
 ```
   logger:
     git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      url: https://gitlab.com/surfstudio/projects/standard/flutter-standard.git
       path: logger
       ref: ХХХХХХ
 ```
