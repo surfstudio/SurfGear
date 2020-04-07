@@ -24,7 +24,7 @@ dependencies:
   # datalist
   datalist:
     git:
-      url: https://gitlab.com/builder-surf/flutter-standard.git
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
       ref: project-RIG-12
       path: datalist
 
