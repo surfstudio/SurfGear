@@ -15,7 +15,7 @@ dependencies:
   injector:
     git:
       url: https://gitlab.com/surfstudio/projects/standard/flutter-standard.git
-      ref: project-PCK
+      ref: hot-fix-update-dep
       path: injector
 
   #rx
