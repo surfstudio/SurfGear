@@ -12,7 +12,7 @@ dependencies:
 
   tabnavigator:
     git:
-      url: https://gitlab.com/surfstudio/projects/standard/flutter-standard.git
+      url: https://gitlab.com/builder-surf/flutter-standard.git
       ref: project-RIG-12
       path: tabnavigator
 
