@@ -14,7 +14,7 @@ dependencies:
   #внутренние библиотеки
   injector:
     git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      url: https://gitlab.com/surfstudio/projects/standard/flutter-standard.git
       ref: project-PCK
       path: injector
 
