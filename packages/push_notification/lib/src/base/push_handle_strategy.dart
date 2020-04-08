@@ -5,9 +5,15 @@ import 'package:push_notification/src/base/notification_payload.dart';
 abstract class PushHandleStrategy<PT extends NotificationPayload> {
   PushHandleStrategy(this.payload);
 
-  /// android chanel setting
-  String notificationChannelId = 'default_push_chanel_id';
-  String notificationChannelName = 'Chanel name';
+  /// Android notification channel id
+  ///
+  /// "@string/notification_channel_id""
+  String notificationChannelId;
+
+  /// Android notification channel name
+  ///
+  /// "@string/notification_channel_name"
+  String notificationChannelName;
 
   /// push id
   int pushId = 0;

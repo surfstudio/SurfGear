@@ -24,7 +24,13 @@ class AndroidNotification {
         switch (call.method) {
           case CALLBACK_OPEN:
             if (onNotificationTap != null) {
-              final notificationData = Map.of(call.arguments);
+              Map<String, String> notificationData = Map.of(call.arguments).map(
+                    (key, value) =>
+                    MapEntry(
+                      key.toString(),
+                      value.toString(),
+                    ),
+              );
               onNotificationTap(notificationData);
             }
             break;
