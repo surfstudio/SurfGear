@@ -48,86 +48,85 @@ private const val DEFAULT_AUTOCANCEL = true
 
 /** PushNotificationPlugin */
 public class PushNotificationPlugin(private var context: Context? = null,
-                                    private var channel: MethodChannel? = null): MethodCallHandler {
-  private val activeActivityHolder = ActiveActivityHolder()
-  private val pusInteractor = PushInteractor()
+                                    private var channel: MethodChannel? = null) : MethodCallHandler {
+    private val activeActivityHolder = ActiveActivityHolder()
+    private val pusInteractor = PushInteractor()
 
-  private val pushHandler = PushHandler(activeActivityHolder, pusInteractor)
+    private val pushHandler = PushHandler(activeActivityHolder, pusInteractor)
 
-  companion object {
-    @JvmStatic
-    fun registerWith(registrar: Registrar): Unit {
-      val channel = MethodChannel(registrar.messenger(), CHANNEL)
-      channel.setMethodCallHandler(PushNotificationPlugin(registrar.context(), channel))
-    }
-  }
-
-  override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-    val args = call.arguments as Map<String, *>?
-
-    when (call.method) {
-      CALL_INIT -> {
-        initNotificationTapListener()
-      }
-      CALL_SHOW -> handleNotification(args!!)
-      else -> result.notImplemented()
-    }
-  }
-
-  private fun initNotificationTapListener() {
-    PushClickProvider.pushEventListener = object : PushEventListener {
-      override fun pushDismissListener(context: Context, intent: Intent) {
-        channel!!.invokeMethod(CALLBACK_DISMISS, null)
-      }
-
-      override fun pushOpenListener(context: Context, intent: Intent) {
-        /**todo пуш открывает приложение только в свернутом виде
-         * если выгрузить приложение пуш по тапу ничего не делает **/
-        val notificationTypeData = intent.getSerializableExtra(NOTIFICATION_DATA) as PushNotificationTypeData
-        val notificationData = HashMap(notificationTypeData.data?.notificationData)
-        val packageName = this@PushNotificationPlugin.context!!.packageName
-
-        val launchIntent = Intent("android.intent.category.LAUNCHER")
-        launchIntent.setClassName(packageName, "$packageName.MainActivity")
-        launchIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
-        this@PushNotificationPlugin.context!!.startActivity(launchIntent)
-        channel!!.invokeMethod(CALLBACK_OPEN, notificationData)
-      }
-    }
-  }
-
-  private fun handleNotification(args: Map<String, *>) {
-    val notificationSpecifics = args[ARG_SPECIFICS] as HashMap<String, *>
-    val icon = notificationSpecifics[ARG_ICON] as String? ?: DEFAULT_ICON_NAME
-    val channelId = notificationSpecifics[ARG_CHANNEL_ID] as String? ?: DEFAULT_CHANNEL_ID
-    val channelName = notificationSpecifics[ARG_CHANNEL_NAME] as String? ?: DEFAULT_CHANNEL_NAME
-    val color = notificationSpecifics[ARG_COLOR] as String? ?: DEFAULT_COLOR
-    val autoCancelable: Boolean = notificationSpecifics[ARG_AUTOCANCELABLE] as Boolean?
-            ?: DEFAULT_AUTOCANCEL
-
-    val data = args[ARG_DATA] as HashMap<String, String>?
-
-    val strategy = PushStrategy(
-            icon = getResourceId(icon, FOLDER_DRAWABLE),
-            channelId = getResourceId(channelId, FOLDER_STRING),
-            channelName = getResourceId(channelName, FOLDER_STRING),
-            color = getResourceId(color, FOLDER_COLOR),
-            autoCancelable = autoCancelable)
-
-    if (data != null) {
-      strategy.typeData.setDataFromMap(data)
+    companion object {
+        @JvmStatic
+        fun registerWith(registrar: Registrar): Unit {
+            val channel = MethodChannel(registrar.messenger(), CHANNEL)
+            channel.setMethodCallHandler(PushNotificationPlugin(registrar.context(), channel))
+        }
     }
 
-    pushHandler.handleMessage(context!!,
-            uniqueId = args[ARG_PUSH_ID] as Int? ?: -1,
-            title = args[ARG_TITLE] as String? ?: EMPTY_STRING,
-            body = args[ARG_BODY] as String? ?: EMPTY_STRING,
-            pushHandleStrategy = strategy
-    )
-  }
+    override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+        val args = call.arguments as Map<String, *>?
 
-  private fun getResourceId(resName: String, defType: String): Int {
-    return context!!.resources.getIdentifier(resName, defType, context!!.packageName)
-  }
+        when (call.method) {
+            CALL_INIT -> {
+                initNotificationTapListener()
+            }
+            CALL_SHOW -> handleNotification(args!!)
+            else -> result.notImplemented()
+        }
+    }
+
+    private fun initNotificationTapListener() {
+        PushClickProvider.pushEventListener = object : PushEventListener {
+            override fun pushDismissListener(context: Context, intent: Intent) {
+                channel!!.invokeMethod(CALLBACK_DISMISS, null)
+            }
+
+            override fun pushOpenListener(context: Context, intent: Intent) {
+                /**todo пуш открывает приложение только в свернутом виде
+                 * если выгрузить приложение пуш по тапу ничего не делает **/
+                val notificationTypeData = intent.getSerializableExtra(NOTIFICATION_DATA) as PushNotificationTypeData
+
+                //TODO: Разобраться, почему не приходит NOTIFICATION_DATA
+                var notificationData = HashMap<String, String>();
+                if (notificationTypeData.data != null) {
+                    notificationData = HashMap(notificationTypeData.data?.notificationData)
+                }
+
+                channel!!.invokeMethod(CALLBACK_OPEN, notificationData)
+            }
+        }
+    }
+
+    private fun handleNotification(args: Map<String, *>) {
+        val notificationSpecifics = args[ARG_SPECIFICS] as HashMap<String, *>
+        val icon = notificationSpecifics[ARG_ICON] as String? ?: DEFAULT_ICON_NAME
+        val channelId = notificationSpecifics[ARG_CHANNEL_ID] as String? ?: DEFAULT_CHANNEL_ID
+        val channelName = notificationSpecifics[ARG_CHANNEL_NAME] as String? ?: DEFAULT_CHANNEL_NAME
+        val color = notificationSpecifics[ARG_COLOR] as String? ?: DEFAULT_COLOR
+        val autoCancelable: Boolean = notificationSpecifics[ARG_AUTOCANCELABLE] as Boolean?
+                ?: DEFAULT_AUTOCANCEL
+
+        val data = args[ARG_DATA] as HashMap<String, String>?
+
+        val strategy = PushStrategy(
+                icon = getResourceId(icon, FOLDER_DRAWABLE),
+                channelId = getResourceId(channelId, FOLDER_STRING),
+                channelName = getResourceId(channelName, FOLDER_STRING),
+                color = getResourceId(color, FOLDER_COLOR),
+                autoCancelable = autoCancelable)
+
+        if (data != null) {
+            strategy.typeData.setDataFromMap(data)
+        }
+
+        pushHandler.handleMessage(context!!,
+                uniqueId = args[ARG_PUSH_ID] as Int? ?: -1,
+                title = args[ARG_TITLE] as String? ?: EMPTY_STRING,
+                body = args[ARG_BODY] as String? ?: EMPTY_STRING,
+                pushHandleStrategy = strategy
+        )
+    }
+
+    private fun getResourceId(resName: String, defType: String): Int {
+        return context!!.resources.getIdentifier(resName, defType, context!!.packageName)
+    }
 }
