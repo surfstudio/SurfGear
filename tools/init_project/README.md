@@ -16,7 +16,7 @@ Creating a project template
 -b, --branch -  Ветка для зависимостей flutter-standard, по умолчанию "Dev".
 
 -r, --remote -  Указать свой репозиторий для загрузки template,
-                по умолчанию 'https://bitbucket.org/surfstudio/flutter-standard.git'.
+                по умолчанию 'https://gitlab.com/surfstudio/public/flutter-standard.git'.
 
 -h, --help  -   Показать help.
 

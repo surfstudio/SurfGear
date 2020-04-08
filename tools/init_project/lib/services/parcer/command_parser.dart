@@ -6,7 +6,7 @@ import 'package:init_project/services/utils/print_message_console.dart';
 import 'package:path/path.dart' as p;
 
 /// Путь до репозитория, по умолчанию - ссылка https.
-const String _remoteUrl = 'https://osipov-e-surf@bitbucket.org/surfstudio/flutter-standard.git';
+const String _remoteUrl = 'https://gitlab.com/surfstudio/public/flutter-standard.git';
 
 /// Парсер команд.
 class CommandParser {
@@ -16,7 +16,7 @@ class CommandParser {
   static const String _path = 'out';
   static const String _pathAbbr = 'o';
 
-  /// Опция для имени проекта, я влячется обязательным.
+  /// Опция для имени проекта, является обязательным.
   static const String _nameProject = 'name';
   static const String _nameProjectAbbr = 'n';
 

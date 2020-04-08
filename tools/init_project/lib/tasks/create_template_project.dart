@@ -12,7 +12,7 @@ import 'package:pubspec_yaml/pubspec_yaml.dart';
 const String _pathPackagesTemplate = 'packages/template';
 
 /// Репозиторий.
-const String _urls = 'https://bitbucket.org/surfstudio/flutter-standard.git';
+const String _urls = 'https://gitlab.com/surfstudio/public/flutter-standard.git';
 
 /// Для поиска файлов *.dart.
 const String _fileDart = '.dart';
