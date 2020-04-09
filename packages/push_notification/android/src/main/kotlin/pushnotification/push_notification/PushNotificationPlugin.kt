@@ -42,7 +42,7 @@ private const val ARG_AUTOCANCELABLE = "autoCancelable"
 // default notification specifics
 private const val DEFAULT_ICON_NAME = "@mipmap/ic_launcher"
 private const val DEFAULT_CHANNEL_ID = "@string/notification_channel_id"
-private const val DEFAULT_CHANNEL_NAME = "@string/data_push_channel_name"
+private const val DEFAULT_CHANNEL_NAME = "@string/notification_channel_name"
 private const val DEFAULT_COLOR = "@color/design_default_color_primary"
 private const val DEFAULT_AUTOCANCEL = true
 
@@ -76,9 +76,7 @@ public class PushNotificationPlugin(private var context: Context? = null,
 
   private fun initNotificationTapListener() {
     PushClickProvider.pushEventListener = object : PushEventListener {
-      override fun pushDismissListener(context: Context, intent: Intent) {
-        channel!!.invokeMethod(CALLBACK_DISMISS, null)
-      }
+      override fun pushDismissListener(context: Context, intent: Intent) {}
 
       override fun pushOpenListener(context: Context, intent: Intent) {
         val notificationTypeData = intent.getSerializableExtra(NOTIFICATION_DATA) as PushNotificationTypeData

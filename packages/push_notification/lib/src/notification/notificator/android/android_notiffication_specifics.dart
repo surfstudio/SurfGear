@@ -10,15 +10,17 @@ class AndroidNotificationSpecifics {
   /// @string/notification_channel_id
   final String channelId;
 
-  /// channelId
+  /// Channel name
   ///
   /// @string/notification_channel_name
   final String channelName;
 
-  /// channelId
+  /// Icon color
   ///
   /// @color/notification_color
   final String color;
+
+  /// Notification is auto cancel
   final bool autoCancelable;
 
   AndroidNotificationSpecifics({
