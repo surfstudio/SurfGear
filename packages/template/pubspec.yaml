@@ -27,8 +27,8 @@ dependencies:
     path: ../bottom_sheet
 
   # модуль push уведомлений
-  push:
-    path: ../push
+  push_notification:
+    path: ../push_notification
   surf_util:
     path: ../surf_util
 

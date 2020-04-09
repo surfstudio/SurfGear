@@ -1,4 +1,4 @@
-@Library('surf-lib@version-2.0.0-SNAPSHOT')
+@Library('surf-lib@version-3.0.0-SNAPSHOT')
 // https://bitbucket.org/surfstudio/jenkins-pipeline-lib/
 import ru.surfstudio.ci.pipeline.empty.EmptyScmPipeline
 import ru.surfstudio.ci.stage.StageStrategy
@@ -82,7 +82,7 @@ pipeline.stages = [
 pipeline.finalizeBody = {
     if (pipeline.jobResult == Result.FAILURE) {
         def message = "Ошибка зеркалирования AndroidStandard на GitHub. ${CommonUtil.getBuildUrlSlackLink(this)}"
-        JarvisUtil.sendMessageToGroup(this, message, pipeline.repoUrl, "bitbucket", false)
+        JarvisUtil.sendMessageToGroup(this, message, pipeline.repoUrl, "gitlab", false)
     }
 }
 

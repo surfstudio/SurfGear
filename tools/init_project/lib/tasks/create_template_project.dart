@@ -11,9 +11,6 @@ import 'package:pubspec_yaml/pubspec_yaml.dart';
 /// Путь до папки с template.
 const String _pathPackagesTemplate = 'packages/template';
 
-/// Репозиторий.
-const String _urls = 'https://gitlab.com/surfstudio/public/flutter-standard.git';
-
 /// Для поиска файлов *.dart.
 const String _fileDart = '.dart';
 
@@ -30,6 +27,7 @@ class CreateTemplateProject {
   Future<void> run(Command command, PathDirectory pathDirectory) async {
     try {
       printMessageConsole('Prepare project "${command.nameProject}"...');
+
       await _copyTemplateInFolder(pathDirectory);
       final files = await _searchFile(pathDirectory);
       await _replaceTextInFile(command, files);
@@ -127,7 +125,7 @@ class CreateTemplateProject {
         dependencies[i] = PackageDependencySpec.git(
           GitPackageDependencySpec(
             package: path.package,
-            url: _urls,
+            url: command.remoteUrl,
             ref: Optional(command.branch),
             path: Optional(p.join('packages', path.package)),
           ),

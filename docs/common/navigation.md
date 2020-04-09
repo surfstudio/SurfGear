@@ -1,16 +1,12 @@
-# Навигация
-
 [Главная](../main.md)
 
-[TabNavigator](tabnavigator.md)
+# Навигация
 
-Навигация осуществляется при помощи стандартных механизмов фреймворка, а именно Navigator.
+Навигация осуществляется при помощи стандартного механизма фреймворка — [Navigator](https://flutter.dev/docs/cookbook/navigation)
 
-Общий алгоритм работы:
-Необходимо  выбрать тип роута, и если необходимо, передать параметры.
-Для более детального изучения навигации во Flutter можно обратиться к [официальной документации](https://flutter.dev/docs/cookbook/navigation).
+В студийной практике навигатор используется только в сущности [WidgetModel](../ui/widget_model.md).
 
-# Пример использования
+## Пример использования
 
 ```dart
 class InputNumberRoute extends CupertinoPageRoute {
@@ -24,7 +20,7 @@ class SomeWidgetModel{
 } 
 ```
 
-# Пример использования с передачей параметров
+## Пример использования с передачей параметров
 
 ```dart
 
@@ -67,8 +63,5 @@ Route определяют анимацию перехода.
 Наиболее часто используемые MaterialPageRoute и CupertinoPageRoute.
 Более подробно с созданием роутов можно ознакомиться в [этой статье][route_link]
 
-# Примечание.
- 
-В студийной практике навигатор используется только в сущности [WidgetModel](../ui/widget_model.md).
 
 [route_link]:https://medium.com/@agungsurya/create-custom-router-transition-in-flutter-using-pageroutebuilder-73a1a9c4a171

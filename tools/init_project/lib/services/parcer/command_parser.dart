@@ -5,9 +5,6 @@ import 'package:init_project/domain/command.dart';
 import 'package:init_project/services/utils/print_message_console.dart';
 import 'package:path/path.dart' as p;
 
-/// Путь до репозитория, по умолчанию - ссылка https.
-const String _remoteUrl = 'https://osipov-e-surf@bitbucket.org/surfstudio/flutter-standard.git';
-
 /// Парсер команд.
 class CommandParser {
   final ArgParser _argParser = ArgParser();
@@ -25,8 +22,8 @@ class CommandParser {
   static const String _helpAbbr = 'h';
 
   /// Опция для указания своего пути до репозитория с template.
-  static const String _remote = 'remote';
-  static const String _remoteAbbr = 'r';
+  static const String _remoteUrl = 'remote';
+  static const String _remoteUrlAbbr = 'r';
 
   /// Опция для указания ветки для зависимостей flutter-standard
   static const String _branch = 'branch';
@@ -80,11 +77,10 @@ class CommandParser {
 
       /// Путь до репозитория
       ..addOption(
-        CommandParser._remote,
-        abbr: CommandParser._remoteAbbr,
+        CommandParser._remoteUrl,
+        abbr: CommandParser._remoteUrlAbbr,
         help: 'Path to repository https',
-        valueHelp: 'url',
-        defaultsTo: _remoteUrl,
+        valueHelp: 'url_https',
       )
 
       /// Help.
@@ -106,13 +102,19 @@ class CommandParser {
     if (parsed[CommandParser._nameProject] == null) {
       printMessageConsole(_argParser.usage);
       sleep(Duration(microseconds: 10));
-      return Future.error(Exception('Enter project name'));
+      return Future.error(Exception('Enter project name.'));
+    }
+
+    if (parsed[CommandParser._remoteUrl] == null) {
+      printMessageConsole(_argParser.usage);
+      sleep(Duration(microseconds: 10));
+      return Future.error(Exception('Enter the URL of the remote repository.'));
     }
 
     return Command(
       parsed[CommandParser._nameProject],
+      parsed[CommandParser._remoteUrl],
       path: parsed[CommandParser._path],
-      remoteUrl: parsed[CommandParser._remote],
       branch: parsed[CommandParser._branch],
     );
   }
