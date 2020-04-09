@@ -152,7 +152,7 @@ void _changeDependencies(FileSystemEntity fileSystemEntity) {
     RegExp(_regExpLocal, multiLine: true, caseSensitive: false),
     (match) {
       var packageName = match.group(1);
-      return " ${packageName}:\n    git:\n     url: https://bitbucket.org/surfstudio/flutter-standard.git\n     ref: ${_projectName}-0\n     path: ${packageName}";
+      return " ${packageName}:\n    git:\n     url: https://gitlab.com/surfstudio/public/flutter-standard.git\n     ref: ${_projectName}-0\n     path: ${packageName}";
     },
   );
 
