@@ -32,10 +32,8 @@ class NotificationController {
   }
 
   /// displaying notification from the strategy
-  Future<dynamic> show(
-    PushHandleStrategy strategy,
-    NotificationCallback onSelectNotification,
-  ) {
+  Future<dynamic> show(PushHandleStrategy strategy,
+      NotificationCallback onSelectNotification,) {
     final androidSpecifics = AndroidNotificationSpecifics(
       channelId: strategy.notificationChannelId,
       channelName: strategy.notificationChannelName,
@@ -47,11 +45,22 @@ class NotificationController {
     final platformSpecifics = NotificationSpecifics(androidSpecifics);
 
     print(
-        "DEV_INFO receive for show push : ${strategy.payload.title}, ${strategy.payload.body}");
+        "DEV_INFO receive for show push : ${strategy.payload.title}, ${strategy
+            .payload.body}");
 
-    int pushId = DateTime.now().millisecondsSinceEpoch;
-    var tmpPayload = Map.of(strategy.payload.messageData);
-    tmpPayload[pushIdParam] = pushId;
+    int pushId = DateTime
+        .now()
+        .millisecondsSinceEpoch;
+
+    Map<String, String> tmpPayload = strategy.payload.messageData.map(
+          (key, value) =>
+          MapEntry(
+            key.toString(),
+            value.toString(),
+          ),
+    );
+
+    tmpPayload[pushIdParam] = "$pushId";
     callbackMap[pushId] = onSelectNotification;
 
     return _notificator.show(
@@ -67,7 +76,7 @@ class NotificationController {
     print('DEV_INFO onSelectNotification, payload: $payload');
 
     Map<String, dynamic> tmpPayload = payload;
-    int pushId = tmpPayload[pushIdParam];
+    int pushId = int.parse(tmpPayload[pushIdParam]);
     var onSelectNotification = callbackMap[pushId];
     callbackMap.remove(pushId);
 
