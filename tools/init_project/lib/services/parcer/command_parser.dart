@@ -13,7 +13,7 @@ class CommandParser {
   static const String _path = 'out';
   static const String _pathAbbr = 'o';
 
-  /// Опция для имени проекта, я влячется обязательным.
+  /// Опция для имени проекта, является обязательным.
   static const String _nameProject = 'name';
   static const String _nameProjectAbbr = 'n';
 
