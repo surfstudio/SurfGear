@@ -14,8 +14,8 @@ dependencies:
   notification_permissions: 0.4.0
   permission_handler:
     git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
-      ref: project-ROS-32
+      url: https://gitlab.com/surfstudio/projects/standard/flutter-standard.git
+      ref: project-ROS-33
       path: flutter-permission-handler
 
 dev_dependencies:
