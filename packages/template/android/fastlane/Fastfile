@@ -16,41 +16,32 @@ platform :android do
   desc "Submit a new debug build to Firebase App Distribution"
   lane :beta do
     puts "Firebase App Distribution | QA Build | 32-bit"
-    firebase_app_distribution(
-        app: "1:408916197886:android:cb9a7fce044b7a857240af", #todo input your app_id
+    upload_to_fad(
+        app_id: "1:408916197886:android:cb9a7fce044b7a857240af", #todo input your app_id
         apk_path: "../build/app/outputs/apk/dev/release/app-qa-armeabi-v7a.apk",
         groups: "surf", todo input your app_id
         release_notes: "QA x32",
-        firebase_cli_path: "/usr/local/bin/firebase",
-        firebase_cli_token: "$FIREBASE_TOKEN",
-    )
+     )
 
     puts "Firebase App Distribution | QA Build | 64-bit"
-    firebase_app_distribution(
-        app: "1:408916197886:android:cb9a7fce044b7a857240af", #todo input your app_id
+    upload_to_fad(
+        app_id: "1:408916197886:android:cb9a7fce044b7a857240af", #todo input your app_id
         apk_path: "../build/app/outputs/apk/dev/release/app-qa-arm64-v8a.apk",
         groups: "surf",  #todo input your app_id
         release_notes: "QA x64",
-        firebase_cli_path: "/usr/local/bin/firebase",
-        firebase_cli_token: "$FIREBASE_TOKEN",
     )
 
     puts "Firebase App Distribution | Prod Build | 32-bit"
-    firebase_app_distribution(
-        app: "1:408916197886:android:cb9a7fce044b7a857240af", #todo input your app_id
+    upload_to_fad(
+        app_id: "1:408916197886:android:cb9a7fce044b7a857240af", #todo input your app_id
         apk_path: "../build/app/outputs/apk/prod/release/app-release-armeabi-v7a.apk",
         release_notes: "Prod x32",
-        firebase_cli_path: "/usr/local/bin/firebase",
-        firebase_cli_token: "$FIREBASE_TOKEN",
     )
-
     puts "Firebase App Distribution | Prod Build | 64-bit"
-    firebase_app_distribution(
-        app: "1:408916197886:android:cb9a7fce044b7a857240af", #todo input your app_id
+    upload_to_fad(
+        app_id: "1:408916197886:android:cb9a7fce044b7a857240af", #todo input your app_id
         apk_path: "../build/app/outputs/apk/prod/release/app-release-arm64-v8a.apk",
         release_notes: "Prod x64",
-        firebase_cli_path: "/usr/local/bin/firebase",
-        firebase_cli_token: "$FIREBASE_TOKEN",
     )
 
     #upload_to_fad(app_id: "1:408916197886:android:cb9a7fce044b7a857240af") #todo your id
@@ -58,10 +49,14 @@ platform :android do
 
    lane :upload_to_fad do |options|
     app_id = options[:app_id]
+    apk_path = options[:apk_path]
+    groups = options[:groups]
+    release_notes = options[:release_notes]
     firebase_app_distribution(
         app: "#{app_id}",
-        groups: "surf", #todo your group name
-        release_notes: "QA",
+        apk_path: "#{apk_path}",
+        groups: "#{groups}",
+        release_notes: "#{release_notes}",
         firebase_cli_path: "/usr/local/bin/firebase",
         firebase_cli_token: "$FIREBASE_TOKEN",
       )
