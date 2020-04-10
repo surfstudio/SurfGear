@@ -54,7 +54,7 @@ platform :android do
     firebase_app_distribution(
         app: "#{app_id}",
         apk_path: "#{apk_path}",
-        groups: #{groups}", #todo тут надо проверить будет ли работать функция без groups на входе
+        groups: "#{groups}", #todo тут надо проверить будет ли работать функция без groups на входе
         release_notes: "#{release_notes}",
         firebase_cli_path: "/usr/local/bin/firebase",
         firebase_cli_token: "$FIREBASE_TOKEN",
