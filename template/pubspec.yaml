@@ -13,32 +13,32 @@ dependencies:
   #внутренние библиотеки
   network:
     git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      url: https://gitlab.com/surfstudio/projects/standard/flutter-standard.git
       ref: project-PCK
       path: network
   logger:
     git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      url: https://gitlab.com/surfstudio/projects/standard/flutter-standard.git
       ref: project-PCK
       path: logger
   injector:
     git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      url: https://gitlab.com/surfstudio/projects/standard/flutter-standard.git
       ref: project-PCK
       path: injector
   mwwm:
     git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      url: https://gitlab.com/surfstudio/projects/standard/flutter-standard.git
       ref: project-PCK
       path: mwwm
   geolocation:
     git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      url: https://gitlab.com/surfstudio/projects/standard/flutter-standard.git
       ref: project-PCK
       path: geolocation
   analytics:
     git:
-      url: https://bitbucket.org/surfstudio/flutter-standard.git
+      url: https://gitlab.com/surfstudio/projects/standard/flutter-standard.git
       ref: project-PCK
       path: analytics
 
