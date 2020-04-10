@@ -46,7 +46,7 @@ platform :android do
     )
   end
 
-  lane :upload_to_fad_qa do |options|
+  lane :upload_to_fad do |options|
     app_id = options[:app_id]
     apk_path = options[:apk_path]
     groups = options[:groups]
