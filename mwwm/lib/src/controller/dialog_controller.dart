@@ -20,6 +20,7 @@ abstract class DialogController {
   Future<R> showAlertDialog<R>({
     String title,
     String message,
+    Widget widgetMessage,
     String agreeText,
     String cancelText,
     void Function(BuildContext context) onAgreeClicked,
