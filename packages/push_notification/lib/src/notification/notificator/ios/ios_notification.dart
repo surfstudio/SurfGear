@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart';
-import 'package:push_notification/src/notification/notificator/ios/ios_init_settings.dart';
 import 'package:push_notification/src/notification/notificator/ios/ios_notification_specifics.dart';
 import 'package:push_notification/src/notification/notificator/notificator.dart';
 
@@ -11,12 +10,16 @@ class IOSNotification {
   /// Callback notification push
   final OnNotificationTapCallback onNotificationTap;
 
+  /// Callback notification decline
+  final OnPemissionDeclineCallback onPermissionDecline;
+
   IOSNotification({
     this.channel,
     this.onNotificationTap,
+    this.onPermissionDecline,
   });
 
-  Future init(IOSInitSettings initSettings) async {
+  Future init() async {
     channel.setMethodCallHandler(
       (call) async {
         switch (call.method) {
@@ -26,12 +29,18 @@ class IOSNotification {
               onNotificationTap(notificationData);
             }
             break;
+          case CALLBACK_PERMISSION_DECLINE:
+            onPermissionDecline();
+            break;
         }
       },
     );
-    return channel.invokeMethod(CALL_INIT, initSettings.toMap());
   }
 
+  /// Request permissions
+  ///
+  /// requestSoundPermission - is play sound
+  /// requestSoundPermission - is show alert
   Future<bool> requestPermissions({
     bool requestSoundPermission = false,
     bool requestAlertPermission = false,

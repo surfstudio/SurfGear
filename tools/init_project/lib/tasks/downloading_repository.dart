@@ -14,7 +14,7 @@ class DownloadingRepository {
     final nameProject = command.nameProject;
     try {
       await _createDirectory(path, nameProject, pathDirectory);
-      await _loadTemplateProject(command.url, pathDirectory);
+      await _loadTemplateProject(command.remoteUrl, pathDirectory);
       return pathDirectory;
     } catch (e) {
       rethrow;
@@ -32,13 +32,20 @@ class DownloadingRepository {
   }
 
   /// Загружаем из репозитория проект
-  Future<void> _loadTemplateProject(String url, PathDirectory pathDirectory) async {
+  Future<void> _loadTemplateProject(String remoteUrl, PathDirectory pathDirectory) async {
     final shell = Shell();
     final directory = await Directory(pathDirectory.path).createTemp();
     pathDirectory.pathTemp = directory.path;
 
     printMessageConsole('Template download...');
-    final processResult = await shell.run('git', ['clone', url, pathDirectory.pathTemp, '--depth', '1']);
+
+    final processResult = await shell.run('git', [
+      'clone',
+      remoteUrl,
+      pathDirectory.pathTemp,
+      '--depth',
+      '1',
+    ]);
 
     if (processResult.exitCode != 0) {
       return Future.error(Exception(processResult.stderr));

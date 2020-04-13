@@ -35,7 +35,7 @@ pipeline.stages = [
             sh "rm -rf flutter-standard.git"
             withCredentials([usernamePassword(credentialsId: pipeline.repoCredentialsId, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 echo "credentialsId: $pipeline.repoCredentialsId"
-                sh "git clone --mirror https://${encodeUrl(USERNAME)}:${encodeUrl(PASSWORD)}@gitlab.com/surfstudio/projects/standard/flutter-standard.git"
+                sh "git clone --mirror https://${encodeUrl(USERNAME)}:${encodeUrl(PASSWORD)}@gitlab.com/surfstudio/public/flutter-standard.git"
             }
         },
         pipeline.stage("Sanitize", StageStrategy.FAIL_WHEN_STAGE_ERROR) {
