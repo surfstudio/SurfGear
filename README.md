@@ -21,3 +21,40 @@ represented by two components: **Change** (a signal to model which means *what* 
 to achieve) and **Performer** (that knows *how* to achieve it).
 
 ![](doc/images/mwwm.png) 
+
+## Why?
+
+This architecture completely separates design and logic. Adds the ability to work on independent layers by different developers. Adds autonomy to work, like HTML and CSS.
+
+##  How to use
+
+1. Create widget which extends `CoreMwwmWidget`
+```
+class CounterScreen extends CoreMwwmWidget {
+  CounterScreen()
+      : super(
+            //...
+          ),
+          widgetStateBuilder: //... ,
+        );
+}
+```
+1. Create State for this widget which extends `WidgetState`
+```
+class _CounterScreenState extends WidgetState<CounterWidgetModel> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: //... ,
+    );
+  }
+}
+```
+1. Define `widgetStateBuilder` for your widget in `super`. 
+```
+super(
+          // ...
+          widgetStateBuilder: () => _CounterScreenState(),
+        );
+``` 
+1. Create WidgetModel by extending `WidgetModel` class and provide here `ErrorHandler` and `Model`
