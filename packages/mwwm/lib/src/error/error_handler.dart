@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+///Interface for handle error in WidgetModel Layer
 abstract class ErrorHandler {
   void handleError(Object e);
 }

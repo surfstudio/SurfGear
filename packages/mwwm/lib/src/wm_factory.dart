@@ -8,6 +8,8 @@ typedef WidgetModelBuilder = WidgetModel Function(BuildContext);
 
 /// Factory of WidgetModels.
 /// WidgetModelBuilder must be registered in this singleton.
+/// 
+/// Provide possibility to define all builders at one place.
 class WidgetModelFactory {
   static WidgetModelFactory _instance;
 
@@ -20,9 +22,11 @@ class WidgetModelFactory {
 
   WidgetModelFactory._();
 
+  /// Register `builder` for specified `WidgetModel` class.
   void registerBuilder<W extends WidgetModel>(WidgetModelBuilder builder) {
     _builders[W] = builder;
   }
 
+  /// Get wm instance by context
   WidgetModel by<W>(BuildContext context) => _builders[W](context);
 }
