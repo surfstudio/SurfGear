@@ -6,11 +6,21 @@ typedef WidgetStateBuilder = State Function();
 
 /// Class for widgets that has [WidgetModel]
 abstract class CoreMwwmWidget extends StatefulWidget {
+
+  /// Builder for `WidgetState`. 
   final WidgetStateBuilder widgetStateBuilder;
+
+  /// Builder for `WidgetModel`
+  /// There are two possibilities to provide `WidgetModel` :
+  ///  1. Here by [widgetModelBuilder]
+  ///  2 Or by `WidgetModelFactory`
   final WidgetModelBuilder widgetModelBuilder;
 
-  const CoreMwwmWidget({Key key, this.widgetStateBuilder, this.widgetModelBuilder})
-      : super(key: key);
+  const CoreMwwmWidget({
+    Key key,
+    @required this.widgetStateBuilder,
+    this.widgetModelBuilder,
+  }) : super(key: key);
 
   @override
   State createState() {
@@ -20,7 +30,8 @@ abstract class CoreMwwmWidget extends StatefulWidget {
 
 /// Base class for state of [CoreMwwmWidget].
 /// Has [WidgetModel] from [initState].
-abstract class WidgetState<WM extends WidgetModel> extends State<CoreMwwmWidget> {
+abstract class WidgetState<WM extends WidgetModel>
+    extends State<CoreMwwmWidget> {
   final WidgetModelCreator _wmc = WidgetModelCreator<WM>();
 
   /// [WidgetModel] for widget.

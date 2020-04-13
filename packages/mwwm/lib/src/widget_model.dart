@@ -20,8 +20,10 @@ import 'package:mwwm/src/dependencies/wm_dependencies.dart';
 import 'package:mwwm/src/error/error_handler.dart';
 import 'package:mwwm/src/utils/composite_subscription.dart';
 
-///WidgetModel - interface
-///WM is logical representation of widget.
+/// WidgetModel - interface
+/// WM is logical representation of widget.
+/// `WidgetModelDependencies` - is pack of required dependencies. Offtenly, it is `ErrorHandler`.
+/// `Model` - optionally, but recommended, manager for connection with bussines layer
 abstract class WidgetModel {
   final ErrorHandler _errorHandler;
 
@@ -38,7 +40,7 @@ abstract class WidgetModel {
   @mustCallSuper
   void onLoad() {}
 
-  /// here need to bind relations
+  /// here need to bind 
   @mustCallSuper
   void onBind() {}
 
