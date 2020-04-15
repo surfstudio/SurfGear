@@ -19,12 +19,12 @@ enum Permission {
   calendar,
   contacts,
   microphone,
+  speech, //only ios
   phone
 }
 
 /// Сервис запросов и проверки разрешений
 abstract class PermissionManager {
-  
   /// Запрос разрешения.
   /// Возвращает [true], если разрешение есть.
   /// Если [checkRationale], то выбросит [FeatureProhibitedException] в случае
