@@ -12,7 +12,10 @@ dependencies:
     sdk: flutter
 
   logger:
-    path: ../logger
+    git:
+      url: https://gitlab.com/surfstudio/projects/standard/flutter-standard.git
+      ref: dev
+      path: packages/logger
 
 
 dev_dependencies:

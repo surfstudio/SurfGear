@@ -11,7 +11,10 @@ dependencies:
     sdk: flutter
 
   tabnavigator:
-    path: ../tabnavigator
+    git:
+      url: https://gitlab.com/surfstudio/projects/standard/flutter-standard.git
+      ref: dev
+      path: packages/tabnavigator
 
   # testing mock
   mockito: ^4.1.1
