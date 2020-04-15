@@ -66,6 +66,6 @@ custom:
   is_stable: false
   unstable_version: 0
   is_plugin: true
-  path: push
+  path: push_notification
   separate_repo_url:
   hostUrl:
