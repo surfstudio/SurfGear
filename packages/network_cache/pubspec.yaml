@@ -20,12 +20,12 @@ dev_dependencies:
   storage:
     git:
       url: https://gitlab.com/surfstudio/projects/standard/flutter-standard.git
-      ref: dev
+      ref: project-PRACTICE
       path: packages/storage
   network:
     git:
       url: https://gitlab.com/surfstudio/projects/standard/flutter-standard.git
-      ref: dev
+      ref: project-PRACTICE
       path: packages/network
 
 # For information on the generic Dart part of this file, see the
