@@ -72,10 +72,10 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         notificationCenter.requestAuthorization(options: options) {
             (didAllow, error) in
             result(didAllow)
-            if !didAllow {
-                self.channel.invokeMethod(CALLBACK_PERMISSION_DECLINE, arguments: nil)
-                return
-            }
+            // if !didAllow {
+            //     self.channel.invokeMethod(CALLBACK_PERMISSION_DECLINE, arguments: nil)
+            //     return
+            // }
         }
     }
 
