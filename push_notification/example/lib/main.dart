@@ -28,16 +28,15 @@ class _MyAppState extends State<MyApp> {
       },
     );
 
-    initPermission();
+    _initPermission();
   }
 
-  void initPermission() async {
-    bool isAccept = await notification.requestPermissions(
+  _initPermission() async {
+    bool isAcceptPermission = await notification.requestPermissions(
       requestSoundPermission: true,
       requestAlertPermission: true,
     );
-
-    print("разрешение принято:$isAccept");
+    print("разрешение на уведомление принято: $isAcceptPermission");
   }
 
   @override
