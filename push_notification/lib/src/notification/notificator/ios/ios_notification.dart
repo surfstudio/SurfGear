@@ -10,13 +10,9 @@ class IOSNotification {
   /// Callback notification push
   final OnNotificationTapCallback onNotificationTap;
 
-  /// Callback notification decline
-  final OnPemissionDeclineCallback onPermissionDecline;
-
   IOSNotification({
     this.channel,
     this.onNotificationTap,
-    this.onPermissionDecline,
   });
 
   Future init() async {
@@ -28,9 +24,6 @@ class IOSNotification {
               final notificationData = Map.of(call.arguments);
               onNotificationTap(notificationData);
             }
-            break;
-          case CALLBACK_PERMISSION_DECLINE:
-            onPermissionDecline();
             break;
         }
       },
