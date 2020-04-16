@@ -36,7 +36,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         let args = call.arguments as! NSDictionary
         switch call.method{
         case CALL_REQUEST:
-            requestPermissions(args: args)
+            requestPermissions(args: args, result: result)
             break
         case CALL_SHOW:
             show(args: args)
@@ -48,7 +48,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
     }
 
     // Initialize Notifications
-    func requestPermissions(args : NSDictionary) {
+    func requestPermissions(args : NSDictionary, result: FlutterResult) {
         //Implements a notification display while the program is running
         notificationCenter.delegate = self;
 
@@ -71,6 +71,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         // Permission request for notifications
         notificationCenter.requestAuthorization(options: options) {
             (didAllow, error) in
+            result(didAllow)
             if !didAllow {
                 self.channel.invokeMethod(CALLBACK_PERMISSION_DECLINE, arguments: nil)
                 return
