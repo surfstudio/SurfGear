@@ -15,12 +15,12 @@ dependencies:
   injector:
     git:
       url: https://gitlab.com/surfstudio/projects/standard/flutter-standard.git
-      ref: project-ROS-33
+      ref: project-ROS-34
       path: injector
   logger:
     git:
       url: https://gitlab.com/surfstudio/projects/standard/flutter-standard.git
-      ref: project-ROS-33
+      ref: project-ROS-34
       path: logger
 
   #rx
