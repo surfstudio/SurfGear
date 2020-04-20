@@ -7,6 +7,7 @@ let CHANNEL = "surf_notification"
 let CALL_SHOW = "show"
 let CALL_REQUEST = "request"
 let CALLBACK_OPEN = "notificationOpen"
+let CALLBACK_PERMISSION_DECLINE = "permissionDecline"
 // Arguments names
 let ARG_PUSH_ID = "pushId"
 let ARG_TITLE = "title"
@@ -35,7 +36,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         let args = call.arguments as! NSDictionary
         switch call.method{
         case CALL_REQUEST:
-            requestPermissions(args: args, result: result)
+            requestPermissions(args: args)
             break
         case CALL_SHOW:
             show(args: args)
@@ -47,7 +48,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
     }
 
     // Initialize Notifications
-    func requestPermissions(args : NSDictionary, result: @escaping FlutterResult) {
+    func requestPermissions(args : NSDictionary) {
         //Implements a notification display while the program is running
         notificationCenter.delegate = self;
 
@@ -70,7 +71,10 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         // Permission request for notifications
         notificationCenter.requestAuthorization(options: options) {
             (didAllow, error) in
-            result(didAllow)
+            if !didAllow {
+                self.channel.invokeMethod(CALLBACK_PERMISSION_DECLINE, arguments: nil)
+                return
+            }
         }
     }
 
