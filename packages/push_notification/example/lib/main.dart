@@ -18,6 +18,9 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     notification = Notificator(
+      onPermissionDecline: (){
+        print("permission decline");
+      },
       onNotificationTapCallback: (notificationData) {
         setState(
           () {
@@ -28,15 +31,10 @@ class _MyAppState extends State<MyApp> {
       },
     );
 
-    _initPermission();
-  }
-
-  _initPermission() async {
-    bool isAcceptPermission = await notification.requestPermissions(
+    notification.requestPermissions(
       requestSoundPermission: true,
       requestAlertPermission: true,
     );
-    print("разрешение на уведомление принято: $isAcceptPermission");
   }
 
   @override
