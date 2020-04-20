@@ -1,5 +1,5 @@
 import 'package:flutter_template/config/env/env.dart';
-import 'package:push/push.dart';
+import 'package:push_notification/push_notification.dart';
 
 /// Интерактор для работы с <DebugScreen>
 class DebugScreenInteractor {
