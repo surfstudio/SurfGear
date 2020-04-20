@@ -9,7 +9,7 @@ import ru.surfstudio.ci.RepositoryUtil
 import ru.surfstudio.ci.Result
 import ru.surfstudio.ci.AbortDuplicateStrategy
 
-//Pipeline on commit dev-branch
+//Pipeline for update current ci mechanism
 
 // Stage names
 
