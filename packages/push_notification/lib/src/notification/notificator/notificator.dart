@@ -38,8 +38,12 @@ class Notificator {
   /// Callback notification clicks
   OnNotificationTapCallback onNotificationTapCallback;
 
+  /// Callback notification decline(ios only)
+  final OnPemissionDeclineCallback onPermissionDecline;
+
   Notificator({
     this.onNotificationTapCallback,
+    this.onPermissionDecline,
   }) {
     _init();
   }
@@ -57,6 +61,9 @@ class Notificator {
         channel: _channel,
         onNotificationTap: (notificationData) {
           return onNotificationTapCallback(notificationData);
+        },
+        onPermissionDecline: () {
+          return onPermissionDecline();
         },
       );
       return _iosNotification.init();
