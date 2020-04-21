@@ -12,13 +12,12 @@ import 'package:flutter_template/interactor/token/token_storage.dart';
 import 'package:flutter_template/ui/base/default_dialog_controller.dart';
 import 'package:flutter_template/ui/base/error/standard_error_handler.dart';
 import 'package:flutter_template/ui/base/material_message_controller.dart';
-import 'package:flutter_template/ui/res/assets.dart';
 import 'package:flutter_template/util/const.dart';
 import 'package:flutter_template/util/sp_helper.dart';
 import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:network/network.dart';
-import 'package:push/push.dart';
+import 'package:push_notification/push_notification.dart';
 
 /// Component per app
 class AppComponent implements Component {
@@ -36,8 +35,9 @@ class AppComponent implements Component {
   DebugScreenInteractor debugScreenInteractor;
 
   //MessagingService messagingService = MessagingService();
-  NotificationController notificationController =
-      NotificationController(androidMipMapIcon);
+  NotificationController notificationController = NotificationController(() {
+    print("permission declined");
+  });
   PushHandler pushHandler;
 
   AppComponent(BuildContext context) {

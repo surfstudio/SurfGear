@@ -3,6 +3,7 @@ const String changedListFileMissedExceptionText = 'Для выполнения p
 String getFileNotFoundExceptionText(String filepath) => 'File $filepath not found';
 String getElementNotFoundExceptionText(String moduleName) => 'Модуль $moduleName не найден';
 String getFormatExceptionText(String error) => 'Неправильный формат!\n$error';
+String getNotSupportedMethodCallExceptionText(String error) => 'Вызов метода $error не поддерживается ';
 String getElementCustomParamsMissedExceptionText(String pubspecPath) => 'Pubspec $pubspecPath не содержит custom параметры';
 
 
@@ -44,4 +45,5 @@ String getCommandFormatExceptionText(String cmd, String error) => 'Неправ�
 String getPubCheckReleaseVersionExceptionText(String module) => '$module: модуль, с непрописанной версией Release Notes';
 String getContainsCyrillicInChangelogExceptionText(String package, String name) => 'Библиоткека $name содержит киррилицу в $package/CHANGELOG.md';
 String getOpenSourceModuleCanNotBePublishExceptionText(String module) => 'OpenSource модуль: $module не может быть опубликован';
+String getModuleCannotBePublishedExceptionText(String module) => 'Ошибка при публикации модуля $module';
 String getModuleIsNotOpenSourceExceptionText(String module) => 'У open source модуля $module отсутствует информация о репозитории';

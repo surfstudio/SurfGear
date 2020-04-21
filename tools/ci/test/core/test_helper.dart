@@ -7,6 +7,7 @@ import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/services/managers/shell_manager.dart';
 import 'package:ci/services/managers/yaml_manager.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
+import 'package:ci/services/pub_publish_manager.dart';
 import 'package:ci/services/runner/shell_runner.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:ci/tasks/factories/license_task_factory.dart';
@@ -138,6 +139,9 @@ ProcessResult createErrorResult({
 
 class FileSystemManagerMock extends Mock implements FileSystemManager {}
 
+/// Pub Publish Manager
+class PubPublishManagerMock extends Mock implements PubPublishManager {}
+
 /// Shell Manager
 
 class ShellManagerMock extends Mock implements ShellManager {}
@@ -197,3 +201,23 @@ class PubspecParserMock extends Mock implements PubspecParser {}
 /// Yaml Manager
 
 class YamlManagerMock extends Mock implements YamlManager {}
+
+/// Dependency element
+
+GitDependency createGitDependency({Element element, bool thirdParty = true}) {
+  return GitDependency(element: element, thirdParty: thirdParty);
+}
+
+PathDependency createPathDependency({Element element, bool thirdParty = true}) {
+  return PathDependency(element: element, thirdParty: thirdParty);
+}
+
+HostedDependency createHostedDependency({Element element, bool thirdParty = true}) {
+  return HostedDependency(element: element, thirdParty: thirdParty);
+}
+
+class GitDependencyMock extends Mock implements GitDependency {}
+
+class PathDependencyMock extends Mock implements PathDependency {}
+
+class HostedDependencyMock extends Mock implements HostedDependency {}

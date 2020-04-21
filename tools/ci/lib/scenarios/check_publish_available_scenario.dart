@@ -12,8 +12,20 @@ import 'package:ci/tasks/core/scenario.dart';
 class CheckPublishAvailableScenario extends ChangedElementScenario {
   static const String commandName = 'check_publish_available';
 
-  CheckPublishAvailableScenario(Command command, PubspecParser pubspecParser)
-      : super(command, pubspecParser);
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Checking for the possibility of publishing the openSource module package.',
+      };
+
+  CheckPublishAvailableScenario(Command command, PubspecParser pubspecParser) : super(command, pubspecParser);
+
+  Future<void> handleElement(Element element) async {
+    try {
+      await checkPublishAvailable(element);
+    } on BaseCiException {
+      rethrow;
+    }
+  }
 
   @override
   Future<void> doExecute(List<Element> elements) async {
@@ -25,4 +37,7 @@ class CheckPublishAvailableScenario extends ChangedElementScenario {
       rethrow;
     }
   }
+
+  @override
+  String get getCommandName => commandName;
 }

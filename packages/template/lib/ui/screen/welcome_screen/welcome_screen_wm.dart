@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart' as widgets;
+import 'package:flutter/widgets.dart' hide Action;
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/ui/screen/welcome_screen/di/welcome_screen_component.dart';
 import 'package:injector/injector.dart';
-import 'package:mwwm/mwwm.dart';
-import 'package:mwwm/mwwm.dart' as m;
+import 'package:surf_mwwm/surf_mwwm.dart';
 
 /// Билдер для [WelcomeScreenWidgetModel].
 WelcomeScreenWidgetModel createWelcomeWidgetModel(BuildContext context) {
@@ -20,11 +18,11 @@ WelcomeScreenWidgetModel createWelcomeWidgetModel(BuildContext context) {
 /// [WidgetModel] для экрана <Welcome>
 class WelcomeScreenWidgetModel extends WidgetModel {
   final CounterInteractor _counterInteractor;
-  final widgets.NavigatorState navigator;
+  final NavigatorState navigator;
 
   StreamedState<int> counterState = StreamedState();
 
-  m.Action nextAction = m.Action();
+  Action nextAction = Action();
 
   WelcomeScreenWidgetModel(
     WidgetModelDependencies dependencies,

@@ -1,4 +1,4 @@
-@Library('surf-lib@version-2.0.0-SNAPSHOT')
+@Library('surf-lib@version-3.0.0-SNAPSHOT')
 // https://bitbucket.org/surfstudio/jenkins-pipeline-lib/
 
 import ru.surfstudio.ci.pipeline.empty.EmptyScmPipeline
@@ -10,6 +10,13 @@ import ru.surfstudio.ci.Result
 import ru.surfstudio.ci.AbortDuplicateStrategy
 
 //Pipeline on commit stable-branch
+
+// Constants
+def FLUTTER_PUB_ACCESS_TOKEN = "FLUTTER_PUB_ACCESS_TOKEN"
+def FLUTTER_PUB_REFRESH_TOKEN = "FLUTTER_PUB_REFRESH_TOKEN"
+def FLUTTER_PUB_TOKEN_ENDPOINT = "FLUTTER_PUB_TOKEN_ENDPOINT"
+def FLUTTER_PUB_SCOPES = "FLUTTER_PUB_SCOPES"
+def FLUTTER_PUB_EXPIRATION = "FLUTTER_PUB_EXPIRATION"
 
 // Stage names
 
@@ -36,10 +43,10 @@ pipeline.node = "android"
 pipeline.propertiesProvider = { initProperties(pipeline) }
 
 pipeline.preExecuteStageBody = { stage ->
-    if (stage.name != CHECKOUT) RepositoryUtil.notifyBitbucketAboutStageStart(script, pipeline.repoUrl, stage.name)
+    if (stage.name != CHECKOUT) RepositoryUtil.notifyGitlabAboutStageStart(script, pipeline.repoUrl, stage.name)
 }
 pipeline.postExecuteStageBody = { stage ->
-    if (stage.name != CHECKOUT) RepositoryUtil.notifyBitbucketAboutStageFinish(script, pipeline.repoUrl, stage.name, stage.result)
+    if (stage.name != CHECKOUT) RepositoryUtil.notifyGitlabAboutStageFinish(script, pipeline.repoUrl, stage.name, stage.result)
 }
 
 pipeline.initializeBody = {
@@ -87,16 +94,10 @@ pipeline.stages = [
         pipeline.stage(CHECK_PUBLISH_AVAILABLE) {
             script.sh "./tools/ci/runner/check_publish_available"
         },
-
-        pipeline.stage(MIRRORING) {
-            //TODO mirroring
-        },
-
         pipeline.stage(CHECKS_RESULT) {
             def checksPassed = true
             [
                     CHECK_PUBLISH_AVAILABLE,
-                    MIRRORING
 
             ].each { stageName ->
                 def stageResult = pipeline.getStage(stageName).result
@@ -107,7 +108,46 @@ pipeline.stages = [
                 script.error("Checks Failed")
             }
         },
-
+        pipeline.stage(MIRRORING) {
+            script.withCredentials([
+                    script.string(credentialsId: FLUTTER_PUB_ACCESS_TOKEN, variable: FLUTTER_PUB_ACCESS_TOKEN ),
+                    script.string(credentialsId: FLUTTER_PUB_REFRESH_TOKEN, variable: FLUTTER_PUB_REFRESH_TOKEN ),
+                    script.string(credentialsId: FLUTTER_PUB_TOKEN_ENDPOINT, variable: FLUTTER_PUB_TOKEN_ENDPOINT ),
+                    script.string(credentialsId: FLUTTER_PUB_SCOPES, variable: FLUTTER_PUB_SCOPES ),
+                    script.string(credentialsId: FLUTTER_PUB_EXPIRATION, variable: FLUTTER_PUB_EXPIRATION ),
+            ]) {
+                script.sh "if [ -z \"${FLUTTER_PUB_ACCESS_TOKEN}\" ]; then\n" +
+                        "        echo \"Missing PUB_DEV_PUBLISH_ACCESS_TOKEN environment variable\"\n" +
+                        "        exit 1\n" +
+                        "      fi\n" +
+                        "\n" +
+                        "      if [ -z \"${FLUTTER_PUB_REFRESH_TOKEN}\" ]; then\n" +
+                        "        echo \"Missing PUB_DEV_PUBLISH_REFRESH_TOKEN environment variable\"\n" +
+                        "        exit 1\n" +
+                        "      fi\n" +
+                        "\n" +
+                        "      if [ -z \"${FLUTTER_PUB_TOKEN_ENDPOINT}\" ]; then\n" +
+                        "        echo \"Missing PUB_DEV_PUBLISH_TOKEN_ENDPOINT environment variable\"\n" +
+                        "        exit 1\n" +
+                        "      fi\n" +
+                        "\n" +
+                        "      if [ -z \"${FLUTTER_PUB_EXPIRATION}\" ]; then\n" +
+                        "        echo \"Missing PUB_DEV_PUBLISH_EXPIRATION environment variable\"\n" +
+                        "        exit 1\n" +
+                        "      fi\n" +
+                        "\n" +
+                        "      cat <<EOF > ~/.pub-cache/credentials.json\n" +
+                        "      {\n" +
+                        "        \"accessToken\":\"\$(echo \"${FLUTTER_PUB_ACCESS_TOKEN}\" | base64 -d)\",\n" +
+                        "        \"refreshToken\":\"\$(echo \"${FLUTTER_PUB_REFRESH_TOKEN}\" | base64 -d)\",\n" +
+                        "        \"tokenEndpoint\":\"${FLUTTER_PUB_TOKEN_ENDPOINT}\",\n" +
+                        "        \"scopes\": \"${FLUTTER_PUB_SCOPES}\",\n" +
+                        "        \"expiration\":${FLUTTER_PUB_EXPIRATION}\n" +
+                        "      }\n" +
+                        "      EOF"
+                script.sh "./tools/ci/runner/publish"
+            }
+        },
         pipeline.stage(CLEAR_CHANGED) {
             script.sh "./tools/ci/runner/clear_changed"
         },
@@ -124,7 +164,7 @@ pipeline.finalizeBody = {
     } else {
         message = "Deploy из ветки '${branchName}' успешно выполнен. ${jenkinsLink}"
     }
-    JarvisUtil.sendMessageToGroup(script, message, pipeline.repoUrl, "bitbucket", success)
+    JarvisUtil.sendMessageToGroup(script, message, pipeline.repoUrl, "gitlab", success)
 
 }
 

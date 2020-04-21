@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mwwm/mwwm.dart';
+import 'package:relation/relation.dart';
 import 'package:swipe_refresh/swipe_refresh.dart';
 
 /// Material Design style Refresh indicator widget based on [StreamedState].

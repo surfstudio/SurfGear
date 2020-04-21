@@ -13,13 +13,13 @@ dependencies:
   cupertino_icons: ^0.1.3
 
   #rx
-  rxdart: 0.23.1
+  rxdart: ^0.23.1
 
   #surfstudio
   injector:
     path: ../../injector
-  mwwm:
-    path: ../../mwwm
+  surf_mwwm:
+    path: ../../surf_mwwm
 
   event_filter:
     path: ..

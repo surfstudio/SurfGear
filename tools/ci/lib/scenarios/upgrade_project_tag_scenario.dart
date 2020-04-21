@@ -13,6 +13,11 @@ import 'package:ci/tasks/tasks.dart';
 class UpgradeProjectTagScenario extends Scenario {
   static const String commandName = 'upgrade_project_tag';
 
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Returning representation of the last git tag as a project tag.',
+      };
+
   UpgradeProjectTagScenario(
     Command command,
     PubspecParser pubspecParser,
@@ -45,4 +50,7 @@ class UpgradeProjectTagScenario extends Scenario {
       rethrow;
     }
   }
+
+  @override
+  String get getCommandName => commandName;
 }
