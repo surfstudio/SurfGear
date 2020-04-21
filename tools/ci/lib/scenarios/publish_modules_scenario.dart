@@ -35,9 +35,12 @@ class PublishModulesScenario extends ChangedElementScenario {
   @override
   Future<void> doExecute(List<Element> elements) async {
     var targetServer = command.arguments[server];
+    var releaseElements = elements.where((e) => e.isStable).toList();
+
     try {
-      for (var element in elements) {
-        await pubPublishModules(element, pathServer: targetServer);
+      for (var element in releaseElements) {
+//        await pubPublishModules(element, pathServer: targetServer);
+      print(element.name);
       }
     } on BaseCiException {
       rethrow;
