@@ -3,13 +3,14 @@ import 'package:ci/domain/config.dart';
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
+import 'package:ci/tasks/core/scenario_help_mixin.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:meta/meta.dart';
 
 import '../utils.dart';
 
 /// Интерфейс некоторого сценария исполнения команды
-abstract class Scenario extends Action {
+abstract class Scenario extends Action with ScenarioHelpMixin {
   final Command command;
 
   final PubspecParser _pubspecParser;
@@ -55,10 +56,8 @@ abstract class Scenario extends Action {
 
 /// Интерфейс сценария, работающего только по измененным элементам
 abstract class ChangedElementScenario extends Scenario {
-  ChangedElementScenario(Command command, PubspecParser pubspecParser)
-      : super(command, pubspecParser);
+  ChangedElementScenario(Command command, PubspecParser pubspecParser) : super(command, pubspecParser);
 
   @override
-  Future<List<Element>> preExecute() async =>
-      await findChangedElements(await super.preExecute());
+  Future<List<Element>> preExecute() async => await findChangedElements(await super.preExecute());
 }

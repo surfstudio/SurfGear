@@ -1,5 +1,5 @@
 name: flutter_template
-description: a Flutter Template project for development.
+description: a Flutter template project for development.
 
 version: 0.0.1-rc1+1
 
@@ -17,16 +17,18 @@ dependencies:
     path: ../logger
   injector:
     path: ../injector
-  mwwm:
-    path: ../mwwm
+  surf_mwwm:
+    path: ../surf_mwwm
   geolocation:
     path: ../geolocation
   analytics:
     path: ../analytics
+  bottom_sheet:
+    path: ../bottom_sheet
 
   # модуль push уведомлений
-  push:
-    path: ../push
+  push_notification:
+    path: ../push_notification
   surf_util:
     path: ../surf_util
 
@@ -39,7 +41,7 @@ dependencies:
   dio: ^3.0.8
 
   #storage
-  shared_preferences: ^0.5.6
+  shared_preferences: 0.5.6+3
   path_provider: ^1.5.1
 
   #rx

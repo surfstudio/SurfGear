@@ -12,6 +12,11 @@ import 'package:ci/tasks/core/scenario.dart';
 class CheckStabilityNotChangedInDevScenario extends ChangedElementScenario {
   static const String commandName = 'check_stability_not_changed';
 
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Checks that the modules are not stable against changes in the dev branch.',
+      };
+
   CheckStabilityNotChangedInDevScenario(
     Command command,
     PubspecParser pubspecParser,
@@ -29,4 +34,7 @@ class CheckStabilityNotChangedInDevScenario extends ChangedElementScenario {
       rethrow;
     }
   }
+
+  @override
+  String get getCommandName => commandName;
 }

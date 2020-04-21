@@ -12,8 +12,12 @@ import 'package:ci/tasks/utils.dart';
 class ClearChangedScenario extends Scenario {
   static const String commandName = 'clear_changed';
 
-  ClearChangedScenario(Command command, PubspecParser pubspecParser)
-      : super(command, pubspecParser);
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Deletes a file with a list of modified files.',
+      };
+
+  ClearChangedScenario(Command command, PubspecParser pubspecParser) : super(command, pubspecParser);
 
   @override
   Future<void> run() async {
@@ -29,4 +33,7 @@ class ClearChangedScenario extends Scenario {
   /// ВНИМАНИЕ!!! Метод вызван не будет.
   @override
   Future<void> doExecute(List<Element> elements) async {}
+
+  @override
+  String get getCommandName => commandName;
 }

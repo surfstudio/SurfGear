@@ -12,8 +12,12 @@ import 'package:ci/tasks/core/scenario.dart';
 class CheckVersionInReleaseNoteScenario extends ChangedElementScenario {
   static const String commandName = 'check_version_in_release_note';
 
-  CheckVersionInReleaseNoteScenario(
-      Command command, PubspecParser pubspecParser)
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Check for the latest version in RELEASE_NOTES.md.',
+      };
+
+  CheckVersionInReleaseNoteScenario(Command command, PubspecParser pubspecParser)
       : super(command, pubspecParser);
 
   @override
@@ -26,4 +30,7 @@ class CheckVersionInReleaseNoteScenario extends ChangedElementScenario {
       rethrow;
     }
   }
+
+  @override
+  String get getCommandName => commandName;
 }

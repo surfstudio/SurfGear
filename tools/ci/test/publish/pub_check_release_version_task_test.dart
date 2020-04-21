@@ -55,14 +55,10 @@ void main() {
   );
 }
 
-PubCheckReleaseVersionTask _testPreparedPubCheckReleaseVersionTask(
-    {int exitCode = 0, String stderr = ''}) {
-  var processResult = ProcessResult(0, exitCode, '', stderr);
-  var callingMap = <String, dynamic>{
-    'pub publish --dry-run': processResult,
-  };
-  var shell = substituteShell(callingMap: callingMap);
-  var shm = getTestShellManager();
-  when(shm.copy(any)).thenReturn(shell);
-  return PubCheckReleaseVersionTask(createTestElement());
+PubCheckReleaseVersionTask _testPreparedPubCheckReleaseVersionTask({int exitCode = 0, String stderr = ''}) {
+  var pubPublishMock = PubPublishManagerMock();
+  when(pubPublishMock.runDryPublish(any))
+      .thenAnswer((_) => Future.value(ProcessResult(0, exitCode, '', stderr)));
+
+  return PubCheckReleaseVersionTask(createTestElement(), pubPublishMock);
 }

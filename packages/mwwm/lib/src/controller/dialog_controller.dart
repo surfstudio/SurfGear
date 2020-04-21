@@ -14,7 +14,8 @@
 
 import 'package:flutter/widgets.dart';
 
-///Базовый класс контроллера отображения диалогов
+/// Controller for call dialogs
+/// should be used in [WidgetModel]
 abstract class DialogController {
   Future<R> showAlertDialog<R>({
     String title,
@@ -23,7 +24,18 @@ abstract class DialogController {
     void Function(BuildContext context) onDisagreeClicked,
   });
 
-  Future<R> showSheet<R>(dynamic type, {VoidCallback onDismiss});
+  Future<R> showSheet<R>(
+    dynamic type, {
+    VoidCallback onDismiss,
+    DialogData data,
+  });
 
-  Future<R> showModalSheet<R>(dynamic type);
+  Future<R> showModalSheet<R>(
+    dynamic type, {
+    DialogData data,
+    bool isScrollControlled,
+  });
 }
+
+/// Dialog parameters
+abstract class DialogData {}

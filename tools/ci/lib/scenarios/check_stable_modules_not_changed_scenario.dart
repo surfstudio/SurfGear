@@ -12,13 +12,18 @@ import 'package:ci/tasks/core/scenario.dart';
 class CheckStableModulesNotChangedScenario extends ChangedElementScenario {
   static const String commandName = 'check_stable_modules_not_changed';
 
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Checks if modules marked as stable have changed.',
+      };
+
   CheckStableModulesNotChangedScenario(
-      Command command,
-      PubspecParser pubspecParser,
-      ) : super(
-    command,
-    pubspecParser,
-  );
+    Command command,
+    PubspecParser pubspecParser,
+  ) : super(
+          command,
+          pubspecParser,
+        );
 
   @override
   Future<void> doExecute(List<Element> elements) async {
@@ -29,4 +34,7 @@ class CheckStableModulesNotChangedScenario extends ChangedElementScenario {
       rethrow;
     }
   }
+
+  @override
+  String get getCommandName => commandName;
 }

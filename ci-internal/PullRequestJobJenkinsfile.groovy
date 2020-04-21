@@ -1,4 +1,4 @@
-@Library('surf-lib@version-2.0.0-SNAPSHOT')
+@Library('surf-lib@version-3.0.0-SNAPSHOT')
 // https://bitbucket.org/surfstudio/jenkins-pipeline-lib/
 
 import ru.surfstudio.ci.*
@@ -51,7 +51,8 @@ def stagesForProjectMode = [
         GET_DEPENDENCIES,
         FIND_CHANGED,
         BUILD,
-        UNIT_TEST
+        UNIT_TEST,
+        CLEAR_CHANGED,
 ]
 
 def stagesForTargetBranchChangedMode = [
@@ -62,7 +63,6 @@ def stagesForReleaseMode = [
         PRE_MERGE,
         GET_DEPENDENCIES,
         FIND_CHANGED,
-        CHECK_STABLE_MODULES_NOT_CHANGED,
         CHECK_MODULES_IN_DEPENDENCY_TREE_OF_STABLE_MODULE_ALSO_STABLE,
         CHECK_LICENSE,
         CHECK_LINT,
@@ -72,6 +72,7 @@ def stagesForReleaseMode = [
         CHECKS_RESULT,
         BUILD,
         UNIT_TEST,
+        CLEAR_CHANGED,
 ]
 def stagesForDevMode = [
         PRE_MERGE,
@@ -82,6 +83,7 @@ def stagesForDevMode = [
         CHECK_LINT,
         BUILD,
         UNIT_TEST,
+        CLEAR_CHANGED,
 ]
 
 //init
@@ -91,13 +93,26 @@ def pipeline = new EmptyScmPipeline(script)
 pipeline.init()
 
 //configuration
-pipeline.propertiesProvider = { PrPipeline.properties(pipeline) }
+pipeline.propertiesProvider = {
+    [
+            script.buildDiscarder(
+                    script.logRotator(
+                            artifactDaysToKeepStr: '3',
+                            artifactNumToKeepStr: '10',
+                            daysToKeepStr: '30',
+                            numToKeepStr: '100')
+            ),
+            PrPipeline.parameters(script),
+            PrPipeline.triggers(script, pipeline.repoUrl),
+            script.gitLabConnection(pipeline.gitlabConnection)
+    ]
+}
 
 pipeline.preExecuteStageBody = { stage ->
-    if (stage.name != PRE_MERGE) RepositoryUtil.notifyBitbucketAboutStageStart(script, pipeline.repoUrl, stage.name)
+    if (stage.name != PRE_MERGE) RepositoryUtil.notifyGitlabAboutStageStart(script, pipeline.repoUrl, stage.name)
 }
 pipeline.postExecuteStageBody = { stage ->
-    RepositoryUtil.notifyBitbucketAboutStageFinish(script, pipeline.repoUrl, stage.name, stage.result)
+    RepositoryUtil.notifyGitlabAboutStageFinish(script, pipeline.repoUrl, stage.name, stage.result)
 }
 
 pipeline.initializeBody = {
@@ -248,7 +263,7 @@ pipeline.finalizeBody = {
     if (pipeline.jobResult != Result.SUCCESS && pipeline.jobResult != Result.ABORTED) {
         def unsuccessReasons = CommonUtil.unsuccessReasonsToString(pipeline.stages)
         def message = "Ветка ${sourceBranch} в состоянии ${pipeline.jobResult} из-за этапов: ${unsuccessReasons}; ${CommonUtil.getBuildUrlSlackLink(script)}"
-        JarvisUtil.sendMessageToUser(script, message, authorUsername, "bitbucket")
+        JarvisUtil.sendMessageToUser(script, message, authorUsername, "gitlab")
     }
 }
 
@@ -278,9 +293,9 @@ def static isSourceBranchRelease(String sourceBranch) {
 }
 
 def static isDestinationBranchProjectSnapshot(String destinationBranch) {
-    return destinationBranch.startsWith("project-snapshot")
+    return destinationBranch.startsWith("project-")
 }
 
 def static isDestinationBranchDev(String destinationBranch) {
-    return destinationBranch.startsWith("feature-ci") //todo переименовать
+    return destinationBranch.startsWith("dev")
 }

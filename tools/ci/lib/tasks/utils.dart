@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:ci/domain/config.dart';
+import 'package:ci/domain/dependency.dart';
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
 import 'package:ci/exceptions/exceptions_strings.dart';
@@ -21,6 +22,44 @@ Future<List<Element>> findChangedElements(List<Element> elements) async {
   elements = await markChangedElements(elements);
 
   return filterChangedElements(elements);
+}
+
+/// Ищет модули которые зависят от изменившегося элемента
+///
+/// elements - список всех элементов
+Future<List<Element>> findDependentByChangedElements(
+    List<Element> elements) async {
+  // Список модулей которые зависят от изменившегося элемента
+  final dependModulesByChangedElements = <Element>[];
+
+  // Найти изменившиеся элементы
+  final changedElements = await findChangedElements(elements);
+  final changedElementsNames = changedElements.map(
+    (changedElement) {
+      return changedElement.name;
+    },
+  ).toList();
+
+  // Пройтись по всем модулям
+  elements.forEach(
+    (element) {
+      // Пройтись по всем зависимостям модуля
+      element.dependencies.forEach(
+        (dependency) {
+          // Если зависимость не third party
+          if (!dependency.thirdParty) {
+            // Если зависимость есть в списке изменных елементов
+            if (changedElementsNames.contains(dependency.element.name)) {
+              // Значит текущий элемент зависит от изменившегося модуля
+              dependModulesByChangedElements.add(element);
+            }
+          }
+        },
+      );
+    },
+  );
+
+  return dependModulesByChangedElements;
 }
 
 /// Возвращает элеметны из списка, которые имеют отметку об изменении.
@@ -108,26 +147,20 @@ Future<List<Element>> markChangedElements(List<Element> elements) async {
 }
 
 /// Создаёт файл со списком измененных файлов.
-Future<void> createChangedListFile(
-    List<Element> elements, String target) async {
-  final result = await sh('git diff --name-only HEAD $target');
+Future<void> createChangedListFile(List<Element> elements, String target) async {
+  final result = await sh('git diff --name-only $target');
   final diff = result.stdout as String;
 
   print('Файлы, изменённые в сравнении с целевой веткой :\n$diff');
 
-  var list = elements.map(
-    (e) {
-      if (diff.contains(e.directoryName)) {
-        e.changed = true;
-      }
+  final changedList = elements.where((e) => diff.contains(e.directoryName)).toList()
+    ..forEach((e) => e.changed = true);
 
-      return e.name;
-    },
-  ).join('\n');
+  final names = changedList.map((e) => e.name).join('\n');
 
-  print('Модули были изменены:\n$list');
+  print('Модули были изменены:\n$names');
 
-  await File(_getChangedListFilePath()).writeAsString(list);
+  await File(_getChangedListFilePath()).writeAsString(names);
 }
 
 /// Удаляет файл со списком измененных файлов.
@@ -141,4 +174,15 @@ Future<void> clearChangedListFile() async {
 
 String _getChangedListFilePath() {
   return join(Config.repoRootPath, _changedListFileName);
+}
+
+/// Список зависимостей "флаттер стандарта" у элемента
+List<Dependency> getDependency(Element element) {
+  var dependencies = <Dependency>[];
+  for (var dependency in element.dependencies) {
+    if (!dependency.thirdParty) {
+      dependencies.add(dependency);
+    }
+  }
+  return dependencies;
 }

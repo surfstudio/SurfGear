@@ -12,6 +12,11 @@ import 'package:ci/tasks/core/scenario.dart';
 class RunTestScenario extends ChangedElementScenario {
   static const String commandName = 'run_tests';
 
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Running tests in modules.',
+      };
+
   RunTestScenario(
     Command command,
     PubspecParser pubspecParser,
@@ -28,4 +33,7 @@ class RunTestScenario extends ChangedElementScenario {
       rethrow;
     }
   }
+
+  @override
+  String get getCommandName => commandName;
 }

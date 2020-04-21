@@ -11,6 +11,11 @@ import 'package:ci/tasks/tasks.dart';
 class AddCopyrightsScenario extends Scenario {
   static const String commandName = 'add_copyrights';
 
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Adds copyright to files of transferred modules.',
+      };
+
   AddCopyrightsScenario(
     Command command,
     PubspecParser pubspecParser,
@@ -24,4 +29,7 @@ class AddCopyrightsScenario extends Scenario {
     /// Добавляем копирайты
     return addCopyrights(elements);
   }
+
+  @override
+  String get getCommandName => commandName;
 }

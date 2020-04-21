@@ -12,8 +12,12 @@ import 'package:ci/tasks/core/scenario.dart';
 class WriteReleaseNoteScenario extends Scenario {
   static const String commandName = 'write_release_note';
 
-  WriteReleaseNoteScenario(Command command, PubspecParser pubspecParser)
-      : super(command, pubspecParser);
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Create a shared RELEASE_NOTES.md and commit it.',
+      };
+
+  WriteReleaseNoteScenario(Command command, PubspecParser pubspecParser) : super(command, pubspecParser);
 
   @override
   Future<void> doExecute(List<Element> elements) async {
@@ -23,4 +27,7 @@ class WriteReleaseNoteScenario extends Scenario {
       rethrow;
     }
   }
+
+  @override
+  String get getCommandName => commandName;
 }

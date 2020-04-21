@@ -12,6 +12,11 @@ import 'package:ci/tasks/core/scenario.dart';
 class CheckCyrillicInChangelogScenario extends ChangedElementScenario {
   static const String commandName = 'check_cyrillic_in_changelog';
 
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Checking the presence of Cyrillic in the file CHANGELOG.md.',
+      };
+
   CheckCyrillicInChangelogScenario(Command command, PubspecParser pubspecParser)
       : super(command, pubspecParser);
 
@@ -26,4 +31,7 @@ class CheckCyrillicInChangelogScenario extends ChangedElementScenario {
       rethrow;
     }
   }
+
+  @override
+  String get getCommandName => commandName;
 }

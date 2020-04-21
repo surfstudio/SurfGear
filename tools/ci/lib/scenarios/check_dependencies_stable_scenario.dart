@@ -12,6 +12,11 @@ import 'package:ci/tasks/core/scenario.dart';
 class CheckDependenciesStableScenario extends ChangedElementScenario {
   static const String commandName = 'check_dependencies_stable';
 
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'Checking the stability of module dependencies.',
+      };
+
   CheckDependenciesStableScenario(
     Command command,
     PubspecParser pubspecParser,
@@ -19,6 +24,15 @@ class CheckDependenciesStableScenario extends ChangedElementScenario {
           command,
           pubspecParser,
         );
+
+  Future<void> handleElement(Element element) async {
+    try {
+      /// Проверяем что зависимости элемента стабильны
+      await checkDependenciesStable(element);
+    } on BaseCiException {
+      rethrow;
+    }
+  }
 
   @override
   Future<void> doExecute(List<Element> elements) async {
@@ -31,4 +45,7 @@ class CheckDependenciesStableScenario extends ChangedElementScenario {
       rethrow;
     }
   }
+
+  @override
+  String get getCommandName => commandName;
 }

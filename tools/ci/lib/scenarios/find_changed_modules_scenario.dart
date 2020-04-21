@@ -14,9 +14,14 @@ import 'package:ci/tasks/utils.dart';
 class FindChangedModulesScenario extends Scenario {
   static const String commandName = 'find_changed_modules';
   static const String targetOptionName = 'target';
+  static const String helpTargetOptionName = 'Target branch name.';
 
-  FindChangedModulesScenario(Command command, PubspecParser pubspecParser)
-      : super(command, pubspecParser);
+  @override
+  Map<String, String> getCommandsHelp() => {
+        commandName: 'A script to search for modified items and write a list to a file.',
+      };
+
+  FindChangedModulesScenario(Command command, PubspecParser pubspecParser) : super(command, pubspecParser);
 
   @override
   Future<void> validate(Command command) async {
@@ -41,4 +46,7 @@ class FindChangedModulesScenario extends Scenario {
   Future<void> doExecute(List<Element> elements) async {
     await createChangedListFile(elements, command.arguments[targetOptionName]);
   }
+
+  @override
+  String get getCommandName => commandName;
 }

@@ -1,4 +1,4 @@
-import 'package:push/push.dart';
+import 'package:push_notification/push_notification.dart';
 
 class DebugPushMessage extends NotificationPayload {
   DebugPushMessage(
