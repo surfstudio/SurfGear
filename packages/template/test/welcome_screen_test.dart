@@ -6,7 +6,6 @@ import 'package:flutter_template/ui/screen/welcome_screen/welcome_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:injector/injector.dart';
 import 'package:mockito/mockito.dart';
-import 'package:rxdart/rxdart.dart';
 
 class AppComponentMock extends Mock implements AppComponent {}
 

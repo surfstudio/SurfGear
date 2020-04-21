@@ -33,7 +33,7 @@ platform :ios do
     )
   end
 
-  desc "Submit a new Beta Build to Fabric"
+   desc "Submit a new Beta Build to Firebase"
   lane :beta do
 
     cocoapods(use_bundle_exec:true)
@@ -53,13 +53,13 @@ platform :ios do
       export_xcargs: "-allowProvisioningUpdates"
     )
 
-    upload_to_fabric
+    #upload_to_fad(app_id: "1:408916197886:ios:9789acc2112ee7e57240af") #todo your id
 
     sh("rm ../*.mobileprovision")
   end
 
   # Need check
-  desc "Submit a new Release Build to Fabric"
+  desc "Submit a new Release Build to Firebase"
   lane :release do
     #cocoapods(use_bundle_exec: false)
 
@@ -79,22 +79,19 @@ platform :ios do
       export_method: "app-store"
     )
 
-    upload_to_fabric
-
-    upload_to_app_store(
-      app_identifier: prod_bundle_id,
-      force: true
-    )
+    #upload_to_fad(app_id: "1:353274792412:ios:c4c0307b647a34873b6719") #todo your id
 
     sh("rm ../*.mobileprovision")
   end
 
-  lane :upload_to_fabric do
-    # Загружаем сборку в Fabric
-    crashlytics(
-      api_token: 'YOUR_API_KEY', todo
-      build_secret: 'YOUR_BUILD_SECRET', todo
-      emails: ["surfstudio36@gmail.com",],
+  lane :upload_to_fad do |options|
+    app_id = options[:app_id]
+    firebase_app_distribution(
+        app: "#{app_id}",
+        groups: "surf", #todo your group name
+        release_notes: "QA",
+        firebase_cli_path: "/usr/local/bin/firebase",
+        firebase_cli_token: "$FIREBASE_TOKEN",
     )
   end
 
