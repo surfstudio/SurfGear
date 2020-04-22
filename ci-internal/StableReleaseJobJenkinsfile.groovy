@@ -32,6 +32,14 @@ def CLEAR_CHANGED = 'Clear changed'
 def branchName = "stable"
 def buildDescription = "stable release"
 
+def credJson = '''{
+    "accessToken":"${FLUTTER_PUB_ACCESS_TOKEN}",
+    "refreshToken":"${FLUTTER_PUB_REFRESH_TOKEN}",
+    "tokenEndpoint":"${FLUTTER_PUB_TOKEN_ENDPOINT}",
+    "scopes": "${FLUTTER_PUB_SCOPES}",
+    "expiration":${FLUTTER_PUB_EXPIRATION}
+}'''
+
 //init
 def script = this
 def pipeline = new EmptyScmPipeline(script)
@@ -116,35 +124,38 @@ pipeline.stages = [
                     script.string(credentialsId: FLUTTER_PUB_SCOPES, variable: FLUTTER_PUB_SCOPES ),
                     script.string(credentialsId: FLUTTER_PUB_EXPIRATION, variable: FLUTTER_PUB_EXPIRATION ),
             ]) {
-                script.sh '''if [ -z \"${FLUTTER_PUB_ACCESS_TOKEN}\" ]; then
-                                echo \"Missing PUB_DEV_PUBLISH_ACCESS_TOKEN environment variable\"
+                script.sh '''if [ -z "${FLUTTER_PUB_ACCESS_TOKEN}" ]; then
+                                echo "Missing PUB_DEV_PUBLISH_ACCESS_TOKEN environment variable"
                                 exit 1"
                              fi
                              
-                             if [ -z \"${FLUTTER_PUB_REFRESH_TOKEN}\" ]; then
-                                echo \"Missing PUB_DEV_PUBLISH_REFRESH_TOKEN environment variable\"
+                             if [ -z "${FLUTTER_PUB_REFRESH_TOKEN}" ]; then
+                                echo "Missing PUB_DEV_PUBLISH_REFRESH_TOKEN environment variable"
                                 exit 1 
                              fi
                         
-                             if [ -z \"${FLUTTER_PUB_TOKEN_ENDPOINT}\" ]; then
-                                echo \"Missing PUB_DEV_PUBLISH_TOKEN_ENDPOINT environment variable\"
+                             if [ -z "${FLUTTER_PUB_TOKEN_ENDPOINT}" ]; then
+                                echo "Missing PUB_DEV_PUBLISH_TOKEN_ENDPOINT environment variable"
                                 exit 1
                              fi
                         
-                             if [ -z \"${FLUTTER_PUB_EXPIRATION}\" ]; then
-                                echo \"Missing PUB_DEV_PUBLISH_EXPIRATION environment variable\"
+                             if [ -z "${FLUTTER_PUB_EXPIRATION}" ]; then
+                                echo "Missing PUB_DEV_PUBLISH_EXPIRATION environment variable"
                                 exit 1
                              fi
+                             
+                             
                         
-                             cat <<EOF > ~/credentials.json
+                             cat <<EOF > ~/.pub-cache/credentials.json
                               {
-                                \"accessToken\":\"\${FLUTTER_PUB_ACCESS_TOKEN}\",
-                                \"refreshToken\":\"${FLUTTER_PUB_REFRESH_TOKEN}\",
-                                \"tokenEndpoint\":\"${FLUTTER_PUB_TOKEN_ENDPOINT}\",
-                                \"scopes\": \"${FLUTTER_PUB_SCOPES}\",
-                                \"expiration\":${FLUTTER_PUB_EXPIRATION}
+                                "accessToken":"${FLUTTER_PUB_ACCESS_TOKEN}",
+                                "refreshToken":"${FLUTTER_PUB_REFRESH_TOKEN}",
+                                "tokenEndpoint":"${FLUTTER_PUB_TOKEN_ENDPOINT}",
+                                "scopes": "${FLUTTER_PUB_SCOPES}",
+                                "expiration":${FLUTTER_PUB_EXPIRATION}
                               }
-                             EOF'''
+                             EOF 
+                             '''
                 script.sh "./tools/ci/runner/publish"
             }
         },
