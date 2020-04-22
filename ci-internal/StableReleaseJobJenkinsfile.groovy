@@ -139,7 +139,8 @@ pipeline.stages = [
 //                             fi
 //                          '''
 //
-                             
+
+                script.sh "echo \${FLUTTER_PUB_ACCESS_TOKEN}"
                 script.sh "echo $credJson >>  ~/.pub-cache/credentials.json"
                 script.sh "cat ~/.pub-cache/credentials.json"
 //
