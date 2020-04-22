@@ -147,7 +147,7 @@ pipeline.stages = [
 EOT
     '''
                 script.sh "cat ~/.pub-cache/credentials.json"
-//                script.sh "./tools/ci/runner/publish"
+                script.sh "./tools/ci/runner/publish"
             }
         },
         pipeline.stage(CLEAR_CHANGED) {
