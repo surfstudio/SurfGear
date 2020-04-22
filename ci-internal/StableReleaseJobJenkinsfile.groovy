@@ -141,6 +141,7 @@ pipeline.stages = [
 //
                              
                 script.sh "echo $credJson >>  ~/.pub-cache/credentials.json"
+                script.sh "cat ~/.pub-cache/credentials.json"
 //
 //                             cat <<EOF > ~/.pub-cache/credentials.json
 //                              {
@@ -152,7 +153,7 @@ pipeline.stages = [
 //                              }
 //                              EOF
 //                             '''
-                script.sh "./tools/ci/runner/publish"
+//                script.sh "./tools/ci/runner/publish"
             }
         },
         pipeline.stage(CLEAR_CHANGED) {
