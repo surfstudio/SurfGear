@@ -131,20 +131,20 @@ pipeline.stages = [
                                 exit 1
                              fi
                         
-                              if [ -z \"${FLUTTER_PUB_EXPIRATION}\" ]; then
+                             if [ -z \"${FLUTTER_PUB_EXPIRATION}\" ]; then
                                 echo \"Missing PUB_DEV_PUBLISH_EXPIRATION environment variable\"
                                 exit 1
-                              fi
+                             fi
                         
-                              cat <<EOF > ~/.pub-cache/credentials.json
+                             cat <<EOF > ~/credentials.json
                               {
-                                \"accessToken\":\"\$(echo \"${FLUTTER_PUB_ACCESS_TOKEN}\" | base64 -d)\",
-                                \"refreshToken\":\"\$(echo \"${FLUTTER_PUB_REFRESH_TOKEN}\" | base64 -d)\",
+                                \"accessToken\":\"\${FLUTTER_PUB_ACCESS_TOKEN}\",
+                                \"refreshToken\":\"${FLUTTER_PUB_REFRESH_TOKEN}\",
                                 \"tokenEndpoint\":\"${FLUTTER_PUB_TOKEN_ENDPOINT}\",
                                 \"scopes\": \"${FLUTTER_PUB_SCOPES}\",
                                 \"expiration\":${FLUTTER_PUB_EXPIRATION}
                               }
-                              EOF'''
+                             EOF'''
                 script.sh "./tools/ci/runner/publish"
             }
         },
