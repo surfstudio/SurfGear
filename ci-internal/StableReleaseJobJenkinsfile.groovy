@@ -88,7 +88,7 @@ pipeline.stages = [
         },
 
         pipeline.stage(FIND_CHANGED) {
-            script.sh "./tools/ci/runner/find_changed_modules --target=${branchName}"
+            script.sh "./tools/ci/runner/find_changed_modules --target=dev"
         },
 
         pipeline.stage(CHECK_PUBLISH_AVAILABLE) {
@@ -116,35 +116,35 @@ pipeline.stages = [
                     script.string(credentialsId: FLUTTER_PUB_SCOPES, variable: FLUTTER_PUB_SCOPES ),
                     script.string(credentialsId: FLUTTER_PUB_EXPIRATION, variable: FLUTTER_PUB_EXPIRATION ),
             ]) {
-                script.sh "if [ -z \"${FLUTTER_PUB_ACCESS_TOKEN}\" ]; then\n" +
-                        "        echo \"Missing PUB_DEV_PUBLISH_ACCESS_TOKEN environment variable\"\n" +
-                        "        exit 1\n" +
-                        "      fi\n" +
-                        "\n" +
-                        "      if [ -z \"${FLUTTER_PUB_REFRESH_TOKEN}\" ]; then\n" +
-                        "        echo \"Missing PUB_DEV_PUBLISH_REFRESH_TOKEN environment variable\"\n" +
-                        "        exit 1\n" +
-                        "      fi\n" +
-                        "\n" +
-                        "      if [ -z \"${FLUTTER_PUB_TOKEN_ENDPOINT}\" ]; then\n" +
-                        "        echo \"Missing PUB_DEV_PUBLISH_TOKEN_ENDPOINT environment variable\"\n" +
-                        "        exit 1\n" +
-                        "      fi\n" +
-                        "\n" +
-                        "      if [ -z \"${FLUTTER_PUB_EXPIRATION}\" ]; then\n" +
-                        "        echo \"Missing PUB_DEV_PUBLISH_EXPIRATION environment variable\"\n" +
-                        "        exit 1\n" +
-                        "      fi\n" +
-                        "\n" +
-                        "      cat <<EOF > ~/.pub-cache/credentials.json\n" +
-                        "      {\n" +
-                        "        \"accessToken\":\"\$(echo \"${FLUTTER_PUB_ACCESS_TOKEN}\" | base64 -d)\",\n" +
-                        "        \"refreshToken\":\"\$(echo \"${FLUTTER_PUB_REFRESH_TOKEN}\" | base64 -d)\",\n" +
-                        "        \"tokenEndpoint\":\"${FLUTTER_PUB_TOKEN_ENDPOINT}\",\n" +
-                        "        \"scopes\": \"${FLUTTER_PUB_SCOPES}\",\n" +
-                        "        \"expiration\":${FLUTTER_PUB_EXPIRATION}\n" +
-                        "      }\n" +
-                        "      EOF"
+                script.sh '''if [ -z \"${FLUTTER_PUB_ACCESS_TOKEN}\" ]; then
+                                echo \"Missing PUB_DEV_PUBLISH_ACCESS_TOKEN environment variable\"
+                                exit 1"
+                             fi
+                             
+                             if [ -z \"${FLUTTER_PUB_REFRESH_TOKEN}\" ]; then
+                                echo \"Missing PUB_DEV_PUBLISH_REFRESH_TOKEN environment variable\"
+                                exit 1 
+                             fi
+                        
+                             if [ -z \"${FLUTTER_PUB_TOKEN_ENDPOINT}\" ]; then
+                                echo \"Missing PUB_DEV_PUBLISH_TOKEN_ENDPOINT environment variable\"
+                                exit 1
+                             fi
+                        
+                              if [ -z \"${FLUTTER_PUB_EXPIRATION}\" ]; then
+                                echo \"Missing PUB_DEV_PUBLISH_EXPIRATION environment variable\"
+                                exit 1
+                              fi
+                        
+                              cat <<EOF > ~/.pub-cache/credentials.json
+                              {
+                                \"accessToken\":\"\$(echo \"${FLUTTER_PUB_ACCESS_TOKEN}\" | base64 -d)\",
+                                \"refreshToken\":\"\$(echo \"${FLUTTER_PUB_REFRESH_TOKEN}\" | base64 -d)\",
+                                \"tokenEndpoint\":\"${FLUTTER_PUB_TOKEN_ENDPOINT}\",
+                                \"scopes\": \"${FLUTTER_PUB_SCOPES}\",
+                                \"expiration\":${FLUTTER_PUB_EXPIRATION}
+                              }
+                              EOF'''
                 script.sh "./tools/ci/runner/publish"
             }
         },
