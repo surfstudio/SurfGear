@@ -70,15 +70,6 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         if requestSoundPermission {
             options.insert(.sound)
         }
-
-        // Permission request for notifications
-        notificationCenter.requestAuthorization(options: options) {
-            (didAllow, error) in
-            if !didAllow {
-                print("User has declined notifications")
-                return
-            }
-        }
     }
 
     func requestPermissions(args: NSDictionary) {
