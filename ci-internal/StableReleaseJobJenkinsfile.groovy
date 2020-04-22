@@ -141,19 +141,9 @@ pipeline.stages = [
 //
 
                 script.sh "echo \${FLUTTER_PUB_SCOPES}"
+                script.sh "rm -rf ~/.pub-cache/credentials.json"
                 script.sh "echo $credJson >>  ~/.pub-cache/credentials.json"
                 script.sh "cat ~/.pub-cache/credentials.json"
-//
-//                             cat <<EOF > ~/.pub-cache/credentials.json
-//                              {
-//                                "accessToken":"${FLUTTER_PUB_ACCESS_TOKEN}",
-//                                "refreshToken":"${FLUTTER_PUB_REFRESH_TOKEN}",
-//                                "tokenEndpoint":"${FLUTTER_PUB_TOKEN_ENDPOINT}",
-//                                "scopes": "${FLUTTER_PUB_SCOPES}",
-//                                "expiration":${FLUTTER_PUB_EXPIRATION}
-//                              }
-//                              EOF
-//                             '''
 //                script.sh "./tools/ci/runner/publish"
             }
         },
