@@ -32,7 +32,7 @@ def CLEAR_CHANGED = 'Clear changed'
 def branchName = "stable"
 def buildDescription = "stable release"
 
-def credJson = '''{"accessToken":"${FLUTTER_PUB_ACCESS_TOKEN}","refreshToken":"${FLUTTER_PUB_REFRESH_TOKEN}","tokenEndpoint":"${FLUTTER_PUB_TOKEN_ENDPOINT}","scopes": "${FLUTTER_PUB_SCOPES}","expiration":${FLUTTER_PUB_EXPIRATION}}'''
+def credJson = "{\"accessToken\":\"\${FLUTTER_PUB_ACCESS_TOKEN}\",\"refreshToken\":\"\${FLUTTER_PUB_REFRESH_TOKEN}\",\"tokenEndpoint\":\"\${FLUTTER_PUB_TOKEN_ENDPOINT}\",\"scopes\": \"\${FLUTTER_PUB_SCOPES}\",\"expiration\":\${FLUTTER_PUB_EXPIRATION}}"
 
 //init
 def script = this
