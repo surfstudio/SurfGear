@@ -32,7 +32,7 @@ def CLEAR_CHANGED = 'Clear changed'
 def branchName = "stable"
 def buildDescription = "stable release"
 
-def credJson = "{\"accessToken\":\"\${FLUTTER_PUB_ACCESS_TOKEN}\",\"refreshToken\":\"\${FLUTTER_PUB_REFRESH_TOKEN}\",\"tokenEndpoint\":\"\${FLUTTER_PUB_TOKEN_ENDPOINT}\",\"scopes\":\${FLUTTER_PUB_SCOPES},\"expiration\":\${FLUTTER_PUB_EXPIRATION}}"
+def credJson = '''{"accessToken":"${FLUTTER_PUB_ACCESS_TOKEN}","refreshToken":"${FLUTTER_PUB_REFRESH_TOKEN}","tokenEndpoint":"${FLUTTER_PUB_TOKEN_ENDPOINT}","scopes":${FLUTTER_PUB_SCOPES},"expiration":${FLUTTER_PUB_EXPIRATION}}'''
 
 //init
 def script = this
@@ -140,11 +140,10 @@ pipeline.stages = [
 //                          '''
 //
 
-                script.sh "echo \${FLUTTER_PUB_SCOPES}"
                 script.sh "rm -rf ~/.pub-cache/credentials.json"
                 script.sh "echo $credJson >>  ~/.pub-cache/credentials.json"
-//                script.sh "cat ~/.pub-cache/credentials.json"
-                script.sh "./tools/ci/runner/publish"
+                script.sh "cat ~/.pub-cache/credentials.json"
+//                script.sh "./tools/ci/runner/publish"
             }
         },
         pipeline.stage(CLEAR_CHANGED) {
