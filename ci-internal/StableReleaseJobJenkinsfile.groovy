@@ -90,7 +90,7 @@ pipeline.stages = [
         },
 
         pipeline.stage(FIND_CHANGED) {
-            script.sh "./tools/ci/runner/find_changed_modules --target=dev"
+            script.sh "./tools/ci/runner/find_changed_modules --target=HEAD@{1}"
         },
 
         pipeline.stage(CHECK_PUBLISH_AVAILABLE) {
