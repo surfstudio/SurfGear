@@ -143,8 +143,8 @@ pipeline.stages = [
                 script.sh "echo \${FLUTTER_PUB_SCOPES}"
                 script.sh "rm -rf ~/.pub-cache/credentials.json"
                 script.sh "echo $credJson >>  ~/.pub-cache/credentials.json"
-                script.sh "cat ~/.pub-cache/credentials.json"
-//                script.sh "./tools/ci/runner/publish"
+//                script.sh "cat ~/.pub-cache/credentials.json"
+                script.sh "./tools/ci/runner/publish"
             }
         },
         pipeline.stage(CLEAR_CHANGED) {
