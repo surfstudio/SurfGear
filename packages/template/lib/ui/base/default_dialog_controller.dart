@@ -140,6 +140,7 @@ class DefaultDialogController implements DialogController {
     return showModalBottomSheet(
       context: _scaffoldContext,
       isScrollControlled: isScrollControlled,
+      backgroundColor: Colors.transparent,
       builder: (ctx) => dialogOwner?.registeredDialogs[type](ctx, data: data),
     );
   }
