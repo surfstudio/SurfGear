@@ -15,7 +15,6 @@ final themeData = ThemeData(
       elevation: 4.0,
     ),
     brightness: Brightness.light,
-    canvasColor: Colors.transparent,
     buttonColor: btnColor,
     errorColor: colorError,
     scaffoldBackgroundColor: backgroundColor,
