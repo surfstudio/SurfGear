@@ -167,7 +167,7 @@ Future<void> createChangedListFile(List<Element> elements, String target) async 
 Future<void> clearChangedListFile() async {
   var file = File(_getChangedListFilePath());
 
-  if (!file.existsSync()) {
+  if (file.existsSync()) {
     await file.delete();
   }
 }
