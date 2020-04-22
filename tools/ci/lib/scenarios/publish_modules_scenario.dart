@@ -37,11 +37,11 @@ class PublishModulesScenario extends ChangedElementScenario {
     var targetServer = command.arguments[server];
     var releaseElements = elements.where((e) => e.isStable).toList();
 
-    print("Stable packages: ${releaseElements.join(',')}");
+    print("Stable packages: ${releaseElements.map((p) => p.name).join(',')}");
     try {
       for (var element in releaseElements) {
-//        await pubPublishModules(element, pathServer: targetServer);
-      print(element.name + 'published');
+        await pubPublishModules(element, pathServer: targetServer);
+      print(element.name + ' published');
       }
     } on BaseCiException {
       rethrow;
