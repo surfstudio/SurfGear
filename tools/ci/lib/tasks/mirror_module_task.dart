@@ -35,8 +35,6 @@ class MirrorOpenSourceModuleTask implements Task<bool> {
       return parts[0] + r'\\' + '${Uri.encodeComponent(Platform.environment['USERNAME'])}:${Uri.encodeComponent(Platform.environment['PASSWORD'])}@' + parts[1];
     }();
 
-    print("$repoWithCreds");
-
     // push only to stable branch, yet
     final pushSubtree = 'git subtree push $prefix $repoWithCreds stable';
     final pushResult = await sh(pushSubtree, path: Config.repoRootPath);
