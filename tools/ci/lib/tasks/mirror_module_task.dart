@@ -29,8 +29,8 @@ class MirrorOpenSourceModuleTask implements Task<bool> {
 
     final prefix = '--prefix=${modulePath}';
 
-    // push only to dev branch, yet
-    final pushSubtree = 'git subtree push $prefix $repoUrl dev';
+    // push only to stable branch, yet
+    final pushSubtree = 'git subtree push $prefix $repoUrl stable';
     final pushResult = await sh(pushSubtree, path: Config.repoRootPath);
 
     if (pushResult.exitCode != 0) {
