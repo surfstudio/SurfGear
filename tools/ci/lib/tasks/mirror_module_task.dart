@@ -32,10 +32,8 @@ class MirrorOpenSourceModuleTask implements Task<bool> {
 
     final repoWithCreds = () {
       var parts = repoUrl.split('//').toList(); // two parts
-      return parts[0] + '\${${utf8.encode(Platform.environment['USERNAME'])}:\${${utf8.encode(Platform.environment['PASSWORD'])}@' + parts[1];
+      return parts[0] + r'\\' + '${Uri.encodeComponent(Platform.environment['USERNAME'])}:${Uri.encodeComponent(Platform.environment['PASSWORD'])}@' + parts[1];
     }();
-
-    print("$repoWithCreds");
 
     // push only to stable branch, yet
     final pushSubtree = 'git subtree push $prefix $repoWithCreds stable';

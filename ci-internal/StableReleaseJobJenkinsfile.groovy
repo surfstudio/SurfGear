@@ -8,6 +8,7 @@ import ru.surfstudio.ci.CommonUtil
 import ru.surfstudio.ci.RepositoryUtil
 import ru.surfstudio.ci.Result
 import ru.surfstudio.ci.AbortDuplicateStrategy
+import ru.surfstudio.ci.stage.StageStrategy
 
 //Pipeline on commit stable-branch
 
@@ -111,7 +112,7 @@ pipeline.stages = [
                 script.error("Checks Failed")
             }
         },
-        pipeline.stage(PUBLISH) {
+        pipeline.stage(PUBLISH, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
             script.withCredentials([
                     script.string(credentialsId: FLUTTER_PUB_ACCESS_TOKEN, variable: FLUTTER_PUB_ACCESS_TOKEN ),
                     script.string(credentialsId: FLUTTER_PUB_REFRESH_TOKEN, variable: FLUTTER_PUB_REFRESH_TOKEN ),
