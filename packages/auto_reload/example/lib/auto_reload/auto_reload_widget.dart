@@ -11,8 +11,7 @@ class DemoAutoReloadWidget extends StatefulWidget {
 abstract class _AutoReloadState extends State<DemoAutoReloadWidget>
     implements AutoReloader {}
 
-class _DemoAutoReloadWidgetState extends _AutoReloadState with AutoReloadMixin
-{
+class _DemoAutoReloadWidgetState extends _AutoReloadState with AutoReloadMixin {
   @override
   final Duration autoReloadDuration = const Duration(seconds: 3);
 
