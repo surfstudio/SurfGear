@@ -1,6 +1,6 @@
 <!--![logo](logo.gif)-->
 
-# <img src="logo.png" title="logo" width="400" height="400" align="middle"/>
+# <img src="logo.png" title="logo" align="middle"/>
 
 Software architectural pattern for Flutter apps.
 
@@ -41,7 +41,7 @@ class CounterScreen extends CoreMwwmWidget {
         );
 }
 ```
-1. Create State for this widget which extends `WidgetState`
+2. Create State for this widget which extends `WidgetState`
 ```
 class _CounterScreenState extends WidgetState<CounterWidgetModel> {
   @override
@@ -52,11 +52,11 @@ class _CounterScreenState extends WidgetState<CounterWidgetModel> {
   }
 }
 ```
-1. Define `widgetStateBuilder` for your widget in `super`. 
+3. Define `widgetStateBuilder` for your widget in `super`. 
 ```
 super(
           // ...
           widgetStateBuilder: () => _CounterScreenState(),
         );
 ``` 
-1. Create WidgetModel by extending `WidgetModel` class and provide here `ErrorHandler` and `Model`
+4. Create WidgetModel by extending `WidgetModel` class and provide here `ErrorHandler` and `Model`
