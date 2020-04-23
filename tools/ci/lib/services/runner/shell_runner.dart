@@ -11,7 +11,7 @@ Future<ProcessResult> sh(String command,
   parsed.remove(cmd);
 
   arguments = <String>[...parsed, ...(arguments ?? <String>[])];
-
+  print('sh $command');
   return ShellRunner.instance.run(
     cmd,
     arguments: arguments,

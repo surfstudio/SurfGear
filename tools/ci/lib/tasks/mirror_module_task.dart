@@ -29,7 +29,8 @@ class MirrorOpenSourceModuleTask implements Task<bool> {
 
     final prefix = '--prefix=${modulePath}';
 
-    final pushSubtree = 'git subtree push $prefix $repoUrl master';
+    // push only to dev branch, yet
+    final pushSubtree = 'git subtree push $prefix $repoUrl dev';
     final pushResult = await sh(pushSubtree, path: Config.repoRootPath);
 
     if (pushResult.exitCode != 0) {
@@ -40,7 +41,7 @@ class MirrorOpenSourceModuleTask implements Task<bool> {
   }
 
   void _throwModuleMirroringException(String moduleName, ProcessResult result) {
-    final error = '${result.stdout}$result.stderr}';
+    final error = '${result.stdout}${result.stderr}';
     final message = getMirroringExceptionText(moduleName, error);
     throw ModuleMirroringException(message);
   }

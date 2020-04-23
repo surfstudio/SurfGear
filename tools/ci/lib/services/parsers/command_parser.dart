@@ -16,6 +16,7 @@ import 'package:ci/scenarios/check_version_in_release_note_scenario.dart';
 import 'package:ci/scenarios/clear_changed_scenario.dart';
 import 'package:ci/scenarios/find_changed_modules_scenario.dart';
 import 'package:ci/scenarios/increment_unstable_versions_scenario.dart';
+import 'package:ci/scenarios/mirror_opensource_module_scenario.dart';
 import 'package:ci/scenarios/publish_modules_scenario.dart';
 import 'package:ci/scenarios/run_test_scenario.dart';
 import 'package:ci/scenarios/show_dependency_graph_scenario.dart';
@@ -155,12 +156,16 @@ class CommandParser {
       ..addCommand(
           ShowDependencyGraphScenario.commandName,
           ArgParser()
-            ..addFlag(ShowDependencyGraphScenario.allFlag, negatable: false, help: 'Check all modules')
+            ..addFlag(ShowDependencyGraphScenario.allFlag,
+                negatable: false, help: 'Check all modules')
             ..addOption(ShowDependencyGraphScenario.nameOption,
                 help: 'Show dependency graph of the specified module'))
 
       /// help
-      ..addFlag(helpFlag, negatable: false, abbr: helpAbbr);
+      ..addFlag(helpFlag, negatable: false, abbr: helpAbbr)
+
+      //mirror
+      ..addCommand(MirrorOpenSourceModuleScenario.commandName);
   }
 
   /// Проверяем, требовался ли вызов help, если нет, то запускаем команду
