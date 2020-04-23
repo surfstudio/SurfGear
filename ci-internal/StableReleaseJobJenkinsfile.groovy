@@ -135,7 +135,7 @@ EOT
                 sh "./tools/ci/runner/mirror"
 //                sh "git push --mirror https://${encodeUrl(USERNAME)}:${encodeUrl(PASSWORD)}@github.com/surfstudio/SurfGear.git"
             }
-        }
+        },
         pipeline.stage(CLEAR_CHANGED) {
             script.sh "./tools/ci/runner/clear_changed"
         },

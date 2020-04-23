@@ -1,3 +1,5 @@
+[0.0.4] - Add logo
+
 [0.0.3] - Update docs
 * README update
 * fix some class docs

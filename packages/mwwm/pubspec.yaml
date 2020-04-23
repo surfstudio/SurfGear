@@ -1,6 +1,9 @@
 name: mwwm
-description: Reflection of widget in a single entity
-version: 0.0.3
+description: >
+  Software architecture pattern for teams with different sizes.
+  Add possibility to work separately.
+  Separate UI, presentation logic and business logic.
+version: 0.0.4
 homepage: https://github.com/surfstudio/mwwm
 
 environment:
@@ -14,7 +17,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  pedantic: ^1.8.0+1
+  pedantic: ^1.9.0
 
 flutter:
 
