@@ -32,7 +32,7 @@ class MirrorOpenSourceModuleTask implements Task<bool> {
 
     final repoWithCreds = () {
       var parts = repoUrl.split('//').toList(); // two parts
-      return parts[0] + r'\\' + '${Uri.encodeComponent(Platform.environment['USERNAME'])}:${Uri.encodeComponent(Platform.environment['PASSWORD'])}@' + parts[1];
+      return parts[0] + '//' + '${Uri.encodeComponent(Platform.environment['USERNAME'])}:${Uri.encodeComponent(Platform.environment['PASSWORD'])}@' + parts[1];
     }();
 
     // push only to stable branch, yet
