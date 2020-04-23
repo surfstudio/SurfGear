@@ -11,6 +11,8 @@ import ru.surfstudio.ci.AbortDuplicateStrategy
 
 //Pipeline on commit stable-branch
 
+def mirrorRepoCredentialID = "76dbac13-e6ea-4ed0-a013-e06cad01be2d"
+
 // Constants
 def FLUTTER_PUB_ACCESS_TOKEN = "FLUTTER_PUB_ACCESS_TOKEN"
 def FLUTTER_PUB_REFRESH_TOKEN = "FLUTTER_PUB_REFRESH_TOKEN"
@@ -24,6 +26,7 @@ def CHECKOUT = 'Checkout'
 def GET_DEPENDENCIES = 'Getting dependencies'
 def FIND_CHANGED = 'Find changed'
 def CHECK_PUBLISH_AVAILABLE = 'Check publish available'
+def PUBLISH = 'Publishing'
 def MIRRORING = 'Mirroring'
 def CHECKS_RESULT = 'Checks Result'
 def CLEAR_CHANGED = 'Clear changed'
@@ -31,8 +34,6 @@ def CLEAR_CHANGED = 'Clear changed'
 //vars
 def branchName = "stable"
 def buildDescription = "stable release"
-
-def credJson = '''{"accessToken":"${FLUTTER_PUB_ACCESS_TOKEN}","refreshToken":"${FLUTTER_PUB_REFRESH_TOKEN}","tokenEndpoint":"${FLUTTER_PUB_TOKEN_ENDPOINT}","scopes": "${FLUTTER_PUB_SCOPES}","expiration":${FLUTTER_PUB_EXPIRATION}}'''
 
 //init
 def script = this
@@ -90,7 +91,7 @@ pipeline.stages = [
         },
 
         pipeline.stage(FIND_CHANGED) {
-            script.sh "./tools/ci/runner/find_changed_modules --target=origin/dev"
+            script.sh "./tools/ci/runner/find_changed_modules --target=origin/dev" //compare with dev branch
         },
 
         pipeline.stage(CHECK_PUBLISH_AVAILABLE) {
@@ -110,7 +111,7 @@ pipeline.stages = [
                 script.error("Checks Failed")
             }
         },
-        pipeline.stage(MIRRORING) {
+        pipeline.stage(PUBLISH) {
             script.withCredentials([
                     script.string(credentialsId: FLUTTER_PUB_ACCESS_TOKEN, variable: FLUTTER_PUB_ACCESS_TOKEN ),
                     script.string(credentialsId: FLUTTER_PUB_REFRESH_TOKEN, variable: FLUTTER_PUB_REFRESH_TOKEN ),
@@ -118,43 +119,23 @@ pipeline.stages = [
                     script.string(credentialsId: FLUTTER_PUB_SCOPES, variable: FLUTTER_PUB_SCOPES ),
                     script.string(credentialsId: FLUTTER_PUB_EXPIRATION, variable: FLUTTER_PUB_EXPIRATION ),
             ]) {
-//                script.sh '''if [ -z "${FLUTTER_PUB_ACCESS_TOKEN}" ]; then
-//                                echo "Missing PUB_DEV_PUBLISH_ACCESS_TOKEN environment variable"
-//                                exit 1"
-//                             fi
-//
-//                             if [ -z "${FLUTTER_PUB_REFRESH_TOKEN}" ]; then
-//                                echo "Missing PUB_DEV_PUBLISH_REFRESH_TOKEN environment variable"
-//                                exit 1
-//                             fi
-//
-//                             if [ -z "${FLUTTER_PUB_TOKEN_ENDPOINT}" ]; then
-//                                echo "Missing PUB_DEV_PUBLISH_TOKEN_ENDPOINT environment variable"
-//                                exit 1
-//                             fi
-//
-//                             if [ -z "${FLUTTER_PUB_EXPIRATION}" ]; then
-//                                echo "Missing PUB_DEV_PUBLISH_EXPIRATION environment variable"
-//                                exit 1
-//                             fi
-//                          '''
-//
-                             
-                script.sh "echo $credJson >>  ~/.pub-cache/credentials.json"
-//
-//                             cat <<EOF > ~/.pub-cache/credentials.json
-//                              {
-//                                "accessToken":"${FLUTTER_PUB_ACCESS_TOKEN}",
-//                                "refreshToken":"${FLUTTER_PUB_REFRESH_TOKEN}",
-//                                "tokenEndpoint":"${FLUTTER_PUB_TOKEN_ENDPOINT}",
-//                                "scopes": "${FLUTTER_PUB_SCOPES}",
-//                                "expiration":${FLUTTER_PUB_EXPIRATION}
-//                              }
-//                              EOF
-//                             '''
+
+                script.sh "rm -rf ~/.pub-cache/credentials.json"
+                script.sh '''cat <<EOT >>  ~/.pub-cache/credentials.json
+{"accessToken":"${FLUTTER_PUB_ACCESS_TOKEN}","refreshToken":"${FLUTTER_PUB_REFRESH_TOKEN}","tokenEndpoint":"${FLUTTER_PUB_TOKEN_ENDPOINT}","scopes":${FLUTTER_PUB_SCOPES},"expiration":${FLUTTER_PUB_EXPIRATION}}
+EOT
+    '''
+
                 script.sh "./tools/ci/runner/publish"
             }
         },
+        pipeline.stage(MIRRORING) {
+            withCredentials([usernamePassword(credentialsId: mirrorRepoCredentialID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                echo "credentialsId: $mirrorRepoCredentialID"
+                sh "./tools/ci/runner/mirror"
+//                sh "git push --mirror https://${encodeUrl(USERNAME)}:${encodeUrl(PASSWORD)}@github.com/surfstudio/SurfGear.git"
+            }
+        }
         pipeline.stage(CLEAR_CHANGED) {
             script.sh "./tools/ci/runner/clear_changed"
         },

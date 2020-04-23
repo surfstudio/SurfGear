@@ -180,7 +180,12 @@ Future<void> mirrorOpenSourceModules(List<Element> elements) async {
   final hasRepo = (Element e) => e.openSourceInfo?.separateRepoUrl != null;
   final openSourceModules = elements.where(hasRepo).toList();
 
-  openSourceModules.forEach((e) => MirrorOpenSourceModuleTask(e).run());
+  openSourceModules.forEach(
+    (e) {
+      print("Mirror package ${e.name} to ${e.openSourceInfo.separateRepoUrl}");
+      return MirrorOpenSourceModuleTask(e).run();
+    },
+  );
 }
 
 /// Обновляет зависимости переданных модулей по данным тега.

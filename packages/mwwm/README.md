@@ -1,4 +1,6 @@
-# MWWM
+<!--![logo](logo.gif)-->
+
+# <img src="logo.png" title="logo" width="400" height="400" align="middle"/>
 
 Software architectural pattern for Flutter apps.
 
