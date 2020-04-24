@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:surfgear_webpage/webpage/body/body_widget.dart';
 import 'package:surfgear_webpage/webpage/footer/footer_widget.dart';
 import 'package:surfgear_webpage/webpage/header/header_widget.dart';
-import 'package:surfgear_webpage/webpage/menu/menu_screen_widget.dart';
 
 /// Ширина среднего экрана
 const double MEDIUM_SCREEN_WIDTH = 1500;
@@ -57,59 +56,23 @@ class _WebpageWidgetState extends State<WebpageWidget>
 
   @override
   Widget build(BuildContext context) {
-    var screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Stack(
-        children: [
-          ListView(
-            controller: _scrollController,
-            children: <Widget>[
-              HeaderWidget(
-                onMenuTap: _openMenuScreen,
-                animationController: _menuButtonAnimationController,
+      body: SingleChildScrollView(
+        controller: _scrollController,
+        child: Column(
+          children: <Widget>[
+            ConstrainedBox(
+              constraints: BoxConstraints.expand(
+                height: MediaQuery.of(context).size.height,
               ),
-              BodyWidget(),
-              FooterWidget(),
-            ],
-          ),
-          _buildMenuScreen(screenWidth),
-        ],
+              child: HeaderWidget(
+              ),
+            ),
+            BodyWidget(),
+            FooterWidget(),
+          ],
+        ),
       ),
     );
-  }
-
-  /// Отрисовка меню в виде экрана
-  Widget _buildMenuScreen(double screenWidth) {
-    // если ширина экрана > минимальной ширины
-    if (screenWidth > SMALL_SCREEN_WIDTH) {
-      // необходимо закрыть меню экрана
-      _closeMenuScreen();
-    }
-
-    // если нажали на кнопку меню открыть экран меню
-    if (_isMenuOpen) {
-      return MenuScreenWidget(
-        onMenuTap: _closeMenuScreen,
-        menuButtonAnimationController: _menuButtonAnimationController,
-      );
-    } else {
-      return SizedBox();
-    }
-  }
-
-  /// закрыть экран меню
-  void _closeMenuScreen() {
-    setState(() {
-      _isMenuOpen = false;
-      _menuButtonAnimationController.reverse();
-    });
-  }
-
-  /// открыть экран меню
-  void _openMenuScreen() {
-    setState(() {
-      _isMenuOpen = true;
-      _menuButtonAnimationController.forward();
-    });
   }
 }
