@@ -23,14 +23,17 @@ class HeaderLogoWidget extends StatelessWidget {
   /// отрисовать большой логотип
   Widget _buildBigLogo() {
     return Padding(
-      padding: const EdgeInsets.only(left: 64.0, right: 64.0),
+      padding: const EdgeInsets.only(
+        left: 64.0,
+        right: 64.0,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Image.asset(
             imgLogo,
           ),
-          SizedBox(width: 64),
+          SizedBox(width: 64.0),
           Text(
             logoText,
             style: white42,
@@ -43,7 +46,10 @@ class HeaderLogoWidget extends StatelessWidget {
   /// отрисовать средний логотип
   Widget _buildMediumLogo() {
     return Padding(
-      padding: const EdgeInsets.only(left: 64.0, right: 64.0),
+      padding: const EdgeInsets.only(
+        left: 64.0,
+        right: 64.0,
+      ),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -64,7 +70,10 @@ class HeaderLogoWidget extends StatelessWidget {
   /// отрисовать маленький логотип
   Widget _buildSmallLogo() {
     return Padding(
-      padding: const EdgeInsets.only(left: 64.0, right: 64.0),
+      padding: const EdgeInsets.only(
+        left: 64.0,
+        right: 64.0,
+      ),
       child: Column(
         children: <Widget>[
           Image.asset(

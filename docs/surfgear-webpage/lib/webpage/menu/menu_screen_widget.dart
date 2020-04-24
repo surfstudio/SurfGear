@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:surfgear_webpage/webpage/menu/menu_top_button_widget.dart';
+import 'package:surfgear_webpage/webpage/menu/menu_button_widget.dart';
 
 /// Меню в виде экрана
 /// https://www.figma.com/file/FTTXzwb6zPFZtOhGK0PAKl/Untitled?node-id=18%3A0

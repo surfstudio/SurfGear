@@ -7,14 +7,11 @@ import 'package:surfgear_webpage/webpage/footer/footer_widget.dart';
 import 'package:surfgear_webpage/webpage/header/header_widget.dart';
 import 'package:surfgear_webpage/webpage/menu/menu_screen_widget.dart';
 
-/// Ширина широкого экрана
-const double BIG_SCREEN_WIDTH = 1000;
-
 /// Ширина среднего экрана
-const double MEDIUM_SCREEN_WIDTH = 800;
+const double MEDIUM_SCREEN_WIDTH = 1500;
 
 /// Ширина маленького экрана
-const double SMALL_SCREEN_WIDTH = 600;
+const double SMALL_SCREEN_WIDTH = 800;
 
 /// Виджет вебстраницы
 /// https://www.figma.com/file/FTTXzwb6zPFZtOhGK0PAKl/Untitled?node-id=3%3A0
