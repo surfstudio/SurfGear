@@ -1,0 +1,1 @@
+const String logoText = "Плагины для Flutter проектов";
