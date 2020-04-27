@@ -26,15 +26,11 @@ class _WebpageWidgetState extends State<WebpageWidget>
   StreamController _scrollOffsetController = StreamController<double>();
 
   ScrollController _scrollController;
-  AnimationController _menuButtonAnimationController;
-
-  bool _isMenuOpen = false;
 
   @override
   void initState() {
     super.initState();
     _initScrollControllerListener();
-    _initAnimationController();
   }
 
   void _initScrollControllerListener() {
@@ -45,13 +41,6 @@ class _WebpageWidgetState extends State<WebpageWidget>
           _scrollOffsetController.add(scrollOffset);
         },
       );
-  }
-
-  void _initAnimationController() {
-    _menuButtonAnimationController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 200),
-    );
   }
 
   @override
@@ -65,8 +54,7 @@ class _WebpageWidgetState extends State<WebpageWidget>
               constraints: BoxConstraints.expand(
                 height: MediaQuery.of(context).size.height,
               ),
-              child: HeaderWidget(
-              ),
+              child: HeaderWidget(),
             ),
             BodyWidget(),
             FooterWidget(),
