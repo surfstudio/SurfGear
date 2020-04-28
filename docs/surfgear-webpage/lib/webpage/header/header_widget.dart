@@ -6,8 +6,6 @@ import 'package:surfgear_webpage/assets/images.dart';
 import 'package:surfgear_webpage/webpage/webpage_widget.dart';
 import 'package:surfgear_webpage/widgets.dart';
 
-/// Шапка веб-страницы
-/// https://www.figma.com/file/FTTXzwb6zPFZtOhGK0PAKl/Untitled?node-id=3%3A0
 class HeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -72,7 +70,7 @@ class __LogoAndTextState extends State<_LogoAndText> {
         child: AnimatedOpacity(
           opacity: _visible ? 1 : 0,
           duration: const Duration(milliseconds: 350),
-          child: Image(image: AssetImage(imgLogo)),
+          child: Image.asset(imgLogo),
         ),
       ),
       Padding(
@@ -156,44 +154,38 @@ class _MenuButton extends StatelessWidget {
       : this(
           key: key,
           title: 'МОДУЛИ',
-          onPressed: () {},
+          onPressed: () {}, //TODO
         );
 
   _MenuButton.wiki({Key key})
       : this(
           key: key,
           title: 'ВИКИ',
-          onPressed: () {},
+          onPressed: () {}, //TODO
         );
 
   _MenuButton.github({Key key})
       : this(
           key: key,
           title: 'ГИТХАБ',
-          onPressed: () {},
+          onPressed: () {}, //TODO
         );
 
   @override
   Widget build(BuildContext context) {
-    bool hovering = false;
-    return CursorOnHoverWidget(
-      child: StatefulBuilder(
-        builder: (context, setState) {
-          return MouseRegion(
-            onEnter: (_) => setState(() => hovering = true),
-            onExit: (_) => setState(() => hovering = false),
-            child: Text(
-              title,
-              style: GoogleFonts.comfortaa(
-                color: Colors.white,
-                fontSize: 24.0,
-                decoration:
-                    hovering ? TextDecoration.underline : TextDecoration.none,
-              ),
-            ),
-          );
-        },
-      ),
+    return WebButton(
+      onPressed: onPressed,
+      buttonBuilder: (context, isHovering) {
+        return Text(
+          title,
+          style: GoogleFonts.comfortaa(
+            color: Colors.white,
+            fontSize: 24.0,
+            decoration:
+                isHovering ? TextDecoration.underline : TextDecoration.none,
+          ),
+        );
+      },
     );
   }
 }
@@ -288,29 +280,3 @@ class __MenuBurgerButtonState extends State<_MenuBurgerButton>
     Overlay.of(context).insert(entry);
   }
 }
-
-// class FadeIn extends StatelessWidget {
-//   final Widget child;
-
-//   FadeIn({
-//     Key key,
-//     @required this.child,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     bool show = false;
-//     return StatefulBuilder(
-//       builder: (context, setState) {
-//         Future.delayed(const Duration(milliseconds: 1000),
-//             () => setState(() => show = true));
-
-//         return AnimatedOpacity(
-//           opacity: show ? 1 : 0,
-//           duration: const Duration(milliseconds: 350),
-//           child: child,
-//         );
-//       },
-//     );
-//   }
-// }
