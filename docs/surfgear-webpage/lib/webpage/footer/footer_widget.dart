@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' show max;
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,7 +23,7 @@ class FooterWidget extends StatelessWidget {
       alignment: Alignment.center,
       children: <Widget>[
         OverflowBox(
-          minWidth: 1920,
+          minWidth: max(MediaQuery.of(context).size.width, 1920),
           maxWidth: double.infinity,
           child: Image.asset(
             imgBackground,

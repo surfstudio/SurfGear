@@ -1,3 +1,5 @@
+import 'dart:math' show max;
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +29,7 @@ class HeaderWidget extends StatelessWidget {
             ),
           ),
           child: OverflowBox(
-            minWidth: 1920,
+            minWidth: max(MediaQuery.of(context).size.width, 1920),
             maxWidth: double.infinity,
             child: Image.asset(
               imgBackground,
