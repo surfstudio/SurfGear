@@ -35,6 +35,7 @@ class HeaderWidget extends StatelessWidget {
               imgBackground,
               fit: BoxFit.fitWidth,
               alignment: Alignment(0.0, -0.3),
+              width: MediaQuery.of(context).size.width,
             ),
           ),
         ),

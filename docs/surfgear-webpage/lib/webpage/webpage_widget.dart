@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:surfgear_webpage/assets/images.dart';
 import 'package:surfgear_webpage/webpage/body/body_widget.dart';
 import 'package:surfgear_webpage/webpage/footer/footer_widget.dart';
 import 'package:surfgear_webpage/webpage/header/header_widget.dart';
@@ -23,9 +24,11 @@ class WebpageWidget extends StatefulWidget {
 
 class _WebpageWidgetState extends State<WebpageWidget>
     with SingleTickerProviderStateMixin {
-  StreamController _scrollOffsetController = StreamController<double>();
+  /// Stream для хранения положения скролла страницы
+  StreamController _pageOffsetController = StreamController<double>();
 
-  ScrollController _scrollController;
+  /// ScrollController страницы
+  ScrollController _pageScrollController;
 
   @override
   void initState() {
@@ -33,12 +36,13 @@ class _WebpageWidgetState extends State<WebpageWidget>
     _initScrollControllerListener();
   }
 
+  /// Инициализация ScrollController'а
   void _initScrollControllerListener() {
-    _scrollController = ScrollController()
+    _pageScrollController = ScrollController()
       ..addListener(
         () {
-          var scrollOffset = _scrollController.offset;
-          _scrollOffsetController.add(scrollOffset);
+          var scrollOffset = _pageScrollController.offset;
+          _pageOffsetController.add(scrollOffset);
         },
       );
   }
@@ -47,18 +51,47 @@ class _WebpageWidgetState extends State<WebpageWidget>
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        controller: _scrollController,
-        child: Column(
-          children: <Widget>[
-            ConstrainedBox(
-              constraints: BoxConstraints.expand(
-                height: MediaQuery.of(context).size.height,
-              ),
-              child: HeaderWidget(),
+        controller: _pageScrollController,
+        child: Stack(
+          children: [
+            _buildSurfLogo(),
+            Column(
+              children: <Widget>[
+                ConstrainedBox(
+                  constraints: BoxConstraints.expand(
+                    height: MediaQuery.of(context).size.height,
+                  ),
+                  child: HeaderWidget(),
+                ),
+                StreamBuilder(
+                  stream: _pageOffsetController.stream,
+                  initialData: 0.0,
+                  builder: (context, offset) {
+                    return BodyWidget(offset.data);
+                  },
+                ),
+                FooterWidget(),
+              ],
             ),
-            BodyWidget(),
-            FooterWidget(),
           ],
+        ),
+      ),
+    );
+  }
+
+  /// Отрисовка логотипа тела страницы
+  Widget _buildSurfLogo() {
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxHeight: 3000,
+      ),
+      child: OverflowBox(
+        maxWidth: double.infinity,
+        alignment: Alignment(0, -0.35),
+        child: Image.asset(
+          imgBackgroundLogo,
+          fit: BoxFit.fitWidth,
+          width: MediaQuery.of(context).size.width,
         ),
       ),
     );
