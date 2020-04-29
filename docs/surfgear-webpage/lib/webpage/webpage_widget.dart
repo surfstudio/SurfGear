@@ -12,8 +12,6 @@ const double MEDIUM_SCREEN_WIDTH = 1500;
 /// Ширина маленького экрана
 const double SMALL_SCREEN_WIDTH = 800;
 
-/// Виджет вебстраницы
-/// https://www.figma.com/file/FTTXzwb6zPFZtOhGK0PAKl/Untitled?node-id=3%3A0
 class WebpageWidget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -57,7 +55,14 @@ class _WebpageWidgetState extends State<WebpageWidget>
               child: HeaderWidget(),
             ),
             BodyWidget(),
-            FooterWidget(),
+            ConstrainedBox(
+              constraints: BoxConstraints.expand(
+                height: MediaQuery.of(context).size.height,
+              ),
+              child: FooterWidget(
+                scrollChangesStream: _scrollOffsetController.stream,
+              ),
+            ),
           ],
         ),
       ),

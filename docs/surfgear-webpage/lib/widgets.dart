@@ -21,3 +21,33 @@ class CursorOnHoverWidget extends StatelessWidget {
     );
   }
 }
+
+class WebButton extends StatelessWidget {
+  final Widget Function(BuildContext context, bool isHovering) buttonBuilder;
+  final VoidCallback onPressed;
+
+  WebButton({
+    Key key,
+    @required this.buttonBuilder,
+    @required this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    bool hovering = false;
+    return CursorOnHoverWidget(
+      child: StatefulBuilder(
+        builder: (context, setState) {
+          return MouseRegion(
+            onEnter: (_) => setState(() => hovering = true),
+            onExit: (_) => setState(() => hovering = false),
+            child: GestureDetector(
+              onTap: onPressed,
+              child: buttonBuilder(context, hovering),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
