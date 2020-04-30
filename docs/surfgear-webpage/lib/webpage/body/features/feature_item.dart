@@ -1,29 +1,33 @@
 import 'dart:async';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:surfgear_webpage/assets/text_styles.dart';
 import 'package:surfgear_webpage/webpage/webpage_widget.dart';
 
-/// Виджет фичи
-/// https://www.figma.com/file/FTTXzwb6zPFZtOhGK0PAKl/Untitled?node-id=14%3A2782
+/// Feature item
 class FeatureItem extends StatefulWidget {
-  /// Путь до картинки
+  /// Image path
   final String imagePath;
 
-  /// Заголовок
+  /// Feature title
   final String title;
 
-  /// Описания
+  /// Feature description
   final String description;
 
-  /// Картинка слева или справа
+  /// Feature image direction
   final bool isRightSide;
 
-  /// Задержка анимации
+  /// Animation delay
   final Duration delay;
 
-  /// Стрим, в котором хранится событие начала анимации
-  StreamController<bool> controller;
+  /// Stream in which the animation start event is stored
+  final StreamController<bool> controller;
+
+  /// Image offset
+  final Offset imageOffset;
 
   FeatureItem({
     @required this.imagePath,
@@ -31,6 +35,7 @@ class FeatureItem extends StatefulWidget {
     @required this.description,
     @required this.delay,
     this.isRightSide = false,
+    this.imageOffset = const Offset(0, 0),
     this.controller,
   });
 
@@ -42,8 +47,8 @@ class FeatureItem extends StatefulWidget {
 
 class _FeatureItem extends State<FeatureItem>
     with SingleTickerProviderStateMixin {
-  /// Начать анимацию
-  bool startAnimation = false;
+  /// Begin animation
+  static bool _startAnimation = false;
 
   @override
   void initState() {
@@ -53,10 +58,10 @@ class _FeatureItem extends State<FeatureItem>
 
   void _listenStartAnimation() {
     widget.controller.stream.listen((event) async {
-      if (!startAnimation) {
+      if (!_startAnimation) {
         await Future.delayed(widget.delay, () {
           setState(() {
-            startAnimation = true;
+            _startAnimation = true;
           });
         });
       }
@@ -68,48 +73,46 @@ class _FeatureItem extends State<FeatureItem>
     final screenWidth = MediaQuery.of(context).size.width;
     return AnimatedOpacity(
       duration: Duration(milliseconds: 250),
-      opacity: startAnimation ? 1.0 : 0.0,
+      opacity: _startAnimation ? 1.0 : 0.0,
       child: _buildFeatureItem(screenWidth),
     );
   }
 
-  /// Отрисовать фичу
   Widget _buildFeatureItem(double screenWidth) {
     if (screenWidth <= SMALL_SCREEN_WIDTH) {
       return _buildSmallFeature();
     } else if (screenWidth > SMALL_SCREEN_WIDTH &&
         screenWidth <= MEDIUM_SCREEN_WIDTH) {
-      return _buildMediumFeature(screenWidth);
+      return _buildMediumFeature();
     } else {
       return _buildBigFeature();
     }
   }
 
-  /// Отрисовать большую фичу
   Widget _buildBigFeature() {
     return Column(
       children: <Widget>[
-        Image.asset(widget.imagePath),
+        Transform.translate(
+          offset: widget.imageOffset,
+          child: Image.asset(widget.imagePath),
+        ),
         SizedBox(height: 66),
-        Text(
+        AutoSizeText(
           widget.title,
-          style: rubikBlackNormal36,
+          textAlign: TextAlign.center,
+          style: rubikBlack300_36,
         ),
         SizedBox(height: 40),
-        Container(
-          width: 500,
-          child: Text(
-            widget.description,
-            textAlign: TextAlign.center,
-            style: rubikBlackNormal22,
-          ),
+        Text(
+          widget.description,
+          textAlign: TextAlign.center,
+          style: ralewayBlackNormal22,
         ),
       ],
     );
   }
 
-  /// Отрисовать среднюю фичу
-  Widget _buildMediumFeature(double screenWidth) {
+  Widget _buildMediumFeature() {
     return Row(
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
@@ -123,7 +126,7 @@ class _FeatureItem extends State<FeatureItem>
           children: <Widget>[
             Text(
               widget.title,
-              style: rubikBlackNormal36,
+              style: rubikBlack300_36,
             ),
             SizedBox(height: 20),
             Container(
@@ -131,7 +134,7 @@ class _FeatureItem extends State<FeatureItem>
               child: Text(
                 widget.description,
                 textAlign: widget.isRightSide ? TextAlign.end : TextAlign.start,
-                style: rubikBlackNormal22,
+                style: ralewayBlackNormal22,
               ),
             ),
           ],
@@ -143,7 +146,6 @@ class _FeatureItem extends State<FeatureItem>
     );
   }
 
-  /// Отрисовать маленькую фичу
   Widget _buildSmallFeature() {
     return Column(
       children: <Widget>[
@@ -159,7 +161,7 @@ class _FeatureItem extends State<FeatureItem>
           child: Text(
             widget.description,
             textAlign: TextAlign.center,
-            style: rubikBlackNormal22,
+            style: ralewayBlackNormal22,
           ),
         ),
       ],

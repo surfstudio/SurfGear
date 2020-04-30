@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-/// Подвал странички
-/// https://www.figma.com/file/FTTXzwb6zPFZtOhGK0PAKl/Untitled?node-id=13%3A12
+/// Webpage footer
 class FooterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

@@ -9,11 +9,15 @@ import 'package:surfgear_webpage/webpage/common/animated_title.dart';
 import 'package:surfgear_webpage/webpage/common/offset_animated_widget.dart';
 import 'package:surfgear_webpage/webpage/webpage_widget.dart';
 
-/// Карусель библиотек
-/// https://www.figma.com/file/FTTXzwb6zPFZtOhGK0PAKl/Untitled?node-id=3%3A0
+/// Library carousel
 class Carousel extends StatefulWidget {
+  /// Items for carousel
   final List<Widget> items;
+
+  /// Screen width
   final double screenWidth;
+
+  /// Scroll offset of page
   final double scrollOffset;
 
   Carousel(
@@ -29,24 +33,24 @@ class Carousel extends StatefulWidget {
 }
 
 class _CarouselState extends State<Carousel> {
-  /// Контроллер для первой карусели
+  /// PageController for first carousel
   PageController _firstPageController;
 
-  /// Контроллер для второй карусели
+  /// PageController for second carousel
   PageController _secondPageController;
 
-  /// Итемы для первой карусели
+  /// Items for first carousel
   List<Widget> itemsForFirstCarousel;
 
-  /// Итемы для второй карусели
+  /// Items for second carousel
   List<Widget> itemsForSecondCarousel;
 
-  /// Включение анимации у второго контроллера
-  /// необходимо чтобы несколько раз не включать анимацию
-  /// когда ширина экрана >= [MEDIUM_SCREEN_WIDTH]
+  /// Enable animation for the second controller
+  /// it is necessary not to include animation several times
+  /// when screen width> = [MEDIUM_SCREEN_WIDTH]
   bool _isSecondPageControllerAnimate = false;
 
-  /// Триггер, по которому стартует анимация появления карусели
+  /// The trigger that starts the carousel animation
   bool _startAnimation = false;
 
   @override
@@ -55,7 +59,6 @@ class _CarouselState extends State<Carousel> {
     _initPageControllers();
   }
 
-  /// Инициализация PageController'ов
   void _initPageControllers() async {
     final viewportFraction = 0.4;
     _firstPageController = new PageController(
@@ -94,7 +97,6 @@ class _CarouselState extends State<Carousel> {
     );
   }
 
-  /// Логика отрисовки карусели
   Widget _buildCarousel() {
     if (widget.screenWidth <= SMALL_SCREEN_WIDTH) {
       _isSecondPageControllerAnimate = false;
@@ -117,11 +119,11 @@ class _CarouselState extends State<Carousel> {
     }
   }
 
-  /// отрисовать одиночную карусель
+  /// build single carousel
   ///
-  /// items - итемы библиотек
-  /// controller - контроллер PageView
-  /// isReverse - направление скролла
+  /// items - items for carousel
+  /// controller - PageController of carousel
+  /// isReverse - scroll direction
   Widget _buildSingleCarousel(
     List<Widget> items,
     PageController controller, {
@@ -148,7 +150,6 @@ class _CarouselState extends State<Carousel> {
     );
   }
 
-  /// Отрисовать две карусели
   Widget _buildTwoCarousels() {
     return Column(
       children: <Widget>[
@@ -171,7 +172,7 @@ class _CarouselState extends State<Carousel> {
     );
   }
 
-  /// Анимация PageController
+  /// PageController animation
   /// TODO надо изучить как можно выгрузить логику анимации в отдельный поток
   /// TODO т.к while(true) сильно нагружает основной опток
   void _animatePageController(PageController controller) {
@@ -185,9 +186,9 @@ class _CarouselState extends State<Carousel> {
     });
   }
 
-  /// Располовинить массив данных
-  /// для первой карусели - первая половина
-  /// для второй карсесели - вторая половина
+  /// Half the items list
+  /// for the first carousel - the first half
+  /// for the second carousel - the second half
   void _halveAnItems() {
     if (widget.screenWidth >= SMALL_SCREEN_WIDTH) {
       setState(() {
@@ -199,16 +200,16 @@ class _CarouselState extends State<Carousel> {
     }
   }
 
-  /// Получить индекс когда повторять итемы
+  /// Get index when repeating items
   int _getRepeatIndex(int index, List<Widget> items) =>
       items.length * ((index / items.length).floor());
 
-  /// Получить индекс следующего итема после окончания текущей итерации
+  /// Get the index of the next item after the end of the current iteration
   int _getNextIndex(int index, List<Widget> items) =>
       index > items.length - 1 ? index - _getRepeatIndex(index, items) : index;
 }
 
-/// Заголовок тела страницы
+/// Page body title
 class _CarouselTitle extends StatefulWidget {
   final double scrollOffset;
 
@@ -220,8 +221,6 @@ class _CarouselTitle extends StatefulWidget {
   }
 }
 
-/// Заголовок карусели
-/// https://www.figma.com/file/FTTXzwb6zPFZtOhGK0PAKl/Untitled?node-id=13%3A12
 class _CarouselTitleState extends State<_CarouselTitle> {
   @override
   Widget build(BuildContext context) {
@@ -233,50 +232,53 @@ class _CarouselTitleState extends State<_CarouselTitle> {
     }
   }
 
-  /// Отрисовать средний и большой тайтл
   Widget _buildMediumAndBigTitle() {
-    return Column(
-      children: <Widget>[
-        SizedBox(height: 120),
-        AnimatedTitle(
-          bodyTitleText,
-          rubikBlackNormal38,
-          Duration(milliseconds: 250),
-          widget.scrollOffset,
-        ),
-        SizedBox(height: 28),
-        AnimatedTitle(
-          bodySubtitleText,
-          rubikBlack300_38,
-          Duration(milliseconds: 250),
-          widget.scrollOffset,
-        ),
-        SizedBox(height: 100),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 145.0),
+      child: Column(
+        children: <Widget>[
+          SizedBox(height: 120),
+          AnimatedTitle(
+            bodyTitleText,
+            rubikBlackNormal38,
+            Duration(milliseconds: 250),
+            widget.scrollOffset,
+          ),
+          SizedBox(height: 28),
+          AnimatedTitle(
+            bodySubtitleText,
+            rubikBlack300_38,
+            Duration(milliseconds: 250),
+            widget.scrollOffset,
+          ),
+          SizedBox(height: 100),
+        ],
+      ),
     );
   }
 
-  /// Отрисовать маленький тайтл
   Widget _buildSmallTitle() {
-    return Column(
-      children: <Widget>[
-        SizedBox(height: 60),
-        AnimatedTitle(
-          bodyTitleText,
-          rubikBlackNormal28,
-          Duration(milliseconds: 250),
-          widget.scrollOffset,
-        ),
-        SizedBox(height: 20),
-        AnimatedTitle(
-          bodySubtitleText,
-          rubikBlack300_28,
-          Duration(milliseconds: 250),
-          widget.scrollOffset,
-        ),
-        SizedBox(height: 68),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 95.0),
+      child: Column(
+        children: <Widget>[
+          SizedBox(height: 60),
+          AnimatedTitle(
+            bodyTitleText,
+            rubikBlackNormal28,
+            Duration(milliseconds: 250),
+            widget.scrollOffset,
+          ),
+          SizedBox(height: 20),
+          AnimatedTitle(
+            bodySubtitleText,
+            rubikBlack300_28,
+            Duration(milliseconds: 250),
+            widget.scrollOffset,
+          ),
+          SizedBox(height: 68),
+        ],
+      ),
     );
   }
 }
-

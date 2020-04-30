@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 
-/// Виджет, который реагирует на положение скролла
+/// Widget that responds to scroll position
 class ScrollOffsetWidget extends StatefulWidget {
-  /// Положение скролла
+  /// Webpage scroll offset
   final double scrollOffset;
 
-  /// Вложенный виджет
+  /// child widget
   final Widget child;
 
-  /// Колбэк который срабатывает когда положение скролла >= положению виджета
+  /// Callback that fires when the scroll position> = widget position
   final VoidCallback hasScrolled;
 
   ScrollOffsetWidget({
@@ -24,13 +24,13 @@ class ScrollOffsetWidget extends StatefulWidget {
 }
 
 class ScrollOffsetWidgetState extends State<ScrollOffsetWidget> {
-  /// Ключ для поиска положения на экране
+  /// Key to find the position on the screen
   GlobalKey _globalKey = GlobalKey();
 
-  /// Триггер по которому определяется видимость анимации
-  bool _isVisible = false;
+  /// A trigger that determines that the scroll has reached the widget
+  bool _hasScrolled = false;
 
-  /// Поиск положения виджета по ключу
+  /// Search widget offset by key
   double _getVerticalOffset() {
     final RenderBox renderBox = _globalKey.currentContext.findRenderObject();
     final Offset offset = renderBox.localToGlobal(Offset.zero);
@@ -40,14 +40,14 @@ class ScrollOffsetWidgetState extends State<ScrollOffsetWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // если позиция скролла >= вертикального положения виджета
-    // запустить анимацию
+    // if the scroll position> = the vertical position of the widget
+    // start the animation
     Future.delayed(Duration(milliseconds: 1), () {
       if (widget.scrollOffset >= _getVerticalOffset()) {
-        if (!_isVisible) {
+        if (!_hasScrolled) {
           widget.hasScrolled();
         }
-        _isVisible = true;
+        _hasScrolled = true;
       }
     });
     return Container(

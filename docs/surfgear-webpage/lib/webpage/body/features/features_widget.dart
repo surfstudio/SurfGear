@@ -9,10 +9,9 @@ import 'package:surfgear_webpage/webpage/common/animated_title.dart';
 import 'package:surfgear_webpage/webpage/common/offset_animated_widget.dart';
 import 'package:surfgear_webpage/webpage/webpage_widget.dart';
 
-/// Виджет с фичами
-/// https://www.figma.com/file/FTTXzwb6zPFZtOhGK0PAKl/Untitled?node-id=3%3A0
+/// Features widget
 class FeaturesWidget extends StatefulWidget {
-  /// положение скролла
+  /// Webpage scroll offset
   final double scrollOffset;
 
   FeaturesWidget(this.scrollOffset);
@@ -24,13 +23,15 @@ class FeaturesWidget extends StatefulWidget {
 }
 
 class FeaturesWidgetState extends State<FeaturesWidget> {
-  /// Стрим, в котором хранится событие начала анимации для фичей
+  /// Stream in which the animation start event is stored
   StreamController<bool> controller = StreamController.broadcast();
+
+  bool _hasScrolled = false;
 
   @override
   void dispose() {
-    super.dispose();
     controller.close();
+    super.dispose();
   }
 
   @override
@@ -40,6 +41,9 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
       scrollOffset: widget.scrollOffset,
       hasScrolled: () {
         controller.add(true);
+        setState(() {
+          _hasScrolled = true;
+        });
       },
       child: Column(
         children: <Widget>[
@@ -50,7 +54,6 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
     );
   }
 
-  /// Отрисовать фичи
   Widget _buildFeatures(double screenWidth) {
     if (screenWidth <= SMALL_SCREEN_WIDTH) {
       return _buildSmallFeatures();
@@ -62,49 +65,55 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
     }
   }
 
-  /// Отрисовать большие фичи
   Widget _buildBigFeatures() {
-    return Column(
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            Spacer(),
-            FeatureItem(
-              imagePath: feature1ImgPath,
+        Spacer(),
+        Flexible(
+          child: Transform.translate(
+            offset: Offset(0.0, 0.0),
+            child: FeatureItem(
+              imagePath: icFeature1,
               title: feature1TitleText,
               description: feature1DescriptionText,
               delay: Duration(milliseconds: 50),
               controller: controller,
+              imageOffset: Offset(25.0, 0.0),
             ),
-            Spacer(),
-            FeatureItem(
-              imagePath: feature2ImgPath,
-              title: feature2TitleText,
-              description: feature2DescriptionText,
-              delay: Duration(milliseconds: 100),
-              controller: controller,
-            ),
-            Spacer(),
-            FeatureItem(
-              imagePath: feature3ImgPath,
-              title: feature3TitleText,
-              description: feature3DescriptionText,
-              delay: Duration(milliseconds: 150),
-              controller: controller,
-            ),
-            Spacer(),
-          ],
+          ),
         ),
+        Spacer(),
+        Flexible(
+          child: FeatureItem(
+            imagePath: icFeature2,
+            title: feature2TitleText,
+            description: feature2DescriptionText,
+            delay: Duration(milliseconds: 100),
+            controller: controller,
+          ),
+        ),
+        Spacer(),
+        Flexible(
+          child: FeatureItem(
+            imagePath: icFeature3,
+            title: feature3TitleText,
+            description: feature3DescriptionText,
+            delay: Duration(milliseconds: 150),
+            controller: controller,
+          ),
+        ),
+        Spacer(),
       ],
     );
   }
 
-  /// Отрисовать средние фичи
   Widget _buildMediumFeatures() {
     return Column(
       children: <Widget>[
         FeatureItem(
-          imagePath: feature1ImgPath,
+          imagePath: icFeature1,
           title: feature1TitleText,
           description: feature1DescriptionText,
           delay: Duration(milliseconds: 50),
@@ -112,7 +121,7 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
         ),
         SizedBox(height: 80),
         FeatureItem(
-          imagePath: feature2ImgPath,
+          imagePath: icFeature2,
           title: feature2TitleText,
           description: feature2DescriptionText,
           isRightSide: true,
@@ -121,7 +130,7 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
         ),
         SizedBox(height: 80),
         FeatureItem(
-          imagePath: feature3ImgPath,
+          imagePath: icFeature3,
           title: feature3TitleText,
           description: feature3DescriptionText,
           delay: Duration(milliseconds: 150),
@@ -131,12 +140,11 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
     );
   }
 
-  /// Отрисовать маленькие фичи
   Widget _buildSmallFeatures() {
     return Column(
       children: <Widget>[
         FeatureItem(
-          imagePath: feature1ImgPath,
+          imagePath: icFeature1,
           title: feature1TitleText,
           description: feature1DescriptionText,
           delay: Duration(milliseconds: 50),
@@ -144,7 +152,7 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
         ),
         SizedBox(height: 145),
         FeatureItem(
-          imagePath: feature2ImgPath,
+          imagePath: icFeature2,
           title: feature2TitleText,
           description: feature2DescriptionText,
           isRightSide: true,
@@ -153,7 +161,7 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
         ),
         SizedBox(height: 125),
         FeatureItem(
-          imagePath: feature3ImgPath,
+          imagePath: icFeature3,
           title: feature3TitleText,
           description: feature3DescriptionText,
           delay: Duration(milliseconds: 150),
@@ -164,10 +172,9 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
   }
 }
 
-/// Заголовок фичей
-/// https://www.figma.com/file/FTTXzwb6zPFZtOhGK0PAKl/Untitled?node-id=13%3A12
+/// Features title
 class _FeaturesTitle extends StatefulWidget {
-  /// Положение скролла
+  /// Webpage scroll offset
   final double scrollOffset;
 
   _FeaturesTitle(this.scrollOffset);

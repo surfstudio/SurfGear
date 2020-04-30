@@ -7,14 +7,13 @@ import 'package:surfgear_webpage/webpage/body/body_widget.dart';
 import 'package:surfgear_webpage/webpage/footer/footer_widget.dart';
 import 'package:surfgear_webpage/webpage/header/header_widget.dart';
 
-/// Ширина среднего экрана
+/// Medium screen width
 const double MEDIUM_SCREEN_WIDTH = 1500;
 
-/// Ширина маленького экрана
+/// Small screen width
 const double SMALL_SCREEN_WIDTH = 800;
 
-/// Виджет вебстраницы
-/// https://www.figma.com/file/FTTXzwb6zPFZtOhGK0PAKl/Untitled?node-id=3%3A0
+/// Webpage widget
 class WebpageWidget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -24,10 +23,10 @@ class WebpageWidget extends StatefulWidget {
 
 class _WebpageWidgetState extends State<WebpageWidget>
     with SingleTickerProviderStateMixin {
-  /// Stream для хранения положения скролла страницы
+  /// Stream for storing page scroll position
   StreamController _pageOffsetController = StreamController<double>();
 
-  /// ScrollController страницы
+  /// Page ScrollController
   ScrollController _pageScrollController;
 
   @override
@@ -36,7 +35,6 @@ class _WebpageWidgetState extends State<WebpageWidget>
     _initScrollControllerListener();
   }
 
-  /// Инициализация ScrollController'а
   void _initScrollControllerListener() {
     _pageScrollController = ScrollController()
       ..addListener(
@@ -50,7 +48,9 @@ class _WebpageWidgetState extends State<WebpageWidget>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         controller: _pageScrollController,
         child: Stack(
           children: [
@@ -79,20 +79,27 @@ class _WebpageWidgetState extends State<WebpageWidget>
     );
   }
 
-  /// Отрисовка логотипа тела страницы
   Widget _buildSurfLogo() {
     return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxHeight: 3000,
+      constraints: BoxConstraints.expand(
+        height: MediaQuery.of(context).size.height * 3,
       ),
-      child: OverflowBox(
-        maxWidth: double.infinity,
-        alignment: Alignment(0, -0.35),
-        child: Image.asset(
-          imgBackgroundLogo,
-          fit: BoxFit.fitWidth,
-          width: MediaQuery.of(context).size.width,
-        ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          OverflowBox(
+            minWidth: 800,
+            maxWidth: double.infinity,
+            alignment: Alignment(-0.3, -0.1),
+            child: Image.asset(
+              imgBackgroundLogo,
+              fit: BoxFit.fitWidth,
+              width: MediaQuery.of(context).size.width <= SMALL_SCREEN_WIDTH
+                  ? MediaQuery.of(context).size.width
+                  : null,
+            ),
+          ),
+        ],
       ),
     );
   }

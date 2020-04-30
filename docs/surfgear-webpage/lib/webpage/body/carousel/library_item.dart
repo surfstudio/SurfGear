@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:surfgear_webpage/webpage/webpage_widget.dart';
 
-/// Элемент карусели виджетов
-/// https://www.figma.com/file/FTTXzwb6zPFZtOhGK0PAKl/Untitled?node-id=13%3A12
+/// Widget carousel item
 class LibraryItem extends StatelessWidget {
-  /// Заголовок
+  /// Title
   final String title;
 
-  /// Путь до картинки
+  /// Image path
   final String imagePath;
 
   LibraryItem({
@@ -27,11 +26,14 @@ class LibraryItem extends StatelessWidget {
     }
   }
 
-  /// Отрисовать маленький итем
   Widget _buildSmallItem() {
     return Column(
       children: <Widget>[
-        Image.asset(imagePath),
+        Image.asset(
+          imagePath,
+          width: 162,
+          height: 221,
+        ),
         SizedBox(height: 8.0),
         Text(
           title,
@@ -47,11 +49,14 @@ class LibraryItem extends StatelessWidget {
     );
   }
 
-  /// Отрисовать средний и большой итем
   Widget _buildMediumAndBigItem() {
     return Column(
       children: <Widget>[
-        Image.asset(imagePath),
+        Image.asset(
+          imagePath,
+          width: 162,
+          height: 221,
+        ),
         SizedBox(height: 8.0),
         Text(
           title,

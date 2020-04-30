@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:surfgear_webpage/assets/images.dart';
 import 'package:surfgear_webpage/webpage/webpage_widget.dart';
-import 'package:surfgear_webpage/widgets.dart';
+import 'package:surfgear_webpage/webpage/common/widgets.dart';
 
-/// Шапка веб-страницы
-/// https://www.figma.com/file/FTTXzwb6zPFZtOhGK0PAKl/Untitled?node-id=3%3A0
+/// Webpage header
 class HeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

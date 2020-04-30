@@ -3,18 +3,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:surfgear_webpage/webpage/common/offset_animated_widget.dart';
 
-/// Виджет анимируемого заголовка
+/// Animation Title
 class AnimatedTitle extends StatefulWidget {
-  /// Текст заголовка
+  /// Title text
   final String titleText;
 
-  /// Стиль заголвка
+  /// Title text style
   final TextStyle textStyle;
 
-  /// Продолжительность анимации
+  /// Title animation duration
   final Duration duration;
 
-  /// Положение скролла
+  /// Webpage scroll offset
   final double scrollOffset;
 
   AnimatedTitle(
@@ -55,8 +55,8 @@ class _AnimatedTitleState extends State<AnimatedTitle>
 
   @override
   void dispose() {
-    super.dispose();
     _animationController.dispose();
+    super.dispose();
   }
 
   @override
