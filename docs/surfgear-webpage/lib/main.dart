@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:surfgear_webpage/catalog/catalog.dart';
 import 'package:surfgear_webpage/webpage/webpage_widget.dart';
 
 void main() {
   runApp(MyApp());
+}
+
+abstract class Router {
+  static const main = '/';
+  static const catalog = '/catalog';
 }
 
 class MyApp extends StatelessWidget {
@@ -14,8 +20,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: WebpageWidget(),
-      debugShowCheckedModeBanner: true,
+      initialRoute: Router.main,
+      routes: {
+        Router.main: (_) => WebpageWidget(),
+        Router.catalog: (_) => Catalog(),
+      },
     );
   }
 }
