@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:surfgear_webpage/assets/text.dart';
-import 'package:surfgear_webpage/catalog/catalog.dart';
-import 'package:surfgear_webpage/webpage/webpage_widget.dart';
+import 'package:surfgear_webpage/pages/catalog/catalog_page.dart';
+import 'package:surfgear_webpage/pages/main/main_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,8 +23,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: Router.main,
       routes: {
-        Router.main: (_) => WebpageWidget(),
-        Router.catalog: (_) => Catalog(),
+        Router.main: (_) => MainPage(),
+        Router.catalog: (_) => CatalogPage(),
       },
     );
   }

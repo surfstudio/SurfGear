@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:surfgear_webpage/assets/text.dart';
 import 'package:surfgear_webpage/assets/text_styles.dart';
-import 'package:surfgear_webpage/webpage/common/animated_title.dart';
-import 'package:surfgear_webpage/webpage/common/offset_animated_widget.dart';
-import 'package:surfgear_webpage/webpage/webpage_widget.dart';
+import 'package:surfgear_webpage/common/animated_title.dart';
+import 'package:surfgear_webpage/common/offset_animated_widget.dart';
+import 'package:surfgear_webpage/pages/main/main_page.dart';
 
 /// Library carousel
 class Carousel extends StatefulWidget {

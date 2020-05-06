@@ -7,13 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:surfgear_webpage/assets/images.dart';
+import 'package:surfgear_webpage/common/widgets.dart';
 import 'package:surfgear_webpage/main.dart';
-import 'package:surfgear_webpage/webpage/common/widgets.dart';
 
-class FooterWidget extends StatelessWidget {
+class MainPageFooter extends StatelessWidget {
   final Stream scrollChangesStream;
 
-  FooterWidget({
+  MainPageFooter({
     Key key,
     @required this.scrollChangesStream,
   }) : super(key: key);

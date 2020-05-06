@@ -4,10 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:surfgear_webpage/assets/images.dart';
 import 'package:surfgear_webpage/assets/text.dart';
 import 'package:surfgear_webpage/assets/text_styles.dart';
-import 'package:surfgear_webpage/webpage/body/features/feature_item.dart';
-import 'package:surfgear_webpage/webpage/common/animated_title.dart';
-import 'package:surfgear_webpage/webpage/common/offset_animated_widget.dart';
-import 'package:surfgear_webpage/webpage/webpage_widget.dart';
+import 'package:surfgear_webpage/common/animated_title.dart';
+import 'package:surfgear_webpage/common/offset_animated_widget.dart';
+import 'package:surfgear_webpage/pages/main/body/features/feature_item.dart';
+import 'package:surfgear_webpage/pages/main/main_page.dart';
 
 /// Features widget
 class FeaturesWidget extends StatefulWidget {

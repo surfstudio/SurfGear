@@ -1,12 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:surfgear_webpage/assets/images.dart';
-import 'package:surfgear_webpage/webpage/body/body_widget.dart';
-import 'package:surfgear_webpage/webpage/footer/footer_widget.dart';
-import 'package:surfgear_webpage/webpage/header/header_widget.dart';
+import 'package:surfgear_webpage/pages/main/body/main_page_body.dart';
+import 'package:surfgear_webpage/pages/main/main_page_footer.dart';
+import 'package:surfgear_webpage/pages/main/main_page_header.dart';
 
 /// Medium screen width
 const double MEDIUM_SCREEN_WIDTH = 1500;
@@ -14,14 +13,14 @@ const double MEDIUM_SCREEN_WIDTH = 1500;
 /// Small screen width
 const double SMALL_SCREEN_WIDTH = 800;
 
-class WebpageWidget extends StatefulWidget {
+class MainPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _WebpageWidgetState();
+    return _MainPageState();
   }
 }
 
-class _WebpageWidgetState extends State<WebpageWidget>
+class _MainPageState extends State<MainPage>
     with SingleTickerProviderStateMixin {
   /// Stream for storing page scroll position
   StreamController _pageOffsetController = StreamController<double>.broadcast();
@@ -64,20 +63,20 @@ class _WebpageWidgetState extends State<WebpageWidget>
                     constraints: BoxConstraints.expand(
                       height: MediaQuery.of(context).size.height,
                     ),
-                    child: HeaderWidget(),
+                    child: MainPageHeader(),
                   ),
                   StreamBuilder(
                     stream: _pageOffsetController.stream,
                     initialData: 0.0,
                     builder: (context, offset) {
-                      return BodyWidget(offset.data);
+                      return MainPageBody(offset.data);
                     },
                   ),
                   ConstrainedBox(
                     constraints: BoxConstraints.expand(
                       height: MediaQuery.of(context).size.height,
                     ),
-                    child: FooterWidget(
+                    child: MainPageFooter(
                       scrollChangesStream: _pageOffsetController.stream,
                     ),
                   ),

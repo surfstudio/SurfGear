@@ -4,7 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:surfgear_webpage/assets/text_styles.dart';
-import 'package:surfgear_webpage/webpage/webpage_widget.dart';
+import 'package:surfgear_webpage/pages/main/main_page.dart';
 
 /// Feature item
 class FeatureItem extends StatefulWidget {

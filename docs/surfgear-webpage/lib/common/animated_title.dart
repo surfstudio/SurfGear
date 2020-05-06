@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:surfgear_webpage/webpage/common/offset_animated_widget.dart';
+import 'package:surfgear_webpage/common/offset_animated_widget.dart';
 
 /// Animation Title
 class AnimatedTitle extends StatefulWidget {

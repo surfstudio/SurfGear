@@ -2,17 +2,17 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:surfgear_webpage/assets/images.dart';
-import 'package:surfgear_webpage/catalog/modules.dart';
+import 'package:surfgear_webpage/common/widgets.dart';
 import 'package:surfgear_webpage/components/menu.dart';
 import 'package:surfgear_webpage/const.dart';
 import 'package:surfgear_webpage/main.dart';
-import 'package:surfgear_webpage/webpage/common/widgets.dart';
-import 'package:surfgear_webpage/webpage/webpage_widget.dart';
+import 'package:surfgear_webpage/modules.dart';
+import 'package:surfgear_webpage/pages/main/main_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 const _surfBlue = Color(0xFF000240);
 
-class Catalog extends StatelessWidget {
+class CatalogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,21 +92,27 @@ class _Header extends StatelessWidget {
 class _List extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        for (var i = 0; i < modules.length; i++)
-          _ListTile(
-            module: modules[i],
-            isOdd: i.isOdd,
-          ),
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 120.0),
-            child: _RepositoryButton(),
-          ),
-        ),
-      ],
+    return FutureBuilder<List<Module>>(
+      future: modules,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return SizedBox.shrink();
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            for (var i = 0; i < snapshot.data.length; i++)
+              _ListTile(
+                module: snapshot.data[i],
+                isOdd: i.isOdd,
+              ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 120.0),
+                child: _RepositoryButton(),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

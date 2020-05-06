@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:surfgear_webpage/common/widgets.dart';
 import 'package:surfgear_webpage/const.dart';
 import 'package:surfgear_webpage/main.dart';
-import 'package:surfgear_webpage/webpage/common/widgets.dart';
-import 'package:surfgear_webpage/webpage/webpage_widget.dart';
+import 'package:surfgear_webpage/pages/main/main_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Menu extends StatelessWidget {
@@ -122,21 +122,23 @@ class __MenuBurgerButtonState extends State<_MenuBurgerButton>
   }
 
   Widget _buildButton(VoidCallback onPressed) {
-    return Builder(builder: (context) {
-      return Clickable(
-        child: IconButton(
-          onPressed: onPressed,
-          iconSize: 58.0,
-          icon: AnimatedIcon(
-            color: Theme.of(context).brightness == Brightness.light
-                ? Color(0xFF181818)
-                : Colors.white,
-            icon: AnimatedIcons.menu_close,
-            progress: _animationController,
+    return Builder(
+      builder: (context) {
+        return Clickable(
+          child: IconButton(
+            onPressed: onPressed,
+            iconSize: 58.0,
+            icon: AnimatedIcon(
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF181818)
+                  : Colors.white,
+              icon: AnimatedIcons.menu_close,
+              progress: _animationController,
+            ),
           ),
-        ),
-      );
-    },);
+        );
+      },
+    );
   }
 
   void _showMenu() {

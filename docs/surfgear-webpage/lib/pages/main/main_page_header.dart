@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:surfgear_webpage/assets/images.dart';
 import 'package:surfgear_webpage/components/menu.dart';
-import 'package:surfgear_webpage/webpage/webpage_widget.dart';
+import 'package:surfgear_webpage/pages/main/main_page.dart';
 
-class HeaderWidget extends StatelessWidget {
+class MainPageHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
