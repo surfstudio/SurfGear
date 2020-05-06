@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:surfgear_webpage/assets/images.dart';
+import 'package:surfgear_webpage/main.dart';
 import 'package:surfgear_webpage/widgets.dart';
 
 class FooterWidget extends StatelessWidget {
@@ -142,7 +143,7 @@ class _CatalogButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WebButton(
-      onPressed: () {}, //TODO
+      onPressed: () => Navigator.of(context).pushNamed(Router.catalog),
       buttonBuilder: (context, isHovering) {
         return DecoratedBox(
           decoration: BoxDecoration(

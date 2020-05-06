@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:surfgear_webpage/webpage/body/body_widget.dart';
 import 'package:surfgear_webpage/webpage/footer/footer_widget.dart';
@@ -46,24 +47,27 @@ class _WebpageWidgetState extends State<WebpageWidget>
     return Scaffold(
       body: SingleChildScrollView(
         controller: _scrollController,
-        child: Column(
-          children: <Widget>[
-            ConstrainedBox(
-              constraints: BoxConstraints.expand(
-                height: MediaQuery.of(context).size.height,
+        child: GestureDetector(
+          onVerticalDragStart: (_) {},
+          child: Column(
+            children: <Widget>[
+              ConstrainedBox(
+                constraints: BoxConstraints.expand(
+                  height: MediaQuery.of(context).size.height,
+                ),
+                child: HeaderWidget(),
               ),
-              child: HeaderWidget(),
-            ),
-            BodyWidget(),
-            ConstrainedBox(
-              constraints: BoxConstraints.expand(
-                height: MediaQuery.of(context).size.height,
+              BodyWidget(),
+              ConstrainedBox(
+                constraints: BoxConstraints.expand(
+                  height: MediaQuery.of(context).size.height,
+                ),
+                child: FooterWidget(
+                  scrollChangesStream: _scrollOffsetController.stream,
+                ),
               ),
-              child: FooterWidget(
-                scrollChangesStream: _scrollOffsetController.stream,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
