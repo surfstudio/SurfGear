@@ -95,6 +95,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         let content = UNMutableNotificationContent()
 
         content.title = title
+        
         content.body = body
         content.sound = UNNotificationSound.default
         content.userInfo = data
@@ -132,7 +133,9 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
 
         let notification = response.notification
         let notificationData = notification.request.content.userInfo
-
+        //todo: Тут обработать нажитие на кнопку https://developer.apple.com/documentation/usernotifications/declaring_your_actionable_notification_types
+        //по сути просто достать идентификатор/урл что будет необходимо из response
+        
         channel.invokeMethod(CALLBACK_OPEN, arguments: notificationData)
 
         completionHandler()

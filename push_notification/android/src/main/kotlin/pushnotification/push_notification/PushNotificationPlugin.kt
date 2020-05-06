@@ -7,6 +7,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import android.content.Context
 import android.content.Intent
+import android.os.AsyncTask
 import androidx.annotation.NonNull;
 import pushnotification.push_notification.handler.PushHandler
 import pushnotification.push_notification.strategy.PushStrategy
@@ -97,33 +98,35 @@ public class PushNotificationPlugin(private var context: Context? = null,
     }
 
     private fun handleNotification(args: Map<String, *>) {
-        val notificationSpecifics = args[ARG_SPECIFICS] as HashMap<String, *>
-        val icon = notificationSpecifics[ARG_ICON] as String? ?: DEFAULT_ICON_NAME
-        val channelId = notificationSpecifics[ARG_CHANNEL_ID] as String? ?: DEFAULT_CHANNEL_ID
-        val channelName = notificationSpecifics[ARG_CHANNEL_NAME] as String? ?: DEFAULT_CHANNEL_NAME
-        val color = notificationSpecifics[ARG_COLOR] as String? ?: DEFAULT_COLOR
-        val autoCancelable: Boolean = notificationSpecifics[ARG_AUTOCANCELABLE] as Boolean?
-                ?: DEFAULT_AUTOCANCEL
+        AsyncTask.execute {
+            val notificationSpecifics = args[ARG_SPECIFICS] as HashMap<String, *>
+            val icon = notificationSpecifics[ARG_ICON] as String? ?: DEFAULT_ICON_NAME
+            val channelId = notificationSpecifics[ARG_CHANNEL_ID] as String? ?: DEFAULT_CHANNEL_ID
+            val channelName = notificationSpecifics[ARG_CHANNEL_NAME] as String? ?: DEFAULT_CHANNEL_NAME
+            val color = notificationSpecifics[ARG_COLOR] as String? ?: DEFAULT_COLOR
+            val autoCancelable: Boolean = notificationSpecifics[ARG_AUTOCANCELABLE] as Boolean?
+                    ?: DEFAULT_AUTOCANCEL
 
-        val data = args[ARG_DATA] as HashMap<String, String>?
+            val data = args[ARG_DATA] as HashMap<String, String>?
 
-        val strategy = PushStrategy(
-                icon = getResourceId(icon, FOLDER_DRAWABLE),
-                channelId = getResourceId(channelId, FOLDER_STRING),
-                channelName = getResourceId(channelName, FOLDER_STRING),
-                color = getResourceId(color, FOLDER_COLOR),
-                autoCancelable = autoCancelable)
+            val strategy = PushStrategy(
+                    icon = getResourceId(icon, FOLDER_DRAWABLE),
+                    channelId = getResourceId(channelId, FOLDER_STRING),
+                    channelName = getResourceId(channelName, FOLDER_STRING),
+                    color = getResourceId(color, FOLDER_COLOR),
+                    autoCancelable = autoCancelable)
 
-        if (data != null) {
-            strategy.typeData.setDataFromMap(data)
+            if (data != null) {
+                strategy.typeData.setDataFromMap(data)
+            }
+
+            pushHandler.handleMessage(context!!,
+                    uniqueId = args[ARG_PUSH_ID] as Int? ?: -1,
+                    title = args[ARG_TITLE] as String? ?: EMPTY_STRING,
+                    body = args[ARG_BODY] as String? ?: EMPTY_STRING,
+                    pushHandleStrategy = strategy
+            )
         }
-
-        pushHandler.handleMessage(context!!,
-                uniqueId = args[ARG_PUSH_ID] as Int? ?: -1,
-                title = args[ARG_TITLE] as String? ?: EMPTY_STRING,
-                body = args[ARG_BODY] as String? ?: EMPTY_STRING,
-                pushHandleStrategy = strategy
-        )
     }
 
     private fun getResourceId(resName: String, defType: String): Int {
