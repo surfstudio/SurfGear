@@ -16,13 +16,17 @@ class Catalog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            _Header(),
-            _List(),
-            SizedBox(height: 630.0),
-          ],
+        child: GestureDetector(
+          onVerticalDragStart: (_) {},
+          child: Column(
+            children: <Widget>[
+              _Header(),
+              _List(),
+              SizedBox(height: 630.0),
+            ],
+          ),
         ),
       ),
     );
