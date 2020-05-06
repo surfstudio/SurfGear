@@ -8,7 +8,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:surfgear_webpage/assets/images.dart';
 import 'package:surfgear_webpage/main.dart';
-import 'package:surfgear_webpage/widgets.dart';
+import 'package:surfgear_webpage/webpage/common/widgets.dart';
 
 class FooterWidget extends StatelessWidget {
   final Stream scrollChangesStream;

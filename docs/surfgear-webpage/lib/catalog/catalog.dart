@@ -6,8 +6,8 @@ import 'package:surfgear_webpage/catalog/modules.dart';
 import 'package:surfgear_webpage/components/menu.dart';
 import 'package:surfgear_webpage/const.dart';
 import 'package:surfgear_webpage/main.dart';
+import 'package:surfgear_webpage/webpage/common/widgets.dart';
 import 'package:surfgear_webpage/webpage/webpage_widget.dart';
-import 'package:surfgear_webpage/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 const _surfBlue = Color(0xFF000240);
@@ -19,6 +19,7 @@ class Catalog extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
           onVerticalDragStart: (_) {},
           child: Column(
             children: <Widget>[
