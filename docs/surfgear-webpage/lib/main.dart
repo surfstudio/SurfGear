@@ -10,6 +10,11 @@ void main() {
 abstract class Router {
   static const main = '/';
   static const catalog = '/catalog';
+
+  static final map = <String, Widget>{
+    main: MainPage(),
+    catalog: CatalogPage(),
+  };
 }
 
 class MyApp extends StatelessWidget {
@@ -22,9 +27,10 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       initialRoute: Router.main,
-      routes: {
-        Router.main: (_) => MainPage(),
-        Router.catalog: (_) => CatalogPage(),
+      onGenerateRoute: (settings) {
+        return PageRouteBuilder(
+          pageBuilder: (_, __, ___) => Router.map[settings.name],
+        );
       },
     );
   }
