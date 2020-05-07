@@ -1,6 +1,6 @@
 <!--![logo](logo.gif)-->
 
-# <img src="logo.png" title="logo" align="middle"/>
+# <img src="https://i.ibb.co/N719LCW/logo.png" title="logo" align="middle"/>
 
 Software architectural pattern for Flutter apps.
 
