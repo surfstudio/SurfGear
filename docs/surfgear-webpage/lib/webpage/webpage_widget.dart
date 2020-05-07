@@ -25,7 +25,7 @@ class WebpageWidget extends StatefulWidget {
 class _WebpageWidgetState extends State<WebpageWidget>
     with SingleTickerProviderStateMixin {
   /// Stream for storing page scroll position
-  StreamController _pageOffsetController = StreamController<double>();
+  StreamController _pageOffsetController = StreamController.broadcast();
 
   /// Page ScrollController
   ScrollController _pageScrollController;
@@ -34,6 +34,13 @@ class _WebpageWidgetState extends State<WebpageWidget>
   void initState() {
     super.initState();
     _initScrollControllerListener();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _pageOffsetController.close();
   }
 
   void _initScrollControllerListener() {
@@ -51,52 +58,62 @@ class _WebpageWidgetState extends State<WebpageWidget>
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        controller: _scrollController,
+//        controller: _scrollController,
+//        child: GestureDetector(
+//          onVerticalDragStart: (_) {},
+//          child: Column(
+//            children: <Widget>[
+//              ConstrainedBox(
+//                constraints: BoxConstraints.expand(
+//                  height: MediaQuery.of(context).size.height,
+//                ),
+//                child: HeaderWidget(),
+//              ),
+//              BodyWidget(),
+//              ConstrainedBox(
+//                constraints: BoxConstraints.expand(
+//                  height: MediaQuery.of(context).size.height,
+//                ),
+//                child: FooterWidget(
+//                  scrollChangesStream: _scrollOffsetController.stream,
+//                ),
+//              ),
+//            ],
+//          ),
+        scrollDirection: Axis.vertical,
+        controller: _pageScrollController,
         child: GestureDetector(
           onVerticalDragStart: (_) {},
-          child: Column(
-            children: <Widget>[
-              ConstrainedBox(
-                constraints: BoxConstraints.expand(
-                  height: MediaQuery.of(context).size.height,
-                ),
-                child: HeaderWidget(),
-              ),
-              BodyWidget(),
-              ConstrainedBox(
-                constraints: BoxConstraints.expand(
-                  height: MediaQuery.of(context).size.height,
-                ),
-                child: FooterWidget(
-                  scrollChangesStream: _scrollOffsetController.stream,
-                ),
+          child: Stack(
+            children: [
+              _buildSurfLogo(),
+              Column(
+                children: <Widget>[
+                  ConstrainedBox(
+                    constraints: BoxConstraints.expand(
+                      height: MediaQuery.of(context).size.height,
+                    ),
+                    child: HeaderWidget(),
+                  ),
+                  StreamBuilder(
+                    stream: _pageOffsetController.stream,
+                    initialData: 0.0,
+                    builder: (context, offset) {
+                      return BodyWidget(offset.data);
+                    },
+                  ),
+                  ConstrainedBox(
+                    constraints: BoxConstraints.expand(
+                      height: MediaQuery.of(context).size.height,
+                    ),
+                    child: FooterWidget(
+                      scrollChangesStream: _pageOffsetController.stream,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        scrollDirection: Axis.vertical,
-        controller: _pageScrollController,
-        child: Stack(
-          children: [
-            _buildSurfLogo(),
-            Column(
-              children: <Widget>[
-                ConstrainedBox(
-                  constraints: BoxConstraints.expand(
-                    height: MediaQuery.of(context).size.height,
-                  ),
-                  child: HeaderWidget(),
-                ),
-                StreamBuilder(
-                  stream: _pageOffsetController.stream,
-                  initialData: 0.0,
-                  builder: (context, offset) {
-                    return BodyWidget(offset.data);
-                  },
-                ),
-                FooterWidget(),
-              ],
-            ),
-          ],
         ),
       ),
     );

@@ -3,7 +3,7 @@ const String imagesBasePath = "$assetsBasePath/images";
 const String iconsBasePath = "$assetsBasePath/icons";
 
 const String imgLogo = "$imagesBasePath/img_logo.png";
-const String imgBackground = "$imagesBasePath/img_header_background.jpg";
+const String imgHeaderBackground = "$imagesBasePath/img_header_background.jpg";
 const String imgBackgroundLogo = "$imagesBasePath/img_body_background.png";
 const String imgLogoBlue = "$assetsBasePath/img_logo_blue.png";
 const String imgBackground = "$assetsBasePath/background.jpg";

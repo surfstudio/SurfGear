@@ -8,7 +8,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:surfgear_webpage/assets/images.dart';
 import 'package:surfgear_webpage/main.dart';
-import 'package:surfgear_webpage/widgets.dart';
+import 'package:surfgear_webpage/webpage/common/widgets.dart';
 
 /// Webpage footer
 class FooterWidget extends StatelessWidget {
@@ -28,7 +28,7 @@ class FooterWidget extends StatelessWidget {
           minWidth: max(MediaQuery.of(context).size.width, 1920),
           maxWidth: double.infinity,
           child: Image.asset(
-            imgBackground,
+            imgHeaderBackground,
             fit: BoxFit.fitWidth,
             alignment: Alignment(0.0, 0.85),
           ),

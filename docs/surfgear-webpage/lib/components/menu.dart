@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:surfgear_webpage/const.dart';
 import 'package:surfgear_webpage/main.dart';
+import 'package:surfgear_webpage/webpage/common/widgets.dart';
 import 'package:surfgear_webpage/webpage/webpage_widget.dart';
-import 'package:surfgear_webpage/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Menu extends StatelessWidget {
