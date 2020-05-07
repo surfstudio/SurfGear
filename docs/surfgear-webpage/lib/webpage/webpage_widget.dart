@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:surfgear_webpage/assets/images.dart';
 import 'package:surfgear_webpage/webpage/body/body_widget.dart';
@@ -50,6 +51,28 @@ class _WebpageWidgetState extends State<WebpageWidget>
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
+        controller: _scrollController,
+        child: GestureDetector(
+          onVerticalDragStart: (_) {},
+          child: Column(
+            children: <Widget>[
+              ConstrainedBox(
+                constraints: BoxConstraints.expand(
+                  height: MediaQuery.of(context).size.height,
+                ),
+                child: HeaderWidget(),
+              ),
+              BodyWidget(),
+              ConstrainedBox(
+                constraints: BoxConstraints.expand(
+                  height: MediaQuery.of(context).size.height,
+                ),
+                child: FooterWidget(
+                  scrollChangesStream: _scrollOffsetController.stream,
+                ),
+              ),
+            ],
+          ),
         scrollDirection: Axis.vertical,
         controller: _pageScrollController,
         child: Stack(
