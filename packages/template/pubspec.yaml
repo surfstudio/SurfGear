@@ -45,7 +45,7 @@ dependencies:
   path_provider: ^1.5.1
 
   #rx
-  rxdart: ^0.23.1
+  rxdart: ^0.24.0
 
   #crash reporting
   firebase_crashlytics: ^0.1.2+4
