@@ -4,7 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:surfgear_webpage/assets/text_styles.dart';
-import 'package:surfgear_webpage/webpage/webpage_widget.dart';
+import 'package:surfgear_webpage/pages/main/main_page.dart';
 
 /// Feature item
 class FeatureItem extends StatefulWidget {
@@ -100,16 +100,13 @@ class _FeatureItem extends State<FeatureItem>
         AutoSizeText(
           widget.title,
           textAlign: TextAlign.center,
-          style: rubikBlack300_36,
+          style: subtitleTextStyle(),
         ),
         SizedBox(height: 40),
-        Container(
-          width: 600,
-          child: Text(
-            widget.description,
-            textAlign: TextAlign.center,
-            style: ralewayBlackNormal22,
-          ),
+        Text(
+          widget.description,
+          textAlign: TextAlign.center,
+          style: bodyTextStyle(),
         ),
       ],
     );
@@ -129,7 +126,7 @@ class _FeatureItem extends State<FeatureItem>
           children: <Widget>[
             Text(
               widget.title,
-              style: rubikBlack300_36,
+              style: subtitleTextStyle(),
             ),
             SizedBox(height: 20),
             Container(
@@ -137,7 +134,7 @@ class _FeatureItem extends State<FeatureItem>
               child: Text(
                 widget.description,
                 textAlign: widget.isRightSide ? TextAlign.end : TextAlign.start,
-                style: ralewayBlackNormal22,
+                style: bodyTextStyle(),
               ),
             ),
           ],
@@ -152,14 +149,11 @@ class _FeatureItem extends State<FeatureItem>
   Widget _buildSmallFeature() {
     return Column(
       children: <Widget>[
-        Transform.translate(
-          offset: widget.imageOffset,
-          child: Image.asset(widget.imagePath),
-        ),
+        Image.asset(widget.imagePath),
         SizedBox(height: 32.0),
         Text(
           widget.title,
-          style: rubikBlack300_28,
+          style: subtitleTextStyle(fontSize: 28.0),
         ),
         SizedBox(height: 19.0),
         Container(
@@ -167,7 +161,7 @@ class _FeatureItem extends State<FeatureItem>
           child: Text(
             widget.description,
             textAlign: TextAlign.center,
-            style: ralewayBlackNormal22,
+            style: bodyTextStyle(),
           ),
         ),
       ],

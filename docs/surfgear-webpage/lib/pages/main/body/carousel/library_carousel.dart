@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:surfgear_webpage/assets/text.dart';
 import 'package:surfgear_webpage/assets/text_styles.dart';
-import 'package:surfgear_webpage/webpage/common/animated_title.dart';
-import 'package:surfgear_webpage/webpage/common/offset_animated_widget.dart';
-import 'package:surfgear_webpage/webpage/webpage_widget.dart';
+import 'package:surfgear_webpage/common/animated_title.dart';
+import 'package:surfgear_webpage/common/offset_animated_widget.dart';
+import 'package:surfgear_webpage/pages/main/main_page.dart';
 
 /// Library carousel
 class Carousel extends StatefulWidget {
@@ -237,15 +237,15 @@ class _CarouselTitleState extends State<_CarouselTitle> {
         children: <Widget>[
           SizedBox(height: 120),
           AnimatedTitle(
-            bodyTitleText,
-            rubikBlackNormal38,
+            mainPageBodyTitleText,
+            headlineTextStyle(),
             Duration(milliseconds: 250),
             widget.scrollOffset,
           ),
           SizedBox(height: 28),
           AnimatedTitle(
-            bodySubtitleText,
-            rubikBlack300_38,
+            mainPageBodySubtitleText,
+            headlineTextStyle(fontWeight: FontWeight.w300),
             Duration(milliseconds: 250),
             widget.scrollOffset,
           ),
@@ -262,15 +262,15 @@ class _CarouselTitleState extends State<_CarouselTitle> {
         children: <Widget>[
           SizedBox(height: 60),
           AnimatedTitle(
-            bodyTitleText,
-            rubikBlackNormal28,
+            mainPageBodyTitleText,
+            headlineTextStyle(fontSize: 28.0),
             Duration(milliseconds: 250),
             widget.scrollOffset,
           ),
           SizedBox(height: 20),
           AnimatedTitle(
-            bodySubtitleText,
-            rubikBlack300_28,
+            mainPageBodySubtitleText,
+            headlineTextStyle(fontSize: 28.0, fontWeight: FontWeight.w300),
             Duration(milliseconds: 250),
             widget.scrollOffset,
           ),

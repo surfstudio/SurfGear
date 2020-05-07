@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:surfgear_webpage/webpage/webpage_widget.dart';
+import 'package:surfgear_webpage/pages/main/main_page.dart';
 
 /// Widget carousel item
 class LibraryItem extends StatelessWidget {

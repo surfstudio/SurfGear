@@ -7,14 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:surfgear_webpage/assets/images.dart';
+import 'package:surfgear_webpage/assets/text.dart';
+import 'package:surfgear_webpage/assets/text_styles.dart';
+import 'package:surfgear_webpage/common/widgets.dart';
 import 'package:surfgear_webpage/main.dart';
-import 'package:surfgear_webpage/webpage/common/widgets.dart';
 
-/// Webpage footer
-class FooterWidget extends StatelessWidget {
+class MainPageFooter extends StatelessWidget {
   final Stream scrollChangesStream;
 
-  FooterWidget({
+  MainPageFooter({
     Key key,
     @required this.scrollChangesStream,
   }) : super(key: key);
@@ -28,7 +29,7 @@ class FooterWidget extends StatelessWidget {
           minWidth: max(MediaQuery.of(context).size.width, 1920),
           maxWidth: double.infinity,
           child: Image.asset(
-            imgHeaderBackground,
+            imgBackground,
             fit: BoxFit.fitWidth,
             alignment: Alignment(0.0, 0.85),
           ),
@@ -122,9 +123,8 @@ class __TextAndButtonState extends State<_TextAndButton>
             child: AutoSizeText(
               'Каталог модулей, для вас',
               maxLines: 1,
-              style: GoogleFonts.rubik(
+              style: headlineTextStyle(
                 color: Colors.white,
-                fontSize: 38,
                 fontWeight: FontWeight.w300,
               ),
             ),
@@ -157,10 +157,9 @@ class _CatalogButton extends StatelessWidget {
               horizontal: 40.0,
             ),
             child: Text(
-              'СМОТРЕТЬ',
-              style: GoogleFonts.comfortaa(
+              mainPageCatalogBtnText,
+              style: buttonTextStyle(
                 color: isHovering ? Colors.grey[850] : Colors.white,
-                fontSize: 18.0,
                 letterSpacing: 1.1,
               ),
             ),

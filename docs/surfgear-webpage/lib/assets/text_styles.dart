@@ -4,63 +4,66 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'colors.dart';
 
-/// base
-final rubikBase = GoogleFonts.rubik();
-final sourceCodeProBase = GoogleFonts.sourceCodePro();
-final ralewayBase = GoogleFonts.raleway();
+TextStyle pageHeadlineTextStyle({
+  Color color = textColor,
+  FontWeight fontWeight = FontWeight.normal,
+  double fontSize = 42.0,
+}) {
+  return GoogleFonts.rubik(
+    color: color,
+    fontWeight: fontWeight,
+    fontSize: fontSize,
+  );
+}
 
-/// black
-final rubickBlack = rubikBase.copyWith(
-  color: titleTextColor,
-);
+TextStyle headlineTextStyle({
+  Color color = textColor,
+  FontWeight fontWeight = FontWeight.normal,
+  double fontSize = 38.0,
+}) {
+  return GoogleFonts.rubik(
+    color: color,
+    fontWeight: fontWeight,
+    fontSize: fontSize,
+  );
+}
 
-final ralewayBlack = ralewayBase.copyWith(
-  color: titleTextColor,
-);
+TextStyle subtitleTextStyle({
+  Color color = textColor,
+  FontWeight fontWeight = FontWeight.w300,
+  double fontSize = 36.0,
+}) {
+  return GoogleFonts.rubik(
+    color: color,
+    fontWeight: fontWeight,
+    fontSize: fontSize,
+  );
+}
 
-/// normal
-final rubikBlackNormal = GoogleFonts.rubik(
-  color: titleTextColor,
-  fontWeight: FontWeight.normal,
-);
+TextStyle bodyTextStyle({
+  Color color = textColor,
+  FontWeight fontWeight = FontWeight.normal,
+  double fontSize = 22.0,
+}) {
+  return GoogleFonts.raleway(
+    color: color,
+    fontWeight: fontWeight,
+    fontSize: fontSize,
+  );
+}
 
-final rubikBlackNormal22 = rubikBlackNormal.copyWith(
-  fontSize: 22.0,
-);
-
-final rubikBlackNormal28 = rubikBlackNormal.copyWith(
-  fontSize: 28.0,
-);
-final rubikBlackNormal36 = rubikBlackNormal.copyWith(
-  fontSize: 36.0,
-);
-final rubikBlackNormal38 = rubikBlackNormal.copyWith(
-  fontSize: 38.0,
-);
-
-final ralewayBlackNormal = GoogleFonts.raleway(
-  color: titleTextColor,
-  fontWeight: FontWeight.normal,
-);
-
-final ralewayBlackNormal22 = ralewayBlack.copyWith(
-  fontSize: 22,
-);
-
-///w300
-final rubikBlack300 = GoogleFonts.rubik(
-  color: titleTextColor,
-  fontWeight: FontWeight.w300,
-);
-
-final rubikBlack300_28 = rubikBlack300.copyWith(
-  fontSize: 28.0,
-);
-
-final rubikBlack300_36 = rubikBlack300.copyWith(
-  fontSize: 36.0,
-);
-
-final rubikBlack300_38 = rubikBlack300.copyWith(
-  fontSize: 38.0,
-);
+TextStyle buttonTextStyle({
+  Color color = textColor,
+  FontWeight fontWeight = FontWeight.normal,
+  double fontSize = 18.0,
+  double letterSpacing = 1.0,
+  TextDecoration decoration = TextDecoration.none,
+}) {
+  return GoogleFonts.comfortaa(
+    color: color,
+    fontWeight: fontWeight,
+    fontSize: fontSize,
+    letterSpacing: letterSpacing,
+    decoration: decoration,
+  );
+}

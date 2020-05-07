@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:surfgear_webpage/assets/text.dart';
+import 'package:surfgear_webpage/assets/text_styles.dart';
+import 'package:surfgear_webpage/common/widgets.dart';
 import 'package:surfgear_webpage/const.dart';
 import 'package:surfgear_webpage/main.dart';
-import 'package:surfgear_webpage/webpage/common/widgets.dart';
-import 'package:surfgear_webpage/webpage/webpage_widget.dart';
+import 'package:surfgear_webpage/pages/main/main_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Menu extends StatelessWidget {
@@ -51,7 +53,7 @@ class _MenuButton extends StatelessWidget {
   _MenuButton.modules({Key key})
       : this(
           key: key,
-          title: 'МОДУЛИ',
+          title: menuModulesText,
           onPressed: (context) {
             Navigator.of(context).pushNamed(Router.catalog);
           },
@@ -60,14 +62,14 @@ class _MenuButton extends StatelessWidget {
   _MenuButton.wiki({Key key})
       : this(
           key: key,
-          title: 'ВИКИ',
+          title: menuWikiText,
           onPressed: (_) => launch(wikiUrl),
         );
 
   _MenuButton.github({Key key})
       : this(
           key: key,
-          title: 'ГИТХАБ',
+          title: menuGithubText,
           onPressed: (_) => launch(githubUrl),
         );
 
@@ -78,7 +80,7 @@ class _MenuButton extends StatelessWidget {
       buttonBuilder: (context, isHovering) {
         return Text(
           title,
-          style: GoogleFonts.comfortaa(
+          style: buttonTextStyle(
             color: Theme.of(context).brightness == Brightness.light
                 ? Color(0xFF181818)
                 : Colors.white,
@@ -122,21 +124,23 @@ class __MenuBurgerButtonState extends State<_MenuBurgerButton>
   }
 
   Widget _buildButton(VoidCallback onPressed) {
-    return Builder(builder: (context) {
-      return Clickable(
-        child: IconButton(
-          onPressed: onPressed,
-          iconSize: 58.0,
-          icon: AnimatedIcon(
-            color: Theme.of(context).brightness == Brightness.light
-                ? Color(0xFF181818)
-                : Colors.white,
-            icon: AnimatedIcons.menu_close,
-            progress: _animationController,
+    return Builder(
+      builder: (context) {
+        return Clickable(
+          child: IconButton(
+            onPressed: onPressed,
+            iconSize: 58.0,
+            icon: AnimatedIcon(
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF181818)
+                  : Colors.white,
+              icon: AnimatedIcons.menu_close,
+              progress: _animationController,
+            ),
           ),
-        ),
-      );
-    },);
+        );
+      },
+    );
   }
 
   void _showMenu() {
