@@ -3,16 +3,18 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:surfgear_webpage/assets/images.dart';
 import 'package:surfgear_webpage/webpage/body/body_widget.dart';
 import 'package:surfgear_webpage/webpage/footer/footer_widget.dart';
 import 'package:surfgear_webpage/webpage/header/header_widget.dart';
 
-/// Ширина среднего экрана
+/// Medium screen width
 const double MEDIUM_SCREEN_WIDTH = 1500;
 
-/// Ширина маленького экрана
+/// Small screen width
 const double SMALL_SCREEN_WIDTH = 800;
 
+/// Webpage widget
 class WebpageWidget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -22,9 +24,11 @@ class WebpageWidget extends StatefulWidget {
 
 class _WebpageWidgetState extends State<WebpageWidget>
     with SingleTickerProviderStateMixin {
-  StreamController _scrollOffsetController = StreamController<double>();
+  /// Stream for storing page scroll position
+  StreamController _pageOffsetController = StreamController.broadcast();
 
-  ScrollController _scrollController;
+  /// Page ScrollController
+  ScrollController _pageScrollController;
 
   @override
   void initState() {
@@ -32,12 +36,18 @@ class _WebpageWidgetState extends State<WebpageWidget>
     _initScrollControllerListener();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    _pageOffsetController.close();
+  }
+
   void _initScrollControllerListener() {
-    _scrollController = ScrollController()
+    _pageScrollController = ScrollController()
       ..addListener(
         () {
-          var scrollOffset = _scrollController.offset;
-          _scrollOffsetController.add(scrollOffset);
+          var scrollOffset = _pageScrollController.offset;
+          _pageOffsetController.add(scrollOffset);
         },
       );
   }
@@ -45,30 +55,90 @@ class _WebpageWidgetState extends State<WebpageWidget>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        controller: _scrollController,
+//        controller: _scrollController,
+//        child: GestureDetector(
+//          onVerticalDragStart: (_) {},
+//          child: Column(
+//            children: <Widget>[
+//              ConstrainedBox(
+//                constraints: BoxConstraints.expand(
+//                  height: MediaQuery.of(context).size.height,
+//                ),
+//                child: HeaderWidget(),
+//              ),
+//              BodyWidget(),
+//              ConstrainedBox(
+//                constraints: BoxConstraints.expand(
+//                  height: MediaQuery.of(context).size.height,
+//                ),
+//                child: FooterWidget(
+//                  scrollChangesStream: _scrollOffsetController.stream,
+//                ),
+//              ),
+//            ],
+//          ),
+        scrollDirection: Axis.vertical,
+        controller: _pageScrollController,
         child: GestureDetector(
           onVerticalDragStart: (_) {},
-          child: Column(
-            children: <Widget>[
-              ConstrainedBox(
-                constraints: BoxConstraints.expand(
-                  height: MediaQuery.of(context).size.height,
-                ),
-                child: HeaderWidget(),
-              ),
-              BodyWidget(),
-              ConstrainedBox(
-                constraints: BoxConstraints.expand(
-                  height: MediaQuery.of(context).size.height,
-                ),
-                child: FooterWidget(
-                  scrollChangesStream: _scrollOffsetController.stream,
-                ),
+          child: Stack(
+            children: [
+              _buildSurfLogo(),
+              Column(
+                children: <Widget>[
+                  ConstrainedBox(
+                    constraints: BoxConstraints.expand(
+                      height: MediaQuery.of(context).size.height,
+                    ),
+                    child: HeaderWidget(),
+                  ),
+                  StreamBuilder(
+                    stream: _pageOffsetController.stream,
+                    initialData: 0.0,
+                    builder: (context, offset) {
+                      return BodyWidget(offset.data);
+                    },
+                  ),
+                  ConstrainedBox(
+                    constraints: BoxConstraints.expand(
+                      height: MediaQuery.of(context).size.height,
+                    ),
+                    child: FooterWidget(
+                      scrollChangesStream: _pageOffsetController.stream,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildSurfLogo() {
+    return ConstrainedBox(
+      constraints: BoxConstraints.expand(
+        height: MediaQuery.of(context).size.height * 3,
+      ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          OverflowBox(
+            minWidth: 800,
+            maxWidth: double.infinity,
+            alignment: Alignment(-0.3, -0.1),
+            child: Image.asset(
+              imgBackgroundLogo,
+              fit: BoxFit.fitWidth,
+              width: MediaQuery.of(context).size.width <= SMALL_SCREEN_WIDTH
+                  ? MediaQuery.of(context).size.width
+                  : null,
+            ),
+          ),
+        ],
       ),
     );
   }

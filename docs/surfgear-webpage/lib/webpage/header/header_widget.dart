@@ -32,9 +32,10 @@ class HeaderWidget extends StatelessWidget {
             minWidth: max(MediaQuery.of(context).size.width, 1920),
             maxWidth: double.infinity,
             child: Image.asset(
-              imgBackground,
+              imgHeaderBackground,
               fit: BoxFit.fitWidth,
               alignment: Alignment(0.0, -0.3),
+              width: MediaQuery.of(context).size.width,
             ),
           ),
         ),
