@@ -239,14 +239,14 @@ class _CarouselTitleState extends State<_CarouselTitle> {
         children: <Widget>[
           SizedBox(height: 120),
           AnimatedTitle(
-            bodyTitleText,
+            mainPageBodyTitleText,
             headlineTextStyle(),
             Duration(milliseconds: 250),
             widget.scrollOffset,
           ),
           SizedBox(height: 28),
           AnimatedTitle(
-            bodySubtitleText,
+            mainPageBodySubtitleText,
             headlineTextStyle(fontWeight: FontWeight.w300),
             Duration(milliseconds: 250),
             widget.scrollOffset,
@@ -264,14 +264,14 @@ class _CarouselTitleState extends State<_CarouselTitle> {
         children: <Widget>[
           SizedBox(height: 60),
           AnimatedTitle(
-            bodyTitleText,
+            mainPageBodyTitleText,
             headlineTextStyle(fontSize: 28.0),
             Duration(milliseconds: 250),
             widget.scrollOffset,
           ),
           SizedBox(height: 20),
           AnimatedTitle(
-            bodySubtitleText,
+            mainPageBodySubtitleText,
             headlineTextStyle(fontSize: 28.0, fontWeight: FontWeight.w300),
             Duration(milliseconds: 250),
             widget.scrollOffset,

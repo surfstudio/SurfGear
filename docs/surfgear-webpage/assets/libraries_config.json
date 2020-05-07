@@ -2,145 +2,145 @@
   {
     "name": "analytics",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/analytics",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Единый интерфейс для работы с сервисами аналитики"
   },
   {
     "name": "auto_reload",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/auto_reload",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Библиотека, позволяющая выполнять какие-либо действия с заданной периодичностью"
   },
   {
     "name": "background_worker",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/background_worker",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Хелпер для работы с изолятами"
   },
   {
     "name": "bottom_navigation_bar",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/bottom_navigation_bar",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Виджет с кнопками навигации между экранами"
   },
   {
     "name": "bottom_sheet",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/bottom_sheet",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Виджет раскрывающейся шторки с возможностью прокрутки"
   },
   {
     "name": "build_context_holder",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/build_context_holder",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Хранитель контекста последнего созданного виджета"
   },
   {
     "name": "datalist",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/datalist",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Список, упрощающий работу с пагинацией"
   },
   {
     "name": "db_holder",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/db_holder",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Интерфейс для работы с базами данных"
   },
   {
     "name": "event_filter",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/event_filter",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Интерфейс для фильтрации событий"
   },
   {
     "name": "geolocation",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/geolocation",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Библиотека для работы с геопозицией"
   },
   {
     "name": "injector",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/injector",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Инструмент для внедрения зависимостей"
   },
   {
     "name": "logger",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/logger",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Библиотека для логирования"
   },
   {
     "name": "mixed_list",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/mixed_list",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Виджет для отображения элементов разного типа в виде списка"
   },
   {
     "name": "mwwm",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/mwwm",
-    "status": "ModuleStatus.alpha",
+    "status": "alpha",
     "description": "Библиотека с компонентами архитектуры MWWM"
   },
   {
     "name": "network",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/network",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Библиотека для работы с запросами к серверу"
   },
   {
     "name": "network_cache",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/network_cache",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Утилита для кеширования ответов от сервера"
   },
   {
     "name": "permission",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/permission",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Библиотека для запроса доступа к различным функциям устройства (геолокация, список контактов и т.д.)"
   },
   {
     "name": "push",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/push",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Библиотека для работы с уведомлениями"
   },
   {
     "name": "relation",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/relation",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Связь Widget—Wm, используемая в Surf"
   },
   {
     "name": "storage",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/storage",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Интерфейс для работы с хранилищами"
   },
   {
     "name": "surf_mwwm",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/surf_mwwm",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Пакет, объединяющий в себе mwwm, injector, relation и различные методы расширения"
   },
   {
     "name": "surf_util",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/surf_util",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Набор утилит"
   },
   {
     "name": "swipe_refresh",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/swipe_refresh",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Виджет для работы с pull-to-refresh"
   },
   {
     "name": "tabnavigator",
     "link": "https://github.com/surfstudio/SurfGear/tree/dev/packages/tabnavigator",
-    "status": "ModuleStatus.surf",
+    "status": "surf",
     "description": "Библиотека для навигации между табами главного экрана"
   }
 ]

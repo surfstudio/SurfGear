@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:surfgear_webpage/assets/colors.dart';
 import 'package:surfgear_webpage/assets/images.dart';
+import 'package:surfgear_webpage/assets/text.dart';
 import 'package:surfgear_webpage/assets/text_styles.dart';
 import 'package:surfgear_webpage/common/widgets.dart';
 import 'package:surfgear_webpage/components/menu.dart';
@@ -10,8 +12,6 @@ import 'package:surfgear_webpage/main.dart';
 import 'package:surfgear_webpage/modules.dart';
 import 'package:surfgear_webpage/pages/main/main_page.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-const _surfBlue = Color(0xFF000240);
 
 class CatalogPage extends StatelessWidget {
   @override
@@ -55,10 +55,10 @@ class _Header extends StatelessWidget {
           vertical: 32.0,
         ),
         child: AutoSizeText(
-          'Каталог модулей',
+          catalogPageTitle,
           textAlign: TextAlign.center,
           maxLines: 2,
-          style: pageHeadlineTextStyle(color: _surfBlue),
+          style: pageHeadlineTextStyle(color: accentColor),
         ),
       ),
     ];
@@ -257,8 +257,8 @@ class _RepositoryButton extends StatelessWidget {
       buttonBuilder: (context, isHovering) {
         return DecoratedBox(
           decoration: BoxDecoration(
-            border: Border.all(color: _surfBlue),
-            color: isHovering ? _surfBlue : Colors.transparent,
+            border: Border.all(color: accentColor),
+            color: isHovering ? accentColor : Colors.transparent,
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(
@@ -266,9 +266,9 @@ class _RepositoryButton extends StatelessWidget {
               horizontal: 40.0,
             ),
             child: Text(
-              'Перейти в репозиторий',
+              catalogPageRepoBtnText,
               style: buttonTextStyle(
-                color: isHovering ? Colors.white : _surfBlue,
+                color: isHovering ? Colors.white : accentColor,
               ),
             ),
           ),

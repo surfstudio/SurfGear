@@ -76,8 +76,8 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
             offset: Offset(0.0, 0.0),
             child: FeatureItem(
               imagePath: icFeature1,
-              title: feature1TitleText,
-              description: feature1DescriptionText,
+              title: mainPageFeature1TitleText,
+              description: mainPageFeature1DescriptionText,
               delay: Duration(milliseconds: 50),
               controller: controller,
               imageOffset: Offset(25.0, 0.0),
@@ -88,8 +88,8 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
         Flexible(
           child: FeatureItem(
             imagePath: icFeature2,
-            title: feature2TitleText,
-            description: feature2DescriptionText,
+            title: mainPageFeature2TitleText,
+            description: mainPageFeature2DescriptionText,
             delay: Duration(milliseconds: 100),
             controller: controller,
           ),
@@ -98,8 +98,8 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
         Flexible(
           child: FeatureItem(
             imagePath: icFeature3,
-            title: feature3TitleText,
-            description: feature3DescriptionText,
+            title: mainPageFeature3TitleText,
+            description: mainPageFeature3DescriptionText,
             delay: Duration(milliseconds: 150),
             controller: controller,
           ),
@@ -114,16 +114,16 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
       children: <Widget>[
         FeatureItem(
           imagePath: icFeature1,
-          title: feature1TitleText,
-          description: feature1DescriptionText,
+          title: mainPageFeature1TitleText,
+          description: mainPageFeature1DescriptionText,
           delay: Duration(milliseconds: 50),
           controller: controller,
         ),
         SizedBox(height: 80),
         FeatureItem(
           imagePath: icFeature2,
-          title: feature2TitleText,
-          description: feature2DescriptionText,
+          title: mainPageFeature2TitleText,
+          description: mainPageFeature2DescriptionText,
           isRightSide: true,
           delay: Duration(milliseconds: 100),
           controller: controller,
@@ -131,8 +131,8 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
         SizedBox(height: 80),
         FeatureItem(
           imagePath: icFeature3,
-          title: feature3TitleText,
-          description: feature3DescriptionText,
+          title: mainPageFeature3TitleText,
+          description: mainPageFeature3DescriptionText,
           delay: Duration(milliseconds: 150),
           controller: controller,
         ),
@@ -145,16 +145,16 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
       children: <Widget>[
         FeatureItem(
           imagePath: icFeature1,
-          title: feature1TitleText,
-          description: feature1DescriptionText,
+          title: mainPageFeature1TitleText,
+          description: mainPageFeature1DescriptionText,
           delay: Duration(milliseconds: 50),
           controller: controller,
         ),
         SizedBox(height: 145),
         FeatureItem(
           imagePath: icFeature2,
-          title: feature2TitleText,
-          description: feature2DescriptionText,
+          title: mainPageFeature2TitleText,
+          description: mainPageFeature2DescriptionText,
           isRightSide: true,
           delay: Duration(milliseconds: 100),
           controller: controller,
@@ -162,8 +162,8 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
         SizedBox(height: 125),
         FeatureItem(
           imagePath: icFeature3,
-          title: feature3TitleText,
-          description: feature3DescriptionText,
+          title: mainPageFeature3TitleText,
+          description: mainPageFeature3DescriptionText,
           delay: Duration(milliseconds: 150),
           controller: controller,
         ),
@@ -194,7 +194,7 @@ class _FeaturesTitleState extends State<_FeaturesTitle> {
         children: <Widget>[
           SizedBox(height: 118),
           AnimatedTitle(
-            featuresTitleText,
+            mainPageFeaturesTitleText,
             headlineTextStyle(fontSize: 28.0),
             Duration(milliseconds: 250),
             widget.scrollOffset,
@@ -207,7 +207,7 @@ class _FeaturesTitleState extends State<_FeaturesTitle> {
         children: <Widget>[
           SizedBox(height: 210),
           AnimatedTitle(
-            featuresTitleText,
+            mainPageFeaturesTitleText,
             headlineTextStyle(),
             Duration(milliseconds: 250),
             widget.scrollOffset,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:surfgear_webpage/assets/text.dart';
 import 'package:surfgear_webpage/assets/text_styles.dart';
 import 'package:surfgear_webpage/common/widgets.dart';
 import 'package:surfgear_webpage/const.dart';
@@ -52,7 +53,7 @@ class _MenuButton extends StatelessWidget {
   _MenuButton.modules({Key key})
       : this(
           key: key,
-          title: 'МОДУЛИ',
+          title: menuModulesText,
           onPressed: (context) {
             Navigator.of(context).pushNamed(Router.catalog);
           },
@@ -61,14 +62,14 @@ class _MenuButton extends StatelessWidget {
   _MenuButton.wiki({Key key})
       : this(
           key: key,
-          title: 'ВИКИ',
+          title: menuWikiText,
           onPressed: (_) => launch(wikiUrl),
         );
 
   _MenuButton.github({Key key})
       : this(
           key: key,
-          title: 'ГИТХАБ',
+          title: menuGithubText,
           onPressed: (_) => launch(githubUrl),
         );
 

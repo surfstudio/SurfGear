@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:surfgear_webpage/assets/images.dart';
+import 'package:surfgear_webpage/assets/text.dart';
 import 'package:surfgear_webpage/assets/text_styles.dart';
 import 'package:surfgear_webpage/common/widgets.dart';
 import 'package:surfgear_webpage/main.dart';
@@ -156,7 +157,7 @@ class _CatalogButton extends StatelessWidget {
               horizontal: 40.0,
             ),
             child: Text(
-              'СМОТРЕТЬ',
+              mainPageCatalogBtnText,
               style: buttonTextStyle(
                 color: isHovering ? Colors.grey[850] : Colors.white,
                 letterSpacing: 1.1,
