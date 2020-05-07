@@ -69,8 +69,9 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.baseline,
       textBaseline: TextBaseline.alphabetic,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Spacer(),
+        SizedBox(width: 110),
         Flexible(
           child: Transform.translate(
             offset: Offset(0.0, 0.0),
@@ -84,7 +85,7 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
             ),
           ),
         ),
-        Spacer(),
+        SizedBox(width: 120),
         Flexible(
           child: FeatureItem(
             imagePath: icFeature2,
@@ -94,7 +95,7 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
             controller: controller,
           ),
         ),
-        Spacer(),
+        SizedBox(width: 120),
         Flexible(
           child: FeatureItem(
             imagePath: icFeature3,
@@ -104,7 +105,7 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
             controller: controller,
           ),
         ),
-        Spacer(),
+        SizedBox(width: 110),
       ],
     );
   }
@@ -149,6 +150,7 @@ class FeaturesWidgetState extends State<FeaturesWidget> {
           description: feature1DescriptionText,
           delay: Duration(milliseconds: 50),
           controller: controller,
+          imageOffset: Offset(25.0, 0.0),
         ),
         SizedBox(height: 145),
         FeatureItem(

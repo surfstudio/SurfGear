@@ -7,7 +7,7 @@ import 'colors.dart';
 /// base
 final rubikBase = GoogleFonts.rubik();
 final sourceCodeProBase = GoogleFonts.sourceCodePro();
-final ralewayBase = TextStyle(fontFamily: "Raleway");
+final ralewayBase = GoogleFonts.raleway();
 
 /// black
 final rubickBlack = rubikBase.copyWith(
@@ -19,7 +19,8 @@ final ralewayBlack = ralewayBase.copyWith(
 );
 
 /// normal
-final rubikBlackNormal = rubickBlack.copyWith(
+final rubikBlackNormal = GoogleFonts.rubik(
+  color: titleTextColor,
   fontWeight: FontWeight.normal,
 );
 
@@ -37,7 +38,8 @@ final rubikBlackNormal38 = rubikBlackNormal.copyWith(
   fontSize: 38.0,
 );
 
-final ralewayBlackNormal = ralewayBlack.copyWith(
+final ralewayBlackNormal = GoogleFonts.raleway(
+  color: titleTextColor,
   fontWeight: FontWeight.normal,
 );
 
@@ -46,7 +48,8 @@ final ralewayBlackNormal22 = ralewayBlack.copyWith(
 );
 
 ///w300
-final rubikBlack300 = rubickBlack.copyWith(
+final rubikBlack300 = GoogleFonts.rubik(
+  color: titleTextColor,
   fontWeight: FontWeight.w300,
 );
 

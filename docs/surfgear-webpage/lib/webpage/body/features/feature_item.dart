@@ -103,10 +103,13 @@ class _FeatureItem extends State<FeatureItem>
           style: rubikBlack300_36,
         ),
         SizedBox(height: 40),
-        Text(
-          widget.description,
-          textAlign: TextAlign.center,
-          style: ralewayBlackNormal22,
+        Container(
+          width: 600,
+          child: Text(
+            widget.description,
+            textAlign: TextAlign.center,
+            style: ralewayBlackNormal22,
+          ),
         ),
       ],
     );
@@ -149,7 +152,10 @@ class _FeatureItem extends State<FeatureItem>
   Widget _buildSmallFeature() {
     return Column(
       children: <Widget>[
-        Image.asset(widget.imagePath),
+        Transform.translate(
+          offset: widget.imageOffset,
+          child: Image.asset(widget.imagePath),
+        ),
         SizedBox(height: 32.0),
         Text(
           widget.title,

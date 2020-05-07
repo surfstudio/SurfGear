@@ -16,7 +16,7 @@ class BodyWidget extends StatefulWidget {
   }
 }
 
-class _BodyWidgetState extends State<BodyWidget> {
+class _BodyWidgetState extends State<BodyWidget> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -26,7 +26,6 @@ class _BodyWidgetState extends State<BodyWidget> {
       builder: (context, snapshot) {
         if (snapshot.data != null) {
           List<String> librariesList = getLibrariesList(snapshot.data);
-
           return Column(
             children: <Widget>[
               Carousel(

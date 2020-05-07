@@ -173,8 +173,6 @@ class _CarouselState extends State<Carousel> {
   }
 
   /// PageController animation
-  /// TODO надо изучить как можно выгрузить логику анимации в отдельный поток
-  /// TODO т.к while(true) сильно нагружает основной опток
   void _animatePageController(PageController controller) {
     Future.delayed(Duration(milliseconds: 10), () async {
       while (true) {
