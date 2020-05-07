@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:surfgear_webpage/assets/images.dart';
+import 'package:surfgear_webpage/assets/text_styles.dart';
 import 'package:surfgear_webpage/components/menu.dart';
 import 'package:surfgear_webpage/pages/main/main_page.dart';
 
@@ -91,10 +92,7 @@ class __LogoAndTextState extends State<_LogoAndText> {
             'Плагины для Flutter-проектов',
             textAlign: TextAlign.center,
             maxLines: 2,
-            style: GoogleFonts.rubik(
-              color: Colors.white,
-              fontSize: 42.0,
-            ),
+            style: pageHeadlineTextStyle(color: Colors.white),
           ),
         ),
       ),

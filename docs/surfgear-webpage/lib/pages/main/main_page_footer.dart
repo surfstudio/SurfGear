@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:surfgear_webpage/assets/images.dart';
+import 'package:surfgear_webpage/assets/text_styles.dart';
 import 'package:surfgear_webpage/common/widgets.dart';
 import 'package:surfgear_webpage/main.dart';
 
@@ -121,9 +122,8 @@ class __TextAndButtonState extends State<_TextAndButton>
             child: AutoSizeText(
               'Каталог модулей, для вас',
               maxLines: 1,
-              style: GoogleFonts.rubik(
+              style: headlineTextStyle(
                 color: Colors.white,
-                fontSize: 38,
                 fontWeight: FontWeight.w300,
               ),
             ),
@@ -157,9 +157,8 @@ class _CatalogButton extends StatelessWidget {
             ),
             child: Text(
               'СМОТРЕТЬ',
-              style: GoogleFonts.comfortaa(
+              style: buttonTextStyle(
                 color: isHovering ? Colors.grey[850] : Colors.white,
-                fontSize: 18.0,
                 letterSpacing: 1.1,
               ),
             ),

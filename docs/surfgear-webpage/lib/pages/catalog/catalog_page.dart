@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:surfgear_webpage/assets/images.dart';
+import 'package:surfgear_webpage/assets/text_styles.dart';
 import 'package:surfgear_webpage/common/widgets.dart';
 import 'package:surfgear_webpage/components/menu.dart';
 import 'package:surfgear_webpage/const.dart';
@@ -57,10 +58,7 @@ class _Header extends StatelessWidget {
           'Каталог модулей',
           textAlign: TextAlign.center,
           maxLines: 2,
-          style: GoogleFonts.rubik(
-            color: _surfBlue,
-            fontSize: 42.0,
-          ),
+          style: pageHeadlineTextStyle(color: _surfBlue),
         ),
       ),
     ];
@@ -155,10 +153,7 @@ class _ListTile extends StatelessWidget {
                         child: Text(
                           module.name,
                           textAlign: TextAlign.right,
-                          style: GoogleFonts.raleway(
-                            fontWeight: FontWeight.w300,
-                            fontSize: 24.0,
-                          ),
+                          style: bodyTextStyle(fontWeight: FontWeight.w300),
                         ),
                       ),
                       if (screenWidth <= SMALL_SCREEN_WIDTH)
@@ -192,9 +187,7 @@ class _ListTile extends StatelessWidget {
                   width: 630,
                   child: Text(
                     module.description,
-                    style: GoogleFonts.raleway(
-                      fontSize: 24.0,
-                    ),
+                    style: bodyTextStyle(),
                   ),
                 ),
               ),
@@ -274,9 +267,8 @@ class _RepositoryButton extends StatelessWidget {
             ),
             child: Text(
               'Перейти в репозиторий',
-              style: GoogleFonts.comfortaa(
+              style: buttonTextStyle(
                 color: isHovering ? Colors.white : _surfBlue,
-                fontSize: 18.0,
               ),
             ),
           ),

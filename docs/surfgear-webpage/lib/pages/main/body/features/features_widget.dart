@@ -195,7 +195,7 @@ class _FeaturesTitleState extends State<_FeaturesTitle> {
           SizedBox(height: 118),
           AnimatedTitle(
             featuresTitleText,
-            rubikBlackNormal28,
+            headlineTextStyle(fontSize: 28.0),
             Duration(milliseconds: 250),
             widget.scrollOffset,
           ),
@@ -208,7 +208,7 @@ class _FeaturesTitleState extends State<_FeaturesTitle> {
           SizedBox(height: 210),
           AnimatedTitle(
             featuresTitleText,
-            rubikBlackNormal38,
+            headlineTextStyle(),
             Duration(milliseconds: 250),
             widget.scrollOffset,
           ),

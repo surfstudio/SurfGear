@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:surfgear_webpage/assets/text_styles.dart';
 import 'package:surfgear_webpage/common/widgets.dart';
 import 'package:surfgear_webpage/const.dart';
 import 'package:surfgear_webpage/main.dart';
@@ -78,7 +79,7 @@ class _MenuButton extends StatelessWidget {
       buttonBuilder: (context, isHovering) {
         return Text(
           title,
-          style: GoogleFonts.comfortaa(
+          style: buttonTextStyle(
             color: Theme.of(context).brightness == Brightness.light
                 ? Color(0xFF181818)
                 : Colors.white,

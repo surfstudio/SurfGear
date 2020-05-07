@@ -100,13 +100,13 @@ class _FeatureItem extends State<FeatureItem>
         AutoSizeText(
           widget.title,
           textAlign: TextAlign.center,
-          style: rubikBlack300_36,
+          style: subtitleTextStyle(),
         ),
         SizedBox(height: 40),
         Text(
           widget.description,
           textAlign: TextAlign.center,
-          style: ralewayBlackNormal22,
+          style: bodyTextStyle(),
         ),
       ],
     );
@@ -126,7 +126,7 @@ class _FeatureItem extends State<FeatureItem>
           children: <Widget>[
             Text(
               widget.title,
-              style: rubikBlack300_36,
+              style: subtitleTextStyle(),
             ),
             SizedBox(height: 20),
             Container(
@@ -134,7 +134,7 @@ class _FeatureItem extends State<FeatureItem>
               child: Text(
                 widget.description,
                 textAlign: widget.isRightSide ? TextAlign.end : TextAlign.start,
-                style: ralewayBlackNormal22,
+                style: bodyTextStyle(),
               ),
             ),
           ],
@@ -153,7 +153,7 @@ class _FeatureItem extends State<FeatureItem>
         SizedBox(height: 32.0),
         Text(
           widget.title,
-          style: rubikBlack300_28,
+          style: subtitleTextStyle(fontSize: 28.0),
         ),
         SizedBox(height: 19.0),
         Container(
@@ -161,7 +161,7 @@ class _FeatureItem extends State<FeatureItem>
           child: Text(
             widget.description,
             textAlign: TextAlign.center,
-            style: ralewayBlackNormal22,
+            style: bodyTextStyle(),
           ),
         ),
       ],

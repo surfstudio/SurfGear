@@ -240,14 +240,14 @@ class _CarouselTitleState extends State<_CarouselTitle> {
           SizedBox(height: 120),
           AnimatedTitle(
             bodyTitleText,
-            rubikBlackNormal38,
+            headlineTextStyle(),
             Duration(milliseconds: 250),
             widget.scrollOffset,
           ),
           SizedBox(height: 28),
           AnimatedTitle(
             bodySubtitleText,
-            rubikBlack300_38,
+            headlineTextStyle(fontWeight: FontWeight.w300),
             Duration(milliseconds: 250),
             widget.scrollOffset,
           ),
@@ -265,14 +265,14 @@ class _CarouselTitleState extends State<_CarouselTitle> {
           SizedBox(height: 60),
           AnimatedTitle(
             bodyTitleText,
-            rubikBlackNormal28,
+            headlineTextStyle(fontSize: 28.0),
             Duration(milliseconds: 250),
             widget.scrollOffset,
           ),
           SizedBox(height: 20),
           AnimatedTitle(
             bodySubtitleText,
-            rubikBlack300_28,
+            headlineTextStyle(fontSize: 28.0, fontWeight: FontWeight.w300),
             Duration(milliseconds: 250),
             widget.scrollOffset,
           ),
