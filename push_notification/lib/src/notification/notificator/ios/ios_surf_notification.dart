@@ -53,7 +53,7 @@ class IOSSurfNotification {
     int id,
     String title,
     String body,
-    Map<String, String> data,
+    dynamic data,
     IosNotificationSpecifics notificationSpecifics,
   ) async {
     return channel.invokeMethod(

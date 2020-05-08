@@ -34,10 +34,12 @@ class PushStrategy(override val icon: Int,
     override val contentView: RemoteViews? = null
 
     override fun makeNotificationBuilder(context: Context, title: String, body: String): NotificationCompat.Builder? {
+        val data = typeData.data
+        //todo размер прикрепляемого изображения
         return NotificationCompat.Builder(context, context.getString(channelId))
                 .setSmallIcon(icon)
-                .setContentTitle(title)
-                .setContentText(body)
+                .setContentTitle(data?.title)
+                .setContentText(data?.body)
                 .setGroupSummary(true)
                 .setColor(ContextCompat.getColor(context, color))
                 .setContent(contentView)
@@ -45,7 +47,7 @@ class PushStrategy(override val icon: Int,
                 .setContentIntent(pendingIntent)
                 .addAction(NotificationCompat.Action(0, "Кнопка 1", pendingIntent))
                 .addAction(NotificationCompat.Action(0, "Кнопка 2", pendingIntent))
-                .applyLargeIcon(context, typeData.data)
+                .applyLargeIcon(context, data)
 //                .setDeleteIntent(deleteIntent)
     }
 

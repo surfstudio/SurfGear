@@ -8,7 +8,7 @@ import java.io.Serializable
  * @param notificationData custom data in notification
  */
 class PushNotificationData(
-        val notificationData: Map<String, String>, val imageUrl: String
+        val notificationData: Map<String, String>, val imageUrl: String, val title: String, val body: String
 ) : Serializable {
     override fun toString(): String {
         return "PushNotificationData(notificationData=$notificationData)"

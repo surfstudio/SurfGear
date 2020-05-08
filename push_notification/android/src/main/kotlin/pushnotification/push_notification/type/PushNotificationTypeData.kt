@@ -13,11 +13,14 @@ class PushNotificationTypeData : BaseNotificationTypeData<PushNotificationData>(
      * необходимо в [BaseNotificationTypeData] в методе setDataFromMap поменять параметр String
      * на dymamic**/
     override fun extractData(map: Map<String, String>): PushNotificationData? {
-        return PushNotificationData(map, map[IMAGE_URL] ?: EMPTY_STRING)
+        return PushNotificationData(map, map[IMAGE_URL] ?: EMPTY_STRING, map[TITLE]
+                ?: EMPTY_STRING, map[BODY] ?: EMPTY_STRING)
     }
 
     companion object {
         const val IMAGE_URL = "imageUrl"
+        const val TITLE = "title"
+        const val BODY = "message"
     }
 
 }

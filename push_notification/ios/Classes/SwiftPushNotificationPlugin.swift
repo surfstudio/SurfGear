@@ -132,10 +132,10 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
                                        withCompletionHandler completionHandler: @escaping () -> Void) {
 
         let notification = response.notification
-        let notificationData = notification.request.content.userInfo
+        var notificationData = notification.request.content.userInfo
+        notificationData["actionIdentifier"] = response.actionIdentifier
         //todo: Тут обработать нажитие на кнопку https://developer.apple.com/documentation/usernotifications/declaring_your_actionable_notification_types
         //по сути просто достать идентификатор/урл что будет необходимо из response
-        
         channel.invokeMethod(CALLBACK_OPEN, arguments: notificationData)
 
         completionHandler()
