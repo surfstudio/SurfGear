@@ -1,14 +1,19 @@
 package pushnotification.push_notification
 
-import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler
-import io.flutter.plugin.common.MethodChannel.Result
-import io.flutter.plugin.common.MethodCall
-import io.flutter.plugin.common.PluginRegistry.Registrar
 import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
-import androidx.annotation.NonNull;
+import androidx.annotation.NonNull
+import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.embedding.engine.plugins.activity.ActivityAware
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
+import io.flutter.plugin.common.BinaryMessenger
+import io.flutter.plugin.common.MethodCall
+import io.flutter.plugin.common.MethodChannel
+import io.flutter.plugin.common.MethodChannel.MethodCallHandler
+import io.flutter.plugin.common.MethodChannel.Result
+import io.flutter.plugin.common.PluginRegistry
+import io.flutter.plugin.common.PluginRegistry.Registrar
 import pushnotification.push_notification.handler.PushHandler
 import pushnotification.push_notification.strategy.PushStrategy
 import pushnotification.push_notification.type.PushNotificationTypeData
@@ -18,6 +23,7 @@ import ru.surfstudio.android.notification.ui.PushClickProvider
 import ru.surfstudio.android.notification.ui.PushEventListener
 import ru.surfstudio.android.notification.ui.notification.NOTIFICATION_DATA
 import ru.surfstudio.android.utilktx.ktx.text.EMPTY_STRING
+
 
 //channels and methods names
 private const val CHANNEL = "surf_notification"
@@ -48,20 +54,34 @@ private const val DEFAULT_COLOR = "@color/design_default_color_primary"
 private const val DEFAULT_AUTOCANCEL = true
 
 /** PushNotificationPlugin */
-public class PushNotificationPlugin(private var context: Context? = null,
-                                    private var channel: MethodChannel? = null) : MethodCallHandler {
+public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin {
     private val activeActivityHolder = ActiveActivityHolder()
     private val pusInteractor = PushInteractor()
 
+    private var context: Context? = null
+    private var channel: MethodChannel? = null
+    
     private val pushHandler = PushHandler(activeActivityHolder, pusInteractor)
 
     companion object {
         @JvmStatic
         fun registerWith(registrar: Registrar): Unit {
-            val channel = MethodChannel(registrar.messenger(), CHANNEL)
-            channel.setMethodCallHandler(PushNotificationPlugin(registrar.context(), channel))
+            val plugin = PushNotificationPlugin()
+            plugin.onAttachedToEngine(registrar.context(), registrar.messenger())
         }
     }
+
+    private fun onAttachedToEngine(context: Context, binaryMessenger: BinaryMessenger) {
+        this.context = context
+        channel = MethodChannel(binaryMessenger, CHANNEL)
+        channel?.setMethodCallHandler(this)
+    }
+
+    override fun onAttachedToEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+        onAttachedToEngine(binding.getApplicationContext(), binding.getBinaryMessenger())
+    }
+
+    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {}
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         val args = call.arguments as Map<String, *>?
@@ -91,7 +111,7 @@ public class PushNotificationPlugin(private var context: Context? = null,
                 if (notificationTypeData.data != null) {
                     notificationData = HashMap(notificationTypeData.data?.notificationData)
                 }
-
+                val action = intent.getStringExtra("ACTION")
                 channel!!.invokeMethod(CALLBACK_OPEN, notificationData)
             }
         }
@@ -102,7 +122,8 @@ public class PushNotificationPlugin(private var context: Context? = null,
             val notificationSpecifics = args[ARG_SPECIFICS] as HashMap<String, *>
             val icon = notificationSpecifics[ARG_ICON] as String? ?: DEFAULT_ICON_NAME
             val channelId = notificationSpecifics[ARG_CHANNEL_ID] as String? ?: DEFAULT_CHANNEL_ID
-            val channelName = notificationSpecifics[ARG_CHANNEL_NAME] as String? ?: DEFAULT_CHANNEL_NAME
+            val channelName = notificationSpecifics[ARG_CHANNEL_NAME] as String?
+                    ?: DEFAULT_CHANNEL_NAME
             val color = notificationSpecifics[ARG_COLOR] as String? ?: DEFAULT_COLOR
             val autoCancelable: Boolean = notificationSpecifics[ARG_AUTOCANCELABLE] as Boolean?
                     ?: DEFAULT_AUTOCANCEL

@@ -2,6 +2,7 @@ package pushnotification.push_notification.strategy
 
 import android.app.Activity
 import android.app.NotificationChannel
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -13,13 +14,13 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import pushnotification.push_notification.notification.PushNotificationData
 import pushnotification.push_notification.type.PushNotificationTypeData
+import ru.surfstudio.android.notification.ui.notification.*
 import ru.surfstudio.android.notification.ui.notification.strategies.PushHandleStrategy
 import ru.surfstudio.android.utilktx.ktx.text.EMPTY_STRING
 import java.io.IOException
 import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
-
 
 /** Push strategy for [PushHandler]**/
 class PushStrategy(override val icon: Int,
@@ -35,7 +36,6 @@ class PushStrategy(override val icon: Int,
 
     override fun makeNotificationBuilder(context: Context, title: String, body: String): NotificationCompat.Builder? {
         val data = typeData.data
-        //todo размер прикрепляемого изображения
         return NotificationCompat.Builder(context, context.getString(channelId))
                 .setSmallIcon(icon)
                 .setContentTitle(data?.title)
@@ -45,8 +45,7 @@ class PushStrategy(override val icon: Int,
                 .setContent(contentView)
                 .setAutoCancel(autoCancelable)
                 .setContentIntent(pendingIntent)
-                .addAction(NotificationCompat.Action(0, "Кнопка 1", pendingIntent))
-                .addAction(NotificationCompat.Action(0, "Кнопка 2", pendingIntent))
+//                .addActions(context, data)
                 .applyLargeIcon(context, data)
 //                .setDeleteIntent(deleteIntent)
     }
@@ -58,6 +57,20 @@ class PushStrategy(override val icon: Int,
     }
 
     override fun handlePushInActivity(activity: Activity): Boolean = false
+
+    private fun NotificationCompat.Builder.addActions(
+            context: Context,
+            notification: PushNotificationData?
+    ): NotificationCompat.Builder = apply {
+        if (notification?.buttons?.isNotEmpty() == true) {
+            notification.buttons.forEach { button ->
+                val actionIntent = Intent(context, NotificationClickEventReceiver::class.java)
+                actionIntent.putExtra(NOTIFICATION_DATA, typeData)
+                actionIntent.putExtra("ACTION", button.id)
+                addAction(0, button.text, PendingIntent.getBroadcast(context.applicationContext, button.text.hashCode(), actionIntent, PendingIntent.FLAG_ONE_SHOT))
+            }
+        }
+    }
 
     private fun NotificationCompat.Builder.applyLargeIcon(
             context: Context,
