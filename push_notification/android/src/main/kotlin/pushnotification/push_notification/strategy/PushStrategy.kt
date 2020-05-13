@@ -45,7 +45,7 @@ class PushStrategy(override val icon: Int,
                 .setContent(contentView)
                 .setAutoCancel(autoCancelable)
                 .setContentIntent(pendingIntent)
-//                .addActions(context, data)
+                .addActions(context, data)
                 .applyLargeIcon(context, data)
 //                .setDeleteIntent(deleteIntent)
     }
