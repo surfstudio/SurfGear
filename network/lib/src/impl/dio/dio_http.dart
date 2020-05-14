@@ -43,9 +43,7 @@ class DioHttp extends Http {
       ..sendTimeout = config.timeout.inMilliseconds;
 
     _configProxy(config);
-    interceptors
-        ?.map((interceptor) => DioInterceptorDecorator(interceptor))
-        ?.forEach((interceptor) => _dio.interceptors.add(interceptor));
+    addInterceptors(interceptors);
 
     var logConfig = config.logConfig;
     if (logConfig != null) {
@@ -72,22 +70,6 @@ class DioHttp extends Http {
   /// Подмена baseUrl без перезапуска приложения
   void changeBaseUrl(String newUrl) {
     _dio.options.baseUrl = newUrl;
-  }
-
-  ///Proxy config for tracking data
-  ///
-  /// @param config - HttpConfig of client. Get proxy url
-  void _configProxy(HttpConfig config) {
-    var proxyUrl = config.proxyUrl;
-
-    if (proxyUrl != null && proxyUrl.isNotEmpty) {
-      (_dio.httpClientAdapter as dio.DefaultHttpClientAdapter)
-          .onHttpClientCreate = (client) {
-        client.findProxy = (uri) {
-          return "PROXY $proxyUrl";
-        };
-      };
-    }
   }
 
   @override
@@ -220,6 +202,29 @@ class DioHttp extends Http {
 
     Logger.d("request  headers: $url, | $headersMap");
     return headersMap;
+  }
+
+  /// Add list of inteceptors
+  void addInterceptors(List<DioInterceptor> interceptors) {
+    interceptors
+        ?.map((interceptor) => DioInterceptorDecorator(interceptor))
+        ?.forEach((interceptor) => _dio.interceptors.add(interceptor));
+  }
+
+  ///Proxy config for tracking data
+  ///
+  /// @param config - HttpConfig of client. Get proxy url
+  void _configProxy(HttpConfig config) {
+    var proxyUrl = config.proxyUrl;
+
+    if (proxyUrl != null && proxyUrl.isNotEmpty) {
+      (_dio.httpClientAdapter as dio.DefaultHttpClientAdapter)
+          .onHttpClientCreate = (client) {
+        client.findProxy = (uri) {
+          return "PROXY $proxyUrl";
+        };
+      };
+    }
   }
 
   Response<T> _toResponse<T>(dio.Response r) {

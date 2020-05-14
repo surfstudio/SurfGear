@@ -19,11 +19,11 @@
 ///  [E] - exception
 abstract class Interceptor<RQ, RS, E> {
   /// The callback will be executed before the request is initiated.
-  void onRequest(RQ options) => options;
+  onRequest(RQ options);
 
   /// The callback will be executed on success.
-  void onResponse(RS response) => response;
+  onResponse(RS response);
 
   /// The callback will be executed on error.
-  void onError(E err) => err;
+  onError(E err);
 }
