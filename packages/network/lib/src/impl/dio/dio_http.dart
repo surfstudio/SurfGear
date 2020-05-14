@@ -37,12 +37,16 @@ class DioHttp extends Http {
     HttpConfig config,
     this.errorMapper,
     List<DioInterceptor> interceptors,
+    dio.HttpClientAdapter httpClientAdapter,
   }) {
     _dio.options
       ..baseUrl = config.baseUrl
       ..connectTimeout = config.timeout.inMilliseconds
       ..receiveTimeout = config.timeout.inMilliseconds
       ..sendTimeout = config.timeout.inMilliseconds;
+
+    if (httpClientAdapter != null)
+      _dio.httpClientAdapter = httpClientAdapter;
 
     _configProxy(config);
     interceptors
