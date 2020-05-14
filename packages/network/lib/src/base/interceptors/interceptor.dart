@@ -19,11 +19,11 @@
 ///  [E] - exception
 abstract class Interceptor<RQ, RS, E> {
   /// The callback will be executed before the request is initiated.
-  Future onRequest(RQ options) => Future.value(options);
+  onRequest(RQ options);
 
   /// The callback will be executed on success.
-  Future onResponse(RS response) => Future.value(response);
+  onResponse(RS response);
 
   /// The callback will be executed on error.
-  Future onError(E err) => Future.value(err);
+  onError(E err);
 }
