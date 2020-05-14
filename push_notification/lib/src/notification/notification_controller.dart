@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:io';
 
 import 'package:push_notification/src/base/push_handle_strategy.dart';
 import 'package:push_notification/src/notification/notificator/android/android_notiffication_specifics.dart';
@@ -7,16 +8,18 @@ import 'package:push_notification/src/notification/notificator/ios/ios_init_sett
 import 'package:push_notification/src/notification/notificator/notification_specifics.dart';
 import 'package:push_notification/src/notification/notificator/notificator.dart';
 
-typedef NotificationCallback = void Function(Map<String, dynamic> payload);
+typedef NotificationCallback = void Function(Map<dynamic, dynamic> payload);
 
 const String pushIdParam = 'localPushId';
+const String uniqueKey = 'uniqueKey';
+const String aps = 'aps';
 
 /// Wrapper over surf notifications
 class NotificationController {
   Notificator _surfNotification;
 
-  Map<int, NotificationCallback> callbackMap =
-      HashMap<int, NotificationCallback>();
+  Map<String, NotificationCallback> callbackMap =
+      HashMap<String, NotificationCallback>();
 
   NotificationController(
     String androidDefaultIcon,
@@ -59,9 +62,20 @@ class NotificationController {
 
     int pushId = DateTime.now().millisecondsSinceEpoch;
     var tmpPayload = Map.of(strategy.payload.messageData);
-    tmpPayload[pushIdParam] = pushId;
-    callbackMap[pushId] = onSelectNotification;
+    String payloadKey;
+    if (Platform.isIOS) {
+      payloadKey = tmpPayload[aps][uniqueKey];
+    } else {
+      //todo Android
+      payloadKey = pushId.toString();
+    }
+    callbackMap[payloadKey] = onSelectNotification;
 
+    /// На платформе IOS, отображение происходит с помощью системы,
+    /// Данный метод используется для регистрации callback метода
+    if (Platform.isIOS) {
+      return Future.value(true);
+    }
     return _surfNotification.show(
       strategy.pushId,
       strategy.payload.title,
@@ -74,8 +88,14 @@ class NotificationController {
   Future<dynamic> _internalOnSelectNotification(Map payload) async {
     print('DEV_INFO onSelectNotification, payload: $payload');
 
-    Map<String, dynamic> tmpPayload = payload;
-    int pushId = tmpPayload[pushIdParam];
+    Map<dynamic, dynamic> tmpPayload = payload;
+    String pushId;
+    if (Platform.isIOS) {
+      pushId = tmpPayload[aps][uniqueKey];
+    } else {
+      //todo Android
+      pushId = "EMPTY_STRING";
+    }
     var onSelectNotification = callbackMap[pushId];
     callbackMap.remove(pushId);
 
