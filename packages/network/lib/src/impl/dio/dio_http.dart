@@ -62,6 +62,10 @@ class DioHttp extends Http {
         return e.response;
       }
 
+      if (e is Error) {
+        throw Exception((e as Error).stackTrace);
+      }
+
       throw e;
     }));
   }
