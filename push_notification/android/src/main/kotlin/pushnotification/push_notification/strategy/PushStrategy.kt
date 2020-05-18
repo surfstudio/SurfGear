@@ -7,8 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.BitmapFactory.Options
-import android.os.AsyncTask
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
@@ -18,9 +16,11 @@ import ru.surfstudio.android.notification.ui.notification.*
 import ru.surfstudio.android.notification.ui.notification.strategies.PushHandleStrategy
 import ru.surfstudio.android.utilktx.ktx.text.EMPTY_STRING
 import java.io.IOException
-import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
+
+
+const val SELECT_NOTIFICATION = "SELECT_NOTIFICATION"
 
 /** Push strategy for [PushHandler]**/
 class PushStrategy(override val icon: Int,
@@ -36,6 +36,12 @@ class PushStrategy(override val icon: Int,
 
     override fun makeNotificationBuilder(context: Context, title: String, body: String): NotificationCompat.Builder? {
         val data = typeData.data
+
+        val intent = Intent(context, getMainActivityClass(context))
+        intent.action = SELECT_NOTIFICATION
+        intent.putExtra(NOTIFICATION_DATA, typeData)
+        val newPendingIntent = PendingIntent.getActivity(context, typeData.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
         return NotificationCompat.Builder(context, context.getString(channelId))
                 .setSmallIcon(icon)
                 .setContentTitle(data?.title)
@@ -44,10 +50,23 @@ class PushStrategy(override val icon: Int,
                 .setColor(ContextCompat.getColor(context, color))
                 .setContent(contentView)
                 .setAutoCancel(autoCancelable)
-                .setContentIntent(pendingIntent)
-                .addActions(context, data)
+                .setContentIntent(newPendingIntent)
+                //TODO: Вернуть информацию о кнопках, когда нужна будет реализация
+//                .addActions(context, data)
                 .applyLargeIcon(context, data)
 //                .setDeleteIntent(deleteIntent)
+    }
+
+    private fun getMainActivityClass(context: Context): Class<*>? {
+        val packageName = context.packageName
+        val launchIntent = context.packageManager.getLaunchIntentForPackage(packageName)
+        val className = launchIntent.component.className
+        return try {
+            Class.forName(className)
+        } catch (e: ClassNotFoundException) {
+            e.printStackTrace()
+            null
+        }
     }
 
     override fun makeNotificationChannel(context: Context, title: String): NotificationChannel? = null

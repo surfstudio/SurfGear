@@ -13,17 +13,16 @@ typedef NotificationCallback = void Function(Map<dynamic, dynamic> payload);
 const String pushIdParam = 'localPushId';
 const String uniqueKey = 'uniqueKey';
 const String aps = 'aps';
+const String data = 'data';
 
 /// Wrapper over surf notifications
 class NotificationController {
   Notificator _surfNotification;
 
   Map<String, NotificationCallback> callbackMap =
-      HashMap<String, NotificationCallback>();
+  HashMap<String, NotificationCallback>();
 
-  NotificationController(
-    String androidDefaultIcon,
-  ) {
+  NotificationController(String androidDefaultIcon,) {
     _surfNotification = Notificator(
         initSettings: InitSettings(
           iosInitSettings: IOSInitSettings(
@@ -43,13 +42,11 @@ class NotificationController {
   }
 
   /// displaying notification from the strategy
-  Future<dynamic> show(
-    PushHandleStrategy strategy,
-    NotificationCallback onSelectNotification,
-  ) {
+  Future<dynamic> show(PushHandleStrategy strategy,
+      NotificationCallback onSelectNotification,) {
     final androidSpecifics = AndroidNotificationSpecifics(
-      channelId: strategy.notificationChannelId,
-      channelName: strategy.notificationChannelName,
+//      channelId: strategy.notificationChannelId,
+//      channelName: strategy.notificationChannelName,
       autoCancelable: strategy.autoCancelable,
       color: strategy.color,
       icon: strategy.icon,
@@ -58,16 +55,15 @@ class NotificationController {
     final platformSpecifics = NotificationSpecifics(androidSpecifics);
 
     print(
-        "DEV_INFO receive for show push : ${strategy.payload.title}, ${strategy.payload.body}");
+        "DEV_INFO receive for show push : ${strategy.payload.title}, ${strategy
+            .payload.body}");
 
-    int pushId = DateTime.now().millisecondsSinceEpoch;
     var tmpPayload = Map.of(strategy.payload.messageData);
     String payloadKey;
     if (Platform.isIOS) {
       payloadKey = tmpPayload[aps][uniqueKey];
     } else {
-      //todo Android
-      payloadKey = pushId.toString();
+      payloadKey = tmpPayload[data][uniqueKey];
     }
     callbackMap[payloadKey] = onSelectNotification;
 
@@ -80,7 +76,7 @@ class NotificationController {
       strategy.pushId,
       strategy.payload.title,
       strategy.payload.body,
-      data: tmpPayload,
+      data: tmpPayload['data'],
       notificationSpecifics: platformSpecifics,
     );
   }
@@ -93,8 +89,7 @@ class NotificationController {
     if (Platform.isIOS) {
       pushId = tmpPayload[aps][uniqueKey];
     } else {
-      //todo Android
-      pushId = "EMPTY_STRING";
+      pushId = tmpPayload[uniqueKey];
     }
     var onSelectNotification = callbackMap[pushId];
     callbackMap.remove(pushId);

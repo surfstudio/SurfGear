@@ -1,5 +1,6 @@
 package pushnotification.push_notification
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
@@ -16,6 +17,7 @@ import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import pushnotification.push_notification.handler.PushHandler
 import pushnotification.push_notification.strategy.PushStrategy
+import pushnotification.push_notification.strategy.SELECT_NOTIFICATION
 import pushnotification.push_notification.type.PushNotificationTypeData
 import ru.surfstudio.android.activity.holder.ActiveActivityHolder
 import ru.surfstudio.android.notification.interactor.push.PushInteractor
@@ -53,14 +55,17 @@ private const val DEFAULT_CHANNEL_NAME = "@string/data_push_channel_name"
 private const val DEFAULT_COLOR = "@color/design_default_color_primary"
 private const val DEFAULT_AUTOCANCEL = true
 
+internal const val EVENT_TYPE = "event_type"
+
 /** PushNotificationPlugin */
-public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin {
+public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin, PluginRegistry.NewIntentListener, ActivityAware {
     private val activeActivityHolder = ActiveActivityHolder()
     private val pusInteractor = PushInteractor()
 
+    private var mainActivity: Activity? = null
     private var context: Context? = null
     private var channel: MethodChannel? = null
-    
+
     private val pushHandler = PushHandler(activeActivityHolder, pusInteractor)
 
     companion object {
@@ -69,6 +74,32 @@ public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin {
             val plugin = PushNotificationPlugin()
             plugin.onAttachedToEngine(registrar.context(), registrar.messenger())
         }
+    }
+
+    override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+        binding.addOnNewIntentListener(this)
+        mainActivity = binding.getActivity()
+    }
+
+    override fun onDetachedFromActivityForConfigChanges() {
+        mainActivity = null
+    }
+
+    override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
+        binding.addOnNewIntentListener(this)
+        mainActivity = binding.getActivity()
+    }
+
+    override fun onDetachedFromActivity() {
+        mainActivity = null
+    }
+
+    override fun onNewIntent(intent: Intent): Boolean {
+        val res = sendNotificationPayloadMessage(intent)
+        if (mainActivity != null) {
+            mainActivity!!.intent = intent
+        }
+        return true;
     }
 
     private fun onAttachedToEngine(context: Context, binaryMessenger: BinaryMessenger) {
@@ -95,6 +126,21 @@ public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin {
         }
     }
 
+    private fun sendNotificationPayloadMessage(intent: Intent): Boolean? {
+        if (SELECT_NOTIFICATION.equals(intent.action)) {
+            val notificationTypeData = intent.getSerializableExtra(NOTIFICATION_DATA) as PushNotificationTypeData
+
+            var notificationData = HashMap<String, String>();
+            if (notificationTypeData.data != null) {
+                notificationData = HashMap(notificationTypeData.data?.notificationData)
+            }
+
+            channel!!.invokeMethod(CALLBACK_OPEN, notificationData)
+            return true
+        }
+        return false
+    }
+
     private fun initNotificationTapListener() {
         PushClickProvider.pushEventListener = object : PushEventListener {
             override fun pushDismissListener(context: Context, intent: Intent) {
@@ -111,7 +157,6 @@ public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin {
                 if (notificationTypeData.data != null) {
                     notificationData = HashMap(notificationTypeData.data?.notificationData)
                 }
-                val action = intent.getStringExtra("ACTION")
                 channel!!.invokeMethod(CALLBACK_OPEN, notificationData)
             }
         }
