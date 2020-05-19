@@ -1,8 +1,7 @@
 name: relation
 description: the stream representation of the relations of the entities and widget utilities
 version: 0.0.2
-author:
-homepage:
+homepage: https://github.com/surfstudio/mwwm
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
@@ -12,7 +11,7 @@ dependencies:
     sdk: flutter
 
   #rx
-  rxdart: ^0.23.1
+  rxdart: ^0.24.0
 
 dev_dependencies:
   flutter_test:
