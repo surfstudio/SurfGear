@@ -36,12 +36,22 @@ typedef ErrorWidgetBuilder = Widget Function(BuildContext, Exception error);
 ///    );
 ///  ```
 class EntityStateBuilder<T> extends StatelessWidget {
+  /// StreamedState of entity
   final EntityStreamedState<T> streamedState;
 
+  /// Child of builder
   final DataWidgetBuilder<T> child;
+
+  /// Loading child of builder
   final DataWidgetBuilder<T> loadingBuilder;
+
+  /// Error child of builder
   final DataWidgetBuilder<T> errorBuilder;
+
+  /// Loading child widget
   final Widget loadingChild;
+
+  /// Error child widget
   final Widget errorChild;
 
   const EntityStateBuilder({
