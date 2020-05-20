@@ -3,18 +3,22 @@ import 'package:flutter/cupertino.dart';
 import 'mixins.dart';
 import 'scenario.dart';
 
+/// Шаг сценария
 abstract class StepScenario<T> {
 
   Future<bool> call([T data]) {
     return calculate(data);
   }
 
+  /// Вычисления результата шага
   @protected
   Future<bool> calculate([T data]);
 }
 
+/// Предикат для [PredicateStep]
 typedef Future<bool> PredicateStepCallback<T>(T data);
 
+/// Шаг основанный на предкате
 class PredicateStep<T> extends StepScenario<T> {
   PredicateStepCallback<T> _predicate;
   
@@ -27,7 +31,7 @@ class PredicateStep<T> extends StepScenario<T> {
 
 }
 
-/// Частный случай
+/// Частный случай шага
 class LoadCompleteStep<T> extends StepScenario<T> {
   @override
   Future<bool> calculate([_]) {
