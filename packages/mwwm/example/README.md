@@ -1,3 +1,5 @@
-# counter
+# mwwm_github_client
 
-Демонстрационный проект для библиотеки mvvm
+An example of mwwm architecture.
+
+Github client with search and add to favorites
