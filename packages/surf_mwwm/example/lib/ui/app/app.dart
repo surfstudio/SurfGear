@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:counter/main.dart';
 import 'package:counter/ui/app/app_wm.dart';
 import 'package:counter/ui/app/di/app.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ class App extends MwwmWidget<AppComponent> {
       : super(
           dependenciesBuilder: (BuildContext context) => AppComponent(),
           widgetStateBuilder: () => _AppState(),
+          widgetModelBuilder: createAppModel,
         );
 }
 

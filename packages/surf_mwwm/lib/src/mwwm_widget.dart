@@ -3,7 +3,6 @@ import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
 
 typedef DependenciesBuilder<C> = C Function(BuildContext);
-typedef WidgetModelBuilder<WM> = WM Function(BuildContext);
 typedef WidgetStateBuilder = State Function();
 
 /// Base class for widgets that has [WidgetModel]
@@ -36,7 +35,6 @@ abstract class MwwmWidget<C extends Component> extends StatefulWidget {
 /// Hidden widget that create [WidgetState]
 /// It's only proxy builder for [State]
 class _ProxyMwwmWidget extends CoreMwwmWidget {
-  final WidgetModelBuilder _wmBuilder;
   final WidgetStateBuilder _wsBuilder;
 
   const _ProxyMwwmWidget({
@@ -44,16 +42,13 @@ class _ProxyMwwmWidget extends CoreMwwmWidget {
     WidgetStateBuilder widgetStateBuilder,
     WidgetModelBuilder widgetModelBuilder,
   })  : _wsBuilder = widgetStateBuilder,
-        _wmBuilder = widgetModelBuilder,
         super(
           key: key,
+          widgetModelBuilder: widgetModelBuilder,
         );
 
   @override
   State<StatefulWidget> createState() => _wsBuilder();
-
-  @override
-  WidgetModel createWidgetModel(BuildContext context) => _wmBuilder(context);
 }
 
 /// Hold child widget
