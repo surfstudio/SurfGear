@@ -36,7 +36,7 @@ class SwipeRefresh extends StatelessWidget {
     this.initState,
     this.onRefresh,
     this.childrenDelegate,
-    Color indicatorColor,
+    this.indicatorColor,
     Color backgroundColor,
     double refreshTriggerPullDistance,
     double refreshIndicatorExtent,
@@ -44,8 +44,7 @@ class SwipeRefresh extends StatelessWidget {
     this.scrollController,
     this.padding,
   })
-      : this.indicatorColor = indicatorColor ?? const Color(0xFFFF0000),
-        this.backgroundColor = backgroundColor ?? const Color(0xFFFFFFFF),
+      : this.backgroundColor = backgroundColor ?? const Color(0xFFFFFFFF),
         this.refreshTriggerPullDistance = refreshTriggerPullDistance ??
             CupertinoSwipeRefresh.DEFAULT_REFRESH_TRIGGER_PULL_DISTANCE,
         this.refreshIndicatorExtent = refreshIndicatorExtent ??
