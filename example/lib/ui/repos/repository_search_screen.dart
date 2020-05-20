@@ -61,7 +61,7 @@ class _RepositorySearchScreenState extends WidgetState<RepositorySearchWm> {
           FavoritesButton(3),
         ],
       ),
-      body: FutureBuilder<List<Repository>>(
+      body: FutureBuilder<List<Repo>>(
         initialData: [],
         future: context.watch<GithubRepository>().getRepos(_controller.text),
         builder: (ctx, snap) {
@@ -79,7 +79,7 @@ class _RepositorySearchScreenState extends WidgetState<RepositorySearchWm> {
   }
 
   RepoItemUiModel getMockModel() => RepoItemUiModel(
-        repostory: Repository(
+        repostory: Repo(
           name: 'repo_name',
           owner: Owner(
             login: 'owner_login',

@@ -39,17 +39,17 @@ class _FavoritesScreenState extends WidgetState<FavoritesWm> {
         ),
         title: Text('favorites'),
       ),
-      body: FutureBuilder<List<Repository>>(
+      body: FutureBuilder<List<Repo>>(
         initialData: [],
         future:
             context.watch<GithubRepository>().getRepos(_controller.text),
         builder: (ctx, snap) {
           return ListView.builder(
-            itemCount: snap.data.length,
+            itemCount: 1,
             itemBuilder: (ctx, i) => Container(
               child: RepoItem(
                 RepoItemUiModel(
-                  repostory: Repository(
+                  repostory: Repo(
                     name: 'repo_name',
                     owner: Owner(
                         login: 'owner_login',

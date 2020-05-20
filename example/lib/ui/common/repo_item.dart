@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mwwm_github_client/model/service/response/reponses.dart';
 
 class RepoItemUiModel {
-  final Repository repostory;
+  final Repo repostory;
   bool isFavorite;
 
   RepoItemUiModel({

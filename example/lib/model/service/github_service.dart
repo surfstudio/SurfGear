@@ -8,7 +8,7 @@ import 'response/reponses.dart';
 class GithubRepository {
   final _client = Dio();
 
-  Future<List<Repository>> getRepos(String name) async {
+  Future<List<Repo>> getRepos(String name) async {
     if (name.isEmpty) return [];
     var resp = await _client.get<Map<String, dynamic>>(
         'https://api.github.com/search/repositories?q=$name');
