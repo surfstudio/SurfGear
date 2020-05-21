@@ -28,7 +28,7 @@ dependencies:
   pedantic: ^1.7.0
 
   #rx
-  rxdart: ^0.23.1
+  rxdart: ^0.24.0
 
   #surfstudio
   surf_mwwm:
