@@ -17,6 +17,7 @@ import 'package:relation/src/relation/action/action.dart';
 
 /// Action for scroll
 class ScrollOffsetAction extends Action<double> {
+  /// Scroll controller of some list
   final controller = ScrollController();
 
   ScrollOffsetAction([void Function(double data) onChanged])
@@ -27,7 +28,7 @@ class ScrollOffsetAction extends Action<double> {
   }
 
   @override
-  dispose() {
+  void dispose() {
     controller.dispose();
     return super.dispose();
   }
