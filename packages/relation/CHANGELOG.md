@@ -1,3 +1,3 @@
-[0.0.2] - Released
+## [0.0.2] - 21.0.2020
 
-* TODO: Describe initial release.
+* Initial release
