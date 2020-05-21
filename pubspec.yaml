@@ -26,5 +26,5 @@ custom:
   unstable_version: 0
   is_plugin: false
   path: relation
-  separate_repo_url:
+  separate_repo_url: https://github.com/surfstudio/mwwm
   hostUrl:
