@@ -34,28 +34,28 @@ class FavoritesRepoTableData extends DataClass
   final double score;
   FavoritesRepoTableData(
       {@required this.id,
-      @required this.nodeId,
-      @required this.name,
-      @required this.fullName,
-      @required this.ownerId,
-      @required this.private,
-      @required this.htmlUrl,
-      @required this.description,
-      @required this.fork,
-      @required this.url,
-      @required this.createdAt,
-      @required this.updatedAt,
-      @required this.pushedAt,
-      @required this.homepage,
-      @required this.size,
-      @required this.stargazersCount,
-      @required this.watchersCount,
-      @required this.language,
-      @required this.forksCount,
-      @required this.openIssuesCount,
-      @required this.masterBranch,
-      @required this.defaultBranch,
-      @required this.score});
+      this.nodeId,
+      this.name,
+      this.fullName,
+      this.ownerId,
+      this.private,
+      this.htmlUrl,
+      this.description,
+      this.fork,
+      this.url,
+      this.createdAt,
+      this.updatedAt,
+      this.pushedAt,
+      this.homepage,
+      this.size,
+      this.stargazersCount,
+      this.watchersCount,
+      this.language,
+      this.forksCount,
+      this.openIssuesCount,
+      this.masterBranch,
+      this.defaultBranch,
+      this.score});
   factory FavoritesRepoTableData.fromData(
       Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
@@ -507,50 +507,29 @@ class FavoritesRepoTableCompanion
   });
   FavoritesRepoTableCompanion.insert({
     this.id = const Value.absent(),
-    @required String nodeId,
-    @required String name,
-    @required String fullName,
-    @required int ownerId,
-    @required bool private,
-    @required String htmlUrl,
-    @required String description,
-    @required bool fork,
-    @required String url,
-    @required String createdAt,
-    @required String updatedAt,
-    @required String pushedAt,
-    @required String homepage,
-    @required int size,
-    @required int stargazersCount,
-    @required int watchersCount,
-    @required String language,
-    @required int forksCount,
-    @required int openIssuesCount,
-    @required String masterBranch,
-    @required String defaultBranch,
-    @required double score,
-  })  : nodeId = Value(nodeId),
-        name = Value(name),
-        fullName = Value(fullName),
-        ownerId = Value(ownerId),
-        private = Value(private),
-        htmlUrl = Value(htmlUrl),
-        description = Value(description),
-        fork = Value(fork),
-        url = Value(url),
-        createdAt = Value(createdAt),
-        updatedAt = Value(updatedAt),
-        pushedAt = Value(pushedAt),
-        homepage = Value(homepage),
-        size = Value(size),
-        stargazersCount = Value(stargazersCount),
-        watchersCount = Value(watchersCount),
-        language = Value(language),
-        forksCount = Value(forksCount),
-        openIssuesCount = Value(openIssuesCount),
-        masterBranch = Value(masterBranch),
-        defaultBranch = Value(defaultBranch),
-        score = Value(score);
+    this.nodeId = const Value.absent(),
+    this.name = const Value.absent(),
+    this.fullName = const Value.absent(),
+    this.ownerId = const Value.absent(),
+    this.private = const Value.absent(),
+    this.htmlUrl = const Value.absent(),
+    this.description = const Value.absent(),
+    this.fork = const Value.absent(),
+    this.url = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.pushedAt = const Value.absent(),
+    this.homepage = const Value.absent(),
+    this.size = const Value.absent(),
+    this.stargazersCount = const Value.absent(),
+    this.watchersCount = const Value.absent(),
+    this.language = const Value.absent(),
+    this.forksCount = const Value.absent(),
+    this.openIssuesCount = const Value.absent(),
+    this.masterBranch = const Value.absent(),
+    this.defaultBranch = const Value.absent(),
+    this.score = const Value.absent(),
+  });
   static Insertable<FavoritesRepoTableData> custom({
     Expression<int> id,
     Expression<String> nodeId,
@@ -752,7 +731,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedTextColumn(
       'nodeId',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -764,7 +743,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedTextColumn(
       'name',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -776,7 +755,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedTextColumn(
       'fullName',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -785,7 +764,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
   @override
   GeneratedIntColumn get ownerId => _ownerId ??= _constructOwnerId();
   GeneratedIntColumn _constructOwnerId() {
-    return GeneratedIntColumn('ownerId', $tableName, false,
+    return GeneratedIntColumn('ownerId', $tableName, true,
         $customConstraints: 'NULLABLE REFERENCES owner(id)');
   }
 
@@ -797,7 +776,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedBoolColumn(
       'private',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -809,7 +788,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedTextColumn(
       'htmlUrl',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -823,7 +802,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedTextColumn(
       'description',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -835,7 +814,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedBoolColumn(
       'fork',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -847,7 +826,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedTextColumn(
       'url',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -859,7 +838,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedTextColumn(
       'createdAt',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -871,7 +850,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedTextColumn(
       'updatedAt',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -883,7 +862,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedTextColumn(
       'pushedAt',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -895,7 +874,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedTextColumn(
       'homepage',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -907,7 +886,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedIntColumn(
       'size',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -921,7 +900,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedIntColumn(
       'stargazersCount',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -935,7 +914,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedIntColumn(
       'watchersCount',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -947,7 +926,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedTextColumn(
       'language',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -959,7 +938,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedIntColumn(
       'forksCount',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -973,7 +952,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedIntColumn(
       'openIssuesCount',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -987,7 +966,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedTextColumn(
       'masterBranch',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -1001,7 +980,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedTextColumn(
       'defaultBranch',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -1013,7 +992,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     return GeneratedRealColumn(
       'score',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -1061,148 +1040,104 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
     if (data.containsKey('nodeId')) {
       context.handle(_nodeIdMeta,
           nodeId.isAcceptableOrUnknown(data['nodeId'], _nodeIdMeta));
-    } else if (isInserting) {
-      context.missing(_nodeIdMeta);
     }
     if (data.containsKey('name')) {
       context.handle(
           _nameMeta, name.isAcceptableOrUnknown(data['name'], _nameMeta));
-    } else if (isInserting) {
-      context.missing(_nameMeta);
     }
     if (data.containsKey('fullName')) {
       context.handle(_fullNameMeta,
           fullName.isAcceptableOrUnknown(data['fullName'], _fullNameMeta));
-    } else if (isInserting) {
-      context.missing(_fullNameMeta);
     }
     if (data.containsKey('ownerId')) {
       context.handle(_ownerIdMeta,
           ownerId.isAcceptableOrUnknown(data['ownerId'], _ownerIdMeta));
-    } else if (isInserting) {
-      context.missing(_ownerIdMeta);
     }
     if (data.containsKey('private')) {
       context.handle(_privateMeta,
           private.isAcceptableOrUnknown(data['private'], _privateMeta));
-    } else if (isInserting) {
-      context.missing(_privateMeta);
     }
     if (data.containsKey('htmlUrl')) {
       context.handle(_htmlUrlMeta,
           htmlUrl.isAcceptableOrUnknown(data['htmlUrl'], _htmlUrlMeta));
-    } else if (isInserting) {
-      context.missing(_htmlUrlMeta);
     }
     if (data.containsKey('description')) {
       context.handle(
           _descriptionMeta,
           description.isAcceptableOrUnknown(
               data['description'], _descriptionMeta));
-    } else if (isInserting) {
-      context.missing(_descriptionMeta);
     }
     if (data.containsKey('fork')) {
       context.handle(
           _forkMeta, fork.isAcceptableOrUnknown(data['fork'], _forkMeta));
-    } else if (isInserting) {
-      context.missing(_forkMeta);
     }
     if (data.containsKey('url')) {
       context.handle(
           _urlMeta, url.isAcceptableOrUnknown(data['url'], _urlMeta));
-    } else if (isInserting) {
-      context.missing(_urlMeta);
     }
     if (data.containsKey('createdAt')) {
       context.handle(_createdAtMeta,
           createdAt.isAcceptableOrUnknown(data['createdAt'], _createdAtMeta));
-    } else if (isInserting) {
-      context.missing(_createdAtMeta);
     }
     if (data.containsKey('updatedAt')) {
       context.handle(_updatedAtMeta,
           updatedAt.isAcceptableOrUnknown(data['updatedAt'], _updatedAtMeta));
-    } else if (isInserting) {
-      context.missing(_updatedAtMeta);
     }
     if (data.containsKey('pushedAt')) {
       context.handle(_pushedAtMeta,
           pushedAt.isAcceptableOrUnknown(data['pushedAt'], _pushedAtMeta));
-    } else if (isInserting) {
-      context.missing(_pushedAtMeta);
     }
     if (data.containsKey('homepage')) {
       context.handle(_homepageMeta,
           homepage.isAcceptableOrUnknown(data['homepage'], _homepageMeta));
-    } else if (isInserting) {
-      context.missing(_homepageMeta);
     }
     if (data.containsKey('size')) {
       context.handle(
           _sizeMeta, size.isAcceptableOrUnknown(data['size'], _sizeMeta));
-    } else if (isInserting) {
-      context.missing(_sizeMeta);
     }
     if (data.containsKey('stargazersCount')) {
       context.handle(
           _stargazersCountMeta,
           stargazersCount.isAcceptableOrUnknown(
               data['stargazersCount'], _stargazersCountMeta));
-    } else if (isInserting) {
-      context.missing(_stargazersCountMeta);
     }
     if (data.containsKey('watchersCount')) {
       context.handle(
           _watchersCountMeta,
           watchersCount.isAcceptableOrUnknown(
               data['watchersCount'], _watchersCountMeta));
-    } else if (isInserting) {
-      context.missing(_watchersCountMeta);
     }
     if (data.containsKey('language')) {
       context.handle(_languageMeta,
           language.isAcceptableOrUnknown(data['language'], _languageMeta));
-    } else if (isInserting) {
-      context.missing(_languageMeta);
     }
     if (data.containsKey('forksCount')) {
       context.handle(
           _forksCountMeta,
           forksCount.isAcceptableOrUnknown(
               data['forksCount'], _forksCountMeta));
-    } else if (isInserting) {
-      context.missing(_forksCountMeta);
     }
     if (data.containsKey('openIssuesCount')) {
       context.handle(
           _openIssuesCountMeta,
           openIssuesCount.isAcceptableOrUnknown(
               data['openIssuesCount'], _openIssuesCountMeta));
-    } else if (isInserting) {
-      context.missing(_openIssuesCountMeta);
     }
     if (data.containsKey('masterBranch')) {
       context.handle(
           _masterBranchMeta,
           masterBranch.isAcceptableOrUnknown(
               data['masterBranch'], _masterBranchMeta));
-    } else if (isInserting) {
-      context.missing(_masterBranchMeta);
     }
     if (data.containsKey('defaultBranch')) {
       context.handle(
           _defaultBranchMeta,
           defaultBranch.isAcceptableOrUnknown(
               data['defaultBranch'], _defaultBranchMeta));
-    } else if (isInserting) {
-      context.missing(_defaultBranchMeta);
     }
     if (data.containsKey('score')) {
       context.handle(
           _scoreMeta, score.isAcceptableOrUnknown(data['score'], _scoreMeta));
-    } else if (isInserting) {
-      context.missing(_scoreMeta);
     }
     return context;
   }
@@ -1221,13 +1156,432 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
   }
 }
 
+class OwnerTableData extends DataClass implements Insertable<OwnerTableData> {
+  final int id;
+  final String login;
+  final String nodeId;
+  final String avatarUrl;
+  final String url;
+  final String receivedEventsUrl;
+  final String type;
+  OwnerTableData(
+      {@required this.id,
+      this.login,
+      this.nodeId,
+      this.avatarUrl,
+      this.url,
+      this.receivedEventsUrl,
+      this.type});
+  factory OwnerTableData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final stringType = db.typeSystem.forDartType<String>();
+    return OwnerTableData(
+      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      login:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}login']),
+      nodeId:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}nodeId']),
+      avatarUrl: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}avatarUrl']),
+      url: stringType.mapFromDatabaseResponse(data['${effectivePrefix}url']),
+      receivedEventsUrl: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}receivedEventsUrl']),
+      type: stringType.mapFromDatabaseResponse(data['${effectivePrefix}type']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
+    if (!nullToAbsent || login != null) {
+      map['login'] = Variable<String>(login);
+    }
+    if (!nullToAbsent || nodeId != null) {
+      map['nodeId'] = Variable<String>(nodeId);
+    }
+    if (!nullToAbsent || avatarUrl != null) {
+      map['avatarUrl'] = Variable<String>(avatarUrl);
+    }
+    if (!nullToAbsent || url != null) {
+      map['url'] = Variable<String>(url);
+    }
+    if (!nullToAbsent || receivedEventsUrl != null) {
+      map['receivedEventsUrl'] = Variable<String>(receivedEventsUrl);
+    }
+    if (!nullToAbsent || type != null) {
+      map['type'] = Variable<String>(type);
+    }
+    return map;
+  }
+
+  OwnerTableCompanion toCompanion(bool nullToAbsent) {
+    return OwnerTableCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      login:
+          login == null && nullToAbsent ? const Value.absent() : Value(login),
+      nodeId:
+          nodeId == null && nullToAbsent ? const Value.absent() : Value(nodeId),
+      avatarUrl: avatarUrl == null && nullToAbsent
+          ? const Value.absent()
+          : Value(avatarUrl),
+      url: url == null && nullToAbsent ? const Value.absent() : Value(url),
+      receivedEventsUrl: receivedEventsUrl == null && nullToAbsent
+          ? const Value.absent()
+          : Value(receivedEventsUrl),
+      type: type == null && nullToAbsent ? const Value.absent() : Value(type),
+    );
+  }
+
+  factory OwnerTableData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return OwnerTableData(
+      id: serializer.fromJson<int>(json['id']),
+      login: serializer.fromJson<String>(json['login']),
+      nodeId: serializer.fromJson<String>(json['nodeId']),
+      avatarUrl: serializer.fromJson<String>(json['avatarUrl']),
+      url: serializer.fromJson<String>(json['url']),
+      receivedEventsUrl: serializer.fromJson<String>(json['receivedEventsUrl']),
+      type: serializer.fromJson<String>(json['type']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'login': serializer.toJson<String>(login),
+      'nodeId': serializer.toJson<String>(nodeId),
+      'avatarUrl': serializer.toJson<String>(avatarUrl),
+      'url': serializer.toJson<String>(url),
+      'receivedEventsUrl': serializer.toJson<String>(receivedEventsUrl),
+      'type': serializer.toJson<String>(type),
+    };
+  }
+
+  OwnerTableData copyWith(
+          {int id,
+          String login,
+          String nodeId,
+          String avatarUrl,
+          String url,
+          String receivedEventsUrl,
+          String type}) =>
+      OwnerTableData(
+        id: id ?? this.id,
+        login: login ?? this.login,
+        nodeId: nodeId ?? this.nodeId,
+        avatarUrl: avatarUrl ?? this.avatarUrl,
+        url: url ?? this.url,
+        receivedEventsUrl: receivedEventsUrl ?? this.receivedEventsUrl,
+        type: type ?? this.type,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('OwnerTableData(')
+          ..write('id: $id, ')
+          ..write('login: $login, ')
+          ..write('nodeId: $nodeId, ')
+          ..write('avatarUrl: $avatarUrl, ')
+          ..write('url: $url, ')
+          ..write('receivedEventsUrl: $receivedEventsUrl, ')
+          ..write('type: $type')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      id.hashCode,
+      $mrjc(
+          login.hashCode,
+          $mrjc(
+              nodeId.hashCode,
+              $mrjc(
+                  avatarUrl.hashCode,
+                  $mrjc(url.hashCode,
+                      $mrjc(receivedEventsUrl.hashCode, type.hashCode)))))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is OwnerTableData &&
+          other.id == this.id &&
+          other.login == this.login &&
+          other.nodeId == this.nodeId &&
+          other.avatarUrl == this.avatarUrl &&
+          other.url == this.url &&
+          other.receivedEventsUrl == this.receivedEventsUrl &&
+          other.type == this.type);
+}
+
+class OwnerTableCompanion extends UpdateCompanion<OwnerTableData> {
+  final Value<int> id;
+  final Value<String> login;
+  final Value<String> nodeId;
+  final Value<String> avatarUrl;
+  final Value<String> url;
+  final Value<String> receivedEventsUrl;
+  final Value<String> type;
+  const OwnerTableCompanion({
+    this.id = const Value.absent(),
+    this.login = const Value.absent(),
+    this.nodeId = const Value.absent(),
+    this.avatarUrl = const Value.absent(),
+    this.url = const Value.absent(),
+    this.receivedEventsUrl = const Value.absent(),
+    this.type = const Value.absent(),
+  });
+  OwnerTableCompanion.insert({
+    this.id = const Value.absent(),
+    this.login = const Value.absent(),
+    this.nodeId = const Value.absent(),
+    this.avatarUrl = const Value.absent(),
+    this.url = const Value.absent(),
+    this.receivedEventsUrl = const Value.absent(),
+    this.type = const Value.absent(),
+  });
+  static Insertable<OwnerTableData> custom({
+    Expression<int> id,
+    Expression<String> login,
+    Expression<String> nodeId,
+    Expression<String> avatarUrl,
+    Expression<String> url,
+    Expression<String> receivedEventsUrl,
+    Expression<String> type,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (login != null) 'login': login,
+      if (nodeId != null) 'nodeId': nodeId,
+      if (avatarUrl != null) 'avatarUrl': avatarUrl,
+      if (url != null) 'url': url,
+      if (receivedEventsUrl != null) 'receivedEventsUrl': receivedEventsUrl,
+      if (type != null) 'type': type,
+    });
+  }
+
+  OwnerTableCompanion copyWith(
+      {Value<int> id,
+      Value<String> login,
+      Value<String> nodeId,
+      Value<String> avatarUrl,
+      Value<String> url,
+      Value<String> receivedEventsUrl,
+      Value<String> type}) {
+    return OwnerTableCompanion(
+      id: id ?? this.id,
+      login: login ?? this.login,
+      nodeId: nodeId ?? this.nodeId,
+      avatarUrl: avatarUrl ?? this.avatarUrl,
+      url: url ?? this.url,
+      receivedEventsUrl: receivedEventsUrl ?? this.receivedEventsUrl,
+      type: type ?? this.type,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (login.present) {
+      map['login'] = Variable<String>(login.value);
+    }
+    if (nodeId.present) {
+      map['nodeId'] = Variable<String>(nodeId.value);
+    }
+    if (avatarUrl.present) {
+      map['avatarUrl'] = Variable<String>(avatarUrl.value);
+    }
+    if (url.present) {
+      map['url'] = Variable<String>(url.value);
+    }
+    if (receivedEventsUrl.present) {
+      map['receivedEventsUrl'] = Variable<String>(receivedEventsUrl.value);
+    }
+    if (type.present) {
+      map['type'] = Variable<String>(type.value);
+    }
+    return map;
+  }
+}
+
+class $OwnerTableTable extends OwnerTable
+    with TableInfo<$OwnerTableTable, OwnerTableData> {
+  final GeneratedDatabase _db;
+  final String _alias;
+  $OwnerTableTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  GeneratedIntColumn _id;
+  @override
+  GeneratedIntColumn get id => _id ??= _constructId();
+  GeneratedIntColumn _constructId() {
+    return GeneratedIntColumn('id', $tableName, false,
+        $customConstraints: 'UNIQUE');
+  }
+
+  final VerificationMeta _loginMeta = const VerificationMeta('login');
+  GeneratedTextColumn _login;
+  @override
+  GeneratedTextColumn get login => _login ??= _constructLogin();
+  GeneratedTextColumn _constructLogin() {
+    return GeneratedTextColumn(
+      'login',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _nodeIdMeta = const VerificationMeta('nodeId');
+  GeneratedTextColumn _nodeId;
+  @override
+  GeneratedTextColumn get nodeId => _nodeId ??= _constructNodeId();
+  GeneratedTextColumn _constructNodeId() {
+    return GeneratedTextColumn(
+      'nodeId',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _avatarUrlMeta = const VerificationMeta('avatarUrl');
+  GeneratedTextColumn _avatarUrl;
+  @override
+  GeneratedTextColumn get avatarUrl => _avatarUrl ??= _constructAvatarUrl();
+  GeneratedTextColumn _constructAvatarUrl() {
+    return GeneratedTextColumn(
+      'avatarUrl',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _urlMeta = const VerificationMeta('url');
+  GeneratedTextColumn _url;
+  @override
+  GeneratedTextColumn get url => _url ??= _constructUrl();
+  GeneratedTextColumn _constructUrl() {
+    return GeneratedTextColumn(
+      'url',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _receivedEventsUrlMeta =
+      const VerificationMeta('receivedEventsUrl');
+  GeneratedTextColumn _receivedEventsUrl;
+  @override
+  GeneratedTextColumn get receivedEventsUrl =>
+      _receivedEventsUrl ??= _constructReceivedEventsUrl();
+  GeneratedTextColumn _constructReceivedEventsUrl() {
+    return GeneratedTextColumn(
+      'receivedEventsUrl',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _typeMeta = const VerificationMeta('type');
+  GeneratedTextColumn _type;
+  @override
+  GeneratedTextColumn get type => _type ??= _constructType();
+  GeneratedTextColumn _constructType() {
+    return GeneratedTextColumn(
+      'type',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, login, nodeId, avatarUrl, url, receivedEventsUrl, type];
+  @override
+  $OwnerTableTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'owner_table';
+  @override
+  final String actualTableName = 'owner_table';
+  @override
+  VerificationContext validateIntegrity(Insertable<OwnerTableData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    }
+    if (data.containsKey('login')) {
+      context.handle(
+          _loginMeta, login.isAcceptableOrUnknown(data['login'], _loginMeta));
+    }
+    if (data.containsKey('nodeId')) {
+      context.handle(_nodeIdMeta,
+          nodeId.isAcceptableOrUnknown(data['nodeId'], _nodeIdMeta));
+    }
+    if (data.containsKey('avatarUrl')) {
+      context.handle(_avatarUrlMeta,
+          avatarUrl.isAcceptableOrUnknown(data['avatarUrl'], _avatarUrlMeta));
+    }
+    if (data.containsKey('url')) {
+      context.handle(
+          _urlMeta, url.isAcceptableOrUnknown(data['url'], _urlMeta));
+    }
+    if (data.containsKey('receivedEventsUrl')) {
+      context.handle(
+          _receivedEventsUrlMeta,
+          receivedEventsUrl.isAcceptableOrUnknown(
+              data['receivedEventsUrl'], _receivedEventsUrlMeta));
+    }
+    if (data.containsKey('type')) {
+      context.handle(
+          _typeMeta, type.isAcceptableOrUnknown(data['type'], _typeMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  OwnerTableData map(Map<String, dynamic> data, {String tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return OwnerTableData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $OwnerTableTable createAlias(String alias) {
+    return $OwnerTableTable(_db, alias);
+  }
+}
+
 abstract class _$Database extends GeneratedDatabase {
   _$Database(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   $FavoritesRepoTableTable _favoritesRepoTable;
   $FavoritesRepoTableTable get favoritesRepoTable =>
       _favoritesRepoTable ??= $FavoritesRepoTableTable(this);
+  $OwnerTableTable _ownerTable;
+  $OwnerTableTable get ownerTable => _ownerTable ??= $OwnerTableTable(this);
+  RepoDao _repoDao;
+  RepoDao get repoDao => _repoDao ??= RepoDao(this as Database);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [favoritesRepoTable];
+  List<DatabaseSchemaEntity> get allSchemaEntities =>
+      [favoritesRepoTable, ownerTable];
+}
+
+// **************************************************************************
+// DaoGenerator
+// **************************************************************************
+
+mixin _$RepoDaoMixin on DatabaseAccessor<Database> {
+  $FavoritesRepoTableTable get favoritesRepoTable =>
+      attachedDatabase.favoritesRepoTable;
+  $OwnerTableTable get ownerTable => attachedDatabase.ownerTable;
 }
