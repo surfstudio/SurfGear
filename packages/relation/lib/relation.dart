@@ -14,7 +14,7 @@
 
 library relation;
 
-//relations
+/// relations
 export 'package:relation/src/relation/event.dart';
 export 'package:relation/src/relation/action/action.dart';
 export 'package:relation/src/relation/action/actions/controller_action.dart';
