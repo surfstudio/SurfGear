@@ -15,7 +15,7 @@ class FavoritesRepoTable extends Table {
   IntColumn get ownerId => integer()
       .named('ownerId')
       .nullable()
-      .customConstraint('NULLABLE REFERENCES owner(id)')();
+      .customConstraint('NULLABLE REFERENCES ownertable(id)')();
 
   BoolColumn get private => boolean().nullable().named('private')();
 
@@ -67,6 +67,8 @@ class OwnerTable extends Table {
   TextColumn get nodeId => text().nullable().named('nodeId')();
 
   TextColumn get avatarUrl => text().nullable().named('avatarUrl')();
+
+  TextColumn get gravatarId => text().nullable().named('gravatarId')();
 
   TextColumn get url => text().nullable().named('url')();
 
