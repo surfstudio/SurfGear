@@ -1,7 +1,7 @@
 class RepoList {
   int totalCount;
   bool incompleteResults;
-  List<Items> items;
+  List<Repo> items;
 
   RepoList({this.totalCount, this.incompleteResults, this.items});
 
@@ -9,9 +9,9 @@ class RepoList {
     totalCount = json['total_count'];
     incompleteResults = json['incomplete_results'];
     if (json['items'] != null) {
-      items = new List<Items>();
+      items = new List<Repo>();
       json['items'].forEach((v) {
-        items.add(new Items.fromJson(v));
+        items.add(new Repo.fromJson(v));
       });
     }
   }
@@ -27,7 +27,7 @@ class RepoList {
   }
 }
 
-class Items {
+class Repo {
   int id;
   String nodeId;
   String name;
@@ -52,7 +52,7 @@ class Items {
   String defaultBranch;
   double score;
 
-  Items(
+  Repo(
       {this.id,
       this.nodeId,
       this.name,
@@ -77,7 +77,7 @@ class Items {
       this.defaultBranch,
       this.score});
 
-  Items.fromJson(Map<String, dynamic> json) {
+  Repo.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nodeId = json['node_id'];
     name = json['name'];
