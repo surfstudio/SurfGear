@@ -20,9 +20,9 @@ import 'package:mwwm/src/dependencies/wm_dependencies.dart';
 import 'package:mwwm/src/error/error_handler.dart';
 import 'package:mwwm/src/utils/composite_subscription.dart';
 
-/// WidgetModel - interface
-/// WM is logical representation of widget.
-/// `WidgetModelDependencies` - is pack of required dependencies. Offtenly, it is `ErrorHandler`.
+/// WidgetModel
+/// WM is logical representation of widget and his state.
+/// `WidgetModelDependencies` - is pack of dependencies for WidgetModel. Offtenly, it is `ErrorHandler`.
 /// `Model` - optionally, but recommended, manager for connection with bussines layer
 abstract class WidgetModel {
   final ErrorHandler _errorHandler;
@@ -32,15 +32,17 @@ abstract class WidgetModel {
 
   CompositeSubscription _compositeSubscription = CompositeSubscription();
 
-  WidgetModel(WidgetModelDependencies baseDependencies, {Model model})
-      : _errorHandler = baseDependencies.errorHandler,
+  WidgetModel(
+    @required WidgetModelDependencies baseDependencies, {
+    Model model,
+  })  : _errorHandler = baseDependencies.errorHandler,
         model = model ?? Model([]);
 
   /// called when widget ready
   @mustCallSuper
   void onLoad() {}
 
-  /// here need to bind 
+  /// here need to bind
   @mustCallSuper
   void onBind() {}
 
@@ -105,7 +107,7 @@ abstract class WidgetModel {
   /// standard error handling
   @protected
   void handleError(dynamic e) {
-    _errorHandler.handleError(e);
+    _errorHandler?.handleError(e);
   }
 }
 
