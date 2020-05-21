@@ -1,6 +1,7 @@
 import 'package:ci/domain/command.dart';
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
+import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/tasks.dart';
@@ -52,10 +53,10 @@ class PublishModulesScenario extends ChangedElementScenario {
         }
       }
       
-      if (failedModulesNames.length != 0) {
+      if (failedModulesNames.isNotEmpty) {
         throw OpenSourceModuleCanNotBePublishException(
           getModuleCannotBePublishedExceptionText(failedModulesNames.join(',')),
-        )
+        );
       }
     } on BaseCiException {
       rethrow;
