@@ -35,7 +35,7 @@ It may be a tap on button, text changes, focus changes and so on.
 ```
 
 #### ControllerAction
-Currently experimental.
+**Currently experimental.**
 The action that fires when the value in the controller changes.
 
 ```dart
@@ -85,7 +85,7 @@ The action that fires when the value changes when scrolling.
 ```
 
 #### TextEditingAction
-Currently experimental. 
+**Currently experimental.** 
 An action that fires when a text field receives new characters
 
 ```dart
