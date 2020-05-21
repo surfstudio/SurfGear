@@ -39,9 +39,23 @@ class PublishModulesScenario extends ChangedElementScenario {
 
     print("Stable packages: ${releaseElements.map((p) => p.name).join(',')}");
     try {
+      var failedModulesNames = <String>[];
+
       for (var element in releaseElements) {
-        await pubPublishModules(element, pathServer: targetServer);
-      print(element.name + ' published');
+        try {
+          await pubPublishModules(element, pathServer: targetServer);
+          print(element.name + ' published');
+        } on OpenSourceModuleCanNotBePublishException catch (e) {
+          print(e);
+          failedModulesNames.add(element.name);
+          continue;
+        }
+      }
+      
+      if (failedModulesNames.length != 0) {
+        throw OpenSourceModuleCanNotBePublishException(
+          getModuleCannotBePublishedExceptionText(failedModulesNames.join(',')),
+        )
       }
     } on BaseCiException {
       rethrow;
