@@ -8,12 +8,14 @@ import 'package:mwwm_github_client/ui/repos/repository_search_wm.dart';
 import 'package:provider/provider.dart';
 
 class RepositorySearchScreen extends CoreMwwmWidget {
-  RepositorySearchScreen()
-      : super(
+  RepositorySearchScreen({
+    WidgetModelBuilder wmBuilder,
+  }) : super(
           widgetStateBuilder: () => _RepositorySearchScreenState(),
-          widgetModelBuilder: (ctx) => RepositorySearchWm(
-            ctx.read<WidgetModelDependencies>(),
-          ),
+          widgetModelBuilder: wmBuilder ??
+              (ctx) => RepositorySearchWm(
+                    ctx.read<WidgetModelDependencies>(),
+                  ),
         );
 }
 

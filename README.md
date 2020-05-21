@@ -30,33 +30,7 @@ This architecture completely separates design and logic. Adds the ability to wor
 
 ##  How to use
 
-1. Create widget which extends `CoreMwwmWidget`
+1. Create a WidgetModel class by extending [WidgetModel].
 ```
-class CounterScreen extends CoreMwwmWidget {
-  CounterScreen()
-      : super(
-            //...
-          ),
-          widgetStateBuilder: //... ,
-        );
-}
-```
-2. Create State for this widget which extends `WidgetState`
-```
-class _CounterScreenState extends WidgetState<CounterWidgetModel> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: //... ,
-    );
-  }
-}
-```
-3. Define `widgetStateBuilder` for your widget in `super`. 
-```
-super(
-          // ...
-          widgetStateBuilder: () => _CounterScreenState(),
-        );
+  class My
 ``` 
-4. Create WidgetModel by extending `WidgetModel` class and provide here `ErrorHandler` and `Model`
