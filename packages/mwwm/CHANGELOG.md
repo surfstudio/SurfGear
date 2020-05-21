@@ -6,4 +6,4 @@
 
 [0.0.2] - Released
 
-* TODO: Describe initial release.
+* Software architectural pattern for flutter apps.
