@@ -765,7 +765,7 @@ class $FavoritesRepoTableTable extends FavoritesRepoTable
   GeneratedIntColumn get ownerId => _ownerId ??= _constructOwnerId();
   GeneratedIntColumn _constructOwnerId() {
     return GeneratedIntColumn('ownerId', $tableName, true,
-        $customConstraints: 'NULLABLE REFERENCES owner(id)');
+        $customConstraints: 'NULLABLE REFERENCES ownertable(id)');
   }
 
   final VerificationMeta _privateMeta = const VerificationMeta('private');
@@ -1161,6 +1161,7 @@ class OwnerTableData extends DataClass implements Insertable<OwnerTableData> {
   final String login;
   final String nodeId;
   final String avatarUrl;
+  final String gravatarId;
   final String url;
   final String receivedEventsUrl;
   final String type;
@@ -1169,6 +1170,7 @@ class OwnerTableData extends DataClass implements Insertable<OwnerTableData> {
       this.login,
       this.nodeId,
       this.avatarUrl,
+      this.gravatarId,
       this.url,
       this.receivedEventsUrl,
       this.type});
@@ -1186,6 +1188,8 @@ class OwnerTableData extends DataClass implements Insertable<OwnerTableData> {
           stringType.mapFromDatabaseResponse(data['${effectivePrefix}nodeId']),
       avatarUrl: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}avatarUrl']),
+      gravatarId: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}gravatarId']),
       url: stringType.mapFromDatabaseResponse(data['${effectivePrefix}url']),
       receivedEventsUrl: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}receivedEventsUrl']),
@@ -1206,6 +1210,9 @@ class OwnerTableData extends DataClass implements Insertable<OwnerTableData> {
     }
     if (!nullToAbsent || avatarUrl != null) {
       map['avatarUrl'] = Variable<String>(avatarUrl);
+    }
+    if (!nullToAbsent || gravatarId != null) {
+      map['gravatarId'] = Variable<String>(gravatarId);
     }
     if (!nullToAbsent || url != null) {
       map['url'] = Variable<String>(url);
@@ -1229,6 +1236,9 @@ class OwnerTableData extends DataClass implements Insertable<OwnerTableData> {
       avatarUrl: avatarUrl == null && nullToAbsent
           ? const Value.absent()
           : Value(avatarUrl),
+      gravatarId: gravatarId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(gravatarId),
       url: url == null && nullToAbsent ? const Value.absent() : Value(url),
       receivedEventsUrl: receivedEventsUrl == null && nullToAbsent
           ? const Value.absent()
@@ -1245,6 +1255,7 @@ class OwnerTableData extends DataClass implements Insertable<OwnerTableData> {
       login: serializer.fromJson<String>(json['login']),
       nodeId: serializer.fromJson<String>(json['nodeId']),
       avatarUrl: serializer.fromJson<String>(json['avatarUrl']),
+      gravatarId: serializer.fromJson<String>(json['gravatarId']),
       url: serializer.fromJson<String>(json['url']),
       receivedEventsUrl: serializer.fromJson<String>(json['receivedEventsUrl']),
       type: serializer.fromJson<String>(json['type']),
@@ -1258,6 +1269,7 @@ class OwnerTableData extends DataClass implements Insertable<OwnerTableData> {
       'login': serializer.toJson<String>(login),
       'nodeId': serializer.toJson<String>(nodeId),
       'avatarUrl': serializer.toJson<String>(avatarUrl),
+      'gravatarId': serializer.toJson<String>(gravatarId),
       'url': serializer.toJson<String>(url),
       'receivedEventsUrl': serializer.toJson<String>(receivedEventsUrl),
       'type': serializer.toJson<String>(type),
@@ -1269,6 +1281,7 @@ class OwnerTableData extends DataClass implements Insertable<OwnerTableData> {
           String login,
           String nodeId,
           String avatarUrl,
+          String gravatarId,
           String url,
           String receivedEventsUrl,
           String type}) =>
@@ -1277,6 +1290,7 @@ class OwnerTableData extends DataClass implements Insertable<OwnerTableData> {
         login: login ?? this.login,
         nodeId: nodeId ?? this.nodeId,
         avatarUrl: avatarUrl ?? this.avatarUrl,
+        gravatarId: gravatarId ?? this.gravatarId,
         url: url ?? this.url,
         receivedEventsUrl: receivedEventsUrl ?? this.receivedEventsUrl,
         type: type ?? this.type,
@@ -1288,6 +1302,7 @@ class OwnerTableData extends DataClass implements Insertable<OwnerTableData> {
           ..write('login: $login, ')
           ..write('nodeId: $nodeId, ')
           ..write('avatarUrl: $avatarUrl, ')
+          ..write('gravatarId: $gravatarId, ')
           ..write('url: $url, ')
           ..write('receivedEventsUrl: $receivedEventsUrl, ')
           ..write('type: $type')
@@ -1304,8 +1319,12 @@ class OwnerTableData extends DataClass implements Insertable<OwnerTableData> {
               nodeId.hashCode,
               $mrjc(
                   avatarUrl.hashCode,
-                  $mrjc(url.hashCode,
-                      $mrjc(receivedEventsUrl.hashCode, type.hashCode)))))));
+                  $mrjc(
+                      gravatarId.hashCode,
+                      $mrjc(
+                          url.hashCode,
+                          $mrjc(
+                              receivedEventsUrl.hashCode, type.hashCode))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -1314,6 +1333,7 @@ class OwnerTableData extends DataClass implements Insertable<OwnerTableData> {
           other.login == this.login &&
           other.nodeId == this.nodeId &&
           other.avatarUrl == this.avatarUrl &&
+          other.gravatarId == this.gravatarId &&
           other.url == this.url &&
           other.receivedEventsUrl == this.receivedEventsUrl &&
           other.type == this.type);
@@ -1324,6 +1344,7 @@ class OwnerTableCompanion extends UpdateCompanion<OwnerTableData> {
   final Value<String> login;
   final Value<String> nodeId;
   final Value<String> avatarUrl;
+  final Value<String> gravatarId;
   final Value<String> url;
   final Value<String> receivedEventsUrl;
   final Value<String> type;
@@ -1332,6 +1353,7 @@ class OwnerTableCompanion extends UpdateCompanion<OwnerTableData> {
     this.login = const Value.absent(),
     this.nodeId = const Value.absent(),
     this.avatarUrl = const Value.absent(),
+    this.gravatarId = const Value.absent(),
     this.url = const Value.absent(),
     this.receivedEventsUrl = const Value.absent(),
     this.type = const Value.absent(),
@@ -1341,6 +1363,7 @@ class OwnerTableCompanion extends UpdateCompanion<OwnerTableData> {
     this.login = const Value.absent(),
     this.nodeId = const Value.absent(),
     this.avatarUrl = const Value.absent(),
+    this.gravatarId = const Value.absent(),
     this.url = const Value.absent(),
     this.receivedEventsUrl = const Value.absent(),
     this.type = const Value.absent(),
@@ -1350,6 +1373,7 @@ class OwnerTableCompanion extends UpdateCompanion<OwnerTableData> {
     Expression<String> login,
     Expression<String> nodeId,
     Expression<String> avatarUrl,
+    Expression<String> gravatarId,
     Expression<String> url,
     Expression<String> receivedEventsUrl,
     Expression<String> type,
@@ -1359,6 +1383,7 @@ class OwnerTableCompanion extends UpdateCompanion<OwnerTableData> {
       if (login != null) 'login': login,
       if (nodeId != null) 'nodeId': nodeId,
       if (avatarUrl != null) 'avatarUrl': avatarUrl,
+      if (gravatarId != null) 'gravatarId': gravatarId,
       if (url != null) 'url': url,
       if (receivedEventsUrl != null) 'receivedEventsUrl': receivedEventsUrl,
       if (type != null) 'type': type,
@@ -1370,6 +1395,7 @@ class OwnerTableCompanion extends UpdateCompanion<OwnerTableData> {
       Value<String> login,
       Value<String> nodeId,
       Value<String> avatarUrl,
+      Value<String> gravatarId,
       Value<String> url,
       Value<String> receivedEventsUrl,
       Value<String> type}) {
@@ -1378,6 +1404,7 @@ class OwnerTableCompanion extends UpdateCompanion<OwnerTableData> {
       login: login ?? this.login,
       nodeId: nodeId ?? this.nodeId,
       avatarUrl: avatarUrl ?? this.avatarUrl,
+      gravatarId: gravatarId ?? this.gravatarId,
       url: url ?? this.url,
       receivedEventsUrl: receivedEventsUrl ?? this.receivedEventsUrl,
       type: type ?? this.type,
@@ -1398,6 +1425,9 @@ class OwnerTableCompanion extends UpdateCompanion<OwnerTableData> {
     }
     if (avatarUrl.present) {
       map['avatarUrl'] = Variable<String>(avatarUrl.value);
+    }
+    if (gravatarId.present) {
+      map['gravatarId'] = Variable<String>(gravatarId.value);
     }
     if (url.present) {
       map['url'] = Variable<String>(url.value);
@@ -1462,6 +1492,18 @@ class $OwnerTableTable extends OwnerTable
     );
   }
 
+  final VerificationMeta _gravatarIdMeta = const VerificationMeta('gravatarId');
+  GeneratedTextColumn _gravatarId;
+  @override
+  GeneratedTextColumn get gravatarId => _gravatarId ??= _constructGravatarId();
+  GeneratedTextColumn _constructGravatarId() {
+    return GeneratedTextColumn(
+      'gravatarId',
+      $tableName,
+      true,
+    );
+  }
+
   final VerificationMeta _urlMeta = const VerificationMeta('url');
   GeneratedTextColumn _url;
   @override
@@ -1502,7 +1544,7 @@ class $OwnerTableTable extends OwnerTable
 
   @override
   List<GeneratedColumn> get $columns =>
-      [id, login, nodeId, avatarUrl, url, receivedEventsUrl, type];
+      [id, login, nodeId, avatarUrl, gravatarId, url, receivedEventsUrl, type];
   @override
   $OwnerTableTable get asDslTable => this;
   @override
@@ -1528,6 +1570,12 @@ class $OwnerTableTable extends OwnerTable
     if (data.containsKey('avatarUrl')) {
       context.handle(_avatarUrlMeta,
           avatarUrl.isAcceptableOrUnknown(data['avatarUrl'], _avatarUrlMeta));
+    }
+    if (data.containsKey('gravatarId')) {
+      context.handle(
+          _gravatarIdMeta,
+          gravatarId.isAcceptableOrUnknown(
+              data['gravatarId'], _gravatarIdMeta));
     }
     if (data.containsKey('url')) {
       context.handle(

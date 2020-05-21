@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class RepoList {
   int totalCount;
   bool incompleteResults;
@@ -57,7 +59,7 @@ class Repo {
       this.nodeId,
       this.name,
       this.fullName,
-      this.owner,
+      @required this.owner,
       this.private,
       this.htmlUrl,
       this.description,
@@ -111,6 +113,7 @@ class Repo {
     data['full_name'] = this.fullName;
     if (this.owner != null) {
       data['owner'] = this.owner.toJson();
+      data['ownerId'] = this.owner.id;
     }
     data['private'] = this.private;
     data['html_url'] = this.htmlUrl;
@@ -181,5 +184,10 @@ class Owner {
     data['received_events_url'] = this.receivedEventsUrl;
     data['type'] = this.type;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Owner{login: $login, id: $id, nodeId: $nodeId, avatarUrl: $avatarUrl, gravatarId: $gravatarId, url: $url, receivedEventsUrl: $receivedEventsUrl, type: $type}';
   }
 }
