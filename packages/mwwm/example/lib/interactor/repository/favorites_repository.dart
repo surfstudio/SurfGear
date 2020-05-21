@@ -4,67 +4,71 @@ import 'package:mwwm_github_client/model/service/response/reponses.dart';
 
 class FavoritesRepository {
   final db = Database();
+  RepoDao dao;
 
-  Future<List<Repo>> getRepos() async {
-    var repos = await db.getRepos;
+  FavoritesRepository() {
+    dao = db.repoDao;
+    test();
+  }
+
+  void test() async {
+//    var repos = await getAllReposWithOwner();
+    var repos = await getAllRepos();
+//    print('избранное0 ${repos[0].toString()}');
+    await insertRepo(
+      Repo(
+        id: 1,
+        name: 'repo_name_updated_now',
+        owner: Owner(
+            login: 'owner_login',
+            nodeId: 'testid',
+            avatarUrl:
+                'https://lh3.googleusercontent.com/proxy/OGL6XVA38k_lEs0Ft-7JWjusSRFJB01UGWTaY0qnHE_kD_K9gDWVyRZ_Ua2dJ_O5VbZ5y5ovpfoRlUJUBRVcRkPxHWCAWQSh_jf6HyE'),
+        description:
+            'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptionfdzfsdfdsafsdafsdafsd'
+            'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptionfdzfsdfdsafsdafsdafsd'
+            'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptionfdzfsdfdsafsdafsdafsd'
+            'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptionfdzfsdfdsafsdafsdafsd'
+            'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptionfdzfsdfdsafsdafsdafsd',
+        language: 'language_name',
+        stargazersCount: 50,
+        watchersCount: 50,
+      ),
+    );
+//    var repos1 = await getAllReposWithOwner();
+    var repos1 = await getAllRepos();
+    print('избранное0 update ${repos1[0].toString()}');
+  }
+
+  Future<List<Repo>> getAllRepos() async {
+    var repos = await dao.getRepos;
 
     return repos
         .map(
-          (repoTable) => Repo(
-            id: repoTable.id,
-            nodeId: repoTable.nodeId,
-            name: repoTable.name,
-            fullName: repoTable.fullName,
-//            owner: repoTable.owner,
-            private: repoTable.private,
-            htmlUrl: repoTable.htmlUrl,
-            description: repoTable.description,
-            fork: repoTable.fork,
-            url: repoTable.url,
-            createdAt: repoTable.createdAt,
-            updatedAt: repoTable.updatedAt,
-            pushedAt: repoTable.pushedAt,
-            homepage: repoTable.homepage,
-            size: repoTable.size,
-            stargazersCount: repoTable.stargazersCount,
-            watchersCount: repoTable.watchersCount,
-            language: repoTable.language,
-            forksCount: repoTable.forksCount,
-            openIssuesCount: repoTable.openIssuesCount,
-            masterBranch: repoTable.masterBranch,
-            defaultBranch: repoTable.defaultBranch,
-            score: repoTable.score,
-          ),
+          (repoTable) => Repo.fromJson(repoTable.toJson()),
         )
         .toList();
   }
 
-  Future insertRepo(Repo data) {
-    var repoTableCompanion = FavoritesRepoTableCompanion.insert(
-      nodeId: data.nodeId,
-      name: data.name,
-      fullName: data.fullName,
-      private: data.private,
-      htmlUrl: data.htmlUrl,
-      description: data.description,
-      fork: data.fork,
-      url: data.url,
-      createdAt: data.createdAt,
-      updatedAt: data.updatedAt,
-      pushedAt: data.pushedAt,
-      homepage: data.homepage,
-      size: data.size,
-      stargazersCount: data.stargazersCount,
-      watchersCount: data.watchersCount,
-      language: data.language,
-      forksCount: data.forksCount,
-      openIssuesCount: data.openIssuesCount,
-      masterBranch: data.masterBranch,
-      defaultBranch: data.defaultBranch,
-      score: data.score,
-      ownerId: null,
-    );
+  Future<List<Repo>> getAllReposWithOwner() async {
+    return dao.getReposWithOwner;
+  }
 
-    return db.insertRepo(repoTableCompanion);
+  Future insertRepo(Repo data) {
+    var repoData = FavoritesRepoTableData.fromData(data.toJson(), db);
+    var ownerData = OwnerTableData.fromData(data.owner.toJson(), db);
+    return dao.insertRepo(repoData, ownerData);
+  }
+
+  Future updateRepo(Repo data) {
+    var repoTableData = FavoritesRepoTableData.fromData(data.toJson(), db);
+    var ownerData = OwnerTableData.fromData(data.owner.toJson(), db);
+
+    return dao.updateRepo(repoTableData, ownerData);
+  }
+
+  Future deleteRepo(Repo data) {
+    var repoTableData = FavoritesRepoTableData.fromData(data.toJson(), db);
+    return dao.deleteRepo(repoTableData);
   }
 }

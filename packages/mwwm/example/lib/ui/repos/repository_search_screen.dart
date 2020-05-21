@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:mwwm_github_client/interactor/repository/favorites_repository.dart';
 import 'package:mwwm_github_client/model/service/github_service.dart';
 import 'package:mwwm_github_client/model/service/response/reponses.dart';
 import 'package:mwwm_github_client/ui/common/repo_item.dart';
@@ -27,6 +28,7 @@ class _RepositorySearchScreenState extends WidgetState<RepositorySearchWm> {
       ..addListener(() {
         setState(() {});
       });
+    FavoritesRepository();
   }
 
   @override

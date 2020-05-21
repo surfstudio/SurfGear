@@ -6,68 +6,72 @@ class FavoritesRepoTable extends Table {
   @override
   Set<Column> get primaryKey => {id};
 
-  TextColumn get nodeId => text().named('nodeId')();
+  TextColumn get nodeId => text().nullable().named('nodeId')();
 
-  TextColumn get name => text().named('name')();
+  TextColumn get name => text().nullable().named('name')();
 
-  TextColumn get fullName => text().named('fullName')();
+  TextColumn get fullName => text().nullable().named('fullName')();
 
   IntColumn get ownerId => integer()
       .named('ownerId')
+      .nullable()
       .customConstraint('NULLABLE REFERENCES owner(id)')();
 
-  BoolColumn get private => boolean().named('private')();
+  BoolColumn get private => boolean().nullable().named('private')();
 
-  TextColumn get htmlUrl => text().named('htmlUrl')();
+  TextColumn get htmlUrl => text().nullable().named('htmlUrl')();
 
-  TextColumn get description => text().named('description')();
+  TextColumn get description => text().nullable().named('description')();
 
-  BoolColumn get fork => boolean().named('fork')();
+  BoolColumn get fork => boolean().nullable().named('fork')();
 
-  TextColumn get url => text().named('url')();
+  TextColumn get url => text().nullable().named('url')();
 
-  TextColumn get createdAt => text().named('createdAt')();
+  TextColumn get createdAt => text().nullable().named('createdAt')();
 
-  TextColumn get updatedAt => text().named('updatedAt')();
+  TextColumn get updatedAt => text().nullable().named('updatedAt')();
 
-  TextColumn get pushedAt => text().named('pushedAt')();
+  TextColumn get pushedAt => text().nullable().named('pushedAt')();
 
-  TextColumn get homepage => text().named('homepage')();
+  TextColumn get homepage => text().nullable().named('homepage')();
 
-  IntColumn get size => integer().named('size')();
+  IntColumn get size => integer().nullable().named('size')();
 
-  IntColumn get stargazersCount => integer().named('stargazersCount')();
+  IntColumn get stargazersCount =>
+      integer().nullable().named('stargazersCount')();
 
-  IntColumn get watchersCount => integer().named('watchersCount')();
+  IntColumn get watchersCount => integer().nullable().named('watchersCount')();
 
-  TextColumn get language => text().named('language')();
+  TextColumn get language => text().nullable().named('language')();
 
-  IntColumn get forksCount => integer().named('forksCount')();
+  IntColumn get forksCount => integer().nullable().named('forksCount')();
 
-  IntColumn get openIssuesCount => integer().named('openIssuesCount')();
+  IntColumn get openIssuesCount =>
+      integer().nullable().named('openIssuesCount')();
 
-  TextColumn get masterBranch => text().named('masterBranch')();
+  TextColumn get masterBranch => text().nullable().named('masterBranch')();
 
-  TextColumn get defaultBranch => text().named('defaultBranch')();
+  TextColumn get defaultBranch => text().nullable().named('defaultBranch')();
 
-  RealColumn get score => real().named('score')();
+  RealColumn get score => real().nullable().named('score')();
 }
 
-class Owner extends Table {
+class OwnerTable extends Table {
   IntColumn get id => integer().named('id').customConstraint('UNIQUE')();
 
   @override
   Set<Column> get primaryKey => {id};
 
-  TextColumn get login => text().named('login')();
+  TextColumn get login => text().nullable().named('login')();
 
-  TextColumn get nodeId => text().named('nodeId')();
+  TextColumn get nodeId => text().nullable().named('nodeId')();
 
-  TextColumn get avatarUrl => text().named('avatarUrl')();
+  TextColumn get avatarUrl => text().nullable().named('avatarUrl')();
 
-  TextColumn get url => text().named('url')();
+  TextColumn get url => text().nullable().named('url')();
 
-  TextColumn get receivedEventsUrl => text().named('receivedEventsUrl')();
+  TextColumn get receivedEventsUrl =>
+      text().nullable().named('receivedEventsUrl')();
 
-  TextColumn get type => text().named('type')();
+  TextColumn get type => text().nullable().named('type')();
 }
