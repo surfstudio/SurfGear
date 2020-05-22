@@ -30,7 +30,100 @@ This architecture completely separates design and logic. Adds the ability to wor
 
 ##  How to use
 
-1. Create a WidgetModel class by extending [WidgetModel].
+Create a WidgetModel class by extending [WidgetModel].
 ```
-  class My
+class RepositorySearchWm extends WidgetModel {
+
+  RepositorySearchWm(
+    WidgetModelDependencies baseDependencies, //1
+    Model model, //2
+    ) : super(baseDependencies);
+
+}
 ``` 
+1 - [WidgetModelDependencies](./lib/src/dependencies/wm_dependencies.dart) is a bundle of required dependencies. Default there is [ErrorHandler](./lib/src/error/error_handler.dart), which 
+give possibility to place error handling logic in one place. You must provide an implementation of handler.
+
+2 - [Model](./lib/src/model/model.dart) is contract with service layer. For now, it is optional feature. It is possible to use services directly but 
+not recommended.
+
+Add Widget simply by creating StatefulWidget and replace parent class with [CoreMwwmWidget](./lib/src/widget_state.dart)
+
+```
+class RepositorySearchScreen extends CoreMwwmWidget {
+
+  //...
+
+  @override
+  State<StatefulWidget> createState() {
+    return _RepositorySearchScreenState();
+  }
+}
+```
+
+By **convention** create a same constructor:
+```
+  RepositorySearchScreen({
+    WidgetModelBuilder wmBuilder, // need to testing
+  }) : super(
+          widgetModelBuilder: wmBuilder ??
+              (ctx) => RepositorySearchWm(
+                    // provide args,
+                  ),
+        );
+```
+
+Change parent of State of StatefulWidget to [WidgetState](./lib/src/widget_state.dart):
+```
+class _RepositorySearchScreenState extends WidgetState<RepositorySearchWm>
+```
+
+All done! You create your presentation.
+
+## FAQ
+
+### Where can I place UI?
+
+Simply in **build** method in WidgetState. No difference with Flutter framework.
+
+### How can I obtain a WM?
+
+WidgetState has WidgetModel after initState() called.
+There is a getter - **wm** - to get your WidgetModel in your Widget.
+
+### Where should I place navigation logic?
+
+Only in WidgetModel. But we don't hardcodea way to do this, yet.
+
+## Sercice(bussines) Layer
+
+***It is optional paragraph. You can write connection with services your favorite way.***
+
+To work with business logic need to decribe a contract which consists of two parts: [Change](./lib/src/model/changes/changes.dart) and [Performer](./lib/src/model/performer/performer.dart).
+
+**Change** - is an intention to do something on service layer. Change can has data. Formally, it is an arguments of some function.
+
+**Performer<R, Change>** - is a functional part of this contract. It is so close to UseCase. Performer, in ideal world, do only one thing. It is small part og logic which needed to perform Change.
+
+## Recommended file structure
+
+We recomend following structure:
+
+- ./
+  - data/
+  - model/
+    - services(repository)/
+    - changes.dart  // can split
+    - performer.dart // can split
+  - ui/
+    - screen(widget)/
+      - wm.dart
+      - route.dart
+      - screen(widget).dart   
+
+
+# Feature RoadMap
+
+- Coordinator - abstraction to place navigation logic
+- Code generation (may be)
+- Somthing else ? Create an issue with request to feature.
