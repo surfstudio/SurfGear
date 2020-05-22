@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:mwwm_github_client/model/service/response/reponses.dart';
+import 'package:mwwm_github_client/model/repository/response/reponses.dart';
 
 import 'response/reponses.dart';
 

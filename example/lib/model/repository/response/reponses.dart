@@ -54,36 +54,40 @@ class Repo {
   String defaultBranch;
   double score;
 
-  Repo(
-      {this.id,
-      this.nodeId,
-      this.name,
-      this.fullName,
-      @required this.owner,
-      this.private,
-      this.htmlUrl,
-      this.description,
-      this.fork,
-      this.url,
-      this.createdAt,
-      this.updatedAt,
-      this.pushedAt,
-      this.homepage,
-      this.size,
-      this.stargazersCount,
-      this.watchersCount,
-      this.language,
-      this.forksCount,
-      this.openIssuesCount,
-      this.masterBranch,
-      this.defaultBranch,
-      this.score});
+  bool isFavorite;
+
+  Repo({
+    this.id,
+    this.nodeId,
+    this.name,
+    this.fullName,
+    @required this.owner,
+    this.private,
+    this.htmlUrl,
+    this.description,
+    this.fork,
+    this.url,
+    this.createdAt,
+    this.updatedAt,
+    this.pushedAt,
+    this.homepage,
+    this.size,
+    this.stargazersCount,
+    this.watchersCount,
+    this.language,
+    this.forksCount,
+    this.openIssuesCount,
+    this.masterBranch,
+    this.defaultBranch,
+    this.score,
+    bool isFavorite,
+  }) : this.isFavorite = isFavorite ?? false;
 
   Repo.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nodeId = json['node_id'];
-    name = json['name'];
-    fullName = json['full_name'];
+    name = json['name'] ?? '';
+    fullName = json['full_name'] ?? '';
     owner = json['owner'] != null ? new Owner.fromJson(json['owner']) : null;
     private = json['private'];
     htmlUrl = json['html_url'];
@@ -103,6 +107,8 @@ class Repo {
     masterBranch = json['master_branch'];
     defaultBranch = json['default_branch'];
     score = json['score'];
+
+    isFavorite = false;
   }
 
   Map<String, dynamic> toJson() {
@@ -133,6 +139,8 @@ class Repo {
     data['master_branch'] = this.masterBranch;
     data['default_branch'] = this.defaultBranch;
     data['score'] = this.score;
+
+    isFavorite = false;
     return data;
   }
 
