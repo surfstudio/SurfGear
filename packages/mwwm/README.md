@@ -37,7 +37,7 @@ class RepositorySearchWm extends WidgetModel {
   RepositorySearchWm(
     WidgetModelDependencies baseDependencies, //1
     Model model, //2
-    ) : super(baseDependencies);
+    ) : super(baseDependencies, model: model); //3
 
 }
 ``` 
@@ -46,6 +46,8 @@ give possibility to place error handling logic in one place. You must provide an
 
 2 - [Model](./lib/src/model/model.dart) is contract with service layer. For now, it is optional feature. It is possible to use services directly but 
 not recommended.
+
+3 - don't forgive about provide model to superclass if you wont to use Model.
 
 Add Widget simply by creating StatefulWidget and replace parent class with [CoreMwwmWidget](./lib/src/widget_state.dart)
 

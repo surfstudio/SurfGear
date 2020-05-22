@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:mwwm_github_client/model/service/github_repository.dart';
-import 'package:mwwm_github_client/model/service/response/reponses.dart';
-import 'package:mwwm_github_client/ui/common/repo_item.dart';
+import 'package:mwwm_github_client/model/repository/github_repository.dart';
+import 'package:mwwm_github_client/model/repository/response/reponses.dart';
+import 'package:mwwm_github_client/ui/common/repo_item/repo_item.dart';
 import 'package:mwwm_github_client/ui/favorites/favorites_wm.dart';
 import 'package:provider/provider.dart';
 
 class FavoritesScreen extends CoreMwwmWidget {
   FavoritesScreen()
       : super(
-          widgetStateBuilder: () => _FavoritesScreenState(),
           widgetModelBuilder: (ctx) => FavoritesWm(
             ctx.read<WidgetModelDependencies>(),
           ),
         );
+
+  @override
+  State<StatefulWidget> createState() {
+    return _FavoritesScreenState();
+  }
 }
 
 //todo: add actions to read text and search
@@ -49,7 +53,7 @@ class _FavoritesScreenState extends WidgetState<FavoritesWm> {
             itemBuilder: (ctx, i) => Container(
               child: RepoItem(
                 RepoItemUiModel(
-                  repostory: Repo(
+                  repository: Repo(
                     name: 'repo_name',
                     owner: Owner(
                         login: 'owner_login',
@@ -65,7 +69,6 @@ class _FavoritesScreenState extends WidgetState<FavoritesWm> {
                     stargazersCount: 50,
                     watchersCount: 50,
                   ),
-                  isFavorite: true,
                 ),
               ),
             ),

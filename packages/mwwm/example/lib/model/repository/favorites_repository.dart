@@ -1,11 +1,12 @@
 import 'package:mwwm_github_client/model/database/database.dart';
-import 'package:mwwm_github_client/model/service/response/reponses.dart';
+import 'package:mwwm_github_client/model/repository/response/reponses.dart';
 
 class FavoritesRepository {
   Database _db;
   RepoDao _dao;
 
   FavoritesRepository(Database db) {
+    _db = db;
     _dao = db.repoDao;
   }
 
