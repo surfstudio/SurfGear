@@ -33,7 +33,7 @@ abstract class WidgetModel {
   CompositeSubscription _compositeSubscription = CompositeSubscription();
 
   WidgetModel(
-    @required WidgetModelDependencies baseDependencies, {
+    WidgetModelDependencies baseDependencies, {
     Model model,
   })  : _errorHandler = baseDependencies.errorHandler,
         model = model ?? Model([]);
