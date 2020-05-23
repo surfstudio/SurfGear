@@ -10,70 +10,10 @@ import 'package:relation/relation.dart';
 /// Widget model for search repositories
 /// todo: add actions and logic
 class RepositorySearchWm extends WidgetModel {
-  final StreamController<ListState> _reposController =
-      StreamController.broadcast()..add(ListState.content([]));
-
-  // final textController = w.TextEditingController(text: '');
-  final textToSearchAction = TextEditingAction();
-
-  final onAppBarTap = Action();
-  final isSearching = StreamedState<bool>(false);
-
-  final refresh = Action();
-
-  Stream<ListState> get repos => _reposController.stream;
 
   RepositorySearchWm(WidgetModelDependencies baseDependencies, Model model)
       : super(baseDependencies, model: model);
 
-  @override
-  void onLoad() {
-    super.onLoad();
-
-    subscribe(
-      textToSearchAction.stream,
-      _searchRepos,
-    );
-
-    subscribe(
-      onAppBarTap.stream,
-      (_) {
-        if (textToSearchAction.value?.isNotEmpty ?? false) {
-          textToSearchAction.controller.text =
-              ''; //todo: what to do with controller
-        } else {
-          isSearching.accept(!isSearching.value);
-        }
-      },
-    );
-
-    subscribe(refresh.stream, (_) {
-      _searchRepos(textToSearchAction.value);
-    });
-  }
-
-  void _searchRepos(String text) {
-    try {
-
-    
-    _reposController.add(ListState.loading());
-
-    doFuture(model.perform(SearchRepos(text)), (List<Repo> repos) {
-      var uiModels = repos.map((r) => RepoItemUiModel(repository: r)).toList();
-      _reposController.add(ListState.content(uiModels));
-    }, onError: (_) {
-      _reposController.add(ListState.error());
-    });
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  @override
-  void dispose() {
-    _reposController.close();
-    super.dispose();
-  }
 }
 
 class ListState {

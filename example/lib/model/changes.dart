@@ -16,3 +16,5 @@ class ToggleFavorite extends Change<Repo> {
 }
 
 class GetFavorites extends Change<List<Repo>> {}
+
+class FavoriteCountChanges extends Change<int>{}

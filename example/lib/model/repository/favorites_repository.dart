@@ -2,12 +2,23 @@ import 'package:mwwm_github_client/model/database/database.dart';
 import 'package:mwwm_github_client/model/repository/response/reponses.dart';
 
 class FavoritesRepository {
+  final List<Repo> _favoritesList = [];
   Database _db;
   RepoDao _dao;
 
   FavoritesRepository(Database db) {
     _db = db;
     _dao = db.repoDao;
+  }
+
+  Future<List<Repo>> add(Repo r) async {
+    _favoritesList.add(r);
+    return _favoritesList;
+  }
+
+  Future<List<Repo>> delete(Repo r) async {
+    _favoritesList.remove(r);
+    return _favoritesList;
   }
 
   Future<List<Repo>> getAllRepos() async {

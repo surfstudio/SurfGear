@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/model/performers.dart';
+import 'package:mwwm_github_client/model/repository/favorites_repository.dart';
 import 'package:mwwm_github_client/model/repository/github_repository.dart';
 
 import 'package:mwwm_github_client/model/repository/response/reponses.dart';
@@ -17,7 +18,7 @@ class RepositorySearchScreen extends CoreMwwmWidget {
           widgetModelBuilder: wmBuilder ??
               (ctx) => RepositorySearchWm(
                     ctx.read<WidgetModelDependencies>(),
-                    Model([SearchRepoPerformer(ctx.read<GithubRepository>())]),
+                    Model([]),
                   ),
         );
 
@@ -36,10 +37,10 @@ class _RepositorySearchScreenState extends WidgetState<RepositorySearchWm> {
       appBar: AppBar(
         centerTitle: true,
         title: StreamedStateBuilder<bool>(
-          streamedState: wm.isSearching,
+          // streamedState: wm.isSearching,
           builder: (ctx, isSearching) => isSearching
               ? TextField(
-                  controller: wm.textToSearchAction.controller,
+                  // controller: wm.textToSearchAction.controller,
                   style: TextStyle(color: Colors.white),
                   cursorColor: Colors.white,
                   decoration: InputDecoration(
@@ -51,19 +52,23 @@ class _RepositorySearchScreenState extends WidgetState<RepositorySearchWm> {
         ),
         leading: IconButton(
           icon: StreamedStateBuilder<bool>(
-            streamedState: wm.isSearching,
+            // streamedState: wm.isSearching,
             builder: (_, isSearching) =>
                 Icon(isSearching ? Icons.clear : Icons.search),
           ),
-          onPressed: wm.onAppBarTap,
+          // onPressed: wm.onAppBarTap,
         ),
         actions: <Widget>[
-          FavoritesButton(3),
+          StreamedStateBuilder<int>(
+              // streamedState: wm.favoritesCount,
+              builder: (context, count) {
+            return FavoritesButton(count);
+          }),
         ],
       ),
       body: StreamBuilder<ListState>(
         initialData: ListState.content([]),
-        stream: wm.repos,
+        // stream: wm.repos,
         builder: (ctx, snap) {
           var data = snap.data;
           if ((data?.isLoading ?? false)) {
@@ -72,12 +77,17 @@ class _RepositorySearchScreenState extends WidgetState<RepositorySearchWm> {
 
           if (snap.hasError || (data?.hasError ?? true)) {
             return Center(
-                child: Column(
-              children: <Widget>[
-                Text('Произошла ошибка'),
-                FlatButton(onPressed: wm.refresh, child: Text('Обновить')),
-              ],
-            ));
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Text('Произошла ошибка'),
+                  FlatButton(
+                    // onPressed: wm.refresh,
+                    child: Text('Обновить'),
+                  ),
+                ],
+              ),
+            );
           }
           return ListView.builder(
             itemCount: data.data.length,

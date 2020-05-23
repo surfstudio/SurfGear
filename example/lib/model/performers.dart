@@ -16,34 +16,25 @@ class SearchRepoPerformer extends Performer<List<Repo>, SearchRepos> {
   }
 }
 
+class ToggleFavoritePerformer extends Performer<Repo, ToggleFavorite> {
 
-class AddToFavoritePerformer extends Performer<Repo, ToggleFavorite> {
-  final FavoritesRepository _favoritesRepository;
-
-  AddToFavoritePerformer(this._favoritesRepository);
+  ToggleFavoritePerformer();
 
   @override
-  Future<Repo> perform(ToggleFavorite change)  async {
-    if (!change.isFavorite) {
-      await _favoritesRepository.insertRepo(change.repo);
-    } else {
-      await _favoritesRepository.deleteRepo(change.repo);
-    }
+  Future<Repo> perform(ToggleFavorite change) async {
+    change.repo.isFavorite = change.isFavorite;
 
-    return _favoritesRepository.getByName(change.repo.name).then((repos) => repos.first);
+    return change.repo;
   }
-
 }
 
 class GetFavoritesPerformer extends Broadcast<List<Repo>, GetFavorites> {
-
   final FavoritesRepository _favoritesRepository;
 
   GetFavoritesPerformer(this._favoritesRepository);
 
   @override
   Future<List<Repo>> performInternal(GetFavorites change) {
-    return  _favoritesRepository.getAllRepos();
+    return _favoritesRepository.getAllRepos();
   }
-
 }

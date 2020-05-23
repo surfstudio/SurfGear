@@ -20,7 +20,6 @@ class Model {
       try {
         return p.perform(change);
       } on TypeError catch (e) {
-        print(e.toString());
         continue;
       } catch (e) {
         return Future.error(e);
