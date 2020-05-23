@@ -37,10 +37,10 @@ class _RepositorySearchScreenState extends WidgetState<RepositorySearchWm> {
       appBar: AppBar(
         centerTitle: true,
         title: StreamedStateBuilder<bool>(
-          // streamedState: wm.isSearching,
+          streamedState: wm.isSearching,
           builder: (ctx, isSearching) => isSearching
               ? TextField(
-                  // controller: wm.textToSearchAction.controller,
+                  controller: wm.textToSearch.controller,
                   style: TextStyle(color: Colors.white),
                   cursorColor: Colors.white,
                   decoration: InputDecoration(
@@ -52,31 +52,16 @@ class _RepositorySearchScreenState extends WidgetState<RepositorySearchWm> {
         ),
         leading: IconButton(
           icon: StreamedStateBuilder<bool>(
-            // streamedState: wm.isSearching,
+            streamedState: wm.isSearching,
             builder: (_, isSearching) =>
                 Icon(isSearching ? Icons.clear : Icons.search),
           ),
-          // onPressed: wm.onAppBarTap,
+          onPressed: wm.onAppBarTap,
         ),
-        actions: <Widget>[
-          StreamedStateBuilder<int>(
-              // streamedState: wm.favoritesCount,
-              builder: (context, count) {
-            return FavoritesButton(count);
-          }),
-        ],
       ),
-      body: StreamBuilder<ListState>(
-        initialData: ListState.content([]),
-        // stream: wm.repos,
-        builder: (ctx, snap) {
-          var data = snap.data;
-          if ((data?.isLoading ?? false)) {
-            return Center(child: CircularProgressIndicator());
-          }
-
-          if (snap.hasError || (data?.hasError ?? true)) {
-            return Center(
+      body: EntityStateBuilder<List<RepoItemUiModel>>(
+        streamedState: wm.repos,
+        errorBuilder: (ctx, _) => Center(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
@@ -87,13 +72,16 @@ class _RepositorySearchScreenState extends WidgetState<RepositorySearchWm> {
                   ),
                 ],
               ),
-            );
-          }
+            ),
+         loadingBuilder: (ctx, _) => Center(child: CircularProgressIndicator()), 
+        child: (ctx, snap) {
+          var data = snap;
+          
           return ListView.builder(
-            itemCount: data.data.length,
+            itemCount: data.length,
             itemBuilder: (ctx, i) => Container(
               child: RepoItem(
-                data.data[i],
+                data[i],
               ),
             ),
           );
