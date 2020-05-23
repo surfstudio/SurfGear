@@ -5,6 +5,8 @@ import 'package:mwwm/mwwm.dart';
 /// Performer handles a specific [Change].
 /// It's a key component in the relationship between WidgetModel
 /// that requests some data, and the source of these data.
+/// R - type of result 
+/// C - type of change on which performer triggers
 abstract class Performer<R, C extends Change<R>> {
   Performer();
 
@@ -29,6 +31,8 @@ class _Performer<R, C extends Change<R>> extends Performer<R, C> {
 
 /// Broadcast is a [Performer] that allows listening to
 /// results of [perform].
+/// R - type of result 
+/// C - type of change on which performer triggers
 abstract class Broadcast<R, C extends Change<R>> extends Performer<R, C> {
   final _controller = StreamController<R>.broadcast();
 
