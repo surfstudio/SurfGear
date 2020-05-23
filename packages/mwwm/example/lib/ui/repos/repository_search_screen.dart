@@ -18,7 +18,7 @@ class RepositorySearchScreen extends CoreMwwmWidget {
           widgetModelBuilder: wmBuilder ??
               (ctx) => RepositorySearchWm(
                     ctx.read<WidgetModelDependencies>(),
-                    Model([]),
+                    Model([SearchRepoPerformer(ctx.read<GithubRepository>())]),
                   ),
         );
 
@@ -62,21 +62,21 @@ class _RepositorySearchScreenState extends WidgetState<RepositorySearchWm> {
       body: EntityStateBuilder<List<RepoItemUiModel>>(
         streamedState: wm.repos,
         errorBuilder: (ctx, _) => Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Text('Произошла ошибка'),
-                  FlatButton(
-                    // onPressed: wm.refresh,
-                    child: Text('Обновить'),
-                  ),
-                ],
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Text('Произошла ошибка'),
+              FlatButton(
+                // onPressed: wm.refresh,
+                child: Text('Обновить'),
               ),
-            ),
-         loadingBuilder: (ctx, _) => Center(child: CircularProgressIndicator()), 
+            ],
+          ),
+        ),
+        loadingBuilder: (ctx, _) => Center(child: CircularProgressIndicator()),
         child: (ctx, snap) {
           var data = snap;
-          
+
           return ListView.builder(
             itemCount: data.length,
             itemBuilder: (ctx, i) => Container(
