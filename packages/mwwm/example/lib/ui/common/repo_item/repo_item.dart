@@ -24,7 +24,7 @@ class RepoItem extends CoreMwwmWidget {
             widgetModelBuilder: wmBuilder ??
                 (ctx) => RepoItemWm(
                       ctx.read<WidgetModelDependencies>(),
-                      Model([AddToFavoritePerformer(ctx.read<FavoritesRepository>())]),
+                      Model([ToggleFavoritePerformer()]),
                       item.repository,
                     ));
 

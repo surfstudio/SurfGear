@@ -23,7 +23,7 @@ class FavoritesButton extends StatelessWidget {
                 Icons.favorite,
                 color: Colors.red,
               ),
-              buildFavoriteCount(),
+              // buildFavoriteCount(), TODO: add this
             ],
           ),
         ),
