@@ -37,7 +37,6 @@ class PushHandler {
     if (!localNotification) {
       messageSubject.add(message);
     }
-
     var strategy = _strategyFactory.createByData(message);
     _notificationController.show(
       strategy,

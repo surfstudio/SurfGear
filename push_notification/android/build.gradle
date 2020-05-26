@@ -43,4 +43,5 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "ru.surfstudio.android:push:0.4.0"
     implementation "ru.surfstudio.android:activity-holder:0.4.0"
+    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.11.0"
 }

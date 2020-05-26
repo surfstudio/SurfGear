@@ -44,7 +44,7 @@ class AndroidSurfNotification {
     int id,
     String title,
     String body,
-    Map<String, String> data,
+    dynamic data,
     AndroidNotificationSpecifics notificationSpecifics,
   ) async {
     return channel.invokeMethod(
