@@ -20,6 +20,9 @@ abstract class PushHandleStrategyFactory {
 
   /// Returns a strategy from push data
   PushHandleStrategy createByData(Map<String, dynamic> messageData) {
+    //TODO ПЕРЕПИСАТЬ ОПРЕДЕЛЕНИЕ СТРАТЕГИИ
+    //todo delete
+    return defaultStrategy(messageData);
     var builder;
     try {
       if (Platform.isAndroid) {

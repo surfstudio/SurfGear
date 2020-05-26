@@ -84,7 +84,7 @@ class Notificator {
     int id,
     String title,
     String body, {
-    Map<String, String> data,
+    dynamic data,
     NotificationSpecifics notificationSpecifics,
   }) async {
     if (Platform.isAndroid) {

@@ -95,6 +95,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         let content = UNMutableNotificationContent()
 
         content.title = title
+        
         content.body = body
         content.sound = UNNotificationSound.default
         content.userInfo = data
@@ -131,7 +132,8 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
                                        withCompletionHandler completionHandler: @escaping () -> Void) {
 
         let notification = response.notification
-        let notificationData = notification.request.content.userInfo
+        var notificationData = notification.request.content.userInfo
+        notificationData["actionIdentifier"] = response.actionIdentifier
 
         channel.invokeMethod(CALLBACK_OPEN, arguments: notificationData)
 
