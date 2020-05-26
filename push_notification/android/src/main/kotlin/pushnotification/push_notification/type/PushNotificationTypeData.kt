@@ -16,16 +16,17 @@ class PushNotificationTypeData : BaseNotificationTypeData<PushNotificationData>(
      * на dymamic**/
     override fun extractData(map: Map<String, String>): PushNotificationData? {
         var buttons: MutableList<PushNotificationAction> = mutableListOf()
-        val test = map[BUTTONS]
-        var test2: List<Map<String, String>>
-        if (test != null) {
-            test2 = ObjectMapper().readValue(test)
-            test2.forEach { action ->
-                buttons.add(PushNotificationAction(action[BUTTON_TEXT]
-                        ?: EMPTY_STRING, action[BUTTON_URL] ?: EMPTY_STRING, action[BUTTON_ID]
-                        ?: EMPTY_STRING))
-            }
-        }
+        /// TODO: Обработать добавление кнопок при необходимости
+//        val rawButtons = map[BUTTONS]
+//        var mapButtons: List<Map<String, String>>
+//        if (rawButtons != null) {
+//            mapButtons = ObjectMapper().readValue(rawButtons)
+//            mapButtons.forEach { action ->
+//                buttons.add(PushNotificationAction(action[BUTTON_TEXT]
+//                        ?: EMPTY_STRING, action[BUTTON_URL] ?: EMPTY_STRING, action[BUTTON_ID]
+//                        ?: EMPTY_STRING))
+//            }
+//        }
         return PushNotificationData(map, map[IMAGE_URL] ?: EMPTY_STRING, map[TITLE]
                 ?: EMPTY_STRING, map[BODY] ?: EMPTY_STRING, buttons)
     }
