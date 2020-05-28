@@ -59,10 +59,10 @@ class TextFieldState extends EntityState<String> {
         this.data = oldData,
         super.error(e);
 
-  TextFieldState.loading()
+  TextFieldState.loading([String data])
       : isEnabled = false,
-        data = "",
-        super.loading();
+        data = data ?? "",
+        super.loading(data);
 
   TextFieldState.enabled(String oldData, [bool enabled = true])
       : isEnabled = enabled,
@@ -112,8 +112,8 @@ class TextFieldStreamedState extends StreamedState<TextFieldState>
   }
 
   @override
-  Future<void> loading() {
-    var state = TextFieldState.loading();
+  Future<void> loading([String data]) {
+    var state = TextFieldState.loading(data);
     return super.accept(state);
   }
 }

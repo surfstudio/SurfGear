@@ -23,7 +23,7 @@ abstract class Event<T> {
 abstract class EntityEvent<T> {
   Future<void> content([T data]);
 
-  Future<void> loading();
+  Future<void> loading([T data]);
 
   Future<void> error([Exception error]);
 }
