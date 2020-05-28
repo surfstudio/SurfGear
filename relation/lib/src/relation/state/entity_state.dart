@@ -36,7 +36,7 @@ class EntityStreamedState<T> extends StreamedState<EntityState<T>>
 
   @override
   Future<void> loading([T data]) {
-    final newState = EntityState<T>.loading(data);
+    final newState = EntityState<T>.loading(data ?? value?.data);
     return super.accept(newState);
   }
 }
