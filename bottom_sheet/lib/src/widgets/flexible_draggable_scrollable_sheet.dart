@@ -345,20 +345,46 @@ class _FlexibleDraggableScrollableSheetState
   }
 
   @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        _extent.availablePixels =
-            widget.maxChildSize * constraints.biggest.height;
-        final Widget sheet = FractionallySizedBox(
+  Widget build(BuildContext context) => LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          _extent.availablePixels =
+              widget.maxChildSize * constraints.biggest.height;
+          final Widget sheet = Stack(
+            children: <Widget>[
+              _buildTransparentPart(),
+              _buildContentPart(),
+            ],
+          );
+
+          return widget.expand ? SizedBox.expand(child: sheet) : sheet;
+        },
+      );
+
+  Widget _buildTransparentPart() => Align(
+        alignment: Alignment.topCenter,
+        child: FractionallySizedBox(
+          heightFactor: 1 - _extent.currentExtent,
+          child: GestureDetector(
+            onTap: () => Navigator.of(context).pop(),
+            child: SizedBox.expand(
+              child: Container(
+                // Тут цвет обязателен, т.к. без него нажатие не обрабатывается
+                color: Colors.transparent,
+              ),
+            ),
+          ),
+          alignment: Alignment.topCenter,
+        ),
+      );
+
+  Widget _buildContentPart() => Align(
+        alignment: Alignment.bottomCenter,
+        child: FractionallySizedBox(
           heightFactor: _extent.currentExtent,
           child: widget.builder(context, _scrollController),
           alignment: Alignment.bottomCenter,
-        );
-        return widget.expand ? SizedBox.expand(child: sheet) : sheet;
-      },
-    );
-  }
+        ),
+      );
 
   @override
   void dispose() {
