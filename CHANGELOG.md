@@ -1,3 +1,10 @@
+
+[0.1.0] - beta release
+
+* Update CoreMwwmWidget. Change API
+* Update docs
+
+
 [0.0.4] - Add logo
 
 [0.0.3] - Update docs
@@ -6,4 +13,4 @@
 
 [0.0.2] - Released
 
-* TODO: Describe initial release.
+* Software architectural pattern for flutter apps.
