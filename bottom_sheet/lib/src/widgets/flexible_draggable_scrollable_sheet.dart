@@ -307,6 +307,9 @@ class _FlexibleDraggableScrollableSheetState
   FlexibleDraggableScrollableSheetScrollController _scrollController;
   FlexibleDraggableSheetExtent _extent;
 
+  /// Свободное место, выше боттом-шита
+  double get _freeExtent => 1 - _extent.currentExtent;
+
   @override
   void initState() {
     super.initState();
@@ -345,20 +348,41 @@ class _FlexibleDraggableScrollableSheetState
   }
 
   @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        _extent.availablePixels =
-            widget.maxChildSize * constraints.biggest.height;
-        final Widget sheet = FractionallySizedBox(
+  Widget build(BuildContext context) => LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          _extent.availablePixels =
+              widget.maxChildSize * constraints.biggest.height;
+          final Widget sheet = Stack(
+            children: <Widget>[
+              _buildTransparentPart(),
+              _buildContentPart(),
+            ],
+          );
+
+          return widget.expand ? SizedBox.expand(child: sheet) : sheet;
+        },
+      );
+
+  Widget _buildTransparentPart() => Align(
+        alignment: Alignment.topCenter,
+        child: FractionallySizedBox(
+          heightFactor: _freeExtent,
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => Navigator.of(context).pop(),
+          ),
+          alignment: Alignment.topCenter,
+        ),
+      );
+
+  Widget _buildContentPart() => Align(
+        alignment: Alignment.bottomCenter,
+        child: FractionallySizedBox(
           heightFactor: _extent.currentExtent,
           child: widget.builder(context, _scrollController),
           alignment: Alignment.bottomCenter,
-        );
-        return widget.expand ? SizedBox.expand(child: sheet) : sheet;
-      },
-    );
-  }
+        ),
+      );
 
   @override
   void dispose() {
