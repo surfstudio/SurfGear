@@ -307,6 +307,9 @@ class _FlexibleDraggableScrollableSheetState
   FlexibleDraggableScrollableSheetScrollController _scrollController;
   FlexibleDraggableSheetExtent _extent;
 
+  /// Свободное место, выше боттом-шита
+  double get _freeExtent => 1 - _extent.currentExtent;
+
   @override
   void initState() {
     super.initState();
@@ -363,15 +366,10 @@ class _FlexibleDraggableScrollableSheetState
   Widget _buildTransparentPart() => Align(
         alignment: Alignment.topCenter,
         child: FractionallySizedBox(
-          heightFactor: 1 - _extent.currentExtent,
+          heightFactor: _freeExtent,
           child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
             onTap: () => Navigator.of(context).pop(),
-            child: SizedBox.expand(
-              child: Container(
-                // Тут цвет обязателен, т.к. без него нажатие не обрабатывается
-                color: Colors.transparent,
-              ),
-            ),
           ),
           alignment: Alignment.topCenter,
         ),
