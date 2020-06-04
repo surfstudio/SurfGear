@@ -47,7 +47,6 @@ class RepositorySearchWm extends WidgetModel {
         this.repos.content(uiModel);
       },
       onError: (e) {
-        
         repos.error(e);
       },
     );

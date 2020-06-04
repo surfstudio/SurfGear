@@ -5,7 +5,7 @@ import 'package:mwwm_github_client/model/repository/github_repository.dart';
 import 'package:mwwm_github_client/model/repository/response/reponses.dart';
 
 /// Search repo by text
-class SearchRepoPerformer extends Performer<List<Repo>, SearchRepos> {
+class SearchRepoPerformer extends FuturePerformer<List<Repo>, SearchRepos> {
   final GithubRepository _githubRepository;
 
   SearchRepoPerformer(this._githubRepository);
@@ -16,7 +16,7 @@ class SearchRepoPerformer extends Performer<List<Repo>, SearchRepos> {
   }
 }
 
-class ToggleFavoritePerformer extends Performer<Repo, ToggleFavorite> {
+class ToggleFavoritePerformer extends FuturePerformer<Repo, ToggleFavorite> {
 
   ToggleFavoritePerformer();
 
