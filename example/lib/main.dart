@@ -28,25 +28,54 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  GlobalKey scaffoldKey = GlobalKey();
-
   RenderParametersManager renderManager;
 
   String _text0Id = 'text0Id';
-  int _paddingId = 1;
-  String _containerId = 'containerId';
+  String _text1Id = 'text1Id';
   String _containerPositionedId = 'containerPositionedId';
+  String _textBlockId = 'textBlockId';
+
+  final _scrollController = ScrollController();
+
+  bool _isOpacity = false;
+
+  String _text0 = '';
 
   @override
   void initState() {
     super.initState();
     renderManager = RenderParametersManager();
+    _scrollController.addListener(_scrollListener);
+    setState(() {});
+  }
+
+  void _scrollListener() {
+    setState(() {
+      _text0 = _getRenderDataText(_text0Id);
+    });
+
+    final ComparisonDiff diff =
+        renderManager.getDiffById(_containerPositionedId, _textBlockId);
+
+    _changeBlockUi(diff.diffBottomToTop > 0);
+  }
+
+  void _changeBlockUi(bool isChange) {
+    if (_isOpacity == isChange) return;
+    setState(() {
+      _isOpacity = isChange;
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
       appBar: AppBar(
         title: Text(widget.title),
       ),
@@ -54,108 +83,67 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Stack(
           children: <Widget>[
             ListView(
+              controller: _scrollController,
               children: <Widget>[
                 const SizedBox(height: 500),
                 RenderMetricsObject(
-                  id: _text0Id,
+                  id: _textBlockId,
                   manager: renderManager,
-                  child: Container(
-                    color: Colors.black.withOpacity(.2),
-                    child: Text('Текст0'),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      RenderMetricsObject(
+                        id: _text1Id,
+                        manager: renderManager,
+                        child: _buildTextContainer(
+                          'Diff metrics between the current and the blue square:'
+                          '\n\n'
+                          '${renderManager.getDiffById(_text1Id, _containerPositionedId) ?? ''}',
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      RenderMetricsObject(
+                        id: _text0Id,
+                        manager: renderManager,
+                        child: _buildTextContainer(
+                          'Metrics:\n\n$_text0',
+                        ),
+                      ),
+                      const SizedBox(height: 1500),
+                    ],
                   ),
-                ),
-                RenderMetricsObject(
-                  id: _paddingId,
-                  onMount: (_, RenderMetricsBox box) {
-                    print('mount');
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Text('Текст1'),
-                  ),
-                ),
-                RenderMetricsObject(
-                  id: _containerId,
-                  manager: renderManager,
-                  child: Container(
-                    width: double.infinity,
-                    height: 100,
-                    color: Colors.red,
-                  ),
-                ),
-                const SizedBox(height: 500),
+                )
               ],
             ),
             Positioned(
               top: 50,
               left: 10,
-              child: RenderMetricsObject(
-                id: _containerPositionedId,
-                manager: renderManager,
-                child: Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.blue,
-                ),
-              ),
+              child: _buildBox(),
             ),
           ],
         ),
       ),
-      floatingActionButton: RaisedButton(
-        child: Text('Get the difference between\nText0 and the blue square'),
-        onPressed: () {
-          showDialog(
-            context: scaffoldKey.currentContext,
-            builder: _buildBottomSheet,
-          );
-        },
-      ),
     );
   }
 
-  Widget _buildBottomSheet(_) {
-    return Material(
-      child: Container(
-        color: Colors.white,
-        child: SingleChildScrollView(
+  Widget _buildBox() {
+    return RenderMetricsObject(
+      id: _containerPositionedId,
+      manager: renderManager,
+      child: AnimatedOpacity(
+        duration: const Duration(milliseconds: 250),
+        opacity: _isOpacity ? .5 : 1,
+        child: Container(
+          width: 300,
+          height: 210,
+          color: Colors.blue,
           child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                RaisedButton(
-                  child: Text('Back'),
-                  onPressed: Navigator.of(context).pop,
-                ),
-                const SizedBox(height: 20),
-                Text('Data text0: ${renderManager.getRenderData(
-                  _text0Id,
-                )}'),
-                const SizedBox(
-                  height: 10,
-                ),
-                _buildSeparator(),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text('Data blue square: ${renderManager.getRenderData(
-                  _containerPositionedId,
-                )}'),
-                const SizedBox(
-                  height: 10,
-                ),
-                _buildSeparator(),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                    'The difference between text0 and the blue square: ${renderManager.getDiff(
-                  _containerPositionedId,
-                  _text0Id,
-                )}'),
-              ],
+            padding: const EdgeInsets.all(10),
+            child: Text(
+              'Blue Container() widget metrics:'
+              '\n\n'
+              '${_getRenderDataText(_containerPositionedId)}',
+              style: TextStyle(color: Colors.white),
             ),
           ),
         ),
@@ -163,11 +151,21 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _buildSeparator() {
+  Widget _buildTextContainer(String text) {
     return Container(
-      width: double.infinity,
-      height: 1,
-      color: Colors.black,
+      color: Colors.black.withOpacity(.2),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Text(
+          text,
+        ),
+      ),
     );
+  }
+
+  String _getRenderDataText<T>(T id) {
+    final data = renderManager.getRenderData(id);
+    if (data == null) return '';
+    return data.toString();
   }
 }

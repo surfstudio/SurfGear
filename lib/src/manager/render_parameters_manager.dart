@@ -29,7 +29,7 @@ class RenderParametersManager<T> extends RenderManager<T> {
 
   /// Get instance of [RenderData] from [RenderObject] by id
   RenderData getRenderData(T id) {
-    return _renderObjects[id].data;
+    return _renderObjects[id]?.data;
   }
 
   /// Delete an instance of [RenderObject] by id
@@ -38,10 +38,17 @@ class RenderParametersManager<T> extends RenderManager<T> {
   }
 
   /// Get the difference between
-  /// two instances [RenderObject]
-  ComparisonDiff getDiff(T firstId, T secondId) {
+  /// two instances [RenderObject] by id
+  ComparisonDiff getDiffById(T firstId, T secondId) {
     RenderData first = getRenderData(firstId);
     RenderData second = getRenderData(secondId);
+    return getDiffByInstance(first, second);
+  }
+
+  /// Get the difference between
+  /// two instances [RenderObject] by Instance
+  ComparisonDiff getDiffByInstance(RenderData first, RenderData second) {
+    if(first == null || second == null) return null;
     return first - second;
   }
 }
