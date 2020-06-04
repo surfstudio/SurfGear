@@ -6,15 +6,18 @@ import 'package:render_metrics/src/data/render_data.dart';
 import 'package:render_metrics/src/manager/render_manager.dart';
 import 'package:render_metrics/src/render/render_metrics.dart';
 
-/// Manager for working with widget metrics
+/// Manager class extending RenderManager.
+/// Contains a collection of mounted RenderMetricsBox
+/// and provides methods for working with it.
 class RenderParametersManager<T> extends RenderManager<T> {
   HashMap<T, RenderMetricsBox> _renderObjects = HashMap();
 
+  /// Collection with mounted RenderMetricsBox
   RenderMetricsBox operator [](T id) {
     return _renderObjects[id];
   }
 
-  /// Add an instance [RenderObject]
+  /// Add Instance to _renderObjects Collection
   void addRenderObject(T id, RenderObject renderObject) {
     _renderObjects[id] = renderObject;
   }
@@ -24,7 +27,7 @@ class RenderParametersManager<T> extends RenderManager<T> {
     return _renderObjects[id];
   }
 
-  /// Get an instance of [RenderData] by [id]
+  /// Get instance of [RenderData] from [RenderObject] by id
   RenderData getRenderData(T id) {
     return _renderObjects[id].data;
   }
