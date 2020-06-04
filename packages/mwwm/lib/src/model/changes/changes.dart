@@ -32,21 +32,3 @@ abstract class FutureChange<R> extends Change<Future<R>>{}
 /// A Change thate return Stream as result
 /// `R` - type of result inside Stream
 abstract class StreamChange<R> extends Change<Stream<R>>{}
-
-/// A Change that return Future as result
-/// `R` - type of result inside Future
-abstract class FutureChange<R> extends Change<Future<R>>{}
-
-
-/// A Change thate return Stream as result
-/// `R` - type of result inside Stream
-abstract class StreamChange<R> extends Change<Stream<R>>{}
-
-/// A Change that return Future as result
-/// `R` - type of result inside Future
-abstract class FutureChange<R> extends Change<Future<R>>{}
-
-
-/// A Change thate return Stream as result
-/// `R` - type of result inside Stream
-abstract class StreamChange<R> extends Change<Stream<R>>{}
