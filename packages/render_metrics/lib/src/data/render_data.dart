@@ -63,6 +63,7 @@ class RenderData {
   /// the external and the current instance ofRenderData,
   /// as an instance of the ComparisonDiff class
   ComparisonDiff operator -(RenderData other) {
+    if(other == null) return null;
     return ComparisonDiff(
       firstData: this,
       secondData: other,
