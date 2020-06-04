@@ -33,7 +33,7 @@ dependencies:
   shared_preferences: ^0.5.6
 
   #rx
-  rxdart: ^0.23.1
+  rxdart: ^0.24.0
 
   intl: ^0.16.1
 
