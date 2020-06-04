@@ -11,6 +11,12 @@ typedef void UnMountCallback<T>(T id);
 /// [manager] - an instance of the RenderManager for getting and processing metrics
 /// [onMount] - mount / create instance callback [RenderMetricsObject]
 /// [onUnMount] - unmount / uninstall instance callback [RenderMetricsObject]
+///
+/// When mounting a RenderMetricsObject, the createRenderObject method fires.
+/// It calls onMount if the manager addRenderObject method
+/// is also passed if it is passed.
+/// When deleted from the tree, didUnmountRenderObject is triggered.
+/// It calls onUnMount if passed and the removeRenderObject method
 class RenderMetricsObject<T> extends SingleChildRenderObjectWidget {
   final T id;
   final RenderManager manager;
@@ -41,6 +47,7 @@ class RenderMetricsObject<T> extends SingleChildRenderObjectWidget {
 }
 
 /// [RenderBox] for getting widget metrics
+/// extends RenderProxyBox which extends RenderObject
 /// [data] - getter for receiving data in the instance [RenderData]
 class RenderMetricsBox extends RenderProxyBox {
   RenderData get data {

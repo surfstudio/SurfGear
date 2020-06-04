@@ -1,7 +1,7 @@
 import 'package:render_metrics/src/data/comparison_diff.dart';
 import 'package:render_metrics/src/data/coords_metrics.dart';
 
-/// Object with render metrics data
+/// Widget metric data class
 /// [yTop] - top Y position relative to the screen
 /// [yBottom] - lower Y position relative to the screen
 /// [yCenter] - center Y position relative to the screen
@@ -59,6 +59,9 @@ class RenderData {
     this.height,
   });
 
+  /// Returns the difference between
+  /// the external and the current instance ofRenderData,
+  /// as an instance of the ComparisonDiff class
   ComparisonDiff operator -(RenderData other) {
     return ComparisonDiff(
       firstData: this,
