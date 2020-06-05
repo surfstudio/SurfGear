@@ -36,6 +36,21 @@ class PushStrategy(override val icon: Int,
 
     override fun makeNotificationBuilder(context: Context, title: String, body: String): NotificationCompat.Builder? {
         val data = typeData.data
+        
+        var contentTitle: String
+        var contentText: String
+
+        contentTitle = if (data == null || data.title.isEmpty()) {
+            title
+        } else {
+            data.title
+        }
+
+        contentText = if (data == null || data.body.isEmpty()) {
+            body
+        } else {
+            data.body
+        }
 
         val intent = Intent(context, getMainActivityClass(context))
         intent.action = SELECT_NOTIFICATION
@@ -44,8 +59,8 @@ class PushStrategy(override val icon: Int,
 
         return NotificationCompat.Builder(context, context.getString(channelId))
                 .setSmallIcon(icon)
-                .setContentTitle(data?.title)
-                .setContentText(data?.body)
+                .setContentTitle(contentTitle)
+                .setContentText(contentText)
                 .setGroupSummary(true)
                 .setColor(ContextCompat.getColor(context, color))
                 .setContent(contentView)
