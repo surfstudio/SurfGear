@@ -18,10 +18,10 @@ import 'package:permission/base/exceptions.dart';
 import 'package:permission/base/permission_manager.dart';
 import 'package:permission/base/strategy/deny_resolve_strategy_storage.dart';
 import 'package:permission/base/strategy/proceed_permission_strategy.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:permission_handler/permission_handler.dart'
+    as permissionHandler;
 
 class DefaultPermissionManager implements PermissionManager {
-  final PermissionHandler _permissionHandler = PermissionHandler();
   final ProceedPermissionStrategyStorage _strategyStorage;
 
   DefaultPermissionManager(this._strategyStorage);
@@ -33,19 +33,15 @@ class DefaultPermissionManager implements PermissionManager {
     final permissionGroup = _mapPermission(permission);
     final strategy = _strategyStorage.getStrategy(permission);
 
-    final statuses = await _permissionHandler.requestPermissions([
-      permissionGroup,
-    ]);
+    final status = await permissionGroup.request();
 
-    final status = statuses[permissionGroup];
     if (_isGoodStatus(status)) {
       await strategy?.proceed(permission, PermissionStrategyStatus.allow);
       return true;
     }
 
     if (checkRationale) {
-      final showRationale = await _permissionHandler
-          .shouldShowRequestPermissionRationale(permissionGroup);
+      final showRationale = await permissionGroup.shouldShowRequestRationale;
 
       await strategy?.proceed(
           permission,
@@ -65,43 +61,41 @@ class DefaultPermissionManager implements PermissionManager {
   }
 
   Future<bool> check(Permission permission) async {
-    final status = await _permissionHandler.checkPermissionStatus(
-      _mapPermission(permission),
-    );
+    final status = await _mapPermission(permission).status;
 
     return _isGoodStatus(status);
   }
 
-  Future<bool> openSettings() => _permissionHandler.openAppSettings();
+  Future<bool> openSettings() => permissionHandler.openAppSettings();
 
-  bool _isGoodStatus(PermissionStatus status) =>
-      status == PermissionStatus.granted ||
-      status == PermissionStatus.restricted;
+  bool _isGoodStatus(permissionHandler.PermissionStatus status) =>
+      status == permissionHandler.PermissionStatus.granted ||
+      status == permissionHandler.PermissionStatus.restricted;
 
-  PermissionGroup _mapPermission(Permission permission) {
+  permissionHandler.Permission _mapPermission(Permission permission) {
     switch (permission) {
       case Permission.camera:
-        return PermissionGroup.camera;
+        return permissionHandler.Permission.camera;
       case Permission.gallery:
         return Platform.isAndroid
-            ? PermissionGroup.storage
-            : PermissionGroup.photos;
+            ? permissionHandler.Permission.storage
+            : permissionHandler.Permission.photos;
       case Permission.location:
-        return PermissionGroup.location;
+        return permissionHandler.Permission.location;
       case Permission.calendar:
-        return PermissionGroup.calendar;
+        return permissionHandler.Permission.calendar;
       case Permission.contacts:
-        return PermissionGroup.contacts;
+        return permissionHandler.Permission.contacts;
       case Permission.microphone:
-        return PermissionGroup.microphone;
+        return permissionHandler.Permission.microphone;
       case Permission.phone:
-        return PermissionGroup.phone;
+        return permissionHandler.Permission.phone;
       case Permission.speech:
-        return PermissionGroup.speech;
+        return permissionHandler.Permission.speech;
       case Permission.notification:
-        return PermissionGroup.notification;
+        return permissionHandler.Permission.notification;
       default:
-        return PermissionGroup.unknown;
+        return permissionHandler.Permission.unknown;
     }
   }
 }
