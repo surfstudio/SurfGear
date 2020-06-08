@@ -20,7 +20,8 @@ enum Permission {
   contacts,
   microphone,
   speech, //only ios
-  phone
+  phone,
+  notification,
 }
 
 /// Сервис запросов и проверки разрешений
