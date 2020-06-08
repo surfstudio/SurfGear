@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  permission_handler: 4.1.0
+  permission_handler: 5.0.0+hotfix.9
 
 dev_dependencies:
   flutter_test:
