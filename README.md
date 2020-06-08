@@ -13,10 +13,18 @@ main classes:
 
 usage:
 
-1. Wrap the widget from which you want to get metrics (position, dimensions, etc.) in [RenderMetricsObject]
-2. Use a ready-made manager to work with metrics [RenderParametersManager] or use your own inheriting [RenderManager]
-3. In the application, pass the same [RenderManager] instance to the RenderMetricsObject instances as an argument
-4. [RenderParametersManager] allows you to get widget metrics
-in an instance of the [RenderData] class
-and the difference between two [RenderData]
-in an instance of the [ComparisonDiff] class
+1. Wrap the widget from which you want to get metrics (size, position, etc.) in [RenderMetricsObject].
+2. Pass the id. Only required when using RenderManager.
+3. onMount method - will work when creating a RenderObject.
+Takes in the parameters:
+Passed id.
+An instance of the RenderMetricsBox - the successor to the RenderProxyBox.
+4. The onUnMount method will work when deleting widgets from the tree.
+Takes in the parameters:
+Passed id.
+5. manager - an optional parameter. Waiting for a RenderManager descendant.
+[RenderParametersManager] - a ready-made descendant of the RenderManager.
+Allows you to get widget metrics:
+Position and dimensions in [RenderData]
+The difference between the two [RenderData] in the class instance [ComparisonDiff]
+You can use your heir [RenderManager].
