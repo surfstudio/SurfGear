@@ -88,6 +88,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 RenderMetricsObject(
                   id: _textBlockId,
                   manager: renderManager,
+                  onMount: (id, box) {
+                    // Method called when creating a RenderObject
+                    // id - passed id (In this case, the string from _textBlockId)
+                    // box - renderMetricsBox instance from which data is taken
+                  },
+                  onUnMount: (box) {
+                    // Method called when RenderObject is removed from the tree
+                    // box - renderMetricsBox instance from which data is taken
+                  },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
