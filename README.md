@@ -36,6 +36,7 @@ ____
 
 ### double data:
 **width** - Widget width.
+
 **height** - Widget height.
 **yTop** - Top Y position relative to the screen.
 **yBottom** - Lower Y position relative to the screen.
