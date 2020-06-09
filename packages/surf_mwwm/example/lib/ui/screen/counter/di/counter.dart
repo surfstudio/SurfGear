@@ -17,7 +17,6 @@ import 'package:injector/injector.dart';
 
 /// Component для экрана счетчика
 class CounterComponent implements Component {
-  
   final NavigatorState navigator;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 

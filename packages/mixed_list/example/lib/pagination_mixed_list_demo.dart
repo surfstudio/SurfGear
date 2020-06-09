@@ -74,9 +74,7 @@ class _PaginationMixedListDemo extends State<PaginationMixedListDemo> {
                 color: Color(0xFFFF0000),
                 child: Center(
                   child: FlatButton(
-                    child: Text(
-                      "Press to reload"
-                    ),
+                    child: Text("Press to reload"),
                     onPressed: () {
                       _loadNext();
                     },

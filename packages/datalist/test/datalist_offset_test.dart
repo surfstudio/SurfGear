@@ -116,8 +116,8 @@ class DataListOffsetTest {
           OffsetDataList(data: [1, 2, 3], limit: 3, offset: 2, totalCount: 10);
       OffsetDataList<int> list2 =
           OffsetDataList(data: [4, 5], limit: 3, offset: 4, totalCount: 10);
-      OffsetDataList<int> list3 =
-          OffsetDataList(data: [1, 2, 4, 5], limit: 5, offset: 2, totalCount: 10);
+      OffsetDataList<int> list3 = OffsetDataList(
+          data: [1, 2, 4, 5], limit: 5, offset: 2, totalCount: 10);
       list1.merge(list2);
       expect(list1, list3);
     });
@@ -125,8 +125,8 @@ class DataListOffsetTest {
 
   static void checkMergeWithCollision3() {
     test('checkMergeWithCollision3', () {
-      OffsetDataList<int> list1 =
-          OffsetDataList(data: [1, 2, 3, 4, 5], limit: 5, offset: 0, totalCount: 10);
+      OffsetDataList<int> list1 = OffsetDataList(
+          data: [1, 2, 3, 4, 5], limit: 5, offset: 0, totalCount: 10);
       OffsetDataList<int> list2 =
           OffsetDataList(data: [6, 7], limit: 3, offset: 0, totalCount: 10);
       OffsetDataList<int> list3 =
@@ -140,10 +140,10 @@ class DataListOffsetTest {
     test('checkMergeWithCollision4', () {
       OffsetDataList<int> list1 =
           OffsetDataList(data: [6, 7], limit: 3, offset: 0, totalCount: 10);
-      OffsetDataList<int> list2 =
-          OffsetDataList(data: [1, 2, 3, 4, 5], limit: 5, offset: 0, totalCount: 10);
-      OffsetDataList<int> list3 =
-          OffsetDataList(data: [1, 2, 3, 4, 5], limit: 5, offset: 0, totalCount: 10);
+      OffsetDataList<int> list2 = OffsetDataList(
+          data: [1, 2, 3, 4, 5], limit: 5, offset: 0, totalCount: 10);
+      OffsetDataList<int> list3 = OffsetDataList(
+          data: [1, 2, 3, 4, 5], limit: 5, offset: 0, totalCount: 10);
       list1.merge(list2);
       expect(list1, list3);
     });
@@ -152,10 +152,10 @@ class DataListOffsetTest {
   static void checkMergeEmptyWithNormal() {
     test('checkMergeEmptyWithNormal', () {
       OffsetDataList<int> list1 = OffsetDataList.empty();
-      OffsetDataList<int> list2 =
-          OffsetDataList(data: [1, 2, 3, 4, 5], limit: 5, offset: 0, totalCount: 10);
-      OffsetDataList<int> list3 =
-          OffsetDataList(data: [1, 2, 3, 4, 5], limit: 5, offset: 0, totalCount: 10);
+      OffsetDataList<int> list2 = OffsetDataList(
+          data: [1, 2, 3, 4, 5], limit: 5, offset: 0, totalCount: 10);
+      OffsetDataList<int> list3 = OffsetDataList(
+          data: [1, 2, 3, 4, 5], limit: 5, offset: 0, totalCount: 10);
 
       list1.merge(list2);
 
@@ -179,9 +179,10 @@ class DataListOffsetTest {
 
   static void transformToStringDataList() {
     test('transformToStringDataList', () {
-      OffsetDataList<int> intList =
-          OffsetDataList(data: [1, 2, 3, 4, 5], limit: 5, offset: 0, totalCount: 5);
-      OffsetDataList<String> stringList = intList.transform((i) => i.toString());
+      OffsetDataList<int> intList = OffsetDataList(
+          data: [1, 2, 3, 4, 5], limit: 5, offset: 0, totalCount: 5);
+      OffsetDataList<String> stringList =
+          intList.transform((i) => i.toString());
 
       OffsetDataList<String> expectedList = OffsetDataList(
           data: ["1", "2", "3", "4", "5"], limit: 5, offset: 0, totalCount: 5);

@@ -6,12 +6,11 @@ typedef WidgetModelBuilder = WidgetModel Function(BuildContext);
 /// Class for widgets that has [WidgetModel]
 /// You must provide [WidgetModel] in constructor or by [WidgetModelFactory]
 abstract class CoreMwwmWidget extends StatefulWidget {
-
   /// Builder for `WidgetModel`
   /// There are two possibilities to provide `WidgetModel` :
   ///  1. Here by [widgetModelBuilder] (prefer)
   ///  2. Or by `WidgetModelFactory`
-  /// 
+  ///
   /// By convention provide builder for WM this way
   /// ```
   /// const MyAwesomeWidget(
@@ -33,7 +32,6 @@ abstract class CoreMwwmWidget extends StatefulWidget {
 /// Has [WidgetModel] from [initState].
 abstract class WidgetState<WM extends WidgetModel>
     extends State<CoreMwwmWidget> {
-
   /// [WidgetModel] for widget.
   @protected
   WM wm;
@@ -42,7 +40,7 @@ abstract class WidgetState<WM extends WidgetModel>
   @mustCallSuper
   @override
   void initState() {
-    wm =  widget.widgetModelBuilder(context);
+    wm = widget.widgetModelBuilder(context);
 
     super.initState();
 

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_template/ui/screen/splash_screen/di/splash_screen_component.dart';
@@ -11,10 +10,10 @@ class SplashScreen extends MwwmWidget<SplashScreenComponent> {
   SplashScreen([
     WidgetModelBuilder widgetModelBuilder = createSplashScreenWidgetModel,
   ]) : super(
-    dependenciesBuilder: (context) => SplashScreenComponent(context),
-    widgetStateBuilder: () => _SplashScreenState(),
-    widgetModelBuilder: widgetModelBuilder,
-  );
+          dependenciesBuilder: (context) => SplashScreenComponent(context),
+          widgetStateBuilder: () => _SplashScreenState(),
+          widgetModelBuilder: widgetModelBuilder,
+        );
 }
 
 class _SplashScreenState extends WidgetState<SplashScreenWidgetModel> {

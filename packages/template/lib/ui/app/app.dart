@@ -28,10 +28,10 @@ class App extends MwwmWidget<AppComponent> {
   App([
     WidgetModelBuilder widgetModelBuilder = createAppWidgetModel,
   ]) : super(
-    dependenciesBuilder: (context) => AppComponent(context),
-    widgetStateBuilder: () => _AppState(),
-    widgetModelBuilder: widgetModelBuilder,
-  );
+          dependenciesBuilder: (context) => AppComponent(context),
+          widgetStateBuilder: () => _AppState(),
+          widgetModelBuilder: widgetModelBuilder,
+        );
 }
 
 class _AppState extends WidgetState<AppWidgetModel> {

@@ -18,7 +18,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     notification = Notificator(
-      onPermissionDecline: (){
+      onPermissionDecline: () {
         print("permission decline");
       },
       onNotificationTapCallback: (notificationData) {

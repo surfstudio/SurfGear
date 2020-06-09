@@ -1,1 +1,1 @@
-class Rect{}
+class Rect {}

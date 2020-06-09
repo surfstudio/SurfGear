@@ -8,5 +8,4 @@ class IncompatibleRangesException implements Exception {
     if (message == null) return "IncompatibleRangesException";
     return "IncompatibleRangesException: $message";
   }
-
 }
