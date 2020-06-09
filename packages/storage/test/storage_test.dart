@@ -22,6 +22,8 @@ void main() {
 
   print('Test for this module can not work on this platform');
 
+  expect(true, isTrue);
+
 //  StorageTest.testEmptyGet(storage);
 //  StorageTest.testPutGet(storage);
 //  StorageTest.testPutGetRichValue(storage);
