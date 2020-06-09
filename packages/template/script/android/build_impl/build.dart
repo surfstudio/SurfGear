@@ -4,7 +4,7 @@ import 'package:args/args.dart';
 
 const String releaseBuildType = 'release';
 const String platform64 = 'android-arm64';
-const String apkPrefix64="arm64-v8a";
+const String apkPrefix64 = "arm64-v8a";
 const String apkPrefixV7 = "armeabi-v7a";
 const String apkPrefixUniversal = "universal";
 
@@ -23,9 +23,7 @@ void main(List<String> arguments) {
   exitCode = 0;
   final parser = ArgParser();
 
-  var args = parser
-      .parse(arguments)
-      .arguments;
+  var args = parser.parse(arguments).arguments;
   if (args.length != 1) {
     exitCode = 1;
     throw Exception("You should pass build type.");
@@ -53,7 +51,15 @@ void resolveFlavor() {
 void buildApk() async {
   print("Build type ${buildType}");
 
-  var result = await Process.run('flutter', ['build', "apk", "-t", "lib/main-${buildType}.dart", "--flavor", "${flavor}", "--split-per-abi"]);
+  var result = await Process.run('flutter', [
+    'build',
+    "apk",
+    "-t",
+    "lib/main-${buildType}.dart",
+    "--flavor",
+    "${flavor}",
+    "--split-per-abi"
+  ]);
   stdout.write(result.stdout);
   stderr.write(result.stderr);
 }

@@ -17,4 +17,4 @@ class ToggleFavorite extends FutureChange<Repo> {
 
 class GetFavorites extends FutureChange<List<Repo>> {}
 
-class FavoriteCountChanges extends Change<int>{}
+class FavoriteCountChanges extends Change<int> {}

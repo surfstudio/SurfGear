@@ -10,16 +10,18 @@ typedef HandleMessageFunction = void Function(
 
 /// Notification handling
 class PushHandler {
-  PushHandler(this._strategyFactory,
-      this._notificationController,
-      this._messagingService,) {
+  PushHandler(
+    this._strategyFactory,
+    this._notificationController,
+    this._messagingService,
+  ) {
     _messagingService?.initNotification(handleMessage);
   }
 
   /// The ability to directly subscribe to receive messages
   final PublishSubject<Map<String, dynamic>> messageSubject = PublishSubject();
   final BehaviorSubject<PushHandleStrategy> selectNotificationSubject =
-  BehaviorSubject();
+      BehaviorSubject();
 
   final PushHandleStrategyFactory _strategyFactory;
   final NotificationController _notificationController;
@@ -27,10 +29,11 @@ class PushHandler {
 
   /// display local notification
   /// [MessagingService] calls this method to display the notification that came from message service
-  void handleMessage(Map<String, dynamic> message,
-      MessageHandlerType handlerType, {
-        bool localNotification = false,
-      }) {
+  void handleMessage(
+    Map<String, dynamic> message,
+    MessageHandlerType handlerType, {
+    bool localNotification = false,
+  }) {
     if (!localNotification) {
       messageSubject.add(message);
     }
@@ -44,7 +47,7 @@ class PushHandler {
       if (handlerType == MessageHandlerType.onMessage) {
         _notificationController.show(
           strategy,
-              (_) {
+          (_) {
             selectNotificationSubject.add(strategy);
             strategy.onTapNotification(PushNavigatorHolder().navigator);
           },

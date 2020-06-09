@@ -28,7 +28,6 @@ import 'package:rxdart/rxdart.dart';
 ///   )
 /// ```
 class StreamedState<T> implements Event<T> {
-
   /// Behaviour state for updating events
   final BehaviorSubject<T> stateSubject = BehaviorSubject();
 

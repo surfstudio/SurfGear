@@ -48,10 +48,8 @@ class CacheIfErrorStrategy implements CacheStrategy {
     Stream<Response> cacheResponse,
     Stream<Response> networkResponse,
   ) =>
-      networkResponse.onErrorResume(
-        (e) => Rx.concat([
-          cacheResponse,
-          Stream.error(e),
-        ])
-      );
+      networkResponse.onErrorResume((e) => Rx.concat([
+            cacheResponse,
+            Stream.error(e),
+          ]));
 }

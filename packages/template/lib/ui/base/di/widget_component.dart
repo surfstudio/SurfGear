@@ -23,8 +23,10 @@ abstract class WidgetComponent implements Component {
   }) {
     var appComponent = Injector.of<AppComponent>(context).component;
 
-    this.messageController = messageController ?? MaterialMessageController(scaffoldKey);
-    this.dialogController = dialogController ?? DefaultDialogController(scaffoldKey);
+    this.messageController =
+        messageController ?? MaterialMessageController(scaffoldKey);
+    this.dialogController =
+        dialogController ?? DefaultDialogController(scaffoldKey);
     this.navigator = navigator ?? Navigator.of(context);
 
     wmDependencies = WidgetModelDependencies(

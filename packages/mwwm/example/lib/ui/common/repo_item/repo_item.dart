@@ -115,17 +115,17 @@ class _RepoItemState extends WidgetState<RepoItemWm> {
                           Spacer(),
                           IconButton(
                             icon: StreamedStateBuilder<bool>(
-                              streamedState: wm.isFavorite,
-                              builder: (context, isFavorite) {
-                                return Icon(
-                                  isFavorite
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
-                                  color: Colors.redAccent,
-                                );
-                              }
-                            ),
-                            onPressed:() => wm.addToFavorite(repository.isFavorite),
+                                streamedState: wm.isFavorite,
+                                builder: (context, isFavorite) {
+                                  return Icon(
+                                    isFavorite
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    color: Colors.redAccent,
+                                  );
+                                }),
+                            onPressed: () =>
+                                wm.addToFavorite(repository.isFavorite),
                           ),
                         ],
                       ),
