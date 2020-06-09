@@ -14,6 +14,7 @@
 
 import 'dart:io';
 
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:logger/logger.dart';
 import 'package:network/src/base/config/config.dart';
@@ -21,6 +22,7 @@ import 'package:network/src/base/headers.dart';
 import 'package:network/src/base/http.dart';
 import 'package:network/src/base/response.dart';
 import 'package:network/src/base/status_mapper.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:network/src/impl/dio/interceptor/dio_interceptor.dart';
 
 ///Library Based Http Implementation [dio]
@@ -54,22 +56,43 @@ class DioHttp extends Http {
         responseHeader: logConfig.requestHeader,
         responseBody: logConfig.responseBody,
         error: logConfig.error,
-        logSize: logConfig.logSize,
       ));
     }
 
-    _dio.interceptors.add(dio.InterceptorsWrapper(onError: (e) {
+    _dio.interceptors.add(dio.InterceptorsWrapper(onError: (dio.DioError e) {
       if (e.type == dio.DioErrorType.RESPONSE) {
         return e.response;
+      }
+
+      if (e is Error) {
+        var error = e as Error;
+        throw Exception(error.stackTrace);
       }
 
       throw e;
     }));
   }
 
-  /// Подмена baseUrl без перезапуска приложения
+  /// change baseUrl at runtime
   void changeBaseUrl(String newUrl) {
     _dio.options.baseUrl = newUrl;
+  }
+
+
+  ///Proxy config for tracking data
+  ///
+  /// @param config - HttpConfig of client. Get proxy url
+  void _configProxy(HttpConfig config) {
+    var proxyUrl = config.proxyUrl;
+
+    if (proxyUrl != null && proxyUrl.isNotEmpty) {
+      (_dio.httpClientAdapter as DefaultHttpClientAdapter)
+          .onHttpClientCreate = (client) {
+        client.findProxy = (uri) {
+          return "PROXY $proxyUrl";
+        };
+      };
+    }
   }
 
   @override
@@ -180,9 +203,14 @@ class DioHttp extends Http {
     File body,
   }) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
-    final data = dio.FormData.from({
-      "image": dio.UploadFileInfo(body, "image",
-          contentType: ContentType("image", "jpeg")),
+    Stream<List<int>> fileStream = body.openRead();
+    int fileLength = await fileStream.length;
+    final data = dio.FormData.fromMap({
+      "image": dio.MultipartFile(
+        fileStream,
+        fileLength,
+        contentType: MediaType("image", "jpeg"),
+      ),
     });
     return _dio
         .post(
@@ -209,22 +237,6 @@ class DioHttp extends Http {
     interceptors
         ?.map((interceptor) => DioInterceptorDecorator(interceptor))
         ?.forEach((interceptor) => _dio.interceptors.add(interceptor));
-  }
-
-  ///Proxy config for tracking data
-  ///
-  /// @param config - HttpConfig of client. Get proxy url
-  void _configProxy(HttpConfig config) {
-    var proxyUrl = config.proxyUrl;
-
-    if (proxyUrl != null && proxyUrl.isNotEmpty) {
-      (_dio.httpClientAdapter as dio.DefaultHttpClientAdapter)
-          .onHttpClientCreate = (client) {
-        client.findProxy = (uri) {
-          return "PROXY $proxyUrl";
-        };
-      };
-    }
   }
 
   Response<T> _toResponse<T>(dio.Response r) {

@@ -2,8 +2,8 @@ import 'package:dio/dio.dart' as dio;
 import 'package:network/src/base/interceptors/interceptor.dart';
 
 /// Interceptor for dio library
-abstract class DioInterceptor
-    implements Interceptor<dio.RequestOptions, dio.Response, dio.DioError> {}
+class DioInterceptor
+    extends Interceptor<dio.RequestOptions, dio.Response, dio.DioError> {}
 
 /// Wrapper over [DioInterceptor]
 class DioInterceptorWrapper extends DioInterceptor {
@@ -18,13 +18,25 @@ class DioInterceptorWrapper extends DioInterceptor {
   });
 
   @override
-  onRequest(dio.RequestOptions options) => requestCallback?.call(options);
+  Future onRequest(dio.RequestOptions options) {
+    super.onRequest(options);
+    requestCallback?.call(options);
+    return Future.value(options);
+  }
 
   @override
-  onResponse(dio.Response response) => responseCallback?.call(response);
+  Future onResponse(dio.Response response) {
+    super.onResponse(response);
+    responseCallback?.call(response);
+    return Future.value(response);
+  }
 
   @override
-  onError(dio.DioError err) => errorCallback?.call(err);
+  Future onError(dio.DioError error) {
+    super.onError(error);
+    errorCallback?.call(error);
+    return Future.value(error);
+  }
 }
 
 /// decorator for [dio.Interceptor]
@@ -34,11 +46,17 @@ class DioInterceptorDecorator implements dio.Interceptor {
   DioInterceptorDecorator(this._interceptor);
 
   @override
-  onRequest(dio.RequestOptions options) => _interceptor.onRequest(options);
+  Future onResponse(dio.Response response) {
+    return _interceptor.onResponse(response);
+  }
 
   @override
-  onResponse(dio.Response response) => _interceptor.onResponse(response);
+  Future onError(dio.DioError err) {
+    return _interceptor.onError(err);
+  }
 
   @override
-  onError(dio.DioError err) => _interceptor.onError(err);
+  Future onRequest(dio.RequestOptions options) {
+    return _interceptor.onRequest(options);
+  }
 }
