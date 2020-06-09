@@ -11,31 +11,31 @@ main classes:
 3. [RenderManager](/lib/src/manager/render_manager.dart)
 4. [RenderParametersManager](/lib/src/manager/render_parameters_manager.dart)
 
-#Library for getting widget metrics.
+# Library for getting widget metrics.
 
 Allows you to get the sizes of widgets even without their explicit indication and coordinates relative to the screen.
 ____
 
-##Classes in the library
+## Classes in the library
 
-###Render classes
+### Render classes
 **RenderMetricsObject** - Descendant of SingleChildRenderObjectWidget. Accepts the widget from which to get metrics.
 **RenderMetricsBox** - descendant of RenderProxyBox. Provides metric data.
 
-###Data classes
+### Data classes
 **RenderData** - class provides widget metrics data.
 **CoordsMetrics** - coordinate point class.
 **ComparisonDiff** - class with a difference of coordinates between two RenderData
 List of available values:
 
-###Managers
-**RenderManager** - Base class for the manager. Your own managers should inherit from it.
-**RenderParametersManager** - Ready Render Manager successor storing the RenderMetricsBox list and functionality for working with them.
+### Managers
+** RenderManager** - Base class for the manager. Your own managers should inherit from it.
+** RenderParametersManager** - Ready Render Manager successor storing the RenderMetricsBox list and functionality for working with them.
 ____
 
-##Metric Data Provided
+## Metric Data Provided
 
-###double data:
+### double data:
 **width** - Widget width.
 **height** - Widget height.
 **yTop** - Top Y position relative to the screen.
@@ -45,7 +45,7 @@ ____
 **xRight** - Right X position relative to the screen.
 **xCenter** - Center X position relative to the screen.
 
-###CoordsMetrics Instances:
+### CoordsMetrics Instances:
 **topLeft** - Upper left coordinate.
 **topRight** - Upper right coordinate.
 **bottomLeft** - Lower left coordinate.
@@ -59,7 +59,7 @@ ____
 ![](metrics_image.jpg)
 ____
 
-##RenderData difference data in ComparisonDiff
+## RenderData difference data in ComparisonDiff
 **yTop** - Difference of the upper Y position relative to the screen.
 **yBottom** - Difference of the lower Y position relative to the screen.
 **yCenter** - Difference of the central Y position relative to the screen.
@@ -84,7 +84,7 @@ ____
 
 ![](diff_image.jpg)
 
-##RenderParametersManager functionality
+## RenderParametersManager functionality
 **addRenderObject** - Add an instance of RenderObject.
 **getRenderObject** - Add an instance of RenderObject by id.
 **getRenderData** - Get an instance of RenderData with metrics. widget by id.
