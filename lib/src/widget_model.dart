@@ -110,9 +110,3 @@ abstract class WidgetModel {
     _errorHandler?.handleError(e);
   }
 }
-
-class ExceptionWrapper {
-  final dynamic e;
-
-  ExceptionWrapper(this.e);
-}
