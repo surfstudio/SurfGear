@@ -38,22 +38,36 @@ ____
 **width** - Widget width.
 
 **height** - Widget height.
+
 **yTop** - Top Y position relative to the screen.
+
 **yBottom** - Lower Y position relative to the screen.
+
 **yCenter** - Center Y position relative to the screen.
+
 **xLeft** - Left X position relative to the screen.
+
 **xRight** - Right X position relative to the screen.
+
 **xCenter** - Center X position relative to the screen.
 
 ### CoordsMetrics Instances:
 **topLeft** - Upper left coordinate.
+
 **topRight** - Upper right coordinate.
+
 **bottomLeft** - Lower left coordinate.
+
 **bottomRight** - Lower right coordinate.
+
 **center** - Central coordinate.
+
 **topCenter** - Upper center coordinate.
+
 **bottomCenter** - Lower central coordinate.
+
 **centerLeft** - Center left coordinate.
+
 **centerRight** - Center right coordinate.
 
 ![](metrics_image.jpg)
@@ -61,33 +75,55 @@ ____
 
 ## RenderData difference data in ComparisonDiff
 **yTop** - Difference of the upper Y position relative to the screen.
-**yBottom** - Difference of the lower Y position relative to the screen.
-**yCenter** - Difference of the central Y position relative to the screen.
-**xLeft** - Difference left X position relative to the screen.
-**xRight** - Difference of the right X position relative to the screen.
-**xCenter** - Difference of the central X position relative to the screen.
-**diffTopToBottom** - Difference of the upper border.
-**diffBottomToTop** - Difference of the lower border.
-**diffLeftToRight** - Difference of the left border.
-**diffRightToLeft** - Difference of the right border.
-**width** - Difference in width of elements.
-**height** - Difference in element heights.
-**topLeft** - The difference between the upper left coordinates.
-**topRight ** - The difference between the upper right coordinates.
-**bottomLeft ** - The difference between the lower left coordinates.
-**bottomRight ** - The difference between the lower right coordinates.
-**center** - The difference between the central coordinates.
-**topCenter** - The difference between the upper center coordinates.
-**bottomCenter** - The difference between the lower center coordinates.
-**centerLeft** - The difference between the central left coordinates.
-**centerRight** - The difference between the center right coordinates.
 
+**yBottom** - Difference of the lower Y position relative to the screen.
+
+**yCenter** - Difference of the central Y position relative to the screen.
+
+**xLeft** - Difference left X position relative to the screen.
+
+**xRight** - Difference of the right X position relative to the screen.
+
+**xCenter** - Difference of the central X position relative to the screen.
+
+**diffTopToBottom** - Difference of the upper border.
+
+**diffBottomToTop** - Difference of the lower border.
+
+**diffLeftToRight** - Difference of the left border.
+
+**diffRightToLeft** - Difference of the right border.
+
+**width** - Difference in width of elements.
+
+**height** - Difference in element heights.
+
+**topLeft** - The difference between the upper left coordinates.
+
+**topRight ** - The difference between the upper right coordinates.
+
+**bottomLeft ** - The difference between the lower left coordinates.
+
+**bottomRight ** - The difference between the lower right coordinates.
+
+**center** - The difference between the central coordinates.
+
+**topCenter** - The difference between the upper center coordinates.
+
+**bottomCenter** - The difference between the lower center coordinates.
+
+**centerLeft** - The difference between the central left coordinates.
+
+**centerRight** - The difference between the center right coordinates.
 ![](diff_image.jpg)
 
 ## RenderParametersManager functionality
 **addRenderObject** - Add an instance of RenderObject.
+
 **getRenderObject** - Add an instance of RenderObject by id.
+
 **getRenderData** - Get an instance of RenderData with metrics. widget by id.
+
 **removeRenderObject** - Remove an instance of RenderObject.
 
 
