@@ -33,7 +33,7 @@ class Model {
     for (var p in _performers) {
       try {
         return p.perform(change);
-      } on TypeError catch (e) {
+      } on TypeError {
         continue;
       } catch (e) {
         rethrow;
@@ -62,9 +62,4 @@ class Model {
 
     return Stream.error(NoBroadcastPerformerException(C));
   }
-
-  Future<D> _throwError<D>(Change change) => Future.error(
-        NoPerformerException(change),
-        StackTrace.fromString("${this.runtimeType} at 17"),
-      );
 }
