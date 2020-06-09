@@ -14,7 +14,6 @@ main classes:
 # Library for getting widget metrics.
 
 Allows you to get the sizes of widgets even without their explicit indication and coordinates relative to the screen.
-____
 
 ## Classes in the library
 
