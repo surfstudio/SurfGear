@@ -19,11 +19,14 @@ Allows you to get the sizes of widgets even without their explicit indication an
 
 ### Render classes
 **RenderMetricsObject** - Descendant of SingleChildRenderObjectWidget. Accepts the widget from which to get metrics.
+
 **RenderMetricsBox** - descendant of RenderProxyBox. Provides metric data.
 
 ### Data classes
 **RenderData** - class provides widget metrics data.
+
 **CoordsMetrics** - coordinate point class.
+
 **ComparisonDiff** - class with a difference of coordinates between two RenderData
 List of available values:
 
@@ -100,11 +103,11 @@ ____
 
 **topLeft** - The difference between the upper left coordinates.
 
-**topRight ** - The difference between the upper right coordinates.
+**topRight** - The difference between the upper right coordinates.
 
-**bottomLeft ** - The difference between the lower left coordinates.
+**bottomLeft** - The difference between the lower left coordinates.
 
-**bottomRight ** - The difference between the lower right coordinates.
+**bottomRight** - The difference between the lower right coordinates.
 
 **center** - The difference between the central coordinates.
 
