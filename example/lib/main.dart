@@ -28,7 +28,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  RenderParametersManager renderManager;
+  RenderParametersManager renderManager = RenderParametersManager();
 
   String _text0Id = 'text0Id';
   String _text1Id = 'text1Id';
@@ -44,7 +44,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    renderManager = RenderParametersManager();
     _scrollController.addListener(_scrollListener);
     setState(() {});
   }
