@@ -130,7 +130,7 @@ ____
 **removeRenderObject** - Remove an instance of RenderObject.
 
 
-usage:
+## usage:
 
 1. Wrap the widget from which you want to get metrics (size, position, etc.) in [RenderMetricsObject].
 2. Pass the id. Only required when using RenderManager.
