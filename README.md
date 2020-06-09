@@ -28,8 +28,8 @@ Allows you to get the sizes of widgets even without their explicit indication an
 List of available values:
 
 ### Managers
-** RenderManager** - Base class for the manager. Your own managers should inherit from it.
-** RenderParametersManager** - Ready Render Manager successor storing the RenderMetricsBox list and functionality for working with them.
+**RenderManager** - Base class for the manager. Your own managers should inherit from it.
+**RenderParametersManager** - Ready Render Manager successor storing the RenderMetricsBox list and functionality for working with them.
 ____
 
 ## Metric Data Provided
