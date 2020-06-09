@@ -23,13 +23,13 @@ class RenderParametersManager<T> extends RenderManager<T> {
   }
 
   /// Get an instance of [RenderObject] by [id]
-  RenderMetricsBox getRenderObject(T id, RenderMetricsBox renderObject) {
+  RenderMetricsBox getRenderObject(T id) {
     return _renderObjects[id];
   }
 
   /// Get instance of [RenderData] from [RenderObject] by id
   RenderData getRenderData(T id) {
-    return _renderObjects[id]?.data;
+    return getRenderObject(id)?.data;
   }
 
   /// Delete an instance of [RenderObject] by id
