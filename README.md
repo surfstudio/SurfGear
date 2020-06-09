@@ -71,15 +71,15 @@ ____
 **diffRightToLeft** - Difference of the right border.
 **width** - Difference in width of elements.
 **height** - Difference in element heights.
-** topLeft ** - The difference between the upper left coordinates.
-** topRight ** - The difference between the upper right coordinates.
-** bottomLeft ** - The difference between the lower left coordinates.
-** bottomRight ** - The difference between the lower right coordinates.
-** center ** - The difference between the central coordinates.
-** topCenter ** - The difference between the upper center coordinates.
-** bottomCenter ** - The difference between the lower center coordinates.
-** centerLeft ** - The difference between the central left coordinates.
-** centerRight ** - The difference between the center right coordinates.
+**topLeft** - The difference between the upper left coordinates.
+**topRight ** - The difference between the upper right coordinates.
+**bottomLeft ** - The difference between the lower left coordinates.
+**bottomRight ** - The difference between the lower right coordinates.
+**center** - The difference between the central coordinates.
+**topCenter** - The difference between the upper center coordinates.
+**bottomCenter** - The difference between the lower center coordinates.
+**centerLeft** - The difference between the central left coordinates.
+**centerRight** - The difference between the center right coordinates.
 
 ![](diff_image.jpg)
 
