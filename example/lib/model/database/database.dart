@@ -8,7 +8,6 @@ import 'package:moor/moor.dart';
 import 'dart:io';
 part 'database.g.dart';
 
-
 LazyDatabase _openConnection() {
   // the LazyDatabase util lets us find the right location for the file async.
   return LazyDatabase(() async {
