@@ -49,6 +49,7 @@ abstract class WidgetState<WM extends WidgetModel>
   }
 
   /// Descendants must call super in the end
+  @override
   @protected
   @mustCallSuper
   void dispose() {

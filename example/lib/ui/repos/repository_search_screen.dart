@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/model/performers.dart';
-import 'package:mwwm_github_client/model/repository/favorites_repository.dart';
 import 'package:mwwm_github_client/model/repository/github_repository.dart';
 
-import 'package:mwwm_github_client/model/repository/response/reponses.dart';
 import 'package:mwwm_github_client/ui/common/repo_item/repo_item.dart';
-import 'package:mwwm_github_client/ui/repos/widgets/favorites_button.dart';
 import 'package:mwwm_github_client/ui/repos/repository_search_wm.dart';
 import 'package:provider/provider.dart';
 import 'package:relation/relation.dart';
