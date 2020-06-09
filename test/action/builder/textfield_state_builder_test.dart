@@ -60,7 +60,7 @@ void main() {
 
   testWidgets(
     'TextfieldStreamBuilder loading test',
-        (WidgetTester tester) async {
+    (WidgetTester tester) async {
       final testData = TextFieldStreamedState('test');
 
       final textFieldStateBuilder = TextFieldStateBuilder(
