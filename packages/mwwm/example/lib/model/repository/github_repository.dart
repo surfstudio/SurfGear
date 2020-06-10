@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:mwwm_github_client/model/repository/response/reponses.dart';
+import 'package:mwwm_github_client/model/repository/response/responses.dart';
 
-import 'response/reponses.dart';
+import 'response/responses.dart';
 
 /// Service for work with Github
 /// Wrapper on [Github] library

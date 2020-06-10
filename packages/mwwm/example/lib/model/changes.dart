@@ -1,5 +1,5 @@
 import 'package:mwwm/mwwm.dart';
-import 'package:mwwm_github_client/model/repository/response/reponses.dart';
+import 'package:mwwm_github_client/model/repository/response/responses.dart';
 
 /// Init search of repos
 class SearchRepos extends FutureChange<List<Repo>> {

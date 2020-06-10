@@ -2,7 +2,7 @@ import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/model/changes.dart';
 import 'package:mwwm_github_client/model/repository/favorites_repository.dart';
 import 'package:mwwm_github_client/model/repository/github_repository.dart';
-import 'package:mwwm_github_client/model/repository/response/reponses.dart';
+import 'package:mwwm_github_client/model/repository/response/responses.dart';
 
 /// Search repo by text
 class SearchRepoPerformer extends FuturePerformer<List<Repo>, SearchRepos> {
