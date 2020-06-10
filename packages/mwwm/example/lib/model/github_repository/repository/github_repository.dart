@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:mwwm_github_client/data/repository.dart';
+import 'package:mwwm_github_client/data/repository_list.dart';
+import 'package:mwwm_github_client/model/github_repository/repository/dto/repository_dto.dart';
 import 'package:mwwm_github_client/model/github_repository/repository/dto/repository_list_dto.dart';
 
 /// Service for work with Github
@@ -7,11 +9,29 @@ import 'package:mwwm_github_client/model/github_repository/repository/dto/reposi
 class GithubRepository {
   final _client = Dio();
 
-  Future<List<Repository>> getRepos(String name) async {
+  /// Search repository by [name]
+  Future<List<Repository>> findRepositories(String name) async {
     if (name.isEmpty) return [];
-    var resp = await _client.get<Map<String, dynamic>>(
-        'https://api.github.com/search/repositories?q=$name');
-    var repoResp = RepositoryListDto.fromJson(resp.data).data;
-    return repoResp.items;
+    Response response = await _client.get<Map<String, dynamic>>(
+      'https://api.github.com/search/repositories?q=$name',
+    );
+    final RepositoryList repositoryList = RepositoryListDto.fromJson(
+      response.data,
+    ).data;
+
+    return repositoryList.items;
+  }
+
+  /// Get github repositories
+  Future<List<Repository>> getRepositories() async {
+    Response response = await _client.get<List<dynamic>>(
+      'https://api.github.com/repositories',
+    );
+
+    final List<Repository> repositories = response.data
+        .map<Repository>((json) => RepositoryDto.fromJson(json).data)
+        .toList();
+
+    return repositories;
   }
 }

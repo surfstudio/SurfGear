@@ -11,6 +11,18 @@ class SearchRepositoriesPerformer
 
   @override
   Future<List<Repository>> perform(SearchRepositories change) {
-    return _githubRepository.getRepos(change.query);
+    return _githubRepository.findRepositories(change.query);
+  }
+}
+
+class GetRepositoriesPerformer
+    extends FuturePerformer<List<Repository>, GetRepositories> {
+  final GithubRepository _githubRepository;
+
+  GetRepositoriesPerformer(this._githubRepository);
+
+  @override
+  Future<List<Repository>> perform(GetRepositories change) {
+    return _githubRepository.getRepositories();
   }
 }
