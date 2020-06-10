@@ -1,7 +1,9 @@
 import 'package:moor_flutter/moor_flutter.dart';
+import 'package:mwwm_github_client/data/repository.dart';
 import 'package:mwwm_github_client/model/database/table/tables.dart';
-import 'package:mwwm_github_client/model/repository/response/responses.dart';
 import 'package:moor_ffi/moor_ffi.dart';
+import 'package:mwwm_github_client/model/repository/dto/owner_dto.dart';
+import 'package:mwwm_github_client/model/repository/dto/repository_dto.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:moor/moor.dart';
@@ -39,7 +41,7 @@ class Database extends _$Database {
 class RepoDao extends DatabaseAccessor<Database> with _$RepoDaoMixin {
   RepoDao(Database attachedDatabase) : super(attachedDatabase);
 
-  Future<List<Repo>> get getAllRepos => select(favoritesRepoTable)
+  Future<List<Repository>> get getAllRepos => select(favoritesRepoTable)
       .join([
         leftOuterJoin(
           ownerTable,
@@ -51,11 +53,11 @@ class RepoDao extends DatabaseAccessor<Database> with _$RepoDaoMixin {
             var repoData = e.readTable(favoritesRepoTable);
             var ownerData = e.readTable(ownerTable);
 
-            return Repo.fromJson(repoData.toJson())
-              ..owner = Owner.fromJson(ownerData.toJson());
+            return RepositoryDto.fromJson(repoData.toJson()).data
+              ..owner = OwnerDto.fromJson(ownerData.toJson()).data;
           }).toList());
 
-  Future<List<Repo>> getRepoByName(String name) async {
+  Future<List<Repository>> getRepoByName(String name) async {
     final query = select(favoritesRepoTable)..where((t) => t.name.equals(name));
 
     return query
@@ -70,8 +72,8 @@ class RepoDao extends DatabaseAccessor<Database> with _$RepoDaoMixin {
               var repoData = e.readTable(favoritesRepoTable);
               var ownerData = e.readTable(ownerTable);
 
-              return Repo.fromJson(repoData.toJson())
-                ..owner = Owner.fromJson(ownerData.toJson());
+              return RepositoryDto.fromJson(repoData.toJson()).data
+                ..owner = OwnerDto.fromJson(ownerData.toJson()).data;
             }).toList());
   }
 

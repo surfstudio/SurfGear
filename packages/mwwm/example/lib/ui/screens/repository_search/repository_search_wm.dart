@@ -1,14 +1,13 @@
 import 'package:mwwm/mwwm.dart';
+import 'package:mwwm_github_client/data/repository.dart';
 import 'package:mwwm_github_client/model/changes.dart';
-import 'package:mwwm_github_client/model/repository/response/responses.dart';
 import 'package:relation/relation.dart';
-import 'package:pedantic/pedantic.dart';
 
 /// Widget model for search repositories
 /// TODO: add actions and logic
 class RepositorySearchWm extends WidgetModel {
   /// Represent repositories from search request
-  final EntityStreamedState<List<Repo>> repositoriesState =
+  final EntityStreamedState<List<Repository>> repositoriesState =
       EntityStreamedState(EntityState.content([]));
 
   /// Indicate search process
@@ -58,14 +57,14 @@ class RepositorySearchWm extends WidgetModel {
   }
 
   Future<void> _searchRepos(String text) async {
-    unawaited(repositoriesState.loading());
+    repositoriesState.loading();
 
     try {
-      final List<Repo> repos = await model.perform(SearchRepos(text));
-      unawaited(repositoriesState.content(repos));
+      final List<Repository> repos = await model.perform(SearchRepos(text));
+      repositoriesState.content(repos);
     } catch (e) {
       handleError(e);
-      unawaited(repositoriesState.error(e));
+      repositoriesState.error(e);
     }
   }
 }
