@@ -15,6 +15,7 @@
 import 'dart:math';
 
 const double _EARTH_RADIUS = 6372795; //meters
+
 /// A data class that contains various information about the user's location.
 class Location {
   /// Latitude, in degrees
@@ -54,10 +55,10 @@ class Location {
 
   //todo тесты и причесать
   double distanceTo(double x, double y) {
-    double lat1 = latitude*pi/180;
-    double lat2 = x *pi/180;
-    double long1 = longitude*pi/180;
-    double long2 = y *pi/180;
+    double lat1 = latitude * pi / 180;
+    double lat2 = x * pi / 180;
+    double long1 = longitude * pi / 180;
+    double long2 = y * pi / 180;
 
     //косинусы и синусы широт и разницы долгот | cos and sin of longitude/latitude
     double cl1 = cos(lat1);
@@ -69,10 +70,11 @@ class Location {
     double sdelta = sin(delta);
 
     // вычисления длины большого круга | calculate  how long is big circle
-    double yy = sqrt(pow(cl2*sdelta,2)+pow(cl1*sl2-sl1*cl2*cdelta,2));
-    double xx = sl1*sl2+cl1*cl2*cdelta;
-    double ad = atan2(yy,xx);
-    double dist = ad*_EARTH_RADIUS;
+    double yy =
+        sqrt(pow(cl2 * sdelta, 2) + pow(cl1 * sl2 - sl1 * cl2 * cdelta, 2));
+    double xx = sl1 * sl2 + cl1 * cl2 * cdelta;
+    double ad = atan2(yy, xx);
+    double dist = ad * _EARTH_RADIUS;
     return dist;
   }
 }

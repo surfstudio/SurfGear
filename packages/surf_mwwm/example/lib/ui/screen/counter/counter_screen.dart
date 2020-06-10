@@ -63,9 +63,7 @@ class _CounterScreenState extends WidgetState<CounterWidgetModel> {
               ),
               TextField(
                 autofocus: true,
-                onChanged: (_) {
-
-                },
+                onChanged: (_) {},
               ),
             ],
           ),

@@ -22,5 +22,4 @@ class FirstStrategy extends PushHandleStrategy<Message> {
   void onBackgroundProcess(Map<String, dynamic> message) {
     debugPrint('on process notification in background');
   }
-
 }

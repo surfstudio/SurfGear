@@ -32,8 +32,10 @@ class NotificationController {
   }
 
   /// displaying notification from the strategy
-  Future<dynamic> show(PushHandleStrategy strategy,
-      NotificationCallback onSelectNotification,) {
+  Future<dynamic> show(
+    PushHandleStrategy strategy,
+    NotificationCallback onSelectNotification,
+  ) {
     final androidSpecifics = AndroidNotificationSpecifics(
       channelId: strategy.notificationChannelId,
       channelName: strategy.notificationChannelName,
@@ -45,19 +47,15 @@ class NotificationController {
     final platformSpecifics = NotificationSpecifics(androidSpecifics);
 
     print(
-        "DEV_INFO receive for show push : ${strategy.payload.title}, ${strategy
-            .payload.body}");
+        "DEV_INFO receive for show push : ${strategy.payload.title}, ${strategy.payload.body}");
 
-    int pushId = DateTime
-        .now()
-        .millisecondsSinceEpoch;
+    int pushId = DateTime.now().millisecondsSinceEpoch;
 
     Map<String, String> tmpPayload = strategy.payload.messageData.map(
-          (key, value) =>
-          MapEntry(
-            key.toString(),
-            value.toString(),
-          ),
+      (key, value) => MapEntry(
+        key.toString(),
+        value.toString(),
+      ),
     );
 
     tmpPayload[pushIdParam] = "$pushId";

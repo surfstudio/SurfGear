@@ -4,7 +4,6 @@ import '../domain/message.dart';
 import 'first_strategy.dart';
 import 'second_strategy.dart';
 
-
 class ExampleFactory extends PushHandleStrategyFactory {
   @override
   Map<String, StrategyBuilder> get map => {

@@ -62,7 +62,7 @@ void main() {
 
   testWidgets(
     'StreamedStateBuilder loading test',
-        (WidgetTester tester) async {
+    (WidgetTester tester) async {
       final testData = EntityStreamedState<String>();
       final streamedStateBuilder = EntityStateBuilder<String>(
         streamedState: testData,

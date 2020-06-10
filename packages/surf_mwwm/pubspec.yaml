@@ -21,7 +21,6 @@ dependencies:
   mwwm:
     path: ../mwwm
 
-
   #rx
   rxdart: ^0.24.0
 

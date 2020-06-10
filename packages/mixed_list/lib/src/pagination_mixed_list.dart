@@ -71,7 +71,10 @@ class _PaginationState extends MixedListState<PaginationMixedList> {
 
       var itemsLength = widget.items.length;
 
-      return position > itemsLength / 2 && !_isLoading && !isComplete && !isError;
+      return position > itemsLength / 2 &&
+          !_isLoading &&
+          !isComplete &&
+          !isError;
     };
 
     _stateSubscription = widget.paginationState.listen((state) {

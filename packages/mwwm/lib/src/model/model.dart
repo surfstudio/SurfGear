@@ -34,13 +34,13 @@ class Model {
       try {
         return p.perform(change);
       } on TypeError catch (e) {
-          continue;
+        continue;
       } catch (e) {
         rethrow;
       }
     }
 
-    throw  NoPerformerException(change);
+    throw NoPerformerException(change);
   }
 
   /// Listen to changes of exact type

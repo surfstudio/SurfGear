@@ -9,8 +9,7 @@ import 'package:collection/collection.dart';
 /// May merge with another DataList
 ///
 /// @param <T> Item
-abstract class DataList<T> extends DelegatingList<T>{
-
+abstract class DataList<T> extends DelegatingList<T> {
   ///Download List
   List<T> data;
 
@@ -34,5 +33,4 @@ abstract class DataList<T> extends DelegatingList<T>{
   /// @param <R>     type of new list
   /// @return DataList<R>
   DataList<R> transform<R>(R Function(T item) mapFunc);
-
 }
