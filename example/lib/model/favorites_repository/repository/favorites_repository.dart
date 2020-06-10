@@ -1,7 +1,7 @@
 import 'package:mwwm_github_client/data/repository.dart';
-import 'package:mwwm_github_client/model/database/database.dart';
-import 'package:mwwm_github_client/model/repository/dto/owner_dto.dart';
-import 'package:mwwm_github_client/model/repository/dto/repository_dto.dart';
+import 'package:mwwm_github_client/model/favorites_repository/database/database.dart';
+import 'package:mwwm_github_client/model/github_repository/repository/dto/owner_dto.dart';
+import 'package:mwwm_github_client/model/github_repository/repository/dto/repository_dto.dart';
 
 class FavoritesRepository {
   final List<Repository> _favoritesList = [];

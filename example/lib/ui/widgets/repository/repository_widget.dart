@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/data/repository.dart';
-import 'package:mwwm_github_client/model/performers.dart';
+import 'package:mwwm_github_client/model/favorites_repository/performers.dart';
 import 'package:mwwm_github_client/ui/widgets/repository/repository_widget_wm.dart';
 import 'package:provider/provider.dart';
 import 'package:relation/relation.dart';
@@ -15,7 +15,7 @@ class RepositoryWidget extends CoreMwwmWidget {
         super(
           widgetModelBuilder: (context) => RepositoryWidgetWm(
             context.read<WidgetModelDependencies>(),
-            Model([ToggleFavoritePerformer()]),
+            Model([ToggleRepositoryFavoriteValuePerformer()]),
             repository,
           ),
         );
