@@ -27,7 +27,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  rxdart: ^0.22.0
+  rxdart: 0.24.1
 
 
 

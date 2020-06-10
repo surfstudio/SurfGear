@@ -9,7 +9,7 @@ class CounterInteractor {
 
   PublishSubject<Counter> _subject = PublishSubject();
 
-  Observable<Counter> get counterObservable => _subject.stream;
+  Stream<Counter> get counterObservable => _subject.stream;
 
   CounterInteractor(this._counterRepository) {
     _subject.listen(_counterRepository.setCounter);

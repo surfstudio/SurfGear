@@ -15,24 +15,24 @@ dependencies:
   injector:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-RIG-19
+      ref: project-RIG-20
       path: injector
 
   relation:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-RIG-19
+      ref: project-RIG-20
       path: relation
 
   mwwm:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-RIG-19
+      ref: project-RIG-20
       path: mwwm
 
 
   #rx
-  rxdart: 0.22.0
+  rxdart: 0.24.1
 
 dev_dependencies:
   flutter_test:

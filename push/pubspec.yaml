@@ -14,17 +14,17 @@ dependencies:
   surf_util:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-RIG-19
+      ref: project-RIG-20
       path: surf_util
 
   logger:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-RIG-19
+      ref: project-RIG-20
       path: logger
 
   #rx
-  rxdart: ^0.22.0
+  rxdart: 0.24.1
 
   #notifications
   flutter_local_notifications: 0.8.4+3

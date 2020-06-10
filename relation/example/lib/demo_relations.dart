@@ -98,7 +98,7 @@ class _DemoRelationsState extends State<DemoRelations> {
             streamedState: loadDataState,
             child: (ctx, data) => Text('success load: $data'),
             loadingChild: CircularProgressIndicator(),
-            errorChild: Text('sorry - error, try again'),
+            errorChild: (_) => Text('sorry - error, try again'),
           ),
 
           const SizedBox(width: 32.0),
