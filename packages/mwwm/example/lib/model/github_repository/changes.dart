@@ -3,9 +3,9 @@ import 'package:mwwm_github_client/data/repository.dart';
 
 /// Search github repositories by query [query]
 class SearchRepositories extends FutureChange<List<Repository>> {
-  final String query;
-
   SearchRepositories(this.query);
+
+  final String query;
 }
 
 /// Get all repositories.

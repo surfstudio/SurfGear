@@ -4,14 +4,14 @@ import 'package:mwwm_github_client/model/github_repository/repository/dto/owner_
 import 'package:mwwm_github_client/model/github_repository/repository/dto/repository_dto.dart';
 
 class FavoritesRepository {
-  final List<Repository> _favoritesList = [];
-  Database _db;
-  RepoDao _dao;
-
   FavoritesRepository(Database db) {
     _db = db;
     _dao = db.repoDao;
   }
+
+  final List<Repository> _favoritesList = [];
+  Database _db;
+  RepoDao _dao;
 
   Future<List<Repository>> add(Repository r) async {
     _favoritesList.add(r);
@@ -32,11 +32,11 @@ class FavoritesRepository {
   }
 
   Future insertRepo(Repository data) {
-    var repoData = FavoritesRepoTableData.fromData(
+    final repoData = FavoritesRepoTableData.fromData(
       RepositoryDto(data).toJson(),
       _db,
     );
-    var ownerData = OwnerTableData.fromData(
+    final ownerData = OwnerTableData.fromData(
       OwnerDto(data.owner).toJson(),
       _db,
     );
@@ -45,11 +45,11 @@ class FavoritesRepository {
   }
 
   Future updateRepo(Repository data) {
-    var repoTableData = FavoritesRepoTableData.fromData(
+    final repoTableData = FavoritesRepoTableData.fromData(
       RepositoryDto(data).toJson(),
       _db,
     );
-    var ownerData = OwnerTableData.fromData(
+    final ownerData = OwnerTableData.fromData(
       OwnerDto(data.owner).toJson(),
       _db,
     );
@@ -58,11 +58,11 @@ class FavoritesRepository {
   }
 
   Future deleteRepo(Repository data) {
-    var repoTableData = FavoritesRepoTableData.fromData(
+    final repoTableData = FavoritesRepoTableData.fromData(
       RepositoryDto(data).toJson(),
       _db,
     );
-    var ownerData = OwnerTableData.fromData(
+    final ownerData = OwnerTableData.fromData(
       OwnerDto(data.owner).toJson(),
       _db,
     );

@@ -17,9 +17,9 @@ class ToggleRepositoryFavoriteValuePerformer
 
 class GetFavoriteRepositoriesPerformer
     extends Broadcast<List<Repository>, GetFavoriteRepositories> {
-  final FavoritesRepository _favoritesRepository;
-
   GetFavoriteRepositoriesPerformer(this._favoritesRepository);
+
+  final FavoritesRepository _favoritesRepository;
 
   @override
   Future<List<Repository>> performInternal(GetFavoriteRepositories change) {

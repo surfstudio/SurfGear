@@ -1,23 +1,23 @@
 class Owner {
-  String login;
-  int id;
-  String nodeId;
-  String avatarUrl;
-  String avatarId;
-  String url;
-  String receivedEventsUrl;
-  String type;
-
   Owner({
     this.login,
     this.id,
     this.nodeId,
     this.avatarUrl,
-    this.avatarId,
+    this.gravatarId,
     this.url,
     this.receivedEventsUrl,
     this.type,
   });
+
+  String login;
+  int id;
+  String nodeId;
+  String avatarUrl;
+  String gravatarId;
+  String url;
+  String receivedEventsUrl;
+  String type;
 
   @override
   String toString() => {
@@ -25,7 +25,7 @@ class Owner {
         'id': id,
         'nodeId': nodeId,
         'avatarUrl': avatarUrl,
-        'gravatarId': avatarId, // TODO check right name
+        'gravatarId': gravatarId,
         'url': url,
         'receivedEventsUrl': receivedEventsUrl,
         'type': type,

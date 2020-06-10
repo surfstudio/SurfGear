@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:moor_flutter/moor_flutter.dart';
 import 'package:mwwm_github_client/data/repository.dart';
 import 'package:moor_ffi/moor_ffi.dart';
@@ -7,7 +9,6 @@ import 'package:mwwm_github_client/model/github_repository/repository/dto/reposi
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:moor/moor.dart';
-import 'dart:io';
 part 'database.g.dart';
 
 LazyDatabase _openConnection() {
@@ -50,8 +51,8 @@ class RepoDao extends DatabaseAccessor<Database> with _$RepoDaoMixin {
       ])
       .get()
       .then((value) => value.map((e) {
-            var repoData = e.readTable(favoritesRepoTable);
-            var ownerData = e.readTable(ownerTable);
+            final repoData = e.readTable(favoritesRepoTable);
+            final ownerData = e.readTable(ownerTable);
 
             return RepositoryDto.fromJson(repoData.toJson()).data
               ..owner = OwnerDto.fromJson(ownerData.toJson()).data;
@@ -69,8 +70,8 @@ class RepoDao extends DatabaseAccessor<Database> with _$RepoDaoMixin {
         ])
         .get()
         .then((value) => value.map((e) {
-              var repoData = e.readTable(favoritesRepoTable);
-              var ownerData = e.readTable(ownerTable);
+              final repoData = e.readTable(favoritesRepoTable);
+              final ownerData = e.readTable(ownerTable);
 
               return RepositoryDto.fromJson(repoData.toJson()).data
                 ..owner = OwnerDto.fromJson(ownerData.toJson()).data;

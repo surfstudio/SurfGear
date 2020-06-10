@@ -12,7 +12,7 @@ class GithubRepository {
   /// Search repository by [name]
   Future<List<Repository>> findRepositories(String name) async {
     if (name.isEmpty) return [];
-    Response response = await _client.get<Map<String, dynamic>>(
+    final Response<Map<String, dynamic>> response = await _client.get(
       'https://api.github.com/search/repositories?q=$name',
     );
     final RepositoryList repositoryList = RepositoryListDto.fromJson(
@@ -24,7 +24,7 @@ class GithubRepository {
 
   /// Get github repositories
   Future<List<Repository>> getRepositories() async {
-    Response response = await _client.get<List<dynamic>>(
+    final Response<List<Map<String, dynamic>>> response = await _client.get(
       'https://api.github.com/repositories',
     );
 

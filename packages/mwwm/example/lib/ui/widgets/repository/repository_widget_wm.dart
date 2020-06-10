@@ -5,6 +5,14 @@ import 'package:relation/relation.dart';
 
 /// Repository widget's wm
 class RepositoryWidgetWm extends WidgetModel {
+  RepositoryWidgetWm(
+    WidgetModelDependencies baseDependencies,
+    Model model,
+    Repository repo,
+  ) : super(baseDependencies, model: model) {
+    _init(repo);
+  }
+
   /// Tap on favorite button
   final favoriteTapAction = Action<bool>();
 
@@ -13,14 +21,6 @@ class RepositoryWidgetWm extends WidgetModel {
 
   /// Repository data
   final repoState = StreamedState<Repository>();
-
-  RepositoryWidgetWm(
-    WidgetModelDependencies baseDependencies,
-    Model model,
-    Repository repo,
-  ) : super(baseDependencies, model: model) {
-    _init(repo);
-  }
 
   @override
   void onBind() {
@@ -39,10 +39,10 @@ class RepositoryWidgetWm extends WidgetModel {
 
     try {
       final Repository repo = await model.perform(
-        ToggleRepositoryFavoriteValue(repoState.value, isFavorite),
+        ToggleRepositoryFavoriteValue(repoState.value, isFavorite: isFavorite),
       );
       repoState.accept(repo);
-    } catch (e) {
+    } on Exception catch (e) {
       handleError(e);
     }
   }

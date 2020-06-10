@@ -2,31 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:mwwm_github_client/data/owner.dart';
 
 class Repository {
-  int id;
-  String nodeId;
-  String name;
-  String fullName;
-  Owner owner;
-  bool private;
-  String htmlUrl;
-  String description;
-  bool fork;
-  String url;
-  String createdAt;
-  String updatedAt;
-  String pushedAt;
-  String homepage;
-  int size;
-  int stargazersCount;
-  int watchersCount;
-  String language;
-  int forksCount;
-  int openIssuesCount;
-  String masterBranch;
-  String defaultBranch;
-  double score;
-  bool isFavorite;
-
   Repository({
     @required this.owner,
     this.id,
@@ -53,6 +28,31 @@ class Repository {
     this.score,
     bool isFavorite,
   }) : isFavorite = isFavorite ?? false;
+
+  int id;
+  String nodeId;
+  String name;
+  String fullName;
+  Owner owner;
+  bool private;
+  String htmlUrl;
+  String description;
+  bool fork;
+  String url;
+  String createdAt;
+  String updatedAt;
+  String pushedAt;
+  String homepage;
+  int size;
+  int stargazersCount;
+  int watchersCount;
+  String language;
+  int forksCount;
+  int openIssuesCount;
+  String masterBranch;
+  String defaultBranch;
+  double score;
+  bool isFavorite;
 
   @override
   String toString() => {
