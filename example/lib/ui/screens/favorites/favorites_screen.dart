@@ -23,14 +23,14 @@ class FavoritesScreen extends CoreMwwmWidget {
 
 //todo: add actions to read text and search
 class _FavoritesScreenState extends WidgetState<FavoritesWm> {
-  TextEditingController _controller;
-
   _FavoritesScreenState() {
     _controller = TextEditingController()
       ..addListener(() {
         setState(() {});
       });
   }
+
+  TextEditingController _controller;
 
   @override
   Widget build(BuildContext context) {
@@ -42,34 +42,36 @@ class _FavoritesScreenState extends WidgetState<FavoritesWm> {
             Navigator.of(context).pop();
           },
         ),
-        title: Text('favorites'),
+        title: const Text('favorites'),
       ),
       body: FutureBuilder<List<Repository>>(
-        initialData: [],
+        initialData: const [],
         future: context
             .watch<GithubRepository>()
             .findRepositories(_controller.text),
         builder: (ctx, snap) {
           return ListView.builder(
             itemCount: 1,
-            itemBuilder: (ctx, i) => Container(
-              child: RepositoryWidget(
-                repository: Repository(
-                  name: 'repo_name',
-                  owner: Owner(
-                      login: 'owner_login',
-                      avatarUrl:
-                          'https://lh3.googleusercontent.com/proxy/OGL6XVA38k_lEs0Ft-7JWjusSRFJB01UGWTaY0qnHE_kD_K9gDWVyRZ_Ua2dJ_O5VbZ5y5ovpfoRlUJUBRVcRkPxHWCAWQSh_jf6HyE'),
-                  description:
-                      'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptionfdzfsdfdsafsdafsdafsd'
-                      'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptionfdzfsdfdsafsdafsdafsd'
-                      'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptionfdzfsdfdsafsdafsdafsd'
-                      'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptionfdzfsdfdsafsdafsdafsd'
-                      'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptionfdzfsdfdsafsdafsdafsd',
-                  language: 'language_name',
-                  stargazersCount: 50,
-                  watchersCount: 50,
-                ),
+            itemBuilder: (ctx, i) => RepositoryWidget(
+              repository: Repository(
+                name: 'repo_name',
+                owner: Owner(
+                    login: 'owner_login',
+                    avatarUrl:
+                        'https://lh3.googleusercontent.com/proxy/OGL6XVA38k_lEs0Ft-7JWjusSRFJB01UGWTaY0qnHE_kD_K9gDWVyRZ_Ua2dJ_O5VbZ5y5ovpfoRlUJUBRVcRkPxHWCAWQSh_jf6HyE'),
+                description: 'descriptiondescriptiondescriptiondescriptiondescr'
+                    'iptiondescriptiondescriptionfdzfsdfdsafsdafsdafsd'
+                    'descriptiondescriptiondescriptiondescriptiondescr'
+                    'iptiondescriptiondescriptionfdzfsdfdsafsdafsdafsd'
+                    'descriptiondescriptiondescriptiondescriptiondescr'
+                    'iptiondescriptiondescriptionfdzfsdfdsafsdafsdafsd'
+                    'descriptiondescriptiondescriptiondescriptiondescr'
+                    'iptiondescriptiondescriptionfdzfsdfdsafsdafsdafsd'
+                    'descriptiondescriptiondescriptiondescriptiondescr'
+                    'iptiondescriptiondescriptionfdzfsdfdsafsdafsdafsd',
+                language: 'language_name',
+                stargazersCount: 50,
+                watchersCount: 50,
               ),
             ),
           );

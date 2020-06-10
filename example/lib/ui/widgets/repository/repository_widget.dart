@@ -7,8 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:relation/relation.dart';
 
 class RepositoryWidget extends CoreMwwmWidget {
-  final Repository repository;
-
   RepositoryWidget({
     @required this.repository,
   })  : assert(repository != null),
@@ -19,6 +17,8 @@ class RepositoryWidget extends CoreMwwmWidget {
             repository,
           ),
         );
+
+  final Repository repository;
 
   @override
   State<StatefulWidget> createState() {
@@ -43,7 +43,7 @@ class _RepositoryWidgetState extends WidgetState<RepositoryWidgetWm> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     left: 16.0,
                     right: 16.0,
                     top: 16.0,
@@ -69,12 +69,12 @@ class _RepositoryWidgetState extends WidgetState<RepositoryWidgetWm> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       Text(
                         repository.description ?? '',
                         style: TextStyle(color: Colors.black54),
                       ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       Row(
                         children: <Widget>[
                           Icon(
@@ -82,9 +82,9 @@ class _RepositoryWidgetState extends WidgetState<RepositoryWidgetWm> {
                             size: 16.0,
                             color: Colors.blueAccent,
                           ),
-                          SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
                           Text('${repository.language}'),
-                          SizedBox(
+                          const SizedBox(
                             width: 24.0,
                           ),
                           Icon(
@@ -92,9 +92,9 @@ class _RepositoryWidgetState extends WidgetState<RepositoryWidgetWm> {
                             color: Colors.orangeAccent,
                             size: 16.0,
                           ),
-                          SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
                           Text('${repository.stargazersCount}'),
-                          SizedBox(
+                          const SizedBox(
                             width: 24.0,
                           ),
                           Icon(
@@ -102,9 +102,9 @@ class _RepositoryWidgetState extends WidgetState<RepositoryWidgetWm> {
                             size: 16.0,
                             color: Colors.green,
                           ),
-                          SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
                           Text('${repository.watchersCount}'),
-                          Spacer(),
+                          const Spacer(),
                           IconButton(
                             icon: StreamedStateBuilder<bool>(
                                 streamedState: wm.isFavoriteState,

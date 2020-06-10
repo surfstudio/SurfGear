@@ -6,6 +6,11 @@ import 'package:relation/relation.dart';
 /// Widget model for search repositories
 /// TODO: add actions and logic
 class RepositorySearchWm extends WidgetModel {
+  RepositorySearchWm(
+    WidgetModelDependencies baseDependencies,
+    Model model,
+  ) : super(baseDependencies, model: model);
+
   /// Represent repositories from search request
   final EntityStreamedState<List<Repository>> repositoriesState =
       EntityStreamedState(EntityState.content([]));
@@ -21,11 +26,6 @@ class RepositorySearchWm extends WidgetModel {
 
   /// Refresh requests
   final refreshAction = Action();
-
-  RepositorySearchWm(
-    WidgetModelDependencies baseDependencies,
-    Model model,
-  ) : super(baseDependencies, model: model);
 
   @override
   void onLoad() {
@@ -60,13 +60,13 @@ class RepositorySearchWm extends WidgetModel {
     repositoriesState.loading();
 
     try {
-      Change request = text?.isNotEmpty ?? false
+      final request = text?.isNotEmpty ?? false
           ? SearchRepositories(text)
           : GetRepositories();
 
       final List<Repository> repos = await model.perform(request);
       repositoriesState.content(repos);
-    } catch (e) {
+    } on Exception catch (e) {
       handleError(e);
       repositoriesState.error(e);
     }

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mwwm_github_client/ui/screens/favorites/favorites_route.dart';
 
 class FavoritesButton extends StatelessWidget {
-  final int favoriteCount;
-
   FavoritesButton(this.favoriteCount);
+
+  final int favoriteCount;
 
   @override
   Widget build(BuildContext context) {

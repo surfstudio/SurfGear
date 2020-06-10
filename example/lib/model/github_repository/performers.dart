@@ -5,9 +5,9 @@ import 'package:mwwm_github_client/model/github_repository/repository/github_rep
 
 class SearchRepositoriesPerformer
     extends FuturePerformer<List<Repository>, SearchRepositories> {
-  final GithubRepository _githubRepository;
-
   SearchRepositoriesPerformer(this._githubRepository);
+
+  final GithubRepository _githubRepository;
 
   @override
   Future<List<Repository>> perform(SearchRepositories change) {
@@ -17,9 +17,9 @@ class SearchRepositoriesPerformer
 
 class GetRepositoriesPerformer
     extends FuturePerformer<List<Repository>, GetRepositories> {
-  final GithubRepository _githubRepository;
-
   GetRepositoriesPerformer(this._githubRepository);
+
+  final GithubRepository _githubRepository;
 
   @override
   Future<List<Repository>> perform(GetRepositories change) {

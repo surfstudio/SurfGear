@@ -36,32 +36,28 @@ class _RepositorySearchScreenState extends WidgetState<RepositorySearchWm> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              Text('Произошла ошибка'),
+              const Text('Произошла ошибка'),
               FlatButton(
-                // onPressed: wm.refresh,
-                child: Text('Обновить'),
+                onPressed: wm.refreshAction,
+                child: const Text('Обновить'),
               ),
             ],
           ),
         ),
-        loadingBuilder: (ctx, _) => Center(
+        loadingBuilder: (ctx, _) => const Center(
           child: CircularProgressIndicator(),
         ),
-        child: (ctx, snap) {
-          var data = snap;
-
+        child: (ctx, repositories) {
           return ListView.builder(
-            itemCount: data.length,
-            itemBuilder: (ctx, i) => Container(
-              child: RepositoryWidget(
-                repository: data[i],
-              ),
+            itemCount: repositories.length,
+            itemBuilder: (ctx, i) => RepositoryWidget(
+              repository: repositories[i],
             ),
           );
         },
       );
 
-  Widget _buildAppBar() => AppBar(
+  PreferredSizeWidget _buildAppBar() => AppBar(
         centerTitle: true,
         title: _buildAppBarTitle(),
         leading: IconButton(
@@ -88,7 +84,7 @@ class _RepositorySearchScreenState extends WidgetState<RepositorySearchWm> {
                     hintStyle: TextStyle(color: Colors.white),
                   ),
                 )
-              : Text('search repos');
+              : const Text('search repos');
         },
       );
 }

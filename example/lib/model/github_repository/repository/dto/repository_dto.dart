@@ -1,42 +1,43 @@
 import 'package:mwwm_github_client/data/repository.dart';
 import 'package:mwwm_github_client/model/github_repository/repository/dto/owner_dto.dart';
+import 'package:mwwm_github_client/utils/json_extensions.dart';
 
 class RepositoryDto {
-  final Repository repository;
-
   RepositoryDto(this.repository);
-
-  Repository get data => repository;
 
   RepositoryDto.fromJson(Map<String, dynamic> json)
       : repository = Repository(
-          id: json['id'],
-          nodeId: json['node_id'],
-          name: json['name'] ?? '',
-          fullName: json['full_name'] ?? '',
+          id: json.get<int>('id'),
+          nodeId: json.get<String>('node_id'),
+          name: json.get<String>('name') ?? '',
+          fullName: json.get<String>('full_name') ?? '',
           owner: json['owner'] != null
-              ? OwnerDto.fromJson(json['owner']).data
+              ? OwnerDto.fromJson(json.get<Map<String, dynamic>>('owner')).data
               : null,
-          private: json['private'],
-          htmlUrl: json['html_url'],
-          description: json['description'],
-          fork: json['fork'],
-          url: json['url'],
-          createdAt: json['created_at'],
-          updatedAt: json['updated_at'],
-          pushedAt: json['pushed_at'],
-          homepage: json['homepage'],
-          size: json['size'],
-          stargazersCount: json['stargazers_count'],
-          watchersCount: json['watchers_count'],
-          language: json['language'],
-          forksCount: json['forks_count'],
-          openIssuesCount: json['open_issues_count'],
-          masterBranch: json['master_branch'],
-          defaultBranch: json['default_branch'],
-          score: json['score'],
+          private: json.get<bool>('private'),
+          htmlUrl: json.get<String>('html_url'),
+          description: json.get<String>('description'),
+          fork: json.get<bool>('fork'),
+          url: json.get<String>('url'),
+          createdAt: json.get<String>('created_at'),
+          updatedAt: json.get<String>('updated_at'),
+          pushedAt: json.get<String>('pushed_at'),
+          homepage: json.get<String>('homepage'),
+          size: json.get<int>('size'),
+          stargazersCount: json.get<int>('stargazers_count'),
+          watchersCount: json.get<int>('watchers_count'),
+          language: json.get<String>('language'),
+          forksCount: json.get<int>('forks_count'),
+          openIssuesCount: json.get<int>('open_issues_count'),
+          masterBranch: json.get<String>('master_branch'),
+          defaultBranch: json.get<String>('default_branch'),
+          score: json.get<double>('score'),
           isFavorite: false,
         );
+
+  final Repository repository;
+
+  Repository get data => repository;
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};

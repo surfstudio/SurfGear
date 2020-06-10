@@ -1,24 +1,30 @@
 import 'package:mwwm_github_client/data/repository.dart';
 import 'package:mwwm_github_client/data/repository_list.dart';
 import 'package:mwwm_github_client/model/github_repository/repository/dto/repository_dto.dart';
+import 'package:mwwm_github_client/utils/json_extensions.dart';
 
 class RepositoryListDto {
-  final RepositoryList repos;
-
   RepositoryListDto(this.repos);
-
-  RepositoryList get data => repos;
 
   RepositoryListDto.fromJson(Map<String, dynamic> json)
       : repos = RepositoryList(
-          totalCount: json['total_count'],
-          incompleteResults: json['incomplete_results'],
+          totalCount: json.get<int>('total_count'),
+          incompleteResults: json.get<bool>(
+            'incomplete_results',
+            defaultValue: true,
+          ),
           items: json['items'] != null
-              ? json['items'].map<Repository>((json) {
+              ? json
+                  .get<List<Map<String, dynamic>>>('items')
+                  .map<Repository>((json) {
                   return RepositoryDto.fromJson(json).data;
                 }).toList()
               : [],
         );
+
+  final RepositoryList repos;
+
+  RepositoryList get data => repos;
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
