@@ -1,39 +1,32 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/model/performers.dart';
+import 'package:mwwm_github_client/ui/widgets/repository/repository_widget_wm.dart';
 import 'package:provider/provider.dart';
-import 'package:mwwm_github_client/model/repository/response/reponses.dart';
-import 'package:mwwm_github_client/ui/common/repo_item/repo_item_wm.dart';
+import 'package:mwwm_github_client/model/repository/response/responses.dart';
 import 'package:relation/relation.dart';
 
-//todo добавить сохранение в бд
-class RepoItemUiModel {
+class RepositoryWidget extends CoreMwwmWidget {
   final Repo repository;
 
-  RepoItemUiModel({
-    this.repository,
-  });
-}
-
-class RepoItem extends CoreMwwmWidget {
-  final RepoItemUiModel item;
-  RepoItem(this.item, {WidgetModelBuilder wmBuilder})
-      : super(
-            widgetModelBuilder: wmBuilder ??
-                (ctx) => RepoItemWm(
-                      ctx.read<WidgetModelDependencies>(),
-                      Model([ToggleFavoritePerformer()]),
-                      item.repository,
-                    ));
+  RepositoryWidget({
+    @required this.repository,
+  })  : assert(repository != null),
+        super(
+          widgetModelBuilder: (context) => RepositoryWidgetWm(
+            context.read<WidgetModelDependencies>(),
+            Model([ToggleFavoritePerformer()]),
+            repository,
+          ),
+        );
 
   @override
   State<StatefulWidget> createState() {
-    return _RepoItemState();
+    return _RepositoryWidgetState();
   }
 }
 
-class _RepoItemState extends WidgetState<RepoItemWm> {
+class _RepositoryWidgetState extends WidgetState<RepositoryWidgetWm> {
   @override
   Widget build(BuildContext context) {
     return StreamedStateBuilder<Repo>(
@@ -114,7 +107,7 @@ class _RepoItemState extends WidgetState<RepoItemWm> {
                           Spacer(),
                           IconButton(
                             icon: StreamedStateBuilder<bool>(
-                                streamedState: wm.isFavorite,
+                                streamedState: wm.isFavoriteState,
                                 builder: (context, isFavorite) {
                                   return Icon(
                                     isFavorite
@@ -123,8 +116,9 @@ class _RepoItemState extends WidgetState<RepoItemWm> {
                                     color: Colors.redAccent,
                                   );
                                 }),
-                            onPressed: () =>
-                                wm.addToFavorite(repository.isFavorite),
+                            onPressed: () => wm.favoriteTapAction(
+                              repository.isFavorite,
+                            ),
                           ),
                         ],
                       ),

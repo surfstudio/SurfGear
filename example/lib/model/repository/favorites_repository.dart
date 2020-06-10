@@ -1,5 +1,5 @@
 import 'package:mwwm_github_client/model/database/database.dart';
-import 'package:mwwm_github_client/model/repository/response/reponses.dart';
+import 'package:mwwm_github_client/model/repository/response/responses.dart';
 
 class FavoritesRepository {
   final List<Repo> _favoritesList = [];

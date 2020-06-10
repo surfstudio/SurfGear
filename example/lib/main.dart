@@ -4,7 +4,6 @@ import 'package:mwwm_github_client/model/database/database.dart';
 import 'package:mwwm_github_client/model/repository/favorites_repository.dart';
 import 'package:mwwm_github_client/model/repository/github_repository.dart';
 import 'package:mwwm_github_client/ui/app.dart';
-import 'package:mwwm_github_client/ui/common/error_handler.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -15,7 +14,7 @@ void main() {
         providers: [
           Provider(
             create: (_) => WidgetModelDependencies(
-              errorHandler: DefaultErrorHadler(),
+              errorHandler: DefaultErrorHandler(),
             ),
           ),
           Provider(
@@ -29,4 +28,13 @@ void main() {
       ),
     ),
   );
+}
+
+/// Log errors
+class DefaultErrorHandler implements ErrorHandler {
+  @override
+  void handleError(Object e) {
+    //here you can place logic for error handling
+    print(e);
+  }
 }
