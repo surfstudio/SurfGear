@@ -1,8 +1,10 @@
+import 'package:mwwm_github_client/data/repository.dart';
 import 'package:mwwm_github_client/model/database/database.dart';
-import 'package:mwwm_github_client/model/repository/response/responses.dart';
+import 'package:mwwm_github_client/model/repository/dto/owner_dto.dart';
+import 'package:mwwm_github_client/model/repository/dto/repository_dto.dart';
 
 class FavoritesRepository {
-  final List<Repo> _favoritesList = [];
+  final List<Repository> _favoritesList = [];
   Database _db;
   RepoDao _dao;
 
@@ -11,41 +13,59 @@ class FavoritesRepository {
     _dao = db.repoDao;
   }
 
-  Future<List<Repo>> add(Repo r) async {
+  Future<List<Repository>> add(Repository r) async {
     _favoritesList.add(r);
     return _favoritesList;
   }
 
-  Future<List<Repo>> delete(Repo r) async {
+  Future<List<Repository>> delete(Repository r) async {
     _favoritesList.remove(r);
     return _favoritesList;
   }
 
-  Future<List<Repo>> getAllRepos() async {
+  Future<List<Repository>> getAllRepos() async {
     return _dao.getAllRepos;
   }
 
-  Future<List<Repo>> getByName(String name) async {
+  Future<List<Repository>> getByName(String name) async {
     return _dao.getRepoByName(name);
   }
 
-  Future insertRepo(Repo data) {
-    var repoData = FavoritesRepoTableData.fromData(data.toJson(), _db);
-    var ownerData = OwnerTableData.fromData(data.owner.toJson(), _db);
+  Future insertRepo(Repository data) {
+    var repoData = FavoritesRepoTableData.fromData(
+      RepositoryDto(data).toJson(),
+      _db,
+    );
+    var ownerData = OwnerTableData.fromData(
+      OwnerDto(data.owner).toJson(),
+      _db,
+    );
 
     return _dao.insertRepo(repoData, ownerData);
   }
 
-  Future updateRepo(Repo data) {
-    var repoTableData = FavoritesRepoTableData.fromData(data.toJson(), _db);
-    var ownerData = OwnerTableData.fromData(data.owner.toJson(), _db);
+  Future updateRepo(Repository data) {
+    var repoTableData = FavoritesRepoTableData.fromData(
+      RepositoryDto(data).toJson(),
+      _db,
+    );
+    var ownerData = OwnerTableData.fromData(
+      OwnerDto(data.owner).toJson(),
+      _db,
+    );
 
     return _dao.updateRepo(repoTableData, ownerData);
   }
 
-  Future deleteRepo(Repo data) {
-    var repoTableData = FavoritesRepoTableData.fromData(data.toJson(), _db);
-    var ownerData = OwnerTableData.fromData(data.owner.toJson(), _db);
+  Future deleteRepo(Repository data) {
+    var repoTableData = FavoritesRepoTableData.fromData(
+      RepositoryDto(data).toJson(),
+      _db,
+    );
+    var ownerData = OwnerTableData.fromData(
+      OwnerDto(data.owner).toJson(),
+      _db,
+    );
 
     return _dao.deleteRepo(repoTableData, ownerData);
   }

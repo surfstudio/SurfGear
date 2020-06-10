@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:mwwm_github_client/model/repository/response/responses.dart';
+import 'package:mwwm_github_client/data/repository.dart';
 
 import 'package:mwwm_github_client/ui/screens/repository_search/repository_search_wm.dart';
 import 'package:mwwm_github_client/ui/widgets/repository/repository_widget.dart';
@@ -30,7 +30,7 @@ class _RepositorySearchScreenState extends WidgetState<RepositorySearchWm> {
     );
   }
 
-  Widget _buildBody() => EntityStateBuilder<List<Repo>>(
+  Widget _buildBody() => EntityStateBuilder<List<Repository>>(
         streamedState: wm.repositoriesState,
         errorBuilder: (ctx, _) => Center(
           child: Column(

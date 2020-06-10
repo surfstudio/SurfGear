@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:mwwm_github_client/data/owner.dart';
+import 'package:mwwm_github_client/data/repository.dart';
 import 'package:mwwm_github_client/model/repository/github_repository.dart';
-import 'package:mwwm_github_client/model/repository/response/responses.dart';
 import 'package:mwwm_github_client/ui/screens/favorites/favorites_wm.dart';
 import 'package:mwwm_github_client/ui/widgets/repository/repository_widget.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +44,7 @@ class _FavoritesScreenState extends WidgetState<FavoritesWm> {
         ),
         title: Text('favorites'),
       ),
-      body: FutureBuilder<List<Repo>>(
+      body: FutureBuilder<List<Repository>>(
         initialData: [],
         future: context.watch<GithubRepository>().getRepos(_controller.text),
         builder: (ctx, snap) {
@@ -51,7 +52,7 @@ class _FavoritesScreenState extends WidgetState<FavoritesWm> {
             itemCount: 1,
             itemBuilder: (ctx, i) => Container(
               child: RepositoryWidget(
-                repository: Repo(
+                repository: Repository(
                   name: 'repo_name',
                   owner: Owner(
                       login: 'owner_login',

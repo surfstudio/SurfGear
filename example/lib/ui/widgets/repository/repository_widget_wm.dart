@@ -1,8 +1,7 @@
 import 'package:mwwm/mwwm.dart';
+import 'package:mwwm_github_client/data/repository.dart';
 import 'package:mwwm_github_client/model/changes.dart';
-import 'package:mwwm_github_client/model/repository/response/responses.dart';
 import 'package:relation/relation.dart';
-import 'package:pedantic/pedantic.dart';
 
 /// Repository widget's wm
 class RepositoryWidgetWm extends WidgetModel {
@@ -13,12 +12,12 @@ class RepositoryWidgetWm extends WidgetModel {
   final isFavoriteState = StreamedState<bool>(false);
 
   /// Repository data
-  final repoState = StreamedState<Repo>();
+  final repoState = StreamedState<Repository>();
 
   RepositoryWidgetWm(
     WidgetModelDependencies baseDependencies,
     Model model,
-    Repo repo,
+    Repository repo,
   ) : super(baseDependencies, model: model) {
     _init(repo);
   }
@@ -30,19 +29,19 @@ class RepositoryWidgetWm extends WidgetModel {
     subscribe(favoriteTapAction.stream, _handleFavoriteTap);
   }
 
-  void _init(Repo repo) {
+  void _init(Repository repo) {
     repoState.accept(repo);
     isFavoriteState.accept(repo.isFavorite);
   }
 
   Future<void> _handleFavoriteTap(bool isFavorite) async {
-    unawaited(isFavoriteState.accept(!isFavorite));
+    isFavoriteState.accept(!isFavorite);
 
     try {
-      final Repo repo = await model.perform(
+      final Repository repo = await model.perform(
         ToggleFavorite(repoState.value, isFavorite),
       );
-      unawaited(repoState.accept(repo));
+      repoState.accept(repo);
     } catch (e) {
       handleError(e);
     }

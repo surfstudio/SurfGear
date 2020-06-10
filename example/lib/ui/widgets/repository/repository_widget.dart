@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:mwwm_github_client/data/repository.dart';
 import 'package:mwwm_github_client/model/performers.dart';
 import 'package:mwwm_github_client/ui/widgets/repository/repository_widget_wm.dart';
 import 'package:provider/provider.dart';
-import 'package:mwwm_github_client/model/repository/response/responses.dart';
 import 'package:relation/relation.dart';
 
 class RepositoryWidget extends CoreMwwmWidget {
-  final Repo repository;
+  final Repository repository;
 
   RepositoryWidget({
     @required this.repository,
@@ -29,7 +29,7 @@ class RepositoryWidget extends CoreMwwmWidget {
 class _RepositoryWidgetState extends WidgetState<RepositoryWidgetWm> {
   @override
   Widget build(BuildContext context) {
-    return StreamedStateBuilder<Repo>(
+    return StreamedStateBuilder<Repository>(
         streamedState: wm.repoState,
         builder: (context, repository) {
           return Card(
