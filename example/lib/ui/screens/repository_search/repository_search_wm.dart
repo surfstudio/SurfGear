@@ -60,8 +60,11 @@ class RepositorySearchWm extends WidgetModel {
     repositoriesState.loading();
 
     try {
-      final List<Repository> repos =
-          await model.perform(SearchRepositories(text));
+      Change request = text?.isNotEmpty ?? false
+          ? SearchRepositories(text)
+          : GetRepositories();
+
+      final List<Repository> repos = await model.perform(request);
       repositoriesState.content(repos);
     } catch (e) {
       handleError(e);

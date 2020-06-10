@@ -1,3 +1,4 @@
+import 'package:mwwm_github_client/data/repository.dart';
 import 'package:mwwm_github_client/data/repository_list.dart';
 import 'package:mwwm_github_client/model/github_repository/repository/dto/repository_dto.dart';
 
@@ -13,7 +14,7 @@ class RepositoryListDto {
           totalCount: json['total_count'],
           incompleteResults: json['incomplete_results'],
           items: json['items'] != null
-              ? json['items'].map((json) {
+              ? json['items'].map<Repository>((json) {
                   return RepositoryDto.fromJson(json).data;
                 }).toList()
               : [],

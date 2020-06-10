@@ -11,14 +11,19 @@ class RepositorySearchRoute extends MaterialPageRoute {
   RepositorySearchRoute()
       : super(
           builder: (context) => RepositorySearchScreen(
-            widgetModelBuilder: (context) => RepositorySearchWm(
-              context.read<WidgetModelDependencies>(),
-              Model([
-                SearchRepositoriesPerformer(
-                  context.read<GithubRepository>(),
-                ),
-              ]),
-            ),
+            widgetModelBuilder: _buildWm,
           ),
         );
 }
+
+WidgetModel _buildWm(BuildContext context) => RepositorySearchWm(
+      context.read<WidgetModelDependencies>(),
+      Model([
+        SearchRepositoriesPerformer(
+          context.read<GithubRepository>(),
+        ),
+        GetRepositoriesPerformer(
+          context.read<GithubRepository>(),
+        )
+      ]),
+    );

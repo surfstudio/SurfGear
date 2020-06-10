@@ -46,7 +46,9 @@ class _FavoritesScreenState extends WidgetState<FavoritesWm> {
       ),
       body: FutureBuilder<List<Repository>>(
         initialData: [],
-        future: context.watch<GithubRepository>().getRepos(_controller.text),
+        future: context
+            .watch<GithubRepository>()
+            .findRepositories(_controller.text),
         builder: (ctx, snap) {
           return ListView.builder(
             itemCount: 1,
