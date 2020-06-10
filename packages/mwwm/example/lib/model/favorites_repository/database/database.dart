@@ -1,9 +1,9 @@
 import 'package:moor_flutter/moor_flutter.dart';
 import 'package:mwwm_github_client/data/repository.dart';
-import 'package:mwwm_github_client/model/database/table/tables.dart';
 import 'package:moor_ffi/moor_ffi.dart';
-import 'package:mwwm_github_client/model/repository/dto/owner_dto.dart';
-import 'package:mwwm_github_client/model/repository/dto/repository_dto.dart';
+import 'package:mwwm_github_client/model/favorites_repository/database/table/tables.dart';
+import 'package:mwwm_github_client/model/github_repository/repository/dto/owner_dto.dart';
+import 'package:mwwm_github_client/model/github_repository/repository/dto/repository_dto.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:moor/moor.dart';

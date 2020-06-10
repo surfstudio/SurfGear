@@ -1,5 +1,5 @@
 import 'package:mwwm_github_client/data/repository_list.dart';
-import 'package:mwwm_github_client/model/repository/dto/repository_dto.dart';
+import 'package:mwwm_github_client/model/github_repository/repository/dto/repository_dto.dart';
 
 class RepositoryListDto {
   final RepositoryList repos;

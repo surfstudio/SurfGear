@@ -1,6 +1,6 @@
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/data/repository.dart';
-import 'package:mwwm_github_client/model/changes.dart';
+import 'package:mwwm_github_client/model/github_repository/changes.dart';
 import 'package:relation/relation.dart';
 
 /// Widget model for search repositories
@@ -60,7 +60,8 @@ class RepositorySearchWm extends WidgetModel {
     repositoriesState.loading();
 
     try {
-      final List<Repository> repos = await model.perform(SearchRepos(text));
+      final List<Repository> repos =
+          await model.perform(SearchRepositories(text));
       repositoriesState.content(repos);
     } catch (e) {
       handleError(e);

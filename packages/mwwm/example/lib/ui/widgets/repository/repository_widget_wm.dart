@@ -1,6 +1,6 @@
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/data/repository.dart';
-import 'package:mwwm_github_client/model/changes.dart';
+import 'package:mwwm_github_client/model/favorites_repository/changes.dart';
 import 'package:relation/relation.dart';
 
 /// Repository widget's wm
@@ -39,7 +39,7 @@ class RepositoryWidgetWm extends WidgetModel {
 
     try {
       final Repository repo = await model.perform(
-        ToggleFavorite(repoState.value, isFavorite),
+        ToggleRepositoryFavoriteValue(repoState.value, isFavorite),
       );
       repoState.accept(repo);
     } catch (e) {
