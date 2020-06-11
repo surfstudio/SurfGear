@@ -13,10 +13,10 @@ class Environment<T> implements Listenable {
   static Environment _instance;
 
   Environment._([BuildType buildType, T config])
-      : this._currentBuildType = buildType ?? BuildType.debug,
+      : _currentBuildType = buildType ?? BuildType.debug,
         _config = ValueNotifier(config);
 
-  static init<T>({
+  static void init<T>({
     @required BuildType buildType,
     @required T config,
   }) {

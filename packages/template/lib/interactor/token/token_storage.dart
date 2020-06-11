@@ -3,8 +3,8 @@ import 'package:flutter_template/util/sp_helper.dart';
 
 /// Хранилище токена сессии
 class AuthInfoStorage {
-  static const KEY_TOKEN = "KEY_TOKEN";
-  static const KEY_PIN = "KEY_PIN";
+  static const KEY_TOKEN = 'KEY_TOKEN';
+  static const KEY_PIN = 'KEY_PIN';
 
   final PreferencesHelper _preferencesHelper;
   String _token;

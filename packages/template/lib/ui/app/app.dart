@@ -14,8 +14,8 @@ import 'package:surf_mwwm/surf_mwwm.dart';
 
 // todo оставить здесь только необходимые маршруты
 class Router {
-  static const String root = "/";
-  static const String splashScreen = "/splash";
+  static const String root = '/';
+  static const String splashScreen = '/splash';
 
   static final Map<String, Route Function(dynamic data)> routes = {
     Router.root: (data) => WelcomeScreenRoute(),
@@ -47,6 +47,7 @@ class _AppState extends WidgetState<AppWidgetModel> {
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: Injector.of<AppComponent>(context).component.navigator,
@@ -57,7 +58,7 @@ class _AppState extends WidgetState<AppWidgetModel> {
             error: errorDetails,
             backgroundColor: Colors.white,
             textColor: Colors.black,
-            errorMessage: "test",
+            errorMessage: 'test',
           );
         };
         return widget;

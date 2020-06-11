@@ -142,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
               builder: (context, snapshot) {
                 return Text(
                   '${snapshot.data.value}',
-                  style: Theme.of(context).textTheme.display1,
+                  style: Theme.of(context).textTheme.headline4,
                 );
               },
             ),

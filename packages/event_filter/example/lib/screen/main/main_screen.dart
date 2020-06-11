@@ -46,7 +46,7 @@ class _MainScreenState extends WidgetState<MainScreenWidgetModel> {
             ),
             Text(
               '0',
-              style: Theme.of(context).textTheme.display1,
+              style: Theme.of(context).textTheme.headline4,
             ),
           ],
         ),

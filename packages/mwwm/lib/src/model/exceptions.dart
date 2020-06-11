@@ -22,7 +22,7 @@ class NoPerformerException implements Exception {
 
   @override
   String toString() {
-    return "No performer found for $change";
+    return 'No performer found for $change';
   }
 }
 
@@ -34,6 +34,6 @@ class NoBroadcastPerformerException implements Exception {
 
   @override
   String toString() {
-    return "No broadcast found for $change";
+    return 'No broadcast found for $change';
   }
 }

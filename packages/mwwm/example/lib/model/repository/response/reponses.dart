@@ -11,19 +11,19 @@ class RepoList {
     totalCount = json['total_count'];
     incompleteResults = json['incomplete_results'];
     if (json['items'] != null) {
-      items = new List<Repo>();
+      items = <Repo>[];
       json['items'].forEach((v) {
-        items.add(new Repo.fromJson(v));
+        items.add(Repo.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total_count'] = this.totalCount;
-    data['incomplete_results'] = this.incompleteResults;
-    if (this.items != null) {
-      data['items'] = this.items.map((v) => v.toJson()).toList();
+    final data = <String, dynamic>{};
+    data['total_count'] = totalCount;
+    data['incomplete_results'] = incompleteResults;
+    if (items != null) {
+      data['items'] = items.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -81,14 +81,14 @@ class Repo {
     this.defaultBranch,
     this.score,
     bool isFavorite,
-  }) : this.isFavorite = isFavorite ?? false;
+  }) : isFavorite = isFavorite ?? false;
 
   Repo.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nodeId = json['node_id'];
     name = json['name'] ?? '';
     fullName = json['full_name'] ?? '';
-    owner = json['owner'] != null ? new Owner.fromJson(json['owner']) : null;
+    owner = json['owner'] != null ? Owner.fromJson(json['owner']) : null;
     private = json['private'];
     htmlUrl = json['html_url'];
     description = json['description'];
@@ -112,33 +112,33 @@ class Repo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['node_id'] = this.nodeId;
-    data['name'] = this.name;
-    data['full_name'] = this.fullName;
-    if (this.owner != null) {
-      data['owner'] = this.owner.toJson();
-      data['ownerId'] = this.owner.id;
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['node_id'] = nodeId;
+    data['name'] = name;
+    data['full_name'] = fullName;
+    if (owner != null) {
+      data['owner'] = owner.toJson();
+      data['ownerId'] = owner.id;
     }
-    data['private'] = this.private;
-    data['html_url'] = this.htmlUrl;
-    data['description'] = this.description;
-    data['fork'] = this.fork;
-    data['url'] = this.url;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['pushed_at'] = this.pushedAt;
-    data['homepage'] = this.homepage;
-    data['size'] = this.size;
-    data['stargazers_count'] = this.stargazersCount;
-    data['watchers_count'] = this.watchersCount;
-    data['language'] = this.language;
-    data['forks_count'] = this.forksCount;
-    data['open_issues_count'] = this.openIssuesCount;
-    data['master_branch'] = this.masterBranch;
-    data['default_branch'] = this.defaultBranch;
-    data['score'] = this.score;
+    data['private'] = private;
+    data['html_url'] = htmlUrl;
+    data['description'] = description;
+    data['fork'] = fork;
+    data['url'] = url;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['pushed_at'] = pushedAt;
+    data['homepage'] = homepage;
+    data['size'] = size;
+    data['stargazers_count'] = stargazersCount;
+    data['watchers_count'] = watchersCount;
+    data['language'] = language;
+    data['forks_count'] = forksCount;
+    data['open_issues_count'] = openIssuesCount;
+    data['master_branch'] = masterBranch;
+    data['default_branch'] = defaultBranch;
+    data['score'] = score;
 
     isFavorite = false;
     return data;
@@ -182,15 +182,15 @@ class Owner {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['login'] = this.login;
-    data['id'] = this.id;
-    data['node_id'] = this.nodeId;
-    data['avatar_url'] = this.avatarUrl;
-    data['gravatar_id'] = this.gravatarId;
-    data['url'] = this.url;
-    data['received_events_url'] = this.receivedEventsUrl;
-    data['type'] = this.type;
+    final data = <String, dynamic>{};
+    data['login'] = login;
+    data['id'] = id;
+    data['node_id'] = nodeId;
+    data['avatar_url'] = avatarUrl;
+    data['gravatar_id'] = gravatarId;
+    data['url'] = url;
+    data['received_events_url'] = receivedEventsUrl;
+    data['type'] = type;
     return data;
   }
 

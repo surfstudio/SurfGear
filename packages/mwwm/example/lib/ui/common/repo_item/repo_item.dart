@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/model/performers.dart';
-import 'package:mwwm_github_client/model/repository/favorites_repository.dart';
 import 'package:provider/provider.dart';
 import 'package:mwwm_github_client/model/repository/response/reponses.dart';
 import 'package:mwwm_github_client/ui/common/repo_item/repo_item_wm.dart';
