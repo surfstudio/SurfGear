@@ -74,6 +74,24 @@ By **convention** create a same constructor:
                   ),
         );
 ```
+or by route:
+```
+  class RepositorySearchRoute extends MaterialPageRoute {
+    RepositorySearchRoute()
+        : super(
+            builder: (context) => RepositorySearchScreen(
+              widgetModelBuilder: _buildWm,
+            ),
+          );
+  }
+
+  WidgetModel _buildWm(BuildContext context) => RepositorySearchWm(
+        context.read<WidgetModelDependencies>(),
+        Model([
+          // performets
+        ]),
+      );
+```
 
 Change parent of State of StatefulWidget to [WidgetState](./lib/src/widget_state.dart):
 ```
