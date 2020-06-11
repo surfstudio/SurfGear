@@ -96,6 +96,7 @@ class GeolocatorService implements LocationService {
   }
 
   Location _positionToLocation(lib.Position position) {
+    if(position == null) return Location();
     return Location(
       latitude: position.latitude,
       longitude: position.longitude,
