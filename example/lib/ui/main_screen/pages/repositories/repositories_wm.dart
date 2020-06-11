@@ -1,5 +1,6 @@
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/data/repository.dart';
+import 'package:mwwm_github_client/model/favorites_repository/changes.dart';
 import 'package:mwwm_github_client/model/github_repository/changes.dart';
 import 'package:relation/relation.dart';
 
@@ -12,8 +13,9 @@ class RepositoriesWm extends WidgetModel {
   ) : super(baseDependencies, model: model);
 
   /// Represent repositories from search request
-  final EntityStreamedState<List<Repository>> repositoriesState =
-      EntityStreamedState(EntityState.content([]));
+  final repositoriesState = EntityStreamedState<List<Repository>>(
+    EntityState.loading(),
+  );
 
   /// Indicate search process
   final isSearchActiveState = StreamedState<bool>(false);
@@ -60,11 +62,20 @@ class RepositoriesWm extends WidgetModel {
     repositoriesState.loading();
 
     try {
-      final request = text?.isNotEmpty ?? false
+      final FutureChange<List<Repository>> request = text?.isNotEmpty ?? false
           ? SearchRepositories(text)
           : GetRepositories();
 
       final List<Repository> repos = await model.perform(request);
+      final List<Repository> favorites = await model.perform(
+        GetFavoriteRepositories(),
+      );
+
+      for (var fav in favorites) {
+        final Repository repo = repos.firstWhere((repo) => repo.id == fav.id);
+        repo.isFavorite = true;
+      }
+
       repositoriesState.content(repos);
     } on Exception catch (e) {
       handleError(e);

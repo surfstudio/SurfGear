@@ -2,7 +2,7 @@ import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/data/repository.dart';
 
 /// Switch repository's favorite value
-class ToggleRepositoryFavoriteValue extends FutureChange<Repository> {
+class ToggleRepositoryFavoriteValue extends FutureChange<void> {
   ToggleRepositoryFavoriteValue(
     this.repo, {
     this.isFavorite,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/data/repository.dart';
+import 'package:mwwm_github_client/model/favorites_repository/performers.dart';
+import 'package:mwwm_github_client/model/favorites_repository/repository/favorites_repository.dart';
 import 'package:mwwm_github_client/model/github_repository/performers.dart';
 import 'package:mwwm_github_client/model/github_repository/repository/github_repository.dart';
 import 'package:mwwm_github_client/ui/main_screen/pages/repositories/repositories_wm.dart';
@@ -18,18 +20,20 @@ class RepositoriesPage extends CoreMwwmWidget {
           key: key,
           widgetModelBuilder: widgetModelBuilder ??
               (context) => RepositoriesWm(
-                  context.read<WidgetModelDependencies>(),
-                  Model([
-                    SearchRepositoriesPerformer(
-                      context.read<GithubRepository>(),
-                    ),
-                    GetRepositoriesPerformer(
-                      context.read<GithubRepository>(),
-                    )
-                  ]),
-                ),
-        ) {
-  }
+                    context.read<WidgetModelDependencies>(),
+                    Model([
+                      SearchRepositoriesPerformer(
+                        context.read<GithubRepository>(),
+                      ),
+                      GetRepositoriesPerformer(
+                        context.read<GithubRepository>(),
+                      ),
+                      GetFavoriteRepositoriesPerformer(
+                        context.read<FavoritesRepository>(),
+                      )
+                    ]),
+                  ),
+        );
 
   @override
   State<StatefulWidget> createState() {
@@ -40,7 +44,6 @@ class RepositoriesPage extends CoreMwwmWidget {
 class _RepositoriesScreenState extends WidgetState<RepositoriesWm> {
   @override
   Widget build(BuildContext context) {
-    // return _buildBody();
     return Scaffold(
       appBar: _buildAppBar(),
       body: _buildBody(),
