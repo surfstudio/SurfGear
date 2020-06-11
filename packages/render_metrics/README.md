@@ -1,5 +1,7 @@
 # render_metrics
 
+![](logo.png)
+
 A library that helps to perform actions with some periodicity
 
 ## Usage of RenderMetrics
