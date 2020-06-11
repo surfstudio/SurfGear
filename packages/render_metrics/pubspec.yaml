@@ -2,6 +2,8 @@ name: render_metrics
 description: library for getting widget metrics.
 version: 0.0.1
 author:
+homepage: https://github.com/surfstudio/render_metrics
+repository: https://github.com/surfstudio/render_metrics
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -56,5 +58,5 @@ custom:
   unstable_version: 0
   is_plugin: false
   path: render_metrics
-  separate_repo_url:
+  separate_repo_url: https://github.com/surfstudio/render_metrics
   hostUrl:
