@@ -16,7 +16,7 @@ CounterInteractorMock getCounterInteractor() {
   var mock = CounterInteractorMock();
 
   when(mock.counterObservable)
-      .thenAnswer((_) => Observable<Counter>.just(Counter(111)));
+      .thenAnswer((_) => Stream<Counter>.value(Counter(111)));
 
   return mock;
 }

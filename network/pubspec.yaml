@@ -14,12 +14,12 @@ dependencies:
   logger:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-RIG-18
+      ref: project-RIG-21
       path: logger
 
-  dio: 3.0.8
-  http: 0.12.0+4
-  rxdart: 0.22.0
+  dio: 2.1.2
+  http: 0.12.0+2
+  rxdart: 0.24.1
 
 dev_dependencies:
   flutter_test:

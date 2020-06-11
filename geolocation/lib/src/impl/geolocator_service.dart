@@ -75,7 +75,7 @@ class GeolocatorService implements LocationService {
   }
 
   @override
-  Observable<Location> observeLocation() {
+  Stream<Location> observeLocation() {
     final options = lib.LocationOptions(
       accuracy: accuracy,
       distanceFilter: distanceFilter,
@@ -83,7 +83,7 @@ class GeolocatorService implements LocationService {
       forceAndroidLocationManager: shouldUseLocationManager,
     );
 
-    return Observable(_geolocator.getPositionStream(options))
+    return _geolocator.getPositionStream(options)
         .map(_positionToLocation)
         .doOnError(_handleError);
   }

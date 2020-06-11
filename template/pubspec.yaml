@@ -14,44 +14,44 @@ dependencies:
   network:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-RIG-18
+      ref: project-RIG-21
       path: network
   logger:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-RIG-18
+      ref: project-RIG-21
       path: logger
   injector:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-RIG-18
+      ref: project-RIG-21
       path: injector
   mwwm:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-RIG-18
+      ref: project-RIG-21
       path: mwwm
   geolocation:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-RIG-18
+      ref: project-RIG-21
       path: geolocation
   analytics:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-RIG-18
+      ref: project-RIG-21
       path: analytics
 
   # модуль push уведомлений
   push:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-RIG-18
+      ref: project-RIG-21
       path: push
   surf_util:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-RIG-18
+      ref: project-RIG-21
       path: surf_util
 
   intl: ^0.15.7
@@ -67,7 +67,7 @@ dependencies:
   path_provider: ^1.3.0
 
   #rx
-  rxdart: ^0.22.0
+  rxdart: 0.24.1
 
   #crash reporting
   firebase_crashlytics: ^0.1.0+3

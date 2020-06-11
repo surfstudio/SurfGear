@@ -12,7 +12,13 @@ dependencies:
     sdk: flutter
 
   #rx
-  rxdart: 0.22.0
+  rxdart: 0.24.1
+
+  mwwm:
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      ref: project-RIG-21
+      path: mwwm
 
 dev_dependencies:
   flutter_test:
