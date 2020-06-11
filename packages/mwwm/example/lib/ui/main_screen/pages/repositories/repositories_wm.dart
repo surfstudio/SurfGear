@@ -5,8 +5,8 @@ import 'package:relation/relation.dart';
 
 /// Widget model for search repositories
 /// TODO: add actions and logic
-class RepositorySearchWm extends WidgetModel {
-  RepositorySearchWm(
+class RepositoriesWm extends WidgetModel {
+  RepositoriesWm(
     WidgetModelDependencies baseDependencies,
     Model model,
   ) : super(baseDependencies, model: model);
