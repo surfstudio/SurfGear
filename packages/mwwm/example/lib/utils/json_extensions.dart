@@ -9,7 +9,7 @@ extension JsonExtensions on Map<String, dynamic> {
     if (value is T) {
       return value;
     } else {
-      throw Exception('Unknown value $value for cast to ${T.runtimeType}');
+      throw Exception('Type: $T is not value type: ${value.runtimeType}');
     }
   }
 }

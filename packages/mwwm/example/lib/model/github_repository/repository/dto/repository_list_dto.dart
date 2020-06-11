@@ -14,10 +14,10 @@ class RepositoryListDto {
             defaultValue: true,
           ),
           items: json['items'] != null
-              ? json
-                  .get<List<Map<String, dynamic>>>('items')
-                  .map<Repository>((json) {
-                  return RepositoryDto.fromJson(json).data;
+              ? json.get<List<dynamic>>('items').map<Repository>((json) {
+                  return RepositoryDto.fromJson(
+                    json as Map<String, dynamic>,
+                  ).data;
                 }).toList()
               : [],
         );
