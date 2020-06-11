@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mwwm_github_client/ui/screens/favorites/favorites_route.dart';
+import 'package:mwwm_github_client/ui/main_screen/pages/favorites/favorites_route.dart';
 
 class FavoritesButton extends StatelessWidget {
   FavoritesButton(this.favoriteCount);

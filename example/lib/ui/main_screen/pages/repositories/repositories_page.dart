@@ -1,29 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/data/repository.dart';
+import 'package:mwwm_github_client/model/github_repository/performers.dart';
+import 'package:mwwm_github_client/model/github_repository/repository/github_repository.dart';
+import 'package:mwwm_github_client/ui/main_screen/pages/repositories/repositories_wm.dart';
 
-import 'package:mwwm_github_client/ui/screens/repository_search/repository_search_wm.dart';
 import 'package:mwwm_github_client/ui/widgets/repository/repository_widget.dart';
 import 'package:relation/relation.dart';
+import 'package:provider/provider.dart';
 
 /// Search repository screen
-class RepositorySearchScreen extends CoreMwwmWidget {
-  RepositorySearchScreen({
-    @required WidgetModelBuilder widgetModelBuilder,
-  })  : assert(widgetModelBuilder != null),
-        super(widgetModelBuilder: widgetModelBuilder);
+class RepositoriesPage extends CoreMwwmWidget {
+  RepositoriesPage({
+    Key key,
+    WidgetModelBuilder widgetModelBuilder,
+  }) : super(
+          key: key,
+          widgetModelBuilder: widgetModelBuilder ??
+              (context) => RepositoriesWm(
+                  context.read<WidgetModelDependencies>(),
+                  Model([
+                    SearchRepositoriesPerformer(
+                      context.read<GithubRepository>(),
+                    ),
+                    GetRepositoriesPerformer(
+                      context.read<GithubRepository>(),
+                    )
+                  ]),
+                ),
+        ) {
+  }
 
   @override
   State<StatefulWidget> createState() {
-    return _RepositorySearchScreenState();
+    return _RepositoriesScreenState();
   }
 }
 
-class _RepositorySearchScreenState extends WidgetState<RepositorySearchWm> {
-  _RepositorySearchScreenState();
-
+class _RepositoriesScreenState extends WidgetState<RepositoriesWm> {
   @override
   Widget build(BuildContext context) {
+    // return _buildBody();
     return Scaffold(
       appBar: _buildAppBar(),
       body: _buildBody(),

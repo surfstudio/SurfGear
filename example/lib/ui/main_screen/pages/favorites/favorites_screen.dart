@@ -3,7 +3,7 @@ import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/data/owner.dart';
 import 'package:mwwm_github_client/data/repository.dart';
 import 'package:mwwm_github_client/model/github_repository/repository/github_repository.dart';
-import 'package:mwwm_github_client/ui/screens/favorites/favorites_wm.dart';
+import 'package:mwwm_github_client/ui/main_screen/pages/favorites/favorites_wm.dart';
 import 'package:mwwm_github_client/ui/widgets/repository/repository_widget.dart';
 import 'package:provider/provider.dart';
 
