@@ -1,39 +1,37 @@
 import 'package:flutter/widgets.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:mwwm/src/widget_model_creator.dart';
 
-typedef WidgetStateBuilder = State Function();
+typedef WidgetModelBuilder = WidgetModel Function(BuildContext);
 
 /// Class for widgets that has [WidgetModel]
+/// You must provide [WidgetModel] in constructor or by [WidgetModelFactory]
 abstract class CoreMwwmWidget extends StatefulWidget {
-
-  /// Builder for `WidgetState`. 
-  final WidgetStateBuilder widgetStateBuilder;
-
   /// Builder for `WidgetModel`
   /// There are two possibilities to provide `WidgetModel` :
-  ///  1. Here by [widgetModelBuilder]
-  ///  2 Or by `WidgetModelFactory`
+  ///  1. Here by [widgetModelBuilder] (prefer)
+  ///  2. Or by `WidgetModelFactory`
+  ///
+  /// By convention provide builder for WM this way
+  /// ```
+  /// const MyAwesomeWidget(
+  ///   WidgetModel wmBuilder,
+  /// ) : super(
+  ///   widgetModelBuilder: wmBuilder ?? myBuilderFn
+  /// );
+  /// ```
   final WidgetModelBuilder widgetModelBuilder;
 
   const CoreMwwmWidget({
     Key key,
-    @required this.widgetStateBuilder,
-    this.widgetModelBuilder,
-  }) : super(key: key);
-
-  @override
-  State createState() {
-    return widgetStateBuilder();
-  }
+    @required this.widgetModelBuilder,
+  })  : assert(widgetModelBuilder != null),
+        super(key: key);
 }
 
 /// Base class for state of [CoreMwwmWidget].
 /// Has [WidgetModel] from [initState].
 abstract class WidgetState<WM extends WidgetModel>
     extends State<CoreMwwmWidget> {
-  final WidgetModelCreator _wmc = WidgetModelCreator<WM>();
-
   /// [WidgetModel] for widget.
   @protected
   WM wm;
@@ -42,13 +40,8 @@ abstract class WidgetState<WM extends WidgetModel>
   @mustCallSuper
   @override
   void initState() {
-    var wmbBuilder = widget.widgetModelBuilder;
-    if (wmbBuilder == null) {
-      _wmc.initWm(context);
-      wm = _wmc.wm;
-    } else {
-      wm = wmbBuilder(context);
-    }
+    wm = widget.widgetModelBuilder(context);
+
     super.initState();
 
     wm.onLoad();
@@ -56,6 +49,7 @@ abstract class WidgetState<WM extends WidgetModel>
   }
 
   /// Descendants must call super in the end
+  @override
   @protected
   @mustCallSuper
   void dispose() {

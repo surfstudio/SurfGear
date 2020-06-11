@@ -47,7 +47,8 @@ class RemoteLogger {
     _strategies.remove(strategy.runtimeType);
   }
 
-  static void _forAllStrategies(Function(RemoteUserLogStrategy strategy) action) {
+  static void _forAllStrategies(
+      Function(RemoteUserLogStrategy strategy) action) {
     _strategies.values.forEach(action);
   }
 }

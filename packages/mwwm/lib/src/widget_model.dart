@@ -20,9 +20,9 @@ import 'package:mwwm/src/dependencies/wm_dependencies.dart';
 import 'package:mwwm/src/error/error_handler.dart';
 import 'package:mwwm/src/utils/composite_subscription.dart';
 
-/// WidgetModel - interface
-/// WM is logical representation of widget.
-/// `WidgetModelDependencies` - is pack of required dependencies. Offtenly, it is `ErrorHandler`.
+/// WidgetModel
+/// WM is logical representation of widget and his state.
+/// `WidgetModelDependencies` - is pack of dependencies for WidgetModel. Offtenly, it is `ErrorHandler`.
 /// `Model` - optionally, but recommended, manager for connection with bussines layer
 abstract class WidgetModel {
   final ErrorHandler _errorHandler;
@@ -30,17 +30,19 @@ abstract class WidgetModel {
   @protected
   final Model model;
 
-  CompositeSubscription _compositeSubscription = CompositeSubscription();
+  final _compositeSubscription = CompositeSubscription();
 
-  WidgetModel(WidgetModelDependencies baseDependencies, {Model model})
-      : _errorHandler = baseDependencies.errorHandler,
+  WidgetModel(
+    WidgetModelDependencies baseDependencies, {
+    Model model,
+  })  : _errorHandler = baseDependencies.errorHandler,
         model = model ?? Model([]);
 
   /// called when widget ready
   @mustCallSuper
   void onLoad() {}
 
-  /// here need to bind 
+  /// here need to bind
   @mustCallSuper
   void onBind() {}
 
@@ -77,7 +79,7 @@ abstract class WidgetModel {
   /// Using Rx wrappers with [subscribe] method is preferable.
   void doFuture<T>(
     Future<T> future,
-    void onValue(T t), {
+    void Function(T t) onValue, {
     void onError(e),
   }) {
     future.then(onValue).catchError((e) {
@@ -88,7 +90,7 @@ abstract class WidgetModel {
   /// Call a future with default error handling
   void doFutureHandleError<T>(
     Future<T> future,
-    onValue(T t), {
+    Function(T t) onValue, {
     onError(e),
   }) {
     future.then(onValue).catchError((e) {
@@ -105,12 +107,6 @@ abstract class WidgetModel {
   /// standard error handling
   @protected
   void handleError(dynamic e) {
-    _errorHandler.handleError(e);
+    _errorHandler?.handleError(e);
   }
-}
-
-class ExceptionWrapper {
-  final dynamic e;
-
-  ExceptionWrapper(this.e);
 }

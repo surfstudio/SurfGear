@@ -15,7 +15,7 @@ class DefaultHeaderBuilder extends HeadersBuilder {
     var token = await _ts.getAccessToken();
     return url != EMPTY_STRING //todo доработать
         ? {
-            "X-Auth-Token": token,
+            'X-Auth-Token': token,
           }
         : {};
   }

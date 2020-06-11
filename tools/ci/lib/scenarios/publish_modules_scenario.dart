@@ -1,6 +1,7 @@
 import 'package:ci/domain/command.dart';
 import 'package:ci/domain/element.dart';
 import 'package:ci/exceptions/exceptions.dart';
+import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/scenario.dart';
 import 'package:ci/tasks/tasks.dart';
@@ -39,9 +40,23 @@ class PublishModulesScenario extends ChangedElementScenario {
 
     print("Stable packages: ${releaseElements.map((p) => p.name).join(',')}");
     try {
+      var failedModulesNames = <String>[];
+
       for (var element in releaseElements) {
-        await pubPublishModules(element, pathServer: targetServer);
-      print(element.name + ' published');
+        try {
+          await pubPublishModules(element, pathServer: targetServer);
+          print(element.name + ' published');
+        } on OpenSourceModuleCanNotBePublishException catch (e) {
+          print(e);
+          failedModulesNames.add(element.name);
+          continue;
+        }
+      }
+      
+      if (failedModulesNames.isNotEmpty) {
+        throw OpenSourceModuleCanNotBePublishException(
+          getModuleCannotBePublishedExceptionText(failedModulesNames.join(',')),
+        );
       }
     } on BaseCiException {
       rethrow;

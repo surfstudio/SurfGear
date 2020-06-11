@@ -1,3 +1,18 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import 'package:flutter/foundation.dart';
 import 'package:mwwm/src/model/changes/changes.dart';
 import 'package:mwwm/src/model/exceptions.dart';
 import 'package:mwwm/src/model/performer/performer.dart';
@@ -15,23 +30,22 @@ class Model {
   Model(this._performers);
 
   /// Perform some change inside business logic once
-  Future<R> perform<R>(Change<R> change) {
+  R perform<R>(Change<R> change) {
     for (var p in _performers) {
       try {
         return p.perform(change);
-      } on TypeError catch (e) {
-        print(e.toString());
+      } on TypeError {
         continue;
       } catch (e) {
-        return Future.error(e);
+        rethrow;
       }
     }
 
-    return _throwError<R>(change);
+    throw NoPerformerException(change);
   }
 
   /// Listen to changes of exact type
-  Stream<R> listen<R, C extends Change<R>>() {
+  Stream<R> listen<R, C extends FutureChange<R>>() {
     for (var p in _performers) {
       try {
         if (p is Broadcast<R, C>) {
@@ -40,7 +54,8 @@ class Model {
         } else {
           continue;
         }
-      } on TypeError {
+      } on TypeError catch (e) {
+        debugPrint(e.toString());
         continue;
       } catch (e) {
         return Stream.error(e);
@@ -49,9 +64,4 @@ class Model {
 
     return Stream.error(NoBroadcastPerformerException(C));
   }
-
-  Future<D> _throwError<D>(Change change) => Future.error(
-        NoPerformerException(change),
-        StackTrace.fromString("${this.runtimeType} at 17"),
-      );
 }

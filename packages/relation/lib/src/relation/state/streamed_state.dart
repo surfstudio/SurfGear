@@ -28,24 +28,28 @@ import 'package:rxdart/rxdart.dart';
 ///   )
 /// ```
 class StreamedState<T> implements Event<T> {
-  BehaviorSubject<T> _stateSubject = BehaviorSubject();
+  /// Behaviour state for updating events
+  final BehaviorSubject<T> stateSubject = BehaviorSubject();
 
-  T get value => _stateSubject.value;
+  /// current value in stream
+  T get value => stateSubject.value;
 
   @override
-  Stream<T> get stream => _stateSubject.stream;
+  Stream<T> get stream => stateSubject.stream;
 
   StreamedState([T initialData]) {
-    if (initialData != null) accept(initialData);
+    if (initialData != null) {
+      accept(initialData);
+    }
   }
 
   @override
   Future<void> accept([T data]) {
-    _stateSubject.add(data);
-    return _stateSubject.stream.first;
+    stateSubject.add(data);
+    return stateSubject.stream.first;
   }
 
   void dispose() {
-    _stateSubject.close();
+    stateSubject.close();
   }
 }

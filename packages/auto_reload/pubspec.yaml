@@ -17,6 +17,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  pedantic: 1.8.0+1
+
 custom:
   is_stable: false
   unstable_version: 0

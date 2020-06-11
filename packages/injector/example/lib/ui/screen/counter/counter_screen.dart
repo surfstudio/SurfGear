@@ -72,7 +72,7 @@ class _CounterScreenState extends State<CounterScreen> {
               Text('You have pushed the button this many times:'),
               Text(
                 '${snapshot.data}',
-                style: Theme.of(context).textTheme.display1,
+                style: Theme.of(context).textTheme.headline4,
               ),
             ],
           ),

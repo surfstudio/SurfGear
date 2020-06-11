@@ -3,7 +3,7 @@ import 'package:surf_util/surf_util.dart';
 /// base type for a list of tabs
 /// adding new types of tabs via the create() method
 abstract class TabType extends Enum<int> {
-  static List<TabType> values = List();
+  static List<TabType> values = [];
 
   static TabType defaultType;
 
@@ -16,7 +16,7 @@ abstract class TabType extends Enum<int> {
   static TabType byValue(int ordinal) {
     return values.firstWhere(
       (value) => ordinal == value.value,
-      orElse: () => throw Exception("Unknown TabType by ordinal $ordinal"),
+      orElse: () => throw Exception('Unknown TabType by ordinal $ordinal'),
     );
   }
 }

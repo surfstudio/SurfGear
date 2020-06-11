@@ -14,7 +14,6 @@
 
 /// Key-value storage
 abstract class Storage<K, V> {
-
   /// Get object or null if it doesn't exist
   Future<V> get(K key);
 

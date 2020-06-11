@@ -17,12 +17,16 @@ class PageCountDataList<T> extends DataList<T> {
 
   /// Page size
   int pageSize;
+
   /// Which page begins
   int startPage;
+
   /// Page count
   int numPages;
+
   /// Max items count
   int totalItemsCount;
+
   /// Max pages count
   int totalPagesCount;
 

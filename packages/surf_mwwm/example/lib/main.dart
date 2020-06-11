@@ -20,6 +20,7 @@ import 'package:counter/ui/screen/counter/di/counter.dart';
 import 'package:flutter/material.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 import 'package:injector/injector.dart';
+import 'package:mwwm/mwwm.dart';
 
 AppWidgetModel createAppModel(BuildContext context) => AppWidgetModel(
       WidgetModelDependencies(),
@@ -34,9 +35,5 @@ CounterWidgetModel createCounterModel(BuildContext context) =>
     );
 
 void main() {
-   WidgetModelFactory.instance()
-     ..registerBuilder<AppWidgetModel>(createAppModel)
-     ..registerBuilder<CounterWidgetModel>(createCounterModel);
-
   runApp(App());
 }

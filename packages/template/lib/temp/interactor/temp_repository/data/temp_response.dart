@@ -9,7 +9,7 @@ class TempResponse implements Transformable {
   }
 
   @override
-  transform() {
+  dynamic transform() {
     // transform
   }
 }

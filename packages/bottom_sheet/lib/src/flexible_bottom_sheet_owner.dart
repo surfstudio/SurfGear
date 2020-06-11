@@ -1,4 +1,3 @@
-
 import 'package:flutter/widgets.dart';
 
 /// Mixin for register Flexible Bottom Sheet
