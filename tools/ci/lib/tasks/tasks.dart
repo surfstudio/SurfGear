@@ -182,7 +182,7 @@ Future<void> mirrorOpenSourceModules(List<Element> elements) async {
 
   openSourceModules.forEach(
     (e) {
-      print("Mirror package ${e.name} to ${e.openSourceInfo.separateRepoUrl}");
+      print('Mirror package ${e.name} to ${e.openSourceInfo.separateRepoUrl}');
       return MirrorOpenSourceModuleTask(e).run();
     },
   );

@@ -18,6 +18,6 @@ class DebugScreenStrategy extends PushHandleStrategy<DebugPushMessage> {
 
   @override
   void onBackgroundProcess(Map<String, dynamic> message) {
-    print("notification background process ${message.toString()}");
+    print('notification background process ${message.toString()}');
   }
 }

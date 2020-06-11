@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:flutter/foundation.dart';
 import 'package:mwwm/src/model/changes/changes.dart';
 import 'package:mwwm/src/model/exceptions.dart';
 import 'package:mwwm/src/model/performer/performer.dart';
@@ -33,7 +34,7 @@ class Model {
     for (var p in _performers) {
       try {
         return p.perform(change);
-      } on TypeError catch (e) {
+      } on TypeError {
         continue;
       } catch (e) {
         rethrow;
@@ -53,7 +54,8 @@ class Model {
         } else {
           continue;
         }
-      } on TypeError {
+      } on TypeError catch (e) {
+        debugPrint(e.toString());
         continue;
       } catch (e) {
         return Stream.error(e);
@@ -62,9 +64,4 @@ class Model {
 
     return Stream.error(NoBroadcastPerformerException(C));
   }
-
-  Future<D> _throwError<D>(Change change) => Future.error(
-        NoPerformerException(change),
-        StackTrace.fromString("${this.runtimeType} at 17"),
-      );
 }

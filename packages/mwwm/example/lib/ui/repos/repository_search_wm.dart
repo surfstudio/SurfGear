@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:flutter/material.dart' hide Action;
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/model/changes.dart';
 import 'package:mwwm_github_client/model/repository/response/reponses.dart';
@@ -65,15 +62,15 @@ class ListState {
   ListState.content(List<RepoItemUiModel> data)
       : isLoading = false,
         hasError = false,
-        this.data = data;
+        data = data;
 
   ListState.loading()
       : isLoading = true,
         hasError = false,
-        this.data = null;
+        data = null;
 
   ListState.error()
       : isLoading = false,
         hasError = true,
-        this.data = null;
+        data = null;
 }
