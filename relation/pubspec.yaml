@@ -17,7 +17,7 @@ dependencies:
   mwwm:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-RIG-21
+      ref: project-RIG-20
       path: mwwm
 
 dev_dependencies:
