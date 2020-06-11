@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:flutter/foundation.dart';
 import 'package:mwwm/src/model/changes/changes.dart';
 import 'package:mwwm/src/model/exceptions.dart';
 import 'package:mwwm/src/model/performer/performer.dart';
@@ -53,7 +54,8 @@ class Model {
         } else {
           continue;
         }
-      } on TypeError {
+      } on TypeError catch (e) {
+        debugPrint(e.toString());
         continue;
       } catch (e) {
         return Stream.error(e);
