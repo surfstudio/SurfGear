@@ -2,16 +2,23 @@ import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/data/repository.dart';
 import 'package:mwwm_github_client/model/favorites_repository/changes.dart';
 import 'package:mwwm_github_client/model/favorites_repository/repository/favorites_repository.dart';
+import 'package:mwwm_github_client/ui/widgets/repository/repository_widget_wm.dart';
 
 class ToggleRepositoryFavoriteValuePerformer
-    extends FuturePerformer<Repository, ToggleRepositoryFavoriteValue> {
+    extends FuturePerformer<void, ToggleRepositoryFavoriteValue> {
+  ToggleRepositoryFavoriteValuePerformer(this._favoritesRepository);
+
+  final FavoritesRepository _favoritesRepository;
+
   @override
-  Future<Repository> perform(ToggleRepositoryFavoriteValue change) async {
-    change.repo.isFavorite = change.isFavorite;
+  Future<void> perform(ToggleRepositoryFavoriteValue change) async {
+    if (change.isFavorite) {
+      await _favoritesRepository.add(change.repo);
+    } else {
+      await _favoritesRepository.remove(change.repo);
+    }
 
-    // TODO save in db
-
-    return change.repo;
+    favoritesChangedState.accept(true);
   }
 }
 

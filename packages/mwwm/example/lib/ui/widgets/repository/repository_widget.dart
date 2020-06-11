@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/data/repository.dart';
 import 'package:mwwm_github_client/model/favorites_repository/performers.dart';
+import 'package:mwwm_github_client/model/favorites_repository/repository/favorites_repository.dart';
 import 'package:mwwm_github_client/ui/widgets/repository/repository_widget_wm.dart';
 import 'package:provider/provider.dart';
 import 'package:relation/relation.dart';
@@ -13,7 +14,11 @@ class RepositoryWidget extends CoreMwwmWidget {
         super(
           widgetModelBuilder: (context) => RepositoryWidgetWm(
             context.read<WidgetModelDependencies>(),
-            Model([ToggleRepositoryFavoriteValuePerformer()]),
+            Model([
+              ToggleRepositoryFavoriteValuePerformer(
+                context.read<FavoritesRepository>(),
+              )
+            ]),
             repository,
           ),
         );
@@ -80,7 +85,7 @@ class _RepositoryWidgetState extends WidgetState<RepositoryWidgetWm> {
             );
           }),
       onPressed: () => wm.favoriteTapAction(
-        repository.isFavorite,
+        !repository.isFavorite,
       ),
     );
   }
@@ -117,47 +122,41 @@ class _RepositoryWidgetState extends WidgetState<RepositoryWidgetWm> {
     return Container(
       width: double.infinity,
       height: 200,
-      child: Image.network(
-        repository.owner.avatarUrl,
-      ),
+      child: repository.owner.avatarUrl != null
+          ? Image.network(repository.owner.avatarUrl)
+          : SizedBox.fromSize(),
     );
   }
 
-  List<Widget> _buildLanguageInfo(String language) {
-    return [
-      Icon(
-        Icons.brightness_1,
-        size: 16.0,
-        color: Colors.blueAccent,
-      ),
-      const SizedBox(width: 8.0),
-      Text(language),
-      const SizedBox(width: 24.0),
-    ];
-  }
+  List<Widget> _buildLanguageInfo(String language) => [
+        Icon(
+          Icons.brightness_1,
+          size: 16.0,
+          color: Colors.blueAccent,
+        ),
+        const SizedBox(width: 8.0),
+        Text(language),
+        const SizedBox(width: 24.0),
+      ];
 
-  List<Widget> _buildStarsInfo(int starCount) {
-    return [
-      Icon(
-        Icons.star,
-        color: Colors.orangeAccent,
-        size: 16.0,
-      ),
-      const SizedBox(width: 8.0),
-      Text('$starCount'),
-      const SizedBox(width: 24.0),
-    ];
-  }
+  List<Widget> _buildStarsInfo(int starCount) => [
+        Icon(
+          Icons.star,
+          color: Colors.orangeAccent,
+          size: 16.0,
+        ),
+        const SizedBox(width: 8.0),
+        Text('$starCount'),
+        const SizedBox(width: 24.0),
+      ];
 
-  List<Widget> _buildWatchersInfo(int watchersCount) {
-    return [
-      Icon(
-        Icons.remove_red_eye,
-        size: 16.0,
-        color: Colors.green,
-      ),
-      const SizedBox(width: 8.0),
-      Text('$watchersCount'),
-    ];
-  }
+  List<Widget> _buildWatchersInfo(int watchersCount) => [
+        Icon(
+          Icons.remove_red_eye,
+          size: 16.0,
+          color: Colors.green,
+        ),
+        const SizedBox(width: 8.0),
+        Text('$watchersCount'),
+      ];
 }
