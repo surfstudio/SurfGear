@@ -10,13 +10,41 @@ class FavoritesRepository {
   final RepoDao _dao;
 
   Future<void> add(Repository data) {
-    final repoData = FavoritesRepoTableData.fromData(
-      RepositoryDto(data).toJson(),
-      _db,
+    final repoData = FavoritesRepoTableData(
+      id: data.id,
+      nodeId: data.nodeId,
+      name: data.name,
+      fullName: data.fullName,
+      private: data.private,
+      htmlUrl: data.htmlUrl,
+      description: data.description,
+      fork: data.fork,
+      url: data.url,
+      ownerId: data.owner.id,
+      createdAt: data.createdAt,
+      updatedAt: data.updatedAt,
+      pushedAt: data.pushedAt,
+      homepage: data.homepage,
+      size: data.size,
+      stargazersCount: data.stargazersCount,
+      watchersCount: data.watchersCount,
+      language: data.language,
+      forksCount: data.forksCount,
+      openIssuesCount: data.openIssuesCount,
+      masterBranch: data.masterBranch,
+      defaultBranch: data.defaultBranch,
+      score: data.score,
     );
-    final ownerData = OwnerTableData.fromData(
-      OwnerDto(data.owner).toJson(),
-      _db,
+
+    final ownerData = OwnerTableData(
+      id: data.owner.id,
+      login: data.owner.login,
+      nodeId: data.owner.nodeId,
+      avatarUrl: data.owner.avatarUrl,
+      gravatarId: data.owner.gravatarId,
+      url: data.owner.url,
+      receivedEventsUrl: data.owner.receivedEventsUrl,
+      type: data.owner.type,
     );
 
     return _dao.insertRepo(repoData, ownerData);
@@ -35,7 +63,7 @@ class FavoritesRepository {
     return _dao.updateRepo(repoTableData, ownerData);
   }
 
-  Future<void> remove(Repository data) {
+  Future<void> delete(Repository data) {
     final repoTableData = FavoritesRepoTableData.fromData(
       RepositoryDto(data).toJson(),
       _db,

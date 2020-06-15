@@ -27,7 +27,17 @@ class FavoritesPage extends CoreMwwmWidget {
 
 class _FavoritesScreenState extends WidgetState<FavoritesWm> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => Scaffold(
+        appBar: _buildAppBar(),
+        body: _buildBody(),
+      );
+
+  PreferredSizeWidget _buildAppBar() => AppBar(
+        title: const Text('Favorites'),
+        centerTitle: true,
+      );
+
+  Widget _buildBody() {
     return EntityStateBuilder<List<Repository>>(
       streamedState: wm.favoritesState,
       child: (context, favorites) {
@@ -37,7 +47,11 @@ class _FavoritesScreenState extends WidgetState<FavoritesWm> {
           return ListView.builder(
             itemCount: favorites.length,
             itemBuilder: (context, index) {
-              return RepositoryWidget(repository: favorites[index]);
+              final Repository repo = favorites[index];
+              return RepositoryWidget(
+                key: ValueKey(repo.id),
+                repository: repo,
+              );
             },
           );
         }

@@ -15,7 +15,7 @@ class ToggleRepositoryFavoriteValuePerformer
     if (change.isFavorite) {
       await _favoritesRepository.add(change.repo);
     } else {
-      await _favoritesRepository.remove(change.repo);
+      await _favoritesRepository.delete(change.repo);
     }
 
     favoritesChangedState.accept(true);

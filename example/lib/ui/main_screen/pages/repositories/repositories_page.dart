@@ -70,9 +70,14 @@ class _RepositoriesScreenState extends WidgetState<RepositoriesWm> {
         child: (ctx, repositories) {
           return ListView.builder(
             itemCount: repositories.length,
-            itemBuilder: (ctx, i) => RepositoryWidget(
-              repository: repositories[i],
-            ),
+            itemBuilder: (ctx, i) {
+              final Repository repo = repositories[i];
+
+              return RepositoryWidget(
+                key: ValueKey('${repo.id}-${repo.isFavorite}'),
+                repository: repo,
+              );
+            },
           );
         },
       );

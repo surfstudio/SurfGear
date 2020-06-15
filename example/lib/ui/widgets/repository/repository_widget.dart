@@ -10,8 +10,10 @@ import 'package:relation/relation.dart';
 class RepositoryWidget extends CoreMwwmWidget {
   RepositoryWidget({
     @required this.repository,
+    Key key,
   })  : assert(repository != null),
         super(
+          key: key,
           widgetModelBuilder: (context) => RepositoryWidgetWm(
             context.read<WidgetModelDependencies>(),
             Model([
