@@ -1,7 +1,7 @@
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/data/repository.dart';
 import 'package:mwwm_github_client/model/favorites/changes.dart';
-import 'package:mwwm_github_client/model/github_repository/changes.dart';
+import 'package:mwwm_github_client/model/github/changes.dart';
 import 'package:mwwm_github_client/ui/widgets/repository/repository_widget_wm.dart';
 import 'package:relation/relation.dart';
 
