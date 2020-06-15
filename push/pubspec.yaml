@@ -14,13 +14,13 @@ dependencies:
   surf_util:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-RIG-20
+      ref: project-RIG-21
       path: surf_util
 
   logger:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-RIG-20
+      ref: project-RIG-21
       path: logger
 
   #rx

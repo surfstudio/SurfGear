@@ -31,8 +31,7 @@ class TabNavigator extends StatefulWidget {
   static TabNavigatorState of(BuildContext context) {
     Type type = _typeOf<TabNavigatorState>();
     TabNavigatorState tabNavigator;
-    tabNavigator =
-        context.ancestorStateOfType(const TypeMatcher<TabNavigatorState>());
+    tabNavigator = context.findAncestorStateOfType<TabNavigatorState>();
     if (tabNavigator == null) {
       throw Exception(
           "Can not find nearest _TabNavigator of type $type. Do you define it?");
@@ -134,7 +133,6 @@ class TabNavigatorState extends State<TabNavigator> {
               onGenerateRoute: (rs) => rs.name == Navigator.defaultRouteName
                   ? PageRouteBuilder(
                       settings: RouteSettings(
-                        isInitialRoute: true,
                         name: Navigator.defaultRouteName,
                       ),
                       transitionsBuilder: widget.transitionsBuilder,
