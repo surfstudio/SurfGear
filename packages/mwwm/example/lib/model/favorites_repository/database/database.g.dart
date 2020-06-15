@@ -32,33 +32,30 @@ class FavoritesRepoTableData extends DataClass
   final String masterBranch;
   final String defaultBranch;
   final double score;
-
-  FavoritesRepoTableData({
-    @required this.id,
-    this.nodeId,
-    this.name,
-    this.fullName,
-    this.ownerId,
-    this.private,
-    this.htmlUrl,
-    this.description,
-    this.fork,
-    this.url,
-    this.createdAt,
-    this.updatedAt,
-    this.pushedAt,
-    this.homepage,
-    this.size,
-    this.stargazersCount,
-    this.watchersCount,
-    this.language,
-    this.forksCount,
-    this.openIssuesCount,
-    this.masterBranch,
-    this.defaultBranch,
-    this.score,
-  });
-
+  FavoritesRepoTableData(
+      {@required this.id,
+      this.nodeId,
+      this.name,
+      this.fullName,
+      this.ownerId,
+      this.private,
+      this.htmlUrl,
+      this.description,
+      this.fork,
+      this.url,
+      this.createdAt,
+      this.updatedAt,
+      this.pushedAt,
+      this.homepage,
+      this.size,
+      this.stargazersCount,
+      this.watchersCount,
+      this.language,
+      this.forksCount,
+      this.openIssuesCount,
+      this.masterBranch,
+      this.defaultBranch,
+      this.score});
   factory FavoritesRepoTableData.fromData(
       Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
