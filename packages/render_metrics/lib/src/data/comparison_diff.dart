@@ -26,7 +26,6 @@ import 'package:render_metrics/src/data/render_data.dart';
 /// [bottomCenter] - lower central coordinate
 /// [centerLeft] - center left coordinate
 /// [centerRight] - center right coordinate
-
 class ComparisonDiff {
   final RenderData firstData;
   final RenderData secondData;
