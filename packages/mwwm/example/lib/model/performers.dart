@@ -17,7 +17,6 @@ class SearchRepoPerformer extends FuturePerformer<List<Repo>, SearchRepos> {
 }
 
 class ToggleFavoritePerformer extends FuturePerformer<Repo, ToggleFavorite> {
-
   ToggleFavoritePerformer();
 
   @override

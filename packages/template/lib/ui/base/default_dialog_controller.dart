@@ -107,11 +107,7 @@ class DefaultDialogController implements DialogController {
         useRootNavigator: useRootNavigator,
         isModal: isModal,
         anchors: anchors,
-        builder: (
-          BuildContext context,
-          ScrollController controller,
-          offset
-        ) {
+        builder: (BuildContext context, ScrollController controller, offset) {
           return Material(
             child: buildDialog(
               context,

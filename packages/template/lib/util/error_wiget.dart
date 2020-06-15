@@ -55,25 +55,25 @@ class ErrorWidget extends StatelessWidget {
                             Text("Message:",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .title
+                                    .headline6
                                     .copyWith(color: textColor, fontSize: 18)),
                             Text(errorMessage,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .title
+                                    .headline6
                                     .copyWith(color: textColor, fontSize: 14)),
                           ],
                         ),
                       Text("Error stacktrace: ${error.runtimeType}",
                           style: Theme.of(context)
                               .textTheme
-                              .title
+                              .headline6
                               .copyWith(color: textColor, fontSize: 18)),
                       Text(
                         error.exceptionAsString(),
                         style: Theme.of(context)
                             .textTheme
-                            .title
+                            .headline6
                             .copyWith(color: textColor, fontSize: 14),
                       ),
                     ],

@@ -14,7 +14,6 @@
 
 import 'package:name_generator/domain/User.dart';
 import 'package:name_generator/interactor/name_generator/repository/name_generator_repository.dart';
-import 'package:rxdart/rxdart.dart';
 
 class NameGeneratorInteractor {
   final NameGeneratorRepository _repository;

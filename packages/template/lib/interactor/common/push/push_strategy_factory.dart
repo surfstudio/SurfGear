@@ -5,15 +5,16 @@ import 'package:push_notification/push_notification.dart';
 class PushStrategyFactory extends PushHandleStrategyFactory {
   @override
   Map<String, StrategyBuilder> get map => {
-        "debug": (payload) {
+        'debug': (payload) {
           var message = DebugPushMessage.fromMap(payload);
           return DebugScreenStrategy(message);
         },
       };
 
   @override
-  get defaultStrategy => (payload) {
-    var message = DebugPushMessage.fromMap(payload);
-    return DebugScreenStrategy(message);
-  };
+  DebugScreenStrategy Function(Map<String, dynamic> payload)
+      get defaultStrategy => (payload) {
+            var message = DebugPushMessage.fromMap(payload);
+            return DebugScreenStrategy(message);
+          };
 }

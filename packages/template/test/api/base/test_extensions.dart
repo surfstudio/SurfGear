@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rxdart/rxdart.dart';
 
 /// Утилиты для тестирования потоков данных
 
@@ -10,4 +9,5 @@ void expectTrue(Stream<bool> request) => expect(request, emits(true));
 void expectNotNull(Stream request) => expectTrue(request.map((r) => r != null));
 
 /// Проверка полученного из [Stream] списка на пустоту
-void expectNotEmpty(Stream<List> request) => expectTrue(request.map((r) => r.isNotEmpty));
+void expectNotEmpty(Stream<List> request) =>
+    expectTrue(request.map((r) => r.isNotEmpty));

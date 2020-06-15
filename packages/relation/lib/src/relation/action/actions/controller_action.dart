@@ -20,7 +20,8 @@ class ControllerAction<T, C extends ValueNotifier<T>> extends Action<T> {
   /// Some ValueNotifier
   final C controller;
 
-  ControllerAction(this.controller, void Function(C controller, ControllerAction) onChanged)
+  ControllerAction(
+      this.controller, void Function(C controller, ControllerAction) onChanged)
       : super() {
     controller.addListener(() {
       onChanged(controller, this);

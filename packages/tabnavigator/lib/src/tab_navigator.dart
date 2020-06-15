@@ -28,13 +28,12 @@ class TabNavigator extends StatefulWidget {
   final Duration transitionDuration;
 
   static TabNavigatorState of(BuildContext context) {
-    Type type = _typeOf<TabNavigatorState>();
+    final Type type = _typeOf<TabNavigatorState>();
     TabNavigatorState tabNavigator;
-    tabNavigator =
-        context.ancestorStateOfType(const TypeMatcher<TabNavigatorState>());
+    tabNavigator = context.findAncestorStateOfType<TabNavigatorState>();
     if (tabNavigator == null) {
       throw Exception(
-          "Can not find nearest _TabNavigator of type $type. Do you define it?");
+          'Can not find nearest _TabNavigator of type $type. Do you define it?');
     }
 
     return tabNavigator;
@@ -52,8 +51,7 @@ class TabNavigator extends StatefulWidget {
   })  : assert(mappedTabs != null),
         assert(selectedTabStream != null),
         assert(initialTab != null),
-        this.transitionsBuilder =
-            transitionsBuilder ?? _defaultTransitionBuilder,
+        transitionsBuilder = transitionsBuilder ?? _defaultTransitionBuilder,
         super(key: key);
 
   @override
@@ -111,7 +109,7 @@ class TabNavigatorState extends State<TabNavigator> {
   List<Widget> _buildTabs(TabType selectedTab) {
     mappedNavKeys.putIfAbsent(
       selectedTab,
-      () => GlobalKey(debugLabel: "$selectedTab"),
+      () => GlobalKey(debugLabel: '$selectedTab'),
     );
     return [
       for (TabType tabType in _initializedTabs)
@@ -128,7 +126,6 @@ class TabNavigatorState extends State<TabNavigator> {
                   : [],
               onGenerateRoute: (rs) => PageRouteBuilder(
                 settings: RouteSettings(
-                  isInitialRoute: true,
                   name: Navigator.defaultRouteName,
                 ),
                 transitionsBuilder: widget.transitionsBuilder,
