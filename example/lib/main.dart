@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:mwwm_github_client/model/favorites_repository/database/database.dart';
-import 'package:mwwm_github_client/model/favorites_repository/repository/favorites_repository.dart';
+import 'package:mwwm_github_client/model/favorites/database/database.dart';
+import 'package:mwwm_github_client/model/favorites/repository/favorites_repository.dart';
 import 'package:mwwm_github_client/model/github_repository/repository/github_repository.dart';
 import 'package:mwwm_github_client/ui/app.dart';
 import 'package:provider/provider.dart';
