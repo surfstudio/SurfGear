@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:scenario/composition_step.dart';
+import 'package:scenario/result.dart';
 import 'package:scenario/types.dart';
 
 abstract class BaseScenario {}
 
-class Scenario<Result> extends BaseScenario {
+class Scenario extends BaseScenario {
   final List<BaseStepScenario> steps;
-  final VoidCallback onFinish;
+  final void Function(Result result) onFinish;
   final ErrorScenarioCallback onError;
 
   Scenario({
@@ -15,35 +16,59 @@ class Scenario<Result> extends BaseScenario {
     this.onError,
   });
 
-  void run() async {
+  Future<Result> run([Result prevScenarioResult]) async {
+    var result = prevScenarioResult.data;
     try {
-      await Future.wait(steps.map((step) => step()));
-      onFinish?.call();
+      for (BaseStepScenario step in steps) {
+        result = await step(result);
+      }
+      onFinish?.call(Result(result));
     } catch (e) {
       onError?.call(e);
     }
+    return result;
   }
 
-  Scenario call() {
-    run();
-    return this;
+  Future<Result> call([prevScenarioData]) async {
+    return run(prevScenarioData);
   }
 }
-/// Древоидный вариант
-class LoadScenario extends BaseScenario {
-  EntityStreamedState streamedState;
 
-  LoadScenario() {
-    _init();
-  }
+class LoadScenario extends BaseScenario {
+  //EntityStreamedState streamedState;
+  Scenario loadScenario;
+  Scenario dataScenario;
+  Scenario errorScenario;
+
+  LoadScenario({
+    this.loadScenario,
+    this.dataScenario,
+    this.errorScenario,
+  });
+
+  factory LoadScenario.fromSteps({
+    BaseStepScenario loadStep,
+    BaseStepScenario dataStep,
+    BaseStepScenario errorStep,
+  }) =>
+      LoadScenario(
+        loadScenario: loadStep == null ? null : Scenario(steps: [loadStep]),
+        dataScenario: dataStep == null ? null : Scenario(steps: [dataStep]),
+        errorScenario: errorStep == null ? null : Scenario(steps: [errorStep]),
+      );
 
   call() {
-    run();
+    return run();
   }
 
-  void run() {
-    Scenario();
+  Future<void> run() async {
+    Result result;
+    try {
+      result = await loadScenario?.call();
+      result = await dataScenario?.call(result);
+    } catch(e) {
+      result = await errorScenario?.call(Result.fromError(e));
+    }
+    return result;
   }
-
-  void _init() {}
 }

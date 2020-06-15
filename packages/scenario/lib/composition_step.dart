@@ -8,77 +8,71 @@ abstract class BaseStepScenario<T> {
   /// Функция получения результата
   ResultScenarioCallback<T> onResult;
 
-  /// Зависимые шаги
-  @protected
-  List<BaseStepScenario> nextSteps = [];
-
   BaseStepScenario({this.onResult});
 
-  Future<BaseStepScenario> call([data]);
-
-  BaseStepScenario to(BaseStepScenario step) {
-    nextSteps.add(step);
-    return this;
-  }
+  Future<T> call([data]);
 }
 
 class StepScenario<T> extends BaseStepScenario<T> {
-  Future<T> future;
+  Future<T> Function(dynamic prevStepData) loadMore;
 
   StepScenario({
+    this.loadMore,
     ResultScenarioCallback<T> onResult,
-    this.future,
-  }) : super(onResult: onResult) {
-    _init();
-  }
+  }) : super(onResult: onResult);
 
-  Future<BaseStepScenario> call([data]) {
-    return callSteps(data);
-  }
-
-  /// Чистая функция для вызова переданных связаных шагов
-  Future<BaseStepScenario> callSteps(List<BaseStepScenario> nextSteps, [data]) async {
-    var result = data;
-    for (BaseStepScenario step in nextSteps) {
-      result = await step.call(result);
-    }
-    return this;
-  }
-
-  Future<void> _init() async {
-    if(future == null) return;
-    var result = await future;
+  Future<T> call([prevStepData]) async {
+    T result = await loadMore(prevStepData);
     onResult?.call(Result(result));
+    return result;
   }
 }
 
-class StreamStepScenario<T> extends BaseStepScenario<T> {
-  Stream<T> stream;
-  StepScenario<T> _step = StepScenario<T>();
-  dynamic Function(dynamic data, T streamData) predicate;
-  T _lastStreamData;
+class ConditionalStep<T> extends BaseStepScenario<T> {
+  final Map<String, BaseStepScenario> steps;
+  final Future<String> Function(dynamic prevStepData) predicate;
 
-  StreamStepScenario({
-    this.stream,
+  ConditionalStep({
     this.predicate,
+    this.steps,
     ResultScenarioCallback<T> onResult,
-  }) : super(onResult: onResult) {
-    _init();
-  }
+  }) : super(onResult: onResult);
 
-  @override
-  Future<StreamStepScenario> call([data]) async {
-    var r = predicate?.call(data, _lastStreamData) ?? data;
-    await _step.callSteps(nextSteps, r);
-    return this;
-  }
-
-  void _init() {
-    stream.listen((T data) {
-      onResult?.call(Result(data));
-    });
+  Future<T> call([prevStepData]) async {
+    String id = await predicate(prevStepData);
+    return steps[id]?.call(prevStepData);
   }
 }
+
+//class StreamStepScenario<T> extends BaseStepScenario<T> {
+//  Stream<T> stream;
+//  StepScenario<T> _step = StepScenario<T>();
+//  dynamic Function(dynamic data, T streamData) predicate;
+//  T _lastStreamData;
+//
+//  StreamStepScenario({
+//    this.stream,
+//    this.predicate,
+//    ResultScenarioCallback<T> onResult,
+//  }) : super(onResult: onResult) {
+//    _init();
+//  }
+//
+//  @override
+//  Future<StreamStepScenario> call([data]) async {
+//    var r = predicate?.call(data, _lastStreamData) ?? data;
+//    await _step.callSteps(nextSteps, r);
+//    return this;
+//  }
+//
+//  void _init() {
+//    stream.listen((T data) {
+//      onResult?.call(Result(data));
+//    });
+//  }
+//}
+//---------------
+//class ConditionalStep
 
 //abstract class BaseStep<T> {
 //  List<BaseStep> _nextSteps;
