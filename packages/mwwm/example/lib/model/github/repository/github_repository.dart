@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:mwwm_github_client/data/repository.dart';
 import 'package:mwwm_github_client/data/repository_list.dart';
-import 'package:mwwm_github_client/model/github_repository/repository/dto/repository_dto.dart';
-import 'package:mwwm_github_client/model/github_repository/repository/dto/repository_list_dto.dart';
+import 'package:mwwm_github_client/model/github/repository/dto/repository_dto.dart';
+import 'package:mwwm_github_client/model/github/repository/dto/repository_list_dto.dart';
 
 /// Service for work with Github
 /// Wrapper on [Github] library

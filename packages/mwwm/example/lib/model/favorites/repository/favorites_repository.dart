@@ -1,7 +1,7 @@
 import 'package:mwwm_github_client/data/repository.dart';
 import 'package:mwwm_github_client/model/favorites/database/database.dart';
-import 'package:mwwm_github_client/model/github_repository/repository/dto/owner_dto.dart';
-import 'package:mwwm_github_client/model/github_repository/repository/dto/repository_dto.dart';
+import 'package:mwwm_github_client/model/github/repository/dto/owner_dto.dart';
+import 'package:mwwm_github_client/model/github/repository/dto/repository_dto.dart';
 
 class FavoritesRepository {
   FavoritesRepository(this._db) : _dao = _db.repoDao;

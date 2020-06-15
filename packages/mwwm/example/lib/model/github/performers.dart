@@ -1,7 +1,7 @@
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/data/repository.dart';
-import 'package:mwwm_github_client/model/github_repository/changes.dart';
-import 'package:mwwm_github_client/model/github_repository/repository/github_repository.dart';
+import 'package:mwwm_github_client/model/github/changes.dart';
+import 'package:mwwm_github_client/model/github/repository/github_repository.dart';
 
 class SearchRepositoriesPerformer
     extends FuturePerformer<List<Repository>, SearchRepositories> {
