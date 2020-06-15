@@ -19,7 +19,6 @@ import 'package:render_metrics/src/data/coords_metrics.dart';
 /// [bottomCenter] - lower central coordinate
 /// [centerLeft] - center left coordinate
 /// [centerRight] - center right coordinate
-
 class RenderData {
   final double yTop;
   final double yBottom;
