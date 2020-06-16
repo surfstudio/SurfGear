@@ -104,14 +104,12 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         content.sound = UNNotificationSound.default
         content.userInfo = data
         
-        if let imageUrl = aps["imageUrl"] as? String {
-            if let url = URL(string: imagePath) {
-                if let imageData = NSData(contentsOf: url) {
-                    if let attachment = UNNotificationAttachment.create(imageFileIdentifier: "image.jpg", data: imageData, options: nil) {
-                        content.attachments = [ attachment ]
-                    } else {
-                        print("error in UNNotificationAttachment.create()")
-                    }
+        if let url = URL(string: imageUrl) {
+            if let imageData = NSData(contentsOf: url) {
+                if let attachment = UNNotificationAttachment.create(imageFileIdentifier: "image.jpg", data: imageData, options: nil) {
+                    content.attachments = [ attachment ]
+                } else {
+                    print("error in UNNotificationAttachment.create()")
                 }
             }
         }
@@ -153,6 +151,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
     }
 }
 
+@available(iOS 10.0, *)
 @available(iOSApplicationExtension 10.0, *)
 extension UNNotificationAttachment {
     
