@@ -21,7 +21,7 @@ void main() {
     final action = ControllerAction(
       textEditingController,
       (TextEditingController controller, action) {
-        expect(action.value.text, 'test');
+        expect(action.value.query, 'test');
       },
     );
     action.call(TextEditingValue(text: 'test'));

@@ -1,42 +1,35 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:mwwm_github_client/model/performers.dart';
+import 'package:mwwm_github_client/data/repository.dart';
+import 'package:mwwm_github_client/model/favorites_repository/performers.dart';
+import 'package:mwwm_github_client/ui/widgets/repository/repository_widget_wm.dart';
 import 'package:provider/provider.dart';
-import 'package:mwwm_github_client/model/repository/response/reponses.dart';
-import 'package:mwwm_github_client/ui/common/repo_item/repo_item_wm.dart';
 import 'package:relation/relation.dart';
 
-//todo добавить сохранение в бд
-class RepoItemUiModel {
-  final Repo repository;
+class RepositoryWidget extends CoreMwwmWidget {
+  RepositoryWidget({
+    @required this.repository,
+  })  : assert(repository != null),
+        super(
+          widgetModelBuilder: (context) => RepositoryWidgetWm(
+            context.read<WidgetModelDependencies>(),
+            Model([ToggleRepositoryFavoriteValuePerformer()]),
+            repository,
+          ),
+        );
 
-  RepoItemUiModel({
-    this.repository,
-  });
-}
-
-class RepoItem extends CoreMwwmWidget {
-  final RepoItemUiModel item;
-  RepoItem(this.item, {WidgetModelBuilder wmBuilder})
-      : super(
-            widgetModelBuilder: wmBuilder ??
-                (ctx) => RepoItemWm(
-                      ctx.read<WidgetModelDependencies>(),
-                      Model([ToggleFavoritePerformer()]),
-                      item.repository,
-                    ));
+  final Repository repository;
 
   @override
   State<StatefulWidget> createState() {
-    return _RepoItemState();
+    return _RepositoryWidgetState();
   }
 }
 
-class _RepoItemState extends WidgetState<RepoItemWm> {
+class _RepositoryWidgetState extends WidgetState<RepositoryWidgetWm> {
   @override
   Widget build(BuildContext context) {
-    return StreamedStateBuilder<Repo>(
+    return StreamedStateBuilder<Repository>(
         streamedState: wm.repoState,
         builder: (context, repository) {
           return Card(
@@ -50,7 +43,7 @@ class _RepoItemState extends WidgetState<RepoItemWm> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     left: 16.0,
                     right: 16.0,
                     top: 16.0,
@@ -76,12 +69,12 @@ class _RepoItemState extends WidgetState<RepoItemWm> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       Text(
                         repository.description ?? '',
                         style: TextStyle(color: Colors.black54),
                       ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       Row(
                         children: <Widget>[
                           Icon(
@@ -89,9 +82,9 @@ class _RepoItemState extends WidgetState<RepoItemWm> {
                             size: 16.0,
                             color: Colors.blueAccent,
                           ),
-                          SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
                           Text('${repository.language}'),
-                          SizedBox(
+                          const SizedBox(
                             width: 24.0,
                           ),
                           Icon(
@@ -99,9 +92,9 @@ class _RepoItemState extends WidgetState<RepoItemWm> {
                             color: Colors.orangeAccent,
                             size: 16.0,
                           ),
-                          SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
                           Text('${repository.stargazersCount}'),
-                          SizedBox(
+                          const SizedBox(
                             width: 24.0,
                           ),
                           Icon(
@@ -109,12 +102,12 @@ class _RepoItemState extends WidgetState<RepoItemWm> {
                             size: 16.0,
                             color: Colors.green,
                           ),
-                          SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
                           Text('${repository.watchersCount}'),
-                          Spacer(),
+                          const Spacer(),
                           IconButton(
                             icon: StreamedStateBuilder<bool>(
-                                streamedState: wm.isFavorite,
+                                streamedState: wm.isFavoriteState,
                                 builder: (context, isFavorite) {
                                   return Icon(
                                     isFavorite
@@ -123,8 +116,9 @@ class _RepoItemState extends WidgetState<RepoItemWm> {
                                     color: Colors.redAccent,
                                   );
                                 }),
-                            onPressed: () =>
-                                wm.addToFavorite(repository.isFavorite),
+                            onPressed: () => wm.favoriteTapAction(
+                              repository.isFavorite,
+                            ),
                           ),
                         ],
                       ),

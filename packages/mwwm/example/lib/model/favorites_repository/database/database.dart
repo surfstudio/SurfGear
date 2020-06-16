@@ -1,11 +1,14 @@
+import 'dart:io';
+
 import 'package:moor_flutter/moor_flutter.dart';
-import 'package:mwwm_github_client/model/database/table/tables.dart';
-import 'package:mwwm_github_client/model/repository/response/reponses.dart';
+import 'package:mwwm_github_client/data/repository.dart';
 import 'package:moor_ffi/moor_ffi.dart';
+import 'package:mwwm_github_client/model/favorites_repository/database/table/tables.dart';
+import 'package:mwwm_github_client/model/github_repository/repository/dto/owner_dto.dart';
+import 'package:mwwm_github_client/model/github_repository/repository/dto/repository_dto.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:moor/moor.dart';
-import 'dart:io';
 part 'database.g.dart';
 
 LazyDatabase _openConnection() {
@@ -39,7 +42,7 @@ class Database extends _$Database {
 class RepoDao extends DatabaseAccessor<Database> with _$RepoDaoMixin {
   RepoDao(Database attachedDatabase) : super(attachedDatabase);
 
-  Future<List<Repo>> get getAllRepos => select(favoritesRepoTable)
+  Future<List<Repository>> get getAllRepos => select(favoritesRepoTable)
       .join([
         leftOuterJoin(
           ownerTable,
@@ -48,14 +51,14 @@ class RepoDao extends DatabaseAccessor<Database> with _$RepoDaoMixin {
       ])
       .get()
       .then((value) => value.map((e) {
-            var repoData = e.readTable(favoritesRepoTable);
-            var ownerData = e.readTable(ownerTable);
+            final repoData = e.readTable(favoritesRepoTable);
+            final ownerData = e.readTable(ownerTable);
 
-            return Repo.fromJson(repoData.toJson())
-              ..owner = Owner.fromJson(ownerData.toJson());
+            return RepositoryDto.fromJson(repoData.toJson()).data
+              ..owner = OwnerDto.fromJson(ownerData.toJson()).data;
           }).toList());
 
-  Future<List<Repo>> getRepoByName(String name) async {
+  Future<List<Repository>> getRepoByName(String name) async {
     final query = select(favoritesRepoTable)..where((t) => t.name.equals(name));
 
     return query
@@ -67,11 +70,11 @@ class RepoDao extends DatabaseAccessor<Database> with _$RepoDaoMixin {
         ])
         .get()
         .then((value) => value.map((e) {
-              var repoData = e.readTable(favoritesRepoTable);
-              var ownerData = e.readTable(ownerTable);
+              final repoData = e.readTable(favoritesRepoTable);
+              final ownerData = e.readTable(ownerTable);
 
-              return Repo.fromJson(repoData.toJson())
-                ..owner = Owner.fromJson(ownerData.toJson());
+              return RepositoryDto.fromJson(repoData.toJson()).data
+                ..owner = OwnerDto.fromJson(ownerData.toJson()).data;
             }).toList());
   }
 
