@@ -10,7 +10,6 @@ import 'package:datalist/src/exceptions.dart';
 ///
 /// @param <T> Item
 class OffsetDataList<T> extends DataList<T> {
-
   /// Item count in List
   int limit;
 

@@ -25,11 +25,10 @@ class AndroidNotification {
           case CALLBACK_OPEN:
             if (onNotificationTap != null) {
               Map<String, String> notificationData = Map.of(call.arguments).map(
-                    (key, value) =>
-                    MapEntry(
-                      key.toString(),
-                      value.toString(),
-                    ),
+                (key, value) => MapEntry(
+                  key.toString(),
+                  value.toString(),
+                ),
               );
               onNotificationTap(notificationData);
             }

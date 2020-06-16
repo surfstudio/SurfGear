@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:pedantic/pedantic.dart';
 
 import 'package:args/args.dart';
 
@@ -31,12 +32,12 @@ void main(List<String> arguments) async {
     }
 
     if (needChangeVersion) {
-      Process.run('flutter', ['version', version]).then((result) {
+      unawaited(Process.run('flutter', ['version', version]).then((result) {
         stdout.write(result.stdout);
         stderr.write(result.stderr);
-      });
+      }));
     } else {
-      print("Current version is equal to target version. Skipping checkout...");
+      print('Current version is equal to target version. Skipping checkout...');
     }
   }
 }

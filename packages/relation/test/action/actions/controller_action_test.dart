@@ -8,7 +8,7 @@ void main() {
     final textEditingController = TextEditingController();
     ControllerAction(
       textEditingController,
-          (TextEditingController controller, action) {
+      (TextEditingController controller, action) {
         expect(controller.runtimeType, TextEditingController);
         expect(controller.value.text, 'test');
       },

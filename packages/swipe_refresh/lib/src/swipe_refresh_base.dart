@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:swipe_refresh/src/swipe_refresh_state.dart';
 
-
 /// Base refresh indicator widget.
 abstract class SwipeRefreshBase extends StatefulWidget {
   final List<Widget> children;

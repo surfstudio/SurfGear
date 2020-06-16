@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/model/performers.dart';
-import 'package:mwwm_github_client/model/repository/favorites_repository.dart';
 import 'package:provider/provider.dart';
 import 'package:mwwm_github_client/model/repository/response/reponses.dart';
 import 'package:mwwm_github_client/ui/common/repo_item/repo_item_wm.dart';
@@ -115,17 +114,17 @@ class _RepoItemState extends WidgetState<RepoItemWm> {
                           Spacer(),
                           IconButton(
                             icon: StreamedStateBuilder<bool>(
-                              streamedState: wm.isFavorite,
-                              builder: (context, isFavorite) {
-                                return Icon(
-                                  isFavorite
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
-                                  color: Colors.redAccent,
-                                );
-                              }
-                            ),
-                            onPressed:() => wm.addToFavorite(repository.isFavorite),
+                                streamedState: wm.isFavorite,
+                                builder: (context, isFavorite) {
+                                  return Icon(
+                                    isFavorite
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    color: Colors.redAccent,
+                                  );
+                                }),
+                            onPressed: () =>
+                                wm.addToFavorite(repository.isFavorite),
                           ),
                         ],
                       ),

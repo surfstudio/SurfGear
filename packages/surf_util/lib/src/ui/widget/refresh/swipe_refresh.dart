@@ -50,22 +50,21 @@ class StreamedSwipeRefresh extends SwipeRefresh {
           indicatorBuilder: indicatorBuilder,
         );
 
-  StreamedSwipeRefresh.material({
-    Key key,
-    @required List<Widget> children,
-    @required StreamedState<SwipeRefreshState> stateStream,
-    @required VoidCallback onRefresh,
-    Color indicatorColor,
-    Color backgroundColor
-  }) : super.material(
-    key: key,
-    children: children,
-    onRefresh: onRefresh,
-    stateStream: stateStream.stream,
-    initState: stateStream.value,
-    indicatorColor: indicatorColor,
-    backgroundColor: backgroundColor
-  );
+  StreamedSwipeRefresh.material(
+      {Key key,
+      @required List<Widget> children,
+      @required StreamedState<SwipeRefreshState> stateStream,
+      @required VoidCallback onRefresh,
+      Color indicatorColor,
+      Color backgroundColor})
+      : super.material(
+            key: key,
+            children: children,
+            onRefresh: onRefresh,
+            stateStream: stateStream.stream,
+            initState: stateStream.value,
+            indicatorColor: indicatorColor,
+            backgroundColor: backgroundColor);
 
   StreamedSwipeRefresh.cupertino({
     Key key,
@@ -76,13 +75,13 @@ class StreamedSwipeRefresh extends SwipeRefresh {
     double refreshIndicatorExtent,
     RefreshControlIndicatorBuilder indicatorBuilder,
   }) : super.cupertino(
-    key: key,
-    children: children,
-    onRefresh: onRefresh,
-    stateStream: stateStream.stream,
-    initState: stateStream.value,
-    refreshTriggerPullDistance: refreshTriggerPullDistance,
-    refreshIndicatorExtent: refreshIndicatorExtent,
-    indicatorBuilder: indicatorBuilder,
-  );
+          key: key,
+          children: children,
+          onRefresh: onRefresh,
+          stateStream: stateStream.stream,
+          initState: stateStream.value,
+          refreshTriggerPullDistance: refreshTriggerPullDistance,
+          refreshIndicatorExtent: refreshIndicatorExtent,
+          indicatorBuilder: indicatorBuilder,
+        );
 }

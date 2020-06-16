@@ -7,7 +7,7 @@ class CounterInteractor {
 
   final CounterRepository _counterRepository;
 
-  PublishSubject<Counter> _subject = PublishSubject();
+  final _subject = PublishSubject<Counter>();
 
   Stream<Counter> get counterObservable => _subject.stream;
 
@@ -20,7 +20,7 @@ class CounterInteractor {
     });
   }
 
-  incrementCounter() {
+  void incrementCounter() {
     int c = _counter.count + 1;
     _counter = Counter(c);
     _subject.add(_counter);

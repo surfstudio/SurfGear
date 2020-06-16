@@ -45,8 +45,7 @@ class DioHttp extends Http {
       ..receiveTimeout = config.timeout.inMilliseconds
       ..sendTimeout = config.timeout.inMilliseconds;
 
-    if (httpClientAdapter != null)
-      _dio.httpClientAdapter = httpClientAdapter;
+    if (httpClientAdapter != null) _dio.httpClientAdapter = httpClientAdapter;
 
     _configProxy(config);
     interceptors

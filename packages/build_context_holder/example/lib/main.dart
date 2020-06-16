@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage>
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.display1,
+              style: Theme.of(context).textTheme.headline4,
             ),
             RaisedButton.icon(
               icon: Icon(Icons.info_outline),
@@ -93,7 +93,7 @@ void _showInfoDialog(int counter) {
           title: Text("You have pushed the button this many times:"),
           content: Text(
             '$counter',
-            style: Theme.of(context).textTheme.display1,
+            style: Theme.of(context).textTheme.headline4,
           ),
           actions: <Widget>[
             FlatButton(

@@ -30,7 +30,7 @@ abstract class WidgetModel {
   @protected
   final Model model;
 
-  CompositeSubscription _compositeSubscription = CompositeSubscription();
+  final _compositeSubscription = CompositeSubscription();
 
   WidgetModel(
     WidgetModelDependencies baseDependencies, {
@@ -79,7 +79,7 @@ abstract class WidgetModel {
   /// Using Rx wrappers with [subscribe] method is preferable.
   void doFuture<T>(
     Future<T> future,
-    void onValue(T t), {
+    void Function(T t) onValue, {
     void onError(e),
   }) {
     future.then(onValue).catchError((e) {
@@ -90,7 +90,7 @@ abstract class WidgetModel {
   /// Call a future with default error handling
   void doFutureHandleError<T>(
     Future<T> future,
-    onValue(T t), {
+    Function(T t) onValue, {
     onError(e),
   }) {
     future.then(onValue).catchError((e) {
@@ -109,10 +109,4 @@ abstract class WidgetModel {
   void handleError(dynamic e) {
     _errorHandler?.handleError(e);
   }
-}
-
-class ExceptionWrapper {
-  final dynamic e;
-
-  ExceptionWrapper(this.e);
 }

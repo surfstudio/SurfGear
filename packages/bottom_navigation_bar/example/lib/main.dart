@@ -211,7 +211,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
       },
       initType: _types[0],
-      selectedController:_selectorController,
+      selectedController: _selectorController,
     );
   }
 

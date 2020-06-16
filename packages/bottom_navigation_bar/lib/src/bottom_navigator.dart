@@ -28,12 +28,12 @@ class BottomNavigator extends StatefulWidget {
 
   final BottomNavBar bottomNavBar;
 
-  const BottomNavigator({
-    Key key,
-    @required this.tabsMap,
-    @required this.initialTab,
-    this.selectController
-  })  : bottomNavBar = null,
+  const BottomNavigator(
+      {Key key,
+      @required this.tabsMap,
+      @required this.initialTab,
+      this.selectController})
+      : bottomNavBar = null,
         super(key: key);
 
   /// In this case bottom navigation bar will be custom,
@@ -46,7 +46,7 @@ class BottomNavigator extends StatefulWidget {
     @required this.initialTab,
     @required this.bottomNavBar,
     @required this.selectController,
-  })  : super(key: key);
+  }) : super(key: key);
 
   @override
   _BaseBottomNavigatorState createState() => bottomNavBar == null
@@ -66,8 +66,7 @@ class _CustomBottomNavigatorState extends _BaseBottomNavigatorState {
   }
 
   @override
-  void closeSelectController() {
-  }
+  void closeSelectController() {}
 }
 
 class _BottomNavigatorState extends _BaseBottomNavigatorState {
@@ -98,7 +97,6 @@ class _BottomNavigatorState extends _BaseBottomNavigatorState {
 
     return _selectController;
   }
-
 
   @override
   void closeSelectController() {
