@@ -12,6 +12,7 @@ let CALLBACK_PERMISSION_DECLINE = "permissionDecline"
 let ARG_PUSH_ID = "pushId"
 let ARG_TITLE = "title"
 let ARG_BODY = "body"
+let ARG_IMAGE_URL = "imageUrl"
 let ARG_DATA = "data"
 
 // Plugin to display notifications
@@ -22,7 +23,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
 
     var channel :FlutterMethodChannel
 
-    init(channel channel: FlutterMethodChannel) {
+    init(channel: FlutterMethodChannel) {
             self.channel = channel
     }
 
@@ -86,6 +87,8 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         let title: String = args[ARG_TITLE] as! String
         // Notification body text
         let body: String = args[ARG_BODY] as! String
+        // Notification image url
+        let imageUrl: String = "https://i.ytimg.com/vi/bbMwGnbpSag/maxresdefault.jpg" //args[ARG_IMAGE_URL] as? String
         // Data for notification
         var data: Dictionary<String, Any> = [:]
 
@@ -100,6 +103,19 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         content.body = body
         content.sound = UNNotificationSound.default
         content.userInfo = data
+        
+        if let imageUrl = aps["imageUrl"] as? String {
+            if let url = URL(string: imagePath) {
+                if let imageData = NSData(contentsOf: url) {
+                    if let attachment = UNNotificationAttachment.create(imageFileIdentifier: "image.jpg", data: imageData, options: nil) {
+                        content.attachments = [ attachment ]
+                    } else {
+                        print("error in UNNotificationAttachment.create()")
+                    }
+                }
+            }
+        }
+
         
         /* Trigger when notification is displayed
            Now it is configured to show
@@ -135,4 +151,28 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
 
         completionHandler()
     }
+}
+
+@available(iOSApplicationExtension 10.0, *)
+extension UNNotificationAttachment {
+    
+    /// Save the image to disk
+    static func create(imageFileIdentifier: String, data: NSData, options: [NSObject : AnyObject]?) -> UNNotificationAttachment? {
+        let fileManager = FileManager.default
+        let tmpSubFolderName = ProcessInfo.processInfo.globallyUniqueString
+        guard let tmpSubFolderURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(tmpSubFolderName, isDirectory: true) else { return nil }
+        
+        do {
+            try fileManager.createDirectory(at: tmpSubFolderURL, withIntermediateDirectories: true, attributes: nil)
+            let fileURL = tmpSubFolderURL.appendingPathComponent(imageFileIdentifier)
+            try data.write(to: fileURL, options: [])
+            let imageAttachment = try UNNotificationAttachment(identifier: imageFileIdentifier, url: fileURL, options: options)
+            return imageAttachment
+        } catch let error {
+            print("error \(error)")
+        }
+        
+        return nil
+    }
+    
 }
