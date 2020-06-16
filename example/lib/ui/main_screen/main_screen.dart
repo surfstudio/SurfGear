@@ -18,12 +18,6 @@ class MainScreen extends CoreMwwmWidget {
 class _MainScreenState extends WidgetState<MainWm> {
   int _currentPageIndex = 0;
 
-  final List<Widget> _pages = [
-    RepositoriesPage(),
-    const Center(child: Text('2')),
-    const Center(child: Text('3')),
-  ];
-
   @override
   Widget build(BuildContext context) => Scaffold(
         bottomNavigationBar: _buildBottomNavigationBar(),
