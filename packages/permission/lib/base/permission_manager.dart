@@ -19,24 +19,23 @@ enum Permission {
   calendar,
   contacts,
   microphone,
-  phone,
-  speech,
+  phone, //only android
+  speech, //only ios
   notification,
 }
 
-/// Сервис запросов и проверки разрешений
+/// Service for requesting and checking permissions
 abstract class PermissionManager {
-  /// Запрос разрешения.
-  /// Возвращает [true], если разрешение есть.
-  /// Если [checkRationale], то выбросит [FeatureProhibitedException] в случае
-  /// повторного отказа от использования фичи и последующего запрета.
-  /// (Актуально только для Android, на iOS выбрасывается всегда.)
+  /// Permission request.
+  /// Return [true] if granted.
+  /// in case of "Don't ask me" and [checkRationale] throw [FeatureProhibitedException]
+  /// (Actual for Android, on iOS always throw)
   Future<bool> request(Permission permission, {bool checkRationale});
 
-  /// Проверка разрешения без запроса
+  /// Check permission without dialog
   Future<bool> check(Permission permission);
 
-  /// Открытие системных настроек.
-  /// Возвращает [true], если экран с настройками был открыт.
+  /// Open system settings.
+  /// If user open settings return [true]
   Future<bool> openSettings();
 }

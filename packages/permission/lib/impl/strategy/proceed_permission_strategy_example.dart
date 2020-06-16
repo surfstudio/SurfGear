@@ -7,9 +7,9 @@ class ProceedPermissionStrategyExample implements ProceedPermissionStrategy {
   @override
   Future<void> proceed(Permission permission, PermissionStrategyStatus status) {
     if (status == PermissionStrategyStatus.allow) {
-      print("We have permision.");
+      print("We have permision - $permission.");
     } else {
-      print("Try get permission from user.");
+      print("Try get permission from user. $permission");
     }
 
     return null;
