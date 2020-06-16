@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mwwm_github_client/ui/repos/repository_search_screen.dart';
+import 'package:mwwm_github_client/ui/screens/repository_search/repository_search_route.dart';
+
+const _initRouteName = '/';
 
 class App extends StatefulWidget {
   @override
@@ -11,7 +13,15 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: RepositorySearchScreen(),
+      initialRoute: _initRouteName,
+      onGenerateRoute: (routeSettings) {
+        switch (routeSettings.name) {
+          case _initRouteName:
+            return RepositorySearchRoute();
+          default:
+            throw Exception('Unknown route name: ${routeSettings.name}');
+        }
+      },
     );
   }
 }
