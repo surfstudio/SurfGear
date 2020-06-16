@@ -33,8 +33,8 @@ class ConditionalStep<T> extends BaseStepScenario<T> {
   final Future<String> Function(dynamic prevStepData) predicate;
 
   ConditionalStep({
-    this.predicate,
-    this.steps,
+    @required this.predicate,
+    @required this.steps,
     ResultScenarioCallback<T> onResult,
   }) : super(onResult: onResult);
 
