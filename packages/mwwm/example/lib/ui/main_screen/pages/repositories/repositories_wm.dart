@@ -30,8 +30,6 @@ class RepositoriesWm extends WidgetModel {
   /// Refresh requests
   final refreshAction = Action();
 
-  final List<Repository> _cachedRepositories = [];
-
   @override
   void onLoad() {
     super.onLoad();
@@ -58,7 +56,7 @@ class RepositoriesWm extends WidgetModel {
 
     subscribe(
       favoritesChangedState.stream,
-      (_) => _checkFavorites(),
+      (_) => _checkFavorites(repositoriesState.value.data),
     );
   }
 
@@ -74,32 +72,31 @@ class RepositoriesWm extends WidgetModel {
           ? SearchRepositories(text)
           : GetRepositories();
 
-      _cachedRepositories.clear();
-      _cachedRepositories.addAll(await model.perform(request));
+      final List<Repository> repositories = await model.perform(request);
 
-      _checkFavorites();
+      _checkFavorites(repositories);
     } on Exception catch (e) {
       handleError(e);
       repositoriesState.error(e);
     }
   }
 
-  Future<void> _checkFavorites() async {
+  Future<void> _checkFavorites(List<Repository> repositories) async {
     final List<Repository> favorites = await model.perform(
       GetFavoriteRepositories(),
     );
 
-    for (Repository repo in _cachedRepositories) {
+    for (Repository repo in repositories) {
       repo.isFavorite = false;
     }
 
     for (Repository fav in favorites) {
-      final Repository repo = _cachedRepositories.firstWhere(
+      final Repository repo = repositories.firstWhere(
         (repo) => repo.id == fav.id,
       );
       repo.isFavorite = true;
     }
 
-    repositoriesState.content(_cachedRepositories);
+    repositoriesState.content(repositories);
   }
 }
