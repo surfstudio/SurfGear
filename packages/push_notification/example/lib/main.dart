@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
               "hello",
               "this is test",
               imageUrl:
-                  "https://www.lumico.io/wp-content/uploads/2019/09/flutter.jpg",
+                  "https://www.lumico.io/wp-019/09/flutter.jpg",
               data: {notificationKey: "[notification data]"},
               notificationSpecifics: NotificationSpecifics(
                 AndroidNotificationSpecifics(

@@ -41,6 +41,7 @@ class PushStrategy(override val icon: Int,
                 .applyLargeIcon(imageUrl)
 
     }
+
     override fun makeNotificationChannel(context: Context, title: String): NotificationChannel? = null
 
     override fun coldStartIntent(context: Context): Intent? {
@@ -55,13 +56,15 @@ private fun NotificationCompat.Builder.applyLargeIcon(imageUrl: String?): Notifi
     if (imageUrl != null && imageUrl != EMPTY_STRING) {
         try {
             val bitmap = getBitmapFromURL(imageUrl)
-            val bigPictureStyle = NotificationCompat.BigPictureStyle()
-                    .bigPicture(bitmap)
-                    .bigLargeIcon(null) // Чтобы при разворачивании уведопления инонка исчезала, а изображение появлялось
-            setStyle(bigPictureStyle)
-            setLargeIcon(bitmap)
+            if (bitmap != null) {
+                val bigPictureStyle = NotificationCompat.BigPictureStyle()
+                        .bigPicture(bitmap)
+                        .bigLargeIcon(null) // Hide small icon and show image
+                setStyle(bigPictureStyle)
+                setLargeIcon(bitmap)
+            }
         } catch (e: Exception) {
-            print(e)
+            print("Error while downloading image")
         }
 
     }
