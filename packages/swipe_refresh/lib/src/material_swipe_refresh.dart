@@ -12,17 +12,16 @@ class MaterialSwipeRefresh extends SwipeRefreshBase {
 
   const MaterialSwipeRefresh({
     Key key,
+    this.indicatorColor,
     List<Widget> children,
     SliverChildDelegate childrenDelegate,
     Stream<SwipeRefreshState> stateStream,
     SwipeRefreshState initState,
     VoidCallback onRefresh,
-    Color indicatorColor,
     Color backgroundColor,
     ScrollController scrollController,
     EdgeInsets padding,
-  })  : indicatorColor = indicatorColor ?? const Color(0xFFFF0000),
-        backgroundColor = backgroundColor ?? const Color(0xFFFFFFFF),
+  })  : backgroundColor = backgroundColor ?? const Color(0xFFFFFFFF),
         super(
           key: key,
           children: children,
