@@ -13,19 +13,26 @@ class MaterialSwipeRefresh extends SwipeRefreshBase {
   const MaterialSwipeRefresh({
     Key key,
     List<Widget> children,
+    SliverChildDelegate childrenDelegate,
     Stream<SwipeRefreshState> stateStream,
     SwipeRefreshState initState,
     VoidCallback onRefresh,
     Color indicatorColor,
     Color backgroundColor,
+    ScrollController scrollController,
+    EdgeInsets padding,
   })  : indicatorColor = indicatorColor ?? const Color(0xFFFF0000),
         backgroundColor = backgroundColor ?? const Color(0xFFFFFFFF),
         super(
-            key: key,
-            children: children,
-            stateStream: stateStream,
-            initState: initState,
-            onRefresh: onRefresh);
+          key: key,
+          children: children,
+          childrenDelegate: childrenDelegate,
+          stateStream: stateStream,
+          initState: initState,
+          onRefresh: onRefresh,
+          scrollController: scrollController,
+          padding: padding,
+        );
 
   @override
   _MaterialSwipeRefreshState createState() => _MaterialSwipeRefreshState();
@@ -37,9 +44,19 @@ class _MaterialSwipeRefreshState
   Widget buildRefresher(Key key, List<Widget> children, onRefresh) {
     return RefreshIndicator(
       key: key,
-      child: ListView(
-        children: children,
-      ),
+      child: widget.childrenDelegate == null
+          ? ListView(
+              padding: widget.padding,
+              controller: widget.scrollController ?? ScrollController(),
+              children: children,
+              physics: AlwaysScrollableScrollPhysics(),
+            )
+          : ListView.custom(
+              padding: widget.padding,
+              childrenDelegate: widget.childrenDelegate,
+              controller: widget.scrollController ?? ScrollController(),
+              physics: AlwaysScrollableScrollPhysics(),
+            ),
       onRefresh: onRefresh,
       color: widget.indicatorColor,
       backgroundColor: widget.backgroundColor,
