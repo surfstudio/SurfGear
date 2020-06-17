@@ -1,6 +1,6 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:relation/relation.dart';
-import 'package:scenario/result.dart';
 import 'package:scenario/scenario.dart';
 import 'package:scenario/scenarios/load_scenario.dart';
 
@@ -33,12 +33,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _streamedState = EntityStreamedState<String>();
+
+  StreamController<String> _streamController = StreamController();
+
+  Stream<String> get _stream => _streamController.stream;
 
   @override
   void initState() {
     super.initState();
     _run();
+  }
+
+  @override
+  void dispose() {
+    _streamController.close();
+    super.dispose();
   }
 
   @override
@@ -48,75 +57,50 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: EntityStateBuilder<String>(
-          streamedState: _streamedState,
-          child: (_, String data) {
-            return Text(data);
+        child: StreamBuilder<String>(
+          stream: _stream,
+          builder: (_, AsyncSnapshot<String> snapshot) {
+            if (snapshot.data == null) {
+              return CircularProgressIndicator();
+            }
+            return Text(snapshot.data);
           },
-          loadingChild: CircularProgressIndicator(),
-          errorChild: Text('load'),
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
   void _run() {
-    _MainScenario(streamedState: _streamedState).run();
-  }
-}
-
-class _MainScenario extends BaseScenario {
-  final EntityStreamedState streamedState;
-
-  _MainScenario({
-    this.streamedState,
-  });
-
-  void run() {
-    LoadScenario(
-      streamedState: streamedState,
-      loadScenario: Scenario(
-        steps: [
-          StepScenario(
-            loadMore: (_) async => 1,
-            onResult: (r) => print('step 0 = $r'),
-          ),
-          StepScenario<int>(
-            loadMore: (data) async {
-              await Future.delayed(const Duration(seconds: 1));
-              return 1 + data;
-            },
-            onResult: (r) => print('step 1 = $r'),
-          ),
-        ],
-      ),
-      dataScenario: Scenario(
-        steps: [
-          ConditionalStep(
-            predicate: (data) async => false ? 'a' : 'b',
-            steps: {
-              'a': StepScenario(
-                loadMore: (data) async => data,
-                onResult: (Result r) => print('StepScenario a = ${r.data}'),
-              ),
-              'b': ConditionalStep(
-                predicate: (data) async => data > 1 ? 'c' : 'd',
-                onResult: (Result r) => print('ConditionalStep b = ${r.data}'),
-                steps: {
-                  'c': StepScenario(
-                    loadMore: (data) async => data * 2,
-                    onResult: (Result r) => print('StepScenario c = ${r.data}'),
-                  ),
-                  'd': StepScenario(
-                    loadMore: (data) async => data * 10,
-                    onResult: (Result r) => print('StepScenario d = ${r.data}'),
-                  ),
-                },
-              ),
-            },
-          ),
-        ],
-      ),
+    LoadScenario<String>(
+      future: _getData(),
+      onLoad: () => print('load'),
+      onData: (String data) => print('onData = $data'),
+      ifHasData: (String data) => _streamController.add(data),
+      ifNoData: () => _streamController.add('0'),
+      onError: (_) => _streamController.add('-1'),
     ).run();
   }
+
+  void _runFromScenario() {
+    LoadScenario<String>.fromScenario(
+      scenario: Scenario(
+        steps: [
+          ScenarioStep<String>(
+              make: (_) async => '10',
+          ),
+        ]
+      ),
+      onLoad: () => print('load fromScenario'),
+      onData: (String data) => print('onData fromScenario = $data'),
+      ifHasData: (String data) => _streamController.add('fromScenario $data'),
+      ifNoData: () => _streamController.add('fromScenario 0'),
+      onError: (_) => _streamController.add('fromScenario -1'),
+    ).run();
+  }
+
+  Future<String> _getData() async {
+    await Future.delayed(const Duration(seconds: 2));
+    return '1';
+  }
+
 }

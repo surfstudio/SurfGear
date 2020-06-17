@@ -1,61 +1,71 @@
-import 'package:flutter/cupertino.dart';
-import 'package:scenario/steps/step_scenario.dart';
+import 'dart:ffi';
+
+import 'package:flutter/foundation.dart';
 import 'package:scenario/result.dart';
-import 'package:relation/relation.dart';
 import 'package:scenario/scenarios/base_scenario.dart';
 import 'package:scenario/scenarios/scenario.dart';
+import 'package:scenario/types.dart';
 
 /// Сценарий загрузки данных
-class LoadScenario extends BaseScenario {
-  final EntityStreamedState streamedState;
-  /// Сценарий загрузки
-  final Scenario loadScenario;
-  /// Сценарий обработки данных
-  final Scenario dataScenario;
-  /// Сценарий ошибки
-  final Scenario errorScenario;
+class LoadScenario<T> extends BaseScenario {
+  Future<T> future;
+  VoidCallback onLoad;
+  LoadScenarioDataCallback<T> onData;
+  LoadScenarioDataCallback<T> ifHasData;
+  VoidCallback ifNoData;
+  ErrorScenarioCallback onError;
 
   LoadScenario({
-    @required this.streamedState,
-    this.loadScenario,
-    this.dataScenario,
-    this.errorScenario,
+    @required this.future,
+    this.onLoad,
+    this.onData,
+    this.ifHasData,
+    this.ifNoData,
+    this.onError,
   });
 
-  factory LoadScenario.fromSteps({
-    BaseStepScenario loadStep,
-    BaseStepScenario dataStep,
-    BaseStepScenario errorStep,
-  }) =>
-      LoadScenario(
-        loadScenario: loadStep == null ? null : Scenario(steps: [loadStep]),
-        dataScenario: dataStep == null ? null : Scenario(steps: [dataStep]),
-        errorScenario: errorStep == null ? null : Scenario(steps: [errorStep]),
-      );
+  factory LoadScenario.fromScenario({
+    @required Scenario<T> scenario,
+    VoidCallback onLoad,
+    LoadScenarioDataCallback<T> onData,
+    LoadScenarioDataCallback<T> ifHasData,
+    VoidCallback ifNoData,
+    ErrorScenarioCallback onError,
+  }) {
+    return LoadScenario<T>(
+      future: scenario
+          .run()
+          .then((Result<T> r) => r.data)
+          .catchError((e) => onError(Exception(e.message))),
+      onLoad: onLoad,
+      onData: onData,
+      ifHasData: ifHasData,
+      ifNoData: ifNoData,
+      onError: onError,
+    );
+  }
 
-  call() {
+  Future<T> call() {
     return run();
   }
 
-  Future<void> run() async {
-    Result result;
-    /// Уходят в стрим
+  Future<T> run() async {
+    T data;
+
+    onLoad?.call();
+
     try {
-      streamedState.loading();
-
-      /// Логика загрузки
-      result = await loadScenario?.call();
-
-      /// Загруженные данные передаются в сценарий данных для обработки
-      /// Есть вариант оъеденить loadScenario и dataScenario
-      result = await dataScenario?.call(result);
-
-      /// Уходят в стрим
-      streamedState.content(result.data.toString());
+      data = await future;
+      if (data == null) {
+        ifNoData?.call();
+      } else {
+        ifHasData?.call(data);
+      }
+      onData?.call(data);
     } catch (e) {
-      result = await errorScenario?.call(Result.fromError(e));
-      streamedState.error(e);
+      onError?.call(e);
     }
-    return result;
+
+    return data;
   }
 }

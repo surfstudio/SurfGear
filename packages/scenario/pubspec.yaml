@@ -12,9 +12,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  relation:
-    path: ../relation
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

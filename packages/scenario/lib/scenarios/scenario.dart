@@ -6,7 +6,7 @@ import 'package:scenario/types.dart';
 /// Стандартный Сценарий
 class Scenario<T> extends BaseScenario {
   /// Шаги
-  final List<BaseStepScenario> steps;
+  final List<BaseScenarioStep> steps;
   /// Колбэк окончания работы сценария
   final void Function(Result result) onFinish;
   /// Колбэк окончания работы сценария
@@ -22,7 +22,7 @@ class Scenario<T> extends BaseScenario {
   Future<Result<T>> run([Result prevScenarioResult]) async {
     var result = prevScenarioResult?.data;
     try {
-      for (BaseStepScenario step in steps) {
+      for (BaseScenarioStep step in steps) {
         result = await step(result);
       }
       onFinish?.call(Result(result));

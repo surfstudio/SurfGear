@@ -3,44 +3,52 @@ import 'package:scenario/result.dart';
 import 'package:scenario/types.dart';
 
 /// Базовый класс шага
-abstract class BaseStepScenario<T> {
-
+abstract class BaseScenarioStep<T> {
   /// Функция получения результата
   ResultScenarioCallback<T> onResult;
 
-  BaseStepScenario({this.onResult});
+  BaseScenarioStep({this.onResult});
 
   Future<T> call([data]);
 }
 
-class StepScenario<T> extends BaseStepScenario<T> {
-  Future<T> Function(dynamic prevStepData) loadMore;
+class ScenarioStep<T> extends BaseScenarioStep<T> {
+  ScenarioMakeCallback<T> make;
 
-  StepScenario({
-    this.loadMore,
+  ScenarioStep({
+    this.make,
     ResultScenarioCallback<T> onResult,
   }) : super(onResult: onResult);
 
   Future<T> call([prevStepData]) async {
-    T result = await loadMore(prevStepData);
+    T result = await make(prevStepData);
     onResult?.call(Result(result));
     return result;
   }
 }
 
-class ConditionalStep<T> extends BaseStepScenario<T> {
-  final Map<String, BaseStepScenario> steps;
-  final Future<String> Function(dynamic prevStepData) predicate;
+/// Шаг с выполеннеием по условию
+/// Если [predicate] вернет true - выполнить [firstStep] иначе [secondStep]
+class ConditionalScenarioStep<T> extends BaseScenarioStep<T> {
+  /// Первый шаг
+  final BaseScenarioStep firstStep;
+  /// Второй шаг
+  final BaseScenarioStep secondStep;
+  /// Предикат определяющй какой шаг выполнять
+  final PredicateConditionalStep predicate;
 
-  ConditionalStep({
+  ConditionalScenarioStep({
     @required this.predicate,
-    @required this.steps,
+    @required this.firstStep,
+    @required this.secondStep,
     ResultScenarioCallback<T> onResult,
   }) : super(onResult: onResult);
 
   Future<T> call([prevStepData]) async {
-    String id = await predicate(prevStepData);
-    return steps[id]?.call(prevStepData);
+    bool isFirst = await predicate(prevStepData);
+    return isFirst
+        ? await firstStep?.call(prevStepData)
+        : await secondStep?.call(prevStepData);
   }
 }
 
