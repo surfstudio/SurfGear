@@ -88,7 +88,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         // Notification body text
         let body: String = args[ARG_BODY] as! String
         // Notification image url
-        let imageUrl: String = "https://i.ytimg.com/vi/bbMwGnbpSag/maxresdefault.jpg" //args[ARG_IMAGE_URL] as? String
+        let imageUrl: String? = args[ARG_IMAGE_URL] as? String
         // Data for notification
         var data: Dictionary<String, Any> = [:]
 
@@ -104,12 +104,14 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         content.sound = UNNotificationSound.default
         content.userInfo = data
         
-        if let url = URL(string: imageUrl) {
-            if let imageData = NSData(contentsOf: url) {
-                if let attachment = UNNotificationAttachment.create(imageFileIdentifier: "image.jpg", data: imageData, options: nil) {
-                    content.attachments = [ attachment ]
-                } else {
-                    print("error in UNNotificationAttachment.create()")
+        if let path = imageUrl {
+            if let url = URL(string: path){
+                if let imageData = NSData(contentsOf: url){
+                    if let attachment = UNNotificationAttachment.create(imageFileIdentifier: "image.jpg", data: imageData, options: nil) {
+                        content.attachments = [ attachment ]
+                    } else {
+                        print("error in UNNotificationAttachment.create()")
+                    }
                 }
             }
         }

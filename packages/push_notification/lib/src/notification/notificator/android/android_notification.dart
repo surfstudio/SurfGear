@@ -49,6 +49,7 @@ class AndroidNotification {
     int id,
     String title,
     String body,
+    String imageUrl,
     Map<String, String> data,
     AndroidNotificationSpecifics notificationSpecifics,
   ) async {
@@ -58,6 +59,7 @@ class AndroidNotification {
         ARG_PUSH_ID: id ?? 0,
         ARG_TITLE: title ?? "",
         ARG_BODY: body ?? "",
+        ARG_IMAGE_URL: imageUrl,
         ARG_DATA: data,
         ARG_NOTIFICATION_SPECIFICS: notificationSpecifics != null
             ? notificationSpecifics.toMap()
