@@ -8,13 +8,13 @@ A library that helps to perform actions with some periodicity
 
 main classes:
 
-1. [RenderMetricsObject](/lib/src/render/render_metrics.dart)
-2. [RenderMetricsBox](/lib/src/render/render_metrics.dart)
-3. [RenderManager](/lib/src/manager/render_manager.dart)
-4. [RenderParametersManager](/lib/src/manager/render_parameters_manager.dart)
-5. [RenderData](/lib/src/data/render_data.dart)
-6. [ComparisonDiff](/lib/src/data/comparison_diff.dart)
-7. [CoordsMetrics](/lib/src/data/coords_metrics.dart)
+1. [RenderMetricsObject](./lib/src/render/render_metrics.dart)
+2. [RenderMetricsBox](./lib/src/render/render_metrics.dart)
+3. [RenderManager](./lib/src/manager/render_manager.dart)
+4. [RenderParametersManager](./lib/src/manager/render_parameters_manager.dart)
+5. [RenderData](./lib/src/data/render_data.dart)
+6. [ComparisonDiff](./lib/src/data/comparison_diff.dart)
+7. [CoordsMetrics](./lib/src/data/coords_metrics.dart)
 
 # Library for getting widget metrics.
 
