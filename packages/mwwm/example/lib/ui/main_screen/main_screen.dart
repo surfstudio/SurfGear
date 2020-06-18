@@ -3,6 +3,7 @@ import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/ui/main_screen/main_wm.dart';
 import 'package:mwwm_github_client/ui/main_screen/pages/favorites/favorites_page.dart';
 import 'package:mwwm_github_client/ui/main_screen/pages/repositories/repositories_page.dart';
+import 'package:mwwm_github_client/ui/main_screen/pages/users/users_page.dart';
 import 'package:relation/relation.dart';
 
 /// Main screen
@@ -27,7 +28,7 @@ class _MainScreenState extends WidgetState<MainWm> {
             children: [
               RepositoriesPage(),
               FavoritesPage(),
-              const Center(child: Text('3')),
+              UsersPage(),
             ],
           ),
         ),
