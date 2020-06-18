@@ -25,6 +25,12 @@ import ru.surfstudio.android.notification.ui.PushClickProvider
 import ru.surfstudio.android.notification.ui.PushEventListener
 import ru.surfstudio.android.notification.ui.notification.NOTIFICATION_DATA
 import ru.surfstudio.android.utilktx.ktx.text.EMPTY_STRING
+import java.io.BufferedInputStream
+import java.io.ByteArrayOutputStream
+import java.io.OutputStream
+import java.io.OutputStreamWriter
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 //channels and methods names
@@ -54,6 +60,9 @@ private const val DEFAULT_CHANNEL_ID = "@string/notification_channel_id"
 private const val DEFAULT_CHANNEL_NAME = "@string/data_push_channel_name"
 private const val DEFAULT_COLOR = "@color/design_default_color_primary"
 private const val DEFAULT_AUTOCANCEL = true
+
+private const val MESSAGE_KEY = "uniqueKey"
+private const val BUTTON_KEY = "buttonKey"
 
 internal const val EVENT_TYPE = "event_type"
 
@@ -152,6 +161,13 @@ public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin, Plugin
                  * если выгрузить приложение пуш по тапу ничего не делает **/
                 val notificationTypeData = intent.getSerializableExtra(NOTIFICATION_DATA) as PushNotificationTypeData
 
+                val messageUniqueKey: String = notificationTypeData.data?.notificationData?.get(MESSAGE_KEY)
+                        ?: ""
+                // Реализовать добавление уникального идентификатора кнопки
+                val buttonUniqueKey: String? = null
+
+                sendClickOperation(messageUniqueKey = messageUniqueKey, buttonUniqueKey = buttonUniqueKey)
+
                 //TODO: Разобраться, почему не приходит NOTIFICATION_DATA
                 var notificationData = HashMap<String, String>();
                 if (notificationTypeData.data != null) {
@@ -197,5 +213,58 @@ public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin, Plugin
 
     private fun getResourceId(resName: String, defType: String): Int {
         return context!!.resources.getIdentifier(resName, defType, context!!.packageName)
+    }
+
+    private fun sendClickOperation(messageUniqueKey: String, buttonUniqueKey: String?) {
+        AsyncTask.execute {
+            // Отправка операции нажатия на пуш
+            val url = URL("https://api.mindbox.ru/v3/mobile-push/click?endpointId=2020RiglaMobileAndroid")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.doOutput = true
+            connection.requestMethod = "POST"
+            connection.setRequestProperty("Content-Type", "application/json")
+
+            var body: String
+
+            if (buttonUniqueKey != null) {
+                body = """
+                    {  
+                       "click":{  
+                          "messageUniqueKey": $messageUniqueKey,
+                          "buttonUniqueKey":" $buttonUniqueKey
+                       }
+                    }
+                """.trimIndent()
+            } else {
+                body = """
+                    {  
+                       "click":{  
+                          "messageUniqueKey": $messageUniqueKey
+                       }
+                    }
+                """.trimIndent()
+            }
+
+            val os: OutputStream = connection.outputStream
+            val osw = OutputStreamWriter(os, "UTF-8")
+            osw.write(body)
+            osw.flush()
+            osw.close()
+            os.close();  //don't forget to close the OutputStream
+            connection.connect();
+
+            //read the inputstream and print it
+            val result: String
+            val bis = BufferedInputStream(connection.inputStream)
+            val buf = ByteArrayOutputStream()
+            var result2 = bis.read()
+            while (result2 != -1) {
+                buf.write(result2)
+                result2 = bis.read()
+            }
+            result = buf.toString()
+            println("operation click")
+            println(result)
+        }
     }
 }
