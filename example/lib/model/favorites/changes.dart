@@ -14,3 +14,10 @@ class ToggleRepositoryFavoriteValue extends FutureChange<void> {
 
 /// Receive favorite repositories
 class GetFavoriteRepositories extends FutureChange<List<Repository>> {}
+
+/// Check repository is favorites
+class DefineFavoritesFromRepository extends FutureChange<List<Repository>> {
+  DefineFavoritesFromRepository(this.repositories);
+
+  final List<Repository> repositories;
+}

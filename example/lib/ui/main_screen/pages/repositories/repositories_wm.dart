@@ -82,21 +82,10 @@ class RepositoriesWm extends WidgetModel {
   }
 
   Future<void> _checkFavorites(List<Repository> repositories) async {
-    final List<Repository> favorites = await model.perform(
-      GetFavoriteRepositories(),
+    final List<Repository> checkedRepositories = await model.perform(
+      DefineFavoritesFromRepository(repositories),
     );
 
-    for (Repository repo in repositories) {
-      repo.isFavorite = false;
-    }
-
-    for (Repository fav in favorites) {
-      final Repository repo = repositories.firstWhere(
-        (repo) => repo.id == fav.id,
-      );
-      repo.isFavorite = true;
-    }
-
-    repositoriesState.content(repositories);
+    repositoriesState.content(checkedRepositories);
   }
 }
