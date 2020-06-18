@@ -3,6 +3,7 @@ import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/ui/main_screen/main_wm.dart';
 import 'package:mwwm_github_client/ui/main_screen/pages/favorites/favorites_page.dart';
 import 'package:mwwm_github_client/ui/main_screen/pages/repositories/repositories_page.dart';
+import 'package:relation/relation.dart';
 
 /// Main screen
 class MainScreen extends CoreMwwmWidget {
@@ -16,22 +17,23 @@ class MainScreen extends CoreMwwmWidget {
 }
 
 class _MainScreenState extends WidgetState<MainWm> {
-  int _currentPageIndex = 0;
-
   @override
-  Widget build(BuildContext context) => Scaffold(
-        bottomNavigationBar: _buildBottomNavigationBar(),
-        body: IndexedStack(
-          index: _currentPageIndex,
-          children: [
-            RepositoriesPage(),
-            FavoritesPage(),
-            const Center(child: Text('3')),
-          ],
+  Widget build(BuildContext context) => StreamedStateBuilder<int>(
+        streamedState: wm.pageIndexState,
+        builder: (context, pageIndex) => Scaffold(
+          bottomNavigationBar: _buildBottomNavigationBar(pageIndex),
+          body: IndexedStack(
+            index: pageIndex,
+            children: [
+              RepositoriesPage(),
+              FavoritesPage(),
+              const Center(child: Text('3')),
+            ],
+          ),
         ),
       );
 
-  Widget _buildBottomNavigationBar() => BottomNavigationBar(
+  Widget _buildBottomNavigationBar(int pageIndex) => BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -46,13 +48,7 @@ class _MainScreenState extends WidgetState<MainWm> {
             title: Text('Users'),
           ),
         ],
-        currentIndex: _currentPageIndex,
-        onTap: _changeTab,
+        currentIndex: pageIndex,
+        onTap: wm.changePageAction,
       );
-
-  void _changeTab(int pageIndex) {
-    setState(() {
-      _currentPageIndex = pageIndex;
-    });
-  }
 }

@@ -30,6 +30,33 @@ class GetFavoriteRepositoriesPerformer
 
   @override
   Future<List<Repository>> performInternal(GetFavoriteRepositories change) {
-    return _favoritesRepository.getAllRepos();
+    return _favoritesRepository.getRepositories();
+  }
+}
+
+class DefineFavoritesFromRepositoryPerformer
+    extends FuturePerformer<List<Repository>, DefineFavoritesFromRepository> {
+  DefineFavoritesFromRepositoryPerformer(this._favoritesRepository);
+
+  final FavoritesRepository _favoritesRepository;
+
+  @override
+  Future<List<Repository>> perform(DefineFavoritesFromRepository change) async {
+    final List<Repository> repositories = List.from(change.repositories);
+    final List<Repository> favorites =
+        await _favoritesRepository.getRepositories();
+
+    for (Repository repo in repositories) {
+      repo.isFavorite = false;
+    }
+
+    for (Repository fav in favorites) {
+      final Repository repo = repositories.firstWhere(
+        (repo) => repo.id == fav.id,
+      );
+      repo.isFavorite = true;
+    }
+
+    return repositories;
   }
 }

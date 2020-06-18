@@ -76,7 +76,7 @@ class FavoritesRepository {
     return _dao.deleteRepo(repoTableData, ownerData);
   }
 
-  Future<List<Repository>> getAllRepos() async {
+  Future<List<Repository>> getRepositories() async {
     return _dao.getAllRepos;
   }
 

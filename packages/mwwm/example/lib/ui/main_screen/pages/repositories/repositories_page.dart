@@ -30,6 +30,9 @@ class RepositoriesPage extends CoreMwwmWidget {
                       ),
                       GetFavoriteRepositoriesPerformer(
                         context.read<FavoritesRepository>(),
+                      ),
+                      DefineFavoritesFromRepositoryPerformer(
+                        context.read<FavoritesRepository>(),
                       )
                     ]),
                   ),
