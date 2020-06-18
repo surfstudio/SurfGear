@@ -65,7 +65,7 @@ class InkWidget extends StatelessWidget {
     bool autofocus,
   })  : disable = disable ?? false,
         disableOpacity = disableOpacity ?? .5,
-        disableColor = disableColor ?? Colors.black,
+        disableColor = disableColor ?? Colors.black.withOpacity(.5),
         enableFeedback = enableFeedback ?? true,
         excludeFromSemantics = excludeFromSemantics ?? false,
         canRequestFocus = canRequestFocus ?? true,
@@ -115,16 +115,21 @@ class InkWidget extends StatelessWidget {
         );
   }
 
+  ShapeDecoration get _shapeSiable => shape == null ? null : ShapeDecoration(
+    color: disableColor,
+    shape: shape,
+  );
+
+  Color get _disableColor => shape == null ? disableColor : null;
+
   Widget _buildDisableWidget() {
     return disableWidget ??
         Positioned.fill(
           child: Opacity(
             opacity: disableOpacity,
             child: Container(
-              decoration: ShapeDecoration(
-                color: disableColor,
-                shape: shape,
-              ),
+              color: _disableColor,
+              decoration: _shapeSiable,
             ),
           ),
         );
