@@ -105,14 +105,14 @@ class _RepositoriesScreenState extends WidgetState<RepositoriesWm> {
           return isSearching
               ? TextField(
                   controller: wm.textQueryAction.controller,
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                   cursorColor: Colors.white,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Search...',
-                    hintStyle: TextStyle(color: Colors.white),
+                    hintStyle:  TextStyle(color: Colors.white),
                   ),
                 )
-              : const Text('search repos');
+              : const Text('Search repository');
         },
       );
 }

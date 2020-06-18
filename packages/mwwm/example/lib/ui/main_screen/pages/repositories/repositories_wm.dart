@@ -6,7 +6,6 @@ import 'package:mwwm_github_client/ui/widgets/repository/repository_widget_wm.da
 import 'package:relation/relation.dart';
 
 /// Widget model for search repositories
-/// TODO: add actions and logic
 class RepositoriesWm extends WidgetModel {
   RepositoriesWm(
     WidgetModelDependencies baseDependencies,
