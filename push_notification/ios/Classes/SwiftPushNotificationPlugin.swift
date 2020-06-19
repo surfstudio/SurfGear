@@ -22,7 +22,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
 
      var channel :FlutterMethodChannel
 
-    init(channel channel: FlutterMethodChannel) {
+    init(channel: FlutterMethodChannel) {
             self.channel = channel
     }
 
@@ -135,8 +135,51 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         var notificationData = notification.request.content.userInfo
         notificationData["actionIdentifier"] = response.actionIdentifier
 
+        //todo sendOperationRequest
+        
         channel.invokeMethod(CALLBACK_OPEN, arguments: notificationData)
 
         completionHandler()
+    }
+    
+    public func sendOperationRequest(messageUniqueKey: String, buttonUniqueKey: String?) {
+        let url = URL(string: "https://api.mindbox.ru/v3/mobile-push/click?endpointId=2020RiglaMobileiOS")
+        guard let requestUrl = url else { return }
+        
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        var jsonDictionary: [String: String] = [
+            "messageUniqueKey": messageUniqueKey,
+        ]
+        
+        if let buttonKey = buttonUniqueKey {
+            jsonDictionary["buttonUniqueKey"] = buttonKey
+        }
+        
+        let body = ["click" : jsonDictionary]
+        
+        let data = try! JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+        
+        URLSession.shared.uploadTask(with: request, from: data) { (responseData, response, error) in
+            if let error = error {
+                print("Error making operation click: \(error.localizedDescription)")
+                return
+            }
+            
+            if let responseCode = (response as? HTTPURLResponse)?.statusCode, let responseData = responseData {
+                print("Operation click")
+                
+                guard responseCode == 200 else {
+                    print("Invalid response code: \(responseCode)")
+                    return
+                }
+                
+                if let responseJSONData = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) {
+                    print("Response JSON data = \(responseJSONData)")
+                }
+            }
+        }.resume()
     }
 }
