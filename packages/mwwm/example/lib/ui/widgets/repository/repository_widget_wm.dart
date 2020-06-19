@@ -1,6 +1,6 @@
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/data/repository.dart';
-import 'package:mwwm_github_client/model/favorites_repository/changes.dart';
+import 'package:mwwm_github_client/model/favorites/changes.dart';
 import 'package:relation/relation.dart';
 
 /// Repository widget's wm
@@ -35,15 +35,21 @@ class RepositoryWidgetWm extends WidgetModel {
   }
 
   Future<void> _handleFavoriteTap(bool isFavorite) async {
-    isFavoriteState.accept(!isFavorite);
+    final Repository repo = repoState.value;
+    repo.isFavorite = isFavorite;
+    isFavoriteState.accept(isFavorite);
 
     try {
-      final Repository repo = await model.perform(
-        ToggleRepositoryFavoriteValue(repoState.value, isFavorite: isFavorite),
+      await model.perform(
+        ToggleRepositoryFavoriteValue(repo, isFavorite: isFavorite),
       );
+
       repoState.accept(repo);
     } on Exception catch (e) {
       handleError(e);
     }
   }
 }
+
+/// Emit events about favorites storage change
+final favoritesChangedState = StreamedState<bool>();

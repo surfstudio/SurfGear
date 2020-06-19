@@ -1,19 +1,22 @@
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/data/repository.dart';
-import 'package:mwwm_github_client/model/github_repository/changes.dart';
+import 'package:mwwm_github_client/model/favorites/changes.dart';
+import 'package:mwwm_github_client/model/github/changes.dart';
+import 'package:mwwm_github_client/ui/widgets/repository/repository_widget_wm.dart';
 import 'package:relation/relation.dart';
 
 /// Widget model for search repositories
 /// TODO: add actions and logic
-class RepositorySearchWm extends WidgetModel {
-  RepositorySearchWm(
+class RepositoriesWm extends WidgetModel {
+  RepositoriesWm(
     WidgetModelDependencies baseDependencies,
     Model model,
   ) : super(baseDependencies, model: model);
 
   /// Represent repositories from search request
-  final EntityStreamedState<List<Repository>> repositoriesState =
-      EntityStreamedState(EntityState.content([]));
+  final repositoriesState = EntityStreamedState<List<Repository>>(
+    EntityState.loading(),
+  );
 
   /// Indicate search process
   final isSearchActiveState = StreamedState<bool>(false);
@@ -31,7 +34,7 @@ class RepositorySearchWm extends WidgetModel {
   void onLoad() {
     super.onLoad();
 
-    _searchRepos('');
+    _searchRepositories('');
   }
 
   @override
@@ -44,11 +47,16 @@ class RepositorySearchWm extends WidgetModel {
     );
     subscribe<String>(
       textQueryAction.stream,
-      _searchRepos,
+      _searchRepositories,
     );
     subscribe(
       refreshAction.stream,
-      (_) => _searchRepos(textQueryAction.value),
+      (_) => _searchRepositories(textQueryAction.value),
+    );
+
+    subscribe(
+      favoritesChangedState.stream,
+      (_) => _checkFavorites(repositoriesState.value.data),
     );
   }
 
@@ -56,19 +64,28 @@ class RepositorySearchWm extends WidgetModel {
     isSearchActiveState.accept(!isSearchActiveState.value);
   }
 
-  Future<void> _searchRepos(String text) async {
+  Future<void> _searchRepositories(String text) async {
     repositoriesState.loading();
 
     try {
-      final request = text?.isNotEmpty ?? false
+      final FutureChange<List<Repository>> request = text?.isNotEmpty ?? false
           ? SearchRepositories(text)
           : GetRepositories();
 
-      final List<Repository> repos = await model.perform(request);
-      repositoriesState.content(repos);
+      final List<Repository> repositories = await model.perform(request);
+
+      _checkFavorites(repositories);
     } on Exception catch (e) {
       handleError(e);
       repositoriesState.error(e);
     }
+  }
+
+  Future<void> _checkFavorites(List<Repository> repositories) async {
+    final List<Repository> checkedRepositories = await model.perform(
+      DefineFavoritesFromRepository(repositories),
+    );
+
+    repositoriesState.content(checkedRepositories);
   }
 }
