@@ -47,10 +47,13 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Text(_symbols),
             const SizedBox(height: 20),
-            VirtualKeyboardWidget(
-              virtualKeyboardEffect: VirtualKeyboardEffect.keyRipple,
-              keyboardKeys: _KeyboardUtils.numericKeyboardKeys,
-              onPressKey: _handleTapKey,
+            Padding(
+              padding: const EdgeInsets.all(50),
+              child: VirtualKeyboardWidget(
+                virtualKeyboardEffect: VirtualKeyboardEffect.keyRipple,
+                keyboardKeys: _KeyboardUtils.numericKeyboardKeys,
+                onPressKey: _handleTapKey,
+              ),
             )
           ],
         ),
