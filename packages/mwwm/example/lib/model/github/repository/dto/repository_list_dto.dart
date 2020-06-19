@@ -1,6 +1,6 @@
 import 'package:mwwm_github_client/data/repository.dart';
 import 'package:mwwm_github_client/data/repository_list.dart';
-import 'package:mwwm_github_client/model/github_repository/repository/dto/repository_dto.dart';
+import 'package:mwwm_github_client/model/github/repository/dto/repository_dto.dart';
 import 'package:mwwm_github_client/utils/json_extensions.dart';
 
 class RepositoryListDto {
@@ -14,10 +14,10 @@ class RepositoryListDto {
             defaultValue: true,
           ),
           items: json['items'] != null
-              ? json
-                  .get<List<Map<String, dynamic>>>('items')
-                  .map<Repository>((json) {
-                  return RepositoryDto.fromJson(json).data;
+              ? json.get<List<dynamic>>('items').map<Repository>((json) {
+                  return RepositoryDto.fromJson(
+                    json as Map<String, dynamic>,
+                  ).data;
                 }).toList()
               : [],
         );
