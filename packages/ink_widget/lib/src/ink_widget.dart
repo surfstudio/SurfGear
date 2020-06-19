@@ -3,11 +3,18 @@ import 'package:flutter/material.dart';
 /// Wrapper for InkWell
 class InkWidget extends StatelessWidget {
   final Widget child;
+  /// true - disable the widget
+  /// false enable the widget
   final bool disable;
+  /// opacity for disabled state
   final double disableOpacity;
+  /// color for disabled state
   final Color disableColor;
+  /// shape for InkWell and disable widget
   final ShapeBorder shape;
+  /// custom disable widget
   final Widget disableWidget;
+  /// custom InlWell Widget
   final InkWell inkWellWidget;
 
   /// Parameters from InkWell
