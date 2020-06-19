@@ -132,6 +132,9 @@ class SwipeRefresh extends StatelessWidget {
           padding: padding,
         );
 
+  /// Crete SwipeRefresh as common link
+  /// remove some conflicts between ScrollControllers when ListView added into
+  /// SwipeRefresh (remove need to add extra ListView)
   factory SwipeRefresh.builder({
     Key key,
     @required IndexedWidgetBuilder itemBuilder,
