@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const SizedBox(height: 20),
             InkWidget(
-              shape: RoundedRectangleBorder(
+              shapeBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
               onTap: () {},

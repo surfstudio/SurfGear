@@ -3,17 +3,26 @@ import 'package:flutter/material.dart';
 /// Wrapper for InkWell
 class InkWidget extends StatelessWidget {
   final Widget child;
+
   /// true - disable the widget
   /// false enable the widget
   final bool disable;
+
   /// opacity for disabled state
   final double disableOpacity;
+
   /// color for disabled state
   final Color disableColor;
+
   /// shape for InkWell and disable widget
-  final ShapeBorder shape;
+  final ShapeDecoration shape;
+
+  /// shape border for InkWell and disable widget
+  final ShapeBorder shapeBorder;
+
   /// custom disable widget
   final Widget disableWidget;
+
   /// custom InlWell Widget
   final InkWell inkWellWidget;
 
@@ -48,6 +57,7 @@ class InkWidget extends StatelessWidget {
     Color disableColor,
     this.disableWidget,
     this.shape,
+    this.shapeBorder,
     this.inkWellWidget,
     this.onTap,
     this.onDoubleTap,
@@ -98,7 +108,7 @@ class InkWidget extends StatelessWidget {
   InkWell _buildInkWell() {
     return inkWellWidget ??
         InkWell(
-          customBorder: this.customBorder ?? shape,
+          customBorder: this.customBorder ?? shapeBorder,
           onTap: this.onTap,
           onDoubleTap: this.onDoubleTap,
           onLongPress: this.onLongPress,
@@ -122,10 +132,14 @@ class InkWidget extends StatelessWidget {
         );
   }
 
-  ShapeDecoration get _shapeSiable => shape == null ? null : ShapeDecoration(
-    color: disableColor,
-    shape: shape,
-  );
+  ShapeDecoration get _shapeDisable {
+    if (shape == null && shapeBorder == null) return null;
+    return shape ??
+        ShapeDecoration(
+          color: disableColor,
+          shape: shapeBorder,
+        );
+  }
 
   Color get _disableColor => shape == null ? disableColor : null;
 
@@ -136,7 +150,7 @@ class InkWidget extends StatelessWidget {
             opacity: disableOpacity,
             child: Container(
               color: _disableColor,
-              decoration: _shapeSiable,
+              decoration: _shapeDisable,
             ),
           ),
         );
