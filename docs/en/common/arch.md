@@ -1,36 +1,36 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Архитектура
+# Architecture
 
-Архитектура проектов основана на адаптированном Clean Architecture.
-UI-cлой основан на вариации MVVM + немного MVI.
+The architecture of the projects is based on the adapted Clean Architecture.
+The UI layer is based on a variation of MVVM + a bit of MVI.
 
-Выделены следующие слои:
+Identified the following layers:
 
-**Widget** - слой отображения, содержит только декларативную логику. Взаимодействует с WidgetModel посредством *Action* и *StreamedState* (по факту аналог binding в mvvm).
+**Widget** - UI layer, contains only declarative logic. Interacts with WidgetModel through *Action* and *StreamedState* (in fact analog binding in mvvm).
 
-**WidgetModel** - связывает слой виджетов с бизнесс логикой посредством модели. Может содержать логику необходимую для слоя отображения.
+**WidgetModel** - associates a widget layer with business logic through a model. May contain the logic needed for the UI layer.
 
-**Model** - слой связи WidgetModel с чистой бизнесс-логикой. Является набором контрактов (performer), которые модель может выполнить. Каждый контракт это изолированная атомартая часть бизнесс-логики. WidgetModel инициирует действие с помощью сообщения об изменении (change). Модель ищет соответствующий данному изменению контракт и выполняет его.
+**Model** - WidgetModel link layer with pure business logic. It is a set of contracts (performer) that a model can execute. Each contract is an isolated atomic part of the business logic. WidgetModel initiates an action with a change message (change). The model searches for the contract corresponding to this change and executes it.
 
-**BusinessLogic** - слой бизнесс логики, содержит  чистую логику на dart, совсем не зависит от Flutter.
+**BusinessLogic** - the business logic layer, contains pure dart logic, is completely independent of Flutter.
 
 ![](../images/mwwm.png) 
 
-Cлой бизнесс логики обычно содержит сущности следующих типов, каждая из которых имеет свою зону ответственности.
+The business logic layer usually contains the following types of entities, each of which has its own area of responsibility.
 
-**Интерактор**
+**Interactor**
 
-Интерактор - сущность, которая реализует логику некоторого бизнес процесса. Интерактор не зависит от платформы, в нем реализуется только логика use case.
+An interactor is an entity that implements the logic of some business process. The interactor is platform independent, it only implements the use case logic.
 
-**Репозиторий**
+**Repository**
 
-Говоря о репозиториях, следует вспомнить паттерн, который собственно так и называется “Репозиторий”. Суть его в том, чтобы создать некий слой абстракции над какими-либо конкретными источниками данных, будь то например база данных или веб-сервис. Задача репозитория стать промежуточным звеном между тем кто запрашивает данные и тем кто их отдает. Важно понимать, что все что находится выше репозитория не должно знать о том, как он устроен и откуда он берет эти данные. Это может быть сетевой запрос, запрос в базу данных или же все вместе, так называемый гибридный запрос, который подразумевает проведение конкатенации запросов на сервер и кеш по некому установленному вами правилу.
+Speaking about repositories, we should recall the pattern, which is actually called the “Repository”. The main idea is to create a layer of abstraction over any specific data sources, for example, a database or a web service. The purpose of the repository is to become an intermediary between those who request data and those who give it. It is important to understand that everything above the repository should not know how it is organized and where it gets this data from. This can be a network request, a request to the database, or all together, the so-called hybrid request, which implies the concatenation of requests to the server and cache according to some rule you set.
 
 **Storage**
 
-Обертка над источником данных. Следуя принципам SOLID, каждый класс должен иметь единственную ответственность. Нельзя смешивать логику нескольких классов в один. Сущность Storage предназначена для абстрагирования работы с хранилищем данных. Например есть кейс, когда необходимо сохранять данные пользователя на локальное устройство. Это необходимо делать в различных форматах. Например xml и json. Правильным решением в этом случае будет реализовать отдельно низкоуровневое api для работы с файловой системой устройства - FileSystem. Поверх него реализовать две "обертки" JsonStorage и XmlStorage, которые будут использовать FileSystem для доступа к файловой системе, а логика сохранения данных будет реализоавана непосредственно в этих классах.
+Data Source Wrap. Following the principles of SOLID, each class must have a single responsibility. You cannot mix the logic of several classes into one. The Storage entity is designed to abstract the operation of data storage. For example, there is a case when you need to save user data to a local device. You have to do it in various formats. For example xml and json. In this case, the correct solution would be to implement a separately low-level api for working with the device’s file system - FileSystem. Then implement two "wrappers" JsonStorage and XmlStorage, which will use the FileSystem to access the file system, and the data storage logic will be implemented directly in these classes.
 
 **Mapper**
 
-Объект, который переводит один тип данных в другой.
+An object that transform one data type to another.

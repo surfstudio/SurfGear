@@ -1,26 +1,26 @@
-# Техническое описнание шаблона для проектов на Flutter
+# Technical description of Flutter project template
 
 
 
-## Используемый стек
+## Technology stack
 
 * rxDart
 * http
 * shared_prefs
 
 
-# Создание экрана
+# Creation of screen
 
-Пакет конкретного экрана соддержит:
+Package of screnn include:
 - *name*_screen.dart
 - *name*_wm.dart
 - *name*_route.dart
 
-Классы и виджеты для экранов дополнительно оборачиваются в один из подклассов
+Classes and Widgets for screens are additionally wrapped in a one of subclasses
 PageRoute<>.
-Это необходимо для задания анимации.
+This is necessary to set the animation.
 
-Таким образом структура файла с экраном:
+Common sctructure of file with screen:
     - Widget(Stateless/Stateful)
-    - WidgetState в случае если стейтфул
+    - WidgetState - only if widget is Stateful
 

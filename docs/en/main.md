@@ -1,38 +1,38 @@
-# Стандарты разработки приложений в Surf
+# Application Development Standards at Surf
 
-[Правила ведения и оформления](rules.md)
+[Rules for text layout and documentation](rules.md)
 
-## Общая структура вики
+## Common wiki structure
 
-1. **Общие сведения о построении приложения**
-    1. Требования к коду
+1. **Building Application Overview**
+    1. Code requirements
         1. [Java Code Style][java_codestyle]
         1. [Koltin Code Style][kotlin_codestyle]
         1. [Dart Code Style](common/code_style.md)
-    1. [Архитектура приложения](common/arch.md)
-    1. [Инъекция зависимостей](common/di.md)
-    1. [Логирование](common/logging.md)
-    1. [Асинхронные взаимодействия](common/async.md)
-    1. [Тестирование](common/testing.md)
+    1. [Application architecture](common/arch.md)
+    1. [Dependency injection](common/di.md)
+    1. [Logging](common/logging.md)
+    1. [Asynchronous interactions](common/async.md)
+    1. [Testing](common/testing.md)
 
-1. Слой [Model](model/model.md)
+1. Layer [Model](model/model.md)
     1. [Interactor](model/interactor.md)
-    1. [Работа с файловым хранилищем](model/file_storage.md)
-    1. [Работа с SharedPrefs](model/shared_preferences.md)
+    1. [Work with file storage](model/file_storage.md)
+    1. [Work with SharedPrefs](model/shared_preferences.md)
 
-1. Cлой UI
-    1. [Структура UI-слоя](ui/structure.md)
+1. Layer UI
+    1. [UI-layer structure](ui/structure.md)
         1. [WidgetModel](ui/widget_model.md)
         1. [Widget](ui/widget.md)
-    1. [Навигация](common/navigation.md)
-    1. [Создание экрана](ui/create_screen.md)
-    1. [Диалоги](ui/dialog.md)
-    1. [Сообщения](common/message.md)
+    1. [Navigation](common/navigation.md)
+    1. [Screen creation](ui/create_screen.md)
+    1. [Dialogs](ui/dialog.md)
+    1. [Messages](common/message.md)
 
-1. Лучшие практики
+1. Best practics
     1. [CI](https://github.com/surfstudio/jenkins-pipeline-lib)
     1. [Flutter Flavors](best_practice/flavors/flavors_for_devs.md)
-    1. [Уменьшение размеров сборки](best_practice/reduce_app_size.md)
+    1. [Reduce application size](best_practice/reduce_app_size.md)
 
 1. [FAQ](faq/faq.md)
 
