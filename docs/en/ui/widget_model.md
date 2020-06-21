@@ -20,7 +20,7 @@
 WM является промежуточным звеном между Model (в любом ее варианте) и Widget.
 
 Зависимости из Model поставляются в WM также через конструктор.
-В наших проектах для обеспечения DI используется [Injector](../../packages/injector/lib/src/injector.dart).
+В наших проектах для обеспечения DI используется [Injector](../../../packages/injector/lib/src/injector.dart).
 Зависимости для WidgetModel конфигурируются в компоненте экрана.
 Для этого используется объект [WidgetModelDependencies](../../packages/mwwm/lib/src/di/wm_dependencies.dart). Он содержит ErrorHandler — объект, отвечающий за обработку ошибок для реактивных потоков.
 Без конфигурации WidgetModelDependencies обработка ошибок не будут работать в WidgetModel.

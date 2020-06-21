@@ -31,7 +31,7 @@ Template.
 1. **iOS:** Выгрузить два `GoogleService-Info.plist` (для каждого типа 
 сборки) и положить его в `ios/Runner/Firebase/dev` и `ios/Runner/Firebase/prod`;
 
-Более подробно о настройке CD [можно прочитать здесь](./cd.md).
+Более подробно о настройке CD [можно прочитать здесь](cd.md).
 
 ### Android:
 1. В **AndroidManifest.xml** замените `package` на package-name для 

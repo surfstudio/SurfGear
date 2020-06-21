@@ -20,5 +20,5 @@ _storage
         .then(_counterController.add);
 ```
 
-[json_storage_link]:../../packages/storage/lib/impl/json_storage.dart
-[storage_link]:../../packages/storage/lib/base/storage.dart
+[json_storage_link]:../../../packages/storage/lib/impl/json_storage.dart
+[storage_link]:../../../packages/storage/lib/base/storage.dart
