@@ -4,25 +4,35 @@ import 'package:flutter/foundation.dart';
 import 'package:scenario/result.dart';
 import 'package:scenario/scenarios/base_scenario.dart';
 import 'package:scenario/scenarios/scenario.dart';
+import 'package:scenario/steps/step_scenario.dart';
 import 'package:scenario/types.dart';
 
 /// Сценарий загрузки данных
 class LoadScenario<T> extends BaseScenario {
-  Future<T> future;
   VoidCallback onLoad;
   LoadScenarioDataCallback<T> onData;
   LoadScenarioDataCallback<T> ifHasData;
   VoidCallback ifNoData;
   ErrorScenarioCallback onError;
 
+  Scenario<T> _scenario;
+
   LoadScenario({
-    @required this.future,
+    @required Future<T> future,
     this.onLoad,
     this.onData,
     this.ifHasData,
     this.ifNoData,
     this.onError,
-  });
+  }) {
+    _scenario = Scenario<T>(
+      steps: [
+        ScenarioStep<T>(
+          make: (_) async => await future,
+        ),
+      ],
+    );
+  }
 
   factory LoadScenario.fromScenario({
     @required Scenario<T> scenario,
@@ -55,7 +65,7 @@ class LoadScenario<T> extends BaseScenario {
     onLoad?.call();
 
     try {
-      data = await future;
+      data = (await _scenario.run()).data;
       if (data == null) {
         ifNoData?.call();
       } else {
