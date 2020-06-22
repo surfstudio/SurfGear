@@ -7,8 +7,10 @@ import 'package:scenario/types.dart';
 class Scenario<T> extends BaseScenario {
   /// Шаги
   final List<BaseScenarioStep> steps;
+
   /// Колбэк окончания работы сценария
-  final void Function(Result result) onFinish;
+  final ScenarioFinishCallback onFinish;
+
   /// Колбэк окончания работы сценария
   final ErrorScenarioCallback onError;
 
@@ -17,7 +19,6 @@ class Scenario<T> extends BaseScenario {
     this.onFinish,
     this.onError,
   });
-
 
   Future<Result<T>> run([Result prevScenarioResult]) async {
     var result = prevScenarioResult?.data;

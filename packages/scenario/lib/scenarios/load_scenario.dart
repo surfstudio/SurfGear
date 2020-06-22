@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/foundation.dart';
 import 'package:scenario/result.dart';
 import 'package:scenario/scenarios/base_scenario.dart';
