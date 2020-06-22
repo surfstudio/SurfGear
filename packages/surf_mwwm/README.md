@@ -2,6 +2,6 @@
 
 Reflection of widget in a single entity
 
-## Описание
+## Discription
 
-Описание подхода и реализации находится [здесь](docs/model/model.md)
+A description of the approach and implementation is [here](../../docs/en/model/model.md)

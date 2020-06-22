@@ -1,7 +1,7 @@
 # network_cache
 
-Кеширование http запросов.
+Caching http requests.
 
-## Описание
+## Discription
 
 todo
