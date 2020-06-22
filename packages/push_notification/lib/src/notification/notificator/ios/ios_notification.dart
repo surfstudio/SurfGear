@@ -62,6 +62,7 @@ class IOSNotification {
     int id,
     String title,
     String body,
+    String imageUrl,
     Map<String, String> data,
     IosNotificationSpecifics notificationSpecifics,
   ) async {
@@ -71,6 +72,7 @@ class IOSNotification {
         ARG_PUSH_ID: id ?? 0,
         ARG_TITLE: title ?? "",
         ARG_BODY: body ?? "",
+        ARG_IMAGE_URL: imageUrl,
         ARG_DATA: data,
       },
     );

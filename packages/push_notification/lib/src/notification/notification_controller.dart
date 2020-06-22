@@ -65,6 +65,7 @@ class NotificationController {
       strategy.pushId,
       strategy.payload.title,
       strategy.payload.body,
+      imageUrl: strategy.payload.imageUrl,
       data: tmpPayload,
       notificationSpecifics: platformSpecifics,
     );
