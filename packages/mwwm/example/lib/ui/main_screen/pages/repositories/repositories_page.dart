@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/data/repository.dart';
+import 'package:mwwm_github_client/model/common/error/standard_error_handler.dart';
 import 'package:mwwm_github_client/model/favorites/performers.dart';
 import 'package:mwwm_github_client/model/favorites/repository/favorites_repository.dart';
 import 'package:mwwm_github_client/model/github/performers.dart';
@@ -11,6 +12,8 @@ import 'package:mwwm_github_client/ui/widgets/repository/repository_widget.dart'
 import 'package:relation/relation.dart';
 import 'package:provider/provider.dart';
 
+final _scaffoldKey = GlobalKey<ScaffoldState>();
+
 /// Search repository screen
 class RepositoriesPage extends CoreMwwmWidget {
   RepositoriesPage({
@@ -20,7 +23,9 @@ class RepositoriesPage extends CoreMwwmWidget {
           key: key,
           widgetModelBuilder: widgetModelBuilder ??
               (context) => RepositoriesWm(
-                    context.read<WidgetModelDependencies>(),
+                    WidgetModelDependencies(
+                      errorHandler: StandardErrorHandler(_scaffoldKey),
+                    ),
                     Model([
                       SearchRepositoriesPerformer(
                         context.read<GithubRepository>(),
@@ -48,6 +53,7 @@ class _RepositoriesScreenState extends WidgetState<RepositoriesWm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: _buildAppBar(),
       body: _buildBody(),
     );
@@ -109,7 +115,7 @@ class _RepositoriesScreenState extends WidgetState<RepositoriesWm> {
                   cursorColor: Colors.white,
                   decoration: const InputDecoration(
                     hintText: 'Search...',
-                    hintStyle:  TextStyle(color: Colors.white),
+                    hintStyle: TextStyle(color: Colors.white),
                   ),
                 )
               : const Text('Search repository');

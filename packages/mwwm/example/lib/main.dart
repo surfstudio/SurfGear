@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:mwwm_github_client/model/common/network/network_client.dart';
 import 'package:mwwm_github_client/model/favorites/database/database.dart';
 import 'package:mwwm_github_client/model/favorites/repository/favorites_repository.dart';
 import 'package:mwwm_github_client/model/github/repository/github_repository.dart';
 import 'package:mwwm_github_client/ui/app.dart';
+import 'package:mwwm_github_client/utils/exceptions.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -18,7 +20,7 @@ void main() {
             ),
           ),
           Provider(
-            create: (_) => GithubRepository(),
+            create: (_) => GithubRepository(NetworkClient()),
           ),
           Provider(
             create: (context) => FavoritesRepository(Database()),
@@ -34,8 +36,6 @@ void main() {
 class DefaultErrorHandler implements ErrorHandler {
   @override
   void handleError(Object e) {
-    //here you can place logic for error handling
-
     debugPrint(e.toString());
   }
 }
