@@ -1,95 +1,95 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Тестирование
+# Testing
 
-## Тестирование виджетов
+## Widget testing
 
-Файлы с тестами принято располагать в подкаталоге `test` проекта.
-По умолчанию исполняются тесты из всех файлов, с маской `*_test.dart` из подкаталога `test`.
+Files with tests are usually located in the `test` subdirectory of the project.
+By default, tests are run from all files, with the mask `* _test.dart` from the` test` subdirectory.
 
-Тест описывается с помощью функции `testWidgets`. Для взаимодействия с виджетом
-пользователю предоставляется WidgetTester.
+The test is described using the `testWidgets` function. 
+To interact with the widget, the user is provided with WidgetTester.
 ```dart
-  testWidgets('Название теста', (WidgetTester tester) async {
-    // Код теста
+  testWidgets('Test name', (WidgetTester tester) async {
+    // Test's code
   });
 ```
 
-Тесты можно объединять в группы с помощью `group`:
+Tests can be grouped using `group`:
 ```dart
-  group('Название группы тестов', () {
-    testWidgets('Название теста', (WidgetTester tester) async {
-        // Код теста
+  group('Group of test name', () {
+    testWidgets('Test name', (WidgetTester tester) async {
+        // Test's code
       });
     
-    testWidgets('Название теста', (WidgetTester tester) async {
-        // Код теста
+    testWidgets('Test name', (WidgetTester tester) async {
+        // Test's code
       });    
   });
 ```
 
-Функции `setUp` и `tearDown` позволяют выполнить какой-либо код до и после каждого теста.
+The `setUp` and `tearDown` functions allow you to execute some code before and after each test.
 ```dart
   setUp(() {
-    // код инициализации теста
+    // test initialization code
   });
   tearDown(() {
-    // код финализации теста
+    // test finalization code
   });
 ```
 
-### Взаимодействие с тестируемым виджетом
+### Test widget interaction
 
-Класс `WidgetTester` предоставляет функции для создания тестируемого виджета и ожидания смены его состояний,
-а также выполнять некоторые действия над виджетами.
+The `WidgetTester` class provides functions for creating a test widget and waiting for its state to change,
+as well as perform some actions on widgets.
 
-* `pumpWidget` — создание тестируемого виджета
-* `pump` — ожидание смены состояния тестируемого виджета в течение заданного времени (100 мс по умолчанию)
-* `pumpAndSettle` — вызывает `pump` в цикле для смены состояний в течение заданного времени (100 мс по умолчанию)
-* `tap` — отправить виджету нажатие
-* `longPress` — длинное нажатие
-* `fling` — смахивание/свайп
-* `drag` — перенос
-* `enterText` — ввод текста
-
-
-### Поиск виджетов
-
-Чтобы выполнить какие-либо действия над вложенным виджетом, его нужно найти в дереве виджетов.
-Для этого есть глобальный объект `find`, который позволяет найти виджеты:
-
-* в дереве по тексту — `find.text`, `find.widgetWithText`
-* по ключу — `find.byKey`
-* по иконке — `find.byIcon`, `find.widgetWithIcon`
-* по типу — `find.byType`
-* по положению в дереве — `find.descendant` и `find.ancestor`
-* с помощью функции, которая анализирует виджеты по списку — `find.byWidgetPredicate`
+* `pumpWidget` — creating a test widget
+* `pump` — waiting for the state of the tested widget to change during the specified time (100 ms by default)
+* `pumpAndSettle` — calls `pump` in a loop to change states for a given time (100 ms by default)
+* `tap` — send widget click
+* `longPress` — long press
+* `fling` — swipe
+* `drag` — drag
+* `enterText` — enter text
 
 
-### Макеты
+### Widget search
 
-Моки зависимостей создаются как наследники класса `Mock` и реализуют интерфейс зависимости.
+To perform any action on a nested widget, you need to find it in the widget tree.
+To do this, there is a global object `find`, which allows you to find widgets:
+
+* in a tree by text — `find.text`, `find.widgetWithText`
+* by key — `find.byKey`
+* by icon — `find.byIcon`, `find.widgetWithIcon`
+* by type — `find.byType`
+* by position in the tree — `find.descendant` and `find.ancestor`
+* using a widget predicate — `find.byWidgetPredicate`
+
+
+### Mocking
+
+Dependency mocks are created as descendants of the `Mock` class and implement the dependency interface.
 ```dart
 class AuthInteractorMock extends Mock implements AuthInteractor {}
 ```
 
-Для определения функциональности мока используется функция `when`, 
-которая позволяет определить ответ мока на вызов той или иной функции.
+To determine the functionality of the mock, the `when` function is used,
+which allows you to determine the response of the mock to the call of a function.
 ```dart
 when(authInteractor.checkAccess(any))
   .thenAnswer((_) => Future.value(true));
 ```
 
 
-### Проверки
+### Verify
 
-В процессе выполнения теста можно проверить наличие виджетов на экране:
+During the test, you can check for widgets on the screen:
 ```dart
-expect(find.text('Номер телефона'), findsOneWidget);
-expect(find.text('Код из СМС'), findsNothing);
+expect(find.text('Phone number'), findsOneWidget);
+expect(find.text('Code from SMS'), findsNothing);
 ```
 
-После выполнения теста можно проверить как макет был использован виджетом:
+After completing the test, you can check how the layout was used by the widget:
 ```dart
 verify(appComponent.authInteractor).called(1);
 verify(authInteractor.checkAccess(any)).called(1);
@@ -97,27 +97,27 @@ verifyNever(appComponent.profileInteractor);
 ```
 
 
-### Отладка
+### Debugging
 
-Тесты выполняются в консоли без какой либо графики.
-Можно запускать тесты в debug режиме и ставить точки останова в коде виджета.
+Tests are performed in the console without any graphics.
+You can run tests in debug mode and set breakpoints in the widget code.
 
-Для того чтобы получить представление о том, что происходит в дереве виджетов, можно использовать
-функцию `debugDumpApp()`, которая выводит в консоль текстовое представление иерархии всего дерева виджетов.
+In order to get information about what is happening in the widget tree, you can use
+function `debugDumpApp()`, which displays the console text representation of the hierarchy of the entire widget tree.
 
-Для получения представления о том, как виджет использует моки, используется функция `logInvocations([])`.
-Функция принимает список моков, и выдает в консоль последовательность вызовов
-методов у этих моков, которые совершал тестируемый виджет.
+To get an idea of how the widget uses moсkы, the `logInvocations([])` function is used.
+The function accepts a list of mocks, and issues to the console a sequence of 
+method calls on these mocks that the tested widget made.
 
-### Подготовка
+### Preparation
 
-Все интеракторы и прочие зависимости должны передаваться в тестируемый виджет в виде мока:
+All interactors and other dependencies should be transferred to the tested widget in the form of mock:
 ```dart
 class AppComponentMock extends Mock implements AppComponent {}
 class AuthInteractorMock extends Mock implements AuthInteractor {}
 ```
 
-В корне дерева виджетов должен быть `Injector` и `MaterialApp`.
+At the root of the widget tree should be `Injector` and `MaterialApp`.
 ```dart
     await tester.pumpWidget(
       Injector<AppComponent>(
@@ -131,50 +131,51 @@ class AuthInteractorMock extends Mock implements AuthInteractor {}
     );
     await tester.pumpAndSettle();
 ```
-В примере кода `PhoneInputScreen` — это тестируемый виджет.
-Также видно, что `Injector` в качестве параметра получает мок `AppComponent`
-и как обычно извлекает из него необходимые зависимости, которые нужно предварительно создать
-и поместить в мок `AppComponent` с помощью `when`.
+In the sample code, `PhoneInputScreen` is the test widget.
+It is also seen that `Injector` receives the `AppComponent` mock as a parameter and, 
+as usual, extracts the necessary dependencies from it, which must first be created 
+and put into the `AppComponent` mock using `when`.
 
-После создания тестового виджета и после любых действий с ним нужно вызывать `tester.pumpAndSettle()`
-для смены состояний.
+After creating a test widget and after any actions with it, 
+you need to call `tester.pumpAndSettle()` to change states.
 
 
-### Тестирование
+### Testing
 
-Для проверки виджета мы можем моделировать поведение сервисного слоя и отслеживать реакцию тестируемого виджета.
+To test the widget, we can simulate the behavior of the service layer and track the response of the tested widget.
 
-Моки могут возвращать ошибки или ошибочные данные:
+Mocks can return errors or wrong data:
 ```dart
 when(authInteractor.checkAccess(any)).thenAnswer((_) => Future.error(UnknownHttpStatusCode(null)));
 ```
 
-В тесте можно и нужно нажимать куда не надо, и вводить не то что требуется,
-и проверять, что это не приводит к фатальным последствиям
+In the test, you can and should click where it is not necessary, and enter not what is required, 
+and verify that this does not lead to fatal consequences
 ```dart
 await tester.enterText(find.byKey(Key('phoneField')), 'bla-bla-bla');
 ```
 
-После любых действий с виджетами нужно вызывать `tester.pumpAndSettle()` для смены состояний.
+After any actions with widgets, you need to call `tester.pumpAndSettle()` to change states.
 
 
-## Интеграционное тестирование
+## Integration testing
 
-Этот метод тестирования может хорошо заменить ручное тестирование.
-Процесс тестирования можно наглядно наблюдать в эмуляторе или на устройстве.
+This testing method may well replace manual testing.
+The testing process can be clearly observed in the emulator or on the device.
 
-Из недостатков этого подхода можно отметить то, что нет возможности взаимодействовать с системными диалогами платформы.
-Но, например, запросы привилегий можно подавлять так, как описано в [этом тикете](https://github.com/flutter/flutter/issues/12561).
+Among the disadvantages of this approach, it can be noted that there is no way 
+to interact with the system dialogs of the platform.
+But, for example, permission requests can be suppressed as described in [this issue](https://github.com/flutter/flutter/issues/12561).
 
-### Общие сведения
+### General information
 
-В отличие от виджет тестов, процесс работы интеграционного теста можно наблюдать в симуляторе или на экране устройства.
+Unlike the test widget, the integration test operation process can be observed in the simulator or on the device screen.
 
-Файлы с интеграционными тестами располагаются в подкаталоге `test_driver` проекта.
+Files with integration tests are located in the `test_driver` subdirectory of the project.
 
-Приложение запускается после старта специального плагина, который позволяет управлять нашим приложением.
+The application starts after the launch of a special plugin that allows you to manage our application.
 
-Выглядит это следующим образом:
+It looks like this:
 ```dart
 import 'package:flutter_driver/driver_extension.dart';
 import 'package:park_flutter/main.dart' as app;
@@ -184,67 +185,67 @@ void main() {
 }
 ```
 
-Запуск тестов осуществляется из командной строки.
-Если запуск приложения описан в файле `app.dart`, а тестовый сценарий называется `app_test.dart`,
-то достаточно следующей комманды:
+The tests are run from the command line.
+If the launch of the application is described in the file `app.dart`, 
+and the test script is called` app_test.dart`, then the following command is enough:
 ```text
 $ flutter drive --target=test_driver/app.dart
 ```
 
-Если тестовый сценарий имеет другое имя, тогда его нужно указать явно:
+If the test script has a different name, then you need to specify it explicitly:
 ```text
 flutter drive --target=test_driver/app.dart --driver=test_driver/home_test.dart
 ```
 
-Тест создается функцией `test`, и группируются функцией `group`.
+A test is created by the `test` function, and grouped by the `group` function.
 
 ```dart
 group('park-flutter app', () {
-    // драйвер, через который мы подключаемся к устройству
+    // driver through which we connect to the device
     FlutterDriver driver;
 
-    // создаем подключение к драйверу
+    // create a connection to the driver
     setUpAll(() async {
       driver = await FlutterDriver.connect();
     });
 
-    // закрываем подключение к драйверу
+    // close connection to the driver
     tearDownAll(() async {
       if (driver != null) {
         driver.close();
       }
     });
 
-    test('Имя теста', () async {
-      // код теста
+    test('Test name', () async {
+      // Test code
     });
     
-    test('Другой тест', () async {
-      // код теста
+    test('Another test', () async {
+      // Test code
     });
 }
 ```
 
 
-### Взаимодействие с тестируемым приложением
+### Interaction with the tested application
 
-Инструмент `FlutterDriver` позволяет взаимодействовать с тестируемым приложением через следующие методы:
+The `FlutterDriver` tool allows you to interact with the application under test through the following methods:
 
-* tap — отправить нажатие виджету
-* waitFor — ждать появление виджета на экране
-* waitForAbsent — ждать исчезновения виджета
-* scroll, scrollIntoView, scrollUntilVisible — прокрутить экран на заданное смещение или к требуемому виджету
-* enterText, getText — ввести текст или взять текст виджета
-* screenshot — получить скриншот экрана
-* requestData — более сложное взаимодействие через вызов функции внутри тестируемого приложения
-* и много другое
+* tap — send click to widget
+* waitFor — wait for the widget to appear on the screen
+* waitForAbsent — wait for the widget to absent
+* scroll, scrollIntoView, scrollUntilVisible — scroll the screen to a predetermined offset or to a specific widget
+* enterText, getText — enter text or take widget text
+* screenshot — get a screenshot
+* requestData — more complex interaction through function call inside the application under test
+* etc
 
-В приложении можно задать обработчик запросов, к которому можно обращаться через вызов `driver.requestData('login')`
+In the application, you can specify a request handler, which can be accessed through a call to `driver.requestData('login')`
 ```dart
 void main() {
   Future<String> dataHandler(String msg) async {
     if (msg == "login") {
-      // какая то обработка вызова в приложении с возвратом результата
+      // some kind of call processing in the application with returning the result
       return 'some result';
     }
   }
@@ -255,13 +256,13 @@ void main() {
 ```
 
 
-### Поиск виджетов
+### Widget search
 
-Поиск виджетов при интеграционном тестировании незначительно отличается от аналогичной функциональности при тестировании виджетов:
+Search widgets during integration testing is slightly different from similar functionality when testing widgets:
 
-* в дереве по тексту — `find.text`, `find.widgetWithText`
-* по ключу — `find.byValueKey`
-* по типу — `find.byType`
-* по подсказке — `find.byTooltip`
-* по семантической метке — `find.bySemanticsLabel`
-* по положению в дереве — `find.descendant` и `find.ancestor`
+* in a tree by text — `find.text`, `find.widgetWithText`
+* by key — `find.byValueKey`
+* by type — `find.byType`
+* by tooltip — `find.byTooltip`
+* by semantics label — `find.bySemanticsLabel`
+* using a widget predicate — `find.descendant` and `find.ancestor`

@@ -1,4 +1,4 @@
-[Main](../main.md)
+[Main](../../main.md)
 
 [Full article on Medium.](https://medium.com/surfstudio/setting-up-flavors-in-flutter-e455834818d4)
 

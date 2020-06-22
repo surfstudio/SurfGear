@@ -1,23 +1,23 @@
-# Проверка соединения
+# Connection check
 
-[Главная](../main.md)
+[Main](../main.md)
 
 # Connectivity
 
-Проверка сетевого подключения очень важна практически для любого приложения. 
-Встречаются кейсы, когда необходимо проверить подключение приложения к Интернету или к сети wi-fi.
-Если у пользователя есть подключение к Интернету,приложение продолжает работу,
-например, получать данные через Интернет и т.д, и если у пользователя нет подключения к Интернету,
-приложение показывает окно с предупреждением, что нужно включить wi-fi или мобильный данные.
+Checking your network connection is very important for almost any application. 
+There are cases when you need to check the application’s connection to the Internet or to a wi-fi network.
+If the user has an Internet connection, the application continues to work,
+for example, receiving data via the Internet, etc., and if the user does not have an Internet connection,
+The application shows a warning window that you need to turn on wi-fi or cellular.
 
-Для проверки подключения к интернету в студийной практике используется плагин [Connectivity](https://pub.dev/packages/connectivity)
-Этот плагин позволяет приложениям Flutter обнаруживать подключение к сети и настраивать
-себя соответственно. Он может отличить сотовое соединение от wi-fi.
-Этот плагин работает для iOS и Android.
+To test the Internet connection in studio practice, a [Connectivity](https://pub.dev/packages/connectivity) plugin is used. 
+This plugin allows Flutter applications to detect network connectivity and configure
+yourself accordingly. He knows the difference between cellular and wi-fi.
+This plugin works for iOS and Android.
 
-Более подробно об этом можно почитать в [статье](https://medium.com/flutter-community/build-a-network-sensitive-ui-in-flutter-using-provider-and-connectivity-ddad140c9ff8) на Medium.
+You can read more about this in [article](https://medium.com/flutter-community/build-a-network-sensitive-ui-in-flutter-using-provider-and-connectivity-ddad140c9ff8) on the Medium.
 
-# Использование
+# Usage
 
 ```dart
 import 'package:connectivity/connectivity.dart';
@@ -32,8 +32,8 @@ if (connectivityResult == ConnectivityResult.mobile) {
 }
 ```
 
-Так-же можно слушать изменения состояния сети, подписавшись на поток, предоставляемый подключаемым модулем.
-Таким образом, можно узнать когда состояние сети изменилось.
+You can also listen to network status changes by subscribing to the stream provided by the plug-in.
+Thus, you can find out when the status of the network has changed.
 
 ```dart
 initState() {

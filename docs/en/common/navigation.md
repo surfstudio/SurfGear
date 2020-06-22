@@ -1,12 +1,12 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Навигация
+# Navigation
 
-Навигация осуществляется при помощи стандартного механизма фреймворка — [Navigator](https://flutter.dev/docs/cookbook/navigation)
+Navigation is done using the standard framework mechanism — [Navigator](https://flutter.dev/docs/cookbook/navigation)
 
-В студийной практике навигатор используется только в сущности [WidgetModel](../ui/widget_model.md).
+In studio practice, the navigator is used only in entity of [WidgetModel](../ui/widget_model.md).
 
-## Пример использования
+## Usage example
 
 ```dart
 class InputNumberRoute extends CupertinoPageRoute {
@@ -20,7 +20,7 @@ class SomeWidgetModel{
 } 
 ```
 
-## Пример использования с передачей параметров
+## Usage example with arguments
 
 ```dart
 
@@ -59,9 +59,9 @@ class Screen2 extends StatelessWidget {
 
 # Route
 
-Route определяют анимацию перехода.
-Наиболее часто используемые MaterialPageRoute и CupertinoPageRoute.
-Более подробно с созданием роутов можно ознакомиться в [этой статье][route_link]
+The route defines the transition animation.
+The most commonly used MaterialPageRoute and CupertinoPageRoute.
+For more information on creating routes, see [this article][route_link]
 
 
 [route_link]:https://medium.com/@agungsurya/create-custom-router-transition-in-flutter-using-pageroutebuilder-73a1a9c4a171
