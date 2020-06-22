@@ -3,27 +3,30 @@ import 'package:virtual_keyboard/src/virtual_keyboard_effect.dart';
 import 'package:ink_widget/ink_widget.dart';
 
 class TableButton extends StatelessWidget {
-  /// Ширина кнопки
+  /// Button Width
   final double width;
 
-  /// Высота кнопки
+  /// Button Height
   final double height;
 
-  /// Потомок
   final Widget child;
 
-  /// Колбэк нажатия
   final VoidCallback onTap;
 
-  /// Отступ
   final EdgeInsets padding;
 
   final VirtualKeyboardEffect virtualKeyboardEffect;
 
+  /// Use child instead as a key
   final bool useAsKey;
 
+  /// Key decoration
   final BoxDecoration keyDecoration;
+
+  /// [ShapeDecoration] for InkWell Effect
   final ShapeDecoration inkShapeRipple;
+
+  /// [ShapeBorder] for InkWell
   final ShapeBorder inkShapeBorder;
 
   TableButton({

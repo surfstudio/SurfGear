@@ -3,10 +3,10 @@ import 'dart:ui';
 
 import 'package:flutter/widgets.dart';
 
-/// Колбэк события onChange
+/// Callback events onChange
 typedef KeyboardChangeListener = Function(bool isVisible);
 
-/// Слушатель отображения клавиатуры
+/// Keyboard display listener
 class KeyboardListener with WidgetsBindingObserver {
   static final Random _random = Random();
 
@@ -14,16 +14,16 @@ class KeyboardListener with WidgetsBindingObserver {
   final Map<String, VoidCallback> _showListeners = {};
   final Map<String, VoidCallback> _hideListeners = {};
 
-  /// Коллекция слушателей на изменение состояния клавиатуры
+  /// Collection of listeners for changing the state of the keyboard
   Map<String, KeyboardChangeListener> get changeListeners => _changeListeners;
 
-  /// Коллекция слушателей на отображение клавиатуры
+  /// Collection of listeners for keyboard display
   Map<String, VoidCallback> get showListeners => _showListeners;
 
-  /// Коллекция слушателей на скрытие клавиатуры
+  /// Collection of listeners to hide the keyboard
   Map<String, VoidCallback> get hideListeners => _hideListeners;
 
-  /// Видна ли клавиатура
+  /// Getter values whether the keyboard is visible
   bool get isVisibleKeyboard =>
       WidgetsBinding.instance.window.viewInsets.bottom > 0;
 
@@ -38,23 +38,23 @@ class KeyboardListener with WidgetsBindingObserver {
     _hideListeners.clear();
   }
 
-  /// Колбэк на изменение метрик
+  /// Callback for changing metrics
   @override
   void didChangeMetrics() {
     _listener();
   }
 
-  /// Добавить слушателя клавиатуры
-  /// Возвращает id для слушателя
+  /// Add keyboard listener
+  /// Returns the id for the listener
   ///
-  /// [id] - идентификатор слушателя,
-  /// назначается автоматически в случае отсутствия
+  /// [id] - listener identifier,
+  /// assigned automatically in case of absence
   ///
-  /// [onChange] - колбэк на изменение состояния клавиатуры
+  /// [onChange] - callback for changing the state of the keyboard
   ///
-  /// [onShow] - колбэк на отображение клавиатуры
+  /// [onShow] - callback to display the keyboard
   ///
-  /// [onHide] - колбэк на скрытие клавиатуры
+  /// [onHide] - callback to hide the keyboard
   ///
   String addListener({
     String id,
@@ -71,37 +71,37 @@ class KeyboardListener with WidgetsBindingObserver {
     return id;
   }
 
-  /// Удалить [onChange] слушатель
+  /// Delete [onChange] listener
   void removeChangeListener(KeyboardChangeListener listener) {
     _removeListener(_changeListeners, listener);
   }
 
-  /// Удалить [onShow] слушатель
+  /// Delete [onShow] listener
   void removeShowListener(VoidCallback listener) {
     _removeListener(_showListeners, listener);
   }
 
-  /// Удалить [onHide] слушатель
+  /// Delete [onHide] listener
   void removeHideListener(VoidCallback listener) {
     _removeListener(_hideListeners, listener);
   }
 
-  /// Удалить [onChange] слушатель по id
+  /// Delete [onChange] listener by id
   void removeAtChangeListener(String id) {
     _removeAtListener(_changeListeners, id);
   }
 
-  /// Удалить [onShow] слушатель по id
+  /// Delete [onShow] listener by id
   void removeAtShowListener(String id) {
     _removeAtListener(_changeListeners, id);
   }
 
-  /// Удалить [onHide] слушатель по id
+  /// Delete [onHide] listener by id
   void removeAtHideListener(String id) {
     _removeAtListener(_changeListeners, id);
   }
 
-  /// Удалить слушатель по id
+  /// Delete listener by id
   void _removeAtListener(Map<String, Function> listeners, String id) {
     listeners.remove(id);
   }
@@ -119,22 +119,24 @@ class KeyboardListener with WidgetsBindingObserver {
   }
 
   void _listener() {
-    // Стандартное поведение:
-    // Показалась клавиатруа - bottom был 0 -> стал n
-    // Показалась клавиатруа - bottom был n -> стал 0
+    // Standard behavior:
+    // The keyboard appeared - bottom was 0 -> became n
+    // The keyboard appeared - bottom was n -> became 0
 
-    // На некоторых устройствах, в виде исключения, может придти:
-    // bottom был m -> n, а должен быть 0 -> n
+    // On some devices, as an exception, it may come:
+    // bottom was m -> n, and should be 0 -> n
     //
-    // Пример:
-    // Размер клавиатуры == 280.
-    // Вместо 0 => 280 - может придти 480 => 280
+    // Example:
+    // Keyboard Size == 280.
+    // Instead of 0 => 280 - 480 => 280 may come
     if (isVisibleKeyboard) {
-      /// Новая высота больше предыдущей - клавиатура открылась
+      /// The new height is greater than the previous one
+      /// - the keyboard has opened
       _onShow();
       _onChange(true);
     } else {
-      /// Новая высота меньше предыдущей - клавиатура закрылась
+      /// The new height is less than the previous one
+      /// - the keyboard is closed
       _onHide();
       _onChange(false);
     }

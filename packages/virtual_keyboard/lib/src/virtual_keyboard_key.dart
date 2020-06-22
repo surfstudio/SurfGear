@@ -3,23 +3,33 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:virtual_keyboard/src/parser.dart';
 
-/// Базовый класс клавиши клавиатуры
+/// Keyboard key base class
 abstract class VirtualKeyboardKey {
   static Random _r = Random();
 
-  /// Является ли [instance] подтипом [T]
+  /// Is [instance] a subtype of [T]
   static bool checkType<T extends VirtualKeyboardKey>(
       VirtualKeyboardKey instance) {
     return instance is T;
   }
 
-  /// id клавиши
+  /// id keys
   final String id;
 
+  /// Widget for use in a key
   final Widget widget;
+
+  /// Use Widget instead as a key
   final bool useAsKey;
+
+  /// Key decoration
   final BoxDecoration keyDecoration;
+
+  /// [ShapeDecoration] for InkWell Effect
   final ShapeDecoration inkShapeRipple;
+
+  /// [ShapeBorder] for InkWell
+  final ShapeBorder inkShapeBorder;
 
   VirtualKeyboardKey(
     String id, {
@@ -27,6 +37,7 @@ abstract class VirtualKeyboardKey {
     bool useAsKey,
     this.keyDecoration,
     this.inkShapeRipple,
+    this.inkShapeBorder,
   })  : id = id ?? _r.nextDouble().toString(),
         useAsKey = useAsKey ?? false,
         assert(useAsKey == null || useAsKey != null && widget != null);
@@ -38,17 +49,17 @@ abstract class VirtualKeyboardKey {
   @override
   int get hashCode => id.hashCode;
 
-  /// Проверка на тип
+  /// Type check
   bool isInstance<T extends VirtualKeyboardKey>() {
     return checkType<T>(this);
   }
 }
 
-/// Клавиша клавиатуры со значением
+/// Keyboard key with value
 abstract class VirtualKeyboardValueKey extends VirtualKeyboardKey {
   final String _value;
 
-  /// Значение клавиши
+  /// Key value
   String get value => _value;
 
   VirtualKeyboardValueKey(
@@ -58,20 +69,22 @@ abstract class VirtualKeyboardValueKey extends VirtualKeyboardKey {
     bool useAsKey,
     BoxDecoration keyDecoration,
     ShapeDecoration inkShapeRipple,
+    ShapeBorder inkShapeBorder,
   }) : super(
           id,
           widget: widget,
           useAsKey: useAsKey,
           keyDecoration: keyDecoration,
           inkShapeRipple: inkShapeRipple,
+          inkShapeBorder: inkShapeBorder,
         );
 }
 
-/// Числовая клавиша заглушка
+/// Numeric key
 class VirtualKeyboardNumberKey extends VirtualKeyboardValueKey {
   int _parsedVale;
 
-  /// Получить числовое представление значения клавиши
+  /// Get a numeric representation of the key value
   int get number => _parsedVale ??= parseInt(value);
 
   VirtualKeyboardNumberKey(
@@ -81,6 +94,7 @@ class VirtualKeyboardNumberKey extends VirtualKeyboardValueKey {
     bool useAsKey,
     BoxDecoration keyDecoration,
     ShapeDecoration inkShapeRipple,
+    ShapeBorder inkShapeBorder,
   }) : super(
           value,
           id: id,
@@ -88,16 +102,17 @@ class VirtualKeyboardNumberKey extends VirtualKeyboardValueKey {
           useAsKey: useAsKey,
           keyDecoration: keyDecoration,
           inkShapeRipple: inkShapeRipple,
+          inkShapeBorder: inkShapeBorder,
         );
 }
 
-/// Пустая клавиша заглушка
+/// Blank dummy key
 class VirtualKeyboardEmptyStubKey extends VirtualKeyboardKey {
   VirtualKeyboardEmptyStubKey({String id, Widget widget})
       : super(id, widget: widget);
 }
 
-/// Клавиша удалить
+/// Delete key
 class VirtualKeyboardDeleteKey extends VirtualKeyboardKey {
   static String _defaultId = 'delete';
 
@@ -107,11 +122,13 @@ class VirtualKeyboardDeleteKey extends VirtualKeyboardKey {
     bool useAsKey,
     BoxDecoration keyDecoration,
     ShapeDecoration inkShapeRipple,
+    ShapeBorder inkShapeBorder,
   }) : super(
           id ?? _defaultId,
           widget: widget,
           useAsKey: useAsKey,
           keyDecoration: keyDecoration,
           inkShapeRipple: inkShapeRipple,
+          inkShapeBorder: inkShapeBorder,
         );
 }

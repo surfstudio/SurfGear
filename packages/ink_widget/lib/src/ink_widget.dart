@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// Wrapper for InkWell
+/// Solves the problem when Material effects overlap with a child’s decoration
 class InkWidget extends StatelessWidget {
   final Widget child;
 

@@ -3,26 +3,28 @@ import 'package:virtual_keyboard/src/table_button.dart';
 import 'package:virtual_keyboard/src/virtual_keyboard_effect.dart';
 import 'package:virtual_keyboard/src/virtual_keyboard_key.dart';
 
-/// Виджет клавиатуры
-/// https://www.figma.com/file/BuQv8izOpGGhRwAcpOt3p3/Thanks-Tab?node-id=1104%3A792
+/// On-screen keyboard widget
 
-/// Колбэк нажатия на клавишу на экранной клавиатуре
+/// Callback key on the on-screen keyboard
 typedef void KeyboardPressCallback(VirtualKeyboardKey keyboardKey);
 
 class VirtualKeyboardWidget extends StatefulWidget {
-  /// Данные клавиш клавиатуры
+  /// Keyboard data list
   final List<List<VirtualKeyboardKey>> keyboardKeys;
 
-  /// Ширина кнопки
+  /// Button Width
   final double buttonWidth;
 
-  /// Высота кнопки
+  /// Button height
   final double buttonHeight;
 
+  /// Callback button click
   final KeyboardPressCallback onPressKey;
 
+  /// Button text textStyle
   final TextStyle keyTextStyle;
 
+  /// Effect of pressing a button
   final VirtualKeyboardEffect virtualKeyboardEffect;
 
   VirtualKeyboardWidget({
@@ -46,7 +48,6 @@ class _VirtualKeyboardWidgetState extends State<VirtualKeyboardWidget> {
 
   double _buttonSizeDefault = 36;
 
-  /// Ширина кнопки
   double get _buttonWidth => widget.buttonWidth ?? _buttonSizeDefault;
 
   double get _buttonHeight => widget.buttonHeight ?? _buttonSizeDefault;
@@ -86,6 +87,7 @@ class _VirtualKeyboardWidgetState extends State<VirtualKeyboardWidget> {
       useAsKey: keyboardKey.useAsKey,
       keyDecoration: keyboardKey.keyDecoration,
       inkShapeRipple: keyboardKey.inkShapeRipple,
+      inkShapeBorder: keyboardKey.inkShapeBorder,
     );
   }
 
