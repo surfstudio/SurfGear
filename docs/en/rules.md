@@ -1,17 +1,17 @@
-[Главная](main.md)
+[Main](main.md)
 
-# Правила оформления и ведения документации
+# Rules for text layout and documentation
 
-Документы создаются в формате Markdown.
+Documents are created in Markdown format.
 
-## Структура
+## Structure
 
-Существуют две категории документов:
+Categories of documents:
 
-- Документы общего дерева — общая информация о подходах и практиках.
-Лежат в корневой директории docs, содержат ссылки на модули.
+- Documents in main tree — general information on techniques and practices.
+Placed in root directory - docs, include links to modules.
 
-- Документы конкретных модулей — описание модуля и примеры использования.
-Лежат в директории docs у каждого модуля, могут ссылаться на статьи из основного дерева.
+- Documents of specific module — module's description and usage examples.
+Placed in module's directory, can linked to articles in main tree.
 
-Общая разводная содержится в [main](main.md).
+Main page with links - [main](main.md).

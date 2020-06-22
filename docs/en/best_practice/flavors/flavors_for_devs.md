@@ -1,18 +1,20 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Организация  Flavors в  Flutter
+[Full article on Medium.](https://medium.com/surfstudio/setting-up-flavors-in-flutter-e455834818d4)
 
-Все шаги ниже уже настроены в template.
+# Setting Up Flavors in Flutter
 
-Если Вам необходимо изменить идентификатор под ios - меняйте в файле common.xcconfig.
+All steps already done in template.
 
-Информация ниже является сопровождающей. 
+You can change identifier in common.xcconfig.
+
+The information below is accompanying.
 
 ### Android
 
- Здесь все просто. Ничем не отличается от стандартных способов в андроид.
+ It’s really straightforward and by no means different from usual methods on Android.
 
- Итак, все, что нам потребуется в минимальном варианте:
+ Here’s what you need at a minimum:
 
  ```groovy
  flavorDimensions "release-type"
@@ -30,23 +32,23 @@
     }
 ```
 
-И все, теперь мы можем с легкостью запустить команду :
+That’s it! Now you can easily run this command:
 ```
 flutter run --flavor dev
 ```
-на нашем андроид девайсе.
+on your Android device.
 
 ### iOS
 
-1. Создаем две конфигурации
-1. В разработческой указываем суффикс
-1. Профит!
+1. Create two configurations.
+1. Add suffix to the dev one.
+1. Profit!
 
 
-### Файлы конфигураций
+### Configuration files
 
-В наших проектах имеется две конфигурации: dev, prod.
-Содержимое у них примерно следующее:
+There are two configurations in your projects: dev and prod.
+Their contents are as follows:
 
 ```с
 #include "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug-dev.xcconfig"
@@ -57,99 +59,99 @@ bundle_suffix=.dev
 IDENTIFIER=$(identifier)$(bundle_suffix)
 ```
 
-Итак, создаем две конфигурации и располоагаем в следующих путях:
+Create two configurations and add them to the following directories:
 ```
 ios/Flutter/dev.xcconfig
 ios/Flutter/prod.xcconfig
 ```
 
-Создание можно провернуть и через XCode(даже лучше, чтобы они добавились именно как конфигурационные файлы). 
-Делается это с помощью **щелчка правкой кнопки по Runner -> New File -> Configuration Settings File -> двльше выбираем место сохранения**.
+This can also be done through Xcode (even better — to add them as configuration files). 
+**Right-click on Runner -> New File -> Configuration Settings File -> select the save location**.
 
-Создаем еще один конфигурационный файл, в котором мы будем устанавливать по сути базовую часть нашего PRODUCT_BUNDLE_IDENTIFIER.
+Create one more configuration file, in which you will set the basic part of your RODUCT_BUNDLE_IDENTIFIER.
 
-Содержимое описано одной строкой:
+File contents are defined in a single line:
 ```
 identifier=your.bundle.identifier
 ```
 
-Подключаем этот файл через include в остальные конфиги и устанавливаем новую User Defined переменную IDENTIFIER:
+Include this file in other configs and set a new User Defined Variable IDENTIFIER:
 ```
 #include "common.xcconfig"
 
 IDENTIFIER=$(identifier)$(bundle_suffix)
 ```
 
-### Build Configurations. Умножай на два
+### Build Configurations. Make it double
 
-Теперь разберемся с конфигурациями сборки. Открываем Runner.xcworkspace в Xcode и выбираем представление Project.
+It’s time to get familiar with build configurations. In Xcode, open Runner.xcworkspace and select the Runner project.
 
-Там находим кнопку "+" в разделе Configurations и создаем 4 конфигурации: две для Release и две для Debug - где постфиксом пишем название нашего конфига(и будущей схемы приложения). 
+Find ’+’ in the Configurations section and create four new configurations: two for Release and two for Debug adding a postfix with the name of your config and future app scheme.
 
-Выглядить это будет примерно так:
+Like this:
 
-![configs](img/configs.png)
+![configs](./img/configs.png)
 
-К сожалению дублировать конфигурации пока необходимо, так как скрипт ответственный за сборку ios очень чувствителен к неймингу.
+Unfortunately, duplication of configurations is still necessary, since iOS build script is very sensitive to naming.
 
 
 
-### Добавление Scheme
+### Adding schemes
 
-Кроме создания файлов конфигурации необходимо также правильно настроить схемы приложения: их также две.
+Apart from creating config files, you need to correctly configure application schemes — there will also be two of them.
 
-![schemes](img/schemes.png)
+![schemes](./img/schemes.png)
 
-Из создание крайне просто. Единсвтенный момент - выберите правильный таргет - Runner.
+This one is really easy. Important note: choose the correct target — Runner.
 
-Теперь выберите пункт Edit Scheme и проставьте необходимые конфигурации на каждом из этапов для схем.
+Now, select Edit Scheme and add the necessary configurations to each of the scheme processes.
 
-### Обновление переменных
+### Update variables
 
-Теперь придется немного поработать мышкой внутри Xcode. Переходим в наш таргет на вкладку Build Settings:
-![build_settings](img/bs_step1.png)
+Now, let’s do some mouse work in Xcode. Select your target and click the Build Settings button:
+![build_settings](./img/bs_step1.png)
 
-Далее в поиске ищем Product Bundle Identifier(раздел Packaging):
-![build_settings](img/bs_step2.png)
+Do a search for Product Bundle Identifier (the Packaging section):
+![build_settings](./img/bs_step2.png)
 
-И меняем значение для всех конфигов на:
+Change values for all configs to:
 ```
 $(IDENTIFIER)
 ```
 
-![build_settings](img/bs_step3.png)
+![build_settings](./img/bs_step3.png)
 
-Теперь переходим в Info.plist и убираем из строки с идентификатором bundle suffix,  оставляя толькол :
+Now go to Info.plist and remove bundle suffix from the identifier line, leaving only:
 ```
 $(PRODUCT_BUNFLE_IDENTIFIER)
 ```
 
-### Разные файлы для разных bundle id
+### Separate files for different Bundle IDs
 
-Но мы решили подключить аналитику. Если мы используем файербейз, то нам понадобится два проекта и четыре приложения соответсвенно(2 платформы под две версии).
+...But you’ve decided to integrate analytics. If you use Firebase, you’ll need two projects and four apps respectively (two platforms for two versions).
 
-И что самое главное - нам необходимо иметь два файла google-services.json(Google-Services.Info.plist). На стороне андроид все будет просто: мы создаем папку с названием нашего флейвора и закидываем туда наш файл.
+Most importantly, you’ll need to have two google-services.json files (Google-Services.Info.plist). With Android, it’s easily managed: just create a folder with your flavor’s name and add your file there.
 
-#### Создание и размешения файлов
+#### Creating and locating files
 
-Первым делом нам необходимо создать в проекте папку где будут эти файлы хранится. Мы используем следующую структуру:
+You need to create a new folder in the project to store these files. Use the following structure:
 
-![dirs](img/files_and_dirs.png)
+![dirs](./img/files_and_dirs.png)
 
-**Важно**: не создаем их через икскод. Они не должны быть привязаны к проекту. Если все же икскод - это ваша любимая IDE, при создании снимите галочки с пункта Add to target.
+**Important note**: do not create them via XCode. The files should not be mapped to the project. If Xcode is your favorite IDE, uncheck the Add to Targets checkbox when creating the files.
 
-Далее располагаем наши файлы в соответствующих папках.
+The next step is adding your files to the corresponding folders.
 
-#### Добавление файлов в приложение во время сборки
+#### Adding files to the app at build time
 
-Так как файлы не привязаны к проекту, в целевой архив они не попадут. А чтобы они все таки тк=уда попали, надо в ручную их туда засунуть.
+Since the files are not mapped to the project, they won’t get into the target archive. You should add them here manually.
 
-Доабавим дополнительный этап сборки в виде Run Script (setup firebase как пример названия):
- ![build_phase](img/build_phase.png)
+Add an extra build phase in the form of Run Script (let’s name it Setup Firebase, for example):
+ ![build_phase](./img/build_phase.png)
 
- Обратите внимание на расположение - оно играет решающюю роль!
+ You need to pay attention to the location, it’s crucial.!
 
- Теперь доавим сам скрипт, как один из вариантов можно использовать подобный:
+ Now, add the script. As an option, you can use the following one:
 
  ```
  # Name of the resource we're selectively copying

@@ -1,20 +1,20 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Асинхронные взаимодействия
+# Asynchronous interactions
 
-Напрямую UI не взаимодействует с получением данных.
-Все асинхронные действия выполняются в WidgetModel.
-Для выполнения асинхронных операций в проектах используется преимущественно библиотека [rxDart][rx_dart_link]
-Как ее использовать подробно описано в [этой статье][rx_dart_habr].
+The UI does not directly interact with receiving data.
+All asynchronous actions are performed in WidgetModel.
+To perform asynchronous operations in projects, the most commonly used library is [rxDart][rx_dart_link]
+How to use it is described in detail in [this article][rx_dart_habr].
 
 
 ## subscribeHandleError
 
-В WidgetModel подписка на изменение данных в Observable происходит c использованием метода subscribeHandleError
-из класса [WidgetModel](../../mwwm/lib/src/widget_model.dart). Такой подход позволяет стандартизировать
-обработку получаемых данных и добиться модульности обработки ошибок;
+In WidgetModel, subscribing to change data in Observable occurs using the subscribeHandleError method
+from class [WidgetModel](../../mwwm/lib/src/widget_model.dart). This approach allows you to standardize
+processing received data and achieve modular error handling;
 
-Пример: 
+Example: 
 
 ```dart
  subscribeHandleError(
@@ -25,13 +25,13 @@
 ```
     
 ## subscribe 
-подписка без централизованной обработки ощибок.
+Subscription without centralized error handling.
 
-Пример:
+Example:
 
 ```dart
-      //selectNotificationSubject это обьект класса BehaviorSubject - один из видов потоков из rxDart
-      //onSelect метод типа данных Future. Выполняется когда в selectNotificationSubject просиходит како-либо изменение
+      //selectNotificationSubject this is entity of BehaviorSubject - one of the types of streams from rxDart
+      //onSelect Future data type method. Run when a change occurs in selectNotificationSubject
       subscribe(
          _notificationController.selectNotificationSubject,
          _notificationHandler.onSelect,
@@ -39,8 +39,8 @@
 ```
 
 ## Future
-Стандартный механизм обработки асинхронных операций в Dart. Подробно ознакомиться
-можно в [официальной документации][future_link].
+Standard Dart Asynchronous Processing Engine. see details
+possible in [official documentation][future_link].
 
 Пример:
 
@@ -67,18 +67,18 @@ Future<bool> myTypedFuture() async {
 ```
 
 ## ErrorHandler
-Для обработки ошибок, получаемых из потока, в студийной практике
-используются расширения класса [ErrorHandler](../../mwwm/lib/src/error_handler.dart).
-ErrorHandler поставляется на WidgetModel через класс WidgetModelDependencies - это обертка над обязательными состоавляющим WidgetModel.
-Если не сконфигурировать ErrorHandler в компоненте экрана, при использовании метода subscribeHandleError 
-ошибки отлавливаться не будут.
+To handle errors received from a stream in the studio
+extensions to the [ErrorHandler](../../mwwm/lib/src/error_handler.dart) class are used.
+The ErrorHandler is passed to WidgetModel through the WidgetModelDependencies class - this is a wrapper over the required WidgetModel elements.
+If you do not configure ErrorHandler in a screen component, using the subscribeHandleError method
+errors will not be caught.
 
 ## bind 
-Для отслеживания одиночных действий(нажатие на кнопку, изменение текста, скролл списка) в студии
-используются [Action](../../mwwm/lib/src/relation/event/action.dart). Представляет обертку над потоком, которая регистрирует
-одиночные действия и возвращает первое событие из потока. Для удобства подписки таких событий был создан метод bind.
+To track single actions (clicking on a button, changing text, scrolling list) in the studio
+used [Action](../../mwwm/lib/src/relation/event/action.dart). Represents a wrapper over a stream that registers
+single actions and returns the first event from the stream. For convenience of subscribing to such events, the bind method was created.
 
-Пример:
+Example:
 
 ```dart
 void _bindActions() {
@@ -87,5 +87,5 @@ void _bindActions() {
 ```
  
 [rx_dart_link]:https://pub.dev/packages/rxdart
-[rx_dart_habr]:https://habr.com/ru/post/451292/
+[rx_dart_habr]:https://www.burkharts.net/apps/blog/rxdart-magical-transformations-of-streams/
 [future_link]:https://api.flutter.dev/flutter/dart-async/Future-class.html

@@ -1,101 +1,101 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Уменьшение размера сборки приложения
+# Reduce application size
 
 ## Android
 
-Файлы занимающие значительный обьем в сборке:
-- `libflutter.so` - run-time библиотека фреймворка. Комманда flutter обещает оптимизировать размер этого файла в будущих версиях, либо вынести его в отдельно устанавливаемый run-time пакет; 
-- `libapp.so` - скомпилированное приложение;
-- `classes.dex` - собранные в кучу нативные части всех используемых библиотек. Большинство библиотек уже проходило через обфускатор;
-- каталог `res` - тут собраные системные ресурсы, такие как иконки Material и Cupertino, так же коллекция assets из каталога проекта;
-- все остальное в сумме менее 1% по объему;
+Files 
+Files taking up the most space in build:
+- `libflutter.so` - run-time framework's library. Flutter team promises to optimize the size of this file in future versions, or to put it in a separately installed run-time package; 
+- `libapp.so` - compiled application;
+- `classes.dex` - Native part of used libraries in one file. Most libraries have already passed through an obfuscator;
+- catalog `res` - system resources, such like Material and Cupertino icons, assets collection from project catalog;
+- others in the amount of less than 1% of size;
 
-Пара файлов `libflutter.so` и `libapp.so` помещаются в сборку для каждой поддерживаемой платформы, то есть если собрать однусборку для x86, x86_64, armeabiv7a, arm64_v8a, то сборка занимает значительные объем.
-Как вариант, можно запускать сборку с параметром `--split-per-abi`:
+Files `libflutter.so` and `libapp.so` included in all builds for all supported platform, so if try to build one for x86, x86_64, armeabiv7a, arm64_v8a, then build occupies much more space.
+Another choice is to start build with argument `--split-per-abi`:
 ```
 flutter build apk --split-per-abi
 ```
-В таком случае мы получаем несколько сборок для разных платформ, каждая из которых будет менее 10 мб для release.
+In this case we have a few separeted builds, one for each platform, each bilds take less then 10 Mb for release.
 
 ### App Bundles
 
-Aab-файл это формат загрузки, который включает в себя весь скомпилированный код и ресурсы приложения в одном артефакте сборки.
+Aab-file is a download format, that content all compiled code and resources of application iin one build artifact.
 
-Если использовать сборку App Bundles командой:
+If start build with argument - App Bundles:
 ```
 flutter build appbundle
 ```
-То в результате получается `*.aab` файл, который по объему соответствует "толстому" apk-файлу.
+then it compiled to `*.aab` file, wich size correspond to fat apk-file.
 
-Если требуется дистрибуция приложения через Google Play, тогда выгоднее использовать aab-файл.
-Потому что, в этому случае, после загрузки подписанного пакета приложения в Google Play есть все, что нужно, 
-для создания и подписи apk-файлов приложения и предоставления их пользователям посредством динамической доставки. 
-Тоесть пользователь скачает с Google Play файл apk, который будет содержать бинарные файлы только одной, требуемой платформы.
+If you need to distribute the application via Google Play, then it is more profitable to use an aab-file.
+Because, in this case, after downloading the signed application package on Google Play, there is everything you need,
+to create and sign application apk files and provide them to users through dynamic delivery.
+That is, the user will download the apk file from Google Play, which will contain binary files of only one, the required platform.
 
-Если дистрибуция приложения осуществляется с помощью других сервисов, или просто передачей файлов, то передавать aab-файл нет смысла, 
-потому что его нельзя установить на устройство.
-Нужно с помощью утилит приготовить из него либо "толстый" apk файл под все платформы, либо отдельные apk файлы для разных платформ.
-В таком случае проще воспользоваться сборкой apk с параметром `--split-per-abi`.
+If the application is distributed using other services, or simply by transferring files, then there is no point in transferring an aab file,
+because it cannot be installed on the device.
+Using utilities, you need to prepare from it either a fat apk file for all platforms, or separate apk files for different platforms.
+In this case, it is easier to use the apk assembly with the argument `--split-per-abi`.
 
-Этапы борьбы команды flutter за размер релизной сборки приложения можно наблюдать в [этом тикете](https://github.com/flutter/flutter/issues/16833)
-Команда flutter переодически уменьшает размер `libflutter.so` за счет оптимизации используемых бибилиотек и за счет использования последних версий 
-компилятора, который генерит более компактный код.
+The steps of the flutter team over the release build size of the application can be observed [there](https://github.com/flutter/flutter/issues/16833)
+The flutter team periodically reduce size of `libflutter.so` by optimizing the libraries used and by using the latest versions
+a compiler that generates more compact code.
 
 
 ## iOS
+Application build for iOS is larger than build for same application for Android.
+Mainly because Apple encrypts binary files within the IPA, making compression less efficient.
 
-Сборка приложения для iOS имеет размер больше, чем сборка этого же приложения для Android.
-Главным образом потому, что Apple шифрует двоичные файлы в пределах IPA, делая сжатие менее эффективным.
+The general recommendation is to prefer loading large data from assets instead of declaring static constants in the code.
 
-Общая рекомендация - предпочесть загрузку объемных данных из assets вместо объявления статических констант в коде.
-
-Apple позаботилось о частичной загрузке обновлений приложения из App Store.
-Цитата из базы знаний: 
+Apple has taken care to partially download application updates from the App Store.
+Quote from the knowledge base:
 ```
-Для устройств под управлением iOS 7.1 и более поздних версий пакет обновления может содержать только различия 
-между старой и новой версиями измененного файла, а не полного файла. Это может значительно уменьшить размер пакета 
-обновления в случае, если изменяется только небольшая часть большого файла, но увеличит время установки обновления 
-на устройстве. 
+For devices running iOS 7.1 and later, the service pack may only contain differences
+between the old and new versions of the modified file, not the full file. This can significantly reduce the package size.
+updates if only a small part of the large file is changed, but the update installation time will increase
+on the device.
 ```
 
 
-## Ресурсы
+## Resources
 
-Какой формат данных предпочесть для хранения графических файлов?
+What data format to prefer for storing graphic files?
 
-- `PNG` - формат представления растровых изображений, имеет собственное, достаточное эффективное сжатие
-- `JPG` - формат представления растровых изображений, имеет собственное, достаточное эффективное сжатие. 
-    Предпочтительнее использовать `PNG` формат, поскольку у `JPG` формата сжатие с потерями и на изображении могут быть заметны артефакты.
-- `SVG` - формат представления векторных изображений, в основе имеет текстовый формат, сжимается внутри артефакта сборки
-- `TTF` - формат файла шрифтов, который можно создать из набора svg-файлов, бинарный формат, сжимается внутри артефакта сборки.
-    Для получения файла шрифтов из набора svg файлов можно использовать [утилиту](https://github.com/ilikerobots/polyicon)
-- `FLR` - формат Flare анимаций, текстовый формат, сжимается внутри артефакта сборки
+- `PNG` - format for the presentation of raster images, has its own, sufficient effective compression.
+- `JPG` - format for the presentation of raster images, has its own, sufficient effective compression. 
+    It is preferable to use the `PNG` format, since the `JPG` format has lossy compression and artifacts may be noticeable on the image.
+- `SVG` - presentation format of vector images, basically it has a text format, is compressed inside the assembly artifact.
+- `TTF` - the font file format that can be created from a set of svg files, the binary format is compressed inside the assembly artifact.
+    To get a font file from a set of svg files, you can use [utility](https://github.com/ilikerobots/polyicon)
+- `FLR` - Flare animation format, it is text format that compressed inside the assembly artifact
 
-Ни один из перечисленных форматов не дает значительного преемущества в объеме информации, сохраняемой внутри артефакта сборки.
+None of the listed formats gives a significant advantage in the amount of information stored inside the assembly artifact.
 
-Общая рекомендация - предпочесть загрузку объемных данных из assets вместо объявления статических констант в коде.
+The general recommendation is to prefer loading large data from assets instead of declaring static constants in the code.
 
 
-## Обфускация Dart кода
+## Obfuscated Dart Code
 
-На примере реального приложения (ROS) объем "жирного" apk:
+On the example of a real application (ROS) size of fat apk:
 
-- без обфускации - 16 131 443 B
-- с обфускацией - 16 031 895 B
+- without obfuscation - 16 131 443 B
+- with obfuscation - 16 031 895 B
 
-Однако режим обфускации дает еще некоторые побочные эффекты.
-Например печать строкового представления типа объектов, трассировки стека и прочее,
-будут вести себя немного иначе, чем ожидается от программы Dart, работающей в обычном режиме - потому что идентификаторы будут искажены.
+However, the obfuscation gives some more side effects.
+For example, printing a string representation of an object type, a stack trace, and more,
+will behave a little differently than expected from a Dart program running in normal mode - because the identifiers will be distorted.
 
-Все идентификаторы, которые возвращают методы, такие как 
+All identifiers that return methods, such as:
 Object.runtimeType, 
 Type.toString, 
 Enum.toString, 
 Stacktrace.toString, 
 Symbol.toString, 
-будут возвращать искаженные результаты. Любой код или тесты, которые полагаются на результат этих функций - перестанут работать.
+will return distorted results. Any code or tests that rely on the result of these functions will stop working.
 
-Однако, например для расшифровки трассировки стека, можно добавить параметр
-`--save-obfuscation-map=<filename>` который заставляет VM хранить отображение между оригинальными именами и искаженными в заданных `filename`.
-Отображение кодируется как массив JSON `[original_name_0, obfuscated_name_0, original_name_1, obfuscated_name_1, ...]`.
+However, for example, to decrypt the stack trace, you can add the argument
+`--save-obfuscation-map=<filename>` which forces the VM to store the mapping between the original names and the distorted ones in the given `filename`.
+The mapping is encoded as a JSON array `[original_name_0, obfuscated_name_0, original_name_1, obfuscated_name_1, ...]`.
