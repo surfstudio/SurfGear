@@ -1,0 +1,23 @@
+name: keyboard_listener
+description: Keyboard listener created only on Flutter
+version: 1.0.0
+
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+custom:
+  is_stable: false
+  unstable_version: 0
+  is_plugin: false
+  path: ink_widget
+  hostUrl:
