@@ -1,11 +1,11 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Структура UI 
+# UI Structure
 
-В презентационном слое в студийных проектах используются две основные сущности:
+In the presentation layer in studio projects, two main entities are used:
 
-1. [Widget](widget.md) — описание пользовательского интерфейса
+1. [Widget](widget.md) — user interface description
 
-1. [WidgetModel](widget_model.md) — реализация логики
+1. [WidgetModel](widget_model.md) — logic implementation
 
-Каждый экран или виджет, который самостоятельно получает данные из сети или локального хранилища, обязательно содержит оба компонента. Если же экран или виджет достаточно простой, и все необходимые даннные можно получить через конструктор, то WidgetModel необязателен.
+Each screen or widget that independently receives data from a network or local storage necessarily contains both components. If the screen or widget is quite simple, and all the necessary data can be obtained through the constructor, then WidgetModel is optional.

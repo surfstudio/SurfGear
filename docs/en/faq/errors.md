@@ -1,17 +1,17 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# FAQ по ошибкам
+# Errors FAQ
 
-Решаем проблемы с ошибками и ворнингами.
+Solve problems with errors and vorings.
 
-## Ошибки
+## Errors
 
-- **Многие модули подчёркнуты красным, многие зависимости незарезолвлены.**
+- **Many modules are underlined in red, many dependencies are unresolved.**
     <br><br>
-    Вам необходимо пересинхронизировать модули. Для этого требуется 
-    исполнить команду `flutter packages get` на каждом из проблемных 
-    модулей. Для ускоренной синхронизации всех модулей вы можете 
-    использовать скрипт. Из корневой директории проекта выполните 
-    команду `./packages_get.sh`. Это пересинхронизирует все модули 
-    стандарта по очереди.
+    You need to re-synchronize the modules. To do this, 
+    execute the `flutter packages get` command on each 
+    of the problem modules. For faster synchronization 
+    of all modules, you can use the script. From the root 
+    directory of the project, run the command `./Packages_get.sh`. 
+    This resynchronizes all standard modules in turn.
     <br><br>

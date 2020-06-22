@@ -1,11 +1,9 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Синхронизация модулей
+# Module synchronization
 
-Для автоматической синхронизации всех модулей проекта предусмотрен 
-специальный скрипт. Он исполняет команду `flutter packages get` на 
-каждом из модулей проекта. 
+For automatic synchronization of all project modules, a special script is provided. 
+It executes the command `flutter packages get` on each of the project modules.
 
-Для запуска скрипта из корневой директории проекта выполните команду 
-`./packages_get.sh`. Это пересинхронизирует все модули стандарта по 
-очереди.
+To run the script from the root directory of the project, run the command
+`./packages_get.sh`. This resynchronizes all standard modules in turn.

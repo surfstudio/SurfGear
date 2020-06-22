@@ -15,7 +15,7 @@ Identified the following layers:
 
 **BusinessLogic** - the business logic layer, contains pure dart logic, is completely independent of Flutter.
 
-![](../images/mwwm.png) 
+![](../../img/mwwm.png) 
 
 The business logic layer usually contains the following types of entities, each of which has its own area of responsibility.
 

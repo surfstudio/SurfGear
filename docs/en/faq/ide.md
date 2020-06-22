@@ -1,13 +1,13 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# FAQ по IDE
+# IDE FAQ
 
-Решаем проблемы со средами разработки.
+Solve problems with development environments.
 
 ## Android Studio
 
-- **Кнопка "Run" неактивна, хотя проект успешно собирается из консоли.**
+- **The Run button is inactive, although the project successfully builds from the console.**
     <br><br>
-    Скорее всего у вас не прописан путь к Flutter SDK в настройках \
+    Most likely you have not registered the path to the Flutter SDK in the settings \
     Flutter Plugin. `(File | Settings | Languages & Frameworks | Flutter)`
     <br><br>
