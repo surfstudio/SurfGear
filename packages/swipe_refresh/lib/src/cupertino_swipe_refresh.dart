@@ -16,27 +16,38 @@ class CupertinoSwipeRefresh extends SwipeRefreshBase {
   const CupertinoSwipeRefresh({
     Key key,
     List<Widget> children,
+    SliverChildDelegate childrenDelegate,
     Stream<SwipeRefreshState> stateStream,
     SwipeRefreshState initState,
     VoidCallback onRefresh,
+    EdgeInsets padding,
+    ScrollController scrollController,
     this.refreshTriggerPullDistance = DEFAULT_REFRESH_TRIGGER_PULL_DISTANCE,
     this.refreshIndicatorExtent = DEFAULT_REFRESH_INDICATOR_EXTENT,
     this.indicatorBuilder =
         CupertinoSliverRefreshControl.buildSimpleRefreshIndicator,
   }) : super(
-            key: key,
-            children: children,
-            stateStream: stateStream,
-            initState: initState,
-            onRefresh: onRefresh);
+          key: key,
+          children: children,
+          childrenDelegate: childrenDelegate,
+          stateStream: stateStream,
+          initState: initState,
+          onRefresh: onRefresh,
+          padding: padding,
+          scrollController: scrollController,
+        );
 
   @override
-  SwipeRefreshBaseState createState() => _CupertinoSwipeRefreshState();
+  SwipeRefreshBaseState createState() =>
+      _CupertinoSwipeRefreshState(scrollController);
 }
 
 class _CupertinoSwipeRefreshState
     extends SwipeRefreshBaseState<CupertinoSwipeRefresh> {
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController;
+
+  _CupertinoSwipeRefreshState(ScrollController scrollController)
+      : _scrollController = scrollController ?? ScrollController();
 
   @override
   Widget buildRefresher(Key key, List<Widget> children, onRefresh) {
@@ -54,12 +65,8 @@ class _CupertinoSwipeRefreshState
           builder: widget.indicatorBuilder,
         ),
         SliverSafeArea(
-          sliver: SliverList(
-            delegate: SliverChildListDelegate(
-              children,
-            ),
-          ),
-        )
+          sliver: _buildList(children),
+        ),
       ],
     );
   }
@@ -76,5 +83,26 @@ class _CupertinoSwipeRefreshState
         completer = null;
       }
     }
+  }
+
+  Widget _buildList(List<Widget> children) {
+    if (widget.padding != null)
+      return SliverPadding(
+        padding: widget.padding,
+        sliver: SliverList(
+          delegate: widget.childrenDelegate == null
+              ? SliverChildListDelegate(
+                  children,
+                )
+              : widget.childrenDelegate,
+        ),
+      );
+    return SliverList(
+      delegate: widget.childrenDelegate == null
+          ? SliverChildListDelegate(
+              children,
+            )
+          : widget.childrenDelegate,
+    );
   }
 }
