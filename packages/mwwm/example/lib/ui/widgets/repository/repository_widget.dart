@@ -95,7 +95,7 @@ class _RepositoryWidgetState extends WidgetState<RepositoryWidgetWm> {
   Widget _buildDescription(Repository repository) {
     return Text(
       repository.description ?? '',
-      style: TextStyle(color: Colors.black54),
+      style: const TextStyle(color: Colors.black54),
     );
   }
 
@@ -104,14 +104,14 @@ class _RepositoryWidgetState extends WidgetState<RepositoryWidgetWm> {
       children: <Widget>[
         Text(
           '${repository.name}/',
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
             color: Colors.black87,
           ),
         ),
         Text(
           repository.owner.login ?? '',
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.bold,
               color: Colors.black87),
@@ -131,7 +131,7 @@ class _RepositoryWidgetState extends WidgetState<RepositoryWidgetWm> {
   }
 
   List<Widget> _buildLanguageInfo(String language) => [
-        Icon(
+        const Icon(
           Icons.brightness_1,
           size: 16.0,
           color: Colors.blueAccent,
@@ -142,7 +142,7 @@ class _RepositoryWidgetState extends WidgetState<RepositoryWidgetWm> {
       ];
 
   List<Widget> _buildStarsInfo(int starCount) => [
-        Icon(
+        const Icon(
           Icons.star,
           color: Colors.orangeAccent,
           size: 16.0,
@@ -153,7 +153,7 @@ class _RepositoryWidgetState extends WidgetState<RepositoryWidgetWm> {
       ];
 
   List<Widget> _buildWatchersInfo(int watchersCount) => [
-        Icon(
+        const Icon(
           Icons.remove_red_eye,
           size: 16.0,
           color: Colors.green,
