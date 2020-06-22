@@ -39,7 +39,7 @@ class GithubRepository {
     return repositories;
   }
 
-  /// Ger Github-users
+  /// Get Github-users
   Future<List<Owner>> getUsers() async {
     final Response<List<dynamic>> response = await _client.get(
       'https://api.github.com/users',

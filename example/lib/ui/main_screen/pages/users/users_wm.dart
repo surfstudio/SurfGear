@@ -35,7 +35,11 @@ class UsersWm extends WidgetModel {
   Future<void> _loadUsers() async {
     usersState.loading();
 
-    final List<Owner> users = await model.perform(GetUsers());
-    usersState.content(users);
+    try {
+      final List<Owner> users = await model.perform(GetUsers());
+      usersState.content(users);
+    } on Exception catch (e) {
+      handleError(e);
+    }
   }
 }
