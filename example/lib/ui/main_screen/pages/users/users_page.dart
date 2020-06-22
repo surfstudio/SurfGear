@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/data/owner.dart';
+import 'package:mwwm_github_client/model/common/error/standard_error_handler.dart';
 import 'package:mwwm_github_client/model/github/performers.dart';
 import 'package:mwwm_github_client/model/github/repository/github_repository.dart';
 import 'package:mwwm_github_client/ui/main_screen/pages/users/users_wm.dart';
@@ -8,6 +9,8 @@ import 'package:mwwm_github_client/ui/widgets/user_widget.dart';
 
 import 'package:relation/relation.dart';
 import 'package:provider/provider.dart';
+
+final _scaffoldKey = GlobalKey<ScaffoldState>();
 
 /// Represent github-users
 class UsersPage extends CoreMwwmWidget {
@@ -18,7 +21,9 @@ class UsersPage extends CoreMwwmWidget {
           key: key,
           widgetModelBuilder: widgetModelBuilder ??
               (context) => UsersWm(
-                    context.read<WidgetModelDependencies>(),
+                    WidgetModelDependencies(
+                      errorHandler: StandardErrorHandler(_scaffoldKey),
+                    ),
                     Model([
                       GetUsersPerformer(
                         context.read<GithubRepository>(),
