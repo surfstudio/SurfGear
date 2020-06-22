@@ -11,7 +11,7 @@
 ## subscribeHandleError
 
 В WidgetModel подписка на изменение данных в Observable происходит c использованием метода subscribeHandleError
-из класса [WidgetModel](../../mwwm/lib/src/widget_model.dart). Такой подход позволяет стандартизировать
+из класса [WidgetModel](../../../packages/mwwm/lib/src/widget_model.dart). Такой подход позволяет стандартизировать
 обработку получаемых данных и добиться модульности обработки ошибок;
 
 Пример: 
@@ -68,14 +68,14 @@ Future<bool> myTypedFuture() async {
 
 ## ErrorHandler
 Для обработки ошибок, получаемых из потока, в студийной практике
-используются расширения класса [ErrorHandler](../../mwwm/lib/src/error_handler.dart).
+используются расширения класса [ErrorHandler](../../../packages/mwwm/lib/src/error/error_handler.dart).
 ErrorHandler поставляется на WidgetModel через класс WidgetModelDependencies - это обертка над обязательными состоавляющим WidgetModel.
 Если не сконфигурировать ErrorHandler в компоненте экрана, при использовании метода subscribeHandleError 
 ошибки отлавливаться не будут.
 
 ## bind 
 Для отслеживания одиночных действий(нажатие на кнопку, изменение текста, скролл списка) в студии
-используются [Action](../../mwwm/lib/src/relation/event/action.dart). Представляет обертку над потоком, которая регистрирует
+используются [Action](../../../packages/relation/lib/src/relation/action/action.dart). Представляет обертку над потоком, которая регистрирует
 одиночные действия и возвращает первое событие из потока. Для удобства подписки таких событий был создан метод bind.
 
 Пример:

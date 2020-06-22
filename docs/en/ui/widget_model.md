@@ -22,5 +22,5 @@ WM is an intermediate link between Model (in any its variant) and Widget.
 Dependencies from Model are also delivered to WM via the constructor.
 In our projects, [Injector](../../../packages/injector/lib/src/injector.dart) is used to provide DI.
 Dependencies for WidgetModel are configured in the screen component.
-The object [WidgetModelDependencies] is used for this. It contains an ErrorHandler - an object responsible for handling errors for reactive streams.
+The object [WidgetModelDependencies](../../../packages/mwwm/lib/src/dependencies/wm_dependencies.dart) is used for this. It contains an ErrorHandler - an object responsible for handling errors for reactive streams.
 Without WidgetModelDependencies configuration, error handling will not work in WidgetModel.
