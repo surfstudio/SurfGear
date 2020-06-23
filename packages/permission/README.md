@@ -20,7 +20,7 @@ https://developer.apple.com/library/archive/documentation/General/Reference/Info
 and to AndroidManifest for Android:
 https://developer.android.com/guide/topics/permissions/overview
 
-## Remove unused permissions
+## Remove unused `IOS` permissions
 
 described in IOS Setup of plugin [permission_handler](https://pub.dev/packages/permission_handler) 
 
