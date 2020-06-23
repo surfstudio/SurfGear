@@ -1,27 +1,29 @@
 # TabNavigator
 
-[Главная](../main.md)
-[Навигация](navigation.md)
+[Main](../main.md)
+[Navigation](./navigation.md)
 
-Помимо обычных переходов между вкладками, иногда требуется реализовать вложенную навигацию.
-Требуется чтобы каждая вкладка имела свой собственный стек навигации. Это необходимо для того,
-чтобы пользователь не терял историю навигации при переключении вкладок.
+In addition to the usual transitions between tabs, sometimes you need to implement nested navigation.
+Each tab is required to have its own navigation stack. 
+This is necessary so that the user does not lose navigation history when switching tabs.
 
-Для решения этой задачи был разработан TabNavigator.
+To solve this problem, TabNavigator was developed.
 
-# Принцип работы
+# Principle of work
 
-При инициализации TabNavigator'a, необходимо добавить Map экранов, на которых
-необходимо реализовать вложенную навигацию. Выбранные экраны оборачиваются в список навигаторов,
-которые последовательно следуют друг за другом. Таким образом происходит реализация вложенной навигации.
+When initializing TabNavigator, you need to add Map if screens 
+on which you need to implement nested navigation. 
+Selected screens are wrapped in a list of navigators that sequentially follow each other. 
+Thus, nested navigation is implemented.
 
-При добавлении виджета в TabNavigator, в него передается "родительский" buildContext. Таким образом,
-когда необходимо перейти на новый экран из вложенного виджета, необходимо вызвать метод 
-```dart TabNavigatorState of(BuildContext context)```. Он возвращает состояние навигатора,
-которе используется в корневом контексте. Благодаря этому механизму из вложенного экрана можно 
-перейти на новый экран, который находится за пределами текущей цепочки вложенности.
+When adding a widget to TabNavigator, the "parent" buildContext is passed to it. 
+So, when you need to switch to a new screen from a nested widget, 
+you need to call the ```dart TabNavigatorState of(BuildContext context)``` method. 
+It returns the state of the navigator, which is used in the root context.
+Thanks to this mechanism, from the embedded screen you can
+which is outside the current nesting chain.
 
-TabNavigator можно объединить с любым графическим компонентом. Например BottomNavigation. 
+TabNavigator can be combined with any graphic component. For example, BottomNavigation.
 
-За определения индекса открываемой вкладки отвечает Stream<TabType> selectedTabStream.
-Для отслеживания информации об открытой вкладке необходимо использовать ObserversBuilder.
+For determining the index of the opened tab, Stream\<TabType\> selectedTabStream is responsible.
+To track information about an open tab, you must use ObserversBuilder.

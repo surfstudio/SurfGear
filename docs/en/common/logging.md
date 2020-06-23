@@ -1,20 +1,20 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Логирование
+# Logging
 
-[Описание модуля логирования](../../logger/README.md)
+[Logging module discription](../../../packages/logger/README.md)
 
-В обязательном порядке следует логировать:
+Be sure to log:
 
-* Url запросов и статус ответов сервера.
+* Url requests and server response status.
 
-* Нефатальные исключения: состояние приложения, когда что-то пошло не так,
-но при этом приложение продолжает работать. Например, неправильный парсинг ответа сервера.
+* Non-fatal exceptions: the state of the application when something went wrong,
+but the application continues to work. For example, incorrect parsing of the server response.
 
-* Основные события State.
+* State's main events.
 
-**Важно** :
+**IMPORTANT** :
 
-- Логи, которые не несут важной информации, следует удалить.
+- Logs that do not carry important information should be deleted.
 
-- Нельзя оставлять пустыми обработчики ошибок Rx-потока.
+- Rx stream error handlers must not be left empty.

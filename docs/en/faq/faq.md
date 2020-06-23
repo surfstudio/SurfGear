@@ -1,17 +1,17 @@
-[Главная](../main.md)
+[Main](../main.md)
 
 # FAQ
 
-У вас проблемы? Тогда вам сюда. В этом разделе мы собираем ответы на 
-самые популярные вопросы и накапливаем коллективный опыт. 
+You have problems? Then to you here. In this section, we collect answers to 
+the most popular questions and gain collective experience.
 
-FAQ будет работать только в том случае, если каждый из членов команды 
-будет оперативно дополнять его своим личным опытом. Решили проблему? 
-Придумали лучшую практику? Обязательно сделайте запись об этом в FAQ.
+The FAQ will work only if each of the team members will quickly supplement 
+it with their personal experience. Did you solve the problem?
+Have you come up with a better practice? Be sure to record this in the FAQ.
 
-## Оглавление
-- [IDE](ide.md) - вопросы по средам разработки (Android Studio, VS 
+## Сontents
+- [IDE](ide.md) - questions on development environments (Android Studio, VS 
 Code)
-- [Ошибки](errors.md) - вопросы по ошибкам и ворнингам
-- [Сборка](builds.md) - вопросы по сборке (ошибки и падения, типы сборок и конфигурации)
-- [UI](ui.md) - вопросы по вёрстке и проблемам с UI
+- [Errors](errors.md) - questions about bugs and warnings
+- [Build](builds.md) - building questions (errors and crashes, build types and configurations)
+- [UI](ui.md) - questions on layout and problems with UI

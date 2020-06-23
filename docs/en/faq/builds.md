@@ -1,58 +1,51 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# FAQ по сборке
+# Build FAQ
 
-Решаем проблемы с типами сборки.
+Resolve problems with build types.
 
-Если вы пришли сюда за ответами на вопросы, но ещё не читали [рукводство по орагнизации Flavors во Flutter](../best_practice/flavors/flavors_long.md) - сначала обязательно прочитайте его.
+If you came here for answers to questions, but have not yet read the [Flavors Organization Guide for Flutter](../best_practice/flavors/flavors_for_devs.md), be sure to read it first.
 
-## Падает локальная сборка iOS через Fastlane
+## Local build of iOS via Fastlane crashes
 
  - **No profile for team 'XXXXXXXXX' matching. Install the profile (by dragging and dropping it onto Xcode's dock item) or select a different one in the General tab of the target editor.**
    <br><br>
-   Проблема решилась предоставлением расширенных прав на директорию:
+   The problem was solved by providing extended rights to the directory:
    <br>
    `sudo chmod 755 /Users/{username}/Library/Logs/gym/`
    <br><br>
  - **Permission denied @ rb_sysopen - /Users/{username}/{project-dir}/ios/{cer-name}.cer**
    <br><br>
-   Проблема решилась предоставлением расширенных прав на директорию:
+   The problem was solved by providing extended rights to the directory:
    <br>
    `sudo chmod 755 /Users/{username}/{project-dir}/ios/*`
 
-## После удаления пакета из pubspec.yaml падает сборка под iOS
+## After removing a package from pubspec.yaml, the build for iOS crashes
 
  - **ld: framework not found {packageName}.**
    <br><br>
-   Проблема вызвана тем, что по какой-то причине после удаления пакета
-из проекта не очищаются linker flags. Это необходимо сделать вручную в
-Xcode.
+   The problem is caused because for some reason linker flags are not cleared after 
+   removing the package from the project. This must be done manually in Xcode.
    <br>
-1. В `Project navigator` кликните на `Runner`;
-2. Перейдите на вкладку `Build Settings`;
-3. В поиск введите название проблемного пакета: результат поиска должен
-находиться в разделе `Other Linker Flags`. Раскройте список флагов и
-вручную удалите оттуда лишний.
-4. Далее, пушим изменения в гит. Сборка должна починиться.
+1. In the `Project navigator` click on the `Runner`;
+2. Go to the `Build Settings` tab;
+3. In the search, enter the name of the problem package: the search result should 
+be in the section `Other Linker Flags`. Expand the list of flags and manually remove the excess from there.
+4. Next, push the changes to the git. The build should be repaired.
 
-## Не получается собрать profile-сборку под iOS
+## I can’t build a profile build for iOS
 
- - **Отсутствует нужная Build Configuration в XCode.**
+ - **The required build configuration is missing in Xcode.**
     <br><br>
-    Внимательно читайте ошибку, которая возникает в консоли при сборке.
-    В ней будет указано имя Build Configuration, которое не удалось найти.
-    Нужно будет создать такую Build Configuration в вашем проекте через
-    XCode.
+    Carefully read the error that occurs in the console during building. 
+    It will indicate the name of the Build Configuration that could not be found. 
+    You will need to create such a Build Configuration in your project through Xcode.
     <br><br>
-    ![build_settings](img/profile_build_config.png)
+    ![build_settings](../../img/faq/profile_build_config.png)
     <br><br>
- - **Profile-сборка падает при попытке собрать её под iOS, хотя dev-сборка собирается успешно.**
+ - **The profile build crashes when you try to build it under iOS, although the dev build builds successfully.**
     <br><br>
-    Если в теле ошибки появляются логи, чаще всего про то, что какие-то
-    классы не удалось зарезолвить, одна из вероятных причин -
-    отсутствие значения в настройки Objective-C Bridging Header для
-    использумой вами Build Configuration. Чтобы пофиксить это - просто
-    используйте тоже значение, которое указано у других конфигураций.
+    If logs appear in the body of the error, most often about the fact that some classes could not be resolved, one of the probable reasons is the lack of value in the Objective-C Bridging Header settings for the Build Configuration you are using. To fix this - just use the same value that is specified in other configurations.
     <br><br>
-    ![build_settings](img/obj_c_build_header.png)
+    ![build_settings](../../img/faq/obj_c_build_header.png)
     <br><br>

@@ -1,8 +1,8 @@
-[Главная](../main.md)
+[Main](../main.md)
 
 # DI
 
-Основан на InheritedWidget.
+Based on InheritedWidget.
 
- - `Injector` — класс, позволяющий получить любой находящийся выше по дереву виджетов `Component`
- - `Component` — класс, предоставляющий WidgetModel необходимые зависимости
+ - `Injector` — class that allows you to get any `Component` widget higher in the tree
+ - `Component` — class providing WidgetModel's necessary dependencies

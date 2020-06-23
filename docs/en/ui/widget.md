@@ -1,18 +1,21 @@
-[Главная](../main.md)
 
-[Структура UI](structure.md)
+`NOT_ACTUAL`
+
+[Main](../main.md)
+
+[UI Structure](structure.md)
 
 # Widget
 
-Для взаимодействия с WidgetModel используется [MwwmWidget](../../packages/mwwm/lib/src/mwwm_widget.dart) — наследник StatefulWidget, умеющий управлять жизненным циклом WidgetModel. Для его инициализации необходимы следующие компоненты:
+To interact with WidgetModel, use [MwwmWidget](../../../packages/mwwm/lib/src/mwwm_widget.dart) — inherited from StatefulWidget, able to manage the life cycle of WidgetModel. To initialize it, the following components are required:
 
-1. *widgetStateBuilder* — возвращает WidgetState для конструируемого виджета. Аналог createState() в StatefulWidget.
+1. *widgetStateBuilder* — returns a WidgetState for the constructed widget. Analog to createState() in StatefulWidget.
 
-1. *dependenciesBuilder* — возвращает реализацию интерфейса [Component](../../packages/injector/lib/src/component.dart). Содержит только зависимости для WidgetModel, которые либо получает через конструктор, либо находит с помощью [Injector](../../packages/injector/lib/src/injector.dart) из контекста.
+1. *dependenciesBuilder* — returns the implementation of the interface [Component](../../../packages/injector/lib/src/component.dart). It contains only dependencies for WidgetModel, which it either gets through the constructor or finds using[Injector](../../../packages/injector/lib/src/injector.dart) from the context.
 
-1. *widgetModelBuilder* — возвращает WidgetModel. Для возможности подмены WidgetModel во время тестирования можно объявить этот билдер необязательным параметром в конструкторе виджета.
+1. *widgetModelBuilder* — returns WidgetModel. In order to be able to replace WidgetModel during testing, you can declare this builder an optional parameter in the widget constructor.
 
-Пример:
+Example:
 ```dart
 SplashScreenWidgetModel createSplashScreenWidgetModel(BuildContext context) {
   var component = Injector.of<SplashScreenComponent>(context).component;

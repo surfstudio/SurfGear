@@ -44,7 +44,7 @@ Xcode.
     Нужно будет создать такую Build Configuration в вашем проекте через
     XCode.
     <br><br>
-    ![build_settings](img/profile_build_config.png)
+    ![build_settings](../../img/faq/profile_build_config.png)
     <br><br>
  - **Profile-сборка падает при попытке собрать её под iOS, хотя dev-сборка собирается успешно.**
     <br><br>
@@ -54,5 +54,5 @@ Xcode.
     использумой вами Build Configuration. Чтобы пофиксить это - просто
     используйте тоже значение, которое указано у других конфигураций.
     <br><br>
-    ![build_settings](img/obj_c_build_header.png)
+    ![build_settings](../../img/faq/obj_c_build_header.png)
     <br><br>

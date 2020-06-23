@@ -1,7 +1,7 @@
 # geolocation
 
-Обёртка над сервисами геолокации
+Geolocation service Wrapper
 
-## Описание
+## Discription
 
 todo

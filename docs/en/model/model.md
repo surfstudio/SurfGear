@@ -1,16 +1,15 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Модель
+# Model
 
-Модель — слой между [WidgetModel](../ui/widget_model.md) и бизнес-логикой, который абстрагирует
-получателя данных (WidgetModel) от их поставщика (репозиторий, сервис, хранилище и т.п.). Модель
-позволяет описать контракт взаимодействия между слоем презентации и сервисным слоем
-и разрабатывать их независимо друг от друга. Состоит из двух основных частей:
+Model - a layer between [WidgetModel](../ui/widget_model.md) and business logic, which abstracts
+the receiver of data (WidgetModel) from their provider (repository, service, storage, etc.). 
+The Model allows you to describe the interaction contract between the presentation layer 
+and the service layer and develop them independently from each other. Consists of two main parts:
 
-**Change** — посылаемый модели сигнал о том, что нужно выполнить какое-либо
-действие: например, загрузить или отправить данные.
+**Change** — a signal sent to the model that you need to perform some action: for example, upload or send data.
 
-**Performer** — класс, ответственный за обработку конкретного **Change**. Является
-связующим звеном между WidgetModel, который запрашивает определённый набор данных, и источником этих данных.
+**Performer** — class responsible for handling a specific **Change**. 
+It is the link between WidgetModel, which requests a specific data set, and the source of this data.
 
-Сама модель просто передаёт входящий **Change** в **Performer**, который может его обработать.
+The model itself simply passes the incoming **Change** to **Performer**, which can handle it.

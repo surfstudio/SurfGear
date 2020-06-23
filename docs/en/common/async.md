@@ -11,7 +11,7 @@ How to use it is described in detail in [this article][rx_dart_habr].
 ## subscribeHandleError
 
 In WidgetModel, subscribing to change data in Observable occurs using the subscribeHandleError method
-from class [WidgetModel](../../mwwm/lib/src/widget_model.dart). This approach allows you to standardize
+from class [WidgetModel](../../../packages/mwwm/lib/src/widget_model.dart). This approach allows you to standardize
 processing received data and achieve modular error handling;
 
 Example: 
@@ -68,14 +68,14 @@ Future<bool> myTypedFuture() async {
 
 ## ErrorHandler
 To handle errors received from a stream in the studio
-extensions to the [ErrorHandler](../../mwwm/lib/src/error_handler.dart) class are used.
+extensions to the [ErrorHandler](../../../packages/mwwm/lib/src/error/error_handler.dart) class are used.
 The ErrorHandler is passed to WidgetModel through the WidgetModelDependencies class - this is a wrapper over the required WidgetModel elements.
 If you do not configure ErrorHandler in a screen component, using the subscribeHandleError method
 errors will not be caught.
 
 ## bind 
 To track single actions (clicking on a button, changing text, scrolling list) in the studio
-used [Action](../../mwwm/lib/src/relation/event/action.dart). Represents a wrapper over a stream that registers
+used [Action](../../../packages/relation/lib/src/relation/action/action.dart). Represents a wrapper over a stream that registers
 single actions and returns the first event from the stream. For convenience of subscribing to such events, the bind method was created.
 
 Example:

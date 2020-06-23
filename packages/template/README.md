@@ -1,4 +1,4 @@
 # template
 
-Проект с шаблонной структурой.
-Предназначен для разработки в [Surf](https://surfstudio.ru)
+A project with a template structure.
+Designed for development in [Surf](https://surfstudio.ru)

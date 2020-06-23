@@ -1,26 +1,26 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-[Структура UI](structure.md)
+[UI Structure](structure.md)
 
 # WidgetModel
 
-Данная сущность представляет собой ViewModel из MVVM. 
-В этой сущности описывается логика работы конкретного экрана.
-Также можно провести аналогию с BLoC, но только в плане механизма взаимодействия.
+This entity is a ViewModel of MVVM.
+This entity describes the logic of a particular screen.
+You can also draw an analogy with BLoC, but only in terms of the mechanism of interaction.
 
-Работа с View (Widget) производится через поток. WM ничего не знает про
-конкретный виджет, который ее использует.
+Working with View (Widget) is done through the stream. 
+WM knows nothing about the specific widget that uses it.
 
-Основные компоненты WidgetModel — `Event'ы`:
- - Action — потоковое представление действия, например, клик на кнопку или изменение фокуса.
- - StreamedState — потоковое представление того или иного свойства, например, счетчик товаров или состояние enable у кнопки.
- - EntityStreamedState - наследник StreamedState, который дополнительно имеет состояния загрузки и ошибки.
- - дополнительная логика, которая связывает Action и State.
+Core WidgetModel components — `Events`:
+ - Action — Stream representation of an action, for example, clicking on a button or changing focus.
+ - StreamedState — streaming representation of a property, for example, a product counter or the enable state of a button.
+ - EntityStreamedState - inherits StreamedState, additionally has a load state and errors.
+ - additional logic that links Action and State.
 
-WM является промежуточным звеном между Model (в любом ее варианте) и Widget.
+WM is an intermediate link between Model (in any its variant) and Widget.
 
-Зависимости из Model поставляются в WM также через конструктор.
-В наших проектах для обеспечения DI используется [Injector](../../packages/injector/lib/src/injector.dart).
-Зависимости для WidgetModel конфигурируются в компоненте экрана.
-Для этого используется объект [WidgetModelDependencies](../../packages/mwwm/lib/src/di/wm_dependencies.dart). Он содержит ErrorHandler — объект, отвечающий за обработку ошибок для реактивных потоков.
-Без конфигурации WidgetModelDependencies обработка ошибок не будут работать в WidgetModel.
+Dependencies from Model are also delivered to WM via the constructor.
+In our projects, [Injector](../../../packages/injector/lib/src/injector.dart) is used to provide DI.
+Dependencies for WidgetModel are configured in the screen component.
+The object [WidgetModelDependencies](../../../packages/mwwm/lib/src/dependencies/wm_dependencies.dart) is used for this. It contains an ErrorHandler - an object responsible for handling errors for reactive streams.
+Without WidgetModelDependencies configuration, error handling will not work in WidgetModel.

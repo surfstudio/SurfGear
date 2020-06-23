@@ -1,10 +1,10 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Работа с файловым хранилищем
+# Work with file storage
 
-Для работы с хранилищем используются классы, реализующие интерфейс [Storage][storage_link]. На текущий момент существует только один [JsonStorage][json_storage_link], который позволяет сохранять объекты в формате Json.
+To work with storage, classes are used that implement the [Storage][storage_link] interface. Currently, there is only one [JsonStorage][json_storage_link], which allows you to save objects in Json format.
 
-## Пример использования
+## Usage example
 
 ```dart
 StreamController<Counter> _counterController;
@@ -20,5 +20,5 @@ _storage
         .then(_counterController.add);
 ```
 
-[json_storage_link]:../../packages/storage/lib/impl/json_storage.dart
-[storage_link]:../../packages/storage/lib/base/storage.dart
+[json_storage_link]:../../../packages/storage/lib/impl/json_storage.dart
+[storage_link]:../../../packages/storage/lib/base/storage.dart

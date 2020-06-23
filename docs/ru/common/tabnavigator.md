@@ -23,5 +23,5 @@
 
 TabNavigator можно объединить с любым графическим компонентом. Например BottomNavigation. 
 
-За определения индекса открываемой вкладки отвечает Stream<TabType> selectedTabStream.
+За определения индекса открываемой вкладки отвечает Stream\<TabType\> selectedTabStream.
 Для отслеживания информации об открытой вкладке необходимо использовать ObserversBuilder.

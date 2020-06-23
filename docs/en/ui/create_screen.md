@@ -1,15 +1,15 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Чек-лист создания экрана/виджета
+# Checklist for creating a screen/widget
 
-1. Создаём `WidgetModel`, описываем в параметрах конструктора её зависимости.
+1. Create `WidgetModel`and describe its dependencies in the constructor parameters.
 
-1. Создаём `Component`, в котором находим необходимые зависимости.
+1. Create a `Component`, in which we find the necessary dependencies.
 
-1. Пишем `функцию-билдер`, которая возвращает WidgetModel. Внутри билдера с помощью Injector находим Component и передаём все зависимости в конструктор WidgetModel.
+1. We write a `function-builder` that returns a WidgetModel. Inside the builder using Injector we find Component and pass all the dependencies to the WidgetModel constructor.
 
-1. Создаём `MwwmWidget`, в super передаём билдер Component, билдер WidgetModel и билдер WidgetState.
+1. We create `MwwmWidget`, in super we pass the Component builder, the WidgetModel builder and the WidgetState builder.
 
-1. Создаём `WidgetState`.
+1. Create `WidgetState`.
 
-Теперь в WidgetState можно описывать пользовательский интерфейс, а в WidgetModel — логику и набор StreamedState для хранения данных и Action для обработки событий пользовательского ввода.
+Now in WidgetState you can describe the user interface, and in WidgetModel - the logic and set of StreamedState for storing data and Action for processing user input events.

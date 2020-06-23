@@ -1,10 +1,10 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Подключение зависимостей (до момента выхода на pub.dev)
+# Adding dependencies (before adding to pub.dev)
 
-В случае, когда необходимо подключить зависимость, которая еще не опубликована, ее нужно подключать
-локально. Если подключать по прямой ссылке git можно получить проблему разрешения зависимостей.
-Пример подключения:
+In the case when you need to connect a dependency that has not yet been published, you need to connect it
+locally. If you connect via a direct link to git, you can get the problem of resolving dependencies.
+Adding example:
 
 ```
   logger:
