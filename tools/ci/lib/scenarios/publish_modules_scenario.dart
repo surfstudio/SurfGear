@@ -39,7 +39,8 @@ class PublishModulesScenario extends ChangedElementScenario {
   Future<void> doExecute(List<Element> elements) async {
     var targetServer = command.arguments[server];
     var releaseElements = elements.where((e) => e.isStable).toList();
-    StringBuffer _buffer;
+    StringBuffer _bufferSameVersion;
+    StringBuffer _bufferError;
 
     print("Stable packages: ${releaseElements.map((p) => p.name).join(',')}");
     try {
@@ -54,16 +55,17 @@ class PublishModulesScenario extends ChangedElementScenario {
           );
 
           if (!isNewVersion) {
-            print(
-                'package ${element.name} v${element.version}: the local package has the same version');
+            _bufferSameVersion ??=
+                StringBuffer('Packages with the same version:');
+            _bufferSameVersion.write('$element.name v${element.version}');
             continue;
           }
 
           await pubPublishModules(element, pathServer: targetServer);
           print(element.name + ' published');
         } on OpenSourceModuleCanNotBePublishException catch (e) {
-          _buffer ??= StringBuffer('failed packages:');
-          _buffer.write('\n${element.name}');
+          _bufferError ??= StringBuffer('failed packages:');
+          _bufferError.write('\n${element.name}');
 
           print(e);
           failedModulesNames.add(element.name);
@@ -71,12 +73,13 @@ class PublishModulesScenario extends ChangedElementScenario {
         }
       }
 
+      if (_bufferSameVersion != null) print(_bufferSameVersion.toString());
+      if (_bufferError != null) print(_bufferError.toString());
+
       if (elements.length == failedModulesNames.length) {
         throw OpenSourceModuleCanNotBePublishException(
           getModuleCannotBePublishedExceptionText(failedModulesNames.join(',')),
         );
-      } else if (_buffer != null) {
-        print(_buffer.toString());
       }
     } on BaseCiException {
       rethrow;

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-/// Менеджер для проверки версии пакета.
+/// Manager to check the package version
 class VersionManager {
   static VersionManager _instance;
   static const _api = 'https://pub.dartlang.org/api/packages/';
@@ -12,7 +12,7 @@ class VersionManager {
 
   VersionManager._();
 
-  /// Проверяет обновилась ли локальная версия
+  /// Checks if the local version has been updated
   Future<bool> checkIsNewVersion<T>(String name, String version) async {
     try {
       var response = await dio.get('$_api$name');
