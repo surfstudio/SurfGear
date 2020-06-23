@@ -7,3 +7,9 @@ class NoInternetException implements Exception {
   @override
   String toString() => message ?? 'There is not internet connection';
 }
+
+/// Authorization process was canceled
+class CanceledAuthorizationException implements Exception {
+  @override
+  String toString() => 'Authorization process was canceled';
+}
