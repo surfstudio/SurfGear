@@ -26,6 +26,7 @@ const String CALLBACK_PERMISSION_DECLINE = "permissionDecline";
 const String ARG_PUSH_ID = "pushId";
 const String ARG_TITLE = "title";
 const String ARG_BODY = "body";
+const String ARG_IMAGE_URL = "imageUrl";
 const String ARG_DATA = "data";
 const String ARG_NOTIFICATION_SPECIFICS = "notificationSpecifics";
 
@@ -92,6 +93,7 @@ class Notificator {
     int id,
     String title,
     String body, {
+    String imageUrl,
     Map<String, String> data,
     NotificationSpecifics notificationSpecifics,
   }) async {
@@ -100,6 +102,7 @@ class Notificator {
         id,
         title,
         body,
+        imageUrl,
         data,
         notificationSpecifics.androidNotificationSpecifics,
       );
@@ -108,6 +111,7 @@ class Notificator {
         id,
         title,
         body,
+        imageUrl,
         data,
         notificationSpecifics.iosNotificationSpecifics,
       );

@@ -31,7 +31,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.only(top: 25),
@@ -40,22 +40,42 @@ class _MainPageState extends State<MainPage> {
               TabBar(
                 tabs: <Widget>[
                   _buildTab(SwipeRefreshStyle.material),
-                  _buildTab(SwipeRefreshStyle.cupertino)
+                  _buildTab(SwipeRefreshStyle.cupertino),
+                  _buildTab(SwipeRefreshStyle.builder),
                 ],
               ),
               Expanded(
-                child: TabBarView(children: <Widget>[
-                  SwipeRefresh.material(
-                    stateStream: _stream,
-                    onRefresh: _refresh,
-                    children: _buildExampleBody(SwipeRefreshStyle.material),
-                  ),
-                  SwipeRefresh.cupertino(
-                    stateStream: _stream,
-                    onRefresh: _refresh,
-                    children: _buildExampleBody(SwipeRefreshStyle.cupertino),
-                  ),
-                ]),
+                child: TabBarView(
+                  children: <Widget>[
+                    SwipeRefresh.material(
+                      stateStream: _stream,
+                      onRefresh: _refresh,
+                      children: _buildExampleBody(SwipeRefreshStyle.material),
+                    ),
+                    SwipeRefresh.cupertino(
+                      stateStream: _stream,
+                      onRefresh: _refresh,
+                      children: _buildExampleBody(SwipeRefreshStyle.cupertino),
+                    ),
+                    SwipeRefresh.builder(
+                      stateStream: _stream,
+                      onRefresh: _refresh,
+                      itemCount: Colors.primaries.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          color: Colors.primaries[index],
+                          height: 100,
+                          child: Center(
+                            child: Text(
+                              "Builder example",
+                              style: TextStyle(color: white),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -72,15 +92,14 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildTab(SwipeRefreshStyle style) {
-    var isMaterial = style == SwipeRefreshStyle.material;
-    var color = isMaterial ? red : blue;
+    var color = _getColor(style);
     color = color.withOpacity(.5);
     return InkWell(
       child: Container(
         height: 100,
         child: Center(
           child: Text(
-            isMaterial ? "Material" : "Cupertino",
+            _getText(style),
             style: TextStyle(color: color),
           ),
         ),
@@ -90,7 +109,7 @@ class _MainPageState extends State<MainPage> {
 
   List<Widget> _buildExampleBody(SwipeRefreshStyle style) {
     var isMaterial = style == SwipeRefreshStyle.material;
-    var color = isMaterial ? red : blue;
+    var color = _getColor(style);
     return <Widget>[
       Container(
         color: color,
@@ -105,6 +124,32 @@ class _MainPageState extends State<MainPage> {
     ];
   }
 
+  Color _getColor(SwipeRefreshStyle style) {
+    switch (style) {
+      case SwipeRefreshStyle.material:
+        return red;
+      case SwipeRefreshStyle.cupertino:
+        return blue;
+      case SwipeRefreshStyle.builder:
+        return green;
+      default:
+        return black;
+    }
+  }
+
+  String _getText(SwipeRefreshStyle style) {
+    switch (style) {
+      case SwipeRefreshStyle.material:
+        return "Material";
+      case SwipeRefreshStyle.cupertino:
+        return "Coupertino";
+      case SwipeRefreshStyle.builder:
+        return "Builder";
+      default:
+        return "SipeRefresh";
+    }
+  }
+
   void _refresh() async {
     await Future.delayed(Duration(seconds: 3));
     // when all needed is done change state
@@ -113,5 +158,7 @@ class _MainPageState extends State<MainPage> {
 }
 
 const white = const Color(0xFFFFFFFF);
+const black = const Color(0xFF000000);
 const red = const Color(0xFFFF0000);
+const green = const Color(0xFF00FF00);
 const blue = const Color(0xFF0000FF);
