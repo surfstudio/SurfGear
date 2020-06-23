@@ -19,6 +19,7 @@ and may vary;
 
 ### Common:
 
+`NOT_ACTUAL`
 A project cannot be built without **Firebase** and **Fabric** projects created. 
 In case these projects must be created on the customer side,
 but not yet, the right solution would be to create a temporary project in
