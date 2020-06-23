@@ -1,5 +1,7 @@
+import 'package:flutter/services.dart';
 import 'package:mwwm_github_client/model/common/network/auth_const.dart';
 import 'package:mwwm_github_client/model/common/network/network_client.dart';
+import 'package:mwwm_github_client/utils/exceptions.dart';
 import 'package:oauth2_client/access_token_response.dart';
 import 'package:oauth2_client/github_oauth2_client.dart';
 import 'package:oauth2_client/oauth2_client.dart';
@@ -74,6 +76,11 @@ class AuthNetworkClient implements NetworkClient {
 
   /// Map third party exception to local
   Exception _mapException(Exception e) {
+    if (e is PlatformException) {
+      if (e.code == 'CANCELED' && e.message == 'User canceled login') {
+        return CanceledAuthorizationException();
+      }
+    }
     // if (e is DioError) {
     //   if (e.type == DioErrorType.DEFAULT) {
     //     return NoInternetException(message: e.error.toString());
@@ -84,10 +91,10 @@ class AuthNetworkClient implements NetworkClient {
     //   // map other exceptions
     // }
 
-    // TODO implement
-    
+    // TODO implement in FLT-267
+
     print(e);
-    
+
     return e;
   }
 }
