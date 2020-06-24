@@ -124,7 +124,7 @@ ios/Flutter/prod.xcconfig
 
 Выглядить это будет примерно так:
 
-![configs](./img/configs.png)
+![configs](../../../img/best_practice/configs.png)
 
 К сожалению дублировать конфигураии пока необходимо, так как скрипт ответственный за сборку ios очень чувствителен к неймингу.
 
@@ -132,7 +132,7 @@ ios/Flutter/prod.xcconfig
 
 Кроме создания файлов конфигурации необходимо также правильно настроить схемы приложения: их также две.
 
-![schemes](./img/schemes.png)
+![schemes](../../../img/best_practice/schemes.png)
 
 Из создание крайне просто. Единсвтенный момент - выберите правильный таргет - Runner.
 
@@ -172,17 +172,17 @@ IDENTIFIER=$(identifier)$(bundle_suffix)
 ```
 
 Теперь придется немного поработать мышкой внутри Xcode. Переходим в наш таргет на вкладку Build Settings:
-![build_settings](./img/bs_step1.png)
+![build_settings](../../../img/best_practice/bs_step1.png)
 
 Далее в поиске ищем Product Bundle Identifier(раздел Packaging):
-![build_settings](./img/bs_step2.png)
+![build_settings](../../../img/best_practice/bs_step2.png)
 
 И меняем значение для всех конфигов на:
 ```
 $(IDENTIFIER)
 ```
 
-![build_settings](./img/bs_step3.png)
+![build_settings](../../../img/best_practice/bs_step3.png)
 
 Теперь переходим в Info.plist и убираем из строки с идентификатором bundle suffix,  оставляя толькол :
 ```
@@ -203,7 +203,7 @@ $(PRODUCT_BUNFLE_IDENTIFIER)
 
 Первым делом нам необходимо создать в проекте папку где будут эти файлы хранится. Мы используем следующую структуру:
 
-![dirs](./img/files_and_dirs.png)
+![dirs](../../../img/best_practice/files_and_dirs.png)
 
 **Важно**: не создаем их через икскод. Они не должны быть привязаны к проекту. Если все же икскод - это ваша любимая IDE, при создании снимите галочки с пугкта Add to target.
 
@@ -214,7 +214,7 @@ $(PRODUCT_BUNFLE_IDENTIFIER)
 Так как файлы не привязаны к проекту, в целевой архив они не попадут. А чтобы они все таки тк=уда попали, надо в ручную их туда засунуть.
 
 Доабавим дополнительный этап сборки в виде Run Script (setup firebase как пример названия):
- ![build_phase](./img/build_phase.png)
+ ![build_phase](../../../img/best_practice/build_phase.png)
 
 Обратите внимание на расположение - оно играет решающюю роль!
 

@@ -1,27 +1,27 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Структура проекта | Project Structure
+# Project Structure
 
-- / - папка проекта
+- / - project folder
 - /res
-    - /assets - директория расположения графических ресурсов
-- /docs - документация проекта(тех.док, тех.долг)
-- /android - папка, содержащая нативный код для Android
-- /ios - аналогично для iOS
-- /lib - код на Dart, Flutter-приложение
-    - /domain - Domain -слой
-    - /interactor - Interactor-слой
-        - /common - общееиспользуемые классы
-        - /*some_interactor*/repository - репозиторий для интерактора
-    - /ui - UI-слой
-        - /app - пакет с главным виджетом приложения
-        - /base - базовые классы для ui
-        - /common - общеиспользуемые классы UI
-        - /res - пакет для ресурсов(colors.dart, text_styles.dart, etc.)
-          - /strings - строковые ресурсы
-            - /common_strings.dart - строки, общие для всех проектов
-            - /strings.dart - строки, специфичные для проекта
-        - /screen - пакеты конкретных экранов/виджетов(сам виджет + WM)
-            - /*some_screen*/di - DI для экрана
-    - /util - утилиты
-- /test - тесты
+    - /assets - graphic resource location directory
+- /docs - project's documentation(technical doc, technical debt)
+- /android - folder with native Android code
+- /ios - older with native iOS code
+- /lib - Dart code , Flutter-application
+    - /domain - Domain-layer
+    - /interactor - Interactor-layer
+        - /common - common classes used
+        - /*some_interactor*/repository - repository for interactor
+    - /ui - UI-layer
+        - /app - package with the main application widget
+        - /base - base classes for ui
+        - /common - commonly used UI classes
+        - /res - package with resources (colors.dart, text_styles.dart, etc.)
+          - /strings - string resources
+            - /common_strings.dart - strings that commmon for all projects
+            - /strings.dart - strings that specific for project
+        - /screen - packages of specific screens / widgets (widget + WM)
+            - /*some_screen*/di - DI for screen
+    - /util - utilities
+- /test - tests

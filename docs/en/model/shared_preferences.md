@@ -1,15 +1,14 @@
-[Главная](../main.md)
+[Main](../main.md)
 
 # SharedPreferences
 
-SharedPreferences — постоянное хранилище на платформе Android и IOS, 
-используемое приложениями для хранения своих настроек, ключей, токенов и тд.
-Данные хранятся в формате key-value.
+SharedPreferences - persistent storage on the Android and IOS platform, 
+used by applications to store their settings, keys, tokens, etc.
+Data is stored in key-value format.
 
-Для работы с SP используются плагин [shared_preferences][sp_link] и
- студийный хелпер PreferencesHelper.
+To work with SP, the plugin [shared_preferences][sp_link] and the studio helper PreferencesHelper are used.
 
-# Пример использования
+# Usage example
 
 ```dart
 class AuthInfoStorage {

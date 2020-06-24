@@ -1,49 +1,49 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Инициализация проекта из Template
+# Initializing a project from Template
 
-Для быстрой инициализации нового Flutter-проекта существует специальный 
+For quick initialization of a new Flutter project, there is a special
 Template.
-Вам предстоит произвести несколько простых действий:
+You have a few simple steps to do:
 
-1. Создайте папку для репозитория с названием проекта. Название папки = 
-название репозитория на Bitbucket;
-1. Скопируйте содержимое папки ***/template*** из **flutter-standard** 
-в созданную на предыдущем шаге директорию;
-1. В файле ***pubspec.yaml*** задайте `name` вашему приложению (не 
-может содержать дефисов). **Важно:** это не package-name вашего приложения. 
-Настоящий package-name задаётся для сборки на каждую платформу отдельно
-и может различаться;
-1. Замените строку `flutter_template` по всему проекту *(Ctrl+Shift+R)*
- на `name` приложения, указанный на предыдущем шаге.
+1. Create a folder for the repository with the name of the project. Folder Name =
+GitLab repository name;
+1. Copy the contents of the folder  ***/template*** from **flutter-standard** 
+to the directory created in the previous step;
+1. In file ***pubspec.yaml*** set `name` of your application (not
+may contain hyphens). **IMPORTENT:** this is not the package-name of your application. 
+Real package-name is set separately for each platform.
+and may vary;
+1. Replace the string `flutter_template` throughout the project *(Ctrl+Shift+R)*
+ on the `name` of the application specified in the previous step.
 
-### Общее:
+### Common:
 
-Проект не соберётся без созданных **Firebase** и **Fabric** -проектов. 
-В случае, если эти проекты должны быть заведены на стороне заказчика, 
-но их пока нет, правильным решением будет создать временный проект в 
-аккаунте surfstudio36@gmail.com ([узнать пароль можно тут](https://docs.google.com/document/d/13BpXmgwBrbrliGxn80Mr70E2D3NIEdRcybpWLuHzzco/edit)).
+`NOT_ACTUAL`
+A project cannot be built without **Firebase** and **Fabric** projects created. 
+In case these projects must be created on the customer side,
+but not yet, the right solution would be to create a temporary project in
+account surfstudio36@gmail.com ([you can find out the password here](https://docs.google.com/document/d/13BpXmgwBrbrliGxn80Mr70E2D3NIEdRcybpWLuHzzco/edit)).
 
-1. Нужно создать проект в котором будут содержаться 4 приложения 
-(**Android** - *prod* и *dev*, **iOS** - *prod* и *dev*);
-1. **Android:** Выгрузить `google-services.json` (единый для всех типов 
-сборок) и положить его в `android/app`;
-1. **iOS:** Выгрузить два `GoogleService-Info.plist` (для каждого типа 
-сборки) и положить его в `ios/Runner/Firebase/dev` и `ios/Runner/Firebase/prod`;
+1. It is necessary to create a project which will contain 4 applications
+(**Android** - *prod* and *dev*, **iOS** - *prod* and *dev*);
+1. **Android:** Download `google-services.json` (common to all types
+builds) and put it in `android/app`;
+1. **iOS:** Download two `GoogleService-Info.plist` (for each type
+build) and put it in `ios/Runner/Firebase/dev` and `ios/Runner/Firebase/prod`;
 
-Более подробно о настройке CD [можно прочитать здесь](./cd.md).
+You can read more about setting up a CD [here](./cd.md).
 
 ### Android:
-1. В **AndroidManifest.xml** замените `package` на package-name для 
-Android-сборки приложения. **Важно:** в проекте три файла манифеста 
-(`app/src/debug`, `app/src/main`, `app/src/profile`), актуализировать 
-package-name нужно в каждом;
-1. Измените путь к `MainActivity` на совпадающий с package-name 
-приложения;
-1. Выполните консольную команду `flutter packages get`.
+1. In **AndroidManifest.xml** replace `package` on package-name for
+Android application builds. **IMPORTANT:** there are three manifest files in the project
+(`app/src/debug`, `app/src/main`, `app/src/profile`), update
+package-name is needed in each;
+1. Change the path to `MainActivity` to match the application's package-name;
+1. Run the console command `flutter packages get`.
 
-<br>Flavors настроены заранее, никаких дополнительных действий не требуется.
+<br>Flavors are pre-configured, no additional action is required.
 
 ### iOS:
-1. Откройте файл `ios/Flutter/common.xcconfig`;
-1. Замените там `identifier` на package-name вашего приложения.
+1. Open file `ios/Flutter/common.xcconfig`;
+1. Replace there `identifier` with the package-name of your application.

@@ -1,18 +1,18 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Сообщения
+# Messages
 
-Принцип работы с сообщениями одинаков с [диалогами](dialog.md).
+The principle of working with messages is the same with [dialogs](../ui/dialog.md).
 
-Для работы с сообщениями, необходимо подключить к WidgetModel реализацию
-абстрактного класса MessageController. Например MaterialMessageController.
-Для показа сообщения необходимо вызвать метод `_msgController.show(type, msg: “message“)`.
-По умолчанию кастомизировать внешний вид сообщения не обязательно, оно принимает вид стандартного снэка.
+To work with messages, you need to connect the implementation
+of the abstract class MessageController to WidgetModel. For example MaterialMessageController.
+To display the message, you must call the method - `_msgController.show(type, msg: “message“)`.
+By default, customizing the design of the message is not necessary, it takes the form of a standard snack.
 
-Для кастомизации внешнего вида сообщения используется mixin CustomSnackBarOwner.
-Данная сущность реализуется на необходимом экране и подключается к MessageController, 
-который используется для отображения диалогов в WidgetModel. Таким образом кастомизация внешнего вида
-сообщения происходит на ui слое, а обработка логики в WidgetModel, тем самым сохраняя принцип 
-разделения ответственности.
+To customize the design of the message, mixin CustomSnackBarOwner is used.
+This entity is implemented on the necessary screen and connected to MessageController,
+which is used to display dialogs in WidgetModel. Thus, customization of appearance
+messages occur on the ui layer, and processing logic in WidgetModel, while maintaining the principle
+of single responsibility.
 
-Реализация логики вызова сообщения происходит только в сущности WidgetModel.
+The implementation of the message invocation logic occurs only in the WidgetModel entity.

@@ -1,4 +1,4 @@
-[Main](../main.md)
+[Main](../../main.md)
 
 [Full article on Medium.](https://medium.com/surfstudio/setting-up-flavors-in-flutter-e455834818d4)
 
@@ -90,7 +90,7 @@ Find ’+’ in the Configurations section and create four new configurations: t
 
 Like this:
 
-![configs](./img/configs.png)
+![configs](../../../img/best_practice/configs.png)
 
 Unfortunately, duplication of configurations is still necessary, since iOS build script is very sensitive to naming.
 
@@ -100,7 +100,7 @@ Unfortunately, duplication of configurations is still necessary, since iOS build
 
 Apart from creating config files, you need to correctly configure application schemes — there will also be two of them.
 
-![schemes](./img/schemes.png)
+![schemes](../../../img/best_practice/schemes.png)
 
 This one is really easy. Important note: choose the correct target — Runner.
 
@@ -109,17 +109,17 @@ Now, select Edit Scheme and add the necessary configurations to each of the sche
 ### Update variables
 
 Now, let’s do some mouse work in Xcode. Select your target and click the Build Settings button:
-![build_settings](./img/bs_step1.png)
+![build_settings](../../../img/best_practice/bs_step1.png)
 
 Do a search for Product Bundle Identifier (the Packaging section):
-![build_settings](./img/bs_step2.png)
+![build_settings](../../../img/best_practice/bs_step2.png)
 
 Change values for all configs to:
 ```
 $(IDENTIFIER)
 ```
 
-![build_settings](./img/bs_step3.png)
+![build_settings](../../../img/best_practice/bs_step3.png)
 
 Now go to Info.plist and remove bundle suffix from the identifier line, leaving only:
 ```
@@ -136,7 +136,7 @@ Most importantly, you’ll need to have two google-services.json files (Google-S
 
 You need to create a new folder in the project to store these files. Use the following structure:
 
-![dirs](./img/files_and_dirs.png)
+![dirs](../../../img/best_practice/files_and_dirs.png)
 
 **Important note**: do not create them via XCode. The files should not be mapped to the project. If Xcode is your favorite IDE, uncheck the Add to Targets checkbox when creating the files.
 
@@ -147,7 +147,7 @@ The next step is adding your files to the corresponding folders.
 Since the files are not mapped to the project, they won’t get into the target archive. You should add them here manually.
 
 Add an extra build phase in the form of Run Script (let’s name it Setup Firebase, for example):
- ![build_phase](./img/build_phase.png)
+ ![build_phase](../../../img/best_practice/build_phase.png)
 
  You need to pay attention to the location, it’s crucial.!
 

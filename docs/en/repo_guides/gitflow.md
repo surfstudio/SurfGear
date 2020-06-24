@@ -1,44 +1,45 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Gitflow в репозитории
+# Gitflow in repository
 
 ## Commits
 
-Все описания коммитов должны быть написаны на английском языке. Описание коммита должно отражать краткую суть изменений.
+All commit masseges must be written in English. The message of the commit should reflect the summary of the changes.
 
-Коммит должен содержать:
+The commit should contain:
 
-- Исчерпывающую информацию об изменениях на **английском**
+- Comprehensive information on changes in **English**
 
-- Ссылку на таск в Jira или Bitbucket в начале коммита
+- Link to task in Jira or GitLab at the beginning of the commit
 
-- Перечисление deprecated-кода
+- Enumeration of deprecated code
 
-Пример: **"ANNDEP-23 add new LoadState. Deprecated: LoadStateUtil."**
+Example: **"ANNDEP-23 add new LoadState. Deprecated: LoadStateUtil."**
 
-## Ветки
+## Branches
 
-- **stable** — основная ветка стабильных пакетов. Версионирование происходит посредством тегирования. 
+- **stable** — main branch of stable packages. Versioning occurs through TAGs.
 
-- **dev** — ветка разработки. Все задачи или изменения первоначально сливаются именно в эту ветку.
-Данная ветка сливается в **stable** без закрытия.
+- **dev** — development branch. All tasks or changes initially merge into this branch.
+This branch merges into **stable** without closing.
 
-- **project-*name*** (например, project-ACME) — ветки проектов. Содержат изменения, которые появляются в ходе конкретного проекта.
+- **project-*name*** (for example, project-ACME) - project branches. They contain changes that appear during a specific project.
 
-- **task/feature** - остальные ветки под конкретные задачи. Ответвляются от **dev** и сливаются в нее же.
-Имя ветки **обязательно** содержит в себе идентификатор задачи или метку **no-task**.
+- **task/feature** - other branches for specific tasks. Checkout from **dev** and merged into it.
+The branch name **must** contains the identifier of the task or the label **no-task**.
 
-## Изменения stable ветки
+## Stable branch changes
 
-Изменение stable ветки происходит через создание пулл реквеста. После слияния повышается версия,
-для этого ставится тег (cм. [Semantic Versioning](https://semver.org))
+A stable branch is changed through the creation of a pull request. After the merge, the version is upgraded,
+a tag is placed for this (see [Semantic Versioning](https://semver.org))
 
-## Версионирование проектных веток
+## Versioning project branches
 
-Проектные ветки необходимо тегировать при изменениях. Тег ставится автоматически при слиянии
-пулл реквеста в проектную ветку.
-Формат тега:
+Design branches need to be tagged with changes. 
+The tag is set automatically when merging the pull request into the project branch.
+
+Tag format:
 ```
-project-*name*-i, где i - постоянно увеличивающееся на единицу число.
+project-*name*-i, where i is a number that is constantly increasing by one.
 ```
-После изменений в проектной ветке в pubspec самого проекта необходимо у всех подключённых модулей обновить тег.
+After changes in the project branch in the pubspec of the project itself, it is necessary to update the tag for all connected modules.

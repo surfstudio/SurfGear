@@ -1,63 +1,63 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Сборка/выгрузка проекта
+# Build/deploy project
 
-## Указание версии SDK
+## Set SDK version
 
-В большинстве случаев все проекты используют одну и ту же версию SDK в stable.
-Данную версию необходимо установить в файле [./script/version.sh](../../template/script/version.sh)
+In most cases, all projects use the same SDK version in stable.
+This version must be installed in the file [./script/version.sh](../../../packages/template/script/version)
 
 ```
-current_version=*версия сдк*
+current_version=*sdk version*
 ```
 
-## Сборка
+## Build
 
-Для сборки артефактов предусмотрены скрипты из директории /script
-Их выполнение происходит на Jenkins при Pr и Tag джобах.
-Также возможно ручное выполнение скриптов из консоли.
+Scripts from the /script directory are provided for building artifacts.
+Their execution takes place on Jenkins with Pr and Tag jobs.
+It is also possible to manually execute scripts from the console.
 
-- ./script/android/build.sh - сборка qa/release (x64)
-- ./script/ios/build.sh - ios сборка 
-- ./script/version.sh - переключение версии Flutter SDK для проекта
+- ./script/android/build.sh - build qa/release (x64)
+- ./script/ios/build.sh - ios build 
+- ./script/version.sh - checkout Flutter SDK version for prokect
 
-**ВАЖНО**: Все команды выполняются из корня **проекта** (там где находится pubspec.yaml приложения)
+**IMPORTANT**: All commands execute from **project's** root (where the pubspec.yaml of application is located)
 
-**ВАЖНО**: Перед IOs сборкой необходимо 
+**IMPORTANT**: Before IOs build is necessary
 
-* Скачать сертификаты с Apple Account и Provisioning Profile и положить их в папку `./ios/certs`
-* Заполнить todo в скрипте `./ios/scripts/init_certs.sh`
+* Download certificates from Apple Account and Provisioning Profile and put them in a folder `./ios/certs`
+* Fill todo in script `./ios/scripts/init_certs.sh`
 
-* Выполнить следующие команды:
+* Execute following commands:
 
 ```
 make -C ios/ init
 ```
 
-В случае непонятных ошибок (актуально для iOS сборок):
+In case of unclear errors (актуально для iOS сборок):
 
-1. Закройте Xcode
-1. Отключите девайсы
-1. Очистите проект:
+1. Quite Xcode
+1. Disconnect devices
+1. Clear project:
 ```
 ./clean_ios.sh
 ```
 
-1. Проделайте заново все шаги по сборке проекта
+1. Repeat all the steps to build the project
 
 
-## Выгрузка артефактов 
+## Deployment artifacts 
 
-Для распространения артефактов мы используем **Beta by Fabric**.
-Чтобы выгрузить сборки в данный сервис используется fastlane.
+To deploy artifacts we use **Beta by Fabric**.
+To upload Build in this service, fastlane is used.
 
-Основне команды:
+Basically commands:
 
 ```
-cd android/; fastlane android beta //android сборка
+cd android/; fastlane android beta //android build
 
-make -C ios beta //ios сборка
+make -C ios beta //ios build
 ```
 
-**ВАЖНО**: При локальной выгрузке перед ней следует выполнить сборку проекта одним из описанных 
-выше билдскриптов. 
+**IMPORTANT**: When uploading locally before it, you should build the project using one of the described
+above build scripts.

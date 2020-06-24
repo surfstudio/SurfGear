@@ -1,22 +1,24 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# FAQ по UI
+# UI FAQ
 
-Решаем проблемы с вёрсткой и UI.
+Solve problems with layout and UI.
 
-## Текстовые поля
+## Text fields
 
-- **Контекстное меню текстового поля (copy/cut/paste) прозрачное.**
-    ![build_settings](img/context_menu_transparent.jpg)
+- **The text box context menu (copy / cut / paste) is transparent.**
+    ![build_settings](../../img/faq/context_menu_transparent.jpg)
     <br><br>
-    Единственный способ кастомизации цвета контекстного меню - поле
-    `canvasColor` в `ThemeData` приложения. Если контекстное меню имеет
-    какой-либо неожиданный цвет - это результат переопределения `canvasColor`.
+    The only way to customize the color of the context menu 
+    is through the `canvasColor` field in the `ThemeData` application. 
+    If the context menu has any unexpected color, 
+    this is the result of overriding `canvasColor`.
     <br><br>
-    Крайне не рекомендуется переопределять `canvasColor` в главной теме,
-    так как это может иметь и другие неожиданные сайд-эффекты.
-    Обратите внимание, что цвет тонированной прозрачной области над
-    Bottom Sheet также определяется через `canvasColor`, но имеется и альтернативная
-    возможность его настройки `showModalBottomSheet(backgroundColor: Colors.transparent)`.
+    It is highly discouraged to override `canvasColor` in the main theme, 
+    as this may have other unexpected side effects. 
+    Please note that the color of the tinted transparent area above 
+    the Bottom Sheet is also defined through the `canvasColor`, 
+    but there is an alternative option to 
+    set it to` showModalBottomSheet (backgroundColor: Colors.transparent) `.
     <br><br>
 

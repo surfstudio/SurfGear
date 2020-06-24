@@ -2,10 +2,10 @@
 
 Network implementation for Flutter
 
-## Описание
+## Discription
 
-В модуль вынесена основная работа с http.
+The module makes the main work with http.
 
-Используется небольшой фасад и 2 реализации:
-1. `DefaultHttp` на основе стандартного http
-2. `DioHttp` на основе одноименной библиотеки
+A small facade and 2 implementations are used:
+1. `DefaultHttp` based on standard http
+2. `DioHttp` based on the library of the same name

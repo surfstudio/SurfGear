@@ -1,121 +1,120 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Стиль кода
+# Code style
 
-## Основные положения
+## Key Points
 
-Этот документ описывает соглашения по стилю кода. Мы придерживаемся рекомендаций,
-описанных в [Effective Dart](https://www.dartlang.org/guides/language/effective-dart),
-и перед началом разработки очень рекомендуем ознакомиться с ними.
+This document describes code style conventions. We are following the recommendations
+described in [Effective Dart](https://www.dartlang.org/guides/language/effective-dart)
+and before starting development, we strongly recommend that you familiarize yourself with them.
 
-Перед каждым пулл реквестом необходимо отформатировать код с помощью dartfmt
-(Ctrl+Alt+L для Android Studio, Ctrl+Alt+F для VS Code, должен быть установлен плагин для Flutter).
+Before each pull request, you must format the code with dartfmt
+(Ctrl + Alt + L for Android Studio, Ctrl + Alt + F for VS Code, the plugin for Flutter must be installed).
 
-## Документация, комментарии
+## Documentation, сomments
 
-см. [Docs](https://www.dartlang.org/guides/language/effective-dart/documentation)
+discribed in [Docs](https://www.dartlang.org/guides/language/effective-dart/documentation)
 
-## Именование
+## Names
 
-### Именование файлов
+### file names
 
-Файлы именуются в **snake_case**.
+Files are named in **snake_case**.
 
-Файлы основных компонентов экрана должны заканчиваться следующими суффиксами:
+Files of the main components of the screen should end with the following suffixes:
 
-- *screen* — файл с виджетом экрана
+- *screen* — file with screen widget
 
-- *wm* — файл с WidgetModel экрана
+- *wm* — file with screens's WidgetModel
 
-- *route* - файл c Route экрана
+- *route* - file with screens's Route
 
-### Именование ресурсов
+### Resource naming
 
- Ресурсы (строки, названия файлов ассетов) объявляются с помощью модификатора const,
- чтобы в конструкторах виджетов их можно было использовать в качестве значения по умолчанию.
+Resources (strings, asset file names) are declared using the const modifier,
+so that in widget constructor they can be used as the default value.
 
-### Именование переменных и методов
+### Naming variables and methods
 
- Константы именуются в lowerCamelCase (как написано в [Effective Dart](https://dart.dev/guides/language/effective-dart/style#prefer-using-lowercamelcase-for-constant-names)):
+ Constants are named in lowerCamelCase (as written in [Effective Dart](https://dart.dev/guides/language/effective-dart/style#prefer-using-lowercamelcase-for-constant-names)):
 ```dart
     const String keyAlias = "KEY_ALIAS"
 ```
 
- Булевы переменные должны начинаться со вспомогательных глаголов is/was/has.
+ Boolean variables must begin with the auxiliary verbs is / was / has.
  
- Для полей виджетов и виджет моделей существуют следующие суффиксы:
+he following suffixes exist for widget and model widgets fields:
 
-   - *State* — объект класса StreamedState
+   - *State* — StreamedState class entity
    
-   - *Action* — объект класса Action
+   - *Action* — Action class entity
    
-   - *Controller* — различные контроллеры (AnimationController, TextEditingController, etc.)
+   - *Controller* — various controllers (AnimationController, TextEditingController, etc.)
    
- Имена методов и функций должны содержать глагол, который отражает исполняемую логику. Следует избегать союзов **And/Or** в названиях методов,
- наличие таковых — явный признак для рефакторинга кода.
+ The names of methods and functions must contain a verb that reflects the logic being executed. ** And / Or ** unions in method names should be avoided.(They are triggers for refactoring)
  
- Для именования методов рекомендуется использовать следующие префиксы:
+ or named methods, the following prefixes are recommended:
  
- - *build* — для методов, возвращающих часть дерева виджетов (используются для упрощения вёрстки)
+ - *build* — for methods that return part of the widget tree (used to simplify layout)
  
- - *reload* — методы загрузки/перезагрузки данных
+ - *reload* — data loading/reloading methods
  
-### Именование классов
+### Class naming
 
-Следует использовать следующие постфиксы для сущностей:
+Should use the following postfixes for entities:
 
-- *Widget/Screen* — отдельный виджет или вёрстка целого экрана
+- *Widget/Screen* — separate widget or layout of the whole screen
 
-- *WidgetModel* — модель виджета
+- *WidgetModel* — widget model
 
-- *Component* — компонент для конфигурации зависимостей
+- *Component* — component for configuring dependencies
 
-- *Interactor* — интеракторы для бизнес-логики
+- *Interactor* — business logic interactors
 
-- *Repository* — репозитории
+- *Repository* — repositories
 
-## Организация кода
+## Code organization
 
-### Файловая структура
+### File structure
 
-Dart позволяет хранить в одном файле несколько классов, поэтому рекомендуется объединять несколько смежных по функционалу классов в один файл.
+Dart allows you to store several classes in one file, therefore it is recommended to combine several classes that are related in functionality into a single file.
 
-Типичная структура файлов файлов и папок описана [здесь](./structure.md).
+A typical file and folder file structure is described [here](./structure.md).
 
-Дополнительно:
+Additionally:
 
-  - Директория экрана должна содержать папку с настройками di-компонента
+  - The screen directory should contain a di-component settings folder
   
-  - Глобальные функции следует собирать в файлы с суффиксом utils
+  - Global functions should be collected in utils suffix files
     
-### Структура класса
+### Class structure
 
-Внутри класса следует использовать следующий порядок метод и полей:
-1. static const поля
+Inside the class, use the following order method and fields:
+1. static const fields
 
-1. static поля
+1. static fields
 
-1. final поля
+1. final fields
 
-1. приватные поля (get/set)
+1. private fields (get/set)
 
-1. публичные поля (get/set)
+1. public fields (get/set)
 
-1. конструкторы класса
+1. consctructors
 
 1. @override
 
-1. публичные методы (static также здесь)
+1. public methods (static too)
 
-1. @protected методы
+1. @protected methods
 
-1. приватные методы
+1. private methods
 
-## Форматирование
+## Formatting
 
-**ВАЖНО**: Для лучшей читаемости рекомендуется вставлять запятую после последнего аргумента в вызовах методов и конструкторов, а так же в описании их параметров, если они не помещаются в одну строчку (trailing comma).
+**IMPORTANT**: For better readability, it is recommended to insert a comma after the last argument in calls of methods and constructors, as well as in the description of their parameters, if they do not fit on the same line (trailing comma).
 
-Плохо:
+Bad:
 ```dart
   func(
       "foobar",
@@ -131,7 +130,7 @@ Dart позволяет хранить в одном файле нескольк
       "apple",
       "banana");
 ```
-Хорошо:
+Good:
 ```dart
   func(
       "foobar",
@@ -145,13 +144,13 @@ Dart позволяет хранить в одном файле нескольк
       "asdf1234",
       "orange",
       "apple",
-      "banana", //Это и есть trailing comma
+      "banana", //This is trailing comma
   );
 ```
 
 
-## Рекомендации
+## Recommendations
 
-При разработке следует пользоваться правилами и подходами описанными [здесь](https://www.dartlang.org/guides/language/effective-dart/design)
+When developing, you should use the rules and approaches described [here](https://www.dartlang.org/guides/language/effective-dart/design)
 
 

@@ -1,85 +1,73 @@
-[Главная](../main.md)
+[Main](../main.md)
 
-# Интерактор
+# Interactor
 
-Интерактор — сущность, реализующая
-логику некоторого бизнес процесса. Интерактор не зависит от платформы, в нем реализуется только логика use case, не затрагивая ui логику.
-Интерактор не привязывается к какому-либо экрану. Один и тот же интерактор можно использовать в 
-нескольких экранах.
+An interactor is an entity that implements the logic of a certain business process. The interactor is platform independent, it only implements the use case logic, without affecting the ui logic.
+The interactor is not attached to any screen. The same interactor can be used in multiple screens.
 
-Типичный пример использования:
+Typical use case:
 
-В приложении есть экран авторизации и экран заказов.  
-Необходимо проверять, залогинен ли пользователь на текущий момент.
-Если да, то при открытии приложения переводить на экран заказов и показывать контент, который доступен только авторизованному пользователю.
-Если нет, то оставаться на экране авторизации, но дать возможность просматривать заказы, которые доступны неавторизованному пользователю.
+The application has an authorization screen and an order screen.
+It is necessary to check whether the user is currently logged in.
+If yes, then when you open the application, transfer to the orders screen and show content that is available only to an authorized user.
+If not, then stay on the authorization screen, but give the opportunity to view orders that are available to an unauthorized user.
 
-Для решения этой задачи следует создать интерактор, который реализует логику проверки
-авторизации пользователя — AuthInteractor. В этом интеракторе происходит получение локального токена через TokenRepository.
-Далее интерактор совершает запрос на сервер через AuthRepository с проверкой на валидность текущего токена и возвращает результат.
-Таким образом интерактор обьединяет в себе работу нескольких репозиториев и выполняет тот use case, который нужен в каком-то конкретном месте.
+To solve this problem, you should create an interactor that implements the logic of user authorization verification - AuthInteractor. In this interactor, a local token is obtained through the TokenRepository.
+Next, the interactor makes a request to the server through AuthRepository with a check on the validity of the current token and returns the result.
+Thus, the interactor combines the work of several repositories and performs the use case that is needed in a particular place.
 
-Чтобы проверить, находится ли пользователь в системе на текущий момент,
-AuthInteractor можно использовать как на экране авторизации, так и на экране отображения заказов. 
+To check whether the user is currently logged in, AuthInteractor can be used both on the authorization screen and on the order display screen.
 
-Интеракторы взаимодействуют с презентационным слоем только через сущность WidgetModel.
+Interactors interact with the presentation layer only through the WidgetModel entity.
 
-Публичные методы API интерактора строится преимущественно на Rx.
+The public methods of the Interactive API are primarily based on Rx.
 
-## Типовые сущности, принадлежащие слою Interactor
+## Sample entities belonging to the Interactor layer
 
-Рассмотрим наиболее распространенные сущности, принадлежащие к этому слою.
+Consider the most common entities that belong to this layer.
 
-### 1. Репозиторий
+### 1. Repository
 
-Говоря о репозиториях, следует вспомнить одноимённый шаблон проектирования “Репозиторий”. Суть его в том, чтобы создать некий слой
-абстракции над какими-либо конкретными источниками данных, например, база данных или веб-сервис. Задача репозитория стать
-промежуточным звеном между тем кто запрашивает данные и тем кто их отдает.
-Важно понимать, что пользователи репозитория не должны знать о том,
-как он устроен и откуда он берет эти данные. Это может быть сетевой запрос,
-запрос в базу данных или же все вместе, так называемый гибридный запрос,
-который подразумевает проведение конкатенации запросов на сервер и кэш по
-некому установленному вами правилу.
+Speaking about repositories, one should remember about the “Repository” design pattern. Its essence is to create a layer of abstraction over any specific data sources, for example, a database or a web service. The task of the repository is to become an intermediary between those who request data and those who give it.
+It is important to understand that users of the repository should not know how it is organized and where it gets this data. This can be a network request, a request to the database, or all together, the so-called hybrid request, which involves concatenating requests to the server and cache according to some rule you set.
 
 ### 2. Storage
 
-Хранилище — это обертка над источником данных c единственной ответственностью. Например, необходимо сохранять данные пользователя на локальное устройство в двух разных форматах: xml и json. Правильным решением будет
-реализовать низкоуровневое api для работы с файловой системой FileSystem и два хранилища JsonStorage и XmlStorage, которые будут использовать FileSystem для доступа к файловой системе, а логика сохранения
-данных будет реализована непосредственно в этих классах. 
+Storage is a wrapper over a data source with single responsibility. For example, you need to save user data to a local device in two different formats: xml and json. The correct solution would be to implement a low-level api to work with the FileSystem file system and two repositories JsonStorage and XmlStorage, which will use the FileSystem to access the file system, and the data storage logic will be implemented directly in these classes.
 
 ### 3. Mapper
 
-Класс, который преобразует данные из одного типа в другой.
+A class that transform data from one type to another.
 
-### 4. Интерактор инициализации
+### 4. Initialization Interactor
 
-Инициализация приложения чаще всего происходит на экране сплеша.
-Под инициализацией понимается выполнение определенного набора правил, от
-которых зависит дальнейшее поведение приложения. Например, миграции приложения
-на новую версию или же получение и обновление токена, получение локации и тд.
+Initialization of the application most often occurs on the splash screen.
+Initialization is the execution of a certain set of rules on which the further 
+behavior of the application depends. For example, migrating an application to a new 
+version or getting and updating a token, getting a location, etc.
 
-Принято выделять данную логику в отдельный интерактор.
+It is customary to select this logic in a separate interactor.
 
-Интерфейс данного интерактора будет описан всего лишь одним методом - `initialize()`.
+The interface of this interactor will be described by just one method - `initialize()`.
 
-### 5. Интерактор смены сессии пользователя
+### 5. User session change interactor
 
-Этот интерактор отвечает за действия, которые необходимо выполнить при
-смене сессии или пользователя. Среди таких действий могут быть очистка
-кэша, запрос на logout, кэширование токена и тд.
+This interactor is responsible for the actions that must be performed when changing the session or user. 
+Such actions may include flushing the cache, requesting a logout, caching a token, etc.
 
-## Рассылка событий через Interactor
+## Events via Interactor
 
-Еще один кейс использования интеракторов: построение событийной модели общения между частями приложения.
-Например, некоторое действие на экране А должно вызывать обновление данных на экране Б. 
-Причем данное действие не является результатом экрана А. Тогда можно пробросить событие через общий интерактор у данных экранов.
-Данный кейс показывает, что приоритетнее использовать именно интерактор для обновления данных, а не результат выполнения экрана.
-Маршрут с параметрами следует использовать там, где очевиден возврат результата, например, некая форма, которая возвращает заполненные данные на предыдущий экран.
-Реализовать проброс этого события можно через создания Subject'а внутри интерактора.
+Another case for using interactors: building an event-based model of communication between parts of the application.
+For example, some action on screen A should cause data to be updated on screen B.
+Moreover, this action is not the result of screen A. 
+Then you can forward the event through the common interactor for these screens.
+This case shows that it is the priority to use the interactor to update the data, and not the result of the screen.
+A route with parameters should be used where the return of the result is obvious, for example, a certain form that returns the completed data to the previous screen.
+Forward of this event can be realized through the creation of Subject inside the interactor.
 
 Пример: 
 ```dart
-/// Интерактор сессии пользователя
+/// User Session Interactor
 class SessionChangedInteractor {
   final AuthInfoStorage _ts;
 
@@ -103,8 +91,7 @@ class SessionChangedInteractor {
 
 enum SessionState { LOGGED_IN, LOGGED_OUT }
 ```
-Далее необходимо подключить SessionChangedInteractor в WidgetModel и подписаться на изменения 
-в sessionSubject:
+Next, you need to connect the SessionChangedInteractor to WidgetModel and subscribe to the changes to sessionSubject:
 ```dart
 
 class FirstWidgetModel {

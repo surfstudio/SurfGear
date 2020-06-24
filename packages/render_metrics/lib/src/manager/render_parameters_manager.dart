@@ -48,7 +48,7 @@ class RenderParametersManager<T> extends RenderManager<T> {
   /// Get the difference between
   /// two instances [RenderObject] by Instance
   ComparisonDiff getDiffByInstance(RenderData first, RenderData second) {
-    if(first == null || second == null) return null;
+    if (first == null || second == null) return null;
     return first - second;
   }
 }

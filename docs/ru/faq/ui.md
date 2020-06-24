@@ -7,7 +7,7 @@
 ## Текстовые поля
 
 - **Контекстное меню текстового поля (copy/cut/paste) прозрачное.**
-    ![build_settings](img/context_menu_transparent.jpg)
+    ![build_settings](../../img/faq/context_menu_transparent.jpg)
     <br><br>
     Единственный способ кастомизации цвета контекстного меню - поле
     `canvasColor` в `ThemeData` приложения. Если контекстное меню имеет
