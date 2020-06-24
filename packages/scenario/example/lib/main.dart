@@ -72,11 +72,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _run() {
     LoadScenario<String>(
-      future: _getData(),
+      make: _getData,
       onLoad: () => print('load'),
-      onData: (String data) => print('onData = $data'),
-      ifHasData: (String data) => _streamController.add(data),
-      ifNoData: () => _streamController.add('0'),
+      onData: (String data) => _streamController.add(data),
+      ifHasData: (String data) => print('ifHasData = $data'),
+      ifNoData: () => print('ifNoData'),
+      onEmpty: () => _streamController.add('0'),
       onError: (_) => _streamController.add('-1'),
     ).run();
   }
@@ -98,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ).run();
   }
 
-  Future<String> _getData() async {
+  Future<String> _getData(_) async {
     await Future.delayed(const Duration(seconds: 2));
     return '1';
   }

@@ -7,26 +7,45 @@ import 'package:scenario/types.dart';
 
 /// Сценарий загрузки данных
 class LoadScenario<T> extends BaseScenario {
+  /// Колбэк начала загрузки
   VoidCallback onLoad;
+
+  /// Колбэк получения данных
   LoadScenarioDataCallback<T> onData;
+
+  /// Колбэк если есть кэшированные данные
   LoadScenarioDataCallback<T> ifHasData;
+
+  /// Колбэк если нет кэшированных данны
   VoidCallback ifNoData;
+
+  /// Колбэк поустых данных
+  VoidCallback onEmpty;
+
+  /// Колбэк ошибки
   ErrorScenarioCallback onError;
+
+  /// Нужно ли кэшировать данные последнего запроса
+  final bool isCached;
 
   Scenario<T> _scenario;
 
+  T _prevData;
+
   LoadScenario({
-    @required Future<T> future,
+    @required ScenarioMakeCallback<T> make,
     this.onLoad,
     this.onData,
     this.ifHasData,
     this.ifNoData,
+    this.onEmpty,
     this.onError,
-  }) {
+    bool isCached,
+  }) : isCached = isCached ?? false {
     _scenario = Scenario<T>(
       steps: [
         ScenarioStep<T>(
-          make: (_) async => await future,
+          make: make,
         ),
       ],
     );
@@ -41,10 +60,16 @@ class LoadScenario<T> extends BaseScenario {
     ErrorScenarioCallback onError,
   }) {
     return LoadScenario<T>(
-      future: scenario
+      make: (_) async => await scenario
           .run()
-          .then((Result<T> r) => r.data)
-          .catchError((e) => onError(Exception(e.message))),
+          .then(
+            (Result<T> r) => r.data,
+          )
+          .catchError(
+            (e) => onError(
+              Exception(e.message),
+            ),
+          ),
       onLoad: onLoad,
       onData: onData,
       ifHasData: ifHasData,
@@ -62,14 +87,20 @@ class LoadScenario<T> extends BaseScenario {
 
     onLoad?.call();
 
+    if (_prevData == null) {
+      ifNoData?.call();
+    } else {
+      ifHasData?.call(data);
+    }
+
     try {
       data = (await _scenario.run()).data;
       if (data == null) {
-        ifNoData?.call();
+        onEmpty?.call();
       } else {
-        ifHasData?.call(data);
+        onData?.call(data);
       }
-      onData?.call(data);
+      if (isCached) _prevData = data;
     } catch (e) {
       onError?.call(e);
     }
