@@ -5,19 +5,19 @@ import 'package:jitsi_meet/src/jitsi_meet_controller.dart';
 
 const String viewType = 'surfstudio/jitsi_meet';
 
-class JitsiMeet extends StatefulWidget {
+class JitsiMeetWidget extends StatefulWidget {
   final JitsiMeetViewCreatedCallback onControllerCreated;
 
-  const JitsiMeet({
+  const JitsiMeetWidget({
     Key key,
     @required this.onControllerCreated,
   }) : super(key: key);
 
   @override
-  _JitsiMeetState createState() => _JitsiMeetState();
+  _JitsiMeetWidgetState createState() => _JitsiMeetWidgetState();
 }
 
-class _JitsiMeetState extends State<JitsiMeet> {
+class _JitsiMeetWidgetState extends State<JitsiMeetWidget> {
   @override
   Widget build(BuildContext context) {
     switch (defaultTargetPlatform) {

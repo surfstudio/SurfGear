@@ -5,38 +5,49 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.platform.PlatformView
-import jdk.nashorn.internal.objects.NativeFunction.call
 import org.jitsi.meet.sdk.JitsiMeetView
+import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
+import io.flutter.plugin.common.BinaryMessenger
 
 class JitsiMeetController : PlatformView, MethodChannel.MethodCallHandler {
-  val CHANNEL_NAME: String = "surf_jitsi_meet_";
+    val CHANNEL_NAME: String = "surf_jitsi_meet_";
 
-  private lateinit var jitsiView: JitsiMeetView
-  private lateinit var methodChannel: MethodChannel
-  private var pluginRegistrar: PluginRegistry.Registrar? = null
+    private var jitsiView: JitsiMeetView
+    private var methodChannel: MethodChannel
+    private var pluginContext: Context
 
-  val view: android.view.View
-    get() = jitsiView
+    override fun getView(): android.view.View = jitsiView
 
-  constructor(id: Int, context: Context, registrar: PluginRegistry.Registrar) {
-    jitsiView = JitsiMeetView(context)
-    pluginRegistrar = registrar
-    methodChannel = MethodChannel(registrar.messenger(), "$CHANNEL_NAME$id")
-    methodChannel.setMethodCallHandler(this)
-  }
+    constructor(context: Context, messanger: BinaryMessenger, id: Int) {
+        jitsiView = getJitsiView(context)
+        pluginContext = context
+        methodChannel = MethodChannel(messanger, "$CHANNEL_NAME$id")
+        methodChannel.setMethodCallHandler(this)
 
-  fun dispose() {
+        val options = JitsiMeetConferenceOptions.Builder()
+                .setRoom("SurfTestRoom")
+                .build()
+
+        jitsiView.join(options)
+    }
+
+    override fun dispose() {
 //    mapView.onStop()
 //    MapKitFactory.getInstance().onStop()
-  }
-
-  fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-    when (call.method) {
-      "showUserLayer" -> {
-//        showUserLayer(call)
-        result.success(null)
-      }
-      else -> result.notImplemented()
     }
-  }
+
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        when (call.method) {
+            "showUserLayer" -> {
+//        showUserLayer(call)
+                result.success(null)
+            }
+            else -> result.notImplemented()
+        }
+    }
+
+
+    private fun getJitsiView(context: Context): JitsiMeetView {
+        return JitsiMeetView(context)
+    }
 }
