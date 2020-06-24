@@ -59,21 +59,25 @@ class SpacesTextInputFormatter extends TextInputFormatter {
 
     StringBuffer buffer = StringBuffer();
 
+    int baseOffset = newValue.selection.baseOffset;
+    int calcBaseOffset = baseOffset;
+    final int separatorPosCount = separatorPositions.length;
+
     try {
       for (int i = 0; i < newTextLength; i++) {
         if (step != null && i > 0 && i % step == 0) {
           buffer.write(stepSymbol);
-        }
-
-        if (_isSeparators && separatorIndex < separatorPositions.length) {
-          for (int j = separatorIndex; j < separatorPositions.length; j++) {
-            if (i + separatorIndex == separatorPositions[j]) {
-              buffer.write(_getSeparator(j));
-              separatorIndex++;
-            }
-          }
+          //calcBaseOffset = _calculateBaseOffset(calcBaseOffset, i);
         }
         buffer.write(newText[i]);
+        if (_isSeparators && separatorIndex < separatorPosCount) {
+          for (int j = separatorIndex; j < separatorPosCount; j++) {
+            if(i + separatorIndex != separatorPositions[j]-1) continue;
+            buffer.write(_getSeparator(j));
+            separatorIndex++;
+            //calcBaseOffset = _calculateBaseOffset(calcBaseOffset, i);
+          }
+        }
       }
       String result = buffer.toString().trim();
 
@@ -81,40 +85,20 @@ class SpacesTextInputFormatter extends TextInputFormatter {
         result = result.substring(0, min(result.length, maxLength));
       }
 
+      result = result.trim();
+/// Доделать offset
       return TextEditingValue(
         text: result,
         selection: TextSelection.collapsed(offset: result.length),
-        // Добавить возможность вводить в середину
       );
     } catch (e, s) {
-      print('!!! ${e} ${s}');
       return oldValue;
     }
-//    try {
-//      int substringIndex = 0;
-//
-//      final StringBuffer textBuffer = StringBuffer();
-//
-//      while (substringIndex < newTextLength) {
-//        textBuffer.write(
-//          newText.substring(
-//            substringIndex,
-//            min(substringIndex += _step, newTextLength),
-//          ),
-//        );
-//        textBuffer.write(spaceString);
-//      }
-//
-//      final String result = textBuffer.toString().trim();
-//
-//      return TextEditingValue(
-//        text: result,
-//        selection: TextSelection.collapsed(offset: result.length),
-//        // Добавить возможность вводить в середину
-//      );
-//    } catch (e) {
-//      return oldValue;
-//    }
+  }
+
+  int _calculateBaseOffset(int calcBaseOffset, int index) {
+    if(calcBaseOffset >=index) return calcBaseOffset+1;
+    return calcBaseOffset;
   }
 
   /// Удалить все кроме цифр
