@@ -1,0 +1,3 @@
+library spaces_text_input_formatter;
+
+export 'package:separate_number_text_input_formatter/src/separate_number_text_input_formatter.dart';
