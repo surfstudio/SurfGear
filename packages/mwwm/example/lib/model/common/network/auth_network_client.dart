@@ -60,7 +60,7 @@ class AuthNetworkClient implements NetworkClient {
           await _oauth2Helper.getTokenFromStorage();
 
       if (tokenResponse != null) {
-        return tokenResponse.accessToken != null;
+        return true;
       }
       return false;
     } on Exception catch (e) {
