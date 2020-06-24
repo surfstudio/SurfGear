@@ -13,3 +13,8 @@ class CanceledAuthorizationException implements Exception {
   @override
   String toString() => 'Authorization process was canceled';
 }
+
+class IncorrectClientCredentionalsException implements Exception{
+  @override
+  String toString() => 'Incorrect client credentionals';
+}

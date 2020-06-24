@@ -17,7 +17,9 @@ class LoginScreenRoute extends MaterialPageRoute {
 }
 
 WidgetModel _widgetModelBuilder(BuildContext context) => LoginWm(
-      context.read<WidgetModelDependencies>(),
+      WidgetModelDependencies(
+        errorHandler: LoginScreenErrorHandler(),
+      ),
       Model([
         AuthorizeInGithubPerformer(
           context.read<AuthRepository>(),
@@ -25,3 +27,10 @@ WidgetModel _widgetModelBuilder(BuildContext context) => LoginWm(
       ]),
       Navigator.of(context),
     );
+
+class LoginScreenErrorHandler extends ErrorHandler {
+  @override
+  void handleError(Object e) {
+    debugPrint('LOGIN SCREEN: $e');
+  }
+}
