@@ -1,4 +1,5 @@
 import 'package:mwwm/mwwm.dart';
+import 'package:mwwm_github_client/data/owner.dart';
 import 'package:mwwm_github_client/data/repository.dart';
 import 'package:mwwm_github_client/model/github/changes.dart';
 import 'package:mwwm_github_client/model/github/repository/github_repository.dart';
@@ -24,5 +25,16 @@ class GetRepositoriesPerformer
   @override
   Future<List<Repository>> perform(GetRepositories change) {
     return _githubRepository.getRepositories();
+  }
+}
+
+class GetUsersPerformer extends FuturePerformer<List<Owner>, GetUsers> {
+  GetUsersPerformer(this._githubRepository);
+
+  final GithubRepository _githubRepository;
+
+  @override
+  Future<List<Owner>> perform(GetUsers change) {
+    return _githubRepository.getUsers();
   }
 }

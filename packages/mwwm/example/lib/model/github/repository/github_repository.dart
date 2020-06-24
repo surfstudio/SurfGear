@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:mwwm_github_client/data/owner.dart';
 import 'package:mwwm_github_client/data/repository.dart';
 import 'package:mwwm_github_client/data/repository_list.dart';
+import 'package:mwwm_github_client/model/github/repository/dto/owner_dto.dart';
 import 'package:mwwm_github_client/model/github/repository/dto/repository_dto.dart';
 import 'package:mwwm_github_client/model/github/repository/dto/repository_list_dto.dart';
 
@@ -35,5 +37,20 @@ class GithubRepository {
         .toList();
 
     return repositories;
+  }
+
+  /// Get Github-users
+  Future<List<Owner>> getUsers() async {
+    final Response<List<dynamic>> response = await _client.get(
+      'https://api.github.com/users',
+    );
+
+    final List<Owner> users = response.data
+        .map<Owner>(
+          (json) => OwnerDto.fromJson(json as Map<String, dynamic>).data,
+        )
+        .toList();
+
+    return users;
   }
 }
