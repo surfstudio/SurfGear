@@ -1,5 +1,6 @@
 import 'package:mwwm_github_client/model/common/network/auth_network_client.dart';
 
+/// Github auth repository
 class AuthRepository {
   AuthRepository(this._networkClient);
 
