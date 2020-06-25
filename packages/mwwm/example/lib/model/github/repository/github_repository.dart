@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:mwwm_github_client/data/owner.dart';
 import 'package:mwwm_github_client/data/repository.dart';
 import 'package:mwwm_github_client/data/repository_list.dart';
+import 'package:mwwm_github_client/model/common/network/network_client.dart';
 import 'package:mwwm_github_client/model/github/repository/dto/owner_dto.dart';
 import 'package:mwwm_github_client/model/github/repository/dto/repository_dto.dart';
 import 'package:mwwm_github_client/model/github/repository/dto/repository_list_dto.dart';
@@ -9,7 +10,11 @@ import 'package:mwwm_github_client/model/github/repository/dto/repository_list_d
 /// Service for work with Github
 /// Wrapper on [Github] library
 class GithubRepository {
-  final _client = Dio();
+  GithubRepository(
+    this._client,
+  );
+
+  final NetworkClient _client;
 
   /// Search repository by [name]
   Future<List<Repository>> findRepositories(String name) async {
