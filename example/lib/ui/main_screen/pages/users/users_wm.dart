@@ -11,9 +11,7 @@ class UsersWm extends WidgetModel {
   ) : super(baseDependencies, model: model);
 
   /// Represent users
-  final usersState = EntityStreamedState<List<Owner>>(
-    EntityState.loading(),
-  );
+  final usersState = EntityStreamedState<List<Owner>>()..loading();
 
   /// Reload users
   final refreshAction = Action();
