@@ -37,7 +37,7 @@ class SpacesTextInputFormatter extends TextInputFormatter {
   }
 
   String _getSeparator(int index) {
-    if(separateSymbols == null) return '';
+    if (separateSymbols == null) return '';
     if (index >= separateSymbols.length) {
       return separateSymbols[separateSymbols.length - 1];
     }
@@ -52,53 +52,52 @@ class SpacesTextInputFormatter extends TextInputFormatter {
     if (isManualRemove(oldValue, newValue)) return newValue;
 
     final String newText = _onlyNumbers(newValue.text);
-
     final int newTextLength = newText.length;
+    final int separatorPosCount = separatorPositions.length;
+    final StringBuffer buffer = StringBuffer();
+
+    int rawOffset = _onlyNumbers(
+      newValue.text.substring(0, newValue.selection.baseOffset),
+    ).length;
+
+    int calculateOffset = rawOffset;
 
     int separatorIndex = 0;
-
-    StringBuffer buffer = StringBuffer();
-
-    int baseOffset = newValue.selection.baseOffset;
-    int calcBaseOffset = baseOffset;
-    final int separatorPosCount = separatorPositions.length;
 
     try {
       for (int i = 0; i < newTextLength; i++) {
         if (step != null && i > 0 && i % step == 0) {
           buffer.write(stepSymbol);
-          //calcBaseOffset = _calculateBaseOffset(calcBaseOffset, i);
+          if(i < rawOffset) calculateOffset++;
         }
         buffer.write(newText[i]);
         if (_isSeparators && separatorIndex < separatorPosCount) {
           for (int j = separatorIndex; j < separatorPosCount; j++) {
-            if(i + separatorIndex != separatorPositions[j]-1) continue;
+            if (i + separatorIndex != separatorPositions[j] - 1) continue;
             buffer.write(_getSeparator(j));
             separatorIndex++;
-            //calcBaseOffset = _calculateBaseOffset(calcBaseOffset, i);
+            if(i < rawOffset) calculateOffset++;
           }
         }
       }
-      String result = buffer.toString().trim();
+      String result = buffer.toString();
 
       if (maxLength != null) {
+        if (result.length == maxLength) result.trim();
         result = result.substring(0, min(result.length, maxLength));
       }
-
-      result = result.trim();
-/// Доделать offset
+      //print('!!! $baseOffset => ${result.length}');
+      calculateOffset =
+          rawOffset == result.length ? rawOffset : calculateOffset;
       return TextEditingValue(
         text: result,
-        selection: TextSelection.collapsed(offset: result.length),
+        selection: TextSelection.collapsed(
+          offset: min(calculateOffset, result.length),
+        ),
       );
-    } catch (e, s) {
+    } catch (e) {
       return oldValue;
     }
-  }
-
-  int _calculateBaseOffset(int calcBaseOffset, int index) {
-    if(calcBaseOffset >=index) return calcBaseOffset+1;
-    return calcBaseOffset;
   }
 
   /// Удалить все кроме цифр
