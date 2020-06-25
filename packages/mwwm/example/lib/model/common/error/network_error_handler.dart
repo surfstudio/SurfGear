@@ -1,6 +1,7 @@
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/utils/exceptions.dart';
 
+/// Handler for network errors
 abstract class NetworkErrorHandler implements ErrorHandler {
   @override
   void handleError(Object e) {
@@ -22,6 +23,5 @@ abstract class NetworkErrorHandler implements ErrorHandler {
 
   void handleNoInternetException(NoInternetException exception);
 
-  ///
   void handleOtherException(Exception exception);
 }
