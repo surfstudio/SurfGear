@@ -54,14 +54,14 @@ class SpacesTextInputFormatter extends TextInputFormatter {
     TextEditingValue newValue,
   ) {
     if (isManualRemove(oldValue, newValue)) return newValue;
-
-    final String newText = _onlyNumbers(newValue.text);
-    final int newTextLength = newText.length;
+    final String newText = newValue.text;
+    final String newNumText = _onlyNumbers(newText);
+    final int newTextLength = newNumText.length;
     final int separatorPosCount = separatorPositions.length;
     final StringBuffer buffer = StringBuffer();
 
     int rawOffset = _onlyNumbers(
-      newValue.text.substring(0, newValue.selection.baseOffset),
+      newText.substring(0, newValue.selection.baseOffset),
     ).length;
 
     int calculateOffset = rawOffset;
@@ -79,7 +79,7 @@ class SpacesTextInputFormatter extends TextInputFormatter {
             symbol: stepSymbol,
           );
         }
-        buffer.write(newText[i]);
+        buffer.write(newNumText[i]);
         if (_isSeparators && separatorIndex < separatorPosCount) {
           for (int j = separatorIndex; j < separatorPosCount; j++) {
             if (i + separatorIndex != separatorPositions[j] - 1) continue;
