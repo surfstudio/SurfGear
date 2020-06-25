@@ -36,7 +36,21 @@ class AuthNetworkClient implements NetworkClient {
       final AccessTokenResponse tokenResponse =
           await _oauth2Helper.fetchToken();
 
-      return tokenResponse.tokenType != null;
+      if(tokenResponse != null){
+        if(tokenResponse.tokenType != null){
+          return true;
+        }
+        return false;
+      }
+      return false;
+    } on Exception catch (e) {
+      throw _mapException(e);
+    }
+  }
+
+  Future<void> disconnect() async {
+    try {
+      await _oauth2Helper.disconnect();
     } on Exception catch (e) {
       throw _mapException(e);
     }

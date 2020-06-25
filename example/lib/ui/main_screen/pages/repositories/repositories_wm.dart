@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart' hide Action;
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/data/repository.dart';
+import 'package:mwwm_github_client/model/auth/changes.dart';
 import 'package:mwwm_github_client/model/favorites/changes.dart';
 import 'package:mwwm_github_client/model/github/changes.dart';
 import 'package:mwwm_github_client/ui/login_screen/login_screen_route.dart';
-import 'package:mwwm_github_client/ui/main_screen/pages/repositories/repositories_dialog_owner.dart';
 import 'package:mwwm_github_client/ui/widgets/repository/repository_widget_wm.dart';
 import 'package:relation/relation.dart';
 
@@ -105,8 +105,9 @@ class RepositoriesWm extends WidgetModel {
     controller.showAlertDialog(
       title: 'Exit',
       message: 'Are you sure you want to exit?',
-      onAgreeClicked: (context) {
-        Navigator.of(context)
+      onAgreeClicked: (context) async {
+        await model.perform(DisconnectGithub());
+        await Navigator.of(context)
             .pushAndRemoveUntil(LoginScreenRoute(), (route) => false);
       },
     );
