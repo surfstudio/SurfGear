@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:separate_number_text_input_formatter/separate_number_text_input_formatter.dart';
+import 'package:separate_text_input_formatter/separate_text_input_formatter.dart';
 
 void main() => runApp(MyApp());
 
@@ -26,21 +26,24 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _formatter0 = SeparateNumberTextInputFormatter(
+  final _formatter0 = SeparateTextInputFormatter(
     step: 4,
     stepSymbol: ' ',
     maxLength: 19,
+    type: SeparateTextInputFormatterType.number,
   );
-  final _formatter1 = SeparateNumberTextInputFormatter(
+  final _formatter1 = SeparateTextInputFormatter(
     separatorPositions: [7, 3, 5],
     separateSymbols: ['-', ' '],
     maxLength: 10,
+    type: SeparateTextInputFormatterType.number,
   );
-  final _formatter2 = SeparateNumberTextInputFormatter(
+  final _formatter2 = SeparateTextInputFormatter(
     step: 5,
     stepSymbol: '//',
     separatorPositions: [1, 3, 5],
     separateSymbols: ['-', '.', ','],
+    excludeRegExp: RegExp(r"\D"),
   );
 
   @override

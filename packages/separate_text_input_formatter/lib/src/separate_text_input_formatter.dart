@@ -2,9 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:separate_text_input_formatter/src/separate_text_input_formatter_type.dart';
 
-class SeparateNumberTextInputFormatter extends TextInputFormatter {
-  static final _noNumberRegExp = RegExp(r"\D");
+/// [TextInputFormatter] для числового ввода
+class SeparateTextInputFormatter extends TextInputFormatter {
   static const _EMPTY_STRING = '';
 
   /// Позиции для пробелов
@@ -14,6 +15,8 @@ class SeparateNumberTextInputFormatter extends TextInputFormatter {
   final int step;
 
   final String stepSymbol;
+  final RegExp excludeRegExp;
+  final SeparateTextInputFormatterType type;
 
   /// Символы разделители
   /// Соответствуют [separatorPositions]
@@ -25,13 +28,20 @@ class SeparateNumberTextInputFormatter extends TextInputFormatter {
 
   bool get _isSeparators => separatorPositions?.length != null;
 
-  SeparateNumberTextInputFormatter({
+  RegExp get _excludeRegExp {
+    return excludeRegExp ?? type.value;
+  }
+
+  SeparateTextInputFormatter({
     List<int> separatorPositions,
     this.step,
     String stepSymbol,
     this.separateSymbols,
     this.maxLength,
-  }) : stepSymbol = stepSymbol ?? '' {
+    this.excludeRegExp,
+    this.type,
+  })  : stepSymbol = stepSymbol ?? '',
+        assert(excludeRegExp != null || type != null) {
     if (separatorPositions != null) {
       this.separatorPositions = [...separatorPositions]..sort();
     }
@@ -52,12 +62,12 @@ class SeparateNumberTextInputFormatter extends TextInputFormatter {
   ) {
     if (isManualRemove(oldValue, newValue)) return newValue;
     final String newText = newValue.text;
-    final String newNumText = _onlyNumbers(newText);
+    final String newNumText = _onlyNeedSymbols(newText);
     final int newTextLength = newNumText.length;
     final int separatorPosCount = separatorPositions?.length ?? 0;
     final StringBuffer buffer = StringBuffer();
 
-    int rawOffset = _onlyNumbers(
+    int rawOffset = _onlyNeedSymbols(
       newText.substring(0, newValue.selection.baseOffset),
     ).length;
 
@@ -68,7 +78,7 @@ class SeparateNumberTextInputFormatter extends TextInputFormatter {
     try {
       for (int i = 0; i < newTextLength; i++) {
         buffer.write(newNumText[i]);
-        if (step != null && i > 0 && (i+1) % step == 0) {
+        if (step != null && i > 0 && (i + 1) % step == 0) {
           buffer.write(stepSymbol);
           calculateOffset = _updateOffset(
             calculateOffset: calculateOffset,
@@ -127,9 +137,9 @@ class SeparateNumberTextInputFormatter extends TextInputFormatter {
     return calculateOffset;
   }
 
-  /// Удалить все кроме цифр
-  String _onlyNumbers(String text) {
-    return text.replaceAll(_noNumberRegExp, _EMPTY_STRING);
+  /// Удалить все кроме regExp
+  String _onlyNeedSymbols(String text) {
+    return text.replaceAll(_excludeRegExp, _EMPTY_STRING);
   }
 
   /// Проверка на посимвольное ручное удаление
@@ -137,11 +147,11 @@ class SeparateNumberTextInputFormatter extends TextInputFormatter {
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
-    final int newTextLength = _onlyNumbers(newValue.text).length;
+    final int newTextLength = _onlyNeedSymbols(newValue.text).length;
 
     return (oldValue.text.length > 0 &&
             newValue.text.length == oldValue.text.length - 1) &&
         newTextLength ==
-            _onlyNumbers(oldValue.text).substring(0, newTextLength).length;
+            _onlyNeedSymbols(oldValue.text).substring(0, newTextLength).length;
   }
 }

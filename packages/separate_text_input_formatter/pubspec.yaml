@@ -1,4 +1,4 @@
-name: separate_number_text_input_formatter
+name: separate_text_input_formatter
 description: A library containing a TextInputFormatter with an arbitrary number of spaces
 version: 0.0.1
 homepage: https://github.com/surfstudio/render_metrics
