@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart' as d;
 import 'package:flutter/services.dart';
 import 'package:mwwm_github_client/model/common/network/auth_const.dart';
 import 'package:mwwm_github_client/model/common/network/network_client.dart';
@@ -5,6 +6,7 @@ import 'package:mwwm_github_client/utils/exceptions.dart';
 import 'package:oauth2_client/access_token_response.dart';
 import 'package:oauth2_client/github_oauth2_client.dart';
 import 'package:oauth2_client/oauth2_client.dart';
+import 'package:oauth2_client/oauth2_exception.dart';
 import 'package:oauth2_client/oauth2_helper.dart';
 import 'package:http/http.dart' show Response;
 
@@ -57,7 +59,10 @@ class AuthNetworkClient implements NetworkClient {
       final AccessTokenResponse tokenResponse =
           await _oauth2Helper.getTokenFromStorage();
 
-      return tokenResponse.tokenType != null;
+      if (tokenResponse != null) {
+        return tokenResponse.accessToken != null;
+      }
+      return false;
     } on Exception catch (e) {
       throw _mapException(e);
     }
@@ -81,20 +86,17 @@ class AuthNetworkClient implements NetworkClient {
         return CanceledAuthorizationException();
       }
     }
-    // if (e is DioError) {
-    //   if (e.type == DioErrorType.DEFAULT) {
-    //     return NoInternetException(message: e.error.toString());
-    //   } else {
-    //     // map other dio errors
-    //   }
-    // } else {
-    //   // map other exceptions
-    // }
+    if (e is d.DioError) {
+      if (e.type == d.DioErrorType.DEFAULT) {
+        return NoInternetException(message: e.error.toString());
+      }
+    }
 
-    // TODO implement in FLT-267
-
-    print(e);
-
+    if (e is OAuth2Exception) {
+      if (e.error == 'incorrect_client_credentials') {
+        return IncorrectClientCredentionalsException();
+      }
+    }
     return e;
   }
 }
