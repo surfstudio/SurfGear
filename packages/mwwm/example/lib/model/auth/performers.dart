@@ -2,6 +2,7 @@ import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/model/auth/changes.dart';
 import 'package:mwwm_github_client/model/auth/repository/auth_repository.dart';
 
+/// Authorize github performer
 class AuthorizeInGithubPerformer
     extends FuturePerformer<bool, AuthorizeInGithub> {
   AuthorizeInGithubPerformer(this._authRepository);
