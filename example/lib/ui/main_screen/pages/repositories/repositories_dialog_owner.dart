@@ -10,13 +10,14 @@ enum RepositoryDialog {
 class RepositoryDialogOwner with DialogOwner {
   @override
   Map<dynamic, DialogBuilder> get registeredDialogs => {
-        RepositoryDialog.repoSheet: DialogBuilder<TestData>(_buildSheet),
+        RepositoryDialog.repoSheet:
+            DialogBuilder<TestDataForSheet>(_buildSheet),
       };
 }
 
-/// Набор данных для диалогов
-class TestData implements DialogData {
-  TestData({
+/// Data for sheet and modalSheet
+class TestDataForSheet implements DialogData {
+  TestDataForSheet({
     this.testData,
   });
 
@@ -25,7 +26,7 @@ class TestData implements DialogData {
 
 Widget _buildSheet(
   BuildContext context, {
-  TestData data,
+  TestDataForSheet data,
 }) {
   return Container(
     height: 100,

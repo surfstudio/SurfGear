@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/ui/util/platform_alert_dialog.dart';
 
-/// Миксин, добавляющий возможност зарегистрировать диалоги
+/// Mixin adding the ability to register dialogs
 mixin DialogOwner {
   Map<dynamic, DialogBuilder> get registeredDialogs;
 }

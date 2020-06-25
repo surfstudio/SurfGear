@@ -106,17 +106,14 @@ class RepositoriesWm extends WidgetModel {
       title: 'Exit',
       message: 'Are you sure you want to exit?',
       onAgreeClicked: (context) async {
-        await model.perform(DisconnectGithub());
-        await Navigator.of(context)
-            .pushAndRemoveUntil(LoginScreenRoute(), (route) => false);
+        try {
+          await model.perform(DisconnectGithub());
+          await Navigator.of(context)
+              .pushAndRemoveUntil(LoginScreenRoute(), (route) => false);
+        } on Exception catch (e) {
+          handleError(e);
+        }
       },
     );
-
-    /// uncomment to test
-//    controller.showModalSheet(
-//      RepositoryDialog.repoSheet,
-//      isScrollControlled: true,
-//      data: TestData(testData: "user"),
-//    );
   }
 }

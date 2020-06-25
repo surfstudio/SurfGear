@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-/// alert диалог, который сам проверяет платформу
+/// alert dialog that checks the platform itself
 class PlatformAlertDialog extends StatelessWidget {
   PlatformAlertDialog({
     this.alertTitle,
