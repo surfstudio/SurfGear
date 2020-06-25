@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'check_auth_wm.dart';
 
-/// CheckAuthScreen
+/// Screen verifies authorization
 class CheckAuthScreen extends CoreMwwmWidget {
   CheckAuthScreen({
     @required WidgetModelBuilder widgetModelBuilder,
