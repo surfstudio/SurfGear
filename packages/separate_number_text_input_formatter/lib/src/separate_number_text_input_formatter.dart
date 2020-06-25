@@ -1,5 +1,9 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 class SpacesTextInputFormatter extends TextInputFormatter {
@@ -68,7 +72,12 @@ class SpacesTextInputFormatter extends TextInputFormatter {
       for (int i = 0; i < newTextLength; i++) {
         if (step != null && i > 0 && i % step == 0) {
           buffer.write(stepSymbol);
-          if(i < rawOffset) calculateOffset++;
+          calculateOffset = _updateOffset(
+            calculateOffset: calculateOffset,
+            rawOffset: rawOffset,
+            index: i,
+            symbol: stepSymbol,
+          );
         }
         buffer.write(newText[i]);
         if (_isSeparators && separatorIndex < separatorPosCount) {
@@ -76,7 +85,12 @@ class SpacesTextInputFormatter extends TextInputFormatter {
             if (i + separatorIndex != separatorPositions[j] - 1) continue;
             buffer.write(_getSeparator(j));
             separatorIndex++;
-            if(i < rawOffset) calculateOffset++;
+            calculateOffset = _updateOffset(
+              calculateOffset: calculateOffset,
+              rawOffset: rawOffset,
+              index: i,
+              symbol: _getSeparator(j),
+            );
           }
         }
       }
@@ -98,6 +112,18 @@ class SpacesTextInputFormatter extends TextInputFormatter {
     } catch (e) {
       return oldValue;
     }
+  }
+
+  int _updateOffset({
+    @required int calculateOffset,
+    @required int rawOffset,
+    @required int index,
+    @required String symbol,
+  }) {
+    if (index < rawOffset) {
+      return calculateOffset + symbol.length;
+    }
+    return calculateOffset;
   }
 
   /// Удалить все кроме цифр

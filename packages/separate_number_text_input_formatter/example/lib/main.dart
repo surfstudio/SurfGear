@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   );
   final _formatter2 = SpacesTextInputFormatter(
     step: 5,
-    stepSymbol: '/',
+    stepSymbol: '//',
     separatorPositions: [1, 3, 5],
     separateSymbols: ['-', '.', ','],
   );
@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
             keyboardType: TextInputType.number,
           ),
           const SizedBox(height: 20),
-          Text('x-x.x,xx/xxxxx/xxxxx/xxxxx (без ограничений на длину)'),
+          Text('x-x.x,xx//xxxxx//xxxxx//xxxxx (без ограничений на длину)'),
           TextField(
             inputFormatters: [_formatter2],
             keyboardType: TextInputType.number,
