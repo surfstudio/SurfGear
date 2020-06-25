@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/data/repository.dart';
+import 'package:mwwm_github_client/model/auth/performers.dart';
+import 'package:mwwm_github_client/model/auth/repository/auth_repository.dart';
 import 'package:mwwm_github_client/model/common/error/standard_error_handler.dart';
 import 'package:mwwm_github_client/model/favorites/performers.dart';
 import 'package:mwwm_github_client/model/favorites/repository/favorites_repository.dart';
 import 'package:mwwm_github_client/model/github/performers.dart';
 import 'package:mwwm_github_client/model/github/repository/github_repository.dart';
+import 'package:mwwm_github_client/ui/main_screen/pages/repositories/repositories_dialog_owner.dart';
 import 'package:mwwm_github_client/ui/main_screen/pages/repositories/repositories_wm.dart';
+import 'package:mwwm_github_client/ui/util/dialog_controller.dart';
 
 import 'package:mwwm_github_client/ui/widgets/repository/repository_widget.dart';
 import 'package:relation/relation.dart';
@@ -33,6 +37,9 @@ class RepositoriesPage extends CoreMwwmWidget {
                       GetRepositoriesPerformer(
                         context.read<GithubRepository>(),
                       ),
+                      DisconnectGithubPerformer(
+                        context.read<AuthRepository>(),
+                      ),
                       GetFavoriteRepositoriesPerformer(
                         context.read<FavoritesRepository>(),
                       ),
@@ -40,6 +47,10 @@ class RepositoriesPage extends CoreMwwmWidget {
                         context.read<FavoritesRepository>(),
                       )
                     ]),
+                    DefaultDialogController(
+                      _scaffoldKey,
+                      dialogOwner: RepositoryDialogOwner(),
+                    ),
                   ),
         );
 
@@ -103,6 +114,12 @@ class _RepositoriesScreenState extends WidgetState<RepositoriesWm> {
           ),
           onPressed: wm.searchButtonTapAction,
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: wm.exitAction,
+          ),
+        ],
       );
 
   Widget _buildAppBarTitle() => StreamedStateBuilder<bool>(
