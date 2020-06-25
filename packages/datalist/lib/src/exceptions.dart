@@ -1,4 +1,4 @@
-/// несовместимые блоки данных
+/// incompatible data blocks
 class IncompatibleRangesException implements Exception {
   final message;
 

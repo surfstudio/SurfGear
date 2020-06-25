@@ -2,6 +2,6 @@
 
 Implementation of Dependency Injection for Flutter
 
-## Описание
+## Discription
 
-Описание подхода и реализации находится [здесь](docs/common/di.md)
+A description of the approach and implementation is [here](../../docs/en/common/di.md)
