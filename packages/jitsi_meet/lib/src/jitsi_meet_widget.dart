@@ -7,10 +7,16 @@ const String viewType = 'surfstudio/jitsi_meet';
 
 class JitsiMeetWidget extends StatefulWidget {
   final JitsiMeetViewCreatedCallback onControllerCreated;
+  final VoidCallback onJoined;
+  final VoidCallback onWillJoin;
+  final VoidCallback onTerminated;
 
   const JitsiMeetWidget({
     Key key,
     @required this.onControllerCreated,
+    this.onJoined,
+    this.onWillJoin,
+    this.onTerminated,
   }) : super(key: key);
 
   @override
@@ -39,6 +45,13 @@ class _JitsiMeetWidgetState extends State<JitsiMeetWidget> {
   }
 
   void _onPlatformViewCreated(int id) {
-    widget.onControllerCreated?.call(JitsiMeetController.init(id));
+    widget.onControllerCreated?.call(
+      JitsiMeetController.init(
+        id,
+        widget.onWillJoin,
+        widget.onJoined,
+        widget.onTerminated,
+      ),
+    );
   }
 }
