@@ -67,7 +67,8 @@ class SpacesTextInputFormatter extends TextInputFormatter {
 
     try {
       for (int i = 0; i < newTextLength; i++) {
-        if (step != null && i > 0 && i % step == 0) {
+        buffer.write(newNumText[i]);
+        if (step != null && i > 0 && (i+1) % step == 0) {
           buffer.write(stepSymbol);
           calculateOffset = _updateOffset(
             calculateOffset: calculateOffset,
@@ -76,7 +77,7 @@ class SpacesTextInputFormatter extends TextInputFormatter {
             symbol: stepSymbol,
           );
         }
-        buffer.write(newNumText[i]);
+
         if (_isSeparators && separatorIndex < separatorPosCount) {
           for (int j = separatorIndex; j < separatorPosCount; j++) {
             if (i + separatorIndex != separatorPositions[j] - 1) continue;
@@ -94,7 +95,11 @@ class SpacesTextInputFormatter extends TextInputFormatter {
       String result = buffer.toString();
 
       if (maxLength != null) {
-        if (result.length == maxLength) result.trim();
+//        final String trimmedResult = result.trim();
+//        if (trimmedResult.length >= maxLength) {
+//          result = trimmedResult;
+//        }
+        if (result.length >= maxLength) result = result.substring(0, maxLength);
         result = result.substring(0, min(result.length, maxLength));
       }
       calculateOffset =

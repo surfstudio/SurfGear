@@ -29,7 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final _formatter0 = SpacesTextInputFormatter(
     step: 4,
     stepSymbol: ' ',
-    maxLength: 20,
+    maxLength: 19,
   );
   final _formatter1 = SpacesTextInputFormatter(
     separatorPositions: [7, 3, 5],
