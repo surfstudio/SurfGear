@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
-class SpacesTextInputFormatter extends TextInputFormatter {
+class SeparateNumberTextInputFormatter extends TextInputFormatter {
   static final _noNumberRegExp = RegExp(r"\D");
   static const _EMPTY_STRING = '';
 
@@ -25,7 +25,7 @@ class SpacesTextInputFormatter extends TextInputFormatter {
 
   bool get _isSeparators => separatorPositions?.length != null;
 
-  SpacesTextInputFormatter({
+  SeparateNumberTextInputFormatter({
     List<int> separatorPositions,
     this.step,
     String stepSymbol,

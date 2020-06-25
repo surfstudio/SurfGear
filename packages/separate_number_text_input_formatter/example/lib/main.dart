@@ -26,17 +26,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _formatter0 = SpacesTextInputFormatter(
+  final _formatter0 = SeparateNumberTextInputFormatter(
     step: 4,
     stepSymbol: ' ',
     maxLength: 19,
   );
-  final _formatter1 = SpacesTextInputFormatter(
+  final _formatter1 = SeparateNumberTextInputFormatter(
     separatorPositions: [7, 3, 5],
     separateSymbols: ['-', ' '],
     maxLength: 10,
   );
-  final _formatter2 = SpacesTextInputFormatter(
+  final _formatter2 = SeparateNumberTextInputFormatter(
     step: 5,
     stepSymbol: '//',
     separatorPositions: [1, 3, 5],
