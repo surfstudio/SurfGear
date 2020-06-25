@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jitsi_meet/src/jitsi_meet_controller.dart';
@@ -32,6 +33,11 @@ class _JitsiMeetWidgetState extends State<JitsiMeetWidget> {
           viewType: viewType,
           onPlatformViewCreated: _onPlatformViewCreated,
           creationParamsCodec: const StandardMessageCodec(),
+          gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
+            Factory<OneSequenceGestureRecognizer>(
+              () => EagerGestureRecognizer(),
+            ),
+          ].toSet(),
         );
       case TargetPlatform.iOS:
         return UiKitView(
