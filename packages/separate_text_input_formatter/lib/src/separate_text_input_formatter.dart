@@ -26,7 +26,7 @@ class SeparateTextInputFormatter extends TextInputFormatter {
 
   final int maxLength;
 
-  bool get _isSeparators => separatorPositions?.length != null;
+  bool get _isSeparators => (separatorPositions?.length ?? 0) > 0;
 
   RegExp get _excludeRegExp {
     return excludeRegExp ?? type.value;
