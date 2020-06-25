@@ -1,9 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 class SpacesTextInputFormatter extends TextInputFormatter {
@@ -57,7 +54,7 @@ class SpacesTextInputFormatter extends TextInputFormatter {
     final String newText = newValue.text;
     final String newNumText = _onlyNumbers(newText);
     final int newTextLength = newNumText.length;
-    final int separatorPosCount = separatorPositions.length;
+    final int separatorPosCount = separatorPositions?.length ?? 0;
     final StringBuffer buffer = StringBuffer();
 
     int rawOffset = _onlyNumbers(
@@ -100,7 +97,6 @@ class SpacesTextInputFormatter extends TextInputFormatter {
         if (result.length == maxLength) result.trim();
         result = result.substring(0, min(result.length, maxLength));
       }
-      //print('!!! $baseOffset => ${result.length}');
       calculateOffset =
           rawOffset == result.length ? rawOffset : calculateOffset;
       return TextEditingValue(
