@@ -7,6 +7,8 @@ class AuthRepository {
 
   Future<bool> auth() => _networkClient.auth();
 
+  Future<void> disconnect() => _networkClient.disconnect();
+
   Future<String> getToken() => _networkClient.getToken();
 
   Future<bool> isUserAuth() async => _networkClient.isUserAuth();

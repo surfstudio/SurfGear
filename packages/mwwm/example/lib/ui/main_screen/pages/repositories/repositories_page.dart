@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/data/repository.dart';
+import 'package:mwwm_github_client/model/auth/performers.dart';
+import 'package:mwwm_github_client/model/auth/repository/auth_repository.dart';
 import 'package:mwwm_github_client/model/common/error/standard_error_handler.dart';
 import 'package:mwwm_github_client/model/favorites/performers.dart';
 import 'package:mwwm_github_client/model/favorites/repository/favorites_repository.dart';
@@ -34,6 +36,9 @@ class RepositoriesPage extends CoreMwwmWidget {
                       ),
                       GetRepositoriesPerformer(
                         context.read<GithubRepository>(),
+                      ),
+                      DisconnectGithubPerformer(
+                        context.read<AuthRepository>(),
                       ),
                       GetFavoriteRepositoriesPerformer(
                         context.read<FavoritesRepository>(),
