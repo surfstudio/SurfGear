@@ -13,6 +13,16 @@ class AuthorizeInGithubPerformer
   Future<bool> perform(AuthorizeInGithub change) => _authRepository.auth();
 }
 
+class DisconnectGithubPerformer
+    extends FuturePerformer<void, DisconnectGithub> {
+  DisconnectGithubPerformer(this._authRepository);
+
+  final AuthRepository _authRepository;
+
+  @override
+  Future<void> perform(DisconnectGithub change) => _authRepository.disconnect();
+}
+
 class GetAccessTokenPerformer extends FuturePerformer<String, GetAccessToken> {
   GetAccessTokenPerformer(this._authRepository);
 
