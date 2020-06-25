@@ -14,6 +14,7 @@ class CanceledAuthorizationException implements Exception {
   String toString() => 'Authorization process was canceled';
 }
 
+/// Authorization failed due to invalid data
 class IncorrectClientCredentionalsException implements Exception{
   @override
   String toString() => 'Incorrect client credentionals';

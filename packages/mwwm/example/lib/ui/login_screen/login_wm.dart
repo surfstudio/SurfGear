@@ -20,24 +20,21 @@ class LoginWm extends WidgetModel {
     super.onBind();
     subscribe(
       loginAction.stream,
-      (_) async {
-        final bool isLogin = await _login();
-        if (isLogin) {
-          navigator.push(MainScreenRoute());
-        }
+      (_) {
+        doFuture<bool>(
+          _login(),
+          (isLogin) {
+            if (isLogin) {
+              navigator.push(MainScreenRoute());
+            }
+          },
+          onError: handleError,
+        );
       },
     );
   }
 
-  Future<bool> _login() async {
-    try {
-      final loginRequest = AuthorizeInGithub();
-      final isLogin = await model.perform(loginRequest);
-
-      return isLogin;
-    } on Exception catch (e) {
-      handleError(e);
-    }
-    return false;
+  Future<bool> _login() {
+    return model.perform(AuthorizeInGithub());
   }
 }
