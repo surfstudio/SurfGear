@@ -32,7 +32,7 @@ linter:
         always_require_non_null_named_parameters: true
         annotate_overrides: true
         avoid_annotating_with_dynamic: true
-        avoid_as: true
+        avoid_as: false
         avoid_bool_literals_in_conditional_expressions: true
         avoid_catches_without_on_clauses: true
         avoid_catching_errors: true
