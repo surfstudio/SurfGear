@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:mwwm_github_client/model/favorites_repository/database/database.dart';
-import 'package:mwwm_github_client/model/favorites_repository/repository/favorites_repository.dart';
-import 'package:mwwm_github_client/model/github_repository/repository/github_repository.dart';
+import 'package:mwwm_github_client/model/auth/repository/auth_repository.dart';
+import 'package:mwwm_github_client/model/common/network/auth_network_client.dart';
+import 'package:mwwm_github_client/model/favorites/database/database.dart';
+import 'package:mwwm_github_client/model/favorites/repository/favorites_repository.dart';
+import 'package:mwwm_github_client/model/github/repository/github_repository.dart';
 import 'package:mwwm_github_client/ui/app.dart';
 import 'package:provider/provider.dart';
 
@@ -13,12 +15,22 @@ void main() {
       child: MultiProvider(
         providers: [
           Provider(
-            create: (_) => WidgetModelDependencies(
+            create: (context) => AuthNetworkClient(),
+          ),
+          Provider(
+            create: (context) => AuthRepository(
+              context.read<AuthNetworkClient>(),
+            ),
+          ),
+          Provider(
+            create: (context) => WidgetModelDependencies(
               errorHandler: DefaultErrorHandler(),
             ),
           ),
           Provider(
-            create: (_) => GithubRepository(),
+            create: (context) => GithubRepository(
+              context.read<AuthNetworkClient>(),
+            ),
           ),
           Provider(
             create: (context) => FavoritesRepository(Database()),
@@ -34,8 +46,6 @@ void main() {
 class DefaultErrorHandler implements ErrorHandler {
   @override
   void handleError(Object e) {
-    //here you can place logic for error handling
-
     debugPrint(e.toString());
   }
 }
