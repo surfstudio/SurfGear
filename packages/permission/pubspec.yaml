@@ -11,7 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  permission_handler: 4.1.0
+  # before update check ios setup for deletion unused permission 
+  # and update readme
+  permission_handler: 5.0.1
 
 dev_dependencies:
   flutter_test:
