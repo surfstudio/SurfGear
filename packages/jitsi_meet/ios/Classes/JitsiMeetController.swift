@@ -21,6 +21,7 @@ let USERNAME = "displayName"
 let EMAIL = "email"
 let AVATAR_URL = "avatarURL"
 
+/// Controller to interact with dart part
 public class JitsiMeetController: NSObject, FlutterPlatformView {
     private let methodChannel: FlutterMethodChannel!
     private let pluginRegistrar: FlutterPluginRegistrar!
@@ -59,10 +60,12 @@ public class JitsiMeetController: NSObject, FlutterPlatformView {
         }
     }
     
+    /// Leave room
     private func leaveRoom(_ call: FlutterMethodCall) {
         jitsiView.leave()
     }
     
+    /// Join room with parameters
     private func joinRoom(_ call: FlutterMethodCall) {
         let params = call.arguments as! [String: Any]
         let room = params[ROOM] as! String
@@ -75,7 +78,6 @@ public class JitsiMeetController: NSObject, FlutterPlatformView {
             builder.setFeatureFlag("pip.enabled", withValue: false)
             builder.welcomePageEnabled = false
             builder.userInfo = self.userInfo
-            
             if let audio = audioMuted {
                 builder.audioMuted = audio
             }
@@ -85,11 +87,19 @@ public class JitsiMeetController: NSObject, FlutterPlatformView {
             if let audio = audioOnly {
                 builder.audioOnly = audio
             }
+            
+            /// disable picture in picture mode
+            builder.setFeatureFlag("pip.enabled", withValue: false)
+            /// disable chat, can't open keyboard
+            builder.setFeatureFlag("chat.enabled", withValue: false)
+            /// disable password creation, can't open keyboard
+            builder.setFeatureFlag("meeting-password.enabled", withValue: false)
         }
         
         jitsiView.join(options)
     }
     
+    /// Set information about user
     private func setUser(_ call: FlutterMethodCall) {
         let params = call.arguments as! [String: Any]
         
@@ -106,6 +116,14 @@ public class JitsiMeetController: NSObject, FlutterPlatformView {
 extension JitsiMeetController: JitsiMeetViewDelegate {
     public func conferenceTerminated(_ data: [AnyHashable: Any]!) {
         methodChannel.invokeMethod(ON_TERMINATED, arguments: data)
+    }
+    
+    public func conferenceJoined(_ data: [AnyHashable: Any]!) {
+        methodChannel.invokeMethod(ON_JOINED, arguments: data)
+    }
+    
+    public func conferenceWillJoin(_ data: [AnyHashable: Any]!) {
+        methodChannel.invokeMethod(ON_WILL_JOIN, arguments: data)
     }
 }
 

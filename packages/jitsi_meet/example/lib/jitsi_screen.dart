@@ -11,10 +11,13 @@ class JitsiScreen extends StatelessWidget {
     return JitsiMeetWidget(
       onControllerCreated: _onControllerCreated,
       onTerminated: () => _onTerminated(context),
+      onJoined: () => print("User join"),
+      onWillJoin: () => print("Room found"),
     );
   }
 
   void _onControllerCreated(JitsiMeetController controller) {
+    controller.setUserInfo("Example user");
     controller.joinRoom(room);
   }
 

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
@@ -12,10 +10,12 @@ const String LEAVE_ROOM = "leave_room";
 const String JOIN_ROOM = "join_room";
 const String SET_USER = "set_user";
 
+/// callbacks
 const String ON_JOINED = "on_joined";
 const String ON_WILL_JOIN = "on_will_join";
 const String ON_TERMINATED = "on_terminated";
 
+/// variables
 const String ROOM = "room";
 const String AUDIO_MUTED = "audioMuted";
 const String VIDEO_MUTED = "videoMuted";
@@ -24,6 +24,7 @@ const String USERNAME = "displayName";
 const String EMAIL = "email";
 const String AVATAR_URL = "avatarURL";
 
+/// Controller for [JitsiMeetWidget]
 class JitsiMeetController {
   /// User joined to the room
   final VoidCallback onJoined;

@@ -34,6 +34,7 @@ const val USERNAME = "displayName"
 const val EMAIL = "email"
 const val AVATAR_URL = "avatarURL"
 
+/// Controller to interact with dart part
 class JitsiMeetController : PlatformView, MethodChannel.MethodCallHandler, JitsiMeetViewListener {
     val CHANNEL_NAME: String = "surf_jitsi_meet_";
 
@@ -75,31 +76,35 @@ class JitsiMeetController : PlatformView, MethodChannel.MethodCallHandler, Jitsi
     }
 
     /// Call terminated by user or error
-    override fun onConferenceTerminated(p0: MutableMap<String, Any>?) {
-        methodChannel.invokeMethod(ON_TERMINATED, p0)
+    override fun onConferenceTerminated(data: MutableMap<String, Any>?) {
+        methodChannel.invokeMethod(ON_TERMINATED, data)
     }
 
     /// User joined the room
-    override fun onConferenceJoined(p0: MutableMap<String, Any>?) {
-        methodChannel.invokeMethod(ON_JOINED, p0)
+    /// 
+
+    override fun onConferenceJoined(data: MutableMap<String, Any>?) {
+        methodChannel.invokeMethod(ON_JOINED, data)
     }
 
     /// Room found/created but user not joined yet
-    override fun onConferenceWillJoin(p0: MutableMap<String, Any>?) {
-        methodChannel.invokeMethod(ON_WILL_JOIN, p0)
+    override fun onConferenceWillJoin(data: MutableMap<String, Any>?) {
+        methodChannel.invokeMethod(ON_WILL_JOIN, data)
     }
 
+    /// Leave room
+    private fun leaveRoom(call: MethodCall) {
+        jitsiView.leave()
+    }
 
+    /// Configuring JitsiMeetView
     private fun getJitsiView(context: Context): JitsiMeetView {
         val view = JitsiMeetView(context)
         view.listener = this
         return view
     }
 
-    private fun leaveRoom(call: MethodCall) {
-        jitsiView.leave()
-    }
-
+    /// Join the room with parameters
     private fun joinRoom(call: MethodCall) {
         val params = call.arguments as Map<String, Any>
         val room = params[ROOM] as String
@@ -111,7 +116,12 @@ class JitsiMeetController : PlatformView, MethodChannel.MethodCallHandler, Jitsi
                 .setRoom(room)
                 .setWelcomePageEnabled(false)
                 .setUserInfo(user)
+                /// disable picture in picture mode
                 .setFeatureFlag("pip.enabled", false)
+                /// disable chat, can't open keyboard
+                .setFeatureFlag("chat.enabled", false)
+                /// disable password creation, can't open keyboard
+                .setFeatureFlag("meeting-password.enabled", false)
 
         if (audioMuted != null) options.setAudioMuted(audioMuted)
         if (videoMuted != null) options.setVideoMuted(videoMuted)
@@ -120,6 +130,7 @@ class JitsiMeetController : PlatformView, MethodChannel.MethodCallHandler, Jitsi
         jitsiView.join(options.build())
     }
 
+    /// Set user information
     private fun setUser(call: MethodCall) {
         val params = call.arguments as Map<String, Any>
         user = JitsiMeetUserInfo()

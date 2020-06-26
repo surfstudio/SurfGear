@@ -1,15 +1,26 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jitsi_meet/src/jitsi_meet_controller.dart';
 
 const String viewType = 'surfstudio/jitsi_meet';
 
+/// Widget with native JitsiView
 class JitsiMeetWidget extends StatefulWidget {
+  /// callnack with controller of current widget
   final JitsiMeetViewCreatedCallback onControllerCreated;
+ 
+  /// User join to the room
   final VoidCallback onJoined;
+
+  /// Jitsi find room but user not connected yet
   final VoidCallback onWillJoin;
+
+  /// Call ended by user or error
+  /// 
+  /// Error with connection
+  /// User leave room
   final VoidCallback onTerminated;
 
   const JitsiMeetWidget({
@@ -33,11 +44,6 @@ class _JitsiMeetWidgetState extends State<JitsiMeetWidget> {
           viewType: viewType,
           onPlatformViewCreated: _onPlatformViewCreated,
           creationParamsCodec: const StandardMessageCodec(),
-          gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
-            Factory<OneSequenceGestureRecognizer>(
-              () => EagerGestureRecognizer(),
-            ),
-          ].toSet(),
         );
       case TargetPlatform.iOS:
         return UiKitView(
