@@ -1,13 +1,12 @@
+import 'package:flutter/services.dart';
 import 'package:surf_text_input_formatter/src/separate_text_input_formatter.dart';
 import 'package:surf_text_input_formatter/src/separate_text_input_formatter_type.dart';
 
-/// [TextInputFormatter] for the payment card
-class PaymentCardTextInputFormatter extends SeparateTextInputFormatter {
-  PaymentCardTextInputFormatter()
+/// [TextInputFormatter] for KPP
+class KppTextInputFormatter extends SeparateTextInputFormatter {
+  KppTextInputFormatter()
       : super(
-          step: 4,
-          stepSymbol: ' ',
-          maxLength: 19,
+          maxLength: 9,
           type: SeparateTextInputFormatterType.number,
         );
 }

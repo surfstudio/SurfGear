@@ -4,20 +4,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:surf_text_input_formatter/src/separate_text_input_formatter_type.dart';
 
-/// [TextInputFormatter] для числового ввода
+/// [TextInputFormatter] with custom parameters
 class SeparateTextInputFormatter extends TextInputFormatter {
   static const EMPTY_STRING = '';
 
-  /// Позиции для пробелов
+  /// Positions for delimiters
   List<int> separatorPositions;
 
-  /// Символы разделители
-  /// Соответствуют [separatorPositions]
-  /// Если [separatorPositions] меньше
-  /// - будет использоваться последний разделитель из списка
+  /// Separator characters
+  /// Match [separatorPositions]
+  /// If [separatorPositions] is less
+  /// - the last separator from the list will be used
   List<String> separateSymbols;
 
-  /// Шаг позици пробелов, если нужно их равномерно вставить
+  /// Space position step, if you need to paste them evenly
   final int step;
   final String stepSymbol;
   final RegExp excludeRegExp;
@@ -133,13 +133,13 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     return calculateOffset;
   }
 
-  /// Удалить все кроме regExp
+  /// Delete everything except regExp
   @protected
   String onlyNeedSymbols(String text) {
     return text.replaceAll(excludeRegExpValue, EMPTY_STRING);
   }
 
-  /// Проверка на посимвольное ручное удаление
+  /// Check for character-by-character manual deletion
   @protected
   bool isManualRemove(
     TextEditingValue oldValue,

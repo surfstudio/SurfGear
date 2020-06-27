@@ -3,9 +3,9 @@ import 'package:surf_text_input_formatter/src/parser.dart';
 import 'package:surf_text_input_formatter/src/separate_text_input_formatter.dart';
 import 'package:surf_text_input_formatter/src/separate_text_input_formatter_type.dart';
 
-/// [TextInputFormatter] для текстового поля
-/// Форматирует введенную строку с числами в
-/// Дату в виде ДД.ММ.ГГГГ
+/// [TextInputFormatter] for the text field
+/// Formats the entered string with numbers in
+/// Date in the form of DD.MM.YYYY
 class DdMmYyyyTextInputFormatter extends SeparateTextInputFormatter {
   final int _dayEndLastCount = 2;
   final int _monthEndLastCount = 4;

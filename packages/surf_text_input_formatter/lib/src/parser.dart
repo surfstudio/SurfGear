@@ -1,8 +1,8 @@
 /**
- * Набор парсеров данных
- */
+* A set of data parsers
+*/
 
-/// парсинг в [int]
+/// parsing in [int]
 int parseInt(dynamic from) {
   if (from == null) return from;
   if (from is int) return from;
@@ -12,7 +12,7 @@ int parseInt(dynamic from) {
   throw FormatException("can't parse to int");
 }
 
-/// парсинг в [double]
+/// parsing in [double]
 double parseDouble(dynamic from) {
   if (from == null) return from;
   if (from is int) return from.toDouble();

@@ -1,5 +1,8 @@
+import 'package:flutter/services.dart';
+
 final _noNumberRegExp = RegExp(r"\D");
 
+/// Character types for [TextInputFormatter]
 enum SeparateTextInputFormatterType {
   number,
   word,

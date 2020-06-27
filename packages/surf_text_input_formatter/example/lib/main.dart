@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:surf_text_input_formatter/surf_text_input_formatter.dart';
 
 void main() => runApp(MyApp());
@@ -26,7 +27,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   final _paymentCardFormatter = PaymentCardTextInputFormatter();
 
   final _formatter0 = SeparateTextInputFormatter(
@@ -54,28 +54,37 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Text('xxxx xxxx xxxx xxxx (Платежная карта)'),
-            TextField(
-              inputFormatters: [_paymentCardFormatter],
-              keyboardType: TextInputType.number,
+            _buildItem(
+              text: 'xxxx xxxx xxxx xxxx (Платежная карта)',
+              formatter: _paymentCardFormatter,
             ),
-            const SizedBox(height: 20),
-            Text('xxx-x x xx'),
-            TextField(
-              inputFormatters: [_formatter0],
-              keyboardType: TextInputType.number,
+            _buildItem(text: 'xxx-x x xx', formatter: _formatter0),
+            _buildItem(
+              text: 'x-x.x,xx//xxxxx//xxxxx//xxxxx (без ограничений на длину)',
+              formatter: _formatter1,
             ),
-            const SizedBox(height: 20),
-            Text('x-x.x,xx//xxxxx//xxxxx//xxxxx (без ограничений на длину)'),
-            TextField(
-              inputFormatters: [_formatter1],
-              keyboardType: TextInputType.number,
+            _buildItem(text: 'xx.xx.xxxx (Дата)', formatter: _dateFormatter),
+            _buildItem(
+              text: 'ИНН физлица',
+              formatter: InnTextInputFormatter.individual(),
             ),
-            const SizedBox(height: 20),
-            Text('xx.xx.xxxx (Дата)'),
-            TextField(
-              inputFormatters: [_dateFormatter],
-              keyboardType: TextInputType.number,
+            _buildItem(
+              text: 'ИНН юрлица',
+              formatter: InnTextInputFormatter.entity(),
+            ),
+            _buildItem(text: 'КПП', formatter: KppTextInputFormatter()),
+            _buildItem(text: 'Бик', formatter: BicTextInputFormatter()),
+            _buildItem(
+              text: 'Номер счета',
+              formatter: AccountNumberTextInputFormatter(),
+            ),
+            _buildItem(
+              text: 'УИН/УИП',
+              formatter: UinUipTextInputFormatter(),
+            ),
+            AnimatedPadding(
+              duration: const Duration(microseconds: 200),
+              padding: MediaQuery.of(context).viewInsets,
             ),
           ],
         ),
@@ -83,4 +92,22 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Widget _buildItem({
+    @required String text,
+    @required TextInputFormatter formatter,
+    TextInputType keyboardType = TextInputType.number,
+  }) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(text),
+        TextField(
+          inputFormatters: [formatter],
+          keyboardType: keyboardType,
+        ),
+        const SizedBox(height: 20),
+      ],
+    );
+  }
 }
