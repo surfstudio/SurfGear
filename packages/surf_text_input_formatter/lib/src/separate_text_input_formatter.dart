@@ -2,21 +2,14 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:separate_text_input_formatter/src/separate_text_input_formatter_type.dart';
+import 'package:surf_text_input_formatter/src/separate_text_input_formatter_type.dart';
 
 /// [TextInputFormatter] для числового ввода
 class SeparateTextInputFormatter extends TextInputFormatter {
-  static const _EMPTY_STRING = '';
+  static const EMPTY_STRING = '';
 
   /// Позиции для пробелов
   List<int> separatorPositions;
-
-  /// Шаг позици пробелов, если нужно их равномерно вставить
-  final int step;
-
-  final String stepSymbol;
-  final RegExp excludeRegExp;
-  final SeparateTextInputFormatterType type;
 
   /// Символы разделители
   /// Соответствуют [separatorPositions]
@@ -24,11 +17,18 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   /// - будет использоваться последний разделитель из списка
   List<String> separateSymbols;
 
+  /// Шаг позици пробелов, если нужно их равномерно вставить
+  final int step;
+  final String stepSymbol;
+  final RegExp excludeRegExp;
+  final SeparateTextInputFormatterType type;
+
   final int maxLength;
 
   bool get _isSeparators => (separatorPositions?.length ?? 0) > 0;
 
-  RegExp get _excludeRegExp {
+  @protected
+  RegExp get excludeRegExpValue {
     return excludeRegExp ?? type.value;
   }
 
@@ -62,12 +62,12 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   ) {
     if (isManualRemove(oldValue, newValue)) return newValue;
     final String newText = newValue.text;
-    final String newNumText = _onlyNeedSymbols(newText);
-    final int newTextLength = newNumText.length;
+    final String newRawText = onlyNeedSymbols(newText);
+    final int newTextLength = newRawText.length;
     final int separatorPosCount = separatorPositions?.length ?? 0;
     final StringBuffer buffer = StringBuffer();
 
-    int rawOffset = _onlyNeedSymbols(
+    int rawOffset = onlyNeedSymbols(
       newText.substring(0, newValue.selection.baseOffset),
     ).length;
 
@@ -77,7 +77,7 @@ class SeparateTextInputFormatter extends TextInputFormatter {
 
     try {
       for (int i = 0; i < newTextLength; i++) {
-        buffer.write(newNumText[i]);
+        buffer.write(newRawText[i]);
         if (step != null && i > 0 && (i + 1) % step == 0) {
           buffer.write(stepSymbol);
           calculateOffset = _updateOffset(
@@ -105,10 +105,6 @@ class SeparateTextInputFormatter extends TextInputFormatter {
       String result = buffer.toString();
 
       if (maxLength != null) {
-//        final String trimmedResult = result.trim();
-//        if (trimmedResult.length >= maxLength) {
-//          result = trimmedResult;
-//        }
         if (result.length >= maxLength) result = result.substring(0, maxLength);
         result = result.substring(0, min(result.length, maxLength));
       }
@@ -138,20 +134,22 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   }
 
   /// Удалить все кроме regExp
-  String _onlyNeedSymbols(String text) {
-    return text.replaceAll(_excludeRegExp, _EMPTY_STRING);
+  @protected
+  String onlyNeedSymbols(String text) {
+    return text.replaceAll(excludeRegExpValue, EMPTY_STRING);
   }
 
   /// Проверка на посимвольное ручное удаление
+  @protected
   bool isManualRemove(
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
-    final int newTextLength = _onlyNeedSymbols(newValue.text).length;
+    final int newTextLength = onlyNeedSymbols(newValue.text).length;
 
     return (oldValue.text.length > 0 &&
             newValue.text.length == oldValue.text.length - 1) &&
         newTextLength ==
-            _onlyNeedSymbols(oldValue.text).substring(0, newTextLength).length;
+            onlyNeedSymbols(oldValue.text).substring(0, newTextLength).length;
   }
 }

@@ -1,4 +1,4 @@
-name: separate_text_input_formatter
+name: surf_text_input_formatter
 description: A library containing a TextInputFormatter with an arbitrary number of spaces
 version: 0.0.1
 homepage: https://github.com/surfstudio/render_metrics
@@ -20,6 +20,6 @@ custom:
   is_stable: false
   unstable_version: 0
   is_plugin: false
-  path: separates_text_input_formatter
+  path: surf_text_input_formatter
   separate_repo_url:
   hostUrl:

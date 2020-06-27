@@ -28,7 +28,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
-  separate_text_input_formatter:
+  surf_text_input_formatter:
     path: ..
 
 dev_dependencies:

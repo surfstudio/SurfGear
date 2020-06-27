@@ -1,4 +1,0 @@
-library separate_text_input_formatter;
-
-export 'package:separate_text_input_formatter/src/separate_text_input_formatter.dart';
-export 'package:separate_text_input_formatter/src/separate_text_input_formatter_type.dart';
