@@ -17,6 +17,7 @@ class JitsiScreen extends StatelessWidget {
   }
 
   void _onControllerCreated(JitsiMeetController controller) {
+    controller.setFeatureFlag("chat.enabled", true);
     controller.setUserInfo("Example user");
     controller.joinRoom(room);
   }

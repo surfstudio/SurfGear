@@ -10,6 +10,7 @@ let ON_JOINED: String = "on_joined"
 let ON_WILL_JOIN: String = "on_will_join"
 let ON_TERMINATED: String = "on_terminated"
 let SET_USER: String = "set_user"
+let SET_FEATURE_FLAG: String = "set_feature_flag"
 
 /// Variables
 let ROOM = "room"
@@ -21,12 +22,16 @@ let USERNAME = "displayName"
 let EMAIL = "email"
 let AVATAR_URL = "avatarURL"
 
+let FLAG = "flag"
+let FLAG_VALUE = "flag_value"
+
 /// Controller to interact with dart part
 public class JitsiMeetController: NSObject, FlutterPlatformView {
     private let methodChannel: FlutterMethodChannel!
     private let pluginRegistrar: FlutterPluginRegistrar!
     private let jitsiView: JitsiMeetView
     private var userInfo: JitsiMeetUserInfo?
+    private var features: [String: Bool] = [:]
     
     public required init(id: Int64, frame: CGRect, registrar: FlutterPluginRegistrar) {
         self.pluginRegistrar = registrar
@@ -54,6 +59,9 @@ public class JitsiMeetController: NSObject, FlutterPlatformView {
             result(nil)
         case SET_USER:
             setUser(call)
+            result(nil)
+        case SET_FEATURE_FLAG:
+            setFeatureFlag(call)
             result(nil)
         default:
             result(FlutterMethodNotImplemented)
@@ -94,6 +102,10 @@ public class JitsiMeetController: NSObject, FlutterPlatformView {
             builder.setFeatureFlag("chat.enabled", withValue: false)
             /// disable password creation, can't open keyboard
             builder.setFeatureFlag("meeting-password.enabled", withValue: false)
+            
+            self.features.forEach { (key: String, value: Bool) in
+                builder.setFeatureFlag(key, withValue: value)
+            }
         }
         
         jitsiView.join(options)
@@ -109,6 +121,18 @@ public class JitsiMeetController: NSObject, FlutterPlatformView {
         let avatarUrl = params[AVATAR_URL] as? String
         if let url = avatarUrl {
             userInfo?.avatar = URL(string: url)
+        }
+    }
+    
+    /// Set enabled feature state
+    private func setFeatureFlag(_ call: FlutterMethodCall) {
+        let params = call.arguments as! [String: Any]
+        
+        let flag = params[FLAG] as? String
+        let value = params[FLAG_VALUE] as? Bool
+        
+        if flag != nil && value != nil {
+            features[flag!] = value!
         }
     }
 }

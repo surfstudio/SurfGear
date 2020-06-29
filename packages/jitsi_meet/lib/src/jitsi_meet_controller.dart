@@ -9,6 +9,7 @@ const String CHANNEL_NAME = "surf_jitsi_meet_";
 const String LEAVE_ROOM = "leave_room";
 const String JOIN_ROOM = "join_room";
 const String SET_USER = "set_user";
+const String SET_FEATURE_FLAG = "set_feature_flag";
 
 /// callbacks
 const String ON_JOINED = "on_joined";
@@ -23,6 +24,8 @@ const String AUDIO_ONLY = "audioOnly";
 const String USERNAME = "displayName";
 const String EMAIL = "email";
 const String AVATAR_URL = "avatarURL";
+const String FLAG = "flag";
+const String FLAG_VALUE = "flag_value";
 
 /// Controller for [JitsiMeetWidget]
 class JitsiMeetController {
@@ -82,6 +85,18 @@ class JitsiMeetController {
       USERNAME: username,
       EMAIL: email,
       AVATAR_URL: avatarURL,
+    });
+  }
+
+  /// Set enabled state to feature
+  ///
+  /// features of current Jitsi plugin version
+  /// for more feature flags update jitsi meet plugin version
+  /// https://github.com/jitsi/jitsi-meet/blob/e5b563ba46f168b622bf4ccdae1695b438bc7487/react/features/base/flags/constants.js
+  Future<void> setFeatureFlag(String flag, bool value) async {
+    await _channel.invokeMethod<void>(SET_FEATURE_FLAG, <String, dynamic>{
+      FLAG: flag,
+      FLAG_VALUE: value,
     });
   }
 

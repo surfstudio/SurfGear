@@ -14,6 +14,7 @@ import org.jitsi.meet.sdk.JitsiMeetView
 import org.jitsi.meet.sdk.JitsiMeetViewListener
 import java.net.URL
 import java.util.*
+import kotlin.collections.HashMap
 
 
 /// Methods
@@ -23,6 +24,7 @@ const val ON_JOINED: String = "on_joined"
 const val ON_WILL_JOIN: String = "on_will_join"
 const val ON_TERMINATED: String = "on_terminated"
 const val SET_USER: String = "set_user"
+const val SET_FEATURE_FLAG: String = "set_feature_flag"
 
 /// Variables
 const val ROOM = "room"
@@ -34,6 +36,9 @@ const val USERNAME = "displayName"
 const val EMAIL = "email"
 const val AVATAR_URL = "avatarURL"
 
+const val FLAG = "flag"
+const val FLAG_VALUE = "flag_value"
+
 /// Controller to interact with dart part
 class JitsiMeetController : PlatformView, MethodChannel.MethodCallHandler, JitsiMeetViewListener {
     val CHANNEL_NAME: String = "surf_jitsi_meet_";
@@ -42,6 +47,7 @@ class JitsiMeetController : PlatformView, MethodChannel.MethodCallHandler, Jitsi
     private var methodChannel: MethodChannel
     private var pluginContext: Context
     private var user: JitsiMeetUserInfo? = null
+    private val features = HashMap<String, Boolean>()
 
     override fun getView(): android.view.View = jitsiView
 
@@ -69,6 +75,10 @@ class JitsiMeetController : PlatformView, MethodChannel.MethodCallHandler, Jitsi
             }
             SET_USER -> {
                 setUser(call)
+                result.success(null)
+            }
+            SET_FEATURE_FLAG -> {
+                setFeatureFlag(call)
                 result.success(null)
             }
             else -> result.notImplemented()
@@ -127,6 +137,8 @@ class JitsiMeetController : PlatformView, MethodChannel.MethodCallHandler, Jitsi
         if (videoMuted != null) options.setVideoMuted(videoMuted)
         if (audioOnly != null) options.setAudioOnly(audioOnly)
 
+        features.forEach { (flag, value) -> options.setFeatureFlag(flag, value) }
+
         jitsiView.join(options.build())
     }
 
@@ -139,6 +151,17 @@ class JitsiMeetController : PlatformView, MethodChannel.MethodCallHandler, Jitsi
         val avatarUrl = params[AVATAR_URL] as? String
         if (avatarUrl != null) {
             user!!.avatar = URL(avatarUrl)
+        }
+    }
+
+    /// set enabled state of feature
+    private fun setFeatureFlag(call: MethodCall) {
+        val params = call.arguments as Map<String, Any>
+        val feature = params[FLAG] as? String
+        val value = params[FLAG_VALUE] as? Boolean
+
+        if (feature != null && value != null) {
+            features[feature] = value
         }
     }
 }
