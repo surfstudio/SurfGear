@@ -45,21 +45,21 @@
     },
     {
       "name": "connectivity",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/connectivity-0.4.8+2",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/connectivity-0.4.8+6",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.1"
     },
     {
       "name": "connectivity_macos",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/connectivity_macos-0.1.0+2",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/connectivity_macos-0.1.0+3",
       "packageUri": "lib/",
       "languageVersion": "2.1"
     },
     {
       "name": "connectivity_platform_interface",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/connectivity_platform_interface-1.0.3",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/connectivity_platform_interface-1.0.6",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.1"
     },
     {
       "name": "convert",
@@ -81,13 +81,19 @@
     },
     {
       "name": "equatable",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/equatable-1.1.1",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/equatable-1.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
     {
       "name": "fake_async",
       "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/fake_async-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
+    },
+    {
+      "name": "file",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/file-5.2.1",
       "packageUri": "lib/",
       "languageVersion": "2.2"
     },
@@ -129,7 +135,7 @@
     },
     {
       "name": "geolocator",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/geolocator-5.3.1",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/geolocator-5.3.2+2",
       "packageUri": "lib/",
       "languageVersion": "2.1"
     },
@@ -171,7 +177,7 @@
     },
     {
       "name": "location_permissions",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/location_permissions-2.0.5",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/location_permissions-3.0.0+1",
       "packageUri": "lib/",
       "languageVersion": "2.1"
     },
@@ -231,33 +237,39 @@
     },
     {
       "name": "path_provider",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.7",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.11",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "path_provider_linux",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-0.0.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
     },
     {
       "name": "path_provider_macos",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-0.0.4+1",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-0.0.4+3",
       "packageUri": "lib/",
       "languageVersion": "2.1"
     },
     {
       "name": "path_provider_platform_interface",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/path_provider_platform_interface-1.0.1",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/path_provider_platform_interface-1.0.2",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.1"
     },
     {
       "name": "pedantic",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/pedantic-1.8.0+1",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/pedantic-1.9.0",
       "packageUri": "lib/",
       "languageVersion": "2.1"
     },
     {
       "name": "petitparser",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/petitparser-2.4.0",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/petitparser-3.0.4",
       "packageUri": "lib/",
-      "languageVersion": "2.4"
+      "languageVersion": "2.7"
     },
     {
       "name": "platform",
@@ -270,6 +282,12 @@
       "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/plugin_platform_interface-1.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.1"
+    },
+    {
+      "name": "process",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/process-3.0.13",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
     },
     {
       "name": "push_notification",
@@ -297,21 +315,21 @@
     },
     {
       "name": "shared_preferences_macos",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/shared_preferences_macos-0.0.1+7",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/shared_preferences_macos-0.0.1+10",
       "packageUri": "lib/",
       "languageVersion": "2.1"
     },
     {
       "name": "shared_preferences_platform_interface",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/shared_preferences_platform_interface-1.0.3",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/shared_preferences_platform_interface-1.0.4",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.1"
     },
     {
       "name": "shared_preferences_web",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-0.1.2+4",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-0.1.2+7",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.1"
     },
     {
       "name": "sky_engine",
@@ -392,10 +410,16 @@
       "languageVersion": "2.0"
     },
     {
-      "name": "xml",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/xml-3.5.0",
+      "name": "xdg_directories",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/xdg_directories-0.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.3"
+    },
+    {
+      "name": "xml",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/xml-3.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
     },
     {
       "name": "flutter_template",
@@ -404,7 +428,7 @@
       "languageVersion": "2.5"
     }
   ],
-  "generated": "2020-06-30T12:15:52.458637Z",
+  "generated": "2020-06-30T12:56:47.728432Z",
   "generator": "pub",
   "generatorVersion": "2.9.0-13.0.dev.flutter-87c5e3612b"
 }
