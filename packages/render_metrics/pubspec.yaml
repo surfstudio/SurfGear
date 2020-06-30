@@ -1,0 +1,25 @@
+name: render_metrics
+description: Library for getting widget metrics. Uses RenderObject to get the size and position of widgets relative to the screen window, as well as the difference between widgets.
+version: 1.0.1
+homepage: https://github.com/surfstudio/render_metrics
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+custom:
+  is_stable: false
+  unstable_version: 0
+  is_plugin: false
+  path: render_metrics
+  separate_repo_url: https://github.com/surfstudio/render_metrics
+  hostUrl:

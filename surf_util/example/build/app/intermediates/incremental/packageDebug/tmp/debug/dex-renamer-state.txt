@@ -1,0 +1,4 @@
+#Wed Jan 29 14:04:09 MSK 2020
+base.0=/Users/saturov/StudioProjects/flutter-standard/surf_util/example/build/app/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex

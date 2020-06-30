@@ -1,0 +1,21 @@
+Index: mwwm/pubspec.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>name: mwwm\ndescription: Reflection of widget in a single entity\nversion: 0.0.2\nauthor:\nhomepage:\n\nenvironment:\n  sdk: \">=2.1.0 <3.0.0\"\n\ndependencies:\n  flutter:\n    sdk: flutter\n\n  #внутренние библиотеки\n  injector:\n    git:\n      url: https://bitbucket.org/surfstudio/flutter-standard.git\n      ref: project-ROS-test\n      path: injector\n  logger:\n    git:\n      url: https://bitbucket.org/surfstudio/flutter-standard.git\n      ref: project-ROS-test\n      path: logger\n\n  #rx\n  rxdart: 0.22.0\n\ndev_dependencies:\n  flutter_test:\n    sdk: flutter\n\n  pedantic: ^1.7.0\n\nflutter:\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- mwwm/pubspec.yaml	(revision 0cdabacffb942b69f796ceb72ba72eff239a7499)
++++ mwwm/pubspec.yaml	(date 1580300157000)
+@@ -20,7 +20,11 @@
+   logger:
+     git:
+       url: https://bitbucket.org/surfstudio/flutter-standard.git
++<<<<<<< HEAD
+       ref: project-ROS-test
++=======
++      ref: project-ROS-27
++>>>>>>> 1619f20... ROS-1956 - Logger подключен в модуль MWWM
+       path: logger
+ 
+   #rx
