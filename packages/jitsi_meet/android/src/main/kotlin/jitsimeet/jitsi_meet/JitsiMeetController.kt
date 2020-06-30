@@ -1,16 +1,15 @@
 package jitsimeet.jitsi_meet
 
 import android.content.Context
-import android.os.Bundle
-import com.dropbox.core.v2.sharing.UserInfo
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.platform.PlatformView
-import org.jitsi.meet.sdk.*
+import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
+import org.jitsi.meet.sdk.JitsiMeetUserInfo
+import org.jitsi.meet.sdk.JitsiMeetView
 import java.net.URL
-import java.util.*
 import kotlin.collections.HashMap
 
 
