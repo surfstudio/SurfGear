@@ -2,10 +2,22 @@
   "configVersion": 2,
   "packages": [
     {
-      "name": "archive",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/archive-2.0.11",
+      "name": "_fe_analyzer_shared",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/_fe_analyzer_shared-4.0.0",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.2"
+    },
+    {
+      "name": "analyzer",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/analyzer-0.39.10",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
+      "name": "analyzer_plugin",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/analyzer_plugin-0.2.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.3"
     },
     {
       "name": "args",
@@ -15,25 +27,97 @@
     },
     {
       "name": "async",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/async-2.4.0",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/async-2.4.1",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.2"
     },
     {
       "name": "boolean_selector",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/boolean_selector-1.0.5",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.4"
+    },
+    {
+      "name": "build",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/build-1.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
+      "name": "build_config",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/build_config-0.4.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
+      "name": "build_daemon",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/build_daemon-2.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
+      "name": "build_resolvers",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/build_resolvers-1.3.9",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
+      "name": "build_runner",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/build_runner-1.10.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
+      "name": "build_runner_core",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/build_runner_core-5.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
+      "name": "built_collection",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/built_collection-4.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
+      "name": "built_value",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/built_value-7.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.3"
+    },
+    {
+      "name": "charcode",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/charcode-1.1.3",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
     {
-      "name": "charcode",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/charcode-1.1.2",
+      "name": "checked_yaml",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/checked_yaml-1.0.2",
       "packageUri": "lib/",
-      "languageVersion": "1.0"
+      "languageVersion": "2.3"
+    },
+    {
+      "name": "cli_util",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/cli_util-0.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "clock",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/clock-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "code_builder",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/code_builder-3.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
     },
     {
       "name": "collection",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/collection-1.14.11",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/collection-1.14.12",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -45,7 +129,13 @@
     },
     {
       "name": "crypto",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/crypto-2.1.3",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/crypto-2.1.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.3"
+    },
+    {
+      "name": "csslib",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/csslib-0.16.1",
       "packageUri": "lib/",
       "languageVersion": "2.1"
     },
@@ -56,10 +146,52 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "dart_style",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/dart_style-1.3.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
+      "name": "dio",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/dio-3.0.9",
+      "packageUri": "lib/",
+      "languageVersion": "2.4"
+    },
+    {
+      "name": "fake_async",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/fake_async-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
+    },
+    {
+      "name": "ffi",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/ffi-0.1.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
+      "name": "file",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/file-5.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
+    },
+    {
+      "name": "fixnum",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/fixnum-0.10.11",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///Users/saturov/Library/flutter/packages/flutter",
       "packageUri": "lib/",
       "languageVersion": "2.2"
+    },
+    {
+      "name": "flutter_secure_storage",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/flutter_secure_storage-3.3.3",
+      "packageUri": "lib/",
+      "languageVersion": "1.19"
     },
     {
       "name": "flutter_test",
@@ -68,8 +200,74 @@
       "languageVersion": "2.2"
     },
     {
-      "name": "image",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/image-2.1.4",
+      "name": "flutter_web_auth",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/flutter_web_auth-0.2.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "glob",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/glob-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "graphs",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/graphs-0.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "html",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/html-0.14.0+3",
+      "packageUri": "lib/",
+      "languageVersion": "2.3"
+    },
+    {
+      "name": "http",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/http-0.12.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.4"
+    },
+    {
+      "name": "http_multi_server",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/http_multi_server-2.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "http_parser",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/http_parser-3.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.3"
+    },
+    {
+      "name": "intl",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/intl-0.16.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.5"
+    },
+    {
+      "name": "io",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/io-0.3.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "js",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/js-0.6.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "json_annotation",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/json_annotation-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
+      "name": "logging",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/logging-0.11.4",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -86,16 +284,100 @@
       "languageVersion": "1.12"
     },
     {
+      "name": "mime",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/mime-0.9.6+3",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "moor",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/moor-3.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
+      "name": "moor_ffi",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/moor_ffi-0.6.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
+      "name": "moor_flutter",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/moor_flutter-3.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "moor_generator",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/moor_generator-3.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
       "name": "mwwm",
       "rootUri": "../../",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
+      "name": "nested",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/nested-0.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
+    },
+    {
+      "name": "node_interop",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/node_interop-1.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "node_io",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/node_io-1.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
+    },
+    {
+      "name": "oauth2_client",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/oauth2_client-1.4.2",
       "packageUri": "lib/",
       "languageVersion": "2.1"
     },
     {
+      "name": "package_config",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/package_config-1.9.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
       "name": "path",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/path-1.6.4",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/path-1.7.0",
       "packageUri": "lib/",
       "languageVersion": "2.0"
+    },
+    {
+      "name": "path_provider",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.11",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "path_provider_linux",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-0.0.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "path_provider_macos",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-0.0.4+3",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "path_provider_platform_interface",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/path_provider_platform_interface-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
     },
     {
       "name": "pedantic",
@@ -104,10 +386,46 @@
       "languageVersion": "2.1"
     },
     {
-      "name": "petitparser",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/petitparser-2.4.0",
+      "name": "platform",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/platform-2.2.1",
       "packageUri": "lib/",
-      "languageVersion": "2.4"
+      "languageVersion": "1.24"
+    },
+    {
+      "name": "plugin_platform_interface",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/plugin_platform_interface-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "pool",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/pool-1.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "process",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/process-3.0.13",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "provider",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/provider-4.1.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
+      "name": "pub_semver",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/pub_semver-1.4.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "pubspec_parse",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/pubspec_parse-0.1.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
     },
     {
       "name": "quiver",
@@ -116,10 +434,40 @@
       "languageVersion": "2.0"
     },
     {
-      "name": "rxdart",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/rxdart-0.23.1",
+      "name": "random_string",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/random_string-2.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "recase",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/recase-3.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.6"
+    },
+    {
+      "name": "relation",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/relation-0.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
+      "name": "rxdart",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/rxdart-0.24.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
+      "name": "shelf",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/shelf-0.7.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "shelf_web_socket",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/shelf_web_socket-0.2.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
     },
     {
       "name": "sky_engine",
@@ -128,10 +476,34 @@
       "languageVersion": "1.11"
     },
     {
-      "name": "source_span",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/source_span-1.5.5",
+      "name": "source_gen",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/source_gen-0.9.5",
       "packageUri": "lib/",
-      "languageVersion": "1.8"
+      "languageVersion": "2.5"
+    },
+    {
+      "name": "source_span",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/source_span-1.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
+      "name": "sqflite",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/sqflite-1.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
+      "name": "sqflite_common",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/sqflite_common-1.0.2+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
+      "name": "sqlparser",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/sqlparser-0.10.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
     },
     {
       "name": "stack_trace",
@@ -146,10 +518,22 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "stream_transform",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/stream_transform-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
       "name": "string_scanner",
       "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.0.5",
       "packageUri": "lib/",
       "languageVersion": "2.0"
+    },
+    {
+      "name": "synchronized",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/synchronized-2.2.0+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.8"
     },
     {
       "name": "term_glyph",
@@ -159,7 +543,13 @@
     },
     {
       "name": "test_api",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/test_api-0.2.11",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/test_api-0.2.16",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
+      "name": "timing",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/timing-0.1.1+2",
       "packageUri": "lib/",
       "languageVersion": "2.2"
     },
@@ -176,19 +566,37 @@
       "languageVersion": "2.0"
     },
     {
-      "name": "xml",
-      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/xml-3.5.0",
+      "name": "watcher",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/watcher-0.9.7+15",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
+    },
+    {
+      "name": "web_socket_channel",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/web_socket_channel-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "xdg_directories",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/xdg_directories-0.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.3"
     },
     {
-      "name": "counter",
+      "name": "yaml",
+      "rootUri": "file:///Users/saturov/.pub-cache/hosted/pub.dartlang.org/yaml-2.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.4"
+    },
+    {
+      "name": "mwwm_github_client",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "2.1"
+      "languageVersion": "2.7"
     }
   ],
-  "generated": "2020-04-22T09:29:52.157303Z",
+  "generated": "2020-06-30T12:04:13.383758Z",
   "generator": "pub",
-  "generatorVersion": "2.7.2"
+  "generatorVersion": "2.9.0-13.0.dev.flutter-87c5e3612b"
 }
