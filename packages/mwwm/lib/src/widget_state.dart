@@ -38,6 +38,7 @@ abstract class WidgetState<WM extends WidgetModel>
 
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
     if (wm == null) {
       wm = widget.widgetModelBuilder(context)
         ..onLoad()
