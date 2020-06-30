@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _run() {
     LoadScenario<String>(
       make: _getData,
-      onLoad: () => print('load'),
+      onLoad: (_) => print('load'),
       onData: (String data) => _streamController.add(data),
       ifHasData: (String data) => print('ifHasData = $data'),
       ifNoData: () => print('ifNoData'),
@@ -82,22 +82,22 @@ class _MyHomePageState extends State<MyHomePage> {
     ).run();
   }
 
-  void _runFromScenario() {
-    LoadScenario<String>.fromScenario(
-      scenario: Scenario(
-        steps: [
-          ScenarioStep<String>(
-              make: (_) async => '10',
-          ),
-        ]
-      ),
-      onLoad: () => print('load fromScenario'),
-      onData: (String data) => print('onData fromScenario = $data'),
-      ifHasData: (String data) => _streamController.add('fromScenario $data'),
-      ifNoData: () => _streamController.add('fromScenario 0'),
-      onError: (_) => _streamController.add('fromScenario -1'),
-    ).run();
-  }
+//  void _runFromScenario() {
+//    LoadScenario<String>.fromScenario(
+//      scenario: Scenario(
+//        steps: [
+//          ScenarioStep<String>(
+//              make: (_) async => '10',
+//          ),
+//        ]
+//      ),
+//      onLoad: () => print('load fromScenario'),
+//      onData: (String data) => print('onData fromScenario = $data'),
+//      ifHasData: (String data) => _streamController.add('fromScenario $data'),
+//      ifNoData: () => _streamController.add('fromScenario 0'),
+//      onError: (_) => _streamController.add('fromScenario -1'),
+//    ).run();
+//  }
 
   Future<String> _getData(_) async {
     await Future.delayed(const Duration(seconds: 2));

@@ -7,8 +7,10 @@ import 'package:scenario/types.dart';
 
 /// Сценарий загрузки данных
 class LoadScenario<T> extends BaseScenario {
+  ScenarioMakeCallback<T> make;
+
   /// Колбэк начала загрузки
-  VoidCallback onLoad;
+  LoadScenarioCallback onLoad;
 
   /// Колбэк получения данных
   LoadScenarioDataCallback<T> onData;
@@ -33,7 +35,7 @@ class LoadScenario<T> extends BaseScenario {
   T _prevData;
 
   LoadScenario({
-    @required ScenarioMakeCallback<T> make,
+    @required this.make,
     this.onLoad,
     this.onData,
     this.ifHasData,
@@ -41,51 +43,50 @@ class LoadScenario<T> extends BaseScenario {
     this.onEmpty,
     this.onError,
     bool isCached,
-  }) : isCached = isCached ?? false {
-    _scenario = Scenario<T>(
-      steps: [
-        ScenarioStep<T>(
-          make: make,
-        ),
-      ],
-    );
-  }
+  }) : isCached = isCached ?? false;
 
-  factory LoadScenario.fromScenario({
-    @required Scenario<T> scenario,
-    VoidCallback onLoad,
-    LoadScenarioDataCallback<T> onData,
-    LoadScenarioDataCallback<T> ifHasData,
-    VoidCallback ifNoData,
-    ErrorScenarioCallback onError,
-  }) {
-    return LoadScenario<T>(
-      make: (_) async => await scenario
-          .run()
-          .then(
-            (Result<T> r) => r.data,
-          )
-          .catchError(
-            (e) => onError(
-              Exception(e.message),
-            ),
-          ),
-      onLoad: onLoad,
-      onData: onData,
-      ifHasData: ifHasData,
-      ifNoData: ifNoData,
-      onError: onError,
-    );
-  }
+//  factory LoadScenario.fromScenario({
+//    @required Scenario<T> scenario,
+//    VoidCallback onLoad,
+//    LoadScenarioDataCallback<T> onData,
+//    LoadScenarioDataCallback<T> ifHasData,
+//    VoidCallback ifNoData,
+//    ErrorScenarioCallback onError,
+//  }) {
+//    return LoadScenario<T>(
+//      make: (_) async => await scenario
+//          .run()
+//          .then(
+//            (Result<T> r) => r.data,
+//          )
+//          .catchError(
+//            (e) => onError(
+//              Exception(e.message),
+//            ),
+//          ),
+//      onLoad: onLoad,
+//      onData: onData,
+//      ifHasData: ifHasData,
+//      ifNoData: ifNoData,
+//      onError: onError,
+//    );
+//  }
 
   Future<T> call() {
     return run();
   }
 
   Future<T> run() async {
-    T data;
+    _scenario ??= Scenario<T>(
+      steps: [
+        ScenarioStep<T>(
+          make: make,
+          onLoad: onLoad,
+        ),
+      ],
+    );
 
-    onLoad?.call();
+    T data;
 
     if (_prevData == null) {
       ifNoData?.call();

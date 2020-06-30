@@ -13,17 +13,39 @@ abstract class BaseScenarioStep<T> {
 }
 
 class ScenarioStep<T> extends BaseScenarioStep<T> {
+  String id;
   ScenarioMakeCallback<T> make;
+  LoadScenarioCallback onLoad;
+  LoadScenarioDataCallback<T> ifHasData;
+  VoidCallback ifNoData;
+  ErrorScenarioCallback onError;
 
   ScenarioStep({
+    this.id,
     this.make,
+    this.onLoad,
+    this.ifHasData,
+    this.ifNoData,
+    this.onError,
     ResultScenarioCallback<T> onResult,
   }) : super(onResult: onResult);
 
   Future<T> call([prevStepData]) async {
-    T result = await make(prevStepData);
-    onResult?.call(Result(result));
-    return result;
+    onLoad?.call(id);
+    if (prevStepData == null) {
+      ifNoData?.call();
+    } else {
+      ifHasData?.call(prevStepData);
+    }
+    Result<T> result;
+    try {
+      result = Result(await make(prevStepData));
+    } catch (e) {
+      result = Result.fromError(e);
+      onError?.call(e);
+    }
+    onResult?.call(result);
+    return result.data;
   }
 }
 

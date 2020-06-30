@@ -1,5 +1,6 @@
 import 'package:scenario/result.dart';
 
+typedef LoadScenarioCallback = void Function(String id);
 typedef ErrorScenarioCallback = void Function(Exception e);
 typedef ResultScenarioCallback<T> = void Function (Result<T> result);
 typedef LoadScenarioDataCallback<T> = void Function(T data);
