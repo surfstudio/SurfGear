@@ -3,13 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a04379ba-08b5-4396-8f01-936ac6dcd874" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/template/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/template/.dart_tool/package_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/template/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/packages/template/.flutter-plugins" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/template/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/packages/template/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/template/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/packages/template/.packages" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/template/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/packages/template/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/template/script/ios/build_impl/build.dart" beforeDir="false" afterPath="$PROJECT_DIR$/packages/template/script/ios/build_impl/build.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/template/script/version_impl/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/packages/template/script/version_impl/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/mwwm/example/lib/ui/util/dialog_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/packages/mwwm/example/lib/ui/util/dialog_controller.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -341,7 +335,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593520064105</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="no-task Актуализация проектной ветки Росбанка">
+      <created>1593522046231</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1593522046231</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TodoView">
@@ -461,10 +462,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="no-task Актуализация проектной ветки Росбанка" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="0" y="62" key="CommitChangelistDialog2" timestamp="1593520060315">
+    <state x="0" y="62" key="CommitChangelistDialog2" timestamp="1593522045822">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="0" y="62" key="CommitChangelistDialog2/0.23.1440.877@0.23.1440.877" timestamp="1593520060315" />
+    <state x="0" y="62" key="CommitChangelistDialog2/0.23.1440.877@0.23.1440.877" timestamp="1593522045822" />
     <state width="404" height="877" key="Git.Branch.Popup" timestamp="1593519257265">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
@@ -481,10 +482,10 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="423" y="184" key="MultipleFileMergeDialog/0.23.1440.877@0.23.1440.877" timestamp="1593518284552" />
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1593520368492">
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1593522048447">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1593520368492" />
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1593522048447" />
     <state x="390" y="294" key="com.intellij.ide.util.TipDialog" timestamp="1593517845393">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
