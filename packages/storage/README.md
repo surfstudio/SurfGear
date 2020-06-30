@@ -1,7 +1,7 @@
 # storage
 
-Обёртка над хранилищем данных
+Data storage wrap
 
-## Описание
+## Discription
 
 todo

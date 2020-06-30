@@ -1,24 +1,24 @@
-[Главная](../docs/main.md)
+[Main](../../docs/en/main.md)
 
 [TOC]
 
 # Push
-Библиотека для реализации push уведомлений
-В модуль вынесена основная работа с push уведомлениями.
+Library for implementing push notifications.
+The module contains the main work with push notifications.
 
-## Использование
-Пример использования библиотеки можно посмотреть в [example](example).
+## Usage
+An example of using the library can be found in [example](example).
 
-* Создать тип данных нотификации через наследование `NotificationPayload`
-* Создать стратегию обработки нотификации через наследование `PushHandleStrategy`
-* Создать фабрику стратегий через наследование `PushHandleStrategyFactory`
+* Create a notification data type through inheritance `NotificationPayload`
+* Create a strategy for handling notifications through inheritance `PushHandleStrategy`
+* Create a factory of strategies through inheritance `PushHandleStrategyFactory`
 
-* Для получения нотификаций нужно создать экземпляр `MessagingService`
-* Для показа нотификаций нужно создать экземпляр `NotificationController`.
-* И передать созданные экземпляры при создании `PushHandler`, который будет создавать стратегию с помощью фабрики.
+* To receive notifications, you need to create an instance. `MessagingService`
+* To display notifications, you need to create an instance `NotificationController`.
+* And pass created instances when creating `PushHandler` that will create the strategy using the factory.
 
-* В нотификации должно быть поле: `click_action: FLUTTER_NOTIFICATION_CLICK`
-* в манифесте в <activity> нужно добавить интент фильтр:
+* In the notification there should be a field: `click_action: FLUTTER_NOTIFICATION_CLICK`
+* in manifest in \<activity\> you need to add intent filter:
 ```xml
 <intent-filter>
       <action android:name="FLUTTER_NOTIFICATION_CLICK" />
