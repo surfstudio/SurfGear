@@ -86,6 +86,5 @@ ios/Runner/GeneratedPluginRegistrant.*
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 
-**/org.eclipse.buildship.core.prefs
-**/.project
-**/.classpath
+# Support file for ci
+~changed_list_file

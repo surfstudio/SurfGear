@@ -1,0 +1,25 @@
+name: db_holder
+description: Separator of app logic and src.manager working logic.
+version: 0.0.1
+author:
+
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+custom:
+  is_stable: false
+  unstable_version: 0
+  is_plugin: false
+  path: push
+  separate_repo_url:
+  hostUrl:
