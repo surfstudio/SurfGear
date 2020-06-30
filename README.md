@@ -33,12 +33,12 @@
 | [injector](packages/injector/) | Инструмент для внедрения зависимостей | surf |
 | [logger](packages/logger/) | Библиотека для логирования | surf |
 | [mixed_list](packages/mixed_list/) | Виджет для отображения элементов разного типа в виде списка | surf |
-| [mwwm](packages/mwwm/) | Библиотека с компонентами архитектуры MWWM | alpha |
+| [mwwm](packages/mwwm/) | Библиотека с компонентами архитектуры MWWM | beta |
 | [network](packages/network/) | Библиотека для работы с запросами к серверу | surf |
 | [network_cache](packages/network_cache/) | Утилита для кеширования ответов от сервера | surf |
 | [permission](packages/permission/) | Библиотека для запроса доступа к различным функциям устройства (геолокация, список контактов и т.д.) | surf |
 | [push](packages/push/) | Библиотека для работы с уведомлениями | surf |
-| [relation](packages/relation/) | Свзяь Widget - Wm , используемая в Surf | surf |
+| [relation](packages/relation/) | Свзяь Widget - Wm , используемая в Surf | alpha |
 | [storage](packages/storage/) | Интерфейс для работы с хранилищами | surf |
 | [surf_mwwm](packages/surf_mwwm/) | Пакет, объединяющий в себе mwwm, injector, relation и различные методы расширения | surf |
 | [surf_util](packages/surf_util/) | Набор утилит | surf |
