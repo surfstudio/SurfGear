@@ -9,6 +9,7 @@ import io.flutter.plugin.platform.PlatformView
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
 import org.jitsi.meet.sdk.JitsiMeetUserInfo
 import org.jitsi.meet.sdk.JitsiMeetView
+import org.jitsi.meet.sdk.JitsiMeetViewListener
 import java.net.URL
 import kotlin.collections.HashMap
 
