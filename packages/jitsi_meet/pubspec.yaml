@@ -23,3 +23,10 @@ flutter:
         pluginClass: JitsiMeetPlugin
       ios:
         pluginClass: JitsiMeetPlugin
+
+custom:
+  is_stable: false
+  unstable_version: 0
+  path: jitsi_meet
+  separate_repo_url:
+  hostUrl:
