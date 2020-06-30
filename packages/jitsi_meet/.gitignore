@@ -3,5 +3,12 @@
 
 .packages
 .pub/
+*.lock
+
+.idea
 
 build/
+**/android/**/GeneratedPluginRegistrant.java
+ios/.generated/
+ios/Flutter/Generated.xcconfig
+ios/Runner/GeneratedPluginRegistrant.*

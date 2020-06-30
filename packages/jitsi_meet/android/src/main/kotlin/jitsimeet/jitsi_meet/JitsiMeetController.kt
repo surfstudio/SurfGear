@@ -8,10 +8,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.platform.PlatformView
-import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
-import org.jitsi.meet.sdk.JitsiMeetUserInfo
-import org.jitsi.meet.sdk.JitsiMeetView
-import org.jitsi.meet.sdk.JitsiMeetViewListener
+import org.jitsi.meet.sdk.*
 import java.net.URL
 import java.util.*
 import kotlin.collections.HashMap
@@ -91,8 +88,6 @@ class JitsiMeetController : PlatformView, MethodChannel.MethodCallHandler, Jitsi
     }
 
     /// User joined the room
-    /// 
-
     override fun onConferenceJoined(data: MutableMap<String, Any>?) {
         methodChannel.invokeMethod(ON_JOINED, data)
     }
