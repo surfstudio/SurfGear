@@ -2,6 +2,9 @@
 
 # <img src="https://i.ibb.co/N719LCW/logo.png" title="logo" align="middle"/>
 
+#### [SurfGear](https://github.com/surfstudio/SurfGear)
+#### MWWM on [pub.dev](https://pub.dev/packages/mwwm)
+
 Software architectural pattern for Flutter apps.
 
 ## Description
