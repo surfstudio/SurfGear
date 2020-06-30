@@ -32,6 +32,7 @@ CounterWidgetModel createCounterModel(BuildContext context) =>
       WidgetModelDependencies(),
       Injector.of<CounterComponent>(context).component.navigator,
       Injector.of<CounterComponent>(context).component.scaffoldKey,
+      ModalRoute.of(context).settings.arguments,
     );
 
 void main() {

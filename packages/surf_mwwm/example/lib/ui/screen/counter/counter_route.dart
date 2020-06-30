@@ -17,5 +17,19 @@ import 'package:flutter/material.dart';
 
 /// Route для экрана счетчика
 class CounterScreenRoute extends MaterialPageRoute {
-  CounterScreenRoute() : super(builder: (ctx) => CounterScreen());
+  CounterScreenRoute(RouteSettings settings)
+      : super(
+          builder: (ctx) => CounterScreen(),
+          settings: settings,
+        );
+}
+
+class CounterScreenParams {
+  final String argument1;
+  final int argument2;
+
+  CounterScreenParams({
+    this.argument1,
+    this.argument2,
+  });
 }
