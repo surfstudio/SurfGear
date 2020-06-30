@@ -76,6 +76,8 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     int separatorIndex = 0;
 
     try {
+      /*
+      /// Option with insertion after entering a character
       for (int i = 0; i < newTextLength; i++) {
         buffer.write(newRawText[i]);
         if (step != null && i > 0 && (i + 1) % step == 0) {
@@ -101,6 +103,35 @@ class SeparateTextInputFormatter extends TextInputFormatter {
             );
           }
         }
+      }
+
+      */
+      /// Option with an insert before entering a character
+      for (int i = 0; i < newTextLength; i++) {
+        if (step != null && i > 0 && i % step == 0) {
+          buffer.write(stepSymbol);
+          calculateOffset = _updateOffset(
+            calculateOffset: calculateOffset,
+            rawOffset: rawOffset,
+            index: i,
+            symbol: stepSymbol,
+          );
+        }
+
+        if (_isSeparators && separatorIndex < separatorPosCount) {
+          for (int j = separatorIndex; j < separatorPosCount; j++) {
+            if (i + separatorIndex != separatorPositions[j]) continue;
+            buffer.write(_getSeparator(j));
+            separatorIndex++;
+            calculateOffset = _updateOffset(
+              calculateOffset: calculateOffset,
+              rawOffset: rawOffset,
+              index: i,
+              symbol: _getSeparator(j),
+            );
+          }
+        }
+        buffer.write(newRawText[i]);
       }
       String result = buffer.toString();
 

@@ -55,31 +55,31 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: <Widget>[
             _buildItem(
-              text: 'xxxx xxxx xxxx xxxx (Платежная карта)',
+              text: 'xxxx xxxx xxxx xxxx (Payment card)',
               formatter: _paymentCardFormatter,
             ),
             _buildItem(text: 'xxx-x x xx', formatter: _formatter0),
             _buildItem(
-              text: 'x-x.x,xx//xxxxx//xxxxx//xxxxx (без ограничений на длину)',
+              text: 'x-x.x,xx//xxxxx//xxxxx//xxxxx (no length limit)',
               formatter: _formatter1,
             ),
-            _buildItem(text: 'xx.xx.xxxx (Дата)', formatter: _dateFormatter),
+            _buildItem(text: 'xx.xx.xxxx (Date)', formatter: _dateFormatter),
             _buildItem(
-              text: 'ИНН физлица',
+              text: 'ИНН individual',
               formatter: InnTextInputFormatter.individual(),
             ),
             _buildItem(
-              text: 'ИНН юрлица',
+              text: 'ИНН entity',
               formatter: InnTextInputFormatter.entity(),
             ),
-            _buildItem(text: 'КПП', formatter: KppTextInputFormatter()),
-            _buildItem(text: 'Бик', formatter: BicTextInputFormatter()),
+            _buildItem(text: 'KPP', formatter: KppTextInputFormatter()),
+            _buildItem(text: 'Bic', formatter: BicTextInputFormatter()),
             _buildItem(
-              text: 'Номер счета',
+              text: 'Account number',
               formatter: AccountNumberTextInputFormatter(),
             ),
             _buildItem(
-              text: 'УИН/УИП',
+              text: 'UIN/UIP',
               formatter: UinUipTextInputFormatter(),
             ),
             AnimatedPadding(
