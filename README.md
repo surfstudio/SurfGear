@@ -31,19 +31,23 @@
 | [event_filter](packages/event_filter/) | Интерфейс для филтрации событий | surf |
 | [geolocation](packages/geolocation/) | Библиотека для работы с геопозицией | surf |
 | [injector](packages/injector/) | Инструмент для внедрения зависимостей | surf |
+| [ink_widget](packages/ink_widget/) | Обертка над InkWell | surf |
+| [keyboard_listener](packages/keyboard_listener/) | Виджет для отслеживания состояния клавиатуры | surf |
 | [logger](packages/logger/) | Библиотека для логирования | surf |
 | [mixed_list](packages/mixed_list/) | Виджет для отображения элементов разного типа в виде списка | surf |
-| [mwwm](packages/mwwm/) | Библиотека с компонентами архитектуры MWWM | beta |
+| [mwwm](https://pub.dev/packages/mwwm) | Библиотека с компонентами архитектуры MWWM | beta |
 | [network](packages/network/) | Библиотека для работы с запросами к серверу | surf |
 | [network_cache](packages/network_cache/) | Утилита для кеширования ответов от сервера | surf |
 | [permission](packages/permission/) | Библиотека для запроса доступа к различным функциям устройства (геолокация, список контактов и т.д.) | surf |
-| [push](packages/push/) | Библиотека для работы с уведомлениями | surf |
-| [relation](packages/relation/) | Свзяь Widget - Wm , используемая в Surf | alpha |
+| [push_notification](packages/push_notification/) | Библиотека для работы с уведомлениями | surf |
+| [relation](https://pub.dev/packages/relation) | Свзяь Widget - Wm , используемая в Surf | alpha |
+| [render_metrics](https://pub.dev/packages/render_metrics) | Библотека для снятия метрик с виджета | release |
 | [storage](packages/storage/) | Интерфейс для работы с хранилищами | surf |
 | [surf_mwwm](packages/surf_mwwm/) | Пакет, объединяющий в себе mwwm, injector, relation и различные методы расширения | surf |
 | [surf_util](packages/surf_util/) | Набор утилит | surf |
 | [swipe_refresh](packages/swipe_refresh/) | Виджет для работы с pull-to-refresh | surf |
 | [tabnavigator](packages/tabnavigator/) | Библиотека для навигации между табами главного экрана | surf |
+| [virtual_keyboard](packages/virtual_keyboard/) | Виджет для отображения виртуальной клавиатуры | surf |
 
 
 ## Как задать вопросы?
