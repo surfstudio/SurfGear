@@ -49,6 +49,12 @@ abstract class WidgetState<WM extends WidgetModel>
     wm.onBind();
   }
 
+  @mustCallSuper
+  @override
+  void didUpdateWidget(CoreMwwmWidget _) {
+    wm.widget = widget;
+  }
+
   /// Descendants must call super in the end
   @override
   @protected
