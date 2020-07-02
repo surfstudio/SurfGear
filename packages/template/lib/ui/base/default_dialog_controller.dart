@@ -23,11 +23,15 @@ class DefaultDialogController implements DialogController {
 
   PersistentBottomSheetController _sheetController;
 
-  DefaultDialogController(this._scaffoldState, {this.dialogOwner})
-      : _context = null;
+  DefaultDialogController(
+    this._scaffoldState, {
+    this.dialogOwner,
+  }) : _context = null;
 
-  DefaultDialogController.from(this._context, {this.dialogOwner})
-      : _scaffoldState = null;
+  DefaultDialogController.from(
+    this._context, {
+    this.dialogOwner,
+  }) : _scaffoldState = null;
 
   BuildContext get _scaffoldContext =>
       _scaffoldState?.currentContext ?? Scaffold.of(_context).context;
@@ -58,25 +62,29 @@ class DefaultDialogController implements DialogController {
   Future<R> showSheet<R>(type, {VoidCallback onDismiss, DialogData data}) {
     assert(dialogOwner != null);
 
-    final buildDialog = dialogOwner?.registeredDialogs[type];
+    final DialogBuilder<DialogData> dialogBuilder =
+        dialogOwner?.registeredDialogs[type];
 
+    PersistentBottomSheetController<R> sheetController;
     if (_scaffoldState == null) {
-      _sheetController = showBottomSheet(
+      sheetController = showBottomSheet<R>(
         context: _context,
-        builder: (ctx) => buildDialog(ctx, data: data),
+        builder: (ctx) => dialogBuilder(ctx, data: data),
       );
     } else {
-      _sheetController = _scaffoldState.currentState.showBottomSheet(
-        (ctx) => buildDialog(ctx, data: data),
+      sheetController = _scaffoldState.currentState.showBottomSheet(
+        (ctx) => dialogBuilder(ctx, data: data),
       );
     }
 
-    _sheetController.closed.then((_) {
+    _sheetController = sheetController;
+
+    sheetController.closed.then((_) {
       _sheetController = null;
       onDismiss();
     });
 
-    return _sheetController.closed;
+    return sheetController.closed;
   }
 
   Future<R> showFlexibleModalSheet<R>(
@@ -92,7 +100,8 @@ class DefaultDialogController implements DialogController {
     DialogData data,
   }) {
     assert(dialogOwner != null);
-    FlexibleDialogBuilder buildDialog = dialogOwner?.registeredDialogs[type];
+    final buildDialog = dialogOwner?.registeredDialogs[type]
+        as FlexibleDialogBuilder<DialogData>;
 
     final BuildContext context =
         _scaffoldState == null ? _context : _scaffoldState.currentState.context;
@@ -107,12 +116,12 @@ class DefaultDialogController implements DialogController {
         useRootNavigator: useRootNavigator,
         isModal: isModal,
         anchors: anchors,
-        builder: (BuildContext context, ScrollController controller, offset) {
+        builder: (context, scrollController, offset) {
           return Material(
             child: buildDialog(
               context,
               data: data,
-              scrollController: controller,
+              scrollController: scrollController,
             ),
           );
         });
@@ -169,16 +178,14 @@ class DatePickerDialogController {
         lastDate: lastDate ?? DateTime(2090),
       ).asStream();
     } else {
-      StreamController<DateTime> controller = StreamController<DateTime>();
+      final controller = StreamController<DateTime>();
       showCupertinoModalPopup(
         context: _scaffoldContext,
         builder: (ctx) => _buildBottomPicker(
           CupertinoDatePicker(
             mode: CupertinoDatePickerMode.date,
             initialDateTime: initialDate ?? DateTime.now(),
-            onDateTimeChanged: (DateTime newDateTime) {
-              controller.add(newDateTime);
-            },
+            onDateTimeChanged: controller.add,
           ),
           onCancel: () {
             controller.add(initialDate);
@@ -218,7 +225,7 @@ class DatePickerDialogController {
                   CupertinoButton(
                     padding: const EdgeInsets.all(5),
                     child: Text(
-                      "Сбросить",
+                      'Сбросить',
                       style: TextStyle(color: CupertinoColors.destructiveRed),
                     ),
                     onPressed: onCancel,
@@ -228,7 +235,7 @@ class DatePickerDialogController {
                   CupertinoButton(
                     padding: const EdgeInsets.all(5),
                     child: Text(
-                      "Готово",
+                      'Готово',
                       style: TextStyle(color: CupertinoColors.activeBlue),
                     ),
                     onPressed: onDone,

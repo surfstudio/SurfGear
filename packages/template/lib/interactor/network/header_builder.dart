@@ -12,7 +12,7 @@ class DefaultHeaderBuilder extends HeadersBuilder {
 
   @override
   Future<Map<String, String>> buildDynamicHeader(String url) async {
-    var token = await _ts.getAccessToken();
+    final token = await _ts.getAccessToken();
     return url != emptyString //todo доработать
         ? {
             'X-Auth-Token': token,

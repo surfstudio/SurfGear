@@ -13,8 +13,8 @@ class PlatformAlertDialog extends StatelessWidget {
   });
 
   final String alertText;
-  final Function onAgreeClicked;
-  final Function onDisagreeClicked;
+  final VoidCallback onAgreeClicked;
+  final VoidCallback onDisagreeClicked;
 
   @override
   Widget build(BuildContext context) {

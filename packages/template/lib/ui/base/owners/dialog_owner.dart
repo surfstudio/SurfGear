@@ -18,31 +18,36 @@ class DialogBuilder<T extends DialogData> {
 
   DialogBuilder(this.builder);
 
-  call(BuildContext context, {DialogData data}) => builder(context, data: data);
+  Widget call(BuildContext context, {DialogData data}) => builder(
+        context,
+        data: data as T,
+      );
 }
 
 /// Возвращает виджет для тянущегося боттом шита с контентом в виде списка
 /// [scrollController] - контроллер прокрутки на боттомшите,
-/// передается в дочерний спиоок
+/// передается в дочерний список
 class FlexibleDialogBuilder<T extends DialogData> extends DialogBuilder<T> {
   @override
   Widget Function(
     BuildContext context, {
     T data,
     ScrollController scrollController,
+    // ignore: overridden_fields
   }) builder;
 
   FlexibleDialogBuilder(this.builder) : super(builder);
 
-  call(
+  @override
+  Widget call(
     BuildContext context, {
     DialogData data,
     ScrollController scrollController,
   }) =>
-      builder(context, data: data, scrollController: scrollController);
+      builder(context, data: data as T, scrollController: scrollController);
 }
 
-/// Миксин, добавляющий возможност зарегистрировать диалоги
+/// Миксин, добавляющий возможности зарегистрировать диалоги
 mixin DialogOwner {
   Map<dynamic, DialogBuilder> get registeredDialogs;
 }

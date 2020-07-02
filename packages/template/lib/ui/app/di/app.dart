@@ -15,6 +15,7 @@ import 'package:flutter_template/ui/base/material_message_controller.dart';
 import 'package:flutter_template/util/const.dart';
 import 'package:flutter_template/util/sp_helper.dart';
 import 'package:injector/injector.dart';
+import 'package:logger/logger.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:network/network.dart';
 import 'package:push_notification/push_notification.dart';
@@ -36,11 +37,12 @@ class AppComponent implements Component {
 
   //MessagingService messagingService = MessagingService();
   NotificationController notificationController = NotificationController(() {
-    print("permission declined");
+    Logger.d('permission declined');
   });
   PushHandler pushHandler;
 
   AppComponent(BuildContext context) {
+    context.toString();
     rebuildDependencies();
   }
 
@@ -76,11 +78,11 @@ class AppComponent implements Component {
   }
 
   RxHttp _initHttp(AuthInfoStorage authStorage) {
-    var proxyUrl = Environment<Config>.instance().config.proxyUrl;
-    var dioHttp = DioHttp(
+    final proxyUrl = Environment<Config>.instance().config.proxyUrl;
+    final dioHttp = DioHttp(
       config: HttpConfig(
         emptyString,
-        Duration(seconds: 30),
+        const Duration(seconds: 30),
         proxyUrl: proxyUrl,
       ),
       errorMapper: DefaultStatusMapper(),

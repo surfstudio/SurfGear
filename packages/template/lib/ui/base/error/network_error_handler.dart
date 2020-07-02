@@ -6,18 +6,23 @@ import 'package:network/network.dart';
 abstract class NetworkErrorHandler implements ErrorHandler {
   @override
   void handleError(Object e) {
+    Exception exception;
+
     if (e is Error) {
-      e = Exception((e as Error).stackTrace);
-    }
-    Logger.d("NetworkErrorHandler handle error", e);
-    if (e is ConversionException) {
-      handleConversionError(e);
-    } else if (e is NoInternetException) {
-      handleNoInternetError(e);
-    } else if (e is HttpProtocolException) {
-      handleHttpProtocolException(e);
-    } else {
-      handleOtherError(e);
+      exception = Exception(e.stackTrace);
+    } else if (e is Exception) {
+      exception = e;
+      Logger.d('NetworkErrorHandler handle error', exception);
+
+      if (exception is ConversionException) {
+        handleConversionError(exception);
+      } else if (exception is NoInternetException) {
+        handleNoInternetError(exception);
+      } else if (exception is HttpProtocolException) {
+        handleHttpProtocolException(exception);
+      } else {
+        handleOtherError(exception);
+      }
     }
   }
 

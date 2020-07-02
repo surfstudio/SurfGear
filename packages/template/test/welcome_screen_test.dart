@@ -12,7 +12,7 @@ class AppComponentMock extends Mock implements AppComponent {}
 class CounterInteractorMock extends Mock implements CounterInteractor {}
 
 CounterInteractorMock getCounterInteractor() {
-  var mock = CounterInteractorMock();
+  final mock = CounterInteractorMock();
 
   when(mock.counterObservable)
       .thenAnswer((_) => Stream<Counter>.value(Counter(111)));
@@ -21,7 +21,7 @@ CounterInteractorMock getCounterInteractor() {
 }
 
 AppComponentMock getAppComponent() {
-  var mock = AppComponentMock();
+  final mock = AppComponentMock();
 
   when(mock.counterInteractor).thenAnswer((_) => getCounterInteractor());
 
@@ -33,9 +33,9 @@ void main() {
 
   tearDown(() {});
 
-  testWidgets('find widgets', (WidgetTester tester) async {
-    var appComponent = getAppComponent();
-    await tester.pumpWidget(
+  testWidgets('find widgets', (widgetTester) async {
+    final appComponent = getAppComponent();
+    await widgetTester.pumpWidget(
       Injector<AppComponent>(
         component: appComponent,
         builder: (context) {
@@ -45,7 +45,7 @@ void main() {
         },
       ),
     );
-    await tester.pumpAndSettle();
+    await widgetTester.pumpAndSettle();
 
     verify(appComponent.counterInteractor).called(1);
   });

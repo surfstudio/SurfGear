@@ -19,7 +19,7 @@ final themeData = ThemeData(
     errorColor: colorError,
     scaffoldBackgroundColor: backgroundColor,
     hintColor: hintColor,
-    textTheme: TextTheme(),
+    textTheme: const TextTheme(),
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12.0),

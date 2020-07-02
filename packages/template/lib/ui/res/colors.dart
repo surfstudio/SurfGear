@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 // Семантические алиасы
-// Пополняютсфя по мере необходимости
+// Пополняются по мере необходимости
 // Используют только основную палитру
 const Color colorAccent = _purple,
     colorError = _freeSpeechRed,
@@ -14,11 +14,11 @@ const Color colorAccent = _purple,
     white = _white,
     dividerColor = _solitude,
     textColorSecondary = _darkGrey,
-    textColorPrimary = _oxxfordBlue,
+    textColorPrimary = _oxfordBlue,
     textColorGrey = _grey;
 
 // Основная палитра (http://www.color-blindness.com/color-name-hue/)
-const Color _oxxfordBlue = Color(0xFF263238),
+const Color _oxfordBlue = Color(0xFF263238),
     _purple = Color(0xFF7A3E93),
     _freeSpeechRed = Color(0xFFB00000),
     _alizarin = Color(0xFFE31E24),

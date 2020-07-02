@@ -5,7 +5,7 @@ class MaskTextInputFormatter extends TextInputFormatter {
   Map<int, String> _maskMap;
   List<int> _maskList;
 
-  MaskTextInputFormatter(maskString, {escapeChar = "_"}) {
+  MaskTextInputFormatter(String maskString, {escapeChar = '_'}) {
     assert(maskString != null);
     final entries = RegExp('[^$escapeChar]+')
         .allMatches(maskString)
@@ -16,23 +16,22 @@ class MaskTextInputFormatter extends TextInputFormatter {
   }
 
   String getEscapedString(String inputText) {
+    String escapedString;
     _maskList.reversed
         .where((index) =>
             index < inputText.length && _substringIsMask(inputText, index))
-        .forEach((index) {
-      inputText = inputText.substring(0, index) +
-          inputText.substring(index + _maskMap[index].length);
-    });
-    return inputText;
+        .forEach(
+      (index) {
+        escapedString = inputText.substring(0, index) +
+            inputText.substring(index + _maskMap[index].length);
+      },
+    );
+    return escapedString;
   }
 
   bool _substringIsMask(String inputText, int index) {
-    try {
-      return inputText.substring(index, index + _maskMap[index].length) ==
-          _maskMap[index];
-    } on RangeError {
-      return false;
-    }
+    return inputText.substring(index, index + _maskMap[index].length) ==
+        _maskMap[index];
   }
 
   @override
@@ -42,14 +41,14 @@ class MaskTextInputFormatter extends TextInputFormatter {
     var position = newValue.selection.baseOffset -
         (newValue.text.length - escapedString.length);
 
-    _maskList.forEach((index) {
+    for (int index in _maskList) {
       if (escapedString.length > index) {
         escapedString = escapedString.substring(0, index) +
             _maskMap[index] +
             escapedString.substring(index);
         position += _maskMap[index].length;
       }
-    });
+    }
 
     return newValue.copyWith(
         text: escapedString,
