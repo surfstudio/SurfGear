@@ -16,21 +16,19 @@ class DialogBuilder<T extends DialogData> {
 }
 
 class DefaultDialogController implements DialogController {
-  DefaultDialogController(this._scaffoldState, {this.dialogOwner})
+  DefaultDialogController(this._scaffoldKey, {this.dialogOwner})
       : _context = null;
 
   DefaultDialogController.from(this._context, {this.dialogOwner})
-      : _scaffoldState = null;
+      : _scaffoldKey = null;
 
-  PersistentBottomSheetController _sheetController;
-  final GlobalKey<ScaffoldState> _scaffoldState;
+  final GlobalKey<ScaffoldState> _scaffoldKey;
   final BuildContext _context;
   final DialogOwner dialogOwner;
 
-  BuildContext get _scaffoldContext =>
-      _context ??
-      _scaffoldState?.currentContext ??
-      Scaffold.of(_context).context;
+  BuildContext get context => _context ?? _scaffoldKey.currentContext;
+  ScaffoldState get nearestScaffoldState =>
+      _scaffoldKey?.currentState ?? Scaffold.of(_context);
 
   @override
   Future<R> showAlertDialog<R>({
@@ -43,7 +41,7 @@ class DefaultDialogController implements DialogController {
     onDisagreeClicked,
   }) {
     return showDialog(
-      context: _scaffoldContext,
+      context: context,
       builder: (ctx) => PlatformAlertDialog(
         alertTitle: title,
         alertContent: message,
@@ -62,42 +60,27 @@ class DefaultDialogController implements DialogController {
   Future<R> showModalSheet<R>(
     type, {
     DialogData data,
-    bool isScrollControlled,
+    bool isScrollControlled = false,
   }) {
     assert(dialogOwner != null);
 
     return showModalBottomSheet(
-      context: _scaffoldContext,
+      context: context,
       isScrollControlled: isScrollControlled,
       backgroundColor: Colors.transparent,
-      builder: (ctx) => dialogOwner?.registeredDialogs[type](ctx, data: data),
+      builder: (ctx) => dialogOwner.registeredDialogs[type](ctx, data: data),
     );
   }
 
   @override
-  Future<R> showSheet<R>(type, {onDismiss, DialogData data}) {
+  Future<R> showSheet<R>(type, {VoidCallback onDismiss, DialogData data}) {
     assert(dialogOwner != null);
 
-    final buildDialog = dialogOwner?.registeredDialogs[type];
+    final buildDialog = dialogOwner.registeredDialogs[type];
 
-    if (_scaffoldState == null) {
-      _sheetController = showBottomSheet(
-        context: _context,
-        builder: (ctx) => buildDialog(ctx, data: data),
-      );
-    } else {
-      _sheetController = _scaffoldState.currentState.showBottomSheet(
-        (ctx) => buildDialog(ctx, data: data),
-      );
-    }
-
-    _sheetController.closed.then((_) {
-      _sheetController = null;
-      if(onDismiss != null) {
-        onDismiss();
-      }
-    });
-
-    return _sheetController.closed;
+    return nearestScaffoldState
+        .showBottomSheet<R>((ctx) => buildDialog(ctx, data: data))
+        .closed
+        .whenComplete(() => onDismiss?.call());
   }
 }

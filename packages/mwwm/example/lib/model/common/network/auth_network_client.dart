@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:mwwm_github_client/model/common/network/auth_const.dart';
 import 'package:mwwm_github_client/model/common/network/network_client.dart';
 import 'package:mwwm_github_client/utils/exceptions.dart';
-import 'package:oauth2_client/access_token_response.dart';
+import 'package:mwwm_github_client/utils/future_extensions.dart';
 import 'package:oauth2_client/github_oauth2_client.dart';
 import 'package:oauth2_client/oauth2_client.dart';
 import 'package:oauth2_client/oauth2_exception.dart';
@@ -31,66 +31,40 @@ class AuthNetworkClient implements NetworkClient {
   OAuth2Helper _oauth2Helper;
 
   /// Authorize on github
-  Future<bool> auth() async {
-    try {
-      final AccessTokenResponse tokenResponse =
-          await _oauth2Helper.fetchToken();
-
-      if(tokenResponse != null){
-        if(tokenResponse.tokenType != null){
-          return true;
-        }
-        return false;
-      }
-      return false;
-    } on Exception catch (e) {
-      throw _mapException(e);
-    }
+  Future<bool> auth() {
+    return _oauth2Helper
+        .fetchToken()
+        .then((response) => response == null || response.tokenType != null)
+        .catchType<Exception>((e) => throw _mapException(e));
   }
 
-  Future<void> disconnect() async {
-    try {
-      await _oauth2Helper.disconnect();
-    } on Exception catch (e) {
-      throw _mapException(e);
-    }
+  Future<void> disconnect() {
+    return _oauth2Helper
+        .disconnect()
+        .catchType<Exception>((e) => throw _mapException(e));
   }
 
   /// Get access token
-  Future<String> getToken() async {
-    try {
-      final AccessTokenResponse tokenResponse = await _oauth2Helper.getToken();
-
-      return tokenResponse.tokenType;
-    } on Exception catch (e) {
-      throw _mapException(e);
-    }
+  Future<String> getToken() {
+    return _oauth2Helper
+        .getToken()
+        .then((response) => response.tokenType)
+        .catchType<Exception>((e) => throw _mapException(e));
   }
 
   ///Check is user auth
-  Future<bool> isUserAuth() async {
-    try {
-      final AccessTokenResponse tokenResponse =
-          await _oauth2Helper.getTokenFromStorage();
-
-      if (tokenResponse != null) {
-        return true;
-      }
-      return false;
-    } on Exception catch (e) {
-      throw _mapException(e);
-    }
+  Future<bool> isUserAuth() {
+    return _oauth2Helper
+        .getTokenFromStorage()
+        .then((response) => response != null)
+        .catchType<Exception>((e) => throw _mapException(e));
   }
 
   @override
-  Future<Response> get(String url) async {
-    try {
-      final Response response = await _oauth2Helper.get(url);
-
-      return response;
-    } on Exception catch (e) {
-      throw _mapException(e);
-    }
+  Future<Response> get(String url) {
+    return _oauth2Helper
+        .get(url)
+        .catchType<Exception>((e) => throw _mapException(e));
   }
 
   /// Map third party exception to local
@@ -100,6 +74,7 @@ class AuthNetworkClient implements NetworkClient {
         return CanceledAuthorizationException();
       }
     }
+
     if (e is d.DioError) {
       if (e.type == d.DioErrorType.DEFAULT) {
         return NoInternetException(message: e.error.toString());
@@ -111,6 +86,7 @@ class AuthNetworkClient implements NetworkClient {
         return IncorrectClientCredentionalsException();
       }
     }
+
     return e;
   }
 }
