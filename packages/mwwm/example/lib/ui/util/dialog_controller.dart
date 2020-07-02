@@ -17,10 +17,12 @@ class DialogBuilder<T extends DialogData> {
 
 class DefaultDialogController implements DialogController {
   DefaultDialogController(this._scaffoldKey, {this.dialogOwner})
-      : _context = null;
+      : assert(_scaffoldKey != null),
+        _context = null;
 
   DefaultDialogController.from(this._context, {this.dialogOwner})
-      : _scaffoldKey = null;
+      : assert(_context != null),
+        _scaffoldKey = null;
 
   final GlobalKey<ScaffoldState> _scaffoldKey;
   final BuildContext _context;
