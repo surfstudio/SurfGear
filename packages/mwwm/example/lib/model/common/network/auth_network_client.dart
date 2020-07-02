@@ -34,7 +34,7 @@ class AuthNetworkClient implements NetworkClient {
   Future<bool> auth() {
     return _oauth2Helper
         .fetchToken()
-        .then((response) => response == null || response.tokenType != null)
+        .then((response) => response?.tokenType != null ?? false)
         .catchType<Exception>((e) => throw _mapException(e));
   }
 
