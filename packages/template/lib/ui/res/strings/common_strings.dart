@@ -37,7 +37,7 @@ String minutesText(int minutes) => "$minutes ${minutesPlural(minutes)}";
 
 String dayPlural(int days) => Intl.plural(
       days,
-      zero: EMPTY_STRING,
+      zero: emptyString,
       one: "день",
       two: "дня",
       few: "дней",
@@ -47,7 +47,7 @@ String dayPlural(int days) => Intl.plural(
 
 String hourPlural(int hours) => Intl.plural(
       hours,
-      zero: EMPTY_STRING,
+      zero: emptyString,
       one: "час",
       two: "часа",
       few: "часов",
