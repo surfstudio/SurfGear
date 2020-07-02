@@ -41,6 +41,7 @@ abstract class WidgetState<WM extends WidgetModel>
   @override
   void initState() {
     wm = widget.widgetModelBuilder(context);
+    wm.widget = widget;
 
     super.initState();
 

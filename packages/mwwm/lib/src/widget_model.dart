@@ -24,11 +24,14 @@ import 'package:mwwm/src/utils/composite_subscription.dart';
 /// WM is logical representation of widget and his state.
 /// `WidgetModelDependencies` - is pack of dependencies for WidgetModel. Offtenly, it is `ErrorHandler`.
 /// `Model` - optionally, but recommended, manager for connection with bussines layer
-abstract class WidgetModel {
+abstract class WidgetModel<W extends StatefulWidget> {
   final ErrorHandler _errorHandler;
 
   @protected
   final Model model;
+
+  @protected
+  W widget;
 
   final _compositeSubscription = CompositeSubscription();
 
@@ -102,6 +105,7 @@ abstract class WidgetModel {
   /// Close streams of WM
   void dispose() {
     _compositeSubscription.dispose();
+    widget = null;
   }
 
   /// standard error handling

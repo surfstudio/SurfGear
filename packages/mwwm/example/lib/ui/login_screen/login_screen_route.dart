@@ -8,10 +8,12 @@ import 'package:provider/provider.dart';
 
 /// login screen route
 class LoginScreenRoute extends MaterialPageRoute {
-  LoginScreenRoute()
+  LoginScreenRoute({String argument1, int argument2})
       : super(
           builder: (context) => LoginScreen(
             widgetModelBuilder: _widgetModelBuilder,
+            argument1: argument1,
+            argument2: argument2,
           ),
         );
 }
