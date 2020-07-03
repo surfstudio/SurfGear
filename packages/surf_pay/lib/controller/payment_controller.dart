@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:surfpay/data/apple_pay_data.dart';
 import 'package:surfpay/data/google_pay_data.dart';
@@ -18,7 +20,8 @@ const String ON_CANCEL = "payment_cancel";
 const String ON_ERROR = "payment_error";
 
 /// Arguments
-const String PAYMENT_STATUS = "status";
+const String PAYMENT_ERROR_STATUS = "status";
+const String ON_SUCCESS_DATA = "successData";
 
 const String PRICE = "price";
 const String MERCHANT_INFO = "merchantInfo";
@@ -26,18 +29,25 @@ const String PHONE_NUMBER_REQUIRED = "phoneNumberRequired";
 const String ALLOWED_COUNTRY_CODES = "allowedCountryCodes";
 const String SHIPPING_ADDRESS_REQUIRED = "shippingAddressRequired";
 
+typedef SuccessCallback = Function(Map<String, dynamic> paymentData);
+typedef ErrorCallback = Function(PaymentErrorStatus);
+
 class PaymentController {
   PaymentController({
     this.googlePayData,
     this.applePayData,
-    this.paymentCallback,
+    this.onSuccess,
+    this.onCancel,
+    this.onError,
   }) {
     _initCallbackListener();
   }
 
   final GooglePayData googlePayData;
   final ApplePayData applePayData;
-  final Function(PaymentStatus status) paymentCallback;
+  final SuccessCallback onSuccess;
+  final VoidCallback onCancel;
+  final ErrorCallback onError;
 
   MethodChannel _channel = MethodChannel(CHANNEL_NAME);
 
@@ -49,25 +59,25 @@ class PaymentController {
   }
 
   void _initCallbackListener() {
-//    _channel.setMethodCallHandler(
-//      (call) async {
-//        switch (call.method) {
-//          case PAYMENT_RESPONSE:
-//            String status = call.arguments;
-//
-//            //todo заменить на реальный парсинг статуса оплаты
-//            print("статус оплаты: $status");
-//            paymentCallback(status == "success"
-//                ? PaymentStatus.success
-//                : PaymentStatus.fail);
-//            break;
-//          case IS_READY_TO_PAY:
-//            bool isReadyToPay = call.arguments;
-//            print("к оплате готов $isReadyToPay");
-//            break;
-//        }
-//      },
-//    );
+    _channel.setMethodCallHandler(
+      (call) async {
+        switch (call.method) {
+          case ON_SUCCESS:
+            final paymentData = jsonDecode(
+              call.arguments[ON_SUCCESS_DATA] as String,
+            );
+            onSuccess?.call(paymentData);
+            break;
+          case ON_CANCEL:
+            onCancel?.call();
+            break;
+          case ON_ERROR:
+            final errorStatus = call.arguments[PAYMENT_ERROR_STATUS] as int;
+            onError?.call(_getPaymentErrorStatus(errorStatus));
+            break;
+        }
+      },
+    );
   }
 
   void _payGoogle() {
@@ -90,5 +100,24 @@ class PaymentController {
 
   Future<bool> googlePayIsAvalibale(GooglePayData data) {
     return _channel.invokeMethod(IS_READY_TO_PAY, data.map());
+  }
+
+  PaymentErrorStatus _getPaymentErrorStatus(int errorStatus) {
+    switch (errorStatus) {
+      case 0:
+        return PaymentErrorStatus.RESULT_SUCCESS;
+      case 14:
+        return PaymentErrorStatus.RESULT_INTERRUPTED;
+      case 8:
+        return PaymentErrorStatus.RESULT_INTERNAL_ERROR;
+      case 15:
+        return PaymentErrorStatus.RESULT_TIMEOUT;
+      case 16:
+        return PaymentErrorStatus.RESULT_CANCELED;
+      case 18:
+        return PaymentErrorStatus.RESULT_DEAD_CLIENT;
+      default:
+        return PaymentErrorStatus.UNKNOWN;
+    }
   }
 }

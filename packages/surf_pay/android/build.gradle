@@ -40,5 +40,7 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //TODO delete befor release
+//    implementation files('/Users/maximkrasikov/development/flutter/bin/cache/artifacts/engine/android-arm64-release/flutter.jar')
     compile group: 'com.google.android.gms', name: 'play-services-wallet', version: '18.0.0'
 }

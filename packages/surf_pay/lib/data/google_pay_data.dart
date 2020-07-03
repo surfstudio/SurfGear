@@ -4,6 +4,7 @@ const String BILLING_ADDRESS_REQUIRED = "billingAddressRequired";
 const String BILLING_ADDRESS_PARAMETERS = "billingAddressParameters";
 const String TYPE = "type";
 
+/// Base google pay data
 class GooglePayData {
   final List<String> allowedAuthMethods;
   final List<String> allowedCardNetworks;

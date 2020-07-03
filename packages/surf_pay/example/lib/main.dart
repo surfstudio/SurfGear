@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
           child: Surfpay(
-            paymentCallback: (status) {
+            onSuccess: (status) {
               print("оплачено со статусом $status");
             },
             customButton: (context, pay) {

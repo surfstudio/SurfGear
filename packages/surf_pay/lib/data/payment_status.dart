@@ -1,5 +1,9 @@
-enum PaymentStatus {
-  success,
-  fail,
-  cancel,
+enum PaymentErrorStatus {
+  RESULT_SUCCESS,
+  RESULT_INTERRUPTED,
+  RESULT_INTERNAL_ERROR,
+  RESULT_TIMEOUT,
+  RESULT_CANCELED,
+  RESULT_DEAD_CLIENT,
+  UNKNOWN,
 }

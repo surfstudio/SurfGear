@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:surfpay/ui/assets/google_pay_grey.dart';
-import 'package:surfpay/ui/assets/google_pay_white.dart';
+import 'package:surfpay/ui/assets/google_pay/buy_with_white.dart';
+import 'package:surfpay/ui/assets/google_pay/google_pay_grey.dart';
+import 'package:surfpay/ui/assets/google_pay/google_pay_white.dart';
+
+import 'assets/google_pay/buy_with_grey.dart';
 
 const _cornerRadius = 4.0;
 const _backgroundColorWhite = Color(0xFFFFFFFF);
@@ -12,14 +15,18 @@ class GoogleButton extends StatelessWidget {
   final VoidCallback onTap;
   final double height;
   final double width;
+  final logoHeight;
   final ButtonStyle style;
+  final bool withPrefix;
 
   GoogleButton({
     this.onTap,
-    this.height = 48,
-    this.width = 158,
-    this.style = ButtonStyle.black,
-  });
+    this.height = 48.0,
+    this.logoHeight = 17.0,
+    this.style = ButtonStyle.dark,
+    this.withPrefix = false,
+    double width,
+  }) : width = width ?? withPrefix ? 152.0 : 90.0;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +46,10 @@ class GoogleButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(_cornerRadius),
               border: _buildBorder(),
             ),
-            child: SvgPicture.string(_getLogo()),
+            child: SvgPicture.string(
+              _getLogo(),
+              fit: BoxFit.scaleDown,
+            ),
           ),
         ),
       ),
@@ -57,7 +67,7 @@ class GoogleButton extends StatelessWidget {
 
   Color _getBackgroundColor() {
     switch (style) {
-      case ButtonStyle.black:
+      case ButtonStyle.dark:
         return _backGroundColorBlack;
       case ButtonStyle.white:
       case ButtonStyle.whiteWithBorder:
@@ -70,7 +80,7 @@ class GoogleButton extends StatelessWidget {
     switch (style) {
       case ButtonStyle.white:
         return 2.0;
-      case ButtonStyle.black:
+      case ButtonStyle.dark:
       case ButtonStyle.whiteWithBorder:
       default:
         return 0.0;
@@ -79,18 +89,18 @@ class GoogleButton extends StatelessWidget {
 
   String _getLogo() {
     switch (style) {
-      case ButtonStyle.black:
-        return googlePayWhite;
+      case ButtonStyle.dark:
+        return withPrefix ? googleBuyWithWhite : googlePayWhite;
       case ButtonStyle.white:
       case ButtonStyle.whiteWithBorder:
       default:
-        return googlePayGrey;
+        return withPrefix ? googleBuyWithGrey : googlePayGrey;
     }
   }
 }
 
 enum ButtonStyle {
-  black,
+  dark,
   white,
   whiteWithBorder,
 }

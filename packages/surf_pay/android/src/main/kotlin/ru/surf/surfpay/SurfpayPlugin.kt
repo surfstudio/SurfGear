@@ -3,7 +3,6 @@ package ru.surf.surfpay
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.annotation.NonNull
 import com.google.android.gms.wallet.*
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -15,7 +14,6 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.common.PluginRegistry.Registrar
-import org.json.JSONObject
 
 
 const val CHANNEL_NAME = "surfpay"
@@ -30,7 +28,8 @@ const val ON_CANCEL = "payment_cancel"
 const val ON_ERROR = "payment_error"
 
 /// Arguments
-const val PAYMENT_STATUS = "status"
+const val PAYMENT_ERROR_STATUS = "status"
+const val ON_SUCCESS_DATA = "successData"
 
 const val ALLOWED_AUTH_METHODS = "allowedAuthMethods"
 const val ALLOWED_CARD_NETWORKS = "allowedCardNetworks"
@@ -165,7 +164,7 @@ public class SurfpayPlugin() : FlutterPlugin, MethodCallHandler, PluginRegistry.
                 when (resultCode) {
                     Activity.RESULT_OK -> {
                         PaymentData.getFromIntent(data!!)?.let {
-                            channel!!.invokeMethod(ON_SUCCESS, "success")
+                            channel!!.invokeMethod(ON_SUCCESS, { ON_SUCCESS_DATA to it.toJson() })
                         }
                     }
 
@@ -175,7 +174,7 @@ public class SurfpayPlugin() : FlutterPlugin, MethodCallHandler, PluginRegistry.
 
                     AutoResolveHelper.RESULT_ERROR -> {
                         AutoResolveHelper.getStatusFromIntent(data)?.let {
-                            channel!!.invokeMethod(ON_ERROR, mapOf(PAYMENT_STATUS to it.statusCode))
+                            channel!!.invokeMethod(ON_ERROR, { PAYMENT_ERROR_STATUS to it.statusCode })
                         }
                     }
                 }
