@@ -58,15 +58,15 @@ class _SurfpayState extends State<Surfpay> {
   Widget _buildAndroid() {
     Widget _buildGoogleButton() {
       if (widget.customButton == null) {
-        return GoogleButton(() => _paymentController.pay());
+//        return GoogleButton(() => _paymentController.pay());
       }
       return widget.customButton(
         context,
         _paymentController.pay,
       );
     }
-
-    if (_paymentController.googlePayIsAvalibale()) {
+    test();
+    if (true) {
       return _buildGoogleButton();
     }
     if (widget.buttonForceShow) {
@@ -83,5 +83,26 @@ class _SurfpayState extends State<Surfpay> {
       context,
       _paymentController.pay,
     );
+  }
+
+  Future<void> test() async {
+    final a = await _paymentController.googlePayIsAvalibale(
+      GooglePayData(
+        [
+          "PAN_ONLY",
+          "CRYPTOGRAM_3DS",
+        ],
+        [
+          "MASTERCARD",
+          "VISA",
+        ],
+        true,
+        {
+          "format": "FULL",
+        },
+        "CARD",
+      ),
+    );
+    print(a);
   }
 }

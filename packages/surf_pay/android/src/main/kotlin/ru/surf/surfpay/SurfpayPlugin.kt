@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import android.view.View
 import androidx.annotation.NonNull
 import com.google.android.gms.wallet.*
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -20,9 +19,30 @@ import org.json.JSONObject
 
 
 const val CHANNEL_NAME = "surfpay"
-const val PAY = "pay"
-const val PAYMENT_RESPONSE = "payment_response"
+
+/// Methods
 const val IS_READY_TO_PAY = "is_ready_to_pay"
+const val PAY = "pay"
+const val IS_READY_CALLBACK = "is_ready_to_pay"
+
+const val ON_SUCCESS = "payment_success"
+const val ON_CANCEL = "payment_cancel"
+const val ON_ERROR = "payment_error"
+
+/// Arguments
+const val PAYMENT_STATUS = "status"
+
+const val ALLOWED_AUTH_METHODS = "allowedAuthMethods"
+const val ALLOWED_CARD_NETWORKS = "allowedCardNetworks"
+const val BILLING_ADDRESS_REQUIRED = "billingAddressRequired"
+const val BILLING_ADDRESS_PARAMETERS = "billingAddressParameters"
+const val TYPE = "type"
+
+const val PRICE = "price"
+const val MERCHANT_INFO = "merchantInfo"
+const val PHONE_NUMBER_REQUIRED = "phoneNumberRequired"
+const val ALLOWED_COUNTRY_CODES = "allowedCountryCodes"
+const val SHIPPING_ADDRESS_REQUIRED = "shippingAddressRequired"
 
 /** SurfpayPlugin */
 public class SurfpayPlugin() : FlutterPlugin, MethodCallHandler, PluginRegistry.ActivityResultListener, ActivityAware {
@@ -55,12 +75,17 @@ public class SurfpayPlugin() : FlutterPlugin, MethodCallHandler, PluginRegistry.
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         activity = binding.activity;
         initClient() // работает
-        readyToPayRequest() // работает
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-        if (call.method == PAY) {
-            requestPayment() // проверка
+        when (call.method) {
+            PAY -> {
+                requestPayment(call)
+                result.success(null)
+            }
+            IS_READY_TO_PAY -> {
+                isReadyToPayRequest(call, result)
+            }
         }
     }
 
@@ -73,52 +98,84 @@ public class SurfpayPlugin() : FlutterPlugin, MethodCallHandler, PluginRegistry.
         googlePaymentsClient = Wallet.getPaymentsClient(activity, walletOptions)
     }
 
-    private fun readyToPayRequest() {
-        val isReadyToPayRequest = getIsReadyToPayRequest()
+    private fun isReadyToPayRequest(call: MethodCall, result: Result) {
+        val params = call.arguments as Map<String, Any>
+
+        val allowedAuthMethods = params[ALLOWED_AUTH_METHODS] as ArrayList<String>
+        val allowedCardNetworks = params[ALLOWED_CARD_NETWORKS] as ArrayList<String>
+        val billingAddressRequired = params[BILLING_ADDRESS_REQUIRED] as Boolean
+        val billingAddressParameters = params[BILLING_ADDRESS_PARAMETERS] as HashMap<String, String>
+        val type = params[TYPE] as String
+
+        val isReadyToPayRequest = getIsReadyToPayRequest(
+                allowedAuthMethods,
+                allowedCardNetworks,
+                billingAddressRequired,
+                billingAddressParameters,
+                type)
 
         val task = googlePaymentsClient.isReadyToPay(isReadyToPayRequest)
         task.addOnCompleteListener {
-            if (it.isComplete) {
-                channel.invokeMethod(IS_READY_TO_PAY, true)
-            } else {
-                channel.invokeMethod(IS_READY_TO_PAY, false)
-            }
+            result.success(it.isSuccessful)
         }
     }
 
-    private fun requestPayment() {
-        val paymentDataRequestJson: JSONObject = getPaymentDataRequest("120.0")!!
+    private fun requestPayment(call: MethodCall) {
+        val params = call.arguments as Map<String, Any>
 
-        val request = PaymentDataRequest.fromJson(paymentDataRequestJson.toString())
+        val price = params[PRICE] as String
+        val allowedAuthMethods = params[ALLOWED_AUTH_METHODS] as ArrayList<String>
+        val allowedCardNetworks = params[ALLOWED_CARD_NETWORKS] as ArrayList<String>
+        val billingAddressRequired = params[BILLING_ADDRESS_REQUIRED] as Boolean
+        val billingAddressParameters = params[BILLING_ADDRESS_PARAMETERS] as HashMap<String, String>
+        val type = params[TYPE] as String
+        val merchantInfo = params[MERCHANT_INFO] as HashMap<String, String>
+        val phoneNumberRequired = params[PHONE_NUMBER_REQUIRED] as Boolean
+        val allowedCountryCodes = params[ALLOWED_COUNTRY_CODES] as List<String>
+        val shippingAddressRequired = params[SHIPPING_ADDRESS_REQUIRED] as Boolean
 
-        if (request != null) {
-            AutoResolveHelper.resolveTask(
-                    googlePaymentsClient.loadPaymentData(request),
-                    activity,
-                    LOAD_PAYMENT_DATA_REQUEST_CODE)
+        val paymentDataRequestJson = getPaymentDataRequest(
+                price,
+                allowedAuthMethods,
+                allowedCardNetworks,
+                billingAddressRequired,
+                billingAddressParameters,
+                type,
+                merchantInfo,
+                phoneNumberRequired,
+                allowedCountryCodes,
+                shippingAddressRequired)
+
+        if (paymentDataRequestJson != null) {
+            val request = PaymentDataRequest.fromJson(paymentDataRequestJson.toString())
+
+            if (request != null) {
+                AutoResolveHelper.resolveTask(
+                        googlePaymentsClient.loadPaymentData(request),
+                        activity,
+                        LOAD_PAYMENT_DATA_REQUEST_CODE)
+            }
         }
+        //todo Throw Exception
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-        Log.d("РЕЗУЛЬТАТ", "Активность сработала")
         when (requestCode) {
             LOAD_PAYMENT_DATA_REQUEST_CODE -> {
                 when (resultCode) {
                     Activity.RESULT_OK -> {
                         PaymentData.getFromIntent(data!!)?.let {
-                            Log.d("ОПЛАТА", "Оплачено успешно $it")
-                            channel!!.invokeMethod(PAYMENT_RESPONSE, "success")
+                            channel!!.invokeMethod(ON_SUCCESS, "success")
                         }
                     }
 
                     Activity.RESULT_CANCELED -> {
-                        // The user cancelled without selecting a payment method.
-                        Log.d("ОТМЕНА", "Оплата отменена")
+                        channel!!.invokeMethod(ON_CANCEL, "cancel")
                     }
 
                     AutoResolveHelper.RESULT_ERROR -> {
                         AutoResolveHelper.getStatusFromIntent(data)?.let {
-                            Log.d("ОШИБКА", "Ошибка оплаты $it")
+                            channel!!.invokeMethod(ON_ERROR, mapOf(PAYMENT_STATUS to it.statusCode))
                         }
                     }
                 }

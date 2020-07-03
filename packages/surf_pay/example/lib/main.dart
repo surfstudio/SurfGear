@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:surfpay/surfpay.dart';
+import 'package:surfpay/ui/google_button.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,9 +28,10 @@ class _MyAppState extends State<MyApp> {
               print("оплачено со статусом $status");
             },
             customButton: (context, pay) {
-              return OutlineButton(
-                onPressed: pay,
-                child: Text("Оплата"),
+              return GoogleButton(
+                onTap: () {
+                  print("tap");
+                },
               );
             },
           ),

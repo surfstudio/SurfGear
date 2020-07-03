@@ -5,17 +5,32 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
-fun getIsReadyToPayRequest(): IsReadyToPayRequest {
+const val defaultApiVersion = 2
+const val defaultApiVersionMinor = 0
+
+fun getIsReadyToPayRequest(allowedAuthMethods: ArrayList<String>,
+                           allowedCardNetworks: ArrayList<String>,
+                           billingAddressRequired: Boolean,
+                           billingAddressParameters: HashMap<String, String>,
+                           type: String): IsReadyToPayRequest {
     val isReadyToPayRequest = getBaseRequest()
     isReadyToPayRequest.put(
-            "allowedPaymentMethods", JSONArray().put(baseCardPaymentMethod()))
+            "allowedPaymentMethods", JSONArray()
+            .put(baseCardPaymentMethod(
+                    allowedAuthMethods,
+                    allowedCardNetworks,
+                    billingAddressRequired,
+                    billingAddressParameters,
+                    type))
+    )
 
     return IsReadyToPayRequest.fromJson(isReadyToPayRequest.toString())
 }
 
+
 fun getPaymentDataRequest(price: String,
-                          allowedAuthMethods: Array<String>,
-                          allowedCardNetworks: Array<String>,
+                          allowedAuthMethods: ArrayList<String>,
+                          allowedCardNetworks: ArrayList<String>,
                           billingAddressRequired: Boolean,
                           billingAddressParameters: HashMap<String, String>,
                           type: String,
@@ -38,17 +53,10 @@ fun getPaymentDataRequest(price: String,
             // An optional shipping address requirement is a top-level property of the
             // PaymentDataRequest JSON object.
             val shippingAddressParameters = JSONObject().apply {
-                //todo replace up
-                put("phoneNumberRequired", false)
                 put("phoneNumberRequired", phoneNumberRequired)
-                //todo replace up
-                put("allowedCountryCodes", JSONArray(listOf("US", "GB")))
                 put("allowedCountryCodes", JSONArray(allowedCountryCodes))
             }
-            //todo replace up
-            put("shippingAddressRequired", true)
             put("shippingAddressRequired", shippingAddressRequired)
-
             put("shippingAddressParameters", shippingAddressParameters)
         }
     } catch (e: JSONException) {
@@ -66,15 +74,17 @@ private fun getTransactionInfo(price: String): JSONObject? {
 }
 
 private fun getMerchantInfo(merchantInfo: HashMap<String, String>): JSONObject? {
-    //todo replace up
-    return JSONObject().put("merchantName", "Example Merchant")
+    return JSONObject().apply {
+        put("merchantId", merchantInfo["merchantId"])
+        if (merchantInfo["merchantName"] != null) put("merchantName", merchantInfo["merchantName"])
+        if (merchantInfo["merchantOrigin"] != null) put("merchantOrigin", merchantInfo["merchantOrigin"])
+    }
 }
 
 private fun baseCardPaymentMethod(
-        allowedAuthMethods: Array<String>,
-        allowedCardNetworks: Array<String>,
+        allowedAuthMethods: ArrayList<String>,
+        allowedCardNetworks: ArrayList<String>,
         billingAddressRequired: Boolean,
-        //todo сделать парсинг
         billingAddressParameters: HashMap<String, String>,
         type: String
 ): JSONObject {
@@ -85,21 +95,19 @@ private fun baseCardPaymentMethod(
             put("allowedCardNetworks", getAllowedCardNetworks(allowedCardNetworks))
             put("billingAddressRequired", billingAddressRequired)
             put("billingAddressParameters", JSONObject().apply {
-                //todo replace up
-                put("format", "FULL")
+                put("format", billingAddressParameters["format"])
+                if (billingAddressParameters["phoneNumberRequired"] != null) {
+                    put("phoneNumberRequired", billingAddressParameters["phoneNumberRequired"])
+                }
             })
         }
-
         put("type", type)
-        //todo replace up
-        put("type", "CARD")
-
         put("parameters", parameters)
     }
 }
 
-private fun getCardPaymentMethod(allowedAuthMethods: Array<String>,
-                                 allowedCardNetworks: Array<String>,
+private fun getCardPaymentMethod(allowedAuthMethods: ArrayList<String>,
+                                 allowedCardNetworks: ArrayList<String>,
                                  billingAddressRequired: Boolean,
                                  billingAddressParameters: HashMap<String, String>,
                                  type: String): JSONObject? {
@@ -112,16 +120,13 @@ private fun getCardPaymentMethod(allowedAuthMethods: Array<String>,
     return cardPaymentMethod
 }
 
-private fun getBaseRequest(apiVersion: Int, apiVersionMinor: Int): JSONObject {
+private fun getBaseRequest(apiVersion: Int = defaultApiVersion, apiVersionMinor: Int = defaultApiVersionMinor): JSONObject {
     return JSONObject()
-            //todo replace up
-            .put("apiVersion", 2)
             .put("apiVersion", apiVersion)
-            //todo replace up
-            .put("apiVersionMinor", 0)
             .put("apiVersionMinor", apiVersionMinor)
 }
 
+//todo сделать настройку через flutter часть, в example приложении уже подставить example gateway
 private fun getGatewayTokenizationSpecification(): JSONObject? {
     return object : JSONObject() {
         init {
@@ -136,28 +141,18 @@ private fun getGatewayTokenizationSpecification(): JSONObject? {
     }
 }
 
-private fun getAllowedCardNetworks(cardNetworks: Array<String>): JSONArray {
+private fun getAllowedCardNetworks(cardNetworks: ArrayList<String>): JSONArray {
     return object : JSONArray() {
         init {
             put(cardNetworks)
-            //todo replace up
-            put("AMEX")
-            put("DISCOVER")
-            put("INTERAC")
-            put("JCB")
-            put("MASTERCARD")
-            put("VISA")
         }
     }
 }
 
-private fun getAllowedCardAuthMethods(authMethods: Array<String>): JSONArray? {
+private fun getAllowedCardAuthMethods(authMethods: ArrayList<String>): JSONArray? {
     return object : JSONArray() {
         init {
             put(authMethods)
-            //todo replace up
-            put("PAN_ONLY")
-            put("CRYPTOGRAM_3DS")
         }
     }
 }
