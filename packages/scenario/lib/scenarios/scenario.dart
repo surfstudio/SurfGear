@@ -1,10 +1,8 @@
 import 'package:scenario/steps/step_scenario.dart';
-import 'package:scenario/result.dart';
-import 'package:scenario/scenarios/base_scenario.dart';
 import 'package:scenario/types.dart';
 
 /// Стандартный Сценарий
-class Scenario<T> extends BaseScenario {
+class Scenario<T> {
   /// Шаги
   final List<BaseScenarioStep> steps;
 
@@ -15,26 +13,23 @@ class Scenario<T> extends BaseScenario {
   final ErrorScenarioCallback onError;
 
   Scenario({
-    this.steps,
+    List<BaseScenarioStep> steps,
     this.onFinish,
     this.onError,
-  });
+  }) : steps = steps ?? [];
 
-  Future<Result<T>> run([Result prevScenarioResult]) async {
-    var result = prevScenarioResult?.data;
+  Future<void> run() async {
     try {
       for (BaseScenarioStep step in steps) {
-        result = await step(result);
+        await step();
       }
-      onFinish?.call(Result(result));
     } catch (e) {
       onError?.call(e);
-      return Result.fromError(e);
     }
-    return Result(result);
+    onFinish?.call();
   }
 
-  Future<Result> call([prevScenarioData]) async {
-    return run(prevScenarioData);
+  Future<void> call() async {
+    return run();
   }
 }

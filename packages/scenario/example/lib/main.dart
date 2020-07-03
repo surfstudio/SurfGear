@@ -33,10 +33,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  StreamController<_DataState<String>> _streamController = StreamController();
 
-  StreamController<String> _streamController = StreamController();
-
-  Stream<String> get _stream => _streamController.stream;
+  Stream<_DataState<String>> get _stream => _streamController.stream;
 
   @override
   void initState() {
@@ -57,13 +56,13 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: StreamBuilder<String>(
+        child: StreamBuilder<_DataState<String>>(
           stream: _stream,
-          builder: (_, AsyncSnapshot<String> snapshot) {
-            if (snapshot.data == null) {
+          builder: (_, AsyncSnapshot<_DataState<String>> snapshot) {
+            if (snapshot?.data == null || snapshot.data.isLoad) {
               return CircularProgressIndicator();
             }
-            return Text(snapshot.data);
+            return Text(snapshot.data.value);
           },
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
@@ -73,35 +72,42 @@ class _MyHomePageState extends State<MyHomePage> {
   void _run() {
     LoadScenario<String>(
       make: _getData,
-      onLoad: (_) => print('load'),
-      onData: (String data) => _streamController.add(data),
-      ifHasData: (String data) => print('ifHasData = $data'),
-      ifNoData: () => print('ifNoData'),
-      onEmpty: () => _streamController.add('0'),
-      onError: (_) => _streamController.add('-1'),
+      onLoad: (_) {
+        print('load');
+        _streamController.add(_DataState.load());
+      },
+      onData: (String data) => print('onData'),
+      ifHasData: (String data) {
+        print('ifHasData = $data');
+        _streamController.add(_DataState.fromData(data));
+      },
+      ifNoData: () {
+        print('ifNoData');
+        _streamController.add(_DataState.fromData('Empty Data'));
+      },
+      onError: (_) => _streamController.add(_DataState.fromData('Error')),
     ).run();
   }
 
-//  void _runFromScenario() {
-//    LoadScenario<String>.fromScenario(
-//      scenario: Scenario(
-//        steps: [
-//          ScenarioStep<String>(
-//              make: (_) async => '10',
-//          ),
-//        ]
-//      ),
-//      onLoad: () => print('load fromScenario'),
-//      onData: (String data) => print('onData fromScenario = $data'),
-//      ifHasData: (String data) => _streamController.add('fromScenario $data'),
-//      ifNoData: () => _streamController.add('fromScenario 0'),
-//      onError: (_) => _streamController.add('fromScenario -1'),
-//    ).run();
-//  }
-
-  Future<String> _getData(_) async {
+  Future<String> _getData([String _]) async {
     await Future.delayed(const Duration(seconds: 2));
     return '1';
   }
+}
 
+class _DataState<T> {
+  final bool isLoad;
+  final T value;
+
+  _DataState({this.isLoad, this.value});
+
+  factory _DataState.fromData(T value) => _DataState(
+        isLoad: false,
+        value: value,
+      );
+
+  factory _DataState.load() => _DataState(
+        isLoad: true,
+        value: null,
+      );
 }

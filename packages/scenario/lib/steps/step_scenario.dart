@@ -9,7 +9,7 @@ abstract class BaseScenarioStep<T> {
 
   BaseScenarioStep({this.onResult});
 
-  Future<T> call([data]);
+  Future<T> call();
 }
 
 class ScenarioStep<T> extends BaseScenarioStep<T> {
@@ -18,6 +18,7 @@ class ScenarioStep<T> extends BaseScenarioStep<T> {
   LoadScenarioCallback onLoad;
   LoadScenarioDataCallback<T> ifHasData;
   VoidCallback ifNoData;
+  LoadScenarioDataCallback<T> onData;
   ErrorScenarioCallback onError;
 
   ScenarioStep({
@@ -26,21 +27,27 @@ class ScenarioStep<T> extends BaseScenarioStep<T> {
     this.onLoad,
     this.ifHasData,
     this.ifNoData,
+    this.onData,
     this.onError,
     ResultScenarioCallback<T> onResult,
   }) : super(onResult: onResult);
 
-  Future<T> call([prevStepData]) async {
+  Future<T> call() async {
     onLoad?.call(id);
-    if (prevStepData == null) {
-      ifNoData?.call();
-    } else {
-      ifHasData?.call(prevStepData);
-    }
+
+    T data = await make();
     Result<T> result;
+
     try {
-      result = Result(await make(prevStepData));
-    } catch (e) {
+      data = await make();
+      if (data == null) {
+        ifNoData?.call();
+      } else {
+        ifHasData?.call(data);
+      }
+      onData?.call(data);
+      result = Result(data);
+    } catch (e, s) {
       result = Result.fromError(e);
       onError?.call(e);
     }
@@ -71,7 +78,7 @@ class ConditionalScenarioStep<T> extends BaseScenarioStep<T> {
   Future<T> call([prevStepData]) async {
     bool isFirst = await predicate(prevStepData);
     return isFirst
-        ? await firstStep?.call(prevStepData)
-        : await secondStep?.call(prevStepData);
+        ? await firstStep?.call()
+        : await secondStep?.call();
   }
 }
