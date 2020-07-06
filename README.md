@@ -2,8 +2,9 @@
 
 ![](logo.png)
 
-A library that helps to perform actions with some periodicity
+[![pub package](https://img.shields.io/pub/v/render_metrics?label=render_metrics)](https://pub.dev/packages/render_metrics)
 
+A library that helps to perform actions with some periodicity
 ## Usage of RenderMetrics
 
 main classes:
