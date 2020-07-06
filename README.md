@@ -2,6 +2,7 @@
 
 ![](logo.png)
 
+#### [SurfGear](https://github.com/surfstudio/SurfGear)
 [![pub package](https://img.shields.io/pub/v/render_metrics?label=render_metrics)](https://pub.dev/packages/render_metrics)
 
 A library that helps to perform actions with some periodicity
