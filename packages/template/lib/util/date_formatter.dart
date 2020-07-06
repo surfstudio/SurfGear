@@ -1,4 +1,4 @@
 /// Утилиты для [DateTime]
 
-const UTC_FORMAT = "YYYY-MM-DDThh:mmTZD";
-const HH_MM_FORMAT = "HH:mm";
+const utcFormat = "YYYY-MM-DDThh:mmTZD";
+const hhMmFormat = "HH:mm";

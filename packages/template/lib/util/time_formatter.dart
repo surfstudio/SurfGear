@@ -15,17 +15,17 @@ class TimeFormatter {
 
     if (days != 0) {
       result.write(daysText(days));
-      result.write(SPACE);
+      result.write(space);
     }
 
     if (hours != 0) {
       result.write(hoursText(hours));
-      result.write(SPACE);
+      result.write(space);
     }
 
     if (minutes != 0 || duration.inMinutes == 0) {
       result.write(minutesText(minutes));
-      result.write(SPACE);
+      result.write(space);
     }
 
     return result.toString().trim();
