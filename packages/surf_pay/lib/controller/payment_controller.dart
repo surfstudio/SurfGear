@@ -13,7 +13,7 @@ const String PAY_APPLE = "apple";
 /// Methods
 const String IS_READY_TO_PAY = "is_ready_to_pay";
 const String PAY = "pay";
-const String IS_READY_CALLBACK = "is_ready_to_pay";
+const String INIT = "init";
 
 const String ON_SUCCESS = "payment_success";
 const String ON_CANCEL = "payment_cancel";
@@ -29,22 +29,42 @@ const String PHONE_NUMBER_REQUIRED = "phoneNumberRequired";
 const String ALLOWED_COUNTRY_CODES = "allowedCountryCodes";
 const String SHIPPING_ADDRESS_REQUIRED = "shippingAddressRequired";
 
+const String IS_TEST = "IS_TEST";
+const String GATEWAY = "gateway";
+const String GATEWAY_MERCHANT_ID = "gatewayMerchantId";
+const String GATEWAY_TYPE = "gatewayType";
+
 typedef SuccessCallback = Function(Map<String, dynamic> paymentData);
 typedef ErrorCallback = Function(PaymentErrorStatus);
 
 class PaymentController {
   PaymentController({
-    this.googlePayData,
-    this.applePayData,
+    @required this.googlePayData,
+    @required this.applePayData,
+    @required String gateway,
+    @required String gatewayMerchantId,
+    @required String gatewayType,
     this.onSuccess,
     this.onCancel,
     this.onError,
-  }) {
+    this.isTestEnvironment = true,
+  }) : assert(googlePayData != null),
+  //todo
+        assert(applePayData != null) {
     _initCallbackListener();
+    _init(
+      googlePayData,
+      applePayData,
+      isTestEnvironment,
+      gateway,
+      gatewayMerchantId,
+      gatewayType,
+    );
   }
 
   final GooglePayData googlePayData;
   final ApplePayData applePayData;
+  final bool isTestEnvironment;
   final SuccessCallback onSuccess;
   final VoidCallback onCancel;
   final ErrorCallback onError;
@@ -58,9 +78,25 @@ class PaymentController {
     return _payApple(ApplePayData());
   }
 
+  void _init(GooglePayData googlePayData,
+      ApplePayData applePayData,
+      bool isTestEnvironment,
+      String gateway,
+      String gatewayMerchantId,
+      String gatewayType,) {
+    _channel.invokeMethod(INIT, {
+      ...googlePayData.map(),
+      ...applePayData.map(),
+      IS_TEST: isTestEnvironment,
+      GATEWAY: gateway,
+      GATEWAY_MERCHANT_ID: gatewayMerchantId,
+      GATEWAY_TYPE: gatewayType,
+    });
+  }
+
   void _initCallbackListener() {
     _channel.setMethodCallHandler(
-      (call) async {
+          (call) async {
         switch (call.method) {
           case ON_SUCCESS:
             final paymentData = jsonDecode(
@@ -81,10 +117,21 @@ class PaymentController {
   }
 
   void _payGoogle() {
+    final price = "120.00";
+    final merchantInfo = {
+      'merchantName': 'Example Merchant',
+    };
+    final phoneNumberRequired = true;
+    final allowedCountryCodes = ["US", "GB"];
+    final shippingAddressRequired = true;
     _channel.invokeMethod(
       PAY,
       <String, dynamic>{
-        "test_arg": "test",
+        PRICE: price,
+        MERCHANT_INFO: merchantInfo,
+        PHONE_NUMBER_REQUIRED: phoneNumberRequired,
+        ALLOWED_COUNTRY_CODES: allowedCountryCodes,
+        SHIPPING_ADDRESS_REQUIRED: shippingAddressRequired
       },
     );
   }
@@ -98,8 +145,8 @@ class PaymentController {
     );
   }
 
-  Future<bool> googlePayIsAvalibale(GooglePayData data) {
-    return _channel.invokeMethod(IS_READY_TO_PAY, data.map());
+  Future<bool> googlePayIsAvalibale() {
+    return _channel.invokeMethod(IS_READY_TO_PAY);
   }
 
   PaymentErrorStatus _getPaymentErrorStatus(int errorStatus) {

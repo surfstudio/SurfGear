@@ -8,20 +8,16 @@ import org.json.JSONObject
 const val defaultApiVersion = 2
 const val defaultApiVersionMinor = 0
 
-fun getIsReadyToPayRequest(allowedAuthMethods: ArrayList<String>,
-                           allowedCardNetworks: ArrayList<String>,
-                           billingAddressRequired: Boolean,
-                           billingAddressParameters: HashMap<String, String>,
-                           type: String): IsReadyToPayRequest {
+fun getIsReadyToPayRequest(googleData: GoogleData): IsReadyToPayRequest {
     val isReadyToPayRequest = getBaseRequest()
     isReadyToPayRequest.put(
             "allowedPaymentMethods", JSONArray()
             .put(baseCardPaymentMethod(
-                    allowedAuthMethods,
-                    allowedCardNetworks,
-                    billingAddressRequired,
-                    billingAddressParameters,
-                    type))
+                    googleData.allowedAuthMethods,
+                    googleData.allowedCardNetworks,
+                    googleData.billingAddressRequired,
+                    googleData.billingAddressParameters,
+                    googleData.type))
     )
 
     return IsReadyToPayRequest.fromJson(isReadyToPayRequest.toString())
@@ -29,11 +25,8 @@ fun getIsReadyToPayRequest(allowedAuthMethods: ArrayList<String>,
 
 
 fun getPaymentDataRequest(price: String,
-                          allowedAuthMethods: ArrayList<String>,
-                          allowedCardNetworks: ArrayList<String>,
-                          billingAddressRequired: Boolean,
-                          billingAddressParameters: HashMap<String, String>,
-                          type: String,
+                          googleData: GoogleData,
+                          gatewayInfo: GatewayInfo,
                           merchantInfo: HashMap<String, String>,
                           phoneNumberRequired: Boolean,
                           allowedCountryCodes: List<String>,
@@ -42,11 +35,13 @@ fun getPaymentDataRequest(price: String,
     try {
         return JSONObject(getBaseRequest().toString()).apply {
             put("allowedPaymentMethods",
-                    JSONArray().put(getCardPaymentMethod(allowedAuthMethods,
-                            allowedCardNetworks,
-                            billingAddressRequired,
-                            billingAddressParameters,
-                            type)))
+                    JSONArray().put(getCardPaymentMethod(
+                            googleData.allowedAuthMethods,
+                            googleData.allowedCardNetworks,
+                            googleData.billingAddressRequired,
+                            googleData.billingAddressParameters,
+                            googleData.type,
+                            gatewayInfo)))
             put("transactionInfo", getTransactionInfo(price))
             put("merchantInfo", getMerchantInfo(merchantInfo))
 
@@ -75,7 +70,7 @@ private fun getTransactionInfo(price: String): JSONObject? {
 
 private fun getMerchantInfo(merchantInfo: HashMap<String, String>): JSONObject? {
     return JSONObject().apply {
-        put("merchantId", merchantInfo["merchantId"])
+        if (merchantInfo["merchantId"] != null) put("merchantId", merchantInfo["merchantId"])
         if (merchantInfo["merchantName"] != null) put("merchantName", merchantInfo["merchantName"])
         if (merchantInfo["merchantOrigin"] != null) put("merchantOrigin", merchantInfo["merchantOrigin"])
     }
@@ -110,13 +105,14 @@ private fun getCardPaymentMethod(allowedAuthMethods: ArrayList<String>,
                                  allowedCardNetworks: ArrayList<String>,
                                  billingAddressRequired: Boolean,
                                  billingAddressParameters: HashMap<String, String>,
-                                 type: String): JSONObject? {
+                                 type: String,
+                                 gatewayInfo: GatewayInfo): JSONObject? {
     val cardPaymentMethod = baseCardPaymentMethod(allowedAuthMethods,
             allowedCardNetworks,
             billingAddressRequired,
             billingAddressParameters,
             type)
-    cardPaymentMethod.put("tokenizationSpecification", getGatewayTokenizationSpecification())
+    cardPaymentMethod.put("tokenizationSpecification", gatewayInfo.getGatewayTokenizationSpecification())
     return cardPaymentMethod
 }
 
@@ -126,25 +122,10 @@ private fun getBaseRequest(apiVersion: Int = defaultApiVersion, apiVersionMinor:
             .put("apiVersionMinor", apiVersionMinor)
 }
 
-//todo сделать настройку через flutter часть, в example приложении уже подставить example gateway
-private fun getGatewayTokenizationSpecification(): JSONObject? {
-    return object : JSONObject() {
-        init {
-            put("type", "PAYMENT_GATEWAY")
-            put("parameters", object : JSONObject() {
-                init {
-                    put("gateway", "example")
-                    put("gatewayMerchantId", "exampleGatewayMerchantId")
-                }
-            })
-        }
-    }
-}
-
 private fun getAllowedCardNetworks(cardNetworks: ArrayList<String>): JSONArray {
     return object : JSONArray() {
         init {
-            put(cardNetworks)
+            cardNetworks.forEach {put(it)}
         }
     }
 }
@@ -152,7 +133,7 @@ private fun getAllowedCardNetworks(cardNetworks: ArrayList<String>): JSONArray {
 private fun getAllowedCardAuthMethods(authMethods: ArrayList<String>): JSONArray? {
     return object : JSONArray() {
         init {
-            put(authMethods)
+            authMethods.forEach {put(it)}
         }
     }
 }

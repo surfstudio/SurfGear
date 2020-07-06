@@ -1,30 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:surfpay/ui/assets/google_pay/buy_with_white.dart';
+import 'package:surfpay/ui/assets/google_pay/google_buy_with_grey.dart';
 import 'package:surfpay/ui/assets/google_pay/google_pay_grey.dart';
 import 'package:surfpay/ui/assets/google_pay/google_pay_white.dart';
+import 'package:surfpay/ui/assets/google_pay/google_with_white.dart';
 
-import 'assets/google_pay/buy_with_grey.dart';
-
-const _cornerRadius = 4.0;
 const _backgroundColorWhite = Color(0xFFFFFFFF);
 const _backGroundColorBlack = Color(0xFF000000);
 
+/// https://developers.google.com/pay/api/android/guides/brand-guidelines?hl=en
 class GoogleButton extends StatelessWidget {
+  final double radius;
   final VoidCallback onTap;
   final double height;
   final double width;
   final logoHeight;
-  final ButtonStyle style;
+  final AndroidButtonStyle style;
   final bool withPrefix;
 
   GoogleButton({
     this.onTap,
     this.height = 48.0,
     this.logoHeight = 17.0,
-    this.style = ButtonStyle.dark,
+    this.style = AndroidButtonStyle.dark,
     this.withPrefix = false,
+    this.radius = 4.0,
     double width,
   }) : width = width ?? withPrefix ? 152.0 : 90.0;
 
@@ -34,16 +35,16 @@ class GoogleButton extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Material(
         color: _getBackgroundColor(),
-        borderRadius: BorderRadius.circular(_cornerRadius),
+        borderRadius: BorderRadius.circular(radius),
         elevation: _getElevation(),
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(_cornerRadius),
+          borderRadius: BorderRadius.circular(radius),
           child: Container(
             height: height,
             width: width,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(_cornerRadius),
+              borderRadius: BorderRadius.circular(radius),
               border: _buildBorder(),
             ),
             child: SvgPicture.string(
@@ -57,7 +58,7 @@ class GoogleButton extends StatelessWidget {
   }
 
   BoxBorder _buildBorder() {
-    return style != ButtonStyle.whiteWithBorder
+    return style != AndroidButtonStyle.whiteWithBorder
         ? null
         : Border.all(
             width: 1,
@@ -67,10 +68,10 @@ class GoogleButton extends StatelessWidget {
 
   Color _getBackgroundColor() {
     switch (style) {
-      case ButtonStyle.dark:
+      case AndroidButtonStyle.dark:
         return _backGroundColorBlack;
-      case ButtonStyle.white:
-      case ButtonStyle.whiteWithBorder:
+      case AndroidButtonStyle.white:
+      case AndroidButtonStyle.whiteWithBorder:
       default:
         return _backgroundColorWhite;
     }
@@ -78,10 +79,10 @@ class GoogleButton extends StatelessWidget {
 
   double _getElevation() {
     switch (style) {
-      case ButtonStyle.white:
+      case AndroidButtonStyle.white:
         return 2.0;
-      case ButtonStyle.dark:
-      case ButtonStyle.whiteWithBorder:
+      case AndroidButtonStyle.dark:
+      case AndroidButtonStyle.whiteWithBorder:
       default:
         return 0.0;
     }
@@ -89,17 +90,17 @@ class GoogleButton extends StatelessWidget {
 
   String _getLogo() {
     switch (style) {
-      case ButtonStyle.dark:
+      case AndroidButtonStyle.dark:
         return withPrefix ? googleBuyWithWhite : googlePayWhite;
-      case ButtonStyle.white:
-      case ButtonStyle.whiteWithBorder:
+      case AndroidButtonStyle.white:
+      case AndroidButtonStyle.whiteWithBorder:
       default:
         return withPrefix ? googleBuyWithGrey : googlePayGrey;
     }
   }
 }
 
-enum ButtonStyle {
+enum AndroidButtonStyle {
   dark,
   white,
   whiteWithBorder,

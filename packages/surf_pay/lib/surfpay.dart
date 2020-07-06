@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:surfpay/controller/payment_controller.dart';
 import 'package:surfpay/data/google_pay_data.dart';
-import 'package:surfpay/data/payment_status.dart';
 import 'package:surfpay/ui/apple_button.dart';
 import 'package:surfpay/ui/google_button.dart';
 
@@ -47,6 +46,9 @@ class _SurfpayState extends State<Surfpay> {
     _paymentController = PaymentController(
       applePayData: widget.applePayData,
       googlePayData: widget.googlePayData,
+      gatewayType: 'PAYMENT_GATEWAY',
+      gateway: 'example',
+      gatewayMerchantId: 'exampleGatewayMerchantId',
       onSuccess: widget.onSuccess,
       onCancel: widget.onCancel,
       onError: widget.onError,
@@ -86,7 +88,7 @@ class _SurfpayState extends State<Surfpay> {
 
   Widget _buildApple() {
     if (widget.customButton == null) {
-      return AppleButton(() => _paymentController.pay());
+      return AppleButton(onTap: () => _paymentController.pay());
     }
     return widget.customButton(
       context,
@@ -95,23 +97,7 @@ class _SurfpayState extends State<Surfpay> {
   }
 
   Future<void> test() async {
-    final a = await _paymentController.googlePayIsAvalibale(
-      GooglePayData(
-        [
-          "PAN_ONLY",
-          "CRYPTOGRAM_3DS",
-        ],
-        [
-          "MASTERCARD",
-          "VISA",
-        ],
-        true,
-        {
-          "format": "FULL",
-        },
-        "CARD",
-      ),
-    );
+    final a = await _paymentController.googlePayIsAvalibale();
     print(a);
   }
 }

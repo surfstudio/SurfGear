@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:surfpay/data/apple_pay_data.dart';
+import 'package:surfpay/data/google_pay_data.dart';
 import 'package:surfpay/surfpay.dart';
+import 'package:surfpay/ui/apple_button.dart';
 import 'package:surfpay/ui/google_button.dart';
 
 void main() {
@@ -24,15 +27,24 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
           child: Surfpay(
+            applePayData: ApplePayData(),
+            googlePayData: GooglePayData(
+              [
+                "PAN_ONLY",
+                "CRYPTOGRAM_3DS",
+              ],
+              [
+                "MASTERCARD",
+                "VISA",
+              ],
+              true,
+              {
+                "format": "FULL",
+              },
+              "CARD",
+            ),
             onSuccess: (status) {
               print("оплачено со статусом $status");
-            },
-            customButton: (context, pay) {
-              return GoogleButton(
-                onTap: () {
-                  print("tap");
-                },
-              );
             },
           ),
         ),
