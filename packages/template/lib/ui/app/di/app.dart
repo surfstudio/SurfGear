@@ -79,7 +79,7 @@ class AppComponent implements Component {
     var proxyUrl = Environment<Config>.instance().config.proxyUrl;
     var dioHttp = DioHttp(
       config: HttpConfig(
-        EMPTY_STRING,
+        emptyString,
         Duration(seconds: 30),
         proxyUrl: proxyUrl,
       ),
