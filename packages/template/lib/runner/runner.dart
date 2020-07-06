@@ -8,6 +8,8 @@ import 'package:flutter_template/util/crashlytics_strategy.dart';
 import 'package:logger/logger.dart';
 
 void run() async {
+  // Нужно вызывать чтобы не падало проставление ориентации
+  WidgetsFlutterBinding.ensureInitialized();
   // закрепляем ориентацию todo изменить на необходимое или убрать
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
