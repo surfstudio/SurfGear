@@ -17,24 +17,23 @@ class DialogType extends Enum<String> {
 
 ///Стандартная реализация [DialogController]
 class DefaultDialogController implements DialogController {
-  final GlobalKey<ScaffoldState> _scaffoldState;
+  final GlobalKey<ScaffoldState> _scaffoldKey;
   final BuildContext _context;
   final DialogOwner dialogOwner;
 
   PersistentBottomSheetController _sheetController;
 
-  DefaultDialogController(
-    this._scaffoldState, {
-    this.dialogOwner,
-  }) : _context = null;
+  DefaultDialogController(this._scaffoldKey, {this.dialogOwner})
+      : assert(_scaffoldKey != null),
+        _context = null;
 
-  DefaultDialogController.from(
-    this._context, {
-    this.dialogOwner,
-  }) : _scaffoldState = null;
+  DefaultDialogController.from(this._context, {this.dialogOwner})
+      : assert(_context != null),
+        _scaffoldKey = null;
 
-  BuildContext get _scaffoldContext =>
-      _scaffoldState?.currentContext ?? Scaffold.of(_context).context;
+  BuildContext get context => _context ?? _scaffoldKey.currentContext;
+  ScaffoldState get nearestScaffoldState =>
+      _scaffoldKey?.currentState ?? Scaffold.of(_context);
 
   @override
   Future<R> showAlertDialog<R>({
@@ -44,51 +43,37 @@ class DefaultDialogController implements DialogController {
     onDisagreeClicked,
   }) {
     return showDialog(
-      context: _scaffoldContext,
-      builder: (ctx) => PlatformAlertDialog(
-        alertText: message,
-        onAgreeClicked: () => onAgreeClicked(ctx),
-        onDisagreeClicked: () => onDisagreeClicked(ctx),
-      ),
+      context: context,
+      builder: (ctx) =>
+          PlatformAlertDialog(
+            alertText: message,
+            onAgreeClicked: () => onAgreeClicked(ctx),
+            onDisagreeClicked: () => onDisagreeClicked(ctx),
+          ),
     );
   }
 
   /// Создание кастомного диалога
   Future<R> showCustomAlertDialog<R>(Widget alertDialog) {
-    return showDialog(context: _scaffoldContext, builder: (ctx) => alertDialog);
+    return showDialog(context: context, builder: (ctx) => alertDialog);
   }
 
   @override
   Future<R> showSheet<R>(type, {VoidCallback onDismiss, DialogData data}) {
     assert(dialogOwner != null);
 
-    final DialogBuilder<DialogData> dialogBuilder =
-        dialogOwner?.registeredDialogs[type];
+    final buildDialog = dialogOwner.registeredDialogs[type];
 
-    PersistentBottomSheetController<R> sheetController;
-    if (_scaffoldState == null) {
-      sheetController = showBottomSheet<R>(
-        context: _context,
-        builder: (ctx) => dialogBuilder(ctx, data: data),
-      );
-    } else {
-      sheetController = _scaffoldState.currentState.showBottomSheet(
-        (ctx) => dialogBuilder(ctx, data: data),
-      );
-    }
+    _sheetController = nearestScaffoldState
+        .showBottomSheet<R>((ctx) => buildDialog(ctx, data: data));
 
-    _sheetController = sheetController;
-
-    sheetController.closed.then((_) {
+    return _sheetController.closed.whenComplete(() {
       _sheetController = null;
-      onDismiss();
+      onDismiss?.call();
     });
-
-    return sheetController.closed;
   }
 
-  Future<R> showFlexibleModalSheet<R>(
-    type, {
+  Future<R> showFlexibleModalSheet<R>(type, {
     double minHeight,
     double initHeight,
     double maxHeight,
@@ -100,11 +85,8 @@ class DefaultDialogController implements DialogController {
     DialogData data,
   }) {
     assert(dialogOwner != null);
-    final buildDialog = dialogOwner?.registeredDialogs[type]
-        as FlexibleDialogBuilder<DialogData>;
 
-    final BuildContext context =
-        _scaffoldState == null ? _context : _scaffoldState.currentState.context;
+    FlexibleDialogBuilder buildDialog = dialogOwner.registeredDialogs[type];
 
     return showFlexibleBottomSheet(
         context: context,
@@ -128,14 +110,11 @@ class DefaultDialogController implements DialogController {
   }
 
   void hideBottomSheet() {
-    assert(dialogOwner != null);
-
     _sheetController?.close();
   }
 
   @override
-  Future<R> showModalSheet<R>(
-    type, {
+  Future<R> showModalSheet<R>(type, {
     VoidCallback onDismiss,
     DialogData data,
     bool isScrollControlled = false,
@@ -143,25 +122,28 @@ class DefaultDialogController implements DialogController {
     assert(dialogOwner != null);
 
     return showModalBottomSheet(
-      context: _scaffoldContext,
+      context: context,
       isScrollControlled: isScrollControlled,
       backgroundColor: Colors.transparent,
-      builder: (ctx) => dialogOwner?.registeredDialogs[type](ctx, data: data),
+      builder: (ctx) => dialogOwner.registeredDialogs[type](ctx, data: data),
     );
   }
 }
 
 /// Дефолтный диалог выбора даты
 class DatePickerDialogController {
-  final GlobalKey<ScaffoldState> _scaffoldState;
+  final GlobalKey<ScaffoldState> _scaffoldKey;
   final BuildContext _context;
 
-  DatePickerDialogController(this._scaffoldState) : _context = null;
+  DatePickerDialogController(this._scaffoldKey)
+      : assert(_scaffoldKey != null),
+        _context = null;
 
-  DatePickerDialogController.from(this._context) : _scaffoldState = null;
+  DatePickerDialogController.from(this._context)
+      : assert(_context != null),
+        _scaffoldKey = null;
 
-  BuildContext get _scaffoldContext =>
-      _scaffoldState?.currentContext ?? Scaffold.of(_context).context;
+  BuildContext get context => _context ?? _scaffoldKey.currentContext;
 
   Stream<DateTime> show({
     DateTime firstDate,
@@ -170,9 +152,9 @@ class DatePickerDialogController {
     Widget iosCloseButton,
     Widget iosDoneButton,
   }) {
-    if (Theme.of(_scaffoldContext).platform == TargetPlatform.android) {
+    if (Theme.of(context).platform == TargetPlatform.android) {
       return showDatePicker(
-        context: _scaffoldContext,
+        context: context,
         firstDate: firstDate ?? DateTime(1900),
         initialDate: initialDate,
         lastDate: lastDate ?? DateTime(2090),
@@ -180,32 +162,32 @@ class DatePickerDialogController {
     } else {
       final controller = StreamController<DateTime>();
       showCupertinoModalPopup(
-        context: _scaffoldContext,
-        builder: (ctx) => _buildBottomPicker(
-          CupertinoDatePicker(
-            mode: CupertinoDatePickerMode.date,
-            initialDateTime: initialDate ?? DateTime.now(),
+        context: context,
+        builder: (ctx) =>
+            _buildBottomPicker(
+              CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.date,
+                initialDateTime: initialDate ?? DateTime.now(),
             onDateTimeChanged: controller.add,
-          ),
-          onCancel: () {
-            controller.add(initialDate);
-            controller.close();
-            Navigator.of(_scaffoldContext, rootNavigator: true).pop();
-          },
-          onDone: () {
-            controller.close();
-            Navigator.of(_scaffoldContext, rootNavigator: true).pop();
-          },
-          iosCloseButton: iosCloseButton,
-          iosDoneButton: iosDoneButton,
-        ),
+              ),
+              onCancel: () {
+                controller.add(initialDate);
+                controller.close();
+            Navigator.of(context, rootNavigator: true).pop();
+              },
+              onDone: () {
+                controller.close();
+            Navigator.of(context, rootNavigator: true).pop();
+              },
+              iosCloseButton: iosCloseButton,
+              iosDoneButton: iosDoneButton,
+            ),
       );
       return controller.stream;
     }
   }
 
-  Widget _buildBottomPicker(
-    Widget picker, {
+  Widget _buildBottomPicker(Widget picker, {
     VoidCallback onCancel,
     VoidCallback onDone,
     Widget iosCloseButton,
