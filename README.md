@@ -3,7 +3,7 @@
 # <img src="https://i.ibb.co/N719LCW/logo.png" title="logo" align="middle"/>
 
 #### [SurfGear](https://github.com/surfstudio/SurfGear)
-[![pub package](https://img.shields.io/pub/v/mwwm?label=mwwm&color=blue)](https://pub.dev/packages/mwwm)
+[![pub package](https://img.shields.io/pub/v/mwwm?label=mwwm)](https://pub.dev/packages/mwwm)
 
 Software architectural pattern for Flutter apps.
 
