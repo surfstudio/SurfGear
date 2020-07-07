@@ -15,12 +15,12 @@ class MaterialMessageController extends MessageController {
   final Map<dynamic, SnackBar Function(String text)> defaultSnackBarBuilder = {
     MsgType.commonError: (text) => SnackBar(
           content: Text(text),
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
           backgroundColor: colorError,
         ),
     MsgType.common: (text) => SnackBar(
           content: Text(text),
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
         ),
   };
 
@@ -38,14 +38,14 @@ class MaterialMessageController extends MessageController {
     assert(msg != null || msgType != null);
 
     final owner = snackOwner;
-    Logger.d(" SnackBar owner is nul? ${owner == null}");
+    Logger.d(' SnackBar owner is nul? ${owner == null}');
     SnackBar snack;
     if (owner != null) {
       snack = owner.registeredSnackBarsBuilder[msgType](msg);
     }
-    Logger.d(" SnackBar is nul? ${snack == null} by type = $msgType");
+    Logger.d(' SnackBar is nul? ${snack == null} by type = $msgType');
 
-    Future.delayed(Duration(milliseconds: 10), () {
+    Future.delayed(const Duration(milliseconds: 10), () {
       _state.showSnackBar(
         snack ?? defaultSnackBarBuilder[msgType](msg),
       );

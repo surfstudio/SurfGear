@@ -40,7 +40,7 @@ class ErrorWidget extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                   color: backgroundColor,
-                  borderRadius: BorderRadius.all(Radius.circular(6))),
+                  borderRadius: const BorderRadius.all(Radius.circular(6))),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class ErrorWidget extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text("Message:",
+                            Text('Message:',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline6
@@ -64,7 +64,7 @@ class ErrorWidget extends StatelessWidget {
                                     .copyWith(color: textColor, fontSize: 14)),
                           ],
                         ),
-                      Text("Error stacktrace: ${error.runtimeType}",
+                      Text('Error stacktrace: ${error.runtimeType}',
                           style: Theme.of(context)
                               .textTheme
                               .headline6

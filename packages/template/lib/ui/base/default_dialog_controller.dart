@@ -63,10 +63,13 @@ class DefaultDialogController implements DialogController {
 
     final buildDialog = dialogOwner.registeredDialogs[type];
 
-    _sheetController = nearestScaffoldState
-        .showBottomSheet<R>((ctx) => buildDialog(ctx, data: data));
+    final PersistentBottomSheetController<R> sheetController =
+        nearestScaffoldState.showBottomSheet<R>(
+      (ctx) => buildDialog(ctx, data: data),
+    );
+    _sheetController = sheetController;
 
-    return _sheetController.closed.whenComplete(() {
+    return sheetController.closed.whenComplete(() {
       _sheetController = null;
       onDismiss?.call();
     });
@@ -86,7 +89,8 @@ class DefaultDialogController implements DialogController {
   }) {
     assert(dialogOwner != null);
 
-    FlexibleDialogBuilder buildDialog = dialogOwner.registeredDialogs[type];
+    final FlexibleDialogBuilder buildDialog = dialogOwner
+        .registeredDialogs[type] as FlexibleDialogBuilder<DialogData>;
 
     return showFlexibleBottomSheet(
         context: context,
@@ -98,12 +102,12 @@ class DefaultDialogController implements DialogController {
         useRootNavigator: useRootNavigator,
         isModal: isModal,
         anchors: anchors,
-        builder: (BuildContext context, ScrollController controller, offset) {
+        builder: (context, scrollController, offset) {
           return Material(
             child: buildDialog(
               context,
               data: data,
-              scrollController: controller,
+              scrollController: scrollController,
             ),
           );
         });
@@ -168,9 +172,7 @@ class DatePickerDialogController {
           CupertinoDatePicker(
             mode: CupertinoDatePickerMode.date,
             initialDateTime: initialDate ?? DateTime.now(),
-            onDateTimeChanged: (DateTime newDateTime) {
-              controller.add(newDateTime);
-            },
+            onDateTimeChanged: controller.add,
           ),
           onCancel: () {
             controller.add(initialDate);

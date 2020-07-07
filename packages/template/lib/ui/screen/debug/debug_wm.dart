@@ -6,6 +6,7 @@ import 'package:flutter_template/interactor/common/urls.dart';
 import 'package:flutter_template/interactor/debug/debug_screen_interactor.dart';
 import 'package:flutter_template/ui/screen/debug/di/debug_screen_component.dart';
 import 'package:flutter_template/ui/screen/welcome_screen/welcome_route.dart';
+import 'package:flutter_template/util/const.dart';
 import 'package:injector/injector.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
@@ -13,7 +14,7 @@ enum UrlType { test, prod, dev }
 
 /// Билдер для [DebugWidgetModel].
 DebugWidgetModel createDebugWidgetModel(BuildContext context) {
-  var component = Injector.of<DebugScreenComponent>(context).component;
+  final component = Injector.of<DebugScreenComponent>(context).component;
 
   return DebugWidgetModel(
     component.wmDependencies,
@@ -31,8 +32,9 @@ class DebugWidgetModel extends WidgetModel {
 
   final urlState = StreamedState<UrlType>();
   TextFieldStreamedState proxyValueState;
-  final debugOptionsState =
-      StreamedState<DebugOptions>(Environment.instance().config.debugOptions);
+  final debugOptionsState = StreamedState<DebugOptions>(
+    Environment<Config>.instance().config.debugOptions,
+  );
 
   final switchServer = Action<UrlType>();
   final showDebugNotification = Action();
@@ -52,7 +54,7 @@ class DebugWidgetModel extends WidgetModel {
   String currentUrl;
   String proxyUrl;
 
-  Config get config => Environment.instance().config;
+  Config get config => Environment<Config>.instance().config;
 
   set config(Config newConfig) => Environment.instance().config = newConfig;
 
@@ -82,78 +84,92 @@ class DebugWidgetModel extends WidgetModel {
       proxyValueState = TextFieldStreamedState(proxyUrl);
       proxyChanges.controller.text = proxyUrl;
     } else {
-      proxyValueState = TextFieldStreamedState("");
-      proxyChanges.controller.text = "";
+      proxyValueState = TextFieldStreamedState(emptyString);
+      proxyChanges.controller.text = emptyString;
     }
 
-    bind(switchServer, (urlType) {
-      Config newConfig;
-      switch (urlType) {
-        case UrlType.test:
-          newConfig = config.copyWith(url: Url.testUrl);
-          break;
-        case UrlType.prod:
-          newConfig = config.copyWith(url: Url.prodUrl);
-          break;
-        default:
-          newConfig = config.copyWith(url: Url.devUrl);
-          break;
-      }
-      _refreshApp(newConfig);
-    });
+    bind<UrlType>(
+      switchServer,
+      (urlType) {
+        Config newConfig;
+        switch (urlType) {
+          case UrlType.test:
+            newConfig = config.copyWith(url: Url.testUrl);
+            break;
+          case UrlType.prod:
+            newConfig = config.copyWith(url: Url.prodUrl);
+            break;
+          default:
+            newConfig = config.copyWith(url: Url.devUrl);
+            break;
+        }
+        _refreshApp(newConfig);
+      },
+    );
 
-    subscribe(debugOptionsState.stream, (value) {
-      config = config.copyWith(debugOptions: value);
-    });
+    subscribe<DebugOptions>(
+      debugOptionsState.stream,
+      (value) {
+        config = config.copyWith(debugOptions: value);
+      },
+    );
 
     bind(
       showDebugNotification,
       (_) => _debugScreenInteractor.showDebugScreenNotification(),
     );
 
-    bind(closeScreenAction, (_) {
-      showDebugNotification.accept();
-      navigator.pop();
-    });
+    bind(
+      closeScreenAction,
+      (_) {
+        showDebugNotification.accept();
+        navigator.pop();
+      },
+    );
 
     bind(urlChangeAction, urlState.accept);
 
-    bind(
-        showPerformanceOverlayChangeAction,
-        (value) => _setDebugOptionState(
-              config.debugOptions.copyWith(showPerformanceOverlay: value),
-            ));
+    bind<bool>(
+      showPerformanceOverlayChangeAction,
+      (value) => _setDebugOptionState(
+        config.debugOptions.copyWith(showPerformanceOverlay: value),
+      ),
+    );
 
-    bind(
-        debugShowMaterialGridChangeAction,
-        (value) => _setDebugOptionState(
-              config.debugOptions.copyWith(debugShowMaterialGrid: value),
-            ));
+    bind<bool>(
+      debugShowMaterialGridChangeAction,
+      (value) => _setDebugOptionState(
+        config.debugOptions.copyWith(debugShowMaterialGrid: value),
+      ),
+    );
 
-    bind(
-        checkerboardRasterCacheImagesChangeAction,
-        (value) => _setDebugOptionState(
-              config.debugOptions
-                  .copyWith(checkerboardRasterCacheImages: value),
-            ));
+    bind<bool>(
+      checkerboardRasterCacheImagesChangeAction,
+      (value) => _setDebugOptionState(
+        config.debugOptions.copyWith(checkerboardRasterCacheImages: value),
+      ),
+    );
 
-    bind(
-        checkerboardOffscreenLayersChangeAction,
-        (value) => _setDebugOptionState(
-              config.debugOptions.copyWith(checkerboardOffscreenLayers: value),
-            ));
+    bind<bool>(
+      checkerboardOffscreenLayersChangeAction,
+      (value) => _setDebugOptionState(
+        config.debugOptions.copyWith(checkerboardOffscreenLayers: value),
+      ),
+    );
 
-    bind(
-        showSemanticsDebuggerChangeAction,
-        (value) => _setDebugOptionState(
-              config.debugOptions.copyWith(showSemanticsDebugger: value),
-            ));
+    bind<bool>(
+      showSemanticsDebuggerChangeAction,
+      (value) => _setDebugOptionState(
+        config.debugOptions.copyWith(showSemanticsDebugger: value),
+      ),
+    );
 
-    bind(
-        debugShowCheckedModeBannerChangeAction,
-        (value) => _setDebugOptionState(
-              config.debugOptions.copyWith(debugShowCheckedModeBanner: value),
-            ));
+    bind<bool>(
+      debugShowCheckedModeBannerChangeAction,
+      (value) => _setDebugOptionState(
+        config.debugOptions.copyWith(debugShowCheckedModeBanner: value),
+      ),
+    );
 
     bind(proxyChanges, proxyValueState.content);
 

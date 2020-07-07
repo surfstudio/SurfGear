@@ -4,12 +4,13 @@ import 'package:flutter_template/ui/res/colors.dart';
 /// FAB с Opacity при дизейбле
 class OpacityFab extends StatelessWidget {
   const OpacityFab({
-    Key key,
     @required this.onPressed,
+    Key key,
     this.enabled = true,
-  }) : super(key: key);
+  })  : assert(onPressed != null),
+        super(key: key);
 
-  final Function onPressed;
+  final VoidCallback onPressed;
   final bool enabled;
 
   @override

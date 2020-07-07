@@ -30,7 +30,7 @@ class _DebugScreenState extends WidgetState<DebugWidgetModel> {
       key: Injector.of<DebugScreenComponent>(context).component.scaffoldKey,
       appBar: AppBar(
           title: Text(
-            "Экран отладки",
+            'Экран отладки',
             style: textMedium20,
           ),
           leading: IconButton(
@@ -62,7 +62,7 @@ class _DebugScreenState extends WidgetState<DebugWidgetModel> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
-            Text('Сервер'),
+            const Text('Сервер'),
             StreamedStateBuilder<UrlType>(
               streamedState: wm.urlState,
               builder: (context, urlState) {
@@ -91,7 +91,7 @@ class _DebugScreenState extends WidgetState<DebugWidgetModel> {
                     ),
                     MaterialButton(
                       onPressed: () => wm.switchServer(urlState),
-                      child: Text(
+                      child: const Text(
                         'Переключить',
                         style: TextStyle(fontSize: 16.0),
                       ),
@@ -112,40 +112,42 @@ class _DebugScreenState extends WidgetState<DebugWidgetModel> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
-            Text('Диагностика'),
-            StreamedStateBuilder(
+            const Text('Диагностика'),
+            StreamedStateBuilder<DebugOptions>(
               streamedState: wm.debugOptionsState,
-              builder: (context, DebugOptions state) {
+              builder: (context, debugOptions) {
                 return Column(
                   children: <Widget>[
                     _buildSwitchTile(
                       'Включить наложение производительности',
-                      state.showPerformanceOverlay,
+                      debugOptions.showPerformanceOverlay,
                       wm.showPerformanceOverlayChangeAction,
                     ),
                     _buildSwitchTile(
                       'Включить наложение базовой сетки',
-                      state.debugShowMaterialGrid,
+                      debugOptions.debugShowMaterialGrid,
                       wm.debugShowMaterialGridChangeAction,
                     ),
                     _buildSwitchTile(
                       'Показать debug баннер',
-                      state.debugShowCheckedModeBanner,
+                      debugOptions.debugShowCheckedModeBanner,
                       wm.debugShowCheckedModeBannerChangeAction,
                     ),
                     _buildSwitchTile(
                       'Включить проверку изображений растрового кэша',
-                      state.checkerboardRasterCacheImages,
+                      debugOptions.checkerboardRasterCacheImages,
                       wm.checkerboardRasterCacheImagesChangeAction,
                     ),
                     _buildSwitchTile(
-                      'Включает проверку слоев, отображаемых в закадровых растровых изображениях.',
-                      state.checkerboardOffscreenLayers,
+                      'Включает проверку слоев, отображаемых в закадровых '
+                      'растровых изображениях.',
+                      debugOptions.checkerboardOffscreenLayers,
                       wm.checkerboardOffscreenLayersChangeAction,
                     ),
                     _buildSwitchTile(
-                      'Включает наложение, которое показывает информацию о доступности, сообщаемую платформой.',
-                      state.showSemanticsDebugger,
+                      'Включает наложение, которое показывает информацию о '
+                      'доступности, сообщаемую платформой.',
+                      debugOptions.showSemanticsDebugger,
                       wm.showSemanticsDebuggerChangeAction,
                     ),
                   ],
@@ -163,13 +165,13 @@ class _DebugScreenState extends WidgetState<DebugWidgetModel> {
         child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(bottom: 8),
+        const Padding(
+          padding: EdgeInsets.only(bottom: 8),
           child: Text('Прокси-сервер'),
         ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child: Text("Активирует передачу трафика через прокси сервер."),
+        const Padding(
+          padding: EdgeInsets.only(bottom: 8),
+          child: Text('Активирует передачу трафика через прокси сервер.'),
         ),
         TextFieldStateBuilder(
             state: wm.proxyValueState,
@@ -180,15 +182,16 @@ class _DebugScreenState extends WidgetState<DebugWidgetModel> {
                     textInputAction: TextInputAction.done,
                     onSubmitted: wm.setProxy,
                     controller: wm.proxyChanges.controller,
-                    decoration: InputDecoration(
-                        filled: true,
-                        border: UnderlineInputBorder(),
-                        labelText: 'Адрес прокси сервера',
-                        hintText: '192.168.0.1:8888'),
+                    decoration: const InputDecoration(
+                      filled: true,
+                      border: UnderlineInputBorder(),
+                      labelText: 'Адрес прокси сервера',
+                      hintText: '192.168.0.1:8888',
+                    ),
                   ),
                   MaterialButton(
                     onPressed: wm.setProxy,
-                    child: Text(
+                    child: const Text(
                       'Переключить прокси',
                       style: TextStyle(fontSize: 16.0),
                     ),

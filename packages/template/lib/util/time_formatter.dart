@@ -7,7 +7,7 @@ class TimeFormatter {
   /// форматирует [TimeDuration] в строку
   /// прим.: 6 дней 12 часов 30 минут
   static String formatToString(TimeDuration duration) {
-    var result = StringBuffer();
+    final result = StringBuffer();
 
     final days = duration.days;
     final hours = duration.hours;

@@ -1,5 +1,6 @@
 import 'package:flutter_template/interactor/common/exceptions.dart';
 import 'package:network/network.dart';
+import 'package:flutter_template/util/extensions.dart';
 
 ///Стандартный для проекта обработчик статус кода
 class DefaultStatusMapper extends StandardStatusMapper {
@@ -7,7 +8,7 @@ class DefaultStatusMapper extends StandardStatusMapper {
   void checkClientStatus(Response response) {
     ErrorResponse er;
 
-    //todo смаппить основные ошибки сервера в проекте
+    //todo смапить основные ошибки сервера в проекте
     try {
       er = ErrorResponse.fromJson(response.body);
       switch (er.errorCode) {
@@ -16,13 +17,13 @@ class DefaultStatusMapper extends StandardStatusMapper {
         default:
           throw Exception('Another exception');
       }
-    } catch (ex) {
+    } on Exception {
       rethrow;
     }
   }
 }
 
-/// Респонс с ошибкой
+/// Response с ошибкой
 class ErrorResponse {
   int errorCode;
   String message;
@@ -30,8 +31,8 @@ class ErrorResponse {
   ErrorResponse({this.errorCode, this.message});
 
   ErrorResponse.fromJson(Map<String, dynamic> json) {
-    errorCode = json['errorCode'];
-    message = json['message'];
+    errorCode = json.get<int>('errorCode');
+    message = json.get<String>('message');
   }
 
   Map<String, dynamic> toJson() {

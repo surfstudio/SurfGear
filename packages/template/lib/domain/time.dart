@@ -15,7 +15,7 @@ class TimeDuration {
   ///период в минутах
   int get inMinutes => _innerDuration.inMinutes;
 
-  ///период в секунднах
+  ///период в секундах
   int get inSeconds => _innerDuration.inSeconds;
 
   ///кол-во дней
