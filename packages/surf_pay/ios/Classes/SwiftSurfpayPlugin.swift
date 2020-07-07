@@ -8,7 +8,9 @@ let IS_READY_TO_PAY = "is_ready_to_pay"
 let PAY = "pay"
 let INIT = "init"
 
-let ON_ERROR = "payment_error";
+let ON_SUCCESS = "payment_success"
+let ON_CANCEL = "payment_cancel"
+let ON_ERROR = "payment_error"
 
 // Arguments
 let SUPPORTED_NETWORKS = "supported_networks"
@@ -30,6 +32,7 @@ public class SwiftSurfpayPlugin: NSObject, FlutterPlugin {
     var channel :FlutterMethodChannel
     
     var paymentStatus = PKPaymentAuthorizationStatus.failure
+    var isCanceled = true
     
     var paymentController: PKPaymentAuthorizationController?
     var merchantCapabilities: PKMerchantCapability?
@@ -74,11 +77,12 @@ public class SwiftSurfpayPlugin: NSObject, FlutterPlugin {
                 supportedNetworks.append(PKPaymentNetwork.init(rawValue: network))
             }
         }
-        print("init")
     }
     
     func pay(call: FlutterMethodCall){
         let params = call.arguments as! [String: Any]
+        paymentStatus = PKPaymentAuthorizationStatus.failure
+        isCanceled = true
         
         let itemsRaw = params[ITEMS] as? Array<Dictionary<String, Any>>
         
@@ -107,6 +111,7 @@ public class SwiftSurfpayPlugin: NSObject, FlutterPlugin {
                     debugPrint("Presented payment controller")
                 } else {
                     debugPrint("Failed to present payment controller")
+                    self.isCanceled = false
                     self.channel.invokeMethod(PAYMENT_ERROR_STATUS, arguments: [PAYMENT_ERROR_STATUS: 21])
                 }
             })
@@ -119,28 +124,38 @@ public class SwiftSurfpayPlugin: NSObject, FlutterPlugin {
     func isApplePayAvailable(call: FlutterMethodCall) -> Bool{
         
         return PKPaymentAuthorizationController.canMakePayments() && PKPaymentAuthorizationController.canMakePayments(usingNetworks: supportedNetworks)
-    
+        
     }
 }
 
 extension SwiftSurfpayPlugin : PKPaymentAuthorizationControllerDelegate {
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
         
-        self.paymentStatus = PKPaymentAuthorizationStatus.success
-        completion(PKPaymentAuthorizationResult(status: paymentStatus, errors: nil))
+        // Perform some very basic validation on the provided contact information
+        var errors = [Error]()
+        var status = PKPaymentAuthorizationStatus.success
+        
+        // Place to send PKPaymentToken to server and return error in case of errors
+        // payment.token - token
+        isCanceled = false
+        self.paymentStatus = status
+        completion(PKPaymentAuthorizationResult(status: status, errors: errors))
     }
     
     public func paymentAuthorizationControllerDidFinish(_ controller: PKPaymentAuthorizationController) {
-        controller.dismiss(completion: nil)
-        //        controller.dismiss {
-        //            // We are responsible for dismissing the payment sheet once it has finished
-        //            DispatchQueue.main.async {
-        //                if self.paymentStatus == .success {
-        //                    self.channel.invokeMethod(<#T##method: String##String#>, arguments: <#T##Any?#>)(true)
-        //                } else {
-        //                    self.completionHandler!(false)
-        //                }
-        //            }
-        //        }
+        controller.dismiss {
+            // We are responsible for dismissing the payment sheet once it has finished
+            DispatchQueue.main.async {
+                if self.isCanceled {
+                    self.channel.invokeMethod(ON_CANCEL, arguments: Dictionary<String, String>())
+                    return
+                }
+                if self.paymentStatus == .success {
+                    self.channel.invokeMethod(ON_SUCCESS, arguments: Dictionary<String, String>())
+                } else {
+                    self.channel.invokeMethod(ON_ERROR, arguments: [PAYMENT_ERROR_STATUS: 22])
+                }
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:surfpay/data/apple_pay_data.dart';
 import 'package:surfpay/data/google_pay_data.dart';
+import 'package:surfpay/data/payment_item.dart';
 import 'package:surfpay/data/payment_status.dart';
 
 const String CHANNEL_NAME = "surfpay";
@@ -31,6 +32,10 @@ const String SHIPPING_ADDRESS_REQUIRED = "shippingAddressRequired";
 
 const String IS_TEST = "IS_TEST";
 
+const String ITEMS = "items";
+const String COUNTRY_CODE = "countryCode";
+const String CURRENCY_CODE = "currencyCode";
+
 typedef SuccessCallback = Function(Map<String, dynamic> paymentData);
 typedef ErrorCallback = Function(PaymentErrorStatus);
 
@@ -42,8 +47,8 @@ class PaymentController {
     this.onCancel,
     this.onError,
     this.isTestEnvironment = true,
-  })  : assert(googlePayData != null),
-        //todo
+  }) : assert(googlePayData != null),
+  //todo
         assert(applePayData != null) {
     _initCallbackListener();
     _init(
@@ -69,11 +74,9 @@ class PaymentController {
     return _payApple();
   }
 
-  void _init(
-    GooglePayData googlePayData,
-    ApplePayData applePayData,
-    bool isTestEnvironment,
-  ) {
+  void _init(GooglePayData googlePayData,
+      ApplePayData applePayData,
+      bool isTestEnvironment,) {
     _channel.invokeMethod(INIT, {
       ...googlePayData.map(),
       ...applePayData.map(),
@@ -83,12 +86,15 @@ class PaymentController {
 
   void _initCallbackListener() {
     _channel.setMethodCallHandler(
-      (call) async {
+          (call) async {
         switch (call.method) {
           case ON_SUCCESS:
-            final paymentData = jsonDecode(
-              call.arguments[ON_SUCCESS_DATA] as String,
-            );
+            var paymentData = Map<String, dynamic>();
+            if (call.arguments[ON_SUCCESS_DATA] != null) {
+              paymentData = jsonDecode(
+                call.arguments[ON_SUCCESS_DATA] as String,
+              );
+            }
             onSuccess?.call(paymentData);
             break;
           case ON_CANCEL:
@@ -124,10 +130,19 @@ class PaymentController {
   }
 
   void _payApple() {
+    final items = [
+      PaymentItem(
+        "IPhone",
+        "60000.00",
+        true,
+      )
+    ];
     _channel.invokeMethod(
       PAY,
       <String, dynamic>{
-        "test_arg": "test",
+        ITEMS: items.map((e) => e.map()).toList(),
+        CURRENCY_CODE: "RUB",
+        COUNTRY_CODE: "RU"
       },
     );
   }
@@ -138,7 +153,7 @@ class PaymentController {
 
   PaymentErrorStatus _getPaymentErrorStatus(int errorStatus) {
     switch (errorStatus) {
-      // only Android
+    // only Android
       case 0:
         return PaymentErrorStatus.RESULT_SUCCESS;
       case 14:
@@ -151,9 +166,11 @@ class PaymentController {
         return PaymentErrorStatus.RESULT_CANCELED;
       case 18:
         return PaymentErrorStatus.RESULT_DEAD_CLIENT;
-      // only IOS
+    // only IOS
       case 21:
         return PaymentErrorStatus.FAIL_PAYMENT_CONTROLLER;
+      case 22:
+        return PaymentErrorStatus.IOS_PAYMENT_ERROR;
       default:
         return PaymentErrorStatus.UNKNOWN;
     }

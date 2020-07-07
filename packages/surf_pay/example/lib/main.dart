@@ -56,6 +56,7 @@ class _MyAppState extends State<MyApp> {
             onSuccess: (status) {
               print("оплачено со статусом $status");
             },
+            onCancel: () => print("Отменено"),
           ),
         ),
       ),
