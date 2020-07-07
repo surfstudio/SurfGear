@@ -46,9 +46,6 @@ class _SurfpayState extends State<Surfpay> {
     _paymentController = PaymentController(
       applePayData: widget.applePayData,
       googlePayData: widget.googlePayData,
-      gatewayType: 'PAYMENT_GATEWAY',
-      gateway: 'example',
-      gatewayMerchantId: 'exampleGatewayMerchantId',
       onSuccess: widget.onSuccess,
       onCancel: widget.onCancel,
       onError: widget.onError,
@@ -87,6 +84,7 @@ class _SurfpayState extends State<Surfpay> {
   }
 
   Widget _buildApple() {
+    test();
     if (widget.customButton == null) {
       return AppleButton(onTap: () => _paymentController.pay());
     }

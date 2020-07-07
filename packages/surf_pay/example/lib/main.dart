@@ -27,7 +27,14 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
           child: Surfpay(
-            applePayData: ApplePayData(),
+            applePayData: ApplePayData(
+              MerchantCapabilities.capability3DS,
+              "merchant.example.surfpay",
+              [
+                PaymentNetwork.visa,
+                PaymentNetwork.masterCard,
+              ],
+            ),
             googlePayData: GooglePayData(
               [
                 "PAN_ONLY",
@@ -42,6 +49,9 @@ class _MyAppState extends State<MyApp> {
                 "format": "FULL",
               },
               "CARD",
+              'example',
+              'exampleGatewayMerchantId',
+              'PAYMENT_GATEWAY',
             ),
             onSuccess: (status) {
               print("оплачено со статусом $status");

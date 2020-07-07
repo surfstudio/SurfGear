@@ -3,9 +3,15 @@ const String ALLOWED_CARD_NETWORKS = "allowedCardNetworks";
 const String BILLING_ADDRESS_REQUIRED = "billingAddressRequired";
 const String BILLING_ADDRESS_PARAMETERS = "billingAddressParameters";
 const String TYPE = "type";
+const String GATEWAY = "gateway";
+const String GATEWAY_MERCHANT_ID = "gatewayMerchantId";
+const String GATEWAY_TYPE = "gatewayType";
 
 /// Base google pay data
 class GooglePayData {
+  final String gateway;
+  final String gatewayMerchantId;
+  final String gatewayType;
   final List<String> allowedAuthMethods;
   final List<String> allowedCardNetworks;
   final bool billingAddressRequired;
@@ -18,6 +24,9 @@ class GooglePayData {
     this.billingAddressRequired,
     this.billingAddressParameters,
     this.type,
+    this.gateway,
+    this.gatewayMerchantId,
+    this.gatewayType,
   );
 
   Map<String, dynamic> map() {
@@ -27,6 +36,9 @@ class GooglePayData {
       BILLING_ADDRESS_REQUIRED: billingAddressRequired,
       BILLING_ADDRESS_PARAMETERS: billingAddressParameters,
       TYPE: type,
+      GATEWAY: gateway,
+      GATEWAY_MERCHANT_ID: gatewayMerchantId,
+      GATEWAY_TYPE: gatewayType,
     };
   }
 }

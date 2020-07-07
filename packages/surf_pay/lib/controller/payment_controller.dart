@@ -30,9 +30,6 @@ const String ALLOWED_COUNTRY_CODES = "allowedCountryCodes";
 const String SHIPPING_ADDRESS_REQUIRED = "shippingAddressRequired";
 
 const String IS_TEST = "IS_TEST";
-const String GATEWAY = "gateway";
-const String GATEWAY_MERCHANT_ID = "gatewayMerchantId";
-const String GATEWAY_TYPE = "gatewayType";
 
 typedef SuccessCallback = Function(Map<String, dynamic> paymentData);
 typedef ErrorCallback = Function(PaymentErrorStatus);
@@ -41,24 +38,18 @@ class PaymentController {
   PaymentController({
     @required this.googlePayData,
     @required this.applePayData,
-    @required String gateway,
-    @required String gatewayMerchantId,
-    @required String gatewayType,
     this.onSuccess,
     this.onCancel,
     this.onError,
     this.isTestEnvironment = true,
-  }) : assert(googlePayData != null),
-  //todo
+  })  : assert(googlePayData != null),
+        //todo
         assert(applePayData != null) {
     _initCallbackListener();
     _init(
       googlePayData,
       applePayData,
       isTestEnvironment,
-      gateway,
-      gatewayMerchantId,
-      gatewayType,
     );
   }
 
@@ -75,28 +66,24 @@ class PaymentController {
     if (Platform.isAndroid) {
       return _payGoogle();
     }
-    return _payApple(ApplePayData());
+    return _payApple();
   }
 
-  void _init(GooglePayData googlePayData,
-      ApplePayData applePayData,
-      bool isTestEnvironment,
-      String gateway,
-      String gatewayMerchantId,
-      String gatewayType,) {
+  void _init(
+    GooglePayData googlePayData,
+    ApplePayData applePayData,
+    bool isTestEnvironment,
+  ) {
     _channel.invokeMethod(INIT, {
       ...googlePayData.map(),
       ...applePayData.map(),
       IS_TEST: isTestEnvironment,
-      GATEWAY: gateway,
-      GATEWAY_MERCHANT_ID: gatewayMerchantId,
-      GATEWAY_TYPE: gatewayType,
     });
   }
 
   void _initCallbackListener() {
     _channel.setMethodCallHandler(
-          (call) async {
+      (call) async {
         switch (call.method) {
           case ON_SUCCESS:
             final paymentData = jsonDecode(
@@ -136,7 +123,7 @@ class PaymentController {
     );
   }
 
-  void _payApple(ApplePayData data) {
+  void _payApple() {
     _channel.invokeMethod(
       PAY,
       <String, dynamic>{
@@ -151,6 +138,7 @@ class PaymentController {
 
   PaymentErrorStatus _getPaymentErrorStatus(int errorStatus) {
     switch (errorStatus) {
+      // only Android
       case 0:
         return PaymentErrorStatus.RESULT_SUCCESS;
       case 14:
@@ -163,6 +151,9 @@ class PaymentController {
         return PaymentErrorStatus.RESULT_CANCELED;
       case 18:
         return PaymentErrorStatus.RESULT_DEAD_CLIENT;
+      // only IOS
+      case 21:
+        return PaymentErrorStatus.FAIL_PAYMENT_CONTROLLER;
       default:
         return PaymentErrorStatus.UNKNOWN;
     }
