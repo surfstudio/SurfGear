@@ -12,25 +12,22 @@ class AuthInfoStorage {
   AuthInfoStorage(this._preferencesHelper);
 
   Future<String> getAccessToken() async {
-    _token = await _preferencesHelper
-        .get(keyToken, emptyString)
-        .then((s) => s as String);
+    _token = await _preferencesHelper.get(keyToken, emptyString).then((s) => s);
     return _token;
   }
 
   Future<String> getPin() async {
-    String pin = await _preferencesHelper
-        .get(keyPin, emptyString)
-        .then((s) => s as String);
+    final pin =
+        await _preferencesHelper.get(keyPin, emptyString).then((s) => s);
     return pin;
   }
 
   Future saveToken(String token) async {
-    return await _preferencesHelper.set(keyToken, token);
+    return _preferencesHelper.set(keyToken, token);
   }
 
   Future savePin(String pin) async {
-    return await _preferencesHelper.set(keyPin, pin);
+    return _preferencesHelper.set(keyPin, pin);
   }
 
   void clearData() {

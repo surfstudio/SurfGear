@@ -10,13 +10,13 @@ class SessionChangedInteractor {
   SessionChangedInteractor(this._ts);
 
   void onSessionChanged() {
-    sessionSubject.add(SessionState.LOGGED_IN);
+    sessionSubject.add(SessionState.loggedIn);
   }
 
   void forceLogout() {
-    sessionSubject.add(SessionState.LOGGED_OUT);
+    sessionSubject.add(SessionState.loggedOut);
     _ts.clearData();
   }
 }
 
-enum SessionState { LOGGED_IN, LOGGED_OUT }
+enum SessionState { loggedIn, loggedOut }
