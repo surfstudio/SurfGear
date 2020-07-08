@@ -7,6 +7,8 @@ let PAYMENT_RESPONSE = "payment_response"
 let IS_READY_TO_PAY = "is_ready_to_pay"
 let PAY = "pay"
 let INIT = "init"
+let ON_PAYMENT_TOKEN = "onPaymentToken"
+let ON_PAYMENT_RESULT = "onPaymentResult"
 
 let ON_SUCCESS = "payment_success"
 let ON_CANCEL = "payment_cancel"
@@ -26,7 +28,13 @@ let ITEM_IS_FINAL = "itemType"
 let COUNTRY_CODE = "countryCode"
 let CURRENCY_CODE = "currencyCode"
 
-let PAYMENT_ERROR_STATUS = "status";
+let PAYMENT_ERROR_STATUS = "status"
+
+let PAYMENT_TOKEN_DATA = "paymentTokenData"
+let PAYMENT_TOKEN_TRANSITION = "paymentTokenTransition"
+let PAYMENT_TOKEN_NETWORK = "paymentTokenNetwork"
+
+let IS_PAYMENT_SUCCESS = "isPaymentSuccess"
 
 public class SwiftSurfpayPlugin: NSObject, FlutterPlugin {
     var channel :FlutterMethodChannel
@@ -34,6 +42,7 @@ public class SwiftSurfpayPlugin: NSObject, FlutterPlugin {
     var paymentStatus = PKPaymentAuthorizationStatus.failure
     var isCanceled = true
     
+    var complitionHandler: ((PKPaymentAuthorizationResult) -> Void)?
     var paymentController: PKPaymentAuthorizationController?
     var merchantCapabilities: PKMerchantCapability?
     var supportedNetworks = [PKPaymentNetwork]()
@@ -59,6 +68,9 @@ public class SwiftSurfpayPlugin: NSObject, FlutterPlugin {
             break
         case IS_READY_TO_PAY:
             result(isApplePayAvailable(call: call))
+            break
+        case ON_PAYMENT_RESULT:
+            onPaymentResult(call: call)
             break
         default:
             result(FlutterMethodNotImplemented)
@@ -126,20 +138,41 @@ public class SwiftSurfpayPlugin: NSObject, FlutterPlugin {
         return PKPaymentAuthorizationController.canMakePayments() && PKPaymentAuthorizationController.canMakePayments(usingNetworks: supportedNetworks)
         
     }
+    
+    func onPaymentResult(call: FlutterMethodCall) {
+        let params = call.arguments as! [String: Any]
+        if let complition = complitionHandler, let isSuccess = params[IS_PAYMENT_SUCCESS] as? Bool {
+            if isSuccess {
+                complition(PKPaymentAuthorizationResult(status: .success, errors: nil))
+            } else {
+                complition(PKPaymentAuthorizationResult(status: .failure, errors: nil))
+            }
+        }
+    }
 }
 
 extension SwiftSurfpayPlugin : PKPaymentAuthorizationControllerDelegate {
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
         
-        // Perform some very basic validation on the provided contact information
-        var errors = [Error]()
-        var status = PKPaymentAuthorizationStatus.success
-        
-        // Place to send PKPaymentToken to server and return error in case of errors
-        // payment.token - token
         isCanceled = false
-        self.paymentStatus = status
-        completion(PKPaymentAuthorizationResult(status: status, errors: errors))
+        
+        let args: Dictionary<String, Any> = [
+            PAYMENT_TOKEN_DATA: String(data: payment.token.paymentData.base64EncodedData(), encoding: .utf8),
+            PAYMENT_TOKEN_TRANSITION: payment.token.transactionIdentifier,
+            PAYMENT_TOKEN_NETWORK: payment.token.paymentMethod.type.rawValue
+        ]
+        
+        self.channel.invokeMethod(ON_PAYMENT_RESULT, arguments: args) { (isSuccessRaw) in
+            if let isSuccess = isSuccessRaw as? Bool {
+                if isSuccess {
+                    self.paymentStatus = .success
+                    completion(PKPaymentAuthorizationResult(status: .success, errors: nil))
+                } else {
+                    self.paymentStatus = .failure
+                    completion(PKPaymentAuthorizationResult(status: .failure, errors: nil))
+                }
+            }
+        }
     }
     
     public func paymentAuthorizationControllerDidFinish(_ controller: PKPaymentAuthorizationController) {

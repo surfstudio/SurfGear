@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:surfpay/data/apple_pay_data.dart';
 import 'package:surfpay/data/google_pay_data.dart';
 import 'package:surfpay/surfpay.dart';
-import 'package:surfpay/ui/apple_button.dart';
-import 'package:surfpay/ui/google_button.dart';
 
 void main() {
   runApp(MyApp());
@@ -57,6 +52,7 @@ class _MyAppState extends State<MyApp> {
               print("оплачено со статусом $status");
             },
             onCancel: () => print("Отменено"),
+            onError: (_) => print("Error"),
           ),
         ),
       ),

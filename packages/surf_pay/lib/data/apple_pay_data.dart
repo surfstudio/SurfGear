@@ -47,65 +47,97 @@ class PaymentNetwork {
 
   String get value => _value;
 
-  PaymentNetwork._(this._value);
+  const PaymentNetwork._(this._value);
 
   //available(iOS 8.0, *)
-  static final amex = PaymentNetwork._('AmEx');
+  static const amex = PaymentNetwork._('AmEx');
 
   //iOS, introduced: 10.3, deprecated: 11.0, message: "Use PKPaymentNetworkCartesBancaires instead."
-  static final carteBancaire = PaymentNetwork._('CarteBancaire');
+  static const carteBancaire = PaymentNetwork._('CarteBancaire');
 
   //available(iOS, introduced: 11.0, deprecated: 11.2, message: "Use PKPaymentNetworkCartesBancaires instead.")
-  static final carteBancaires = PaymentNetwork._('CarteBancaires');
+  static const carteBancaires = PaymentNetwork._('CarteBancaires');
 
   //available(iOS 11.2, *)
-  static final cartesBancaires = PaymentNetwork._('CartesBancaires');
+  static const cartesBancaires = PaymentNetwork._('CartesBancaires');
 
   //available(iOS 9.2, *)
-  static final chinaUnionPay = PaymentNetwork._('ChinaUnionPay');
+  static const chinaUnionPay = PaymentNetwork._('ChinaUnionPay');
 
   //available(iOS 9.0, *)
-  static final discover = PaymentNetwork._('Discover');
+  static const discover = PaymentNetwork._('Discover');
 
   //available(iOS 12.0, *)
-  static final eftpos = PaymentNetwork._('Eftpos');
+  static const eftpos = PaymentNetwork._('Eftpos');
 
   //available(iOS 12.0, *)
-  static final electron = PaymentNetwork._('Electron');
+  static const electron = PaymentNetwork._('Electron');
 
   //available(iOS 12.1.1, *)
-  static final elo = PaymentNetwork._('Elo');
+  static const elo = PaymentNetwork._('Elo');
 
   //available(iOS 10.3, *)
-  static final idCredit = PaymentNetwork._('iD');
+  static const idCredit = PaymentNetwork._('iD');
 
   //available(iOS 9.2, *)
-  static final interac = PaymentNetwork._('Interac');
+  static const interac = PaymentNetwork._('Interac');
 
   //available(iOS 10.1, *)
-  static final JCB = PaymentNetwork._('JCB');
+  static const JCB = PaymentNetwork._('JCB');
 
   //available(iOS 12.1.1, *)
-  static final mada = PaymentNetwork._('mada');
+  static const mada = PaymentNetwork._('mada');
 
   //available(iOS 12.0, *)
-  static final maestro = PaymentNetwork._('Maestro');
+  static const maestro = PaymentNetwork._('Maestro');
 
   //available(iOS 8.0, *)
-  static final masterCard = PaymentNetwork._('MasterCard');
+  static const masterCard = PaymentNetwork._('MasterCard');
 
   //available(iOS 9.0, *)
-  static final privateLabel = PaymentNetwork._('PrivateLabel');
+  static const privateLabel = PaymentNetwork._('PrivateLabel');
 
   //available(iOS 10.3, *)
-  static final quicPay = PaymentNetwork._('QUICPay');
+  static const quicPay = PaymentNetwork._('QUICPay');
 
   //available(iOS 10.1, *)
-  static final suica = PaymentNetwork._('Suica');
+  static const suica = PaymentNetwork._('Suica');
 
   //available(iOS 8.0, *)
-  static final visa = PaymentNetwork._('Visa');
+  static const visa = PaymentNetwork._('Visa');
 
   //available(iOS 12.0, *)
-  static final vPay = PaymentNetwork._('VPay');
+  static const vPay = PaymentNetwork._('VPay');
+}
+
+/// https://developer.apple.com/documentation/passkit/pkpaymentmethodtype
+class PaymentMethodType {
+  final int _value;
+
+  int get value => _value;
+
+  const PaymentMethodType._(this._value);
+
+  factory PaymentMethodType.byValue(int value) {
+    switch(value) {
+      case 0:
+        return unknown;
+      case 1:
+        return debit;
+      case 2:
+        return credit;
+      case 3:
+        return prepaid;
+      case 4:
+        return store;
+      default:
+        return unknown;
+    }
+  }
+
+  static const unknown = PaymentMethodType._(0);
+  static const debit = PaymentMethodType._(1);
+  static const credit = PaymentMethodType._(2);
+  static const prepaid = PaymentMethodType._(3);
+  static const store = PaymentMethodType._(4);
 }

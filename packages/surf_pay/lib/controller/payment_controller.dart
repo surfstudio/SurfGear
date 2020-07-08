@@ -3,9 +3,11 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:surfpay/controller/payment_utils.dart';
 import 'package:surfpay/data/apple_pay_data.dart';
+import 'package:surfpay/data/apple_payment_request.dart';
 import 'package:surfpay/data/google_pay_data.dart';
-import 'package:surfpay/data/payment_item.dart';
+import 'package:surfpay/data/goole_payment_request.dart';
 import 'package:surfpay/data/payment_status.dart';
 
 const String CHANNEL_NAME = "surfpay";
@@ -20,24 +22,27 @@ const String ON_SUCCESS = "payment_success";
 const String ON_CANCEL = "payment_cancel";
 const String ON_ERROR = "payment_error";
 
+const String ON_PAYMENT_TOKEN = "onPaymentToken";
+const String ON_PAYMENT_RESULT = "onPaymentResult";
+
 /// Arguments
 const String PAYMENT_ERROR_STATUS = "status";
 const String ON_SUCCESS_DATA = "successData";
 
-const String PRICE = "price";
-const String MERCHANT_INFO = "merchantInfo";
-const String PHONE_NUMBER_REQUIRED = "phoneNumberRequired";
-const String ALLOWED_COUNTRY_CODES = "allowedCountryCodes";
-const String SHIPPING_ADDRESS_REQUIRED = "shippingAddressRequired";
-
 const String IS_TEST = "IS_TEST";
 
-const String ITEMS = "items";
-const String COUNTRY_CODE = "countryCode";
-const String CURRENCY_CODE = "currencyCode";
+const String PAYMENT_TOKEN_DATA = "paymentTokenData";
+const String PAYMENT_TOKEN_TRANSITION = "paymentTokenTransition";
+const String PAYMENT_TOKEN_NETWORK = "paymentTokenNetwork";
+
+const String IS_PAYMENT_SUCCESS = "isPaymentSuccess";
 
 typedef SuccessCallback = Function(Map<String, dynamic> paymentData);
 typedef ErrorCallback = Function(PaymentErrorStatus);
+
+/// TODO replace bool with dynamic and send Errors?
+typedef ApplePayTokenCallback = Future<bool> Function(
+    String, String, PaymentMethodType);
 
 class PaymentController {
   PaymentController({
@@ -46,9 +51,10 @@ class PaymentController {
     this.onSuccess,
     this.onCancel,
     this.onError,
+    this.onPaymentTokenCallback,
     this.isTestEnvironment = true,
-  }) : assert(googlePayData != null),
-  //todo
+  })  : assert(googlePayData != null),
+        //todo
         assert(applePayData != null) {
     _initCallbackListener();
     _init(
@@ -64,19 +70,23 @@ class PaymentController {
   final SuccessCallback onSuccess;
   final VoidCallback onCancel;
   final ErrorCallback onError;
+  final ApplePayTokenCallback onPaymentTokenCallback;
 
   MethodChannel _channel = MethodChannel(CHANNEL_NAME);
 
-  void pay() {
+  void pay(
+      GooglePaymentRequest googleRequest, ApplePaymentRequest appleRequest) {
     if (Platform.isAndroid) {
-      return _payGoogle();
+      return _payGoogle(googleRequest);
     }
-    return _payApple();
+    return _payApple(appleRequest);
   }
 
-  void _init(GooglePayData googlePayData,
-      ApplePayData applePayData,
-      bool isTestEnvironment,) {
+  void _init(
+    GooglePayData googlePayData,
+    ApplePayData applePayData,
+    bool isTestEnvironment,
+  ) {
     _channel.invokeMethod(INIT, {
       ...googlePayData.map(),
       ...applePayData.map(),
@@ -86,7 +96,7 @@ class PaymentController {
 
   void _initCallbackListener() {
     _channel.setMethodCallHandler(
-          (call) async {
+      (call) async {
         switch (call.method) {
           case ON_SUCCESS:
             var paymentData = Map<String, dynamic>();
@@ -102,77 +112,36 @@ class PaymentController {
             break;
           case ON_ERROR:
             final errorStatus = call.arguments[PAYMENT_ERROR_STATUS] as int;
-            onError?.call(_getPaymentErrorStatus(errorStatus));
+            onError?.call(getPaymentErrorStatus(errorStatus));
+            break;
+          case ON_PAYMENT_RESULT:
+            return onPaymentToken(call);
             break;
         }
       },
     );
   }
 
-  void _payGoogle() {
-    final price = "120.00";
-    final merchantInfo = {
-      'merchantName': 'Example Merchant',
-    };
-    final phoneNumberRequired = true;
-    final allowedCountryCodes = ["US", "GB"];
-    final shippingAddressRequired = true;
-    _channel.invokeMethod(
-      PAY,
-      <String, dynamic>{
-        PRICE: price,
-        MERCHANT_INFO: merchantInfo,
-        PHONE_NUMBER_REQUIRED: phoneNumberRequired,
-        ALLOWED_COUNTRY_CODES: allowedCountryCodes,
-        SHIPPING_ADDRESS_REQUIRED: shippingAddressRequired
-      },
-    );
+  void _payGoogle(GooglePaymentRequest request) {
+    _channel.invokeMethod(PAY, request.map());
   }
 
-  void _payApple() {
-    final items = [
-      PaymentItem(
-        "IPhone",
-        "60000.00",
-        true,
-      )
-    ];
-    _channel.invokeMethod(
-      PAY,
-      <String, dynamic>{
-        ITEMS: items.map((e) => e.map()).toList(),
-        CURRENCY_CODE: "RUB",
-        COUNTRY_CODE: "RU"
-      },
-    );
+  void _payApple(ApplePaymentRequest request) {
+    _channel.invokeMethod(PAY, request.map());
   }
 
-  Future<bool> googlePayIsAvalibale() {
+  Future<bool> isServiceAvailable() {
     return _channel.invokeMethod(IS_READY_TO_PAY);
   }
 
-  PaymentErrorStatus _getPaymentErrorStatus(int errorStatus) {
-    switch (errorStatus) {
-    // only Android
-      case 0:
-        return PaymentErrorStatus.RESULT_SUCCESS;
-      case 14:
-        return PaymentErrorStatus.RESULT_INTERRUPTED;
-      case 8:
-        return PaymentErrorStatus.RESULT_INTERNAL_ERROR;
-      case 15:
-        return PaymentErrorStatus.RESULT_TIMEOUT;
-      case 16:
-        return PaymentErrorStatus.RESULT_CANCELED;
-      case 18:
-        return PaymentErrorStatus.RESULT_DEAD_CLIENT;
-    // only IOS
-      case 21:
-        return PaymentErrorStatus.FAIL_PAYMENT_CONTROLLER;
-      case 22:
-        return PaymentErrorStatus.IOS_PAYMENT_ERROR;
-      default:
-        return PaymentErrorStatus.UNKNOWN;
-    }
+  Future<bool> onPaymentToken(MethodCall call) {
+    final params = call.arguments as Map<dynamic, dynamic>;
+
+    final data = params[PAYMENT_TOKEN_DATA] as String;
+    final transition = params[PAYMENT_TOKEN_TRANSITION] as String;
+    final methodType =
+        PaymentMethodType.byValue(params[PAYMENT_TOKEN_NETWORK] as int);
+    return onPaymentTokenCallback?.call(data, transition, methodType) ??
+        Future.value(true);
   }
 }

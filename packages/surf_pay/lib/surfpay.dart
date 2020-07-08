@@ -3,7 +3,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:surfpay/controller/payment_controller.dart';
+import 'package:surfpay/data/apple_payment_request.dart';
 import 'package:surfpay/data/google_pay_data.dart';
+import 'package:surfpay/data/goole_payment_request.dart';
+import 'package:surfpay/data/payment_item.dart';
 import 'package:surfpay/ui/apple_button.dart';
 import 'package:surfpay/ui/google_button.dart';
 
@@ -21,7 +24,7 @@ class Surfpay extends StatefulWidget {
     this.onError,
   }) : super(key: key);
 
-  final Function(BuildContext context, VoidCallback pay) customButton;
+  final Widget Function(BuildContext context) customButton;
   final SuccessCallback onSuccess;
   final VoidCallback onCancel;
   final ErrorCallback onError;
@@ -54,48 +57,61 @@ class _SurfpayState extends State<Surfpay> {
 
   @override
   Widget build(BuildContext context) {
-    if (Platform.isAndroid) {
-      return _buildAndroid();
-    }
-    return _buildApple();
-  }
-
-  Widget _buildAndroid() {
-    Widget _buildGoogleButton() {
-      if (widget.customButton == null) {
-        return GoogleButton(
-          onTap: () => _paymentController.pay(),
-        );
-      }
-      return widget.customButton(
-        context,
-        _paymentController.pay,
-      );
-    }
-
-    test();
-    if (true) {
-      return _buildGoogleButton();
-    }
-    if (widget.buttonForceShow) {
-      return _buildGoogleButton();
-    }
-    return SizedBox();
-  }
-
-  Widget _buildApple() {
-    test();
-    if (widget.customButton == null) {
-      return AppleButton(onTap: () => _paymentController.pay());
-    }
-    return widget.customButton(
-      context,
-      _paymentController.pay,
+    return FutureBuilder(
+      future: _paymentController.isServiceAvailable(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done)
+          return const SizedBox();
+        if (snapshot.data as bool) {
+          if (Platform.isAndroid) {
+            return _buildAndroid();
+          }
+          return _buildApple();
+        }
+        return const SizedBox();
+      },
     );
   }
 
-  Future<void> test() async {
-    final a = await _paymentController.googlePayIsAvalibale();
-    print(a);
+  Widget _buildAndroid() {
+    if (widget.customButton == null) {
+      return GoogleButton(
+        onTap: () => _paymentController.pay(
+          exampleGoogleRequest,
+          exampleAppleRequest,
+        ),
+      );
+    }
+    return widget.customButton(context);
+  }
+
+  Widget _buildApple() {
+    if (widget.customButton == null) {
+      return AppleButton(
+        onTap: () => _paymentController.pay(
+          exampleGoogleRequest,
+          exampleAppleRequest,
+        ),
+      ); //_paymentController.pay());
+    }
+    return widget.customButton(context);
   }
 }
+
+final exampleGoogleRequest = GooglePaymentRequest(
+  "60000.00",
+  {
+    'merchantName': 'Example Merchant',
+  },
+  false,
+  ["RU"],
+  false,
+);
+
+final exampleAppleRequest = ApplePaymentRequest(
+  [
+    PaymentItem("IPhone", "60000.00", true),
+  ],
+  "RUB",
+  "RU",
+);

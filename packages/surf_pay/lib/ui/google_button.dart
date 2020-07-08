@@ -23,7 +23,7 @@ class GoogleButton extends StatelessWidget {
     this.onTap,
     this.height = 48.0,
     this.logoHeight = 17.0,
-    this.style = AndroidButtonStyle.dark,
+    this.style = AndroidButtonStyle.white,
     this.withPrefix = false,
     this.radius = 4.0,
     double width,
