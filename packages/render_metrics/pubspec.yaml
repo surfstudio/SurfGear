@@ -17,7 +17,7 @@ dev_dependencies:
 flutter:
 
 custom:
-  is_stable: false
+  is_stable: true
   unstable_version: 0
   is_plugin: false
   path: render_metrics
