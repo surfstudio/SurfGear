@@ -7,7 +7,9 @@ import 'package:flutter_template/ui/app/app.dart';
 import 'package:flutter_template/util/crashlytics_strategy.dart';
 import 'package:logger/logger.dart';
 
-void run() async {
+Future<void> run() async {
+  // Нужно вызывать чтобы не падало проставление ориентации
+  WidgetsFlutterBinding.ensureInitialized();
   // закрепляем ориентацию todo изменить на необходимое или убрать
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
@@ -17,15 +19,15 @@ void run() async {
 }
 
 void _runApp() {
-  runZoned<Future<Null>>(
+  runZonedGuarded<Future<void>>(
     () async {
       runApp(App());
     },
-    onError: Crashlytics.instance.recordError,
+    Crashlytics.instance.recordError,
   );
 }
 
-void _initCrashlytics() async {
+void _initCrashlytics() {
   Crashlytics.instance.enableInDevMode = false;
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
 }

@@ -9,6 +9,9 @@ abstract class SwipeRefreshBase extends StatefulWidget {
   final VoidCallback onRefresh;
   final SwipeRefreshState initState;
   final Stream<SwipeRefreshState> stateStream;
+  final ScrollController scrollController;
+  final SliverChildDelegate childrenDelegate;
+  final EdgeInsets padding;
 
   const SwipeRefreshBase({
     Key key,
@@ -16,7 +19,11 @@ abstract class SwipeRefreshBase extends StatefulWidget {
     @required this.stateStream,
     @required this.onRefresh,
     this.initState,
-  })  : assert(children != null),
+    this.scrollController,
+    this.childrenDelegate,
+    this.padding,
+  })  : assert((children == null || childrenDelegate == null) &&
+            (children != null || childrenDelegate != null)),
         assert(stateStream != null),
         assert(onRefresh != null),
         super(key: key);

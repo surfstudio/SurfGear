@@ -6,7 +6,7 @@ class PushStrategyFactory extends PushHandleStrategyFactory {
   @override
   Map<String, StrategyBuilder> get map => {
         'debug': (payload) {
-          var message = DebugPushMessage.fromMap(payload);
+          final message = DebugPushMessage.fromMap(payload);
           return DebugScreenStrategy(message);
         },
       };
@@ -14,7 +14,7 @@ class PushStrategyFactory extends PushHandleStrategyFactory {
   @override
   DebugScreenStrategy Function(Map<String, dynamic> payload)
       get defaultStrategy => (payload) {
-            var message = DebugPushMessage.fromMap(payload);
+            final message = DebugPushMessage.fromMap(payload);
             return DebugScreenStrategy(message);
           };
 }

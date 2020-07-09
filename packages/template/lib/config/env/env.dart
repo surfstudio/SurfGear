@@ -23,7 +23,7 @@ class Environment<T> implements Listenable {
     _instance ??= Environment<T>._(buildType, config);
   }
 
-  factory Environment.instance() => _instance;
+  factory Environment.instance() => _instance as Environment<T>;
 
   bool get isDebug => _currentBuildType == BuildType.debug;
 

@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 
-///Форматтер для телефонного номера(копипаст с оф сэмпла, пока что необходимо ставить префикс [phonePrefix])
+/// Форматтер для телефонного номера(копипаст с оф примера, пока что необходимо
+/// ставить префикс [phonePrefix])
 class RuNumberTextInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
@@ -18,17 +19,17 @@ class RuNumberTextInputFormatter extends TextInputFormatter {
     }
 
     if (newTextLength >= 4) {
-      newText.write(newValue.text.substring(0, usedSubstringIndex = 3) + ') ');
+      newText.write('${newValue.text.substring(0, usedSubstringIndex = 3)}) ');
       if (newValue.selection.end >= 3) selectionIndex += 2;
     }
 
     if (newTextLength >= 7) {
-      newText.write(newValue.text.substring(3, usedSubstringIndex = 6) + ' ');
+      newText.write('${newValue.text.substring(3, usedSubstringIndex = 6)} ');
       if (newValue.selection.end >= 6) selectionIndex++;
     }
 
     if (newTextLength >= 9) {
-      newText.write(newValue.text.substring(6, usedSubstringIndex = 8) + ' ');
+      newText.write('${newValue.text.substring(6, usedSubstringIndex = 8)} ');
       if (newValue.selection.end >= 8) selectionIndex++;
     }
 

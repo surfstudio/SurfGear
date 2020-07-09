@@ -19,7 +19,7 @@ class DebugScreenComponent implements Component {
   VoidCallback rebuildApplication;
 
   DebugScreenComponent(BuildContext context) {
-    var app = Injector.of<AppComponent>(context).component;
+    final app = Injector.of<AppComponent>(context).component;
 
     messageController = MaterialMessageController(scaffoldKey);
     dialogController = DefaultDialogController(scaffoldKey);

@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Пользователь запретил использовать фичу и отказался от
-/// показа запросов.
-/// Можно направить его в системные настройки.
+/// User deny this permission
+/// In this case you could show system preferences
 class FeatureProhibitedException implements Exception {}

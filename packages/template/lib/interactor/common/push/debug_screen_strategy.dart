@@ -7,9 +7,11 @@ class DebugScreenStrategy extends PushHandleStrategy<DebugPushMessage> {
   DebugScreenStrategy(DebugPushMessage payload) : super(payload);
 
   @override
+  // ignore: overridden_fields
   bool ongoing = true;
 
   @override
+  // ignore: overridden_fields
   bool playSound = false;
 
   @override
@@ -18,6 +20,7 @@ class DebugScreenStrategy extends PushHandleStrategy<DebugPushMessage> {
 
   @override
   void onBackgroundProcess(Map<String, dynamic> message) {
+    // ignore: avoid_print
     print('notification background process ${message.toString()}');
   }
 }
