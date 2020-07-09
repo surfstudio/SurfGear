@@ -1,3 +1,7 @@
+[0.1.1+1] 
+
+* Update example
+
 [0.1.0+1] 
 
 * [BREAKING CHANGE!] Change API of Performer and Model. Now R may be any object.
