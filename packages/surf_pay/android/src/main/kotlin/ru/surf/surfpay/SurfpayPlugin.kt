@@ -3,6 +3,7 @@ package ru.surf.surfpay
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.annotation.NonNull
 import com.google.android.gms.wallet.*
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -51,7 +52,7 @@ const val GATEWAY_MERCHANT_ID = "gatewayMerchantId"
 const val GATEWAY_TYPE = "gatewayType"
 
 /** SurfpayPlugin */
-public class SurfpayPlugin() : FlutterPlugin, MethodCallHandler, PluginRegistry.ActivityResultListener, ActivityAware {
+public class SurfpayPlugin : FlutterPlugin, MethodCallHandler, PluginRegistry.ActivityResultListener, ActivityAware {
 
     private val LOAD_PAYMENT_DATA_REQUEST_CODE = 991
 
@@ -65,6 +66,7 @@ public class SurfpayPlugin() : FlutterPlugin, MethodCallHandler, PluginRegistry.
     private lateinit var googleData: GoogleData
     private lateinit var gatewayInfo: GatewayInfo
 
+    /// Only v1 embedding
     companion object {
         @JvmStatic
         fun registerWith(registrar: Registrar) {
@@ -82,7 +84,8 @@ public class SurfpayPlugin() : FlutterPlugin, MethodCallHandler, PluginRegistry.
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
-        activity = binding.activity
+        this.activity = binding.activity
+        binding.addActivityResultListener(this)
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
@@ -135,11 +138,10 @@ public class SurfpayPlugin() : FlutterPlugin, MethodCallHandler, PluginRegistry.
 
         val walletOptions =
                 Wallet.WalletOptions.Builder()
-                        .setTheme(3)
                         .setEnvironment(environment)
                         .build()
 
-        googlePaymentsClient = Wallet.getPaymentsClient(activity, walletOptions)
+        googlePaymentsClient = Wallet.getPaymentsClient(this.activity, walletOptions)
     }
 
     private fun isReadyToPayRequest(call: MethodCall, result: Result) {
@@ -174,7 +176,7 @@ public class SurfpayPlugin() : FlutterPlugin, MethodCallHandler, PluginRegistry.
             if (request != null) {
                 AutoResolveHelper.resolveTask(
                         googlePaymentsClient.loadPaymentData(request),
-                        activity,
+                        this.activity,
                         LOAD_PAYMENT_DATA_REQUEST_CODE)
             }
         }
@@ -187,7 +189,7 @@ public class SurfpayPlugin() : FlutterPlugin, MethodCallHandler, PluginRegistry.
                 when (resultCode) {
                     Activity.RESULT_OK -> {
                         PaymentData.getFromIntent(data!!)?.let {
-                            channel!!.invokeMethod(ON_SUCCESS, { ON_SUCCESS_DATA to it.toJson() })
+                            channel!!.invokeMethod(ON_SUCCESS, mapOf(ON_SUCCESS_DATA to it.toJson().toString()))
                         }
                     }
 
@@ -197,7 +199,7 @@ public class SurfpayPlugin() : FlutterPlugin, MethodCallHandler, PluginRegistry.
 
                     AutoResolveHelper.RESULT_ERROR -> {
                         AutoResolveHelper.getStatusFromIntent(data)?.let {
-                            channel!!.invokeMethod(ON_ERROR, { PAYMENT_ERROR_STATUS to it.statusCode })
+                            channel!!.invokeMethod(ON_ERROR, mapOf(PAYMENT_ERROR_STATUS to it.statusCode))
                         }
                     }
                 }
