@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import androidx.annotation.NonNull
+import io.fabric.sdk.android.services.network.HttpRequest
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -64,8 +65,6 @@ private const val DEFAULT_AUTOCANCEL = true
 private const val MESSAGE_KEY = "uniqueKey"
 private const val BUTTON_KEY = "buttonKey"
 
-internal const val EVENT_TYPE = "event_type"
-
 /** PushNotificationPlugin */
 public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin, PluginRegistry.NewIntentListener, ActivityAware {
     private val activeActivityHolder = ActiveActivityHolder()
@@ -87,6 +86,15 @@ public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin, Plugin
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         binding.addOnNewIntentListener(this)
+        if (SELECT_NOTIFICATION.equals(binding.getActivity().intent.action)) {
+            val notificationTypeData = binding.getActivity().intent.getSerializableExtra(NOTIFICATION_DATA) as PushNotificationTypeData
+
+            var notificationData = HashMap<String, String>()
+            if (notificationTypeData.data != null) {
+                notificationData = HashMap(notificationTypeData.data?.notificationData)
+                sendClickOperation(notificationData)
+            }
+        }
         mainActivity = binding.getActivity()
     }
 
@@ -142,6 +150,7 @@ public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin, Plugin
             var notificationData = HashMap<String, String>();
             if (notificationTypeData.data != null) {
                 notificationData = HashMap(notificationTypeData.data?.notificationData)
+                sendClickOperation(notificationData)
             }
 
             channel!!.invokeMethod(CALLBACK_OPEN, notificationData)
@@ -160,13 +169,6 @@ public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin, Plugin
                 /**todo пуш открывает приложение только в свернутом виде
                  * если выгрузить приложение пуш по тапу ничего не делает **/
                 val notificationTypeData = intent.getSerializableExtra(NOTIFICATION_DATA) as PushNotificationTypeData
-
-                val messageUniqueKey: String = notificationTypeData.data?.notificationData?.get(MESSAGE_KEY)
-                        ?: ""
-                // Реализовать добавление уникального идентификатора кнопки
-                val buttonUniqueKey: String? = null
-
-                sendClickOperation(messageUniqueKey = messageUniqueKey, buttonUniqueKey = buttonUniqueKey)
 
                 //TODO: Разобраться, почему не приходит NOTIFICATION_DATA
                 var notificationData = HashMap<String, String>();
@@ -215,56 +217,35 @@ public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin, Plugin
         return context!!.resources.getIdentifier(resName, defType, context!!.packageName)
     }
 
-    private fun sendClickOperation(messageUniqueKey: String, buttonUniqueKey: String?) {
+    private fun sendClickOperation(notificationData: Map<String, String>) {
+        val messageUniqueKey: String = notificationData[MESSAGE_KEY]
+                ?: ""
+        // Реализовать добавление уникального идентификатора кнопки
+        val buttonUniqueKey: String? = null
+
         AsyncTask.execute {
             // Отправка операции нажатия на пуш
-            val url = URL("https://api.mindbox.ru/v3/mobile-push/click?endpointId=2020RiglaMobileAndroid")
-            val connection = url.openConnection() as HttpURLConnection
-            connection.doOutput = true
-            connection.requestMethod = "POST"
-            connection.setRequestProperty("Content-Type", "application/json")
+            var url = URL("https://api.mindbox.ru/v3/mobile-push/click?endpointId=2020RiglaMobileAndroid")
 
-            var body: String
+            var conn = url.openConnection() as HttpURLConnection
+            conn.requestMethod = "POST";
+            conn.doInput = true;
+            conn.doOutput = true;
+            conn.setRequestProperty("Content-Type", "application/json")
+            conn.setRequestProperty("Accept", "application/json");
 
-            if (buttonUniqueKey != null) {
-                body = """
-                    {  
-                       "click":{  
-                          "messageUniqueKey": $messageUniqueKey,
-                          "buttonUniqueKey":" $buttonUniqueKey
-                       }
-                    }
-                """.trimIndent()
+            var body: String = if (buttonUniqueKey != null) {
+                "{\"click\":{\"messageUniqueKey\": \"$messageUniqueKey\", \"buttonUniqueKey\" :\"$buttonUniqueKey\"}}"
             } else {
-                body = """
-                    {  
-                       "click":{  
-                          "messageUniqueKey": $messageUniqueKey
-                       }
-                    }
-                """.trimIndent()
+                "{ \"click\":{\"messageUniqueKey\": \"$messageUniqueKey\"}}"
             }
+            conn.doOutput = true
+            val os: OutputStream = conn.outputStream
+            os.write(body.toByteArray())
+            os.close()
+            conn.connect()
 
-            val os: OutputStream = connection.outputStream
-            val osw = OutputStreamWriter(os, "UTF-8")
-            osw.write(body)
-            osw.flush()
-            osw.close()
-            os.close();  //don't forget to close the OutputStream
-            connection.connect();
-
-            //read the inputstream and print it
-            val result: String
-            val bis = BufferedInputStream(connection.inputStream)
-            val buf = ByteArrayOutputStream()
-            var result2 = bis.read()
-            while (result2 != -1) {
-                buf.write(result2)
-                result2 = bis.read()
-            }
-            result = buf.toString()
-            println("operation click")
-            println(result)
+            print(conn.responseCode)
         }
     }
 }

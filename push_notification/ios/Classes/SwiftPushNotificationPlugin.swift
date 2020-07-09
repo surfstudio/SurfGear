@@ -17,21 +17,21 @@ let ARG_DATA = "data"
 // Plugin to display notifications
 @available(iOS 10.0, *)
 public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotificationCenterDelegate {
-
+    
     let notificationCenter = UNUserNotificationCenter.current()
-
-     var channel :FlutterMethodChannel
-
+    
+    var channel :FlutterMethodChannel
+    
     init(channel: FlutterMethodChannel) {
-            self.channel = channel
+        self.channel = channel
     }
-
+    
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: CHANNEL, binaryMessenger: registrar.messenger())
         let instance = SwiftPushNotificationPlugin(channel: channel)
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
-
+    
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         let args = call.arguments as! NSDictionary
         switch call.method{
@@ -49,19 +49,19 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
             return
         }
     }
-
+    
     // Initialize Notifications
     func initialize(args : NSDictionary) {
         //Implements a notification display while the program is running
         notificationCenter.delegate = self;
-
+        
         // Read notification request request parameter
         let requestAlertPermission = args["requestAlertPermission"] as! Bool
         // Read request notification sound parameter
         let requestSoundPermission = args["requestSoundPermission"] as! Bool
         // Notification Options
         var options: UNAuthorizationOptions = []
-
+        
         // Enable notifications if requestAlertPermission == true
         if requestAlertPermission {
             options.insert(.alert)
@@ -71,11 +71,11 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
             options.insert(.sound)
         }
     }
-
+    
     func requestPermissions(args: NSDictionary) {
         // TODO
     }
-
+    
     // Show notifications
     func show(args: NSDictionary) {
         // Notification id
@@ -86,24 +86,24 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         let body: String = args[ARG_BODY] as! String
         // Data for notification
         var data: Dictionary<String, Any> = [:]
-
+        
         if !(args[ARG_DATA] is NSNull){
             data = args[ARG_DATA] as! Dictionary<String, Any>
         }
-
+        
         // The object in which previously received data is stored
         let content = UNMutableNotificationContent()
-
+        
         content.title = title
         
         content.body = body
         content.sound = UNNotificationSound.default
         content.userInfo = data
-
+        
         /* Trigger when notification is displayed
-           Now it is configured to show
-           notification with a minimum delay without repetitions
-        */
+               Now it is configured to show
+               notification with a minimum delay without repetitions
+         */
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
         let identifier = String(id)
         // Notification request
@@ -116,7 +116,7 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
             }
         }
     }
-
+    
     /*  Called when the application is in the foreground. We get a UNNotification object that contains the UNNotificationRequest request. In the body of the method, you need to make a completion handler call with a set of options to notify UNNotificationPresentationOptions
      */
     public func userNotificationCenter(_ center: UNUserNotificationCenter,
@@ -124,21 +124,23 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
                                        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert,.sound])
     }
-
+    
     /*  Used to select a tap action for notification. You get a UNNotificationResponse object that contains an actionIdentifier to define an action. The system identifiers UNNotificationDefaultActionIdentifier and UNNotificationDismissActionIdentifier are used when you need to open the application by tap on a notification or close a notification with a swipe.
      */
     public func userNotificationCenter(_ center: UNUserNotificationCenter,
                                        didReceive response: UNNotificationResponse,
                                        withCompletionHandler completionHandler: @escaping () -> Void) {
-
+        
         let notification = response.notification
         var notificationData = notification.request.content.userInfo
         notificationData["actionIdentifier"] = response.actionIdentifier
-
-        //todo sendOperationRequest
+        
+        if let aps = notificationData["aps"] as? Dictionary<String, Any>, let key = aps["uniqueKey"] as? String {
+            sendOperationRequest(messageUniqueKey: key, buttonUniqueKey: nil)
+        }
         
         channel.invokeMethod(CALLBACK_OPEN, arguments: notificationData)
-
+        
         completionHandler()
     }
     
