@@ -1,7 +1,8 @@
 import 'package:flutter_template/domain/notification.dart';
 import 'package:flutter_template/interactor/base/transformable.dart';
+import 'package:flutter_template/util/extensions.dart';
 
-/// Респонс модель пришедшего пуша
+/// Response модель пришедшего пуша
 class FirebaseNotificationResponse extends Transformable<Notification> {
   _FirebaseBodyNotificationObj notification;
 
@@ -9,7 +10,9 @@ class FirebaseNotificationResponse extends Transformable<Notification> {
 
   FirebaseNotificationResponse.fromMessage(Map<String, dynamic> message) {
     notification = message['notification'] != null
-        ? _FirebaseBodyNotificationObj.fromMessage(message['notification'])
+        ? _FirebaseBodyNotificationObj.fromMessage(
+            message.get<Map<String, dynamic>>('notification'),
+          )
         : null;
   }
 
@@ -17,7 +20,7 @@ class FirebaseNotificationResponse extends Transformable<Notification> {
   Notification transform() => Notification(
         title: notification.title,
         text: notification.body,
-        type: notification.data['type'],
+        type: notification.data.get<String>('type'),
       );
 }
 
@@ -28,9 +31,9 @@ class _FirebaseBodyNotificationObj {
 
   _FirebaseBodyNotificationObj({this.body, this.title});
 
-  _FirebaseBodyNotificationObj.fromMessage(Map<dynamic, dynamic> message) {
-    body = message['body'];
-    title = message['title'];
-    data = message['data'];
+  _FirebaseBodyNotificationObj.fromMessage(Map<String, dynamic> message) {
+    body = message.get<String>('body');
+    title = message.get<String>('title');
+    data = message.get<Map<String, dynamic>>('data');
   }
 }

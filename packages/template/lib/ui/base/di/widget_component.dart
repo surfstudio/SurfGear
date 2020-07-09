@@ -21,7 +21,7 @@ abstract class WidgetComponent implements Component {
     DialogController dialogController,
     NavigatorState navigator,
   }) {
-    var appComponent = Injector.of<AppComponent>(context).component;
+    final appComponent = Injector.of<AppComponent>(context).component;
 
     this.messageController =
         messageController ?? MaterialMessageController(scaffoldKey);
@@ -33,7 +33,7 @@ abstract class WidgetComponent implements Component {
       errorHandler: StandardErrorHandler(
         messageController,
         dialogController,
-        appComponent.scInteractor, // TODO: не всегда нужно
+        appComponent.scInteractor,
       ),
     );
   }

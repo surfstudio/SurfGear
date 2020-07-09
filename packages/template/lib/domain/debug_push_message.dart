@@ -1,4 +1,5 @@
 import 'package:push_notification/push_notification.dart';
+import 'package:flutter_template/util/extensions.dart';
 
 class DebugPushMessage extends NotificationPayload {
   DebugPushMessage(
@@ -8,10 +9,11 @@ class DebugPushMessage extends NotificationPayload {
   ) : super(messageData, title, body);
 
   factory DebugPushMessage.fromMap(Map<String, dynamic> map) {
+    final notificationJson = map.get<Map<String, dynamic>>('notification');
     return DebugPushMessage(
       map,
-      map['notification']['title'],
-      map['notification']['body'],
+      notificationJson.get<String>('title'),
+      notificationJson.get<String>('body'),
     );
   }
 }

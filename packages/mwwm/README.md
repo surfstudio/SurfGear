@@ -2,6 +2,9 @@
 
 # <img src="https://i.ibb.co/N719LCW/logo.png" title="logo" align="middle"/>
 
+#### [SurfGear](https://github.com/surfstudio/SurfGear)
+[![pub package](https://img.shields.io/pub/v/mwwm?label=mwwm)](https://pub.dev/packages/mwwm)
+
 Software architectural pattern for Flutter apps.
 
 ## Description
@@ -73,6 +76,24 @@ By **convention** create a same constructor:
                     // provide args,
                   ),
         );
+```
+or by route:
+```
+  class RepositorySearchRoute extends MaterialPageRoute {
+    RepositorySearchRoute()
+        : super(
+            builder: (context) => RepositorySearchScreen(
+              widgetModelBuilder: _buildWm,
+            ),
+          );
+  }
+
+  WidgetModel _buildWm(BuildContext context) => RepositorySearchWm(
+        context.read<WidgetModelDependencies>(),
+        Model([
+          // performets
+        ]),
+      );
 ```
 
 Change parent of State of StatefulWidget to [WidgetState](./lib/src/widget_state.dart):

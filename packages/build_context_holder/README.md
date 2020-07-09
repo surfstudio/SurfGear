@@ -1,4 +1,4 @@
-[Главная](../docs/main.md)
+[Main](../../docs/en/main.md)
 
 [TOC]
 
@@ -6,6 +6,6 @@
 
 The BuildContext store received from the last created widget
 
-## Использование
-* Подключить ContextHolderStateMixin к требуемым экранам приложения, и BuildContext будет схраняться в хранилище
-* Получить сохраненный контекст `BuildContextHolder.instance.context`
+## Usage
+* Connect ContextHolderStateMixin to the required application screens, and the BuildContext will be stored in storage
+* Get saved context `BuildContextHolder.instance.context`

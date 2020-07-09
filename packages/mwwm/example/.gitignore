@@ -31,6 +31,9 @@
 .pub/
 /build/
 
+# iOS/XCode related
+**/ios/Flutter/flutter_export_environment.sh
+
 # Web related
 lib/generated_plugin_registrant.dart
 
@@ -42,3 +45,4 @@ app.*.map.json
 
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+!/lib/model/common/network/auth_const.dart

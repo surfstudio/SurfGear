@@ -15,7 +15,7 @@ class TimeDuration {
   ///период в минутах
   int get inMinutes => _innerDuration.inMinutes;
 
-  ///период в секунднах
+  ///период в секундах
   int get inSeconds => _innerDuration.inSeconds;
 
   ///кол-во дней
@@ -23,15 +23,15 @@ class TimeDuration {
 
   ///кол-во часов
   int get hours =>
-      _innerDuration.inHours - (_innerDuration.inDays * HOURS_IN_DAY);
+      _innerDuration.inHours - (_innerDuration.inDays * hoursInDay);
 
   ///кол-во минут
   int get minutes =>
-      _innerDuration.inMinutes - (_innerDuration.inHours * MINUTES_IN_HOUR);
+      _innerDuration.inMinutes - (_innerDuration.inHours * minutesInHour);
 
   ///кол-во секунд
   int get seconds =>
-      _innerDuration.inSeconds - (_innerDuration.inMinutes * SECONDS_IN_MINUTE);
+      _innerDuration.inSeconds - (_innerDuration.inMinutes * secondsInMinute);
 
   ///увеличение периода на 1 минуту
   void incrementMinute() {

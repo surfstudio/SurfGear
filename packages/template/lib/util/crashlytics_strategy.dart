@@ -48,7 +48,7 @@ class CrashlyticsRemoteLogStrategy extends RemoteUserLogStrategy {
   }
 
   @override
-  void logInfo(String key, dynamic info) {
+  void logInfo(String key, info) {
     if (info is bool) {
       _crashlytics.setBool(key, info);
       return;

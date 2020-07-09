@@ -34,14 +34,14 @@ class _WelcomeScreenState extends WidgetState<WelcomeScreenWidgetModel> {
       body: SafeArea(
         top: true,
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: ConstrainedBox(
-            constraints: BoxConstraints.expand(height: 237.0),
+            constraints: const BoxConstraints.expand(height: 237.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Padding(
-                    padding: const EdgeInsets.only(top: 36.0),
+                const Padding(
+                    padding: EdgeInsets.only(top: 36.0),
                     child: FlutterLogo(
                       size: 128,
                     )),

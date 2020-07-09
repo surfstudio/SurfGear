@@ -7,7 +7,7 @@ import 'di/app.dart';
 
 /// Билдер для [AppWidgetModel].
 AppWidgetModel createAppWidgetModel(BuildContext context) {
-  var component = Injector.of<AppComponent>(context).component;
+  final component = Injector.of<AppComponent>(context).component;
 
   return AppWidgetModel(
     component.wmDependencies,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_template/ui/screen/splash_screen/di/splash_screen_component.dart';
 import 'package:flutter_template/ui/screen/splash_screen/splash_wm.dart';
 import 'package:injector/injector.dart';
