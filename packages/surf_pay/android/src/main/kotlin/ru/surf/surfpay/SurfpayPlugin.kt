@@ -14,7 +14,9 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.common.PluginRegistry.Registrar
-
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 const val CHANNEL_NAME = "surfpay"
 
@@ -51,7 +53,7 @@ const val GATEWAY_TYPE = "gatewayType"
 /** SurfpayPlugin */
 public class SurfpayPlugin() : FlutterPlugin, MethodCallHandler, PluginRegistry.ActivityResultListener, ActivityAware {
 
-    private val LOAD_PAYMENT_DATA_REQUEST_CODE = 8080
+    private val LOAD_PAYMENT_DATA_REQUEST_CODE = 991
 
     private lateinit var channel: MethodChannel
 
@@ -69,7 +71,7 @@ public class SurfpayPlugin() : FlutterPlugin, MethodCallHandler, PluginRegistry.
             val channel = MethodChannel(registrar.messenger(), CHANNEL_NAME)
             val surfpayPlugin = SurfpayPlugin()
             channel.setMethodCallHandler(surfpayPlugin)
-            registrar.addActivityResultListener(surfpayPlugin);
+            registrar.addActivityResultListener(surfpayPlugin)
         }
     }
 
@@ -93,7 +95,7 @@ public class SurfpayPlugin() : FlutterPlugin, MethodCallHandler, PluginRegistry.
                 isReadyToPayRequest(call, result)
             }
             INIT -> {
-                init(call);
+                init(call)
                 result.success(null)
             }
         }
@@ -133,6 +135,7 @@ public class SurfpayPlugin() : FlutterPlugin, MethodCallHandler, PluginRegistry.
 
         val walletOptions =
                 Wallet.WalletOptions.Builder()
+                        .setTheme(3)
                         .setEnvironment(environment)
                         .build()
 
@@ -202,7 +205,6 @@ public class SurfpayPlugin() : FlutterPlugin, MethodCallHandler, PluginRegistry.
         }
         return true
     }
-
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)

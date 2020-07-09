@@ -99,12 +99,12 @@ class _SurfpayState extends State<Surfpay> {
 }
 
 final exampleGoogleRequest = GooglePaymentRequest(
-  "60000.00",
+  "10000.00",
   {
     'merchantName': 'Example Merchant',
   },
   false,
-  ["RU"],
+  ["RU", "EN"],
   false,
 );
 

@@ -52,7 +52,7 @@ fun getPaymentDataRequest(price: String,
                 put("allowedCountryCodes", JSONArray(allowedCountryCodes))
             }
             put("shippingAddressRequired", shippingAddressRequired)
-            put("shippingAddressParameters", shippingAddressParameters)
+            if (shippingAddressRequired) put("shippingAddressParameters", shippingAddressParameters)
         }
     } catch (e: JSONException) {
         return null
@@ -63,8 +63,16 @@ private fun getTransactionInfo(price: String): JSONObject? {
     val transactionInfo = JSONObject()
     transactionInfo.put("totalPrice", price)
     transactionInfo.put("totalPriceStatus", "FINAL")
+    //TODO
     transactionInfo.put("countryCode", "US")
     transactionInfo.put("currencyCode", "USD")
+//    transactionInfo.put("displayItems", JSONArray().apply {
+//        put(JSONObject().apply {
+//            put("label", "Subtotal")
+//            put("type", "SUBTOTAL")
+//            put("price", "11.00")
+//        })
+//    })
     return transactionInfo
 }
 
@@ -125,7 +133,7 @@ private fun getBaseRequest(apiVersion: Int = defaultApiVersion, apiVersionMinor:
 private fun getAllowedCardNetworks(cardNetworks: ArrayList<String>): JSONArray {
     return object : JSONArray() {
         init {
-            cardNetworks.forEach {put(it)}
+            cardNetworks.forEach { put(it) }
         }
     }
 }
@@ -133,7 +141,7 @@ private fun getAllowedCardNetworks(cardNetworks: ArrayList<String>): JSONArray {
 private fun getAllowedCardAuthMethods(authMethods: ArrayList<String>): JSONArray? {
     return object : JSONArray() {
         init {
-            authMethods.forEach {put(it)}
+            authMethods.forEach { put(it) }
         }
     }
 }
