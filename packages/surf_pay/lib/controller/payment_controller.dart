@@ -44,6 +44,7 @@ typedef ErrorCallback = Function(PaymentErrorStatus);
 typedef ApplePayTokenCallback = Future<bool> Function(
     String, String, PaymentMethodType);
 
+/// Controller to work with native
 class PaymentController {
   PaymentController({
     @required this.googlePayData,
@@ -64,13 +65,15 @@ class PaymentController {
     );
   }
 
+  /// return payment token to confirm payment with ApplePay
+  final ApplePayTokenCallback onPaymentTokenCallback;
+
   final GooglePayData googlePayData;
   final ApplePayData applePayData;
   final bool isTestEnvironment;
   final SuccessCallback onSuccess;
   final VoidCallback onCancel;
   final ErrorCallback onError;
-  final ApplePayTokenCallback onPaymentTokenCallback;
 
   MethodChannel _channel = MethodChannel(CHANNEL_NAME);
 
@@ -96,6 +99,7 @@ class PaymentController {
 
   void _initCallbackListener() {
     _channel.setMethodCallHandler(
+      // ignore: missing_return
       (call) async {
         switch (call.method) {
           case ON_SUCCESS:
@@ -122,14 +126,8 @@ class PaymentController {
     );
   }
 
-  void _payGoogle(GooglePaymentRequest request) {
-    _channel.invokeMethod(PAY, request.map());
-  }
-
-  void _payApple(ApplePaymentRequest request) {
-    _channel.invokeMethod(PAY, request.map());
-  }
-
+  /// Checking if service enabled and paymentMethods enabled
+  /// if true show button
   Future<bool> isServiceAvailable() {
     return _channel.invokeMethod(IS_READY_TO_PAY);
   }
@@ -143,5 +141,13 @@ class PaymentController {
         PaymentMethodType.byValue(params[PAYMENT_TOKEN_NETWORK] as int);
     return onPaymentTokenCallback?.call(data, transition, methodType) ??
         Future.value(true);
+  }
+
+  void _payGoogle(GooglePaymentRequest request) {
+    _channel.invokeMethod(PAY, request.map());
+  }
+
+  void _payApple(ApplePaymentRequest request) {
+    _channel.invokeMethod(PAY, request.map());
   }
 }

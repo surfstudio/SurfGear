@@ -42,7 +42,6 @@ public class SwiftSurfpayPlugin: NSObject, FlutterPlugin {
     var paymentStatus = PKPaymentAuthorizationStatus.failure
     var isCanceled = true
     
-    var complitionHandler: ((PKPaymentAuthorizationResult) -> Void)?
     var paymentController: PKPaymentAuthorizationController?
     var merchantCapabilities: PKMerchantCapability?
     var supportedNetworks = [PKPaymentNetwork]()
@@ -68,9 +67,6 @@ public class SwiftSurfpayPlugin: NSObject, FlutterPlugin {
             break
         case IS_READY_TO_PAY:
             result(isApplePayAvailable(call: call))
-            break
-        case ON_PAYMENT_RESULT:
-            onPaymentResult(call: call)
             break
         default:
             result(FlutterMethodNotImplemented)
@@ -137,17 +133,6 @@ public class SwiftSurfpayPlugin: NSObject, FlutterPlugin {
         
         return PKPaymentAuthorizationController.canMakePayments() && PKPaymentAuthorizationController.canMakePayments(usingNetworks: supportedNetworks)
         
-    }
-    
-    func onPaymentResult(call: FlutterMethodCall) {
-        let params = call.arguments as! [String: Any]
-        if let complition = complitionHandler, let isSuccess = params[IS_PAYMENT_SUCCESS] as? Bool {
-            if isSuccess {
-                complition(PKPaymentAuthorizationResult(status: .success, errors: nil))
-            } else {
-                complition(PKPaymentAuthorizationResult(status: .failure, errors: nil))
-            }
-        }
     }
 }
 

@@ -12,6 +12,7 @@ import 'package:surfpay/ui/google_button.dart';
 
 import 'data/apple_pay_data.dart';
 
+/// Widget to easy integrate apple/google pay
 class Surfpay extends StatefulWidget {
   const Surfpay({
     Key key,
@@ -22,13 +23,14 @@ class Surfpay extends StatefulWidget {
     this.onSuccess,
     this.onCancel,
     this.onError,
+    this.onPaymentTokenCallback,
   }) : super(key: key);
 
   final Widget Function(BuildContext context) customButton;
   final SuccessCallback onSuccess;
   final VoidCallback onCancel;
   final ErrorCallback onError;
-
+  final ApplePayTokenCallback onPaymentTokenCallback;
   final GooglePayData googlePayData;
   final ApplePayData applePayData;
 
@@ -52,6 +54,7 @@ class _SurfpayState extends State<Surfpay> {
       onSuccess: widget.onSuccess,
       onCancel: widget.onCancel,
       onError: widget.onError,
+      onPaymentTokenCallback: widget.onPaymentTokenCallback,
     );
   }
 
@@ -77,8 +80,8 @@ class _SurfpayState extends State<Surfpay> {
     if (widget.customButton == null) {
       return GoogleButton(
         onTap: () => _paymentController.pay(
-          exampleGoogleRequest,
-          exampleAppleRequest,
+          _exampleGoogleRequest,
+          _exampleAppleRequest,
         ),
       );
     }
@@ -89,8 +92,8 @@ class _SurfpayState extends State<Surfpay> {
     if (widget.customButton == null) {
       return AppleButton(
         onTap: () => _paymentController.pay(
-          exampleGoogleRequest,
-          exampleAppleRequest,
+          _exampleGoogleRequest,
+          _exampleAppleRequest,
         ),
       ); //_paymentController.pay());
     }
@@ -98,7 +101,7 @@ class _SurfpayState extends State<Surfpay> {
   }
 }
 
-final exampleGoogleRequest = GooglePaymentRequest(
+final _exampleGoogleRequest = GooglePaymentRequest(
   "10.00",
   {
     'merchantName': 'Example Merchant',
@@ -106,9 +109,11 @@ final exampleGoogleRequest = GooglePaymentRequest(
   true,
   ["RU", "EN"],
   false,
+  "RU",
+  "RUB",
 );
 
-final exampleAppleRequest = ApplePaymentRequest(
+final _exampleAppleRequest = ApplePaymentRequest(
   [
     PaymentItem("IPhone", "60000.00", true),
   ],

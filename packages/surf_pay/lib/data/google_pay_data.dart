@@ -7,7 +7,7 @@ const String GATEWAY = "gateway";
 const String GATEWAY_MERCHANT_ID = "gatewayMerchantId";
 const String GATEWAY_TYPE = "gatewayType";
 
-/// Base google pay data
+/// Google Pay immutable data
 class GooglePayData {
   final String gateway;
   final String gatewayMerchantId;

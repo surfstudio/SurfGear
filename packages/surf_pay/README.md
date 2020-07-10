@@ -2,13 +2,15 @@
 
 Plugin for making payments on android and ios
 
-## Getting Started
+## Initialization
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+### Android
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+Add following code to \<Application/\> in manifest
+
+[instruction from documentation](https://developers.google.com/pay/api/android/guides/setup)
+without adding dependencies to gradle
+
+### IOS 
+
+[instruction from documentation](https://developer.apple.com/documentation/passkit/apple_pay/setting_up_apple_pay_requirements)

@@ -2,11 +2,11 @@ const MERCHANT_IDENTIFIER = "merchantIdentifier";
 const MERCHANT_CAPABILITIES = "merchantCapabilities";
 const SUPPORTED_NETWORKS = "supported_networks";
 
-/// Apple Pay init data
+/// Apple Pay immutable data
 class ApplePayData {
   final MerchantCapabilities merchantCapabilities;
 
-  /// Set in project in Signing & Capabilities
+  /// Set in XCode in Signing & Capabilities
   final String merchantIdentifier;
 
   final List<PaymentNetwork> supportedNetworks;

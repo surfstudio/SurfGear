@@ -5,5 +5,4 @@ class GoogleData(
         val allowedCardNetworks: ArrayList<String>,
         val billingAddressRequired: Boolean,
         val billingAddressParameters: HashMap<String, String>,
-        val type: String) {
-}
+        val type: String)

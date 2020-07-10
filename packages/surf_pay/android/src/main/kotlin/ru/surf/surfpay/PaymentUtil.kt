@@ -23,14 +23,15 @@ fun getIsReadyToPayRequest(googleData: GoogleData): IsReadyToPayRequest {
     return IsReadyToPayRequest.fromJson(isReadyToPayRequest.toString())
 }
 
-
 fun getPaymentDataRequest(price: String,
                           googleData: GoogleData,
                           gatewayInfo: GatewayInfo,
                           merchantInfo: HashMap<String, String>,
                           phoneNumberRequired: Boolean,
                           allowedCountryCodes: List<String>,
-                          shippingAddressRequired: Boolean
+                          shippingAddressRequired: Boolean,
+                          countryCode: String,
+                          currencyCode: String
 ): JSONObject? {
     try {
         return JSONObject(getBaseRequest().toString()).apply {
@@ -42,7 +43,7 @@ fun getPaymentDataRequest(price: String,
                             googleData.billingAddressParameters,
                             googleData.type,
                             gatewayInfo)))
-            put("transactionInfo", getTransactionInfo(price))
+            put("transactionInfo", getTransactionInfo(price, countryCode, currencyCode))
             put("merchantInfo", getMerchantInfo(merchantInfo))
 
             // An optional shipping address requirement is a top-level property of the
@@ -59,20 +60,12 @@ fun getPaymentDataRequest(price: String,
     }
 }
 
-private fun getTransactionInfo(price: String): JSONObject? {
+private fun getTransactionInfo(price: String, countryCode: String, currencyCode: String): JSONObject? {
     val transactionInfo = JSONObject()
     transactionInfo.put("totalPrice", price)
     transactionInfo.put("totalPriceStatus", "FINAL")
-    //TODO
-    transactionInfo.put("countryCode", "US")
-    transactionInfo.put("currencyCode", "USD")
-//    transactionInfo.put("displayItems", JSONArray().apply {
-//        put(JSONObject().apply {
-//            put("label", "Subtotal")
-//            put("type", "SUBTOTAL")
-//            put("price", "11.00")
-//        })
-//    })
+    transactionInfo.put("countryCode", countryCode)
+    transactionInfo.put("currencyCode", currencyCode)
     return transactionInfo
 }
 

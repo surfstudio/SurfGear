@@ -1,3 +1,4 @@
+/// Error while payment
 enum PaymentErrorStatus {
   RESULT_SUCCESS,
   RESULT_INTERRUPTED,

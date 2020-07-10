@@ -1,5 +1,6 @@
 import 'package:surfpay/data/payment_status.dart';
 
+/// Transform RawValue to Error
 PaymentErrorStatus getPaymentErrorStatus(int errorStatus) {
   switch (errorStatus) {
   // only Android

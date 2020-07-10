@@ -2,6 +2,7 @@ const ITEM_LABEL = "itemLabel";
 const ITEM_AMOUNT = "itemAmount";
 const ITEM_IS_FINAL = "itemType";
 
+/// Item for payment
 class PaymentItem {
   final String label;
   final String price;

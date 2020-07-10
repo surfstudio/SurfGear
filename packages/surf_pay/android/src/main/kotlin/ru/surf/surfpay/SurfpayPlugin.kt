@@ -104,6 +104,7 @@ public class SurfpayPlugin : FlutterPlugin, MethodCallHandler, PluginRegistry.Ac
         }
     }
 
+    /// Init immutable arguments
     private fun init(call: MethodCall) {
         val params = call.arguments as Map<String, Any>
 
@@ -133,6 +134,7 @@ public class SurfpayPlugin : FlutterPlugin, MethodCallHandler, PluginRegistry.Ac
         initClient(params[IS_TEST] as Boolean)
     }
 
+    /// Init payment client
     private fun initClient(isTest: Boolean) {
         val environment = if (isTest) WalletConstants.ENVIRONMENT_TEST else WalletConstants.ENVIRONMENT_PRODUCTION
 
@@ -144,6 +146,7 @@ public class SurfpayPlugin : FlutterPlugin, MethodCallHandler, PluginRegistry.Ac
         googlePaymentsClient = Wallet.getPaymentsClient(this.activity, walletOptions)
     }
 
+    /// Check Google services and available networks
     private fun isReadyToPayRequest(call: MethodCall, result: Result) {
         val isReadyToPayRequest = getIsReadyToPayRequest(googleData)
 
@@ -153,6 +156,7 @@ public class SurfpayPlugin : FlutterPlugin, MethodCallHandler, PluginRegistry.Ac
         }
     }
 
+    /// Payment request to google pay
     private fun requestPayment(call: MethodCall) {
         val params = call.arguments as Map<String, Any>
 
@@ -161,6 +165,8 @@ public class SurfpayPlugin : FlutterPlugin, MethodCallHandler, PluginRegistry.Ac
         val phoneNumberRequired = params[PHONE_NUMBER_REQUIRED] as Boolean
         val allowedCountryCodes = params[ALLOWED_COUNTRY_CODES] as List<String>
         val shippingAddressRequired = params[SHIPPING_ADDRESS_REQUIRED] as Boolean
+        val countryCode = params[COUNTRY_CODE] as String
+        val currencyCode = params[CURRENCY_CODE] as String
 
         val paymentDataRequestJson = getPaymentDataRequest(
                 price,
@@ -169,7 +175,9 @@ public class SurfpayPlugin : FlutterPlugin, MethodCallHandler, PluginRegistry.Ac
                 merchantInfo,
                 phoneNumberRequired,
                 allowedCountryCodes,
-                shippingAddressRequired)
+                shippingAddressRequired,
+                countryCode,
+                currencyCode)
 
         if (paymentDataRequestJson != null) {
             val request = PaymentDataRequest.fromJson(paymentDataRequestJson.toString())
@@ -187,16 +195,19 @@ public class SurfpayPlugin : FlutterPlugin, MethodCallHandler, PluginRegistry.Ac
         when (requestCode) {
             LOAD_PAYMENT_DATA_REQUEST_CODE -> {
                 when (resultCode) {
+                    /// Payment proceed
                     Activity.RESULT_OK -> {
                         PaymentData.getFromIntent(data!!)?.let {
                             channel!!.invokeMethod(ON_SUCCESS, mapOf(ON_SUCCESS_DATA to it.toJson().toString()))
                         }
                     }
 
+                    /// User hide payment sheet
                     Activity.RESULT_CANCELED -> {
                         channel!!.invokeMethod(ON_CANCEL, "cancel")
                     }
 
+                    /// Error during payment
                     AutoResolveHelper.RESULT_ERROR -> {
                         AutoResolveHelper.getStatusFromIntent(data)?.let {
                             channel!!.invokeMethod(ON_ERROR, mapOf(PAYMENT_ERROR_STATUS to it.statusCode))

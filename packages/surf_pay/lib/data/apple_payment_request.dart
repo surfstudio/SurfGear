@@ -4,6 +4,7 @@ const String ITEMS = "items";
 const String COUNTRY_CODE = "countryCode";
 const String CURRENCY_CODE = "currencyCode";
 
+/// Apple Pay request data
 class ApplePaymentRequest {
   final List<PaymentItem> items;
   final String currencyCode;

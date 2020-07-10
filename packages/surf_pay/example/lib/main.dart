@@ -22,6 +22,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
           child: Surfpay(
+
             applePayData: ApplePayData(
               MerchantCapabilities.capability3DS,
               "merchant.example.surfpay",
