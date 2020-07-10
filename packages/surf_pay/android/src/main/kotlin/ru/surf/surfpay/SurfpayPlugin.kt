@@ -51,6 +51,9 @@ const val GATEWAY = "gateway"
 const val GATEWAY_MERCHANT_ID = "gatewayMerchantId"
 const val GATEWAY_TYPE = "gatewayType"
 
+const val COUNTRY_CODE = "countryCode"
+const val CURRENCY_CODE = "currencyCode"
+
 /** SurfpayPlugin */
 public class SurfpayPlugin : FlutterPlugin, MethodCallHandler, PluginRegistry.ActivityResultListener, ActivityAware {
 
