@@ -15,7 +15,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final jitsiScreenController = JitsiMeetScreenController();
+  final jitsiScreenController = JitsiMeetScreenController(
+    () => print('join'),
+    () => print('will join'),
+    () => print('terminated'),
+  );
   final controller = TextEditingController();
 
   final permissions = DefaultPermissionManager(
@@ -24,6 +28,7 @@ class _MyAppState extends State<MyApp> {
       defaultStrategy: ProceedPermissionStrategyExample(),
     ),
   );
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -47,9 +52,12 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () async {
                   final camera = await permissions.request(Permission.camera);
                   final microphone =
-                  await permissions.request(Permission.microphone);
+                      await permissions.request(Permission.microphone);
                   if (camera && microphone)
-                    jitsiScreenController.join();
+                    jitsiScreenController.joinRoom(controller.value.text);
+
+                  Future.delayed(Duration(seconds: 5),
+                      () => jitsiScreenController.leaveRoom());
                 },
               )
             ],

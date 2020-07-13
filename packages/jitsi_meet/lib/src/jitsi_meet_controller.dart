@@ -67,6 +67,7 @@ class JitsiMeetController {
     bool videoMuted,
     bool audioOnly,
   }) async {
+    _currentRoom = room;
     await _channel.invokeMethod<void>(JOIN_ROOM, <String, dynamic>{
       ROOM: room,
       AUDIO_MUTED: audioMuted,
