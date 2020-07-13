@@ -1,4 +1,4 @@
-group 'jitsimeet.jitsi_meet'
+group 'ru.surf.jitsi_meet_screen'
 version '1.0-SNAPSHOT'
 
 buildscript {

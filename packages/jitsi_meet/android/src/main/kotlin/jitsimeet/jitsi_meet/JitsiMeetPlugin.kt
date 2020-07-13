@@ -35,7 +35,7 @@ class JitsiMeetPlugin : FlutterPlugin, ActivityAware {
             registrar
                     .platformViewRegistry()
                     .registerViewFactory(
-                            VIEW_TYPE, JitsiMeetFactory(registrar.messenger(), null))
+                            VIEW_TYPE, JitsiMeetFactory(registrar.messenger(), registrar.activity()))
         }
     }
 
@@ -47,7 +47,7 @@ class JitsiMeetPlugin : FlutterPlugin, ActivityAware {
                         VIEW_TYPE,
                         JitsiMeetFactory(
                                 pluginBinding!!.getBinaryMessenger(),
-                                activity!!))
+                                binding.getActivity()))
     }
 
     override fun onDetachedFromActivity() {

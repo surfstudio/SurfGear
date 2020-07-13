@@ -7,6 +7,7 @@ import 'package:permission/impl/strategy/proceed_permission_strategy_example.dar
 
 class FirstScreen extends StatelessWidget {
   final controller = TextEditingController();
+
   final permissions = DefaultPermissionManager(
     DefaultProceedPermissionStrategyStorage(
       strategies: Map(),
