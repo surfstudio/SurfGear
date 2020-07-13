@@ -1,7 +1,7 @@
 name: surf_text_input_formatter
 description: A library containing a TextInputFormatter with an arbitrary number of spaces
 version: 0.0.1
-homepage: https://github.com/surfstudio/render_metrics
+homepage: https://github.com/surfstudio/surf_text_input_formatter
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
