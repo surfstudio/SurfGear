@@ -47,7 +47,7 @@ class JitsiMeetController {
     this.onJoined,
     this.onTerminated,
   ) {
-    _channel = new MethodChannel('$CHANNEL_NAME$id');
+    _channel = MethodChannel('$CHANNEL_NAME$id');
     _channel.setMethodCallHandler(_methodCallHandler);
   }
 
