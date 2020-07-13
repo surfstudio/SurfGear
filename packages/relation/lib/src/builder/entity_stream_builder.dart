@@ -16,7 +16,7 @@ import 'package:flutter/widgets.dart';
 import 'package:relation/src/relation/state/entity_state.dart';
 
 typedef DataWidgetBuilder<T> = Widget Function(BuildContext, T data);
-typedef ErrorWidgetBuilder = Widget Function(BuildContext, Exception error);
+typedef ErrorWidgetBuilder = Widget Function(BuildContext, dynamic error);
 
 /// Reactive widget for [EntityStreamedState]
 ///
@@ -46,7 +46,7 @@ class EntityStateBuilder<T> extends StatelessWidget {
   final DataWidgetBuilder<T> loadingBuilder;
 
   /// Error child of builder
-  final DataWidgetBuilder<T> errorBuilder;
+  final ErrorWidgetBuilder errorBuilder;
 
   /// Loading child widget
   final Widget loadingChild;
@@ -83,7 +83,7 @@ class EntityStateBuilder<T> extends StatelessWidget {
           }
         } else if (streamData.hasError) {
           if (streamData.data != null && errorBuilder != null) {
-            return errorBuilder(context, streamData.data);
+            return errorBuilder(context, streamData.error.e);
           } else {
             return errorChild;
           }
