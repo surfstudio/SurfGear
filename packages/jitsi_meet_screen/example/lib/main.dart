@@ -54,10 +54,10 @@ class _MyAppState extends State<MyApp> {
                   final microphone =
                       await permissions.request(Permission.microphone);
                   if (camera && microphone)
-                    jitsiScreenController.joinRoom(controller.value.text);
-
-                  Future.delayed(Duration(seconds: 5),
-                      () => jitsiScreenController.leaveRoom());
+                    jitsiScreenController.joinRoom(
+                      controller.value.text,
+                      audioMuted: true,
+                    );
                 },
               )
             ],

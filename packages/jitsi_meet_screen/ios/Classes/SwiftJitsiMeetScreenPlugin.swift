@@ -28,6 +28,8 @@ let FLAG_VALUE = "flag_value"
 
 
 public class SwiftJitsiMeetScreenPlugin: NSObject, FlutterPlugin {
+    /// CUSTOM Picture in Picture
+    //    fileprivate var pipViewCoordinator: PiPViewCoordinator?
     private let methodChannel: FlutterMethodChannel!
     var flutterViewController: FlutterViewController?
     private var jitsiView: JitsiMeetView?
@@ -64,6 +66,12 @@ public class SwiftJitsiMeetScreenPlugin: NSObject, FlutterPlugin {
         }
     }
     
+    fileprivate func cleanUp() {
+        jitsiView?.removeFromSuperview()
+        jitsiView = nil
+        //        pipViewCoordinator = nil
+    }
+    
     /// Leave room
     private func leaveRoom(_ call: FlutterMethodCall) {
         jitsiView?.leave()
@@ -71,6 +79,8 @@ public class SwiftJitsiMeetScreenPlugin: NSObject, FlutterPlugin {
     
     /// Join Room
     private func joinRoom(_ call: FlutterMethodCall) {
+        cleanUp()
+        
         let params = call.arguments as! [String: Any]
         let room = params[ROOM] as! String
         let audioMuted = params[AUDIO_MUTED] as? Bool
@@ -80,7 +90,6 @@ public class SwiftJitsiMeetScreenPlugin: NSObject, FlutterPlugin {
         
         let options = JitsiMeetConferenceOptions.fromBuilder { (builder) in
             builder.room = room
-            builder.welcomePageEnabled = false
             builder.userInfo = self.userInfo
             if let audio = audioMuted {
                 builder.audioMuted = audio
@@ -106,6 +115,15 @@ public class SwiftJitsiMeetScreenPlugin: NSObject, FlutterPlugin {
         
         flutterViewController = UIApplication.shared.keyWindow?.rootViewController as? FlutterViewController
         flutterViewController?.present(ui, animated: true, completion: nil)
+        
+        /// For CUSTOM Picture in Picture
+        //        pipViewCoordinator = PiPViewCoordinator(withView: jitsiView!)
+        //        flutterViewController = UIApplication.shared.keyWindow?.rootViewController as? FlutterViewController
+        //        pipViewCoordinator?.configureAsStickyView(withParentView: flutterViewController?.view)
+        //
+        //        // animate in
+        //        jitsiView?.alpha = 0
+        //        pipViewCoordinator?.show()
     }
     
     /// Set information about user
@@ -137,7 +155,13 @@ public class SwiftJitsiMeetScreenPlugin: NSObject, FlutterPlugin {
 extension SwiftJitsiMeetScreenPlugin: JitsiMeetViewDelegate {
     public func conferenceTerminated(_ data: [AnyHashable : Any]!) {
         flutterViewController?.dismiss(animated: true, completion: nil)
-        methodChannel.invokeMethod(ON_TERMINATED, arguments: data)
+        /// CUSTOM Picture in Picture
+        //        DispatchQueue.main.async {
+        //            self.pipViewCoordinator?.hide() { _ in
+        //                self.methodChannel.invokeMethod(ON_TERMINATED, arguments: data)
+        //                self.cleanUp()
+        //            }
+        //        }
     }
     
     public func conferenceJoined(_ data: [AnyHashable: Any]!) {
@@ -147,4 +171,10 @@ extension SwiftJitsiMeetScreenPlugin: JitsiMeetViewDelegate {
     public func conferenceWillJoin(_ data: [AnyHashable: Any]!) {
         methodChannel.invokeMethod(ON_WILL_JOIN, arguments: data)
     }
+    /// CUSTOM Picture in Picture
+    //    public func enterPicture(inPicture data: [AnyHashable : Any]!) {
+    //        DispatchQueue.main.async {
+    //            self.pipViewCoordinator?.enterPictureInPicture()
+    //        }
+    //    }
 }

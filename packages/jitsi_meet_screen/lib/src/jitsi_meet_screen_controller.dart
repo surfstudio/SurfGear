@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/services.dart';
+import 'package:jitsi_meet_screen/src/jitsi_meet_exceptions.dart';
 
 const String CHANNEL_NAME = "surf_jitsi_meet_screen";
 
@@ -63,6 +64,7 @@ class JitsiMeetScreenController {
     bool videoMuted,
     bool audioOnly,
   }) async {
+    if(_currentRoom != null) throw CallAlreadyStartedException();
     _currentRoom = room;
     await _channel.invokeMethod<void>(JOIN_ROOM, <String, dynamic>{
       ROOM: room,
@@ -106,6 +108,7 @@ class JitsiMeetScreenController {
         onWillJoin?.call();
         break;
       case ON_TERMINATED:
+        _currentRoom = null;
         onTerminated?.call();
         break;
     }

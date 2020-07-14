@@ -13,6 +13,9 @@ import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import org.jitsi.meet.sdk.JitsiMeetActivity
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
+import org.jitsi.meet.sdk.JitsiMeetUserInfo
+import org.jitsi.meet.sdk.JitsiMeetView
+import java.net.URL
 
 const val CHANNEL_NAME = "surf_jitsi_meet_screen"
 
@@ -42,57 +45,124 @@ const val FLAG_VALUE = "flag_value"
 /** JitsiMeetScreenPlugin */
 public class JitsiMeetScreenPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     private lateinit var activity: Activity
+    private lateinit var channel: MethodChannel
+    private var user: JitsiMeetUserInfo? = null
+    private val features = HashMap<String, Boolean>()
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), CHANNEL_NAME)
-        channel?.setMethodCallHandler(this)
+        channel.setMethodCallHandler(this)
+    }
+
+    constructor() {
+        SurfJitsiMeetActivity.onConferenceJoinedCallback = {data -> onConferenceJoined(data)}
+        SurfJitsiMeetActivity.onConferenceWillJoinCallback = {data -> onConferenceWillJoin(data)}
+        SurfJitsiMeetActivity.onConferenceTerminatedCallback = {data -> onConferenceTerminated(data)}
+    }
+
+    constructor(channel: MethodChannel) : this() {
+        this.channel
     }
 
     companion object {
-        private var channel: MethodChannel? = null
+        var jitsiMeetView: JitsiMeetView? = null
 
         @JvmStatic
         fun registerWith(registrar: Registrar) {
-            channel = MethodChannel(registrar.messenger(), CHANNEL_NAME)
-            channel?.setMethodCallHandler(JitsiMeetScreenPlugin())
-        }
-
-        fun onConferenceWillJoin(data: MutableMap<String, Any>?) {
-            channel?.invokeMethod(ON_WILL_JOIN, data)
-        }
-
-        fun onConferenceJoined(data: MutableMap<String, Any>?) {
-            channel?.invokeMethod(ON_JOINED, data)
-        }
-
-        fun onConferenceTerminated(data: MutableMap<String, Any>?) {
-            channel?.invokeMethod(ON_TERMINATED, data)
+            val channel = MethodChannel(registrar.messenger(), CHANNEL_NAME)
+            channel.setMethodCallHandler(JitsiMeetScreenPlugin(channel))
         }
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         when (call.method) {
             JOIN_ROOM -> {
-                join(call)
+                joinRoom(call)
                 result.success(null)
             }
+            LEAVE_ROOM -> {
+                leaveRoom(call)
+                result.success(null)
+            }
+            SET_USER -> {
+                setUser(call)
+                result.success(null)
+            }
+            SET_FEATURE_FLAG -> {
+                setFeatureFlag(call)
+                result.success(null)
+            }
+            else -> result.notImplemented()
         }
     }
 
-    fun join(call: MethodCall) {
+    fun joinRoom(call: MethodCall) {
+        val params = call.arguments as Map<String, Any>
+        val room = params[ROOM] as String
+        val audioMuted = params[AUDIO_MUTED] as? Boolean
+        val videoMuted = params[VIDEO_MUTED] as? Boolean
+        val audioOnly = params[AUDIO_ONLY] as? Boolean
+
         val options = JitsiMeetConferenceOptions.Builder()
-                .setRoom("SurfTestRoom")
-                .setWelcomePageEnabled(false)
+                .setRoom(room)
+                .setUserInfo(user)
+
+        if (audioMuted != null) options.setAudioMuted(audioMuted)
+        if (videoMuted != null) options.setVideoMuted(videoMuted)
+        if (audioOnly != null) options.setAudioOnly(audioOnly)
+
+        features.forEach { (flag, value) -> options.setFeatureFlag(flag, value) }
+
         SurfJitsiMeetActivity.ktLaunch(activity, options.build())
+    }
+
+    /// Set user information
+    private fun setUser(call: MethodCall) {
+        val params = call.arguments as Map<String, Any>
+        user = JitsiMeetUserInfo()
+        user!!.displayName = params[USERNAME] as? String
+        user!!.email = params[EMAIL] as? String
+        val avatarUrl = params[AVATAR_URL] as? String
+        if (avatarUrl != null) {
+            user!!.avatar = URL(avatarUrl)
+        }
+    }
+
+    /// set enabled state of feature
+    private fun setFeatureFlag(call: MethodCall) {
+        val params = call.arguments as Map<String, Any>
+        val feature = params[FLAG] as? String
+        val value = params[FLAG_VALUE] as? Boolean
+
+        if (feature != null && value != null) {
+            features[feature] = value
+        }
+    }
+
+    /// Leave room
+    private fun leaveRoom(call: MethodCall) {
+        jitsiMeetView?.leave()
+    }
+
+    fun onConferenceWillJoin(data: MutableMap<String, Any>) {
+        channel.invokeMethod(ON_WILL_JOIN, data)
+    }
+
+    fun onConferenceJoined(data: MutableMap<String, Any>){
+        channel.invokeMethod(ON_JOINED, data)
+    }
+
+    fun onConferenceTerminated(data: MutableMap<String, Any>) {
+        channel.invokeMethod(ON_TERMINATED, data)
+    }
+
+    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+        channel.setMethodCallHandler(null)
     }
 
     /// ActivityAware
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         activity = binding.activity
-    }
-
-    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-        channel?.setMethodCallHandler(null)
     }
 
     override fun onDetachedFromActivity() {

@@ -48,5 +48,5 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     // Jitsi Meet
-    implementation ('org.jitsi.react:jitsi-meet-sdk:2.8.2') { transitive = true }
+    implementation ('org.jitsi.react:jitsi-meet-sdk:2.9.0') { transitive = true }
 }
