@@ -222,30 +222,31 @@ public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin, Plugin
                 ?: ""
         // Реализовать добавление уникального идентификатора кнопки
         val buttonUniqueKey: String? = null
+        if (messageUniqueKey != "") {
+            AsyncTask.execute {
+                // Отправка операции нажатия на пуш
+                var url = URL("https://api.mindbox.ru/v3/mobile-push/click?endpointId=2020RiglaMobileAndroid")
 
-        AsyncTask.execute {
-            // Отправка операции нажатия на пуш
-            var url = URL("https://api.mindbox.ru/v3/mobile-push/click?endpointId=2020RiglaMobileAndroid")
+                var conn = url.openConnection() as HttpURLConnection
+                conn.requestMethod = "POST";
+                conn.doInput = true;
+                conn.doOutput = true;
+                conn.setRequestProperty("Content-Type", "application/json")
+                conn.setRequestProperty("Accept", "application/json");
 
-            var conn = url.openConnection() as HttpURLConnection
-            conn.requestMethod = "POST";
-            conn.doInput = true;
-            conn.doOutput = true;
-            conn.setRequestProperty("Content-Type", "application/json")
-            conn.setRequestProperty("Accept", "application/json");
+                var body: String = if (buttonUniqueKey != null) {
+                    "{\"click\":{\"messageUniqueKey\": \"$messageUniqueKey\", \"buttonUniqueKey\" :\"$buttonUniqueKey\"}}"
+                } else {
+                    "{ \"click\":{\"messageUniqueKey\": \"$messageUniqueKey\"}}"
+                }
+                conn.doOutput = true
+                val os: OutputStream = conn.outputStream
+                os.write(body.toByteArray())
+                os.close()
+                conn.connect()
 
-            var body: String = if (buttonUniqueKey != null) {
-                "{\"click\":{\"messageUniqueKey\": \"$messageUniqueKey\", \"buttonUniqueKey\" :\"$buttonUniqueKey\"}}"
-            } else {
-                "{ \"click\":{\"messageUniqueKey\": \"$messageUniqueKey\"}}"
+                print(conn.responseCode)
             }
-            conn.doOutput = true
-            val os: OutputStream = conn.outputStream
-            os.write(body.toByteArray())
-            os.close()
-            conn.connect()
-
-            print(conn.responseCode)
         }
     }
 }
