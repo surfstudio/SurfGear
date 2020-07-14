@@ -2,13 +2,27 @@
 
 Plugin to show JitsiMeetView as new native screen
 
-## Getting Started
+# Installation 
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+## Android
+1. Add camera permission, request permission before show `JitsiMeetWidget`
+``` xml
+<uses-permission android:name="android.permission.CAMERA"/>
+```
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+2. Set minSdkVersion and gradle version
+
+``` gradle 
+...
+minSdkVersion 23
+...
+classpath 'com.android.tools.build:gradle:3.3.2'
+...
+```
+[Dropbox integration](https://jitsi.github.io/handbook/docs/dev-guide/dev-guide-android-sdk#dropbox-integration)
+## IOS
+
+1. Set IOS version to 11
+1. Add permissions Camera and Microphone
+
+[Dropbox integration](https://jitsi.github.io/handbook/docs/dev-guide/dev-guide-ios-sdk#dropbox-integration)
