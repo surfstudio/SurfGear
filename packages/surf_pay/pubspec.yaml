@@ -26,3 +26,10 @@ flutter:
         pluginClass: SurfpayPlugin
       ios:
         pluginClass: SurfpayPlugin
+
+custom:
+  is_stable: false
+  unstable_version: 0
+  is_plugin: true
+  path: surf_pay
+  hostUrl:
