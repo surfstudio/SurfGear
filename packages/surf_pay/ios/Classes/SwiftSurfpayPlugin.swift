@@ -130,9 +130,7 @@ public class SwiftSurfpayPlugin: NSObject, FlutterPlugin {
     // if PKPaymentAuthorizationController.canMakePayments(usingNetworks: supportedNetworks)
     // if user hsasn't available card - still can show button, apple pay suggest to enter available card, not a list of cards
     func isApplePayAvailable(call: FlutterMethodCall) -> Bool{
-        
         return PKPaymentAuthorizationController.canMakePayments() && PKPaymentAuthorizationController.canMakePayments(usingNetworks: supportedNetworks)
-        
     }
 }
 
