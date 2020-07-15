@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import androidx.annotation.NonNull
+import io.fabric.sdk.android.services.network.HttpRequest
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -25,6 +26,12 @@ import ru.surfstudio.android.notification.ui.PushClickProvider
 import ru.surfstudio.android.notification.ui.PushEventListener
 import ru.surfstudio.android.notification.ui.notification.NOTIFICATION_DATA
 import ru.surfstudio.android.utilktx.ktx.text.EMPTY_STRING
+import java.io.BufferedInputStream
+import java.io.ByteArrayOutputStream
+import java.io.OutputStream
+import java.io.OutputStreamWriter
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 //channels and methods names
@@ -55,7 +62,8 @@ private const val DEFAULT_CHANNEL_NAME = "@string/data_push_channel_name"
 private const val DEFAULT_COLOR = "@color/design_default_color_primary"
 private const val DEFAULT_AUTOCANCEL = true
 
-internal const val EVENT_TYPE = "event_type"
+private const val MESSAGE_KEY = "uniqueKey"
+private const val BUTTON_KEY = "buttonKey"
 
 /** PushNotificationPlugin */
 public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin, PluginRegistry.NewIntentListener, ActivityAware {
@@ -78,6 +86,15 @@ public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin, Plugin
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         binding.addOnNewIntentListener(this)
+        if (SELECT_NOTIFICATION.equals(binding.getActivity().intent.action)) {
+            val notificationTypeData = binding.getActivity().intent.getSerializableExtra(NOTIFICATION_DATA) as PushNotificationTypeData
+
+            var notificationData = HashMap<String, String>()
+            if (notificationTypeData.data != null) {
+                notificationData = HashMap(notificationTypeData.data?.notificationData)
+                sendClickOperation(notificationData)
+            }
+        }
         mainActivity = binding.getActivity()
     }
 
@@ -133,6 +150,7 @@ public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin, Plugin
             var notificationData = HashMap<String, String>();
             if (notificationTypeData.data != null) {
                 notificationData = HashMap(notificationTypeData.data?.notificationData)
+                sendClickOperation(notificationData)
             }
 
             channel!!.invokeMethod(CALLBACK_OPEN, notificationData)
@@ -197,5 +215,38 @@ public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin, Plugin
 
     private fun getResourceId(resName: String, defType: String): Int {
         return context!!.resources.getIdentifier(resName, defType, context!!.packageName)
+    }
+
+    private fun sendClickOperation(notificationData: Map<String, String>) {
+        val messageUniqueKey: String = notificationData[MESSAGE_KEY]
+                ?: ""
+        // Реализовать добавление уникального идентификатора кнопки
+        val buttonUniqueKey: String? = null
+        if (messageUniqueKey != "") {
+            AsyncTask.execute {
+                // Отправка операции нажатия на пуш
+                var url = URL("https://api.mindbox.ru/v3/mobile-push/click?endpointId=2020RiglaMobileAndroid")
+
+                var conn = url.openConnection() as HttpURLConnection
+                conn.requestMethod = "POST";
+                conn.doInput = true;
+                conn.doOutput = true;
+                conn.setRequestProperty("Content-Type", "application/json")
+                conn.setRequestProperty("Accept", "application/json");
+
+                var body: String = if (buttonUniqueKey != null) {
+                    "{\"click\":{\"messageUniqueKey\": \"$messageUniqueKey\", \"buttonUniqueKey\" :\"$buttonUniqueKey\"}}"
+                } else {
+                    "{ \"click\":{\"messageUniqueKey\": \"$messageUniqueKey\"}}"
+                }
+                conn.doOutput = true
+                val os: OutputStream = conn.outputStream
+                os.write(body.toByteArray())
+                os.close()
+                conn.connect()
+
+                print(conn.responseCode)
+            }
+        }
     }
 }
