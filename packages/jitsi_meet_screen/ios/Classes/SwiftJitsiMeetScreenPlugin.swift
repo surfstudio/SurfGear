@@ -155,6 +155,7 @@ public class SwiftJitsiMeetScreenPlugin: NSObject, FlutterPlugin {
 extension SwiftJitsiMeetScreenPlugin: JitsiMeetViewDelegate {
     public func conferenceTerminated(_ data: [AnyHashable : Any]!) {
         flutterViewController?.dismiss(animated: true, completion: nil)
+        methodChannel.invokeMethod(ON_TERMINATED, arguments: data)
         /// CUSTOM Picture in Picture
         //        DispatchQueue.main.async {
         //            self.pipViewCoordinator?.hide() { _ in
