@@ -86,15 +86,7 @@ public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin, Plugin
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         binding.addOnNewIntentListener(this)
-        if (SELECT_NOTIFICATION.equals(binding.getActivity().intent.action)) {
-            val notificationTypeData = binding.getActivity().intent.getSerializableExtra(NOTIFICATION_DATA) as PushNotificationTypeData
-
-            var notificationData = HashMap<String, String>()
-            if (notificationTypeData.data != null) {
-                notificationData = HashMap(notificationTypeData.data?.notificationData)
-                sendClickOperation(notificationData)
-            }
-        }
+        sendNotificationPayloadMessage(binding.getActivity().intent)
         mainActivity = binding.getActivity()
     }
 
@@ -144,7 +136,8 @@ public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin, Plugin
     }
 
     private fun sendNotificationPayloadMessage(intent: Intent): Boolean? {
-        if (SELECT_NOTIFICATION.equals(intent.action)) {
+        if (Intent.ACTION_VIEW.equals(intent.action)) {
+            val a = intent.dataString
             val notificationTypeData = intent.getSerializableExtra(NOTIFICATION_DATA) as PushNotificationTypeData
 
             var notificationData = HashMap<String, String>();
