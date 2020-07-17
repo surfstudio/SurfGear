@@ -30,6 +30,23 @@ const Map<String, Map<String, String>> _androidFiles = {
     'applicationId "ru.surfstudio.flutterTemplate"':
         'applicationId "%bundleId%"',
   },
+  '/android/fastlane/Appfile': {
+    'package_name(YOUR_PACKAGE_NAME)': 'package_name(%bundleId%)',
+  },
+  '/android/src/main/AndroidManifest.xml': {
+    'package="ru.surfstudio.template"': 'package="%bundleId%"',
+  }
+};
+
+/// ios files containing application id
+const Map<String, Map<String, String>> _iosFiles = {
+  '/ios/fastlane/Appfile': {
+    '# app_identifier "[[APP_IDENTIFIER]]"': 'app_identifier "%bundleId%"',
+  },
+  '/ios/fastlane/Fastfile': {
+    'prod_bundle_id = "YOUR_ID"': 'prod_bundle_id = "%bundleId%"',
+    'dev_bundle_id = "YOUR_ID"': 'dev_bundle_id = "%bundleId%.development"',
+  },
 };
 
 /// Создает шаблонный проект.
@@ -75,7 +92,9 @@ class CreateTemplateProject {
     final dirProject = Directory(p.join(pathDirectory.path, 'lib'))
         .listSync(recursive: true, followLinks: false)
           ..addAll(Directory(pathDirectory.path)
-              .listSync(recursive: false, followLinks: false));
+              .listSync(recursive: false, followLinks: false))
+          ..addAll(Directory(p.join(pathDirectory.path, 'test'))
+              .listSync(recursive: true, followLinks: false));
 
     final fileSystemEntities = await _getFiles(dirProject);
 
@@ -211,7 +230,7 @@ class CreateTemplateProject {
     Command command,
   ) async {
     await _renameAndroidBundleId(pathDirectory, command);
-    await _renameIosBundleId(command);
+    await _renameIosBundleId(pathDirectory, command);
   }
 
   Future<void> _renameAndroidBundleId(
@@ -228,8 +247,17 @@ class CreateTemplateProject {
     });
   }
 
-  Future<void> _renameIosBundleId(Command command) async {
+  Future<void> _renameIosBundleId(
+    PathDirectory pathDirectory,
+    Command command,
+  ) async {
     printMessageConsole(
         'Change organization to "${command.organizationId}" in ios project...');
+
+    _iosFiles.forEach((fileName, patterns) async {
+      final file = await _getFileByName(pathDirectory.path + fileName);
+      if (!file.existsSync()) return;
+      await _replaceTextInFile(command, file, patterns);
+    });
   }
 }
