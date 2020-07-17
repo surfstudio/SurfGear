@@ -6,6 +6,7 @@ import ru.surfstudio.ci.pipeline.empty.EmptyScmPipeline
 import ru.surfstudio.ci.pipeline.pr.PrPipeline
 import ru.surfstudio.ci.stage.SimpleStage
 import ru.surfstudio.ci.stage.StageStrategy
+import ru.surfstudio.ci.NodeProvider
 
 import static ru.surfstudio.ci.CommonUtil.extractValueFromEnvOrParamsAndRun
 
@@ -91,6 +92,7 @@ def script = this
 def pipeline = new EmptyScmPipeline(script)
 
 pipeline.init()
+pipeline.node = NodeProvider.getAndroidFlutterNode()
 
 //configuration
 pipeline.propertiesProvider = {
