@@ -20,6 +20,13 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+custom:
+  is_stable: false
+  unstable_version: 0
+  is_plugin: false
+  path: video_subtitle
+  hostUrl:
+
 flutter:
   plugin:
     platforms:
