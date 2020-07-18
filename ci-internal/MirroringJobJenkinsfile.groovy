@@ -4,8 +4,8 @@ import ru.surfstudio.ci.pipeline.empty.EmptyScmPipeline
 import ru.surfstudio.ci.stage.StageStrategy
 import ru.surfstudio.ci.CommonUtil
 import ru.surfstudio.ci.JarvisUtil
-import ru.surfstudio.ci.NodeProvider
 import ru.surfstudio.ci.Result
+import ru.surfstudio.ci.NodeProvider
 import java.net.URLEncoder
 
 def encodeUrl(string) {
@@ -18,7 +18,7 @@ def pipeline = new EmptyScmPipeline(this)
 //configuration
 def mirrorRepoCredentialID = "76dbac13-e6ea-4ed0-a013-e06cad01be2d"
 
-pipeline.node = NodeProvider.getAndroidNode()
+pipeline.node = NodeProvider.getAndroidFlutterNode()
 
 pipeline.propertiesProvider = {
     return [
