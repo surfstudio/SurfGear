@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:init_project/domain/command.dart';
 import 'package:init_project/domain/path_directory.dart';
@@ -11,11 +12,11 @@ import 'package:pubspec_yaml/pubspec_yaml.dart';
 /// Путь до папки с template.
 const String _pathPackagesTemplate = 'packages/template';
 
-/// Для поиска файлов *.dart.
+/// For find files with some extension
 const String _fileDart = '.dart';
-
-/// Для поиска файлов *.yaml
 const String _fileYAML = '.yaml';
+const String _fileKT = '.kt';
+const String _fileJAVA = '.java';
 
 /// Регулярка для замены на название пароекта.
 RegExp _expDependency = RegExp('template');
@@ -23,6 +24,10 @@ RegExp _expDependency = RegExp('template');
 String _pubspecFile = 'pubspec.yaml';
 
 const String _bundlePattern = '%bundleId%';
+
+final String _oldAndroidBundle = 'ru.surfstudio.template';
+
+final _pathToAndroidSources = 'android/src/main/kotlin';
 
 /// android files containing application id
 const Map<String, Map<String, String>> _androidFiles = {
@@ -87,6 +92,7 @@ class CreateTemplateProject {
   /// Ищем файлы для замены template на имя проекта.
   ///
   /// Для папки 'lib' рекурсивно и отдельно в коневой, для поиска '.yaml'
+  /// Для папки 'test' рекурсивно
   Future<List<File>> _searchFile(PathDirectory pathDirectory) async {
     final List<File> files = [];
     final dirProject = Directory(p.join(pathDirectory.path, 'lib'))
@@ -96,7 +102,28 @@ class CreateTemplateProject {
           ..addAll(Directory(p.join(pathDirectory.path, 'test'))
               .listSync(recursive: true, followLinks: false));
 
-    final fileSystemEntities = await _getFiles(dirProject);
+    final fileSystemEntities = await _getFiles(
+      dirProject,
+      [_fileDart, _fileYAML],
+    );
+
+    files.addAll(fileSystemEntities);
+
+    return files;
+  }
+
+  /// Ищем файлы для замены имени пакета в исходниках андроида
+  Future<List<File>> _searchAndroidSourceFile(
+      PathDirectory pathDirectory) async {
+    final List<File> files = [];
+    final dirProject =
+        Directory(p.join(pathDirectory.path, _pathToAndroidSources))
+            .listSync(recursive: true, followLinks: false);
+
+    final fileSystemEntities = await _getFiles(
+      dirProject,
+      [_fileJAVA, _fileKT],
+    );
 
     files.addAll(fileSystemEntities);
 
@@ -104,12 +131,15 @@ class CreateTemplateProject {
   }
 
   /// Из списка файлов возвращает файлы .dart и .yaml.
-  Future<List<File>> _getFiles(List<FileSystemEntity> dirs) async {
+  Future<List<File>> _getFiles(
+    List<FileSystemEntity> dirs,
+    List<String> fileTypes,
+  ) async {
     final List<File> files = [];
     for (var dir in dirs) {
       String fileName = p.basename(dir.path);
       if (await FileSystemEntity.isFile(dir.path)) {
-        if (fileName.contains(_fileDart) || fileName.contains(_fileYAML)) {
+        if (fileTypes.any((fileType) => fileName.contains(fileType))) {
           files.add(dir as File);
         }
       }
@@ -245,6 +275,78 @@ class CreateTemplateProject {
       if (!file.existsSync()) return;
       await _replaceTextInFile(command, file, patterns);
     });
+
+    await _copyAndroidSourceFiles(pathDirectory, command);
+  }
+
+  Future _copyAndroidSourceFiles(
+    PathDirectory pathDirectory,
+    Command command,
+  ) async {
+    final oldPathFolder = p.join(
+      pathDirectory.path,
+      _pathToAndroidSources,
+      p.joinAll(_oldAndroidBundle.split('.')),
+    );
+    final newPathFolder = p.join(
+      pathDirectory.path,
+      _pathToAndroidSources,
+      p.joinAll(_getBundleId(command).split('.')),
+    );
+    await copyPath(oldPathFolder, newPathFolder);
+
+    await _removeOldFiles(pathDirectory, command);
+    await _renamePackageName(pathDirectory, command);
+  }
+
+  Future _removeOldFiles(
+    PathDirectory pathDirectory,
+    Command command,
+  ) async {
+    final oldBundleList = _oldAndroidBundle.split('.');
+    final newBundleList = _getBundleId(command).split('.');
+    if (oldBundleList.isEmpty || newBundleList.isEmpty) return;
+
+    String oldPathFolder =
+        p.join(pathDirectory.path, _pathToAndroidSources, oldBundleList[0]);
+    final maxIndex = min(oldBundleList.length, newBundleList.length);
+    for (int i = 0; i < maxIndex; i++) {
+      if (oldBundleList[i] == newBundleList[i]) {
+        if (i < maxIndex) {
+          oldPathFolder = p.join(oldPathFolder, oldBundleList[i + 1]);
+        }
+      }
+    }
+
+    await Directory(oldPathFolder).delete(recursive: true);
+  }
+
+  Future _renamePackageName(
+    PathDirectory pathDirectory,
+    Command command,
+  ) async {
+    final oldText = 'package $_oldAndroidBundle';
+    final newText = 'package ${_getBundleId(command)}';
+    final files = await _searchAndroidSourceFile(pathDirectory);
+    await _replacePackageTextInFile(files, oldText, newText);
+    await _searchPubspec(command, files);
+  }
+
+  /// Перезаписывем текст в файлах, заменяя название пакета.
+  Future<void> _replacePackageTextInFile(
+    List<File> files,
+    String oldText,
+    String newText,
+  ) async {
+    for (var file in files) {
+      try {
+        final sourceText = await file.readAsString();
+        final outText = sourceText.replaceAll(oldText, newText);
+        await file.writeAsString(outText);
+      } catch (e) {
+        rethrow;
+      }
+    }
   }
 
   Future<void> _renameIosBundleId(
