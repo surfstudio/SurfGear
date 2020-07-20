@@ -23,13 +23,13 @@ class OpacityFab extends StatelessWidget {
         child: FloatingActionButton(
           onPressed: enabled ? onPressed : null,
           disabledElevation: 0.0,
-          child: Icon(
-            Icons.arrow_forward,
-            color: white,
-          ),
           elevation: 4.0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
+          ),
+          child: Icon(
+            Icons.arrow_forward,
+            color: white,
           ),
         ),
       ),

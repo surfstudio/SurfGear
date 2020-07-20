@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 
 /// Форматтер для телефонного номера(копипаст с оф примера, пока что необходимо
-/// ставить префикс [phonePrefix])
+/// ставить префикс phonePrefix)
 class RuNumberTextInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(

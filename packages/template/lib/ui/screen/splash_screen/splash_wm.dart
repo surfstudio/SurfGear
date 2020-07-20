@@ -7,7 +7,7 @@ import 'package:injector/injector.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
-/// Билдер для [WelcomeScreenWidgetModel].
+/// Билдер для WelcomeScreenWidgetModel.
 SplashScreenWidgetModel createSplashScreenWidgetModel(BuildContext context) {
   final component = Injector.of<SplashScreenComponent>(context).component;
 
@@ -20,14 +20,14 @@ SplashScreenWidgetModel createSplashScreenWidgetModel(BuildContext context) {
 
 /// [WidgetModel] для экрана <SplashScreen>
 class SplashScreenWidgetModel extends WidgetModel {
-  final widgets.NavigatorState _navigator;
-  final DebugScreenInteractor _debugScreenInteractor;
-
   SplashScreenWidgetModel(
     WidgetModelDependencies dependencies,
     this._navigator,
     this._debugScreenInteractor,
   ) : super(dependencies);
+
+  final widgets.NavigatorState _navigator;
+  final DebugScreenInteractor _debugScreenInteractor;
 
   @override
   void onLoad() {

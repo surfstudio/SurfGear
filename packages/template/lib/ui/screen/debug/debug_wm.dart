@@ -26,6 +26,13 @@ DebugWidgetModel createDebugWidgetModel(BuildContext context) {
 
 /// [WidgetModel] для экрана <Debug>
 class DebugWidgetModel extends WidgetModel {
+  DebugWidgetModel(
+    WidgetModelDependencies dependencies,
+    this.navigator,
+    this._debugScreenInteractor,
+    this._rebuildApplication,
+  ) : super(dependencies);
+
   final NavigatorState navigator;
   final DebugScreenInteractor _debugScreenInteractor;
   final VoidCallback _rebuildApplication;
@@ -57,13 +64,6 @@ class DebugWidgetModel extends WidgetModel {
   Config get config => Environment<Config>.instance().config;
 
   set config(Config newConfig) => Environment.instance().config = newConfig;
-
-  DebugWidgetModel(
-    WidgetModelDependencies dependencies,
-    this.navigator,
-    this._debugScreenInteractor,
-    this._rebuildApplication,
-  ) : super(dependencies);
 
   @override
   void onLoad() {

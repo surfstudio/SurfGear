@@ -1,16 +1,16 @@
 /// Уведомление
 class Notification {
-  final DateTime date;
-  final String title;
-  final String text;
-  final NotificationType type;
-
   Notification({
     this.date,
     this.title,
     this.text,
     String type,
   }) : type = _mapToType(type);
+
+  final DateTime date;
+  final String title;
+  final String text;
+  final NotificationType type;
 }
 
 enum NotificationType { type1, type2 }

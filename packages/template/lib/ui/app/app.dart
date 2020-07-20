@@ -27,9 +27,11 @@ class Router {
 
 /// Виджет приложения
 class App extends MwwmWidget<AppComponent> {
-  App([
+  App({
+    Key key,
     WidgetModelBuilder widgetModelBuilder = createAppWidgetModel,
-  ]) : super(
+  }) : super(
+          key: key,
           dependenciesBuilder: (context) => AppComponent(context),
           widgetStateBuilder: () => _AppState(),
           widgetModelBuilder: widgetModelBuilder,

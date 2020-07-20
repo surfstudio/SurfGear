@@ -7,6 +7,12 @@ import 'package:mwwm/mwwm.dart';
 
 ///Стандартная реализация [MessageController]
 class MaterialMessageController extends MessageController {
+  MaterialMessageController(this._scaffoldState, {this.snackOwner})
+      : _context = null;
+
+  MaterialMessageController.from(this._context, {this.snackOwner})
+      : _scaffoldState = null;
+
   final GlobalKey<ScaffoldState> _scaffoldState;
   final BuildContext _context;
   final CustomSnackBarOwner snackOwner;
@@ -23,12 +29,6 @@ class MaterialMessageController extends MessageController {
           duration: const Duration(seconds: 2),
         ),
   };
-
-  MaterialMessageController(this._scaffoldState, {this.snackOwner})
-      : _context = null;
-
-  MaterialMessageController.from(this._context, {this.snackOwner})
-      : _scaffoldState = null;
 
   ScaffoldState get _state =>
       _scaffoldState?.currentState ?? Scaffold.of(_context);

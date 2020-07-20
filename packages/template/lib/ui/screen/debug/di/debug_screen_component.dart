@@ -9,15 +9,6 @@ import 'package:mwwm/mwwm.dart';
 
 /// [Component] для экрана <Debug>
 class DebugScreenComponent implements Component {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  MessageController messageController;
-  DialogController dialogController;
-  NavigatorState navigator;
-  WidgetModelDependencies wmDependencies;
-  DebugScreenInteractor debugScreenInteractor;
-  VoidCallback rebuildApplication;
-
   DebugScreenComponent(BuildContext context) {
     final app = Injector.of<AppComponent>(context).component;
 
@@ -36,4 +27,13 @@ class DebugScreenComponent implements Component {
     debugScreenInteractor = app.debugScreenInteractor;
     rebuildApplication = app.rebuildDependencies;
   }
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  MessageController messageController;
+  DialogController dialogController;
+  NavigatorState navigator;
+  WidgetModelDependencies wmDependencies;
+  DebugScreenInteractor debugScreenInteractor;
+  VoidCallback rebuildApplication;
 }

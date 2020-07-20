@@ -7,12 +7,6 @@ import 'package:flutter/widgets.dart';
 ///you need to connect to ErrorWidget.builder in the builder
 ///of instance MaterialApp or CupertinoApp
 class ErrorWidget extends StatelessWidget {
-  final BuildContext context;
-  final FlutterErrorDetails error;
-  final Color backgroundColor, textColor;
-  final String errorMessage;
-  final Widget customMessageWidget;
-
   ///Create ErrorWidget instance
   ///
   /// @param context - BuildContext of app
@@ -21,14 +15,21 @@ class ErrorWidget extends StatelessWidget {
   /// @param textColor - color of text
   /// @param errorMessage - optional info about error
   /// @param customMessageWidget - custom ui of widget
-  ErrorWidget({
+  const ErrorWidget({
     @required this.context,
     @required this.error,
+    Key key,
     this.backgroundColor,
     this.textColor,
     this.errorMessage,
     this.customMessageWidget,
-  });
+  }) : super(key: key);
+
+  final BuildContext context;
+  final FlutterErrorDetails error;
+  final Color backgroundColor, textColor;
+  final String errorMessage;
+  final Widget customMessageWidget;
 
   @override
   Widget build(BuildContext context) {

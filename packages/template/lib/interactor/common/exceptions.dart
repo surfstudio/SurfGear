@@ -1,7 +1,7 @@
 class MessagedException implements Exception {
-  final String message;
-
   MessagedException(this.message);
+
+  final String message;
 }
 
 /// Ошибка: ответ не найден

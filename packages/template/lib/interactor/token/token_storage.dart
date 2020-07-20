@@ -3,13 +3,13 @@ import 'package:flutter_template/util/sp_helper.dart';
 
 /// Хранилище токена сессии
 class AuthInfoStorage {
+  AuthInfoStorage(this._preferencesHelper);
+
   static const keyToken = 'KEY_TOKEN';
   static const keyPin = 'KEY_PIN';
 
   final PreferencesHelper _preferencesHelper;
   String _token;
-
-  AuthInfoStorage(this._preferencesHelper);
 
   Future<String> getAccessToken() async {
     _token = await _preferencesHelper.get(keyToken, emptyString).then((s) => s);
@@ -31,7 +31,6 @@ class AuthInfoStorage {
   }
 
   void clearData() {
-    _preferencesHelper.set(keyToken, emptyString);
-    _preferencesHelper.set(keyPin, emptyString);
+    _preferencesHelper..set(keyToken, emptyString)..set(keyPin, emptyString);
   }
 }
