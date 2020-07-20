@@ -36,13 +36,13 @@ class SplashScreenWidgetModel extends WidgetModel {
   }
 
   void _loadApp() {
-    subscribeHandleError(
+    subscribeHandleError<bool>(
       initApp(),
       (isAuth) {
         _openScreen(Router.root);
       },
     );
-    subscribe(
+    subscribe<bool>(
       Stream.value(true).delay(const Duration(seconds: 5)),
       (_) => _debugScreenInteractor.showDebugScreenNotification(),
     );

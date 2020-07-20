@@ -29,7 +29,7 @@ class WelcomeScreenWidgetModel extends WidgetModel {
 
   StreamedState<int> counterState = StreamedState();
 
-  Action nextAction = Action();
+  Action nextAction = Action<void>();
 
   @override
   void onLoad() {
@@ -47,7 +47,7 @@ class WelcomeScreenWidgetModel extends WidgetModel {
   }
 
   void _listenToActions() {
-    bind(
+    bind<void>(
       nextAction,
       (_) {
         _counterInteractor.incrementCounter();

@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 
 /// Копипаст с либы
 class MaskTextInputFormatter extends TextInputFormatter {
-  MaskTextInputFormatter(String maskString, {escapeChar = '_'})
+  MaskTextInputFormatter(String maskString, {String escapeChar = '_'})
       : assert(maskString != null) {
     final entries = RegExp('[^$escapeChar]+')
         .allMatches(maskString)

@@ -5,7 +5,7 @@ analyzer:
     - "build/**"
   strong-mode:
     implicit-casts: false
-    implicit-dynamic: true
+    implicit-dynamic: false
 
 linter:
   rules:

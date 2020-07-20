@@ -20,7 +20,8 @@ class CounterRepository {
           (i) => Counter(i ?? 0),
         )
         .catchError(
-      (e) {
+      // ignore: avoid_types_on_closure_parameters
+      (Object e) {
         return Counter(0);
       },
     );

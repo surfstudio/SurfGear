@@ -19,7 +19,7 @@ class Router {
   static const String splashScreen = '/splash';
 
   // ignore: avoid_annotating_with_dynamic
-  static final Map<String, Route Function(dynamic)> routes = {
+  static final Map<String, Route Function(Object)> routes = {
     Router.root: (data) => WelcomeScreenRoute(),
     Router.splashScreen: (data) => SplashScreenRoute(),
   };
@@ -42,12 +42,12 @@ class _AppState extends WidgetState<AppWidgetModel> {
   @override
   void initState() {
     super.initState();
-    Environment.instance().addListener(_setStateOnChangeConfig);
+    Environment<Config>.instance().addListener(_setStateOnChangeConfig);
   }
 
   @override
   void dispose() {
-    Environment.instance().removeListener(_setStateOnChangeConfig);
+    Environment<Config>.instance().removeListener(_setStateOnChangeConfig);
     super.dispose();
   }
 

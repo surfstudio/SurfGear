@@ -18,7 +18,7 @@ class MaterialMessageController extends MessageController {
   final CustomSnackBarOwner snackOwner;
 
   /// Дефолтные снеки, используются если виджет не определил свои
-  final Map<dynamic, SnackBar Function(String text)> defaultSnackBarBuilder = {
+  final Map<MsgType, SnackBar Function(String text)> defaultSnackBarBuilder = {
     MsgType.commonError: (text) => SnackBar(
           content: Text(text),
           duration: const Duration(seconds: 2),

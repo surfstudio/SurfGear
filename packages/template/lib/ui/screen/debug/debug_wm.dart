@@ -44,8 +44,8 @@ class DebugWidgetModel extends WidgetModel {
   );
 
   final switchServer = Action<UrlType>();
-  final showDebugNotification = Action();
-  final closeScreenAction = Action();
+  final showDebugNotification = Action<void>();
+  final closeScreenAction = Action<void>();
   final urlChangeAction = Action<UrlType>();
 
   final proxyChanges = TextEditingAction();
@@ -63,7 +63,8 @@ class DebugWidgetModel extends WidgetModel {
 
   Config get config => Environment<Config>.instance().config;
 
-  set config(Config newConfig) => Environment.instance().config = newConfig;
+  set config(Config newConfig) =>
+      Environment<Config>.instance().config = newConfig;
 
   @override
   void onLoad() {
@@ -114,12 +115,12 @@ class DebugWidgetModel extends WidgetModel {
       },
     );
 
-    bind(
+    bind<void>(
       showDebugNotification,
       (_) => _debugScreenInteractor.showDebugScreenNotification(),
     );
 
-    bind(
+    bind<void>(
       closeScreenAction,
       (_) {
         showDebugNotification.accept();
@@ -173,7 +174,10 @@ class DebugWidgetModel extends WidgetModel {
 
     bind(proxyChanges, proxyValueState.content);
 
-    bind(setProxy, (_) => _setProxy());
+    bind<void>(
+      setProxy,
+      (_) => _setProxy(),
+    );
   }
 
   void _refreshApp(Config newConfig) {

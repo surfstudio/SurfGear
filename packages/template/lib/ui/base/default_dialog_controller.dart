@@ -77,7 +77,7 @@ class DefaultDialogController implements DialogController {
   }
 
   Future<R> showFlexibleModalSheet<R>(
-    type, {
+    Object type, {
     double minHeight,
     double initHeight,
     double maxHeight,
@@ -167,7 +167,7 @@ class DatePickerDialogController {
       ).asStream();
     } else {
       final controller = StreamController<DateTime>();
-      showCupertinoModalPopup(
+      showCupertinoModalPopup<void>(
         context: context,
         builder: (ctx) => _buildBottomPicker(
           CupertinoDatePicker(
