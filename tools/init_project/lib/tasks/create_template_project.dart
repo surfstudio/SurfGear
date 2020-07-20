@@ -21,16 +21,22 @@ const String _fileJAVA = '.java';
 /// Регулярка для замены на название пароекта.
 RegExp _expDependency = RegExp('template');
 
+/// pubspec файл
 String _pubspecFile = 'pubspec.yaml';
 
 /// шаблон подстановки bundle при замене строк в файлах
 const String _bundlePattern = '%bundleId%';
 
+/// шаблон подстановки названия проекта при замене строк в файлах
+const String _projectNamePattern = '%projectName%';
+
 /// старый bundle
 final String _oldAndroidBundle = 'ru.surfstudio.template';
+final String _oldAndroidAppBundle = 'com.example.flutter_template';
 
 /// путь к исходникам android проекта
 final _pathToAndroidSources = 'android/src/main/kotlin';
+final _pathToAndroidAppSources = 'android/app/src/main/kotlin';
 
 /// android файла содержашие bundle
 const Map<String, Map<String, String>> _androidFiles = {
@@ -43,7 +49,16 @@ const Map<String, Map<String, String>> _androidFiles = {
   },
   'android/src/main/AndroidManifest.xml': {
     'package="ru.surfstudio.template"': 'package="%bundleId%"',
-  }
+  },
+  'android/app/src/debug/AndroidManifest.xml': {
+    'package="com.example.flutter_template"': 'package="%bundleId%"',
+  },
+  'android/app/src/main/AndroidManifest.xml': {
+    'package="com.example.flutter_template"': 'package="%bundleId%"',
+  },
+  'android/app/src/profile/AndroidManifest.xml': {
+    'package="com.example.flutter_template"': 'package="%bundleId%"',
+  },
 };
 
 /// ios файла содержашие bundle
@@ -54,6 +69,12 @@ const Map<String, Map<String, String>> _iosFiles = {
   'ios/fastlane/Fastfile': {
     'prod_bundle_id = "YOUR_ID"': 'prod_bundle_id = "%bundleId%"',
     'dev_bundle_id = "YOUR_ID"': 'dev_bundle_id = "%bundleId%.development"',
+  },
+  'ios/Flutter/common.xcconfig': {
+    'ru.surfstudio.flutterTemplate': '%bundleId%',
+  },
+  'ios/Runner/Info.plist': {
+    'flutter_template': '%projectName%',
   },
 };
 
@@ -119,11 +140,12 @@ class CreateTemplateProject {
 
   /// Ищем файлы для замены имени пакета в исходниках андроида
   Future<List<File>> _searchAndroidSourceFile(
-      PathDirectory pathDirectory) async {
+    PathDirectory pathDirectory,
+    String sourcePath,
+  ) async {
     final List<File> files = [];
-    final dirProject =
-        Directory(p.join(pathDirectory.path, _pathToAndroidSources))
-            .listSync(recursive: true, followLinks: false);
+    final dirProject = Directory(p.join(pathDirectory.path, sourcePath))
+        .listSync(recursive: true, followLinks: false);
 
     final fileSystemEntities = await _getFiles(
       dirProject,
@@ -197,7 +219,9 @@ class CreateTemplateProject {
 
   /// замена в строке шаблона на сначение bundle
   String _resolvePattern(Command command, String pattern) {
-    return pattern.replaceAll(_bundlePattern, _getBundleId(command));
+    return pattern
+        .replaceAll(_bundlePattern, _getBundleId(command))
+        .replaceAll(_projectNamePattern, command.nameProject);
   }
 
   /// Ищем pubspec.yaml
@@ -285,28 +309,41 @@ class CreateTemplateProject {
       await _replaceTextInFile(command, file, patterns);
     });
 
-    await _copyAndroidSourceFiles(pathDirectory, command);
+    await _copyAndroidSourceFiles(
+      pathDirectory,
+      command,
+      _pathToAndroidSources,
+      _oldAndroidBundle,
+    );
+    await _copyAndroidSourceFiles(
+      pathDirectory,
+      command,
+      _pathToAndroidAppSources,
+      _oldAndroidAppBundle,
+    );
   }
 
   /// копирование исходников по пути с новым bundle
   Future _copyAndroidSourceFiles(
     PathDirectory pathDirectory,
     Command command,
+    String sourcePath,
+    String oldBundle,
   ) async {
     final oldPathFolder = p.join(
       pathDirectory.path,
-      _pathToAndroidSources,
-      p.joinAll(_oldAndroidBundle.split('.')),
+      sourcePath,
+      p.joinAll(oldBundle.split('.')),
     );
     final newPathFolder = p.join(
       pathDirectory.path,
-      _pathToAndroidSources,
+      sourcePath,
       p.joinAll(_getBundleId(command).split('.')),
     );
     await copyPath(oldPathFolder, newPathFolder);
 
-    await _removeOldFiles(pathDirectory, command);
-    await _renamePackageName(pathDirectory, command);
+    await _removeOldFiles(pathDirectory, command, sourcePath, oldBundle);
+    await _renamePackageName(pathDirectory, command, sourcePath, oldBundle);
   }
 
   /// удаление старых файлов исходников с учетом того,
@@ -314,13 +351,15 @@ class CreateTemplateProject {
   Future _removeOldFiles(
     PathDirectory pathDirectory,
     Command command,
+    String sourcePath,
+    String oldBundle,
   ) async {
-    final oldBundleList = _oldAndroidBundle.split('.');
+    final oldBundleList = oldBundle.split('.');
     final newBundleList = _getBundleId(command).split('.');
     if (oldBundleList.isEmpty || newBundleList.isEmpty) return;
 
     String oldPathFolder =
-        p.join(pathDirectory.path, _pathToAndroidSources, oldBundleList[0]);
+        p.join(pathDirectory.path, sourcePath, oldBundleList[0]);
     final maxIndex = min(oldBundleList.length, newBundleList.length);
     for (int i = 0; i < maxIndex; i++) {
       if (oldBundleList[i] == newBundleList[i]) {
@@ -337,10 +376,12 @@ class CreateTemplateProject {
   Future _renamePackageName(
     PathDirectory pathDirectory,
     Command command,
+    String sourcePath,
+    String oldBundle,
   ) async {
-    final oldText = 'package $_oldAndroidBundle';
+    final oldText = 'package $oldBundle';
     final newText = 'package ${_getBundleId(command)}';
-    final files = await _searchAndroidSourceFile(pathDirectory);
+    final files = await _searchAndroidSourceFile(pathDirectory, sourcePath);
     await _replacePackageTextInFile(files, oldText, newText);
     await _searchPubspec(command, files);
   }
