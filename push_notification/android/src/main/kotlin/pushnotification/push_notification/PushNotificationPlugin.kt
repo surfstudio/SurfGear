@@ -137,16 +137,17 @@ public class PushNotificationPlugin() : MethodCallHandler, FlutterPlugin, Plugin
 
     private fun sendNotificationPayloadMessage(intent: Intent): Boolean? {
         if (Intent.ACTION_VIEW.equals(intent.action)) {
-            val a = intent.dataString
-            val notificationTypeData = intent.getSerializableExtra(NOTIFICATION_DATA) as PushNotificationTypeData
+            val notificationTypeData = intent.getSerializableExtra(NOTIFICATION_DATA) as PushNotificationTypeData?
 
-            var notificationData = HashMap<String, String>();
-            if (notificationTypeData.data != null) {
-                notificationData = HashMap(notificationTypeData.data?.notificationData)
-                sendClickOperation(notificationData)
+            if (notificationTypeData != null) {
+                var notificationData = HashMap<String, String>();
+                if (notificationTypeData.data != null) {
+                    notificationData = HashMap(notificationTypeData.data?.notificationData)
+                    sendClickOperation(notificationData)
+                }
+
+                channel!!.invokeMethod(CALLBACK_OPEN, notificationData)
             }
-
-            channel!!.invokeMethod(CALLBACK_OPEN, notificationData)
             return true
         }
         return false
