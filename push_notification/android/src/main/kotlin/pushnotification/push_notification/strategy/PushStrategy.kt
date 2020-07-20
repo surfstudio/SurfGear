@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
@@ -36,7 +37,7 @@ class PushStrategy(override val icon: Int,
 
     override fun makeNotificationBuilder(context: Context, title: String, body: String): NotificationCompat.Builder? {
         val data = typeData.data
-        
+
         var contentTitle: String
         var contentText: String
 
@@ -53,10 +54,13 @@ class PushStrategy(override val icon: Int,
         }
 
         val intent = Intent(context, getMainActivityClass(context))
-        intent.action = SELECT_NOTIFICATION
+        intent.action = Intent.ACTION_VIEW
         intent.putExtra(NOTIFICATION_DATA, typeData)
+        val pushUrl = data?.notificationData?.get("clickUrl")
+        if (pushUrl != null) {
+            intent.data = Uri.parse(pushUrl)
+        }
         val newPendingIntent = PendingIntent.getActivity(context, typeData.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT)
-
         return NotificationCompat.Builder(context, context.getString(channelId))
                 .setSmallIcon(icon)
                 .setContentTitle(contentTitle)
