@@ -23,32 +23,35 @@ RegExp _expDependency = RegExp('template');
 
 String _pubspecFile = 'pubspec.yaml';
 
+/// шаблон подстановки bundle при замене строк в файлах
 const String _bundlePattern = '%bundleId%';
 
+/// старый bundle
 final String _oldAndroidBundle = 'ru.surfstudio.template';
 
+/// путь к исходникам android проекта
 final _pathToAndroidSources = 'android/src/main/kotlin';
 
-/// android files containing application id
+/// android файла содержашие bundle
 const Map<String, Map<String, String>> _androidFiles = {
-  '/android/app/build.gradle': {
+  'android/app/build.gradle': {
     'applicationId "ru.surfstudio.flutterTemplate"':
         'applicationId "%bundleId%"',
   },
-  '/android/fastlane/Appfile': {
+  'android/fastlane/Appfile': {
     'package_name(YOUR_PACKAGE_NAME)': 'package_name(%bundleId%)',
   },
-  '/android/src/main/AndroidManifest.xml': {
+  'android/src/main/AndroidManifest.xml': {
     'package="ru.surfstudio.template"': 'package="%bundleId%"',
   }
 };
 
-/// ios files containing application id
+/// ios файла содержашие bundle
 const Map<String, Map<String, String>> _iosFiles = {
-  '/ios/fastlane/Appfile': {
+  'ios/fastlane/Appfile': {
     '# app_identifier "[[APP_IDENTIFIER]]"': 'app_identifier "%bundleId%"',
   },
-  '/ios/fastlane/Fastfile': {
+  'ios/fastlane/Fastfile': {
     'prod_bundle_id = "YOUR_ID"': 'prod_bundle_id = "%bundleId%"',
     'dev_bundle_id = "YOUR_ID"': 'dev_bundle_id = "%bundleId%.development"',
   },
@@ -71,9 +74,11 @@ class CreateTemplateProject {
     }
   }
 
+  /// получение нового bundle
   String _getBundleId(Command command) =>
       '${command.organizationId}.${command.nameProject}';
 
+  /// переименование зависимостей
   Future<void> _renameDependencies(
     PathDirectory pathDirectory,
     Command command,
@@ -130,7 +135,7 @@ class CreateTemplateProject {
     return files;
   }
 
-  /// Из списка файлов возвращает файлы .dart и .yaml.
+  /// Из списка файлов возвращает файлы с указанным списком расширений
   Future<List<File>> _getFiles(
     List<FileSystemEntity> dirs,
     List<String> fileTypes,
@@ -147,6 +152,7 @@ class CreateTemplateProject {
     return files;
   }
 
+  /// получение файла по имени
   Future<File> _getFileByName(String fileName) async {
     return File(fileName);
   }
@@ -189,6 +195,7 @@ class CreateTemplateProject {
     }
   }
 
+  /// замена в строке шаблона на сначение bundle
   String _resolvePattern(Command command, String pattern) {
     return pattern.replaceAll(_bundlePattern, _getBundleId(command));
   }
@@ -255,6 +262,7 @@ class CreateTemplateProject {
     return path;
   }
 
+  /// переименование bundle в файлах проекта
   Future<void> _renameBundleId(
     PathDirectory pathDirectory,
     Command command,
@@ -263,6 +271,7 @@ class CreateTemplateProject {
     await _renameIosBundleId(pathDirectory, command);
   }
 
+  /// переименование bundle в файлах проекта android
   Future<void> _renameAndroidBundleId(
     PathDirectory pathDirectory,
     Command command,
@@ -271,7 +280,7 @@ class CreateTemplateProject {
         'Change organization to "${command.organizationId}" in android project...');
 
     _androidFiles.forEach((fileName, patterns) async {
-      final file = await _getFileByName(pathDirectory.path + fileName);
+      final file = await _getFileByName(p.join(pathDirectory.path, fileName));
       if (!file.existsSync()) return;
       await _replaceTextInFile(command, file, patterns);
     });
@@ -279,6 +288,7 @@ class CreateTemplateProject {
     await _copyAndroidSourceFiles(pathDirectory, command);
   }
 
+  /// копирование исходников по пути с новым bundle
   Future _copyAndroidSourceFiles(
     PathDirectory pathDirectory,
     Command command,
@@ -299,6 +309,8 @@ class CreateTemplateProject {
     await _renamePackageName(pathDirectory, command);
   }
 
+  /// удаление старых файлов исходников с учетом того,
+  /// что новый и старый bundle могут частично пересекаться
   Future _removeOldFiles(
     PathDirectory pathDirectory,
     Command command,
@@ -321,6 +333,7 @@ class CreateTemplateProject {
     await Directory(oldPathFolder).delete(recursive: true);
   }
 
+  /// переименование названия пакета в шапке файлов с исходниками
   Future _renamePackageName(
     PathDirectory pathDirectory,
     Command command,
@@ -349,6 +362,7 @@ class CreateTemplateProject {
     }
   }
 
+  /// переименование bundle в файлах проекта ios
   Future<void> _renameIosBundleId(
     PathDirectory pathDirectory,
     Command command,
@@ -357,7 +371,7 @@ class CreateTemplateProject {
         'Change organization to "${command.organizationId}" in ios project...');
 
     _iosFiles.forEach((fileName, patterns) async {
-      final file = await _getFileByName(pathDirectory.path + fileName);
+      final file = await _getFileByName(p.join(pathDirectory.path, fileName));
       if (!file.existsSync()) return;
       await _replaceTextInFile(command, file, patterns);
     });
