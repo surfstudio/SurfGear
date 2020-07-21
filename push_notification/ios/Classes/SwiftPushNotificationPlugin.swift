@@ -138,7 +138,9 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
         if let aps = notificationData["aps"] as? Dictionary<String, Any>, let key = aps["uniqueKey"] as? String {
             sendOperationRequest(messageUniqueKey: key, buttonUniqueKey: nil)
         }
-        
+        if let aps = notificationData["aps"] as? Dictionary<String, Any>, let urlRaw = aps["clickUrl"] as? String, let url = URL(string: urlRaw) {
+            UIApplication.shared.delegate?.application?(UIApplication.shared, open: url, options: [:])
+        }
         channel.invokeMethod(CALLBACK_OPEN, arguments: notificationData)
         
         completionHandler()
