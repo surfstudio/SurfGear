@@ -76,7 +76,7 @@ class NotificationController {
       strategy.pushId,
       strategy.payload.title,
       strategy.payload.body,
-      data: tmpPayload['data'],
+      data: tmpPayload[Platform.isIOS ? aps : data],
       notificationSpecifics: platformSpecifics,
     );
   }
