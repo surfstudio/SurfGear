@@ -76,9 +76,9 @@ class _AppState extends State<App> {
               child: VideoSubtitle.asset(
                 'assets/subtitle.srt',
                 videoController: _videoController,
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.white,
+                builder: (context, subtitle) => Text(
+                  subtitle,
+                  style: const TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ),
             ),

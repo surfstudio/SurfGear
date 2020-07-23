@@ -5,46 +5,49 @@ import 'package:video_player/video_player.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:http/http.dart' as http;
 
+typedef SubtitleBuilder = Widget Function(BuildContext, String);
+
 class VideoSubtitle extends StatefulWidget {
   VideoSubtitle._({
     @required this.videoController,
+    @required this.builder,
     Key key,
     this.asset,
     this.url,
-    this.style,
   })  : assert(videoController != null),
+        assert(builder != null),
         super(key: key);
 
   VideoSubtitle.asset(
     String asset, {
     @required VideoPlayerController videoController,
+    @required SubtitleBuilder builder,
     Key key,
-    TextStyle style,
   }) : this._(
           videoController: videoController,
           key: key,
           asset: asset,
           url: null,
-          style: style,
+          builder: builder,
         );
 
   VideoSubtitle.network(
     String url, {
     @required VideoPlayerController videoController,
+    @required SubtitleBuilder builder,
     Key key,
-    TextStyle style,
   }) : this._(
           videoController: videoController,
           key: key,
           url: url,
           asset: null,
-          style: style,
+          builder: builder,
         );
 
   final VideoPlayerController videoController;
   final String asset;
   final String url;
-  final TextStyle style;
+  final SubtitleBuilder builder;
 
   @override
   _VideoSubtitleState createState() => _VideoSubtitleState();
@@ -75,10 +78,7 @@ class _VideoSubtitleState extends State<VideoSubtitle> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      _getSubtitleText(),
-      style: widget.style,
-    );
+    return widget.builder(context, _getSubtitleText());
   }
 
   @override

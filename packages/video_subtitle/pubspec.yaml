@@ -26,12 +26,3 @@ custom:
   is_plugin: false
   path: video_subtitle
   hostUrl:
-
-flutter:
-  plugin:
-    platforms:
-      android:
-        package: ru.surfstudio.video_subtitle
-        pluginClass: VideoSubtitlePlugin
-      ios:
-        pluginClass: VideoSubtitlePlugin
