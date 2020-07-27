@@ -5,7 +5,6 @@ WHITE  := $(shell tput -Txterm setaf 7)
 RESET  := $(shell tput -Txterm sgr0)
 
 RVM_VERSION := 2.5.5
-PROJECT_TAG := TEMPLATE ## todo change to project tag
 
 TARGET_MAX_CHAR_NUM=20
 ## Show help

@@ -12,9 +12,18 @@ class Command {
   /// Вектка зависимостей
   final String _branch;
 
-  Command(this._nameProject,  this._remoteUrl, {String path, String branch})
-      : assert(_nameProject != null),
+  /// Organization identifier
+  final String _organizationId;
+
+  Command(
+    this._nameProject,
+    this._remoteUrl,
+    this._organizationId, {
+    String path,
+    String branch,
+  })  : assert(_nameProject != null),
         assert(_remoteUrl != null),
+        assert(_organizationId != null),
         _path = path,
         _branch = branch;
 
@@ -25,4 +34,6 @@ class Command {
   String get remoteUrl => _remoteUrl;
 
   String get branch => _branch;
+
+  String get organizationId => _organizationId;
 }
