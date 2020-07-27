@@ -6,17 +6,17 @@ import 'package:network/network.dart';
 
 /// Моковый компонент для тестирования сервисного слоя
 class MockAppComponent {
-  RxHttp http;
-
-  AuthInfoStorage authStorage;
-  PreferencesHelper preferencesHelper;
-
   MockAppComponent() {
     authStorage = AuthInfoStorage(preferencesHelper);
     preferencesHelper = PreferencesHelper();
 
     http = _initHttp(authStorage);
   }
+
+  RxHttp http;
+
+  AuthInfoStorage authStorage;
+  PreferencesHelper preferencesHelper;
 
   RxHttp _initHttp(AuthInfoStorage authStorage) {
     final dioHttp = DioHttp(

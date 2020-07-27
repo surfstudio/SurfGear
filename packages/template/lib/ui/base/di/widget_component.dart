@@ -8,13 +8,6 @@ import 'package:mwwm/mwwm.dart';
 
 /// Base component with common dependencies.
 abstract class WidgetComponent implements Component {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  MessageController messageController;
-  DialogController dialogController;
-  NavigatorState navigator;
-  WidgetModelDependencies wmDependencies;
-
   WidgetComponent(
     BuildContext context, {
     MessageController messageController,
@@ -37,4 +30,11 @@ abstract class WidgetComponent implements Component {
       ),
     );
   }
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  MessageController messageController;
+  DialogController dialogController;
+  NavigatorState navigator;
+  WidgetModelDependencies wmDependencies;
 }

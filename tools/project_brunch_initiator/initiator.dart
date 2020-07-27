@@ -87,7 +87,7 @@ void main(List<String> arguments) async {
       .toList();
 
   for (var package in packageList) {
-    _changeDependencies(package);
+    _changeDependencies(package, tagName);
   }
 
   _printRes(
@@ -133,7 +133,7 @@ void main(List<String> arguments) async {
   );
 }
 
-void _changeDependencies(FileSystemEntity fileSystemEntity) {
+void _changeDependencies(FileSystemEntity fileSystemEntity, String tagName) {
   var pubspecFileEntity =
       Directory(fileSystemEntity.path).listSync().firstWhere(
             (fe) => fe.path.endsWith(_pubspecName),
@@ -152,7 +152,7 @@ void _changeDependencies(FileSystemEntity fileSystemEntity) {
     RegExp(_regExpLocal, multiLine: true, caseSensitive: false),
     (match) {
       var packageName = match.group(1);
-      return " ${packageName}:\n    git:\n     url: https://gitlab.com/surfstudio/public/flutter-standard.git\n     ref: ${_projectName}-0\n     path: ${packageName}";
+      return " ${packageName}:\n    git:\n     url: https://gitlab.com/surfstudio/public/flutter-standard.git\n     ref: ${tagName}\n     path: packages/${packageName}";
     },
   );
 

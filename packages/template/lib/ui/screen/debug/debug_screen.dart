@@ -14,9 +14,11 @@ const String canSwitch = ' переключить на ';
 
 /// Экран <Debug>
 class DebugScreen extends MwwmWidget<DebugScreenComponent> {
-  DebugScreen([
+  DebugScreen({
+    Key key,
     WidgetModelBuilder widgetModelBuilder = createDebugWidgetModel,
-  ]) : super(
+  }) : super(
+          key: key,
           dependenciesBuilder: (context) => DebugScreenComponent(context),
           widgetStateBuilder: () => _DebugScreenState(),
           widgetModelBuilder: widgetModelBuilder,

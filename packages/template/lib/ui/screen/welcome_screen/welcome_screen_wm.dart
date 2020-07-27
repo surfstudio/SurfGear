@@ -18,18 +18,18 @@ WelcomeScreenWidgetModel createWelcomeWidgetModel(BuildContext context) {
 
 /// [WidgetModel] для экрана <Welcome>
 class WelcomeScreenWidgetModel extends WidgetModel {
-  final CounterInteractor _counterInteractor;
-  final NavigatorState navigator;
-
-  StreamedState<int> counterState = StreamedState();
-
-  Action nextAction = Action();
-
   WelcomeScreenWidgetModel(
     WidgetModelDependencies dependencies,
     this.navigator,
     this._counterInteractor,
   ) : super(dependencies);
+
+  final CounterInteractor _counterInteractor;
+  final NavigatorState navigator;
+
+  StreamedState<int> counterState = StreamedState();
+
+  Action nextAction = Action<void>();
 
   @override
   void onLoad() {
@@ -47,7 +47,7 @@ class WelcomeScreenWidgetModel extends WidgetModel {
   }
 
   void _listenToActions() {
-    bind(
+    bind<void>(
       nextAction,
       (_) {
         _counterInteractor.incrementCounter();

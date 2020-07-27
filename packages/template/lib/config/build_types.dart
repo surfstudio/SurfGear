@@ -5,4 +5,13 @@
 ///   flutter build *** -t lib/main-***.dart
 /// ```
 ///
-enum BuildType { debug, release, qa }
+enum BuildType {
+  /// Debug build type
+  debug,
+
+  /// Release build type
+  release,
+
+  /// Qa build type
+  qa,
+}

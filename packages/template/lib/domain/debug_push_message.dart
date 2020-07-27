@@ -1,5 +1,5 @@
-import 'package:push_notification/push_notification.dart';
 import 'package:flutter_template/util/extensions.dart';
+import 'package:push_notification/push_notification.dart';
 
 class DebugPushMessage extends NotificationPayload {
   DebugPushMessage(

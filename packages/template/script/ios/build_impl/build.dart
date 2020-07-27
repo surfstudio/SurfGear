@@ -50,7 +50,7 @@ Future<void> buildIpa() async {
     '-t',
     'lib/main-$buildType.dart',
     '--flavor',
-    '$flavor',
+    flavor,
     '--no-codesign',
     '--release'
   ]);

@@ -3,14 +3,6 @@ import 'package:flutter_template/interactor/counter/repository/counter_repositor
 import 'package:rxdart/rxdart.dart';
 
 class CounterInteractor {
-  Counter _counter;
-
-  final CounterRepository _counterRepository;
-
-  final _subject = PublishSubject<Counter>();
-
-  Stream<Counter> get counterObservable => _subject.stream;
-
   CounterInteractor(this._counterRepository) {
     _subject.listen(_counterRepository.setCounter);
 
@@ -19,6 +11,14 @@ class CounterInteractor {
       _subject.add(_counter);
     });
   }
+
+  Counter _counter;
+
+  final CounterRepository _counterRepository;
+
+  final _subject = PublishSubject<Counter>();
+
+  Stream<Counter> get counterObservable => _subject.stream;
 
   void incrementCounter() {
     final c = _counter.count + 1;

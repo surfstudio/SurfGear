@@ -25,13 +25,13 @@ abstract class DialogController {
   });
 
   Future<R> showSheet<R>(
-    dynamic type, {
+    Object type, {
     VoidCallback onDismiss,
     DialogData data,
   });
 
   Future<R> showModalSheet<R>(
-    dynamic type, {
+    Object type, {
     DialogData data,
     bool isScrollControlled,
   });

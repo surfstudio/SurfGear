@@ -14,18 +14,15 @@ class TimeFormatter {
     final minutes = duration.minutes;
 
     if (days != 0) {
-      result.write(daysText(days));
-      result.write(space);
+      result..write(daysText(days))..write(space);
     }
 
     if (hours != 0) {
-      result.write(hoursText(hours));
-      result.write(space);
+      result..write(hoursText(hours))..write(space);
     }
 
     if (minutes != 0 || duration.inMinutes == 0) {
-      result.write(minutesText(minutes));
-      result.write(space);
+      result..write(minutesText(minutes))..write(space);
     }
 
     return result.toString().trim();
