@@ -15,7 +15,7 @@ import 'package:ci/tasks/tasks.dart';
 ///
 /// Пример вызова:
 /// dart ci publish / dart ci publish --server=serverAddress /
-class PublishModulesScenario extends ChangedElementScenario {
+class PublishStableModulesScenario extends ChangedElementScenario {
   static const String commandName = 'publish';
   static const String server = 'server';
   static const String helpServer = 'Server for publish module.';
@@ -26,7 +26,7 @@ class PublishModulesScenario extends ChangedElementScenario {
         commandName: 'Publishes modules to the server.',
       };
 
-  PublishModulesScenario(
+  PublishStableModulesScenario(
     Command command,
     PubspecParser pubspecParser,
   ) : super(
