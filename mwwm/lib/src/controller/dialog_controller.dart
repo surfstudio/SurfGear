@@ -19,7 +19,7 @@ abstract class DialogController {
     @required DateTime firstDate,
     @required DateTime lastDate,
     SelectableDayPredicate selectableDayPredicate,
-    DatePickerMode initialDatePickerMode: DatePickerMode.day,
+    DatePickerMode initialDatePickerMode = DatePickerMode.day,
     Locale locale,
     TextDirection textDirection,
     TransitionBuilder builder,
