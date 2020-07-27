@@ -1,6 +1,6 @@
 import 'package:flutter_template/interactor/common/exceptions.dart';
-import 'package:network/network.dart';
 import 'package:flutter_template/util/extensions.dart';
+import 'package:network/network.dart';
 
 ///Стандартный для проекта обработчик статус кода
 class DefaultStatusMapper extends StandardStatusMapper {
@@ -25,15 +25,15 @@ class DefaultStatusMapper extends StandardStatusMapper {
 
 /// Response с ошибкой
 class ErrorResponse {
-  int errorCode;
-  String message;
-
   ErrorResponse({this.errorCode, this.message});
 
   ErrorResponse.fromJson(Map<String, dynamic> json) {
     errorCode = json.get<int>('errorCode');
     message = json.get<String>('message');
   }
+
+  int errorCode;
+  String message;
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};

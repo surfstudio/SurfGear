@@ -22,6 +22,11 @@ import 'package:push_notification/push_notification.dart';
 
 /// Component per app
 class AppComponent implements Component {
+  AppComponent(BuildContext context) {
+    context.toString();
+    rebuildDependencies();
+  }
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final navigator = GlobalKey<NavigatorState>();
 
@@ -40,11 +45,6 @@ class AppComponent implements Component {
     Logger.d('permission declined');
   });
   PushHandler pushHandler;
-
-  AppComponent(BuildContext context) {
-    context.toString();
-    rebuildDependencies();
-  }
 
   void rebuildDependencies() {
     _initDependencies();
