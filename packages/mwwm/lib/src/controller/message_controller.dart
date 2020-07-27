@@ -17,5 +17,5 @@
 abstract class MessageController {
   /// Show msg according to msgType
   /// msgType is defined on concrete widget(UI Layer)
-  dynamic show({String msg, dynamic msgType});
+  dynamic show({String msg, Object msgType});
 }

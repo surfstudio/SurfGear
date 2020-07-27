@@ -17,12 +17,6 @@ class DialogType extends Enum<String> {
 
 ///Стандартная реализация [DialogController]
 class DefaultDialogController implements DialogController {
-  final GlobalKey<ScaffoldState> _scaffoldKey;
-  final BuildContext _context;
-  final DialogOwner dialogOwner;
-
-  PersistentBottomSheetController _sheetController;
-
   DefaultDialogController(this._scaffoldKey, {this.dialogOwner})
       : assert(_scaffoldKey != null),
         _context = null;
@@ -31,7 +25,14 @@ class DefaultDialogController implements DialogController {
       : assert(_context != null),
         _scaffoldKey = null;
 
+  final GlobalKey<ScaffoldState> _scaffoldKey;
+  final BuildContext _context;
+  final DialogOwner dialogOwner;
+
+  PersistentBottomSheetController _sheetController;
+
   BuildContext get context => _context ?? _scaffoldKey.currentContext;
+
   ScaffoldState get nearestScaffoldState =>
       _scaffoldKey?.currentState ?? Scaffold.of(_context);
 
@@ -76,7 +77,7 @@ class DefaultDialogController implements DialogController {
   }
 
   Future<R> showFlexibleModalSheet<R>(
-    type, {
+    Object type, {
     double minHeight,
     double initHeight,
     double maxHeight,
@@ -137,9 +138,6 @@ class DefaultDialogController implements DialogController {
 
 /// Дефолтный диалог выбора даты
 class DatePickerDialogController {
-  final GlobalKey<ScaffoldState> _scaffoldKey;
-  final BuildContext _context;
-
   DatePickerDialogController(this._scaffoldKey)
       : assert(_scaffoldKey != null),
         _context = null;
@@ -147,6 +145,9 @@ class DatePickerDialogController {
   DatePickerDialogController.from(this._context)
       : assert(_context != null),
         _scaffoldKey = null;
+
+  final GlobalKey<ScaffoldState> _scaffoldKey;
+  final BuildContext _context;
 
   BuildContext get context => _context ?? _scaffoldKey.currentContext;
 
@@ -166,7 +167,7 @@ class DatePickerDialogController {
       ).asStream();
     } else {
       final controller = StreamController<DateTime>();
-      showCupertinoModalPopup(
+      showCupertinoModalPopup<void>(
         context: context,
         builder: (ctx) => _buildBottomPicker(
           CupertinoDatePicker(
@@ -175,8 +176,9 @@ class DatePickerDialogController {
             onDateTimeChanged: controller.add,
           ),
           onCancel: () {
-            controller.add(initialDate);
-            controller.close();
+            controller
+              ..add(initialDate)
+              ..close();
             Navigator.of(context, rootNavigator: true).pop();
           },
           onDone: () {
@@ -211,22 +213,22 @@ class DatePickerDialogController {
               iosCloseButton ??
                   CupertinoButton(
                     padding: const EdgeInsets.all(5),
+                    onPressed: onCancel,
+                    color: Colors.transparent,
                     child: Text(
                       'Сбросить',
                       style: TextStyle(color: CupertinoColors.destructiveRed),
                     ),
-                    onPressed: onCancel,
-                    color: Colors.transparent,
                   ),
               iosDoneButton ??
                   CupertinoButton(
                     padding: const EdgeInsets.all(5),
+                    onPressed: onDone,
+                    color: Colors.transparent,
                     child: Text(
                       'Готово',
                       style: TextStyle(color: CupertinoColors.activeBlue),
                     ),
-                    onPressed: onDone,
-                    color: Colors.transparent,
                   ),
             ],
           ),

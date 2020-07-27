@@ -6,11 +6,12 @@ import 'package:flutter_template/ui/res/text_styles.dart';
 
 ///alert диалог, который сам проверяет платформу
 class PlatformAlertDialog extends StatelessWidget {
-  PlatformAlertDialog({
+  const PlatformAlertDialog({
+    Key key,
     this.alertText,
     this.onAgreeClicked,
     this.onDisagreeClicked,
-  });
+  }) : super(key: key);
 
   final String alertText;
   final VoidCallback onAgreeClicked;
@@ -30,13 +31,13 @@ class PlatformAlertDialog extends StatelessWidget {
         actions: <Widget>[
           onDisagreeClicked != null
               ? FlatButton(
-                  child: Text(cancelText),
                   onPressed: onDisagreeClicked,
+                  child: Text(cancelText),
                 )
               : Container(),
           FlatButton(
-            child: Text(okText),
             onPressed: onAgreeClicked,
+            child: Text(okText),
           )
         ],
       );
@@ -49,13 +50,13 @@ class PlatformAlertDialog extends StatelessWidget {
         actions: <Widget>[
           onDisagreeClicked != null
               ? FlatButton(
-                  child: Text(cancelText),
                   onPressed: onDisagreeClicked,
+                  child: Text(cancelText),
                 )
               : Container(),
           FlatButton(
-            child: Text(okText),
             onPressed: onAgreeClicked,
+            child: Text(okText),
           )
         ],
       );

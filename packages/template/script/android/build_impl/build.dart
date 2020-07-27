@@ -61,7 +61,7 @@ Future<void> buildApk() async {
       '-t',
       'lib/main-$buildType.dart',
       '--flavor',
-      '$flavor',
+      flavor,
       '--split-per-abi'
     ],
   );
@@ -70,7 +70,7 @@ Future<void> buildApk() async {
 }
 
 Future<void> rename() async {
-  final postfix = '$buildType';
+  final postfix = buildType;
   // ignore: avoid_print
   print('Postfix $postfix');
   // ignore: avoid_print

@@ -9,15 +9,6 @@ import 'package:mwwm/mwwm.dart';
 
 /// [Component] для экрана <Welcome>
 class WelcomeScreenComponent implements Component {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  MaterialMessageController messageController;
-  DefaultDialogController dialogController;
-  NavigatorState navigator;
-  WidgetModelDependencies wmDependencies;
-
-  CounterInteractor counterInteractor;
-
   WelcomeScreenComponent(BuildContext context) {
     final app = Injector.of<AppComponent>(context).component;
 
@@ -35,4 +26,13 @@ class WelcomeScreenComponent implements Component {
 
     counterInteractor = app.counterInteractor;
   }
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  MaterialMessageController messageController;
+  DefaultDialogController dialogController;
+  NavigatorState navigator;
+  WidgetModelDependencies wmDependencies;
+
+  CounterInteractor counterInteractor;
 }

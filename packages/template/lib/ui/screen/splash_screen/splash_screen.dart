@@ -6,9 +6,11 @@ import 'package:surf_mwwm/surf_mwwm.dart';
 
 /// Splash screen
 class SplashScreen extends MwwmWidget<SplashScreenComponent> {
-  SplashScreen([
+  SplashScreen({
+    Key key,
     WidgetModelBuilder widgetModelBuilder = createSplashScreenWidgetModel,
-  ]) : super(
+  }) : super(
+          key: key,
           dependenciesBuilder: (context) => SplashScreenComponent(context),
           widgetStateBuilder: () => _SplashScreenState(),
           widgetModelBuilder: widgetModelBuilder,

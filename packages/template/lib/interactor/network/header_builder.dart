@@ -4,11 +4,11 @@ import 'package:network/network.dart';
 
 /// Реализация билдера заголовков http запросов
 class DefaultHeaderBuilder extends HeadersBuilder {
+  DefaultHeaderBuilder(this._ts);
+
   String t = emptyString;
 
   final AuthInfoStorage _ts;
-
-  DefaultHeaderBuilder(this._ts);
 
   @override
   Future<Map<String, String>> buildDynamicHeader(String url) async {

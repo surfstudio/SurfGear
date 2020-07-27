@@ -6,11 +6,11 @@ import 'package:flutter_template/util/const.dart';
 /// - 100 сек => 1 минута 40 сек
 /// - 30 часов => 1 день 6 часов
 class TimeDuration {
-  Duration _innerDuration;
-
   TimeDuration(this._innerDuration);
 
   TimeDuration.fromSeconds(int seconds) : this(Duration(seconds: seconds));
+
+  Duration _innerDuration;
 
   ///период в минутах
   int get inMinutes => _innerDuration.inMinutes;

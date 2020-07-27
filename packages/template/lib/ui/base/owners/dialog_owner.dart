@@ -14,9 +14,9 @@ import 'package:mwwm/mwwm.dart' show DialogData;
 /// Widget _buildType1Dialog(BuildContext context, {FooDialogData data}) {/* ... */}
 /// ```
 class DialogBuilder<T extends DialogData> {
-  final Widget Function(BuildContext context, {T data}) builder;
-
   DialogBuilder(this.builder);
+
+  final Widget Function(BuildContext context, {T data}) builder;
 
   Widget call(BuildContext context, {DialogData data}) => builder(
         context,
@@ -25,9 +25,11 @@ class DialogBuilder<T extends DialogData> {
 }
 
 /// Возвращает виджет для тянущегося боттом шита с контентом в виде списка
-/// [scrollController] - контроллер прокрутки на боттомшите,
+/// scrollController - контроллер прокрутки на боттомшите,
 /// передается в дочерний список
 class FlexibleDialogBuilder<T extends DialogData> extends DialogBuilder<T> {
+  FlexibleDialogBuilder(this.builder) : super(builder);
+
   @override
   Widget Function(
     BuildContext context, {
@@ -35,8 +37,6 @@ class FlexibleDialogBuilder<T extends DialogData> extends DialogBuilder<T> {
     ScrollController scrollController,
     // ignore: overridden_fields
   }) builder;
-
-  FlexibleDialogBuilder(this.builder) : super(builder);
 
   @override
   Widget call(

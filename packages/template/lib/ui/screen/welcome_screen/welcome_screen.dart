@@ -10,9 +10,11 @@ import 'package:surf_mwwm/surf_mwwm.dart';
 
 /// Экран ввода телефона
 class WelcomeScreen extends MwwmWidget<WelcomeScreenComponent> {
-  WelcomeScreen([
+  WelcomeScreen({
+    Key key,
     WidgetModelBuilder widgetModelBuilder = createWelcomeWidgetModel,
-  ]) : super(
+  }) : super(
+          key: key,
           dependenciesBuilder: (context) => WelcomeScreenComponent(context),
           widgetStateBuilder: () => _WelcomeScreenState(),
           widgetModelBuilder: widgetModelBuilder,

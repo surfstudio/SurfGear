@@ -8,17 +8,19 @@ import 'package:network/network.dart';
 
 /// Стандартная реализация ErrorHandler
 class StandardErrorHandler extends NetworkErrorHandler {
-  final MessageController _messageController;
-  // ignore: unused_field
-  final DialogController _dialogController;
-  // ignore: unused_field
-  final SessionChangedInteractor _sessionChangedInteractor;
-
   StandardErrorHandler(
     this._messageController,
     this._dialogController,
     this._sessionChangedInteractor,
   );
+
+  final MessageController _messageController;
+
+  // ignore: unused_field
+  final DialogController _dialogController;
+
+  // ignore: unused_field
+  final SessionChangedInteractor _sessionChangedInteractor;
 
   @override
   void handleOtherError(Exception e) {

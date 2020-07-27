@@ -4,8 +4,6 @@ import 'package:flutter_template/util/extensions.dart';
 
 /// Response модель пришедшего пуша
 class FirebaseNotificationResponse extends Transformable<Notification> {
-  _FirebaseBodyNotificationObj notification;
-
   FirebaseNotificationResponse({this.notification});
 
   FirebaseNotificationResponse.fromMessage(Map<String, dynamic> message) {
@@ -16,6 +14,8 @@ class FirebaseNotificationResponse extends Transformable<Notification> {
         : null;
   }
 
+  _FirebaseBodyNotificationObj notification;
+
   @override
   Notification transform() => Notification(
         title: notification.title,
@@ -25,10 +25,6 @@ class FirebaseNotificationResponse extends Transformable<Notification> {
 }
 
 class _FirebaseBodyNotificationObj {
-  String body;
-  String title;
-  Map<String, dynamic> data;
-
   _FirebaseBodyNotificationObj({this.body, this.title});
 
   _FirebaseBodyNotificationObj.fromMessage(Map<String, dynamic> message) {
@@ -36,4 +32,8 @@ class _FirebaseBodyNotificationObj {
     title = message.get<String>('title');
     data = message.get<Map<String, dynamic>>('data');
   }
+
+  String body;
+  String title;
+  Map<String, dynamic> data;
 }

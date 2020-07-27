@@ -17,11 +17,11 @@ AppWidgetModel createAppWidgetModel(BuildContext context) {
 
 /// [WidgetModel] для виджета приложения
 class AppWidgetModel extends WidgetModel {
-  // ignore: unused_field
-  final MessageController _msgController;
-
   AppWidgetModel(
     WidgetModelDependencies dependencies,
     this._msgController,
   ) : super(dependencies);
+
+  // ignore: unused_field
+  final MessageController _msgController;
 }
