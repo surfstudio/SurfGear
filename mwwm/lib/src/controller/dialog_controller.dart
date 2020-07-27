@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-enum DatePickerMode { day, month, year }
+enum PickDateMode { day, month, year }
 
 ///Базовый класс контроллера отображения диалогов
 abstract class DialogController {
@@ -19,7 +19,7 @@ abstract class DialogController {
     @required DateTime firstDate,
     @required DateTime lastDate,
     SelectableDayPredicate selectableDayPredicate,
-    DatePickerMode initialDatePickerMode = DatePickerMode.day,
+    PickDateMode initialDatePickerMode = PickDateMode.day,
     Locale locale,
     TextDirection textDirection,
     TransitionBuilder builder,
