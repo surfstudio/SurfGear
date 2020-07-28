@@ -14,19 +14,24 @@ import 'package:ci/tasks/tasks.dart';
 /// В случае, если пакет имеет предупреждения, а не ошибки модуль все равно будет опубликован.
 ///
 /// Пример вызова:
-/// dart ci publish / dart ci publish --server=serverAddress /
-class PublishStableModulesScenario extends ChangedElementScenario {
+/// dart ci publish / dart ci publish --server=serverAddress / is_stable=true/false
+class PublishModulesScenario extends ChangedElementScenario {
   static const String commandName = 'publish';
   static const String server = 'server';
   static const String helpServer = 'Server for publish module.';
+  static const String helpIsStable =
+      'Publish a stable / unstable module(true/false)';
+  static const String isStableOptionName = 'is_stable';
   static final VersionManager _versionManager = VersionManager();
+
+  var _isPublishStable = false;
 
   @override
   Map<String, String> getCommandsHelp() => {
         commandName: 'Publishes modules to the server.',
       };
 
-  PublishStableModulesScenario(
+  PublishModulesScenario(
     Command command,
     PubspecParser pubspecParser,
   ) : super(
@@ -38,11 +43,14 @@ class PublishStableModulesScenario extends ChangedElementScenario {
   @override
   Future<void> doExecute(List<Element> elements) async {
     var targetServer = command.arguments[server];
-    var releaseElements = elements.where((e) => e.isStable).toList();
+    var releaseElements = elements.where((e) {
+      return _isPublishStable ? e.isStable : !e.isStable;
+    }).toList();
     StringBuffer _bufferSameVersion;
     StringBuffer _bufferError;
 
-    print("Stable packages: ${releaseElements.map((p) => p.name).join(',')}");
+    print(
+        "${_isPublishStable ? 'stable' : 'unstable'} packages: ${releaseElements.map((p) => p.name).join(',')}");
     try {
       var failedModulesNames = <String>[];
 
@@ -62,7 +70,6 @@ class PublishStableModulesScenario extends ChangedElementScenario {
           }
 
           await pubPublishModules(element, pathServer: targetServer);
-          print(element.name + ' published');
         } on OpenSourceModuleCanNotBePublishException catch (e) {
           _bufferError ??= StringBuffer('failed packages:');
           _bufferError.write('\n${element.name}');
@@ -84,6 +91,24 @@ class PublishStableModulesScenario extends ChangedElementScenario {
     } on BaseCiException {
       rethrow;
     }
+  }
+
+  @override
+  Future<void> validate(Command command) {
+    var args = command.arguments;
+
+    /// валидация аргументов
+    var isStable = args[isStableOptionName];
+
+    if (isStable == null || isStable == 'false') {
+      print('Unstable modules publish mode on');
+      _isPublishStable = false;
+      return Future.value();
+    }
+
+    print('Stable modules publish mode on');
+    _isPublishStable = true;
+    return Future.value();
   }
 
   @override

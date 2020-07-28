@@ -14,7 +14,7 @@ import 'package:ci/scenarios/find_changed_modules_scenario.dart';
 import 'package:ci/scenarios/increment_dev_unstable_versions_scenario.dart';
 import 'package:ci/scenarios/increment_unstable_versions_scenario.dart';
 import 'package:ci/scenarios/mirror_opensource_module_scenario.dart';
-import 'package:ci/scenarios/publish_modules_scenario.dart';
+import 'package:ci/scenarios/publish_unstable_modules_scenario.dart';
 import 'package:ci/scenarios/run_test_scenario.dart';
 import 'package:ci/scenarios/show_dependency_graph_scenario.dart';
 import 'package:ci/scenarios/show_help_scenario.dart';
@@ -25,8 +25,8 @@ import 'package:ci/tasks/factories/scenario_task_factory.dart';
 /// Набор методов и значений для работы со сценариями
 
 Map<String, ScenarioBuilder> scenarioMap = <String, ScenarioBuilder>{
-  PublishStableModulesScenario.commandName: (command, parser) =>
-      PublishStableModulesScenario(command, parser),
+  PublishModulesScenario.commandName: (command, parser) =>
+      PublishModulesScenario(command, parser),
   CheckLicensingScenario.commandName: (command, parser) =>
       CheckLicensingScenario(command, parser),
   BuildScenario.commandName: (command, parser) =>

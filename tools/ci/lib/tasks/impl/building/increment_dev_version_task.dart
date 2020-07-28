@@ -18,11 +18,12 @@ class IncrementDevVersionTask extends Action {
 
     return Element.byTemplate(
       element,
-      version: _getIncrementVersion(breakVersion: true),
+      version: _getIncrementVersion(),
     );
   }
 
-  String _getIncrementVersion({bool breakVersion = false}) {
+  ///todo сделать сброс счетчика
+  String _getIncrementVersion() {
     var elementVersionRegex = RegExp('dev\.([0-9])');
     var elementVersionNum = int.parse(
         elementVersionRegex.firstMatch(element.version).group(0).split('.')[1]);
@@ -31,7 +32,7 @@ class IncrementDevVersionTask extends Action {
 
     var versionString = element.version.replaceFirst(
       elementVersionRegex,
-      'dev.${breakVersion ? 0 : elementVersionNum}',
+      'dev.$elementVersionNum',
     );
 
     return versionString;

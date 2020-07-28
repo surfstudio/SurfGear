@@ -18,7 +18,7 @@ import 'package:ci/scenarios/find_changed_modules_scenario.dart';
 import 'package:ci/scenarios/increment_dev_unstable_versions_scenario.dart';
 import 'package:ci/scenarios/increment_unstable_versions_scenario.dart';
 import 'package:ci/scenarios/mirror_opensource_module_scenario.dart';
-import 'package:ci/scenarios/publish_modules_scenario.dart';
+import 'package:ci/scenarios/publish_unstable_modules_scenario.dart';
 import 'package:ci/scenarios/run_test_scenario.dart';
 import 'package:ci/scenarios/show_dependency_graph_scenario.dart';
 import 'package:ci/scenarios/show_help_scenario.dart';
@@ -147,14 +147,20 @@ class CommandParser {
       /// run_tests
       ..addCommand(RunTestScenario.commandName)
 
-      /// publish
+      ///publish
       ..addCommand(
-          PublishStableModulesScenario.commandName,
+          PublishModulesScenario.commandName,
           ArgParser()
             ..addOption(
-              PublishStableModulesScenario.server,
-              help: PublishStableModulesScenario.helpServer,
-            ))
+              PublishModulesScenario.server,
+              help: PublishModulesScenario.helpServer,
+            )
+          ..addOption(
+            PublishModulesScenario.isStableOptionName,
+            help: PublishModulesScenario.helpIsStable,
+          )
+      )
+
 
       /// graph dependency
       ..addCommand(
