@@ -155,12 +155,9 @@ class CommandParser {
               PublishModulesScenario.server,
               help: PublishModulesScenario.helpServer,
             )
-          ..addOption(
-            PublishModulesScenario.isStableOptionName,
-            help: PublishModulesScenario.helpIsStable,
-          )
-      )
-
+            ..addOption(
+              PublishModulesScenario.isStableOptionName,
+            ))
 
       /// graph dependency
       ..addCommand(
@@ -175,7 +172,13 @@ class CommandParser {
       ..addFlag(helpFlag, negatable: false, abbr: helpAbbr)
 
       //mirror
-      ..addCommand(MirrorOpenSourceModuleScenario.commandName);
+      ..addCommand(
+        MirrorOpenSourceModuleScenario.commandName,
+        ArgParser()
+          ..addOption(
+            MirrorOpenSourceModuleScenario.branchNameParam,
+          ),
+      );
   }
 
   /// Проверяем, требовался ли вызов help, если нет, то запускаем команду

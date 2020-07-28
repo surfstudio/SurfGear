@@ -19,8 +19,6 @@ class PublishModulesScenario extends ChangedElementScenario {
   static const String commandName = 'publish';
   static const String server = 'server';
   static const String helpServer = 'Server for publish module.';
-  static const String helpIsStable =
-      'Publish a stable / unstable module(true/false)';
   static const String isStableOptionName = 'is_stable';
   static final VersionManager _versionManager = VersionManager();
 
@@ -29,6 +27,7 @@ class PublishModulesScenario extends ChangedElementScenario {
   @override
   Map<String, String> getCommandsHelp() => {
         commandName: 'Publishes modules to the server.',
+        isStableOptionName: 'Publish a stable / unstable module(true/false)',
       };
 
   PublishModulesScenario(
