@@ -5,12 +5,10 @@ import 'package:swipe_refresh/swipe_refresh.dart';
 /// Cupertino style Refresh indicator widget based on [StreamedState].
 class StreamedCupertinoSwipeRefresh extends CupertinoSwipeRefresh {
   StreamedCupertinoSwipeRefresh({
-    Key key,
     @required List<Widget> children,
     @required StreamedState<SwipeRefreshState> stateStream,
     @required VoidCallback onRefresh,
-    Color indicatorColor,
-    Color backgroundColor,
+    Key key,
   }) : super(
           key: key,
           children: children,

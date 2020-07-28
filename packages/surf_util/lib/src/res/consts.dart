@@ -1,3 +1,3 @@
 /// constants set
 
-const String EMPTY_STRING = "";
+const String emptyString = '';

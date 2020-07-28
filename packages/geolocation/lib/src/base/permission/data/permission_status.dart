@@ -18,5 +18,5 @@ enum PermissionStatus {
   denied,
   granted,
   restricted,
-  should_show_rationale,
+  shouldShowRationale,
 }

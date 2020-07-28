@@ -7,12 +7,12 @@ import 'package:relation/relation.dart';
 void main() {
   testWidgets(
     'TextfieldStreamBuilder content test',
-    (WidgetTester tester) async {
+    (tester) async {
       final testData = TextFieldStreamedState('test');
       final textFieldStateBuilder = TextFieldStateBuilder(
           state: testData,
           stateBuilder: (context, data) {
-            return Text('test');
+            return const Text('test');
           });
 
       await tester.pumpWidget(
@@ -31,16 +31,16 @@ void main() {
 
   testWidgets(
     'TextfieldStreamBuilder error test',
-    (WidgetTester tester) async {
+    (tester) async {
       final testData = TextFieldStreamedState('test');
 
       final textFieldStateBuilder = TextFieldStateBuilder(
           state: testData,
           stateBuilder: (context, data) {
             if (data.hasError) {
-              return Text('error');
+              return const Text('error');
             }
-            return Text('test');
+            return const Text('test');
           });
 
       unawaited(testData.error());
@@ -60,16 +60,16 @@ void main() {
 
   testWidgets(
     'TextfieldStreamBuilder loading test',
-    (WidgetTester tester) async {
+    (tester) async {
       final testData = TextFieldStreamedState('test');
 
       final textFieldStateBuilder = TextFieldStateBuilder(
           state: testData,
           stateBuilder: (context, data) {
             if (data.isLoading) {
-              return Text('loading');
+              return const Text('loading');
             }
-            return Text('test');
+            return const Text('test');
           });
 
       unawaited(testData.loading());

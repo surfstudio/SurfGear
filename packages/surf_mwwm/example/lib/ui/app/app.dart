@@ -23,16 +23,17 @@ import 'package:injector/injector.dart';
 
 /// Widget приложения
 class App extends MwwmWidget<AppComponent> {
-  App()
+  App({Key key})
       : super(
-          dependenciesBuilder: (BuildContext context) => AppComponent(),
+          key: key,
+          dependenciesBuilder: (context) => AppComponent(),
           widgetStateBuilder: () => _AppState(),
           widgetModelBuilder: createAppModel,
         );
 }
 
 class _AppState extends WidgetState<AppWidgetModel> {
-  Key _navKey;
+  GlobalKey<NavigatorState> _navKey;
 
   @override
   void initState() {

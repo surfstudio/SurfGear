@@ -4,22 +4,22 @@ import 'package:flutter/material.dart';
 /// to prevent glowing when scrolling over the edge
 class DisableOverscroll extends StatelessWidget {
   const DisableOverscroll({
-    Key key,
     @required this.child,
+    Key key,
   }) : super(key: key);
 
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    return NotificationListener(
+    return NotificationListener<OverscrollIndicatorNotification>(
       onNotification: (notification) {
         if (notification is OverscrollIndicatorNotification) {
           notification.disallowGlow();
         }
         return false;
       },
-      child: this.child,
+      child: child,
     );
   }
 }

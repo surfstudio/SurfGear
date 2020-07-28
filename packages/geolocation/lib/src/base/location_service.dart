@@ -20,13 +20,15 @@ import 'package:geolocation/src/base/data/location.dart';
 abstract class LocationService {
   /// Gets the current location of the user.
   ///
-  /// The decision about throwing an error if the app has no permission to access location
+  /// The decision about throwing an error if the app has no permission to
+  /// access location
   /// delegated to implementors.
   Future<Location> getLocation();
 
   /// Gets the last known location of the user.
   ///
-  /// The decision about throwing an error if the app has no permission to access location
+  /// The decision about throwing an error if the app has no permission to
+  /// access location
   /// delegated to implementors.
   Future<Location> getLastKnownLocation();
 

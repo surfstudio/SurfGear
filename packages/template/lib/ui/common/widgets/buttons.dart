@@ -17,7 +17,7 @@ class OpacityFab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Opacity(
       opacity: enabled ? 1.0 : .4,
-      child: Container(
+      child: SizedBox(
         width: 40,
         height: 40,
         child: FloatingActionButton(
@@ -27,7 +27,7 @@ class OpacityFab extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
-          child: Icon(
+          child: const Icon(
             Icons.arrow_forward,
             color: white,
           ),

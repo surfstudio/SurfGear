@@ -13,18 +13,19 @@
 // limitations under the License.
 
 class Counter {
-  static const _key = 'counterValue';
-
-  final int value;
-
   const Counter([this.value = 0]);
 
+  // ignore: prefer_constructors_over_static_methods
   static Counter fromJson(Map<String, dynamic> json) {
     final counterValue = json[_key] as int;
     return Counter(counterValue);
   }
 
-  Map<String, dynamic> toJson() => {_key: value};
+  static const _key = 'counterValue';
+
+  final int value;
+
+  Map<String, dynamic> toJson() => <String, Object>{_key: value};
 
   Counter getIncremented() => Counter(value + 1);
 }

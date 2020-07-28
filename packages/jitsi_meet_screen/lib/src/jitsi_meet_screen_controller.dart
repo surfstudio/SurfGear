@@ -3,31 +3,39 @@ import 'dart:ui';
 import 'package:flutter/services.dart';
 import 'package:jitsi_meet_screen/src/jitsi_meet_exceptions.dart';
 
-const String CHANNEL_NAME = "surf_jitsi_meet_screen";
+const String channelName = 'surf_jitsi_meet_screen';
 
 /// Methods
-const String LEAVE_ROOM = "leave_room";
-const String JOIN_ROOM = "join_room";
-const String SET_USER = "set_user";
-const String SET_FEATURE_FLAG = "set_feature_flag";
+const String leaveRoomMethod = 'leave_room';
+const String joinRoomMethod = 'join_room';
+const String setUserMethod = 'set_user';
+const String setFeatureFlagMethod = 'set_feature_flag';
 
 /// callbacks
-const String ON_JOINED = "on_joined";
-const String ON_WILL_JOIN = "on_will_join";
-const String ON_TERMINATED = "on_terminated";
+const String onJoinedCallback = 'on_joined';
+const String onWillJoinCallback = 'on_will_join';
+const String onTerminatedCallback = 'on_terminated';
 
 /// variables
-const String ROOM = "room";
-const String AUDIO_MUTED = "audioMuted";
-const String VIDEO_MUTED = "videoMuted";
-const String AUDIO_ONLY = "audioOnly";
-const String USERNAME = "displayName";
-const String EMAIL = "email";
-const String AVATAR_URL = "avatarURL";
-const String FLAG = "flag";
-const String FLAG_VALUE = "flag_value";
+const String roomVariable = 'room';
+const String audioMutedVariable = 'audioMuted';
+const String videoMutedVariable = 'videoMuted';
+const String audioOnlyVariable = 'audioOnly';
+const String userNameVariable = 'displayName';
+const String emailVariable = 'email';
+const String avatarUrlVariable = 'avatarURL';
+const String flagVariable = 'flag';
+const String flagValueVariable = 'flag_value';
 
 class JitsiMeetScreenController {
+  JitsiMeetScreenController(
+    this.onJoined,
+    this.onWillJoin,
+    this.onTerminated,
+  ) : _channel = const MethodChannel(channelName) {
+    _channel.setMethodCallHandler(_methodCallHandler);
+  }
+
   /// User joined to the room
   final VoidCallback onJoined;
 
@@ -40,20 +48,12 @@ class JitsiMeetScreenController {
   final MethodChannel _channel;
   String _currentRoom;
 
-  JitsiMeetScreenController(
-    this.onJoined,
-    this.onWillJoin,
-    this.onTerminated,
-  ) : _channel = MethodChannel(CHANNEL_NAME) {
-    _channel.setMethodCallHandler(_methodCallHandler);
-  }
-
   /// leave current room
   /// does noting if user not in room
   Future<void> leaveRoom() async {
     if (_currentRoom != null) {
       _currentRoom = null;
-      await _channel.invokeMethod<void>(LEAVE_ROOM);
+      await _channel.invokeMethod<void>(leaveRoomMethod);
     }
   }
 
@@ -64,13 +64,13 @@ class JitsiMeetScreenController {
     bool videoMuted,
     bool audioOnly,
   }) async {
-    if(_currentRoom != null) throw CallAlreadyStartedException();
+    if (_currentRoom != null) throw CallAlreadyStartedException();
     _currentRoom = room;
-    await _channel.invokeMethod<void>(JOIN_ROOM, <String, dynamic>{
-      ROOM: room,
-      AUDIO_MUTED: audioMuted,
-      VIDEO_MUTED: videoMuted,
-      AUDIO_ONLY: audioOnly,
+    await _channel.invokeMethod<void>(joinRoomMethod, <String, dynamic>{
+      roomVariable: room,
+      audioMutedVariable: audioMuted,
+      videoMutedVariable: videoMuted,
+      audioOnlyVariable: audioOnly,
     });
   }
 
@@ -80,10 +80,10 @@ class JitsiMeetScreenController {
     String email,
     String avatarURL,
   }) async {
-    await _channel.invokeMethod<void>(SET_USER, <String, dynamic>{
-      USERNAME: username,
-      EMAIL: email,
-      AVATAR_URL: avatarURL,
+    await _channel.invokeMethod<void>(setUserMethod, <String, dynamic>{
+      userNameVariable: username,
+      emailVariable: email,
+      avatarUrlVariable: avatarURL,
     });
   }
 
@@ -92,22 +92,25 @@ class JitsiMeetScreenController {
   /// features of current Jitsi plugin version
   /// for more feature flags update jitsi meet plugin version
   /// https://github.com/jitsi/jitsi-meet/blob/e5b563ba46f168b622bf4ccdae1695b438bc7487/react/features/base/flags/constants.js
-  Future<void> setFeatureFlag(String flag, bool value) async {
-    await _channel.invokeMethod<void>(SET_FEATURE_FLAG, <String, dynamic>{
-      FLAG: flag,
-      FLAG_VALUE: value,
+  Future<void> setFeatureFlag(
+    String flag, {
+    bool value,
+  }) async {
+    await _channel.invokeMethod<void>(setFeatureFlagMethod, <String, dynamic>{
+      flagVariable: flag,
+      flagValueVariable: value,
     });
   }
 
-  Future<void> _methodCallHandler(MethodCall call) {
+  Future<void> _methodCallHandler(MethodCall call) async {
     switch (call.method) {
-      case ON_JOINED:
+      case onJoinedCallback:
         onJoined?.call();
         break;
-      case ON_WILL_JOIN:
+      case onWillJoinCallback:
         onWillJoin?.call();
         break;
-      case ON_TERMINATED:
+      case onTerminatedCallback:
         _currentRoom = null;
         onTerminated?.call();
         break;

@@ -10,12 +10,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  surf_lint_rules:
+    path: ../surf_lint_rules
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  pedantic: ^1.8.0+1
 
 flutter:
 custom:

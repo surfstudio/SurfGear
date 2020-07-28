@@ -17,9 +17,10 @@ import 'package:flutter/material.dart';
 import 'auto_reload/auto_reload_widget.dart';
 import 'auto_request/auto_request_widget.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,13 +28,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Auto reload Home Page'),
+      home: const MyHomePage(title: 'Auto reload Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -51,13 +52,9 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         width: double.infinity,
         child: Column(
-          children: <Widget>[
-            Expanded(
-              child: DemoAutoReloadWidget(),
-            ),
-            Expanded(
-              child: DemoAutoRequestManager(),
-            ),
+          children: const <Widget>[
+            Expanded(child: DemoAutoReloadWidget()),
+            Expanded(child: DemoAutoRequestManager()),
           ],
         ),
       ),

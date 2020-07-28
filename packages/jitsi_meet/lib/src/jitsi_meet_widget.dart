@@ -8,9 +8,17 @@ const String viewType = 'surfstudio/jitsi_meet';
 
 /// Widget with native JitsiView
 class JitsiMeetWidget extends StatefulWidget {
+  const JitsiMeetWidget({
+    @required this.onControllerCreated,
+    Key key,
+    this.onJoined,
+    this.onWillJoin,
+    this.onTerminated,
+  }) : super(key: key);
+
   /// callnack with controller of current widget
   final JitsiMeetViewCreatedCallback onControllerCreated;
- 
+
   /// User join to the room
   final VoidCallback onJoined;
 
@@ -18,18 +26,10 @@ class JitsiMeetWidget extends StatefulWidget {
   final VoidCallback onWillJoin;
 
   /// Call ended by user or error
-  /// 
+  ///
   /// Error with connection
   /// User leave room
   final VoidCallback onTerminated;
-
-  const JitsiMeetWidget({
-    Key key,
-    @required this.onControllerCreated,
-    this.onJoined,
-    this.onWillJoin,
-    this.onTerminated,
-  }) : super(key: key);
 
   @override
   _JitsiMeetWidgetState createState() => _JitsiMeetWidgetState();
@@ -52,7 +52,7 @@ class _JitsiMeetWidgetState extends State<JitsiMeetWidget> {
           creationParamsCodec: const StandardMessageCodec(),
         );
       default:
-        throw Exception("Unsupported TargetPlatform - $defaultTargetPlatform ");
+        throw Exception('Unsupported TargetPlatform - $defaultTargetPlatform ');
     }
   }
 

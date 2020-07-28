@@ -14,7 +14,7 @@ const Duration _bottomSheetDuration = Duration(milliseconds: 500);
 /// [anchors] - percent height that bottom sheet can be
 Future<T> showFlexibleBottomSheet<T>({
   @required BuildContext context,
-  FlexibleDraggableScrollableWidgetBuilder builder,
+  @required FlexibleDraggableScrollableWidgetBuilder builder,
   double minHeight,
   double initHeight,
   double maxHeight,
@@ -55,17 +55,17 @@ Future<T> showFlexibleBottomSheet<T>({
 /// [maxHeight] - init height in percent for bottom sheet. e.g. 0.5
 /// [isModal] - if true, overlay background with dark color
 /// [anchors] - percent height that bottom sheet can be
-/// [isPinnedHeader] - can the header scroll
+/// isPinnedHeader - can the header scroll
 /// [decoration] - BottomSheet decoration
 /// [minHeaderHeight] - minimum head size
 /// [maxHeaderHeight] - maximum head size
 /// [headerHeight] - head size.
-/// [decoratedBox] - decoration for header and content
+/// decoratedBox - decoration for header and content
 /// Sets both [minHeaderHeight] and [maxHeaderHeight]
 Future<T> showStickyFlexibleBottomSheet<T>({
   @required BuildContext context,
-  FlexibleDraggableScrollableHeaderWidgetBuilder headerBuilder,
-  FlexibleDraggableScrollableWidgetBodyBuilder builder,
+  @required FlexibleDraggableScrollableHeaderWidgetBuilder headerBuilder,
+  @required FlexibleDraggableScrollableWidgetBodyBuilder builder,
   double minHeight,
   double initHeight,
   double maxHeight,
@@ -108,22 +108,6 @@ Future<T> showStickyFlexibleBottomSheet<T>({
 
 /// A modal route with flexible bottom sheet.
 class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
-  final FlexibleDraggableScrollableWidgetBuilder builder;
-  final FlexibleDraggableScrollableHeaderWidgetBuilder headerBuilder;
-  final FlexibleDraggableScrollableWidgetBodyBuilder bodyBuilder;
-  final double minHeight;
-  final double initHeight;
-  final double maxHeight;
-  final bool isCollapsible;
-  final bool isExpand;
-  final bool isModal;
-  final List<double> anchors;
-  final double minHeaderHeight;
-  final double maxHeaderHeight;
-  final Decoration decoration;
-
-  final ThemeData theme;
-
   _FlexibleBottomSheetRoute({
     this.minHeight,
     this.initHeight,
@@ -143,6 +127,22 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     RouteSettings settings,
   }) : super(settings: settings);
 
+  final FlexibleDraggableScrollableWidgetBuilder builder;
+  final FlexibleDraggableScrollableHeaderWidgetBuilder headerBuilder;
+  final FlexibleDraggableScrollableWidgetBodyBuilder bodyBuilder;
+  final double minHeight;
+  final double initHeight;
+  final double maxHeight;
+  final bool isCollapsible;
+  final bool isExpand;
+  final bool isModal;
+  final List<double> anchors;
+  final double minHeaderHeight;
+  final double maxHeaderHeight;
+  final Decoration decoration;
+
+  final ThemeData theme;
+
   @override
   Duration get transitionDuration => _bottomSheetDuration;
 
@@ -153,7 +153,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   final String barrierLabel;
 
   @override
-  Color get barrierColor => isModal ? Colors.black54 : Color(0x00FFFFFF);
+  Color get barrierColor => isModal ? Colors.black54 : const Color(0x00FFFFFF);
 
   AnimationController _animationController;
 
@@ -221,10 +221,10 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     Animation<double> secondaryAnimation,
     Widget child,
   ) {
-    var begin = Offset(0.0, 1.0);
-    var end = Offset.zero;
-    var curve = Curves.ease;
-    var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+    const begin = Offset(0.0, 1.0);
+    final end = Offset.zero;
+    final curve = Curves.ease;
+    final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
     return SlideTransition(
       position: animation.drive(tween),

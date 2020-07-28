@@ -13,6 +13,31 @@ typedef PaginationPredicate = bool Function(int position);
 
 /// Widget list for display different type of data with pagination.
 class PaginationMixedList extends MixedList {
+  const PaginationMixedList({
+    @required List items,
+    @required Map<Type, ItemBuilder> supportedItemControllers,
+    @required ListMode listMode,
+    @required this.onLoadMore,
+    @required this.paginationState,
+    Key key,
+    this.paginationFooterBuilder,
+    this.paginationPredicate,
+    this.headerSlivers = const [],
+    ScrollPhysics scrollPhysics,
+    ScrollController scrollController,
+    SliverGridDelegate gridDelegate,
+    SliverChildBuilderDelegate itemsDelegate,
+  }) : super(
+          key: key,
+          supportedItemControllers: supportedItemControllers,
+          items: items,
+          listMode: listMode,
+          scrollPhysics: scrollPhysics,
+          scrollController: scrollController,
+          gridDelegate: gridDelegate,
+          itemsDelegate: itemsDelegate,
+        );
+
   /// Function that will be called when need load more data.
   final VoidCallback onLoadMore;
 
@@ -28,30 +53,6 @@ class PaginationMixedList extends MixedList {
   /// Slivers that will be display before the first items in list.
   final List<Widget> headerSlivers;
 
-  PaginationMixedList({
-    this.paginationFooterBuilder,
-    this.paginationPredicate,
-    this.headerSlivers = const [],
-    ScrollPhysics scrollPhysics,
-    ScrollController scrollController,
-    SliverPadding sliverPadding,
-    SliverGridDelegate gridDelegate,
-    SliverChildBuilderDelegate itemsDelegate,
-    @required List items,
-    @required Map<Type, ItemBuilder> supportedItemControllers,
-    @required ListMode listMode,
-    @required this.onLoadMore,
-    @required this.paginationState,
-  }) : super(
-          supportedItemControllers: supportedItemControllers,
-          items: items,
-          listMode: listMode,
-          scrollPhysics: scrollPhysics,
-          scrollController: scrollController,
-          gridDelegate: gridDelegate,
-          itemsDelegate: itemsDelegate,
-        );
-
   @override
   State<StatefulWidget> createState() => _PaginationState();
 }
@@ -66,10 +67,10 @@ class _PaginationState extends MixedListState<PaginationMixedList> {
   @override
   void initState() {
     _defaultPaginationPredicate = (position) {
-      var isComplete = _currentState == PaginationState.complete;
-      var isError = _currentState == PaginationState.error;
+      final isComplete = _currentState == PaginationState.complete;
+      final isError = _currentState == PaginationState.error;
 
-      var itemsLength = widget.items.length;
+      final itemsLength = widget.items.length;
 
       return position > itemsLength / 2 &&
           !_isLoading &&
@@ -85,7 +86,7 @@ class _PaginationState extends MixedListState<PaginationMixedList> {
       });
     });
 
-    if (_currentState != PaginationState.complete && widget.items.length == 0) {
+    if (_currentState != PaginationState.complete && widget.items.isEmpty) {
       widget.onLoadMore();
       _isLoading = true;
     }
@@ -102,7 +103,7 @@ class _PaginationState extends MixedListState<PaginationMixedList> {
 
   @override
   SliverChildBuilderDelegate getItemDelegate() {
-    var itemsLength = widget.items.length;
+    final itemsLength = widget.items.length;
 
     return SliverChildBuilderDelegate(
       (ctx, position) {

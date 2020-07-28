@@ -32,12 +32,12 @@ class PlatformAlertDialog extends StatelessWidget {
           onDisagreeClicked != null
               ? FlatButton(
                   onPressed: onDisagreeClicked,
-                  child: Text(cancelText),
+                  child: const Text(cancelText),
                 )
               : Container(),
           FlatButton(
             onPressed: onAgreeClicked,
-            child: Text(okText),
+            child: const Text(okText),
           )
         ],
       );
@@ -51,12 +51,12 @@ class PlatformAlertDialog extends StatelessWidget {
           onDisagreeClicked != null
               ? FlatButton(
                   onPressed: onDisagreeClicked,
-                  child: Text(cancelText),
+                  child: const Text(cancelText),
                 )
               : Container(),
           FlatButton(
             onPressed: onAgreeClicked,
-            child: Text(okText),
+            child: const Text(okText),
           )
         ],
       );

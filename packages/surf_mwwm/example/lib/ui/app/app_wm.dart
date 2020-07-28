@@ -19,12 +19,12 @@ import 'package:rxdart/rxdart.dart';
 
 /// WidgetModel приложения
 class AppWidgetModel extends WidgetModel {
-  final GlobalKey<NavigatorState> _navigator;
-
   AppWidgetModel(
     WidgetModelDependencies dependencies,
     this._navigator,
   ) : super(dependencies);
+
+  final GlobalKey<NavigatorState> _navigator;
 
   @override
   void onLoad() {
@@ -32,8 +32,8 @@ class AppWidgetModel extends WidgetModel {
     super.onLoad();
   }
 
-  void _loadApp() async {
-    subscribeHandleError(
+  Future<void> _loadApp() async {
+    subscribeHandleError<bool>(
       initApp(),
       (isAuth) {
         _openScreen(CounterScreenRoute());
@@ -43,10 +43,10 @@ class AppWidgetModel extends WidgetModel {
 
   Stream<bool> initApp() {
     /// имитация задержки на инициализацию приложения
-    return Stream.value(true).delay(Duration(seconds: 2));
+    return Stream.value(true).delay(const Duration(seconds: 2));
   }
 
   void _openScreen(PageRoute route) {
-    _navigator.currentState.pushReplacement(route);
+    _navigator.currentState.pushReplacement<Object, Object>(route);
   }
 }

@@ -6,9 +6,9 @@ import 'package:relation/relation.dart';
 void main() {
   test('ControllerAction test', () {
     final textEditingController = TextEditingController();
-    ControllerAction(
+    ControllerAction<dynamic, TextEditingController>(
       textEditingController,
-      (TextEditingController controller, action) {
+      (controller, action) {
         expect(controller.runtimeType, TextEditingController);
         expect(controller.value.text, 'test');
       },
@@ -18,22 +18,20 @@ void main() {
 
   test('ControllerAction call test', () {
     final textEditingController = TextEditingController();
-    final action = ControllerAction(
+    ControllerAction<dynamic, TextEditingController>(
       textEditingController,
-      (TextEditingController controller, action) {
+      (controller, action) {
         expect(action.value.query, 'test');
       },
-    );
-    action.call(TextEditingValue(text: 'test'));
+    ).call(const TextEditingValue(text: 'test'));
   });
 
   test('ControllerAction dispose test', () {
     final textEditingController = TextEditingController();
-    final action = ControllerAction(
+    final action = ControllerAction<dynamic, TextEditingController>(
       textEditingController,
-      (TextEditingController controller, action) {},
-    );
-    action.dispose();
+      (controller, action) {},
+    )..dispose();
     expect(action.subject.isClosed, true);
   });
 }

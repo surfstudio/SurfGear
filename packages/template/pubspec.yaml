@@ -31,6 +31,8 @@ dependencies:
     path: ../push_notification
   surf_util:
     path: ../surf_util
+  surf_lint_rules:
+    path: ../surf_lint_rules
 
   intl: ^0.16.1
 
@@ -60,7 +62,6 @@ dependencies:
   #connection
   connectivity: ^0.4.6+2
 
-  pedantic: ^1.9.0
 
   # testing mock
   mockito: ^4.1.1

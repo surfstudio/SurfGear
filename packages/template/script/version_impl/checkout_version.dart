@@ -23,8 +23,10 @@ Future<void> main(List<String> arguments) async {
 
     // если запрос завершился ошибкой тогда все равно попробуем сменить версию
     if (checkVersion.stderr.toString().isEmpty) {
-      final parsedOut = json.decode(checkVersion.stdout as String);
-      var currentVersion = parsedOut['frameworkVersion'];
+      final parsedOut = json.decode(
+        checkVersion.stdout as String,
+      ) as Map<String, String>;
+      String currentVersion = parsedOut['frameworkVersion'];
 
       if (currentVersion != null && currentVersion[0] != 'v') {
         currentVersion = 'v$currentVersion';

@@ -11,17 +11,17 @@ const String pushIdParam = 'localPushId';
 
 /// Wrapper over surf notifications
 class NotificationController {
-  Notificator _notificator;
-
-  Map<int, NotificationCallback> callbackMap =
-      HashMap<int, NotificationCallback>();
-
-  NotificationController(OnPemissionDeclineCallback onPermissionDecline) {
+  NotificationController(OnPermissionDeclineCallback onPermissionDecline) {
     _notificator = Notificator(
       onNotificationTapCallback: _internalOnSelectNotification,
       onPermissionDecline: onPermissionDecline,
     );
   }
+
+  Notificator _notificator;
+
+  Map<int, NotificationCallback> callbackMap =
+      HashMap<int, NotificationCallback>();
 
   /// Request notification permissions (iOS only)
   Future<bool> requestPermissions() {
@@ -46,19 +46,23 @@ class NotificationController {
 
     final platformSpecifics = NotificationSpecifics(androidSpecifics);
 
+    // ignore: avoid_print
     print(
-        "DEV_INFO receive for show push : ${strategy.payload.title}, ${strategy.payload.body}");
+      'DEV_INFO receive for show push : ${strategy.payload.title}, '
+      '${strategy.payload.body}',
+    );
 
-    int pushId = DateTime.now().millisecondsSinceEpoch;
+    final int pushId = DateTime.now().millisecondsSinceEpoch;
 
-    Map<String, String> tmpPayload = strategy.payload.messageData.map(
-      (key, value) => MapEntry(
+    final Map<String, String> tmpPayload = strategy.payload.messageData.map(
+      // ignore: avoid_types_on_closure_parameters
+      (key, Object value) => MapEntry(
         key.toString(),
         value.toString(),
       ),
     );
 
-    tmpPayload[pushIdParam] = "$pushId";
+    tmpPayload[pushIdParam] = '$pushId';
     callbackMap[pushId] = onSelectNotification;
 
     return _notificator.show(
@@ -72,11 +76,12 @@ class NotificationController {
   }
 
   Future<dynamic> _internalOnSelectNotification(Map payload) async {
+    // ignore: avoid_print
     print('DEV_INFO onSelectNotification, payload: $payload');
 
-    Map<String, dynamic> tmpPayload = payload;
-    int pushId = int.parse(tmpPayload[pushIdParam]);
-    var onSelectNotification = callbackMap[pushId];
+    final tmpPayload = payload as Map<String, String>;
+    final int pushId = int.parse(tmpPayload[pushIdParam]);
+    final onSelectNotification = callbackMap[pushId];
     callbackMap.remove(pushId);
 
     return onSelectNotification?.call(tmpPayload);

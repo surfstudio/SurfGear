@@ -18,19 +18,19 @@ import 'package:surf_mwwm/surf_mwwm.dart';
 
 /// WidgetModel для экрана счетчика
 class CounterWidgetModel extends WidgetModel {
-  final NavigatorState navigator;
-  final w.GlobalKey<w.ScaffoldState> _key;
-
-  StreamedState<int> counterState = StreamedState(0);
-
-  Action incrementAction = Action();
-  final showInit = Action();
-
   CounterWidgetModel(
     WidgetModelDependencies dependencies,
     this.navigator,
     this._key,
   ) : super(dependencies);
+
+  final NavigatorState navigator;
+  final w.GlobalKey<w.ScaffoldState> _key;
+
+  StreamedState<int> counterState = StreamedState(0);
+
+  Action incrementAction = Action<void>();
+  final showInit = Action<void>();
 
   @override
   void onLoad() {
@@ -39,24 +39,24 @@ class CounterWidgetModel extends WidgetModel {
   }
 
   void _listenToActions() {
-    subscribe(
+    subscribe<void>(
       incrementAction.stream,
       (_) => counterState.accept(counterState.value + 1),
     );
 
-    subscribe(
+    subscribe<void>(
       showInit.stream,
       (_) => _key.currentState.showSnackBar(
-        w.SnackBar(
+        const w.SnackBar(
           content: w.Text('init'),
         ),
       ),
     );
 
-    subscribe(
+    subscribe<int>(
       counterState.stream.where((c) => c % 2 == 0).skip(1),
       (c) {
-        navigator.push(
+        navigator.push<void>(
           w.MaterialPageRoute(
             builder: (ctx) => w.Scaffold(
               body: w.Column(
