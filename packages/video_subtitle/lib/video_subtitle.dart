@@ -112,7 +112,6 @@ class _VideoSubtitleState extends State<VideoSubtitle> {
       final List<Subtitle> subtitles = parseSrt(subtitleStr);
       return subtitles;
     } else {
-      // TODO check this
       final http.Response response = await http.get(widget.url);
       final List<Subtitle> subtitles = parseSrt(response.body);
       return subtitles;
