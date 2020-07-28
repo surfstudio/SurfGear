@@ -80,7 +80,7 @@ abstract class WidgetModel {
   void doFuture<T>(
     Future<T> future,
     void Function(T t) onValue, {
-    void onError(e),
+    void Function(Exception) onError,
   }) {
     future.then(onValue).catchError((e) {
       onError?.call(e);
@@ -91,7 +91,7 @@ abstract class WidgetModel {
   void doFutureHandleError<T>(
     Future<T> future,
     Function(T t) onValue, {
-    onError(e),
+    void Function(Exception) onError,
   }) {
     future.then(onValue).catchError((e) {
       handleError(e);
