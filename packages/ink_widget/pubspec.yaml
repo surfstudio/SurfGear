@@ -1,6 +1,6 @@
 name: ink_widget
 description: Widget library with ink effect without problems with decoration for child.
-version: 1.0.0
+version: 1.0.0-dev.0
 
 environment:
   sdk: ">=2.6.0 <3.0.0"

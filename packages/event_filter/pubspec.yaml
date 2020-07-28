@@ -1,6 +1,6 @@
 name: event_filter
 description: Mecanism for filtering events.
-version: 0.0.1
+version: 0.0.1-dev.0
 author:
 
 environment:
