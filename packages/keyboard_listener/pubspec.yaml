@@ -1,6 +1,6 @@
 name: keyboard_listener
 description: Keyboard listener created only on Flutter
-version: 1.0.0
+version: 1.0.0-dev.0
 
 environment:
   sdk: ">=2.6.0 <3.0.0"

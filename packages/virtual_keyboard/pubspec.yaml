@@ -1,6 +1,6 @@
 name: virtual_keyboard
 description: Keyboard widget for use in widget tree
-version: 1.0.0
+version: 0.0.1-dev.0
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
