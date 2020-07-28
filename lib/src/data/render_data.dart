@@ -20,6 +20,17 @@ import 'package:render_metrics/src/data/coords_metrics.dart';
 /// [centerLeft] - center left coordinate
 /// [centerRight] - center right coordinate
 class RenderData {
+  RenderData({
+    this.yTop,
+    this.yBottom,
+    this.yCenter,
+    this.xLeft,
+    this.xRight,
+    this.xCenter,
+    this.width,
+    this.height,
+  });
+
   final double yTop;
   final double yBottom;
   final double yCenter;
@@ -46,17 +57,6 @@ class RenderData {
   CoordsMetrics get centerLeft => CoordsMetrics(y: yCenter, x: xLeft);
 
   CoordsMetrics get centerRight => CoordsMetrics(y: yCenter, x: xRight);
-
-  RenderData({
-    this.yTop,
-    this.yBottom,
-    this.yCenter,
-    this.xLeft,
-    this.xRight,
-    this.xCenter,
-    this.width,
-    this.height,
-  });
 
   /// Returns the difference between
   /// the external and the current instance ofRenderData,
