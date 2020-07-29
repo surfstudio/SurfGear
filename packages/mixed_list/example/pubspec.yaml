@@ -23,7 +23,10 @@ dependencies:
 
   # datalist
   datalist:
-    path: ../../datalist
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      ref: project-LLC
+      path: packages/../datalist
 
 dev_dependencies:
   flutter_test:

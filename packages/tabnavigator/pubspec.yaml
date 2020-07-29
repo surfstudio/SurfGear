@@ -14,7 +14,10 @@ dependencies:
   pedantic: ^1.8.0+1
 
   surf_util:
-    path: ../surf_util
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      ref: project-LLC
+      path: packages/surf_util
 
 dev_dependencies:
   flutter_test:

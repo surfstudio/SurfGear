@@ -17,10 +17,16 @@ dev_dependencies:
     sdk: flutter
 
   storage:
-    path: ../storage
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      ref: project-LLC
+      path: packages/storage
 
   network:
-    path: ../network
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      ref: project-LLC
+      path: packages/network
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

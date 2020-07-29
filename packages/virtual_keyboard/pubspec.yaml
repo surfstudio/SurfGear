@@ -10,7 +10,10 @@ dependencies:
     sdk: flutter
 
   ink_widget:
-    path: ../ink_widget
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      ref: project-LLC
+      path: packages/ink_widget
 
 dev_dependencies:
   flutter_test:

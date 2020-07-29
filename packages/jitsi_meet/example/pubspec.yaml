@@ -10,9 +10,15 @@ dependencies:
     sdk: flutter
 
   jitsi_meet:
-    path: ../
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      ref: project-LLC
+      path: packages/
   permission:
-    path: ../../permission
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      ref: project-LLC
+      path: packages/../permission
   cupertino_icons: ^0.1.3
 
 dev_dependencies:

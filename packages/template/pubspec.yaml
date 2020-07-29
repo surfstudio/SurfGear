@@ -12,25 +12,52 @@ dependencies:
 
   #внутренние библиотеки
   network:
-    path: ../network
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      ref: project-LLC
+      path: packages/network
   logger:
-    path: ../logger
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      ref: project-LLC
+      path: packages/logger
   injector:
-    path: ../injector
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      ref: project-LLC
+      path: packages/injector
   surf_mwwm:
-    path: ../surf_mwwm
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      ref: project-LLC
+      path: packages/surf_mwwm
   geolocation:
-    path: ../geolocation
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      ref: project-LLC
+      path: packages/geolocation
   analytics:
-    path: ../analytics
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      ref: project-LLC
+      path: packages/analytics
   bottom_sheet:
-    path: ../bottom_sheet
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      ref: project-LLC
+      path: packages/bottom_sheet
 
   # модуль push уведомлений
   push_notification:
-    path: ../push_notification
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      ref: project-LLC
+      path: packages/push_notification
   surf_util:
-    path: ../surf_util
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      ref: project-LLC
+      path: packages/surf_util
 
   intl: ^0.16.1
 

@@ -29,10 +29,16 @@ dependencies:
   firebase_messaging: ^6.0.9
 
   logger:
-    path: ../../logger
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      ref: project-LLC
+      path: packages/../logger
 
   push_notification:
-    path: ../
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      ref: project-LLC
+      path: packages/
 
 dev_dependencies:
   flutter_test:
