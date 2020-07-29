@@ -20,8 +20,8 @@ class PlatformAlertDialog extends StatelessWidget {
   final Widget widgetMessage;
   final String okButtonText;
   final String cancelButtonText;
-  final VoidCallback onAgreeClicked;
-  final VoidCallback onDisagreeClicked;
+  final Function onAgreeClicked;
+  final Function onDisagreeClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -47,14 +47,14 @@ class PlatformAlertDialog extends StatelessWidget {
             child: Text(
               cancelButtonText,
             ),
-            onPressed: onDisagreeClicked,
+            onPressed: () => onDisagreeClicked(),
           ),
         if (onAgreeClicked != null)
           FlatButton(
             child: Text(
               okButtonText,
             ),
-            onPressed: onAgreeClicked,
+            onPressed: () => onAgreeClicked(),
           )
       ],
     );
@@ -74,14 +74,14 @@ class PlatformAlertDialog extends StatelessWidget {
               child: Text(
                 cancelButtonText,
               ),
-              onPressed: onDisagreeClicked,
+              onPressed: () => onDisagreeClicked(),
             ),
           if (onAgreeClicked != null)
             FlatButton(
               child: const Text(
                 'ok',
               ),
-              onPressed: onAgreeClicked,
+              onPressed: () => onAgreeClicked(),
             )
         ],
       );

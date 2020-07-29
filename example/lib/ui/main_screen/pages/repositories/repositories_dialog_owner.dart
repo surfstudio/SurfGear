@@ -40,7 +40,7 @@ Widget _buildSheet(
     child: Center(
       child: Text(
         'Hello ${data.testData}',
-        style: const TextStyle(
+        style: TextStyle(
           color: Colors.white,
           fontSize: 42,
         ),
