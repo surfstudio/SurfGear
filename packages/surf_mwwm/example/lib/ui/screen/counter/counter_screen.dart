@@ -21,10 +21,9 @@ import 'package:surf_mwwm/surf_mwwm.dart';
 
 /// Widget для экрана счетчика
 class CounterScreen extends MwwmWidget<CounterComponent> {
-  CounterScreen({Key key})
+  CounterScreen()
       : super(
-          key: key,
-          dependenciesBuilder: (context) =>
+          dependenciesBuilder: (BuildContext context) =>
               CounterComponent(Navigator.of(context)),
           widgetStateBuilder: () => _CounterScreenState(),
           widgetModelBuilder: createCounterModel,
@@ -37,7 +36,7 @@ class _CounterScreenState extends WidgetState<CounterWidgetModel> {
     return Scaffold(
       key: Injector.of<CounterComponent>(context).component.scaffoldKey,
       appBar: AppBar(
-        title: const Text('Counter Demo'),
+        title: Text('Counter Demo'),
       ),
       body: _buildBody(),
       floatingActionButton: FloatingActionButton(
@@ -57,7 +56,7 @@ class _CounterScreenState extends WidgetState<CounterWidgetModel> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text('You have pushed the this many times:'),
+              Text('You have pushed the this many times:'),
               Text(
                 '${snapshot.data}',
                 style: Theme.of(context).textTheme.caption,

@@ -17,5 +17,5 @@ import 'package:injector/injector.dart';
 
 /// Component для приложения
 class AppComponent extends Component {
-  final navigatorKey = GlobalKey<NavigatorState>();
+  final Key navigatorKey = GlobalKey<NavigatorState>();
 }
