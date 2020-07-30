@@ -24,7 +24,7 @@ class IncrementDevVersionTask extends Action {
 
   ///todo сделать сброс счетчика
   String _getIncrementVersion() {
-    var elementVersionRegex = RegExp('dev\.([0-9]*)');
+    var elementVersionRegex = RegExp('dev\.([0-9]+)');
     var elementVersionNum = int.parse(
         elementVersionRegex.firstMatch(element.version).group(0).split('.')[1]);
 
