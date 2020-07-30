@@ -10,6 +10,7 @@ import 'package:ci/services/pub_publish_manager.dart';
 import 'package:ci/tasks/factories/license_task_factory.dart';
 import 'package:ci/tasks/impl/building/check_dependency_stable.dart';
 import 'package:ci/tasks/impl/building/check_stability_dev.dart';
+import 'package:ci/tasks/impl/building/increment_dev_version_task.dart';
 import 'package:ci/tasks/impl/building/linter_check.dart';
 import 'package:ci/tasks/impl/building/stable_modules_for_changes_check.dart';
 import 'package:ci/tasks/impl/license/copyright_check.dart';
@@ -198,6 +199,18 @@ Future<List<Element>> incrementUnstableVersion(List<Element> elements) async {
 
   for (var element in elements) {
     updatedList.add(await IncrementUnstableVersionTask(element).run());
+  }
+
+  return updatedList;
+}
+
+/// Увеличение 'X.Y.Z-dev.TTTT' нестабильных версий
+Future<List<Element>> incrementDevUnstableVersion(
+    List<Element> elements) async {
+  var updatedList = <Element>[];
+
+  for (var element in elements) {
+    updatedList.add(await IncrementDevVersionTask(element).run());
   }
 
   return updatedList;
