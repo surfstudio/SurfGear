@@ -1,6 +1,6 @@
 name: jitsi_meet_screen
 description: Plugin to show JitsiMeetView as new native screen
-version: 0.0.1
+version: 0.0.1-dev.0
 author:
 homepage:
 
