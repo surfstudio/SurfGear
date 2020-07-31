@@ -90,6 +90,7 @@ pipeline.stages = [
 
         // поиск изменившихся модулей
         pipeline.stage(FIND_CHANGED) {
+            // взять хэш из файла и передать параметром
             script.sh "./tools/ci/runner/find_changed_modules --target=${branchName}"
         },
 
@@ -99,7 +100,7 @@ pipeline.stages = [
             script.echo "increment_unstable_versions"
         },
 
-        // коммит изменений
+        // сохранить хэш комита с версиями в файл
         pipeline.stage(COMMIT_CHANGES) {
             script.echo "Commit changes"
             // TODO коммит изменений
