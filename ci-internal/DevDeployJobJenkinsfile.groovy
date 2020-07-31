@@ -103,13 +103,13 @@ pipeline.stages = [
         pipeline.stage(COMMIT_CHANGES) {
             script.echo "Commit changes"
             // TODO коммит изменений
-        }
+        },
 
         // паблишинга в паб
         pipeline.stage(PUBLISHING_TO_PUB_DEV) {
             script.echo "Publishing to pub.dev"
             // TODO паблишинга в паб
-        }
+        },
 
         // зеркалирования в отдельные репо
         pipeline.stage(MIRRORING) {
