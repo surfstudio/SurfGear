@@ -3,7 +3,7 @@ import 'package:flutter_template/ui/res/colors.dart';
 
 /// Стили текстов
 
-TextStyle _text = TextStyle(
+TextStyle _text = const TextStyle(
   fontStyle: FontStyle.normal,
   color: textColorPrimary,
 ),

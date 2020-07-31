@@ -3,15 +3,17 @@ import 'package:flutter/widgets.dart';
 import 'package:relation/relation.dart' as r;
 
 class DemoRelations extends StatefulWidget {
+  const DemoRelations({Key key}) : super(key: key);
+
   @override
   _DemoRelationsState createState() => _DemoRelationsState();
 }
 
 class _DemoRelationsState extends State<DemoRelations> {
-  final incrementAction = r.Action();
+  final incrementAction = r.Action<void>();
   final incrementState = r.StreamedState<int>(0);
 
-  final reloadAction = r.Action();
+  final reloadAction = r.Action<void>();
   final loadDataState = r.EntityStreamedState<int>();
 
   @override
@@ -26,8 +28,8 @@ class _DemoRelationsState extends State<DemoRelations> {
 
   Future _load() async {
     await loadDataState.loading();
-    var result = Future.delayed(
-      Duration(seconds: 2),
+    final result = Future.delayed(
+      const Duration(seconds: 2),
       () => DateTime.now().second,
     );
     await loadDataState.content(await result);
@@ -37,7 +39,7 @@ class _DemoRelationsState extends State<DemoRelations> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Demo for relations'),
+        title: const Text('Demo for relations'),
       ),
       body: Center(
         child: Column(
@@ -69,7 +71,7 @@ class _DemoRelationsState extends State<DemoRelations> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             /// build state by StreamedState
-            r.StreamedStateBuilder(
+            r.StreamedStateBuilder<int>(
               streamedState: incrementState,
               builder: (ctx, count) => Text('number of count: $count'),
             ),
@@ -80,7 +82,7 @@ class _DemoRelationsState extends State<DemoRelations> {
             FlatButton(
               onPressed: incrementAction,
               color: Colors.red,
-              child: Text('increment'),
+              child: const Text('increment'),
             ),
           ],
         ),
@@ -97,8 +99,8 @@ class _DemoRelationsState extends State<DemoRelations> {
           r.EntityStateBuilder<int>(
             streamedState: loadDataState,
             child: (ctx, data) => Text('success load: $data'),
-            loadingChild: CircularProgressIndicator(),
-            errorChild: Text('sorry - error, try again'),
+            loadingChild: const CircularProgressIndicator(),
+            errorChild: const Text('sorry - error, try again'),
           ),
 
           const SizedBox(width: 32.0),
@@ -107,7 +109,7 @@ class _DemoRelationsState extends State<DemoRelations> {
           FlatButton(
             onPressed: reloadAction,
             color: Colors.red,
-            child: Text('reload'),
+            child: const Text('reload'),
           ),
         ],
       ),

@@ -208,14 +208,13 @@ class DatePickerDialogController {
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               iosCloseButton ??
                   CupertinoButton(
                     padding: const EdgeInsets.all(5),
                     onPressed: onCancel,
                     color: Colors.transparent,
-                    child: Text(
+                    child: const Text(
                       'Сбросить',
                       style: TextStyle(color: CupertinoColors.destructiveRed),
                     ),
@@ -225,7 +224,7 @@ class DatePickerDialogController {
                     padding: const EdgeInsets.all(5),
                     onPressed: onDone,
                     color: Colors.transparent,
-                    child: Text(
+                    child: const Text(
                       'Готово',
                       style: TextStyle(color: CupertinoColors.activeBlue),
                     ),

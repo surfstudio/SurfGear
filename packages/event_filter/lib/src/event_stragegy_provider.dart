@@ -18,16 +18,14 @@ import 'package:flutter/material.dart';
 
 /// Provider of strategy for resolve event.
 abstract class EventStrategyProvider {
+  EventStrategyProvider(this.factory);
+
   @protected
   final EventStrategyFactory factory;
 
-  EventStrategyProvider(this.factory);
-
   /// Resolve strategy for event.
   void resolve(Event event) {
-    var strategy = factory.findStrategy(event);
-
-    strategy.resolve(event);
+    factory.findStrategy(event).resolve(event);
   }
 
   /// Resolve strategy for event with transmitted filter.
@@ -35,8 +33,6 @@ abstract class EventStrategyProvider {
     Event event, {
     EventFilterStrategy filter,
   }) {
-    var strategy = factory.findStrategy(event);
-
-    strategy.resolveWithCurrentFilter(event, filter: filter);
+    factory.findStrategy(event).resolveWithCurrentFilter(event, filter: filter);
   }
 }

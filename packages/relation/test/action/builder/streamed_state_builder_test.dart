@@ -6,7 +6,7 @@ import 'package:relation/relation.dart';
 void main() {
   testWidgets(
     'StreamedStateBuilder test',
-    (WidgetTester tester) async {
+    (tester) async {
       final testData = StreamedState<String>('test');
       final streamedStateBuilder = StreamedStateBuilder<String>(
           streamedState: testData,

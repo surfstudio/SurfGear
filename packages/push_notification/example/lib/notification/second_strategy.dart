@@ -11,7 +11,7 @@ class SecondStrategy extends PushHandleStrategy<Message> {
   void onTapNotification(NavigatorState navigator) {
     debugPrint('on tap notification');
 
-    navigator.push(
+    navigator.push<void>(
       MaterialPageRoute(
         builder: (context) => SecondScreen(payload),
       ),

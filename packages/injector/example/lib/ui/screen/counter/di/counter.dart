@@ -19,8 +19,6 @@ import 'package:injector/injector.dart';
 
 /// Component для экрана счетчика
 class CounterComponent implements Component {
-  CounterWidgetModel wm;
-
   CounterComponent(
     AppComponent parentComponent,
     NavigatorState navigator,
@@ -30,4 +28,6 @@ class CounterComponent implements Component {
       parentComponent.counterInteractor,
     );
   }
+
+  CounterWidgetModel wm;
 }

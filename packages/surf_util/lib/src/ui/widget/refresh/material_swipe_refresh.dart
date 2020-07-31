@@ -6,10 +6,10 @@ import 'package:swipe_refresh/swipe_refresh.dart';
 /// Material Design style Refresh indicator widget based on [StreamedState].
 class StreamedMaterialSwipeRefresh extends MaterialSwipeRefresh {
   StreamedMaterialSwipeRefresh({
-    Key key,
     @required List<Widget> children,
     @required StreamedState<SwipeRefreshState> stateStream,
     @required VoidCallback onRefresh,
+    Key key,
     Color indicatorColor,
     Color backgroundColor,
   }) : super(

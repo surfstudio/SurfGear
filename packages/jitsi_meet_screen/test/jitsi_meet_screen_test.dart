@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:jitsi_meet_screen/jitsi_meet_screen.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('jitsi_meet_screen');
@@ -8,7 +7,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUp(() {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    channel.setMockMethodCallHandler((methodCall) async {
       return '42';
     });
   });

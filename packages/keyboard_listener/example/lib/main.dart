@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:keyboard_listener/keyboard_listener.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,13 +15,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'InkWidget example'),
+      home: const MyHomePage(title: 'InkWidget example'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -57,10 +58,9 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           Text(_isVisible ? 'Visible' : 'hidden'),
           const SizedBox(height: 50),
-          TextField(),
+          const TextField(),
           const SizedBox(height: 50),
           RaisedButton(
-            child: Text('Reset focus'),
             onPressed: () {
               if (FocusManager.instance.primaryFocus != null) {
                 FocusManager.instance.primaryFocus.unfocus();
@@ -68,6 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 FocusScope.of(context).requestFocus(FocusNode());
               }
             },
+            child: const Text('Reset focus'),
           ),
         ],
       ),

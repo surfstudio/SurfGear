@@ -1,10 +1,11 @@
+import 'dart:convert';
+
 import 'package:background_worker/background_worker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
-void main() => runApp(MaterialApp(home: new MainScreen()));
+void main() => runApp(const MaterialApp(home: MainScreen()));
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key key}) : super(key: key);
@@ -14,13 +15,13 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  var _backgroudWorker = BackgroundWorker(capacity: 2);
+  final _backgroundWorker = BackgroundWorker(capacity: 2);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Test App"),
+        title: const Text('Test App'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,15 +32,15 @@ class _MainScreenState extends State<MainScreen> {
               _buildButton(),
             ],
           ),
-          _buildControllButtons(),
+          _buildControlButtons(),
         ],
       ),
     );
   }
 
   Widget _buildProgressIndicator() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16),
+    return const Padding(
+      padding: EdgeInsets.only(top: 16),
       child: CircularProgressIndicator(),
     );
   }
@@ -51,26 +52,26 @@ class _MainScreenState extends State<MainScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           OutlineButton(
-            child: Text("Do in Foreground"),
             onPressed: () async {
               await backgroundWork(null);
             },
+            child: const Text('Do in Foreground'),
           ),
           OutlineButton(
-            child: Text("Do in Background"),
             onPressed: () async {
-              var workItem = WorkItem<List<Data>, dynamic>.calculate(
+              final workItem = WorkItem<List<Data>, dynamic>.calculate(
                 backgroundWork,
               );
-              await _backgroudWorker.send(workItem);
+              await _backgroundWorker.send(workItem);
             },
+            child: const Text('Do in Background'),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildControllButtons() {
+  Widget _buildControlButtons() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Row(
@@ -81,14 +82,14 @@ class _MainScreenState extends State<MainScreen> {
               Icons.play_arrow,
               size: 30,
             ),
-            onPressed: () => _backgroudWorker.start(),
+            onPressed: _backgroundWorker.start,
           ),
           IconButton(
             icon: Icon(
               Icons.stop,
               size: 30,
             ),
-            onPressed: () => _backgroudWorker.stop(),
+            onPressed: _backgroundWorker.stop,
           ),
         ],
       ),
@@ -96,19 +97,18 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
-Future<List<Data>> backgroundWork(dynamic) async {
-  var response = await http.get('http://jsonplaceholder.typicode.com/posts');
-  String json = response.body;
+// ignore: avoid_annotating_with_dynamic
+Future<List<Data>> backgroundWork(dynamic _) async {
+  final response = await http.get('http://jsonplaceholder.typicode.com/posts');
+  final String json = response.body;
+  // ignore: avoid_print
   print(json);
-  return jsonDecode(json).map<Data>((json) => Data.fromJson(json)).toList();
+  return (jsonDecode(json) as List<Map<String, Object>>)
+      .map<Data>((json) => Data.fromJson(json))
+      .toList();
 }
 
 class Data {
-  final int userId;
-  final int id;
-  final String title;
-  final String body;
-
   Data({
     this.userId,
     this.id,
@@ -118,10 +118,15 @@ class Data {
 
   factory Data.fromJson(Map<String, dynamic> json) {
     return Data(
-      userId: json['userId'],
-      id: json['id'],
-      title: json['title'],
-      body: json['body'],
+      userId: json['userId'] as int,
+      id: json['id'] as int,
+      title: json['title'] as String,
+      body: json['body'] as String,
     );
   }
+
+  final int userId;
+  final int id;
+  final String title;
+  final String body;
 }

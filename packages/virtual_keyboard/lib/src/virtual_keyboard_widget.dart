@@ -6,9 +6,19 @@ import 'package:virtual_keyboard/src/virtual_keyboard_key.dart';
 /// On-screen keyboard widget
 
 /// Callback key on the on-screen keyboard
-typedef void KeyboardPressCallback(VirtualKeyboardKey keyboardKey);
+typedef KeyboardPressCallback = void Function(VirtualKeyboardKey keyboardKey);
 
 class VirtualKeyboardWidget extends StatefulWidget {
+  const VirtualKeyboardWidget({
+    @required this.keyboardKeys,
+    Key key,
+    this.buttonWidth,
+    this.buttonHeight,
+    this.onPressKey,
+    this.keyTextStyle,
+    this.virtualKeyboardEffect,
+  }) : super(key: key);
+
   /// Keyboard data list
   final List<List<VirtualKeyboardKey>> keyboardKeys;
 
@@ -27,16 +37,6 @@ class VirtualKeyboardWidget extends StatefulWidget {
   /// Effect of pressing a button
   final VirtualKeyboardEffect virtualKeyboardEffect;
 
-  VirtualKeyboardWidget({
-    Key key,
-    @required this.keyboardKeys,
-    this.buttonWidth,
-    this.buttonHeight,
-    this.onPressKey,
-    this.keyTextStyle,
-    this.virtualKeyboardEffect,
-  }) : super(key: key);
-
   @override
   State<StatefulWidget> createState() {
     return _VirtualKeyboardWidgetState();
@@ -46,7 +46,7 @@ class VirtualKeyboardWidget extends StatefulWidget {
 class _VirtualKeyboardWidgetState extends State<VirtualKeyboardWidget> {
   List<List<VirtualKeyboardKey>> get _keyboardKeys => widget.keyboardKeys;
 
-  double _buttonSizeDefault = 36;
+  final double _buttonSizeDefault = 36;
 
   double get _buttonWidth => widget.buttonWidth ?? _buttonSizeDefault;
 
@@ -82,12 +82,12 @@ class _VirtualKeyboardWidgetState extends State<VirtualKeyboardWidget> {
       width: _buttonWidth,
       height: _buttonHeight,
       onTap: () => widget.onPressKey?.call(keyboardKey),
-      child: _buildValueKey(keyboardKey),
       virtualKeyboardEffect: widget.virtualKeyboardEffect,
       useAsKey: keyboardKey.useAsKey,
       keyDecoration: keyboardKey.keyDecoration,
       inkShapeRipple: keyboardKey.inkShapeRipple,
       inkShapeBorder: keyboardKey.inkShapeBorder,
+      child: _buildValueKey(keyboardKey),
     );
   }
 
@@ -102,7 +102,7 @@ class _VirtualKeyboardWidgetState extends State<VirtualKeyboardWidget> {
     } else if (keyboardKey.isInstance<VirtualKeyboardDeleteKey>()) {
       return Text('delete', style: widget.keyTextStyle);
     } else {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
   }
 }

@@ -9,22 +9,19 @@ class MessagingService extends BaseMessagingService {
   Future<String> get fcmToken => _messaging.getToken();
 
   HandleMessageFunction _handleMessage;
-  List<String> _topicsSubscription = [];
+  final List<String> _topicsSubscription = [];
 
   /// request notification permissions for ios platform
   void requestNotificationPermissions() {
     _messaging.requestNotificationPermissions(
-      const IosNotificationSettings(
-        sound: true,
-        badge: true,
-        alert: true,
-      ),
+      const IosNotificationSettings(),
     );
   }
 
   /// no need to call. initialization is called inside the [PushHandler]
+  @override
   void initNotification(HandleMessageFunction handleMessage) {
-    this._handleMessage = handleMessage;
+    _handleMessage = handleMessage;
     _messaging.configure(
       onMessage: (message) => _internalMessageInterceptor(
         message,

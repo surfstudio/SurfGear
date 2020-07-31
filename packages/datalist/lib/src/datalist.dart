@@ -10,14 +10,14 @@ import 'package:collection/collection.dart';
 ///
 /// @param <T> Item
 abstract class DataList<T> extends DelegatingList<T> {
+  DataList(this.data) : super(data);
+
   ///Download List
   List<T> data;
 
   /// Проверка возможности дозагрузки данных
   /// Checking the possibility of reloading data
   bool get canGetMore;
-
-  DataList(this.data) : super(data);
 
   /// Слияние двух DataList
   /// Merge two DataList

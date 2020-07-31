@@ -18,15 +18,15 @@ import 'package:rxdart/rxdart.dart';
 
 /// WidgetModel приложения
 class AppWidgetModel {
-  final GlobalKey<NavigatorState> _navigator;
-
   AppWidgetModel(
     this._navigator,
   ) {
     _loadApp();
   }
 
-  void _loadApp() async {
+  final GlobalKey<NavigatorState> _navigator;
+
+  Future<void> _loadApp() async {
     initApp().listen(
       (isAuth) {
         _openScreen(CounterScreenRoute());
@@ -34,14 +34,14 @@ class AppWidgetModel {
     );
   }
 
-  dispose() {}
+  void dispose() {}
 
   Stream<bool> initApp() {
     /// имитация задержки на инициализацию приложения
-    return Stream.value(true).delay(Duration(seconds: 2));
+    return Stream.value(true).delay(const Duration(seconds: 2));
   }
 
   void _openScreen(PageRoute route) {
-    _navigator.currentState.pushReplacement(route);
+    _navigator.currentState.pushReplacement<Object, Object>(route);
   }
 }

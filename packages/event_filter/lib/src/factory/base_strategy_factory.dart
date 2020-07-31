@@ -19,19 +19,19 @@ import 'package:flutter/material.dart';
 
 /// Factory of strategy.
 abstract class BaseStrategyFactory<T extends BaseEventStrategy> {
+  BaseStrategyFactory(
+    this.strategies,
+    this.defaultStrategy,
+  );
+
   @protected
   final Map<Type, T> strategies;
 
   @protected
   final T defaultStrategy;
 
-  BaseStrategyFactory(
-    this.strategies,
-    this.defaultStrategy,
-  );
-
   T findStrategy(Event event) {
-    var eventType = event.runtimeType;
+    final eventType = event.runtimeType;
 
     if (strategies.containsKey(eventType)) {
       return strategies[eventType];

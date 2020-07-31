@@ -13,6 +13,9 @@ dependencies:
 
   localstorage: 3.0.1+4
 
+  surf_lint_rules:
+    path: ../surf_lint_rules
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

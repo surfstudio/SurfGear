@@ -18,21 +18,21 @@ import 'package:mwwm/mwwm.dart';
 
 /// Standard error handler.
 class StandardErrorHandler extends ErrorHandler {
+  StandardErrorHandler({
+    @required this.strategyProvider,
+    this.filter,
+  });
+
   final EventFilter filter;
   final EventStrategyProvider strategyProvider;
 
-  StandardErrorHandler({
-    this.filter,
-    @required this.strategyProvider,
-  });
-
   @override
   void handleError(Object e) {
-    var event = ErrorEvent(e);
+    ErrorEvent event = ErrorEvent(e as Exception);
 
     /// filtering if filter was set
     if (filter != null) {
-      event = filter.filter(event);
+      event = filter.filter(event) as ErrorEvent;
     }
 
     if (event != null) {

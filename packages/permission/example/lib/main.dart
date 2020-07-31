@@ -18,9 +18,10 @@ import 'package:permission/base/permission_manager.dart';
 import 'package:permission/impl/default_permission_manager.dart';
 import 'package:permission/permission.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,13 +29,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -45,12 +46,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   ProceedPermissionStrategyStorage _strategyStorage;
   PermissionManager _permissionManager;
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     _strategyStorage = DefaultProceedPermissionStrategyStorage(
-      strategies: Map(),
+      strategies: {},
       defaultStrategy: ProceedPermissionStrategyExample(),
     );
     _permissionManager = DefaultPermissionManager(_strategyStorage);
@@ -58,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
-  void _requestPermission(Permission permission) async {
+  Future<void> _requestPermission(Permission permission) async {
     try {
       final granted = await _permissionManager.request(
         permission,
@@ -76,12 +77,12 @@ class _MyHomePageState extends State<MyHomePage> {
           content: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text('User prohibited this feature'),
+              const Text('User prohibited this feature'),
               FlatButton(
                 padding: EdgeInsets.zero,
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                child: Text('Show settings'),
                 onPressed: () => _permissionManager.openSettings(),
+                child: const Text('Show settings'),
               ),
             ],
           ),
@@ -104,8 +105,8 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             for (var permission in Permission.values)
               FlatButton(
-                child: Text(permission.toString()),
                 onPressed: () => _requestPermission(permission),
+                child: Text(permission.toString()),
               )
           ],
         ),

@@ -7,15 +7,15 @@ import 'package:mixed_list/mixed_list.dart';
 
 class PostBuilder extends ItemBuilder<Post> {
   @override
-  Widget build(BuildContext context, Post posts) {
+  Widget build(BuildContext context, data) {
     return Padding(
       padding: const EdgeInsets.only(top: 4.0, bottom: 4),
       child: Card(
         child: Column(
           children: <Widget>[
-            Text("POST ITEM ${posts.id}"),
+            Text('POST ITEM ${data.id}'),
             Text(
-              posts.body,
+              data.body,
             ),
           ],
         ),

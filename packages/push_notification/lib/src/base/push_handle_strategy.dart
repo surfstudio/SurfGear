@@ -36,8 +36,8 @@ abstract class PushHandleStrategy<PT extends NotificationPayload> {
   /// Indicates if a sound should be played when the notification is displayed.
   bool playSound = true;
 
-  /// Display an alert when the notification is triggered while app is in the foreground.
-  /// iOS 10+ only
+  /// Display an alert when the notification is triggered while app is in the
+  /// foreground. iOS 10+ only
   bool presentAlert = true;
 
   /// notification payload

@@ -20,6 +20,9 @@ dependencies:
   swipe_refresh:
     path: ../swipe_refresh
 
+  surf_lint_rules:
+    path: ../surf_lint_rules
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

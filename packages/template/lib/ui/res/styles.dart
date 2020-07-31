@@ -9,7 +9,7 @@ final themeData = ThemeData(
     accentColor: btnColor,
     accentColorBrightness: Brightness.light,
     backgroundColor: backgroundColor,
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       color: appBarColor,
       brightness: Brightness.light,
       elevation: 4.0,
@@ -23,20 +23,19 @@ final themeData = ThemeData(
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12.0),
-        borderSide: BorderSide(color: dividerColor),
+        borderSide: const BorderSide(color: dividerColor),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12.0),
-        borderSide: BorderSide(color: colorError),
+        borderSide: const BorderSide(color: colorError),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12.0),
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           color: colorAccent,
           width: 2.0,
         ),
       ),
-      filled: false,
       hintStyle: textRegular16Secondary,
       prefixStyle: textRegular16,
     ),

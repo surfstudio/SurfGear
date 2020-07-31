@@ -36,7 +36,7 @@ class _DebugScreenState extends WidgetState<DebugWidgetModel> {
             style: textMedium20,
           ),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: wm.closeScreenAction,
           )),
       body: _buildBody(),
