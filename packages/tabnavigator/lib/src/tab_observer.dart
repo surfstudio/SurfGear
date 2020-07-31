@@ -15,7 +15,7 @@ class TabObserver {
 
   Stream observeDoubleTap(TabType type) => _tabControllers[type]
       ?.stream
-      ?.where((state) => state == TabState.double_tapped);
+      ?.where((state) => state == TabState.doubleTapped);
 
   void toggleActiveTab(TabType activeTab) {
     _tabControllers.forEach((type, controller) {
@@ -37,7 +37,7 @@ class TabObserver {
   }
 
   void onDoubleTapped(TabType tabType) {
-    _tabControllers[tabType]?.add(TabState.double_tapped);
+    _tabControllers[tabType]?.add(TabState.doubleTapped);
   }
 
   void dispose() {

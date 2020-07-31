@@ -1,9 +1,9 @@
 /// Holder for working with manager.
 /// Can be completed by mixin with different functional.
 abstract class DbHolder {
-  final DbManager manager;
-
   DbHolder(this.manager);
+
+  final DbManager manager;
 }
 
 /// Interface for managing manager work;

@@ -18,13 +18,6 @@ import 'package:rxdart/rxdart.dart';
 
 /// WidgetModel для экрана счетчика
 class CounterWidgetModel {
-  final NavigatorState navigator;
-
-  final CounterInteractor _counterInteractor;
-
-  BehaviorSubject<bool> incrementAction = BehaviorSubject();
-  BehaviorSubject<int> counterState = BehaviorSubject();
-
   CounterWidgetModel(
     this.navigator,
     this._counterInteractor,
@@ -33,7 +26,14 @@ class CounterWidgetModel {
     _listenToStreams();
   }
 
-  dispose() {
+  final NavigatorState navigator;
+
+  final CounterInteractor _counterInteractor;
+
+  BehaviorSubject<bool> incrementAction = BehaviorSubject();
+  BehaviorSubject<int> counterState = BehaviorSubject();
+
+  void dispose() {
     incrementAction.close();
     counterState.close();
   }

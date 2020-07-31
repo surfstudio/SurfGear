@@ -34,7 +34,6 @@ class _WelcomeScreenState extends WidgetState<WelcomeScreenWidgetModel> {
         onPressed: wm.nextAction.accept,
       ),
       body: SafeArea(
-        top: true,
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: ConstrainedBox(
@@ -47,7 +46,7 @@ class _WelcomeScreenState extends WidgetState<WelcomeScreenWidgetModel> {
                     child: FlutterLogo(
                       size: 128,
                     )),
-                Container(
+                SizedBox(
                   width: 304,
                   height: 45,
                   child: Text(

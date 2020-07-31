@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const MAX_EVENT_KEY_LENGTH = 40;
-const MAX_EVENT_VALUE_LENGTH = 100;
+const maxEventKeyLength = 40;
+const maxEventValueLength = 100;
 
-const MAX_SET_USER_PROPERTY_KEY_LENGTH = 24;
-const MAX_SET_USER_PROPERTY_VALUE_LENGTH = 36;
+const maxSetUserPropertyKeyLength = 24;
+const maxSetUserPropertyValueLength = 36;

@@ -19,7 +19,7 @@ import 'package:surf_mwwm/surf_mwwm.dart';
 import 'package:surf_mwwm/surf_mwwm.dart' as m;
 
 MainScreenWidgetModel createMainScreenWidgetModel(BuildContext context) {
-  var component = Injector.of<MainScreenComponent>(context).component;
+  final component = Injector.of<MainScreenComponent>(context).component;
 
   return MainScreenWidgetModel(
     component.widgetModelDependencies,
@@ -29,14 +29,14 @@ MainScreenWidgetModel createMainScreenWidgetModel(BuildContext context) {
 
 /// [WidgetModel] для экрана MainScreen
 class MainScreenWidgetModel extends WidgetModel {
-  final NavigatorState navigator;
-
-  final m.Action nextAction = m.Action();
-
   MainScreenWidgetModel(
     WidgetModelDependencies dependencies,
     this.navigator,
   ) : super(dependencies);
+
+  final NavigatorState navigator;
+
+  final nextAction = m.Action<void>();
 
   @override
   void onLoad() {
@@ -46,11 +46,11 @@ class MainScreenWidgetModel extends WidgetModel {
   }
 
   void _listenToActions() {
-    bind(
+    bind<void>(
       nextAction,
       (_) {
-        subscribeHandleError(
-          Stream.error(Exception("Failed Increment")),
+        subscribeHandleError<Exception>(
+          Stream.error(Exception('Failed Increment')),
           (_) {},
         );
       },

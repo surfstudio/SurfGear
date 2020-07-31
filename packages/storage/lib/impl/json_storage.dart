@@ -17,11 +17,11 @@ import 'package:storage/base/storage.dart';
 
 /// Based on [LocalStorage] simple json storage
 class JsonStorage implements Storage<String, Map<String, dynamic>> {
-  final LocalStorage _storage;
-
   JsonStorage(String filename)
       : assert(filename != null),
         _storage = LocalStorage(filename);
+
+  final LocalStorage _storage;
 
   @override
   void clear() => _storage.ready.then((_) => _storage.clear());
@@ -30,7 +30,7 @@ class JsonStorage implements Storage<String, Map<String, dynamic>> {
   Future<Map<String, dynamic>> get(String key) async {
     await _storage.ready;
 
-    final value = _storage.getItem(key);
+    final value = _storage.getItem(key) as Map;
     return value != null ? Map<String, dynamic>.from(value) : null;
   }
 

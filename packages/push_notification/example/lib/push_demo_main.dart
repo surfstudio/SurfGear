@@ -9,11 +9,12 @@ import 'ui/app.dart';
 ///need to remove Logger inside native push module from android-standart
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  MessagingService messagingService = MessagingService();
-  PushHandler pushHandler = PushHandler(
+  final MessagingService messagingService = MessagingService();
+  final PushHandler pushHandler = PushHandler(
     ExampleFactory(),
     NotificationController(() {
-      print("permission denided");
+      // ignore: avoid_print
+      print('permission denied');
     }),
     messagingService,
   );

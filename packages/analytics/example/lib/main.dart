@@ -4,9 +4,13 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:analytics/analytics.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,13 +18,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -30,10 +34,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   AnalyticService _analyticsService;
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
-  initState() {
+  void initState() {
     super.initState();
 
     final analytics = FirebaseAnalytics();
@@ -55,24 +59,27 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         child: Column(
           children: <Widget>[
             FlatButton(
-              child: Text('Fantastic button'),
-              onPressed: () =>
-                  _sendAnalyticAction(FantasticButtonTappedEvent()),
+              onPressed: () => _sendAnalyticAction(
+                FantasticButtonTappedEvent(),
+              ),
+              child: const Text('Fantastic button'),
             ),
             FlatButton(
-              child: Text('Sparkling button'),
-              onPressed: () =>
-                  _sendAnalyticAction(SparklingButtonTappedEvent("some data")),
+              onPressed: () => _sendAnalyticAction(
+                SparklingButtonTappedEvent('some data'),
+              ),
+              child: const Text('Sparkling button'),
             ),
             FlatButton(
-              child: Text('Delightful button'),
-              onPressed: () =>
-                  _sendAnalyticAction(DelightfulButtonTappedEvent(true)),
+              onPressed: () => _sendAnalyticAction(DelightfulButtonTappedEvent(
+                isDelightful: true,
+              )),
+              child: const Text('Delightful button'),
             ),
           ],
         ),

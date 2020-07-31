@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:jitsi_meet/jitsi_meet.dart';
 
 class JitsiScreen extends StatelessWidget {
-  final String room;
-
   const JitsiScreen({Key key, this.room}) : super(key: key);
+
+  final String room;
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +14,10 @@ class JitsiScreen extends StatelessWidget {
         child: JitsiMeetWidget(
           onControllerCreated: _onControllerCreated,
           onTerminated: () => _onTerminated(context),
-          onJoined: () => print("User join"),
-          onWillJoin: () => print("Room found"),
+          // ignore: avoid_print
+          onJoined: () => print('User join'),
+          // ignore: avoid_print
+          onWillJoin: () => print('Room found'),
         ),
       ),
     );

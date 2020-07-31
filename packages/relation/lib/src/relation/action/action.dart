@@ -32,6 +32,8 @@ import 'package:rxdart/rxdart.dart';
 ///   someAction.action.listen(doSomething);
 /// ```
 class Action<T> implements Event<T> {
+  Action([void Function(T data) onChanged]) : onChanged = onChanged ?? ((a) {});
+
   /// Publish subject for updating actions
   final PublishSubject<T> _actionSubject = PublishSubject();
 
@@ -45,8 +47,6 @@ class Action<T> implements Event<T> {
   Stream<T> get stream => _actionSubject.stream;
 
   Subject<T> get subject => _actionSubject;
-
-  Action([void Function(T data) onChanged]) : onChanged = onChanged ?? ((a) {});
 
   @override
   Future<void> accept([T data]) async {

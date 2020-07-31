@@ -21,25 +21,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 class PreferencesHelper {
   Future<Object> get(String key, Object defaultValue) async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    var result = await sp?.get(key) ?? null;
-    print("DEV_INFO get from ${sp.toString()} by key $key | result $result");
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    final Object result = await sp?.get(key);
+    // ignore: avoid_print
+    print('DEV_INFO get from ${sp.toString()} by key $key | result $result');
     return result ?? defaultValue;
   }
 
-  Future set(String key, dynamic value) async {
-    SharedPreferences _sp = await SharedPreferences.getInstance();
-    if (value.runtimeType == String) {
+  Future set(String key, Object value) async {
+    final SharedPreferences _sp = await SharedPreferences.getInstance();
+    if (value is String) {
       await _sp.setString(key, value);
-    } else if (value.runtimeType == int) {
+    } else if (value is int) {
       await _sp.setInt(key, value);
-    } else if (value.runtimeType == double) {
+    } else if (value is double) {
       await _sp.setDouble(key, value);
-    } else if (value.runtimeType == bool) {
+    } else if (value is bool) {
       await _sp.setBool(key, value);
     } else {
-      throw Exception("Does not support type ${value.runtimeType} yet.");
+      throw Exception('Does not support type ${value.runtimeType} yet.');
     }
-    print("DEV_INFO set to ${_sp.toString()} by key $key | value $value");
+    // ignore: avoid_print
+    print('DEV_INFO set to ${_sp.toString()} by key $key | value $value');
   }
 }

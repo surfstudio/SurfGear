@@ -14,24 +14,9 @@ import 'cupertino_swipe_refresh.dart';
 /// Params for Cupertino style:
 /// [refreshTriggerPullDistance], [refreshIndicatorExtent], [indicatorBuilder].
 class SwipeRefresh extends StatelessWidget {
-  final Key key;
-  final List<Widget> children;
-  final VoidCallback onRefresh;
-  final SwipeRefreshState initState;
-  final Stream<SwipeRefreshState> stateStream;
-  final Color indicatorColor;
-  final Color backgroundColor;
-  final double refreshTriggerPullDistance;
-  final double refreshIndicatorExtent;
-  final RefreshControlIndicatorBuilder indicatorBuilder;
-  final SwipeRefreshStyle style;
-  final ScrollController scrollController;
-  final SliverChildDelegate childrenDelegate;
-  final EdgeInsets padding;
-
   const SwipeRefresh(
     this.style, {
-    this.key,
+    Key key,
     this.children,
     this.stateStream,
     this.initState,
@@ -44,13 +29,14 @@ class SwipeRefresh extends StatelessWidget {
     double refreshTriggerPullDistance,
     double refreshIndicatorExtent,
     RefreshControlIndicatorBuilder indicatorBuilder,
-  })  : this.backgroundColor = backgroundColor ?? const Color(0xFFFFFFFF),
-        this.refreshTriggerPullDistance = refreshTriggerPullDistance ??
-            CupertinoSwipeRefresh.DEFAULT_REFRESH_TRIGGER_PULL_DISTANCE,
-        this.refreshIndicatorExtent = refreshIndicatorExtent ??
-            CupertinoSwipeRefresh.DEFAULT_REFRESH_INDICATOR_EXTENT,
-        this.indicatorBuilder = indicatorBuilder ??
-            CupertinoSliverRefreshControl.buildSimpleRefreshIndicator;
+  })  : backgroundColor = backgroundColor ?? const Color(0xFFFFFFFF),
+        refreshTriggerPullDistance = refreshTriggerPullDistance ??
+            CupertinoSwipeRefresh.defaultRefreshTriggerPullDistance,
+        refreshIndicatorExtent = refreshIndicatorExtent ??
+            CupertinoSwipeRefresh.defaultRefreshIndicatorExtent,
+        indicatorBuilder = indicatorBuilder ??
+            CupertinoSliverRefreshControl.buildSimpleRefreshIndicator,
+        super(key: key);
 
   /// Create refresh indicator adaptive to platform.
   const SwipeRefresh.adaptive(
@@ -136,9 +122,9 @@ class SwipeRefresh extends StatelessWidget {
   /// remove some conflicts between ScrollControllers when ListView added into
   /// SwipeRefresh (remove need to add extra ListView)
   factory SwipeRefresh.builder({
-    Key key,
     @required IndexedWidgetBuilder itemBuilder,
     @required int itemCount,
+    Key key,
     Stream<SwipeRefreshState> stateStream,
     SwipeRefreshState initState,
     VoidCallback onRefresh,
@@ -176,6 +162,20 @@ class SwipeRefresh extends StatelessWidget {
     );
   }
 
+  final List<Widget> children;
+  final VoidCallback onRefresh;
+  final SwipeRefreshState initState;
+  final Stream<SwipeRefreshState> stateStream;
+  final Color indicatorColor;
+  final Color backgroundColor;
+  final double refreshTriggerPullDistance;
+  final double refreshIndicatorExtent;
+  final RefreshControlIndicatorBuilder indicatorBuilder;
+  final SwipeRefreshStyle style;
+  final ScrollController scrollController;
+  final SliverChildDelegate childrenDelegate;
+  final EdgeInsets padding;
+
   @override
   Widget build(BuildContext context) {
     return _buildByStyle(style);
@@ -186,18 +186,17 @@ class SwipeRefresh extends StatelessWidget {
       case SwipeRefreshStyle.material:
         return MaterialSwipeRefresh(
           key: key,
-          children: children,
           childrenDelegate: childrenDelegate,
           stateStream: stateStream,
           initState: initState,
           onRefresh: onRefresh,
           backgroundColor: backgroundColor,
           indicatorColor: indicatorColor,
+          children: children,
         );
       case SwipeRefreshStyle.cupertino:
         return CupertinoSwipeRefresh(
           key: key,
-          children: children,
           childrenDelegate: childrenDelegate,
           stateStream: stateStream,
           initState: initState,
@@ -205,6 +204,7 @@ class SwipeRefresh extends StatelessWidget {
           refreshIndicatorExtent: refreshIndicatorExtent,
           refreshTriggerPullDistance: refreshTriggerPullDistance,
           indicatorBuilder: indicatorBuilder,
+          children: children,
         );
       case SwipeRefreshStyle.builder:
       case SwipeRefreshStyle.adaptive:

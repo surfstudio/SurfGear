@@ -19,6 +19,21 @@ Widget _defaultTransitionBuilder(
 
 /// Implementation of tab navigation
 class TabNavigator extends StatefulWidget {
+  const TabNavigator({
+    @required this.mappedTabs,
+    @required this.selectedTabStream,
+    @required this.initialTab,
+    Key key,
+    this.onActiveTabReopened,
+    this.observersBuilder,
+    RouteTransitionsBuilder transitionsBuilder,
+    this.transitionDuration = const Duration(milliseconds: 300),
+  })  : assert(mappedTabs != null),
+        assert(selectedTabStream != null),
+        assert(initialTab != null),
+        transitionsBuilder = transitionsBuilder ?? _defaultTransitionBuilder,
+        super(key: key);
+
   final Map<TabType, TabBuilder> mappedTabs;
   final Stream<TabType> selectedTabStream;
   final TabType initialTab;
@@ -33,26 +48,12 @@ class TabNavigator extends StatefulWidget {
     tabNavigator = context.findAncestorStateOfType<TabNavigatorState>();
     if (tabNavigator == null) {
       throw Exception(
-          'Can not find nearest _TabNavigator of type $type. Do you define it?');
+        'Can not find nearest _TabNavigator of type $type. Do you define it?',
+      );
     }
 
     return tabNavigator;
   }
-
-  const TabNavigator({
-    Key key,
-    @required this.mappedTabs,
-    @required this.selectedTabStream,
-    @required this.initialTab,
-    this.onActiveTabReopened,
-    this.observersBuilder,
-    RouteTransitionsBuilder transitionsBuilder,
-    this.transitionDuration = const Duration(milliseconds: 300),
-  })  : assert(mappedTabs != null),
-        assert(selectedTabStream != null),
-        assert(initialTab != null),
-        transitionsBuilder = transitionsBuilder ?? _defaultTransitionBuilder,
-        super(key: key);
 
   @override
   TabNavigatorState createState() => TabNavigatorState();
@@ -86,7 +87,7 @@ class TabNavigatorState extends State<TabNavigator> {
       stream: widget.selectedTabStream,
       initialData: widget.initialTab,
       builder: (context, snapshot) {
-        TabType tabType = snapshot.data;
+        final TabType tabType = snapshot.data;
         if (!_initializedTabs.contains(tabType)) {
           _initializedTabs.add(tabType);
           tabObserver.addTab(tabType);
@@ -124,7 +125,7 @@ class TabNavigatorState extends State<TabNavigator> {
               observers: widget.observersBuilder != null
                   ? widget.observersBuilder(tabType)
                   : [],
-              onGenerateRoute: (rs) => PageRouteBuilder(
+              onGenerateRoute: (rs) => PageRouteBuilder<Object>(
                 settings: RouteSettings(
                   name: Navigator.defaultRouteName,
                 ),

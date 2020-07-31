@@ -16,6 +16,7 @@
 typedef AutoFutureCallback = Function(String id);
 
 /// Manager for endless replay [Future], until will not be performed
+// ignore: one_member_abstracts
 abstract class AutoFutureManager {
   /// register [Future] to auto reload
   ///
@@ -24,7 +25,7 @@ abstract class AutoFutureManager {
   /// [onComplete] - callback of success future, that returns id in queue
   Future<void> autoReload({
     String id,
-    Future toReload(),
+    Future Function() toReload,
     AutoFutureCallback onComplete,
   });
 }

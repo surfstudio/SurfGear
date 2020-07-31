@@ -21,16 +21,16 @@ typedef NavElementBuilder = Widget Function(bool isSelected);
 
 /// Bottom navigation bar widget.
 class BottomNavBar extends StatefulWidget {
-  final BottomNavTabType initType;
-  final Map<BottomNavTabType, NavElementBuilder> elements;
-  final StreamController<BottomNavTabType> selectedController;
-
   const BottomNavBar({
-    Key key,
     @required this.selectedController,
     @required this.initType,
     @required this.elements,
+    Key key,
   }) : super(key: key);
+
+  final BottomNavTabType initType;
+  final Map<BottomNavTabType, NavElementBuilder> elements;
+  final StreamController<BottomNavTabType> selectedController;
 
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
@@ -58,7 +58,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   List<Widget> _buildElements() {
-    List<Widget> widgets = [];
+    final List<Widget> widgets = [];
 
     widget.elements.forEach(
       (tabType, builder) => widgets.add(
@@ -71,8 +71,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   Widget _buildElement(NavElementBuilder builder, BottomNavTabType tabType) {
     return InkWell(
-      child: builder(tabType == _currentType),
       onTap: () => _updateSelected(tabType),
+      child: builder(tabType == _currentType),
     );
   }
 

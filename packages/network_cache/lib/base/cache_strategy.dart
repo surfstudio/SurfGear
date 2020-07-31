@@ -16,6 +16,7 @@ import 'package:network/network.dart';
 
 /// Strategy that decides what has to be done with
 /// both local and network data sources.
+// ignore: one_member_abstracts
 abstract class CacheStrategy {
   Stream<Response> resolve(
     Stream<Response> cacheResponse,

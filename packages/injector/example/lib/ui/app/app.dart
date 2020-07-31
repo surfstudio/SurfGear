@@ -20,8 +20,10 @@ import 'package:injector/injector.dart';
 
 /// Widget приложения
 class App extends StatefulWidget {
+  const App({Key key}) : super(key: key);
+
   @override
-  State createState() => new _AppState();
+  State createState() => _AppState();
 }
 
 class _AppState extends State<App> {

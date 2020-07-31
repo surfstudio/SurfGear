@@ -9,16 +9,16 @@ class Message extends NotificationPayload {
     this.extraDouble,
   ) : super(messageData, title, body);
 
-  final int extraInt;
-  final double extraDouble;
-
-  factory Message.fromMap(Map<String, dynamic> map) {
+  factory Message.fromMap(Map<String, Object> map) {
     return Message(
       map,
-      map['notification']['title'],
-      map['notification']['body'],
-      map['extraInt'] ?? 0,
-      map['extraDouble'] ?? 0.0,
+      (map['notification'] as Map<String, Object>)['title'] as String,
+      (map['notification'] as Map<String, Object>)['body'] as String,
+      map['extraInt'] as int ?? 0,
+      map['extraDouble'] as double ?? 0.0,
     );
   }
+
+  final int extraInt;
+  final double extraDouble;
 }

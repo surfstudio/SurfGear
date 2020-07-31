@@ -28,7 +28,8 @@ class PushHandler {
   final BaseMessagingService _messagingService;
 
   /// display local notification
-  /// [MessagingService] calls this method to display the notification that came from message service
+  /// MessagingService calls this method to display the notification that
+  /// came from message service
   void handleMessage(
     Map<String, dynamic> message,
     MessageHandlerType handlerType, {
@@ -38,7 +39,7 @@ class PushHandler {
       messageSubject.add(message);
     }
 
-    var strategy = _strategyFactory.createByData(message);
+    final strategy = _strategyFactory.createByData(message);
     if (message != null) {
       if (handlerType == MessageHandlerType.onLaunch ||
           handlerType == MessageHandlerType.onResume) {

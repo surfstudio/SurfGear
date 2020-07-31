@@ -20,17 +20,17 @@ import 'package:relation/src/relation/state/streamed_state.dart';
 
 /// Stream builder for text fields
 class TextFieldStateBuilder extends StatelessWidget {
-  /// State of textfield
-  final TextFieldStreamedState state;
-
-  /// Builder of state
-  final Widget Function(BuildContext, TextFieldState) stateBuilder;
-
   const TextFieldStateBuilder({
     Key key,
     this.state,
     this.stateBuilder,
   }) : super(key: key);
+
+  /// State of text field
+  final TextFieldStreamedState state;
+
+  /// Builder of state
+  final Widget Function(BuildContext, TextFieldState) stateBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -49,35 +49,33 @@ class TextFieldStateBuilder extends StatelessWidget {
 ///   - content
 /// todo come up with how to combine with the controller
 class TextFieldState extends EntityState<String> {
-  /// Textfield is enabled
-  final bool isEnabled;
-
-  @override
-  final String data;
-
-  /// Content contstructor
-  TextFieldState.content(String data)
+  /// Content constructor
+  TextFieldState.content(this.data)
       : isEnabled = true,
-        data = data,
         super.content(data);
 
-  /// Error contstructor
-  TextFieldState.error(String oldData, [Exception e])
+  /// Error constructor
+  TextFieldState.error(this.data, [Exception e])
       : isEnabled = true,
-        data = oldData,
         super.error(e);
 
-  /// Loading contstructor
+  /// Loading constructor
   TextFieldState.loading()
       : isEnabled = false,
         data = '',
         super.loading();
 
-  /// Enabled contstructor
-  TextFieldState.enabled(String oldData, [bool enabled = true])
+  /// Enabled constructor
+  TextFieldState.enabled(this.data, {bool enabled = true})
       : isEnabled = enabled,
-        data = oldData,
-        super.content(oldData);
+        super.content(data);
+
+  /// Text field is enabled
+  final bool isEnabled;
+
+  @override
+  // ignore: overridden_fields
+  final String data;
 }
 
 /// Stream view of text field state
@@ -85,6 +83,15 @@ class TextFieldState extends EntityState<String> {
 /// [mandatory], [canEdit]
 class TextFieldStreamedState extends StreamedState<TextFieldState>
     implements EntityEvent<String> {
+  TextFieldStreamedState(
+    String initialData, {
+    String validator = '',
+    this.mandatory = false,
+    this.canEdit = true,
+    this.incorrectTextMsg = '',
+  })  : validator = RegExp(validator),
+        super(TextFieldState.enabled(initialData, enabled: canEdit));
+
   /// Validator of regex
   final RegExp validator;
 
@@ -97,15 +104,6 @@ class TextFieldStreamedState extends StreamedState<TextFieldState>
   /// Text of error
   final String incorrectTextMsg;
 
-  TextFieldStreamedState(
-    String initialData, {
-    Pattern validator = r'',
-    this.mandatory = false,
-    this.canEdit = true,
-    this.incorrectTextMsg = '',
-  })  : validator = RegExp(validator),
-        super(TextFieldState.enabled(initialData, canEdit));
-
   @override
   Future<void> content([String data]) {
     if (!validator.hasMatch(data) || (data.isEmpty && mandatory)) {
@@ -116,7 +114,7 @@ class TextFieldStreamedState extends StreamedState<TextFieldState>
         ),
       );
     } else if (!canEdit) {
-      return accept(TextFieldState.enabled(value.data, canEdit));
+      return accept(TextFieldState.enabled(value.data, enabled: canEdit));
     } else {
       return super.accept(TextFieldState.content(data));
     }
@@ -124,20 +122,20 @@ class TextFieldStreamedState extends StreamedState<TextFieldState>
 
   @override
   Future<void> error([Exception error]) {
-    var state = TextFieldState.error(value.data, error);
+    final state = TextFieldState.error(value.data, error);
     return super.accept(state);
   }
 
   @override
   Future<void> loading() {
-    var state = TextFieldState.loading();
+    final state = TextFieldState.loading();
     return super.accept(state);
   }
 }
 
 /// Exception of incorrect text wrapper
 class IncorrectTextException implements Exception {
-  final String message;
-
   IncorrectTextException(this.message);
+
+  final String message;
 }

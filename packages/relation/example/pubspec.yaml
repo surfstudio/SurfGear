@@ -24,9 +24,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
-  # static analysis
-  pedantic: ^1.7.0
-
   #rx
   rxdart: ^0.24.0
 

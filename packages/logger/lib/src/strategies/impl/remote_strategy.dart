@@ -16,7 +16,7 @@ import 'package:logger/src/const.dart';
 import 'package:logger/src/remote_logger.dart';
 import 'package:logger/src/strategies/log_strategy.dart';
 
-const minRemotePriority = PRIORITY_LOG_WARN;
+const minRemotePriority = priorityLogWarn;
 
 /// Strategy for sending logs to a remote server
 /// * logs are sent starting from [minRemotePriority]

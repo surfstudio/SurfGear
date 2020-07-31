@@ -27,8 +27,9 @@ enum Permission {
 /// Service for requesting and checking permissions
 abstract class PermissionManager {
   /// Permission request.
-  /// Return [true] if granted.
-  /// in case of "Don't ask me" and [checkRationale] throw [FeatureProhibitedException]
+  /// Return true if granted.
+  /// in case of "Don't ask me" and [checkRationale] throw
+  /// FeatureProhibitedException
   /// (Actual for Android, on iOS always throw)
   Future<bool> request(Permission permission, {bool checkRationale});
 
@@ -36,6 +37,6 @@ abstract class PermissionManager {
   Future<bool> check(Permission permission);
 
   /// Open system settings.
-  /// If user open settings return [true]
+  /// If user open settings return true
   Future<bool> openSettings();
 }

@@ -7,9 +7,6 @@ import 'package:swipe_refresh/src/swipe_refresh_state.dart';
 
 /// Refresh indicator widget with Material Design style.
 class MaterialSwipeRefresh extends SwipeRefreshBase {
-  final Color indicatorColor;
-  final Color backgroundColor;
-
   const MaterialSwipeRefresh({
     Key key,
     this.indicatorColor,
@@ -33,6 +30,9 @@ class MaterialSwipeRefresh extends SwipeRefreshBase {
           padding: padding,
         );
 
+  final Color indicatorColor;
+  final Color backgroundColor;
+
   @override
   _MaterialSwipeRefreshState createState() => _MaterialSwipeRefreshState();
 }
@@ -43,22 +43,22 @@ class _MaterialSwipeRefreshState
   Widget buildRefresher(Key key, List<Widget> children, onRefresh) {
     return RefreshIndicator(
       key: key,
+      onRefresh: onRefresh,
+      color: widget.indicatorColor,
+      backgroundColor: widget.backgroundColor,
       child: widget.childrenDelegate == null
           ? ListView(
               padding: widget.padding,
               controller: widget.scrollController ?? ScrollController(),
+              physics: const AlwaysScrollableScrollPhysics(),
               children: children,
-              physics: AlwaysScrollableScrollPhysics(),
             )
           : ListView.custom(
               padding: widget.padding,
               childrenDelegate: widget.childrenDelegate,
               controller: widget.scrollController ?? ScrollController(),
-              physics: AlwaysScrollableScrollPhysics(),
+              physics: const AlwaysScrollableScrollPhysics(),
             ),
-      onRefresh: onRefresh,
-      color: widget.indicatorColor,
-      backgroundColor: widget.backgroundColor,
     );
   }
 

@@ -6,10 +6,10 @@ import 'package:swipe_refresh/swipe_refresh.dart';
 class StreamedSwipeRefresh extends SwipeRefresh {
   StreamedSwipeRefresh(
     SwipeRefreshStyle style, {
-    Key key,
     @required List<Widget> children,
     @required StreamedState<SwipeRefreshState> stateStream,
     @required VoidCallback onRefresh,
+    Key key,
     Color indicatorColor,
     Color backgroundColor,
     double refreshTriggerPullDistance,
@@ -28,10 +28,10 @@ class StreamedSwipeRefresh extends SwipeRefresh {
             indicatorBuilder: indicatorBuilder);
 
   StreamedSwipeRefresh.adaptive({
-    Key key,
     @required List<Widget> children,
     @required StreamedState<SwipeRefreshState> stateStream,
     @required VoidCallback onRefresh,
+    Key key,
     Color indicatorColor,
     Color backgroundColor,
     double refreshTriggerPullDistance,
@@ -50,14 +50,14 @@ class StreamedSwipeRefresh extends SwipeRefresh {
           indicatorBuilder: indicatorBuilder,
         );
 
-  StreamedSwipeRefresh.material(
-      {Key key,
-      @required List<Widget> children,
-      @required StreamedState<SwipeRefreshState> stateStream,
-      @required VoidCallback onRefresh,
-      Color indicatorColor,
-      Color backgroundColor})
-      : super.material(
+  StreamedSwipeRefresh.material({
+    @required List<Widget> children,
+    @required StreamedState<SwipeRefreshState> stateStream,
+    @required VoidCallback onRefresh,
+    Key key,
+    Color indicatorColor,
+    Color backgroundColor,
+  }) : super.material(
             key: key,
             children: children,
             onRefresh: onRefresh,
@@ -67,10 +67,10 @@ class StreamedSwipeRefresh extends SwipeRefresh {
             backgroundColor: backgroundColor);
 
   StreamedSwipeRefresh.cupertino({
-    Key key,
     @required List<Widget> children,
     @required StreamedState<SwipeRefreshState> stateStream,
     @required VoidCallback onRefresh,
+    Key key,
     double refreshTriggerPullDistance,
     double refreshIndicatorExtent,
     RefreshControlIndicatorBuilder indicatorBuilder,

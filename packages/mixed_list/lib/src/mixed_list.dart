@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:mixed_list/src/item_builder.dart';
 
-/// Mode visualisation of MixedList.
+/// Mode visualization of MixedList.
 enum ListMode {
   grid,
   list,
@@ -9,6 +9,21 @@ enum ListMode {
 
 /// Widget list for display different type of data.
 class MixedList extends StatefulWidget {
+  const MixedList({
+    @required this.supportedItemControllers,
+    @required this.items,
+    @required this.listMode,
+    Key key,
+    this.scrollPhysics,
+    this.scrollController,
+    this.sliverPadding = const EdgeInsets.all(0),
+    this.gridDelegate =
+        const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+    this.itemsDelegate,
+  })  : assert(supportedItemControllers != null),
+        assert(items != null),
+        super(key: key);
+
   /// The amount of space by which to inset the child sliver.
   final EdgeInsets sliverPadding;
 
@@ -34,19 +49,6 @@ class MixedList extends StatefulWidget {
 
   /// The delegate that provides the children for this widget.
   final SliverChildBuilderDelegate itemsDelegate;
-
-  MixedList({
-    @required this.supportedItemControllers,
-    @required this.items,
-    @required this.listMode,
-    this.scrollPhysics,
-    this.scrollController,
-    this.sliverPadding = const EdgeInsets.all(0),
-    this.gridDelegate =
-        const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-    this.itemsDelegate,
-  })  : assert(supportedItemControllers != null),
-        assert(items != null);
 
   @override
   State<StatefulWidget> createState() => MixedListState();
@@ -87,7 +89,7 @@ class MixedListState<W extends MixedList> extends State<W> {
     BuildContext context,
     int position,
   ) {
-    final item = widget.items[position];
+    final Object item = widget.items[position];
 
     final controller = widget.supportedItemControllers[item.runtimeType];
 

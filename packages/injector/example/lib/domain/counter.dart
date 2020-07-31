@@ -13,7 +13,7 @@
 // limitations under the License.
 
 class Counter {
-  final int count;
-
   Counter(this.count);
+
+  final int count;
 }

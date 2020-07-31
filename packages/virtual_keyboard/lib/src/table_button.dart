@@ -3,6 +3,23 @@ import 'package:virtual_keyboard/src/virtual_keyboard_effect.dart';
 import 'package:ink_widget/ink_widget.dart';
 
 class TableButton extends StatelessWidget {
+  const TableButton({
+    Key key,
+    this.width,
+    this.height,
+    this.child,
+    this.onTap,
+    this.padding,
+    this.keyDecoration,
+    this.inkShapeRipple,
+    this.inkShapeBorder,
+    VirtualKeyboardEffect virtualKeyboardEffect,
+    bool useAsKey,
+  })  : virtualKeyboardEffect =
+            virtualKeyboardEffect ?? VirtualKeyboardEffect.none,
+        useAsKey = useAsKey ?? false,
+        super(key: key);
+
   /// Button Width
   final double width;
 
@@ -28,21 +45,6 @@ class TableButton extends StatelessWidget {
 
   /// [ShapeBorder] for InkWell
   final ShapeBorder inkShapeBorder;
-
-  TableButton({
-    this.width,
-    this.height,
-    this.child,
-    this.onTap,
-    this.padding,
-    this.keyDecoration,
-    this.inkShapeRipple,
-    this.inkShapeBorder,
-    VirtualKeyboardEffect virtualKeyboardEffect,
-    bool useAsKey,
-  })  : virtualKeyboardEffect =
-            virtualKeyboardEffect ?? VirtualKeyboardEffect.none,
-        useAsKey = useAsKey ?? false;
 
   @override
   Widget build(BuildContext context) {

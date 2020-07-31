@@ -4,6 +4,12 @@ import 'package:push_notification/src/notification/notificator/notificator.dart'
 
 /// Notifications for the ios platform
 class IOSNotification {
+  IOSNotification({
+    this.channel,
+    this.onNotificationTap,
+    this.onPermissionDecline,
+  });
+
   /// MethodChannel for connecting to ios native platform
   final MethodChannel channel;
 
@@ -11,25 +17,21 @@ class IOSNotification {
   final OnNotificationTapCallback onNotificationTap;
 
   /// Callback notification decline
-  final OnPemissionDeclineCallback onPermissionDecline;
-
-  IOSNotification({
-    this.channel,
-    this.onNotificationTap,
-    this.onPermissionDecline,
-  });
+  final OnPermissionDeclineCallback onPermissionDecline;
 
   Future init() async {
     channel.setMethodCallHandler(
       (call) async {
         switch (call.method) {
-          case CALLBACK_OPEN:
+          case openCallback:
             if (onNotificationTap != null) {
-              final notificationData = Map.of(call.arguments);
+              final notificationData = Map<String, Object>.of(
+                call.arguments as Map<String, Object>,
+              );
               onNotificationTap(notificationData);
             }
             break;
-          case CALLBACK_PERMISSION_DECLINE:
+          case permissionDeclineCallback:
             onPermissionDecline();
             break;
         }
@@ -46,7 +48,7 @@ class IOSNotification {
     bool requestAlertPermission = false,
   }) async {
     return channel.invokeMethod<bool>(
-      CALL_REQUEST,
+      callRequest,
       <String, dynamic>{
         'requestAlertPermission': requestAlertPermission,
         'requestSoundPermission': requestSoundPermission,
@@ -66,14 +68,14 @@ class IOSNotification {
     Map<String, String> data,
     IosNotificationSpecifics notificationSpecifics,
   ) async {
-    return channel.invokeMethod(
-      CALL_SHOW,
+    return channel.invokeMethod<dynamic>(
+      callShow,
       <String, dynamic>{
-        ARG_PUSH_ID: id ?? 0,
-        ARG_TITLE: title ?? "",
-        ARG_BODY: body ?? "",
-        ARG_IMAGE_URL: imageUrl,
-        ARG_DATA: data,
+        pushIdArg: id ?? 0,
+        titleArg: title ?? '',
+        bodyArg: body ?? '',
+        imageUrlArg: imageUrl,
+        dataArg: data,
       },
     );
   }
