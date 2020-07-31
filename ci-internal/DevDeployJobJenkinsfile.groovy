@@ -83,7 +83,7 @@ pipeline.stages = [
             RepositoryUtil.saveCurrentGitCommitHash(script)
         },
 
-        // gполучение зависимостей
+        // получение зависимостей
         pipeline.stage(GET_DEPENDENCIES) {
             script.sh "cd tools/ci/ && pub get"
         },
@@ -95,8 +95,7 @@ pipeline.stages = [
 
         // изменения версии изменившихся модулей
         pipeline.stage(CHANGE_VIRSION) {
-            script.echo "Change version"
-            //TODO изменение версии
+            script.sh "./tools/ci/runner/increment_unstable_versions"
         },
 
         // коммит изменений
@@ -126,8 +125,7 @@ pipeline.stages = [
         pipeline.stage(CHECKS_RESULT) {
             def checksPassed = true
             [
-                    MIRRORING
-
+                MIRRORING
             ].each { stageName ->
                 def stageResult = pipeline.getStage(stageName).result
                 checksPassed = checksPassed && (stageResult == Result.SUCCESS || stageResult == Result.NOT_BUILT)
