@@ -95,7 +95,8 @@ pipeline.stages = [
 
         // изменения версии изменившихся модулей
         pipeline.stage(CHANGE_VIRSION) {
-            script.sh "./tools/ci/runner/increment_unstable_versions"
+            // script.sh "./tools/ci/runner/increment_unstable_versions"
+            script.echo "increment_unstable_versions"
         },
 
         // коммит изменений
