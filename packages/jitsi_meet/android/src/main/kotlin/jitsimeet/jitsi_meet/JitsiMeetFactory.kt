@@ -7,7 +7,7 @@ import io.flutter.plugin.platform.PlatformViewFactory
 import io.flutter.plugin.common.BinaryMessenger
 
 class JitsiMeetFactory(private val messanger: BinaryMessenger,
-                       lprivate val activityContext: android.content.Context?
+                       private val activityContext: android.content.Context?
 ) : PlatformViewFactory(StandardMessageCodec.INSTANCE) {
 
     override fun create(context: android.content.Context, i: Int, o: Any?): PlatformView {

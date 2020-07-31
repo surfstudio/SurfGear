@@ -19,17 +19,18 @@ import 'package:permission/base/permission_manager.dart';
 import 'package:permission/base/strategy/deny_resolve_strategy_storage.dart';
 import 'package:permission/base/strategy/proceed_permission_strategy.dart';
 import 'package:permission_handler/permission_handler.dart'
-as permissionHandler;
+    as permission_handler;
 
 class DefaultPermissionManager implements PermissionManager {
-  final ProceedPermissionStrategyStorage _strategyStorage;
-
   DefaultPermissionManager(this._strategyStorage);
 
+  final ProceedPermissionStrategyStorage _strategyStorage;
+
+  @override
   Future<bool> request(
-      Permission permission, {
-        bool checkRationale = false,
-      }) async {
+    Permission permission, {
+    bool checkRationale = false,
+  }) async {
     final permissionGroup = _mapPermission(permission);
     final strategy = _strategyStorage.getStrategy(permission);
 
@@ -47,7 +48,7 @@ class DefaultPermissionManager implements PermissionManager {
           permission,
           showRationale
               ? PermissionStrategyStatus.deny
-              : PermissionStrategyStatus.permanent_deny);
+              : PermissionStrategyStatus.permanentDeny);
 
       if (showRationale) {
         return false;
@@ -60,42 +61,44 @@ class DefaultPermissionManager implements PermissionManager {
     return false;
   }
 
+  @override
   Future<bool> check(Permission permission) async {
     final status = await _mapPermission(permission).status;
 
     return _isGoodStatus(status);
   }
 
-  Future<bool> openSettings() => permissionHandler.openAppSettings();
+  @override
+  Future<bool> openSettings() => permission_handler.openAppSettings();
 
-  bool _isGoodStatus(permissionHandler.PermissionStatus status) =>
-      status == permissionHandler.PermissionStatus.granted ||
-          status == permissionHandler.PermissionStatus.restricted;
+  bool _isGoodStatus(permission_handler.PermissionStatus status) =>
+      status == permission_handler.PermissionStatus.granted ||
+      status == permission_handler.PermissionStatus.restricted;
 
-  permissionHandler.Permission _mapPermission(Permission permission) {
+  permission_handler.Permission _mapPermission(Permission permission) {
     switch (permission) {
       case Permission.camera:
-        return permissionHandler.Permission.camera;
+        return permission_handler.Permission.camera;
       case Permission.gallery:
         return Platform.isAndroid
-            ? permissionHandler.Permission.storage
-            : permissionHandler.Permission.photos;
+            ? permission_handler.Permission.storage
+            : permission_handler.Permission.photos;
       case Permission.location:
-        return permissionHandler.Permission.location;
+        return permission_handler.Permission.location;
       case Permission.calendar:
-        return permissionHandler.Permission.calendar;
+        return permission_handler.Permission.calendar;
       case Permission.contacts:
-        return permissionHandler.Permission.contacts;
+        return permission_handler.Permission.contacts;
       case Permission.microphone:
-        return permissionHandler.Permission.microphone;
+        return permission_handler.Permission.microphone;
       case Permission.phone:
-        return permissionHandler.Permission.phone;
+        return permission_handler.Permission.phone;
       case Permission.speech:
-        return permissionHandler.Permission.speech;
+        return permission_handler.Permission.speech;
       case Permission.notification:
-        return permissionHandler.Permission.notification;
+        return permission_handler.Permission.notification;
       default:
-        return permissionHandler.Permission.unknown;
+        return permission_handler.Permission.unknown;
     }
   }
 }

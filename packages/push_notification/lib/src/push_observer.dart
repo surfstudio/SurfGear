@@ -5,11 +5,11 @@ import 'package:push_notification/src/push_navigator_holder.dart';
 class PushObserver extends NavigatorObserver {
   @override
   void didPush(Route<dynamic> route, Route<dynamic> previousRoute) {
-    PushNavigatorHolder().navigator = this.navigator;
+    PushNavigatorHolder().navigator = navigator;
   }
 
   @override
   void didPop(Route<dynamic> route, Route<dynamic> previousRoute) {
-    PushNavigatorHolder().navigator = this.navigator;
+    PushNavigatorHolder().navigator = navigator;
   }
 }

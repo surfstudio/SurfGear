@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 /// Builder by data base class.
+// ignore: one_member_abstracts
 abstract class ItemBuilder<T> {
   /// Create widget inside parent
   ///

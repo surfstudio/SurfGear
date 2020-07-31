@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 
 /// Demo widget for [AutoReloadMixin]
 class DemoAutoReloadWidget extends StatefulWidget {
+  const DemoAutoReloadWidget({Key key}) : super(key: key);
   @override
   _DemoAutoReloadWidgetState createState() => _DemoAutoReloadWidgetState();
 }
@@ -13,6 +14,7 @@ abstract class _AutoReloadState extends State<DemoAutoReloadWidget>
 
 class _DemoAutoReloadWidgetState extends _AutoReloadState with AutoReloadMixin {
   @override
+  // ignore: overridden_fields
   final Duration autoReloadDuration = const Duration(seconds: 3);
 
   int _countOfReload = 0;

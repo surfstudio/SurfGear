@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../domain/message.dart';
 
-const String androidMipMapIcon = "@mipmap/ic_launcher";
+const String androidMipMapIcon = '@mipmap/ic_launcher';
 
 class FirstScreen extends StatefulWidget {
-  FirstScreen(this.payload);
+  const FirstScreen(this.payload, {Key key}) : super(key: key);
 
   final Message payload;
 
@@ -23,12 +23,12 @@ class FirstScreenState extends State<FirstScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('First notification screen'),
+        title: const Text('First notification screen'),
       ),
       body: Center(
         child: Column(
           children: <Widget>[
-            Text('Incomming message'),
+            const Text('Incoming message'),
             Text('Title : ${widget.payload.title}'),
             Text('Body: ${widget.payload.body}'),
           ],

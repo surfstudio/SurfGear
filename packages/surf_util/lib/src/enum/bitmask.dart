@@ -10,7 +10,9 @@ abstract class Bitmask extends Enum<int> {
   /// Возвращает значение маски по списку значений
   static int getMask(Iterable<Bitmask> list) {
     var res = 0;
-    list.forEach((e) => res = res | e.value);
+    for (final item in list) {
+      res = res | item.value;
+    }
 
     return res;
   }

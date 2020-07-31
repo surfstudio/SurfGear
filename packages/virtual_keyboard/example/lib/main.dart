@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:virtual_keyboard/virtual_keyboard.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,13 +15,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'InkWidget example'),
+      home: const MyHomePage(title: 'InkWidget example'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -66,16 +67,16 @@ class _MyHomePageState extends State<MyHomePage> {
       useAsKey: true,
       widget: InkWell(
         splashColor: Colors.green,
-        child: SizedBox(
-          height: 50,
-          child: Center(child: Text('Clear')),
-        ),
         onTap: () {
           _symbols = '';
           _KeyboardUtils.numericKeyboardKeys[3][2] =
               _KeyboardUtils.buildDelete();
           setState(() {});
         },
+        child: const SizedBox(
+          height: 50,
+          child: Center(child: Text('Clear')),
+        ),
       ),
     );
   }
@@ -99,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 abstract class _KeyboardUtils {
-  /// Клавиши для цифровой жкранной клавиатуры
+  /// Клавиши для цифровой экранной клавиатуры
   static List<List<VirtualKeyboardKey>> numericKeyboardKeys = [
     for (int i = 1; i < 4; i++)
       [
@@ -110,7 +111,7 @@ abstract class _KeyboardUtils {
       VirtualKeyboardEmptyStubKey(),
       VirtualKeyboardNumberKey(
         '0',
-        widget: Text('Zero'),
+        widget: const Text('Zero'),
         keyDecoration: BoxDecoration(
           color: Colors.red.withOpacity(.1),
         ),
@@ -121,7 +122,7 @@ abstract class _KeyboardUtils {
 
   static VirtualKeyboardKey buildDelete() {
     return VirtualKeyboardDeleteKey(
-      widget: Text('delete'),
+      widget: const Text('delete'),
     );
   }
 }

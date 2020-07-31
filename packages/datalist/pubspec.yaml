@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  surf_lint_rules:
+    path: ../surf_lint_rules
 
   http: 0.12.0+4
 

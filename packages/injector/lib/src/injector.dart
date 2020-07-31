@@ -22,26 +22,26 @@ Type _typeOf<T>() => T;
 /// Children can get component dependency by 'of' and 'Component.get(Type)'
 ///
 class Injector<C extends Component> extends StatefulWidget {
+  // const - кеширование?
+  const Injector({this.component, Key key, this.builder}) : super(key: key);
+
   final C component;
   final WidgetBuilder builder;
 
-  //конст - кеширование?
-  const Injector({this.component, Key key, this.builder}) : super(key: key);
-
   static _Injector<C> of<C extends Component>(BuildContext context) {
-    Type type = _typeOf<_Injector<C>>();
-    var injector;
+    final Type type = _typeOf<_Injector<C>>();
+    InheritedWidget injector;
     try {
       injector =
+          // ignore: deprecated_member_use
           context.ancestorInheritedElementForWidgetOfExactType(type)?.widget;
       if (injector == null) {
         throw Exception(
-            "Can not find nearest Injector of type $type. Do you define it?");
+            'Can not find nearest Injector of type $type. Do you define it?');
       }
-    } catch (e) {
-      injector = context
-          .ancestorInheritedElementForWidgetOfExactType(_Injector)
-          ?.widget;
+    } on Exception {
+      injector =
+          context.getElementForInheritedWidgetOfExactType<_Injector>()?.widget;
     }
 
     return injector as _Injector<C>;
@@ -55,7 +55,7 @@ class _InjectorState<C extends Component> extends State<Injector> {
   @override
   Widget build(BuildContext context) {
     return _Injector<C>(
-      component: widget.component,
+      component: widget.component as C,
       child: _InjectorProxy(
         builder: (c) => widget.builder(c),
       ),
@@ -65,9 +65,9 @@ class _InjectorState<C extends Component> extends State<Injector> {
 
 //todo remove this
 class _InjectorProxy extends StatelessWidget {
-  final WidgetBuilder builder;
-
   const _InjectorProxy({Key key, this.builder}) : super(key: key);
+
+  final WidgetBuilder builder;
 
   @override
   Widget build(BuildContext context) {
@@ -80,11 +80,11 @@ class _InjectorProxy extends StatelessWidget {
 /// Making this class extend [InheritedWidget] able to provide dependencies
 /// and define "scopes"
 class _Injector<C extends Component> extends InheritedWidget {
-  final C component;
-
   //конст - кеширование?
   const _Injector({this.component, Key key, Widget child})
       : super(key: key, child: child);
+
+  final C component;
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) {

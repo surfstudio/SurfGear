@@ -22,23 +22,23 @@ class DebugLogStrategy extends LogStrategy {
   @override
   void log(String message, int priority, [Exception error]) {
     if (error != null) {
-      debugPrint("ERROR: $error");
+      debugPrint('ERROR: $error');
     }
 
-    final logMessage = "${_mapPrefix(priority)} $message";
+    final logMessage = '${_mapPrefix(priority)} $message';
     debugPrint(logMessage);
   }
 
   String _mapPrefix(int priority) {
     switch (priority) {
-      case PRIORITY_LOG_DEBUG:
-        return PREFIX_LOG_DEBUG;
-      case PRIORITY_LOG_WARN:
-        return PREFIX_LOG_WARN;
-      case PRIORITY_LOG_ERROR:
-        return PREFIX_LOG_ERROR;
+      case priorityLogDebug:
+        return prefixLogDebug;
+      case priorityLogWarn:
+        return prefixLogWarn;
+      case priorityLogError:
+        return prefixLogError;
       default:
-        return "";
+        return '';
     }
   }
 }

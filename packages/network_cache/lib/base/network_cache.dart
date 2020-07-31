@@ -19,7 +19,7 @@ import 'package:network/network.dart';
 abstract class NetworkCache {
   /// Get data from local storage or
   /// make network request and save response.
-  /// Behavior may be customized with [CacheStrategy]
+  /// Behavior may be customized with CacheStrategy
   Stream<Response> hybridGet(
     String url, {
     Map<String, dynamic> query,

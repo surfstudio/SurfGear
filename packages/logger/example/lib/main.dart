@@ -25,6 +25,10 @@ void _initLogger() {
 }
 
 class MyApp extends StatelessWidget {
+  MyApp({Key key}) : super(key: key) {
+    Logger.d('MyApp constructor');
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -36,10 +40,6 @@ class MyApp extends StatelessWidget {
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
-  }
-
-  MyApp() {
-    Logger.d('MyApp constructor');
   }
 }
 
@@ -55,11 +55,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
   _MyHomePageState() {
     Logger.d('MyHomePageState constructor');
   }
+
+  int _counter = 0;
 
   void _incrementCounter() {
     Logger.d('counter value = $_counter before setState');
@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               'You have pushed the button this many times:',
             ),
             Text(

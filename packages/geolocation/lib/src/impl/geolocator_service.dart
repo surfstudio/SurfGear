@@ -20,8 +20,18 @@ import 'package:geolocator/geolocator.dart' as lib;
 import 'package:rxdart/rxdart.dart';
 
 /// Based on https://github.com/BaseflowIT/flutter-geolocator
-/// Additionaly can compute distance between two points
+/// Additionally can compute distance between two points
 class GeolocatorService implements LocationService {
+  GeolocatorService({
+    LocationAccuracy accuracy = LocationAccuracy.high,
+    this.interval = 1000,
+    this.distanceFilter = 0,
+    this.defaultLocation,
+    this.shouldUseLocationManager = false,
+  })  : accuracy = _mapAccuracy(accuracy),
+        _geolocator = lib.Geolocator()
+          ..forceAndroidLocationManager = shouldUseLocationManager;
+
   final lib.LocationAccuracy accuracy;
   final int distanceFilter;
   final int interval;
@@ -29,16 +39,6 @@ class GeolocatorService implements LocationService {
   final bool shouldUseLocationManager;
 
   final lib.Geolocator _geolocator;
-
-  GeolocatorService({
-    LocationAccuracy accuracy = LocationAccuracy.HIGH,
-    this.interval = 1000,
-    this.distanceFilter = 0,
-    this.defaultLocation,
-    this.shouldUseLocationManager = false,
-  })  : this.accuracy = _mapAccuracy(accuracy),
-        _geolocator = lib.Geolocator()
-          ..forceAndroidLocationManager = shouldUseLocationManager;
 
   /// Returns the distance between the supplied coordinates in meters.
   Future<double> distanceBetween(
@@ -55,7 +55,9 @@ class GeolocatorService implements LocationService {
   Future<Location> getLocation() {
     return _geolocator
         .getCurrentPosition(desiredAccuracy: accuracy)
-        .then(_positionToLocation, onError: (e) => getLastKnownLocation())
+        .then(_positionToLocation,
+            // ignore: avoid_types_on_closure_parameters
+            onError: (Exception e) => getLastKnownLocation())
         .catchError(_handleError);
   }
 
@@ -109,7 +111,7 @@ class GeolocatorService implements LocationService {
     );
   }
 
-  Future<Location> _handleError(error, stacktrace) {
+  Future<Location> _handleError(Exception error, String stacktrace) {
     if (error is PlatformException) {
       throw LocationPermissionNotGrantedException();
     }
@@ -123,19 +125,19 @@ class GeolocatorService implements LocationService {
 
   static lib.LocationAccuracy _mapAccuracy(LocationAccuracy source) {
     switch (source) {
-      case LocationAccuracy.POWERSAVE:
+      case LocationAccuracy.powerSave:
         return lib.LocationAccuracy.lowest;
         break;
-      case LocationAccuracy.LOW:
+      case LocationAccuracy.low:
         return lib.LocationAccuracy.low;
         break;
-      case LocationAccuracy.BALANCED:
+      case LocationAccuracy.balanced:
         return lib.LocationAccuracy.medium;
         break;
-      case LocationAccuracy.HIGH:
+      case LocationAccuracy.high:
         return lib.LocationAccuracy.best;
         break;
-      case LocationAccuracy.NAVIGATION:
+      case LocationAccuracy.navigator:
         return lib.LocationAccuracy.bestForNavigation;
         break;
       default:

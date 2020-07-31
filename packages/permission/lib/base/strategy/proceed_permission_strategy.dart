@@ -1,6 +1,7 @@
 import 'package:permission/base/permission_manager.dart';
 
 /// Base class for proceed request permission.
+// ignore: one_member_abstracts
 abstract class ProceedPermissionStrategy {
   /// Method for proceed request permission.
   Future<void> proceed(Permission permission, PermissionStrategyStatus status);
@@ -15,5 +16,5 @@ enum PermissionStrategyStatus {
   deny,
 
   /// User deny this permission with "Don't ask me" or deny on iOs
-  permanent_deny
+  permanentDeny
 }

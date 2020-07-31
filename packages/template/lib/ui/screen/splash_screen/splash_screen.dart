@@ -25,8 +25,7 @@ class _SplashScreenState extends WidgetState<SplashScreenWidgetModel> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
+          children: const <Widget>[
             Icon(
               Icons.error_outline,
               size: 150,

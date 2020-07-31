@@ -26,8 +26,8 @@ class DefaultErrorFilterStrategy extends EventFilterStrategy<ErrorEvent> {
 
       return event;
     } else {
-      var currentError = _currentEvent.data;
-      var newError = event.data;
+      final currentError = _currentEvent.data;
+      final newError = event.data;
 
       if (currentError.runtimeType != newError.runtimeType) {
         _updateCurrent(event);
@@ -42,7 +42,7 @@ class DefaultErrorFilterStrategy extends EventFilterStrategy<ErrorEvent> {
   void _updateCurrent(ErrorEvent event) {
     _currentEvent = event;
 
-    Future.delayed(Duration(seconds: 4)).then((_) {
+    Future<void>.delayed(const Duration(seconds: 4)).then((_) {
       if (_currentEvent == event) {
         _currentEvent = null;
       }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:push_notification/push_notification.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key key}) : super(key: key);
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -11,30 +12,29 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Notificator notification;
 
-  String _bodyText = "notification test";
-  String notificationKey = "key";
+  String _bodyText = 'notification test';
+  String notificationKey = 'key';
 
   @override
   void initState() {
     super.initState();
     notification = Notificator(
       onPermissionDecline: () {
-        print("permission decline");
+        // ignore: avoid_print
+        print('permission decline');
       },
       onNotificationTapCallback: (notificationData) {
         setState(
           () {
-            _bodyText =
-                "notification open: ${notificationData[notificationKey].toString()}";
+            _bodyText = 'notification open: '
+                '${notificationData[notificationKey].toString()}';
           },
         );
       },
-    );
-
-    notification.requestPermissions(
-      requestSoundPermission: true,
-      requestAlertPermission: true,
-    );
+    )..requestPermissions(
+        requestSoundPermission: true,
+        requestAlertPermission: true,
+      );
   }
 
   @override
@@ -51,11 +51,10 @@ class _MyAppState extends State<MyApp> {
           onPressed: () {
             notification.show(
               1,
-              "hello",
-              "this is test",
-              imageUrl:
-                  "https://www.lumico.io/wp-019/09/flutter.jpg",
-              data: {notificationKey: "[notification data]"},
+              'hello',
+              'this is test',
+              imageUrl: 'https://www.lumico.io/wp-019/09/flutter.jpg',
+              data: {notificationKey: '[notification data]'},
               notificationSpecifics: NotificationSpecifics(
                 AndroidNotificationSpecifics(
                   autoCancelable: true,

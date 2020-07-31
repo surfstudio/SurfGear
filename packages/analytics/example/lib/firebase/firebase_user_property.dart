@@ -15,8 +15,8 @@
 import 'package:analytics/analytics.dart';
 
 class FirebaseUserProperty implements AnalyticAction {
+  FirebaseUserProperty(this.key, this.value);
+
   final String key;
   final String value;
-
-  FirebaseUserProperty(this.key, this.value);
 }

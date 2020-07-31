@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore: one_member_abstracts
 abstract class LogStrategy {
   void log(String message, int priority, [Exception error]);
 }

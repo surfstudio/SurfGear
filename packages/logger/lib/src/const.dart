@@ -15,10 +15,10 @@
 /// Set of constants for the logger
 
 /// logging priorities
-const PRIORITY_LOG_DEBUG = 1;
-const PRIORITY_LOG_WARN = 2;
-const PRIORITY_LOG_ERROR = 3;
+const priorityLogDebug = 1;
+const priorityLogWarn = 2;
+const priorityLogError = 3;
 
-const PREFIX_LOG_DEBUG = "DEBUG_INFO";
-const PREFIX_LOG_WARN = "DEBUG_WARN";
-const PREFIX_LOG_ERROR = "DEBUG_ERROR";
+const prefixLogDebug = 'DEBUG_INFO';
+const prefixLogWarn = 'DEBUG_WARN';
+const prefixLogError = 'DEBUG_ERROR';

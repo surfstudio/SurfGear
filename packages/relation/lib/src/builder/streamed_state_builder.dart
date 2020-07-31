@@ -18,18 +18,18 @@ import 'package:relation/src/relation/state/streamed_state.dart';
 /// Widget for StreamedState.
 /// Wrap Flutter StreamBuilder
 class StreamedStateBuilder<T> extends StatelessWidget {
+  const StreamedStateBuilder({
+    @required this.streamedState,
+    @required this.builder,
+    Key key,
+  })  : assert(streamedState != null && builder != null),
+        super(key: key);
+
   /// Input streamed state
   final StreamedState<T> streamedState;
 
   /// Builder of widget child
   final Widget Function(BuildContext, T) builder;
-
-  const StreamedStateBuilder({
-    Key key,
-    @required this.streamedState,
-    @required this.builder,
-  })  : assert(streamedState != null && builder != null),
-        super(key: key);
 
   @override
   Widget build(BuildContext context) {

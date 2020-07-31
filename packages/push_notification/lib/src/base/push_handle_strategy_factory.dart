@@ -10,7 +10,7 @@ typedef StrategyBuilder = PushHandleStrategy Function(
 abstract class PushHandleStrategyFactory {
   /// Action key in data firebase's push
   /// You can customize your format in the factory implementation.
-  final String key = "event";
+  final String key = 'event';
 
   /// Default strategy, if in the notification is no strategy information
   StrategyBuilder get defaultStrategy;
@@ -20,7 +20,7 @@ abstract class PushHandleStrategyFactory {
 
   /// Returns a strategy from push data
   PushHandleStrategy createByData(Map<String, dynamic> messageData) {
-    var builder;
+    StrategyBuilder builder;
     try {
       if (Platform.isAndroid) {
         builder = map[messageData['data'][key]];
@@ -28,7 +28,8 @@ abstract class PushHandleStrategyFactory {
         builder = map[messageData[key]];
       }
       return builder(messageData);
-    } catch (e) {
+    } on Exception catch (e) {
+      // ignore: avoid_print
       print('$e - cant found $key');
       return defaultStrategy(messageData);
     }

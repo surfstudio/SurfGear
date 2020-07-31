@@ -19,9 +19,11 @@ import 'package:flutter/material.dart';
 import 'package:storage/base/storage.dart';
 import 'package:storage/impl/json_storage.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -39,13 +41,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -63,13 +65,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static const _counterKey = "counter";
+  static const _counterKey = 'counter';
 
   Counter _currentValue;
   StreamController<Counter> _counterController;
-  Stream _counterStream;
+  Stream<Counter> _counterStream;
 
-  Storage _storage = JsonStorage("jsonStorageExample");
+  final Storage _storage = JsonStorage('jsonStorageExample');
 
   @override
   void initState() {
@@ -80,7 +82,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
     _storage
         .get(_counterKey)
-        .then((json) => json == null ? Counter() : Counter.fromJson(json))
+        // ignore: avoid_annotating_with_dynamic
+        .then((dynamic json) {
+          return json == null
+              ? const Counter()
+              : Counter.fromJson(json as Map<String, Object>);
+        })
         .then((counter) => _currentValue = counter)
         .then(_counterController.add);
   }
@@ -124,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // Invoke "debug painting" (press "p" in the console, choose the
           // "Toggle Debug Paint" action from the Flutter Inspector in Android
           // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
+          // to see the wire frame for each widget.
           //
           // Column has various properties to control how it sizes itself and
           // how it positions its children. Here we use mainAxisAlignment to
@@ -133,12 +140,12 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               'You have pushed the button this many times:',
             ),
             StreamBuilder<Counter>(
               stream: _counterStream,
-              initialData: Counter(),
+              initialData: const Counter(),
               builder: (context, snapshot) {
                 return Text(
                   '${snapshot.data.value}',

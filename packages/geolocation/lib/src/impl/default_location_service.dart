@@ -20,10 +20,8 @@ import 'package:location/location.dart' as lib;
 /// Location service implementation.
 /// Based on https://pub.dev/packages/location
 class DefaultLocationService implements LocationService {
-  lib.Location _locationService = lib.Location();
-
   DefaultLocationService({
-    LocationAccuracy accuracy = LocationAccuracy.HIGH,
+    LocationAccuracy accuracy = LocationAccuracy.high,
     int interval = 1000,
     double distanceFilter = 0,
   }) {
@@ -33,6 +31,8 @@ class DefaultLocationService implements LocationService {
       distanceFilter: distanceFilter,
     );
   }
+
+  final _locationService = lib.Location();
 
   @override
   Future<Location> getLocation() => _checkStatus()
@@ -88,19 +88,19 @@ class DefaultLocationService implements LocationService {
 
   lib.LocationAccuracy _mapAccuracy(LocationAccuracy source) {
     switch (source) {
-      case LocationAccuracy.POWERSAVE:
+      case LocationAccuracy.powerSave:
         return lib.LocationAccuracy.POWERSAVE;
         break;
-      case LocationAccuracy.LOW:
+      case LocationAccuracy.low:
         return lib.LocationAccuracy.LOW;
         break;
-      case LocationAccuracy.BALANCED:
+      case LocationAccuracy.balanced:
         return lib.LocationAccuracy.BALANCED;
         break;
-      case LocationAccuracy.HIGH:
+      case LocationAccuracy.high:
         return lib.LocationAccuracy.HIGH;
         break;
-      case LocationAccuracy.NAVIGATION:
+      case LocationAccuracy.navigator:
         return lib.LocationAccuracy.NAVIGATION;
         break;
       default:

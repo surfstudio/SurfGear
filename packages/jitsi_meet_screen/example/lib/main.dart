@@ -6,25 +6,29 @@ import 'package:permission/impl/strategy/default_proceed_permission_strategy_sto
 import 'package:permission/impl/strategy/proceed_permission_strategy_example.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key key}) : super(key: key);
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
   final jitsiScreenController = JitsiMeetScreenController(
+    // ignore: avoid_print
     () => print('join'),
+    // ignore: avoid_print
     () => print('will join'),
+    // ignore: avoid_print
     () => print('terminated'),
   );
   final controller = TextEditingController();
 
   final permissions = DefaultPermissionManager(
     DefaultProceedPermissionStrategyStorage(
-      strategies: Map(),
+      strategies: {},
       defaultStrategy: ProceedPermissionStrategyExample(),
     ),
   );
@@ -48,17 +52,20 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               RaisedButton(
-                child: Text("Join room"),
                 onPressed: () async {
                   final camera = await permissions.request(Permission.camera);
-                  final microphone =
-                      await permissions.request(Permission.microphone);
-                  if (camera && microphone)
+                  final microphone = await permissions.request(
+                    Permission.microphone,
+                  );
+                  if (camera && microphone) {
+                    // ignore: unawaited_futures
                     jitsiScreenController.joinRoom(
                       controller.value.text,
                       audioMuted: true,
                     );
+                  }
                 },
+                child: const Text('Join room'),
               )
             ],
           ),

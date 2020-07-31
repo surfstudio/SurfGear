@@ -17,26 +17,26 @@ import 'package:logger/src/strategies/log_strategy.dart';
 
 /// Wrapping for logging using various strategies
 class Logger {
-  static final _strategies = Map<Type, LogStrategy>();
+  static final _strategies = <Type, LogStrategy>{};
 
   ///debug
   static void d(String msg, [Exception error]) {
     _forAllStrategies(
-      (strategy) => strategy.log(msg, PRIORITY_LOG_DEBUG, error),
+      (strategy) => strategy.log(msg, priorityLogDebug, error),
     );
   }
 
   ///warn (for expected errors)
   static void w(String msg, [Exception error]) {
     _forAllStrategies(
-      (strategy) => strategy.log(msg, PRIORITY_LOG_WARN, error),
+      (strategy) => strategy.log(msg, priorityLogWarn, error),
     );
   }
 
   ///error (for errors)
   static void e(String msg, [Exception error]) {
     _forAllStrategies(
-      (strategy) => strategy.log(msg, PRIORITY_LOG_ERROR, error),
+      (strategy) => strategy.log(msg, priorityLogError, error),
     );
   }
 
