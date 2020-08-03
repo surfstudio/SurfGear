@@ -94,7 +94,7 @@ pipeline.stages = [
         // поиск изменившихся модулей
         pipeline.stage(FIND_CHANGED) {
             // взять хэш из файла и передать параметром
-            script.sh "./tools/ci/runner/find_changed_modules --target=$(cat ${lastDeployHashFileName})"
+            script.sh "./tools/ci/runner/find_changed_modules --target=\$(cat ${lastDeployHashFileName})"
         },
 
         // изменения версии изменившихся модулей
