@@ -9,17 +9,11 @@ import 'package:surfpay/ui/assets/google_pay/google_with_white.dart';
 const _backgroundColorWhite = Color(0xFFFFFFFF);
 const _backGroundColorBlack = Color(0xFF000000);
 
+/// Button for Google Pay
 /// https://developers.google.com/pay/api/android/guides/brand-guidelines?hl=en
 class GoogleButton extends StatelessWidget {
-  final double radius;
-  final VoidCallback onTap;
-  final double height;
-  final double width;
-  final logoHeight;
-  final AndroidButtonStyle style;
-  final bool withPrefix;
-
-  GoogleButton({
+  const GoogleButton({
+    Key key,
     this.onTap,
     this.height = 48.0,
     this.logoHeight = 17.0,
@@ -27,7 +21,29 @@ class GoogleButton extends StatelessWidget {
     this.withPrefix = false,
     this.radius = 4.0,
     double width,
-  }) : width = width ?? withPrefix ? 152.0 : 90.0;
+  })  : width = width ?? (withPrefix ? 152.0 : 90.0),
+        super(key: key);
+
+  /// Corner radius
+  final double radius;
+
+  /// On tap callback
+  final VoidCallback onTap;
+
+  /// Button height
+  final double height;
+
+  /// Button width
+  final double width;
+
+  /// Button's logo height
+  final double logoHeight;
+
+  /// Button style
+  final AndroidButtonStyle style;
+
+  /// If need 'Buy with' prefix
+  final bool withPrefix;
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +116,7 @@ class GoogleButton extends StatelessWidget {
   }
 }
 
+/// Google pay button style
 enum AndroidButtonStyle {
   dark,
   white,

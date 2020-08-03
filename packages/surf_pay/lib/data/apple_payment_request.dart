@@ -1,26 +1,27 @@
 import 'package:surfpay/data/payment_item.dart';
 
-const String ITEMS = "items";
-const String COUNTRY_CODE = "countryCode";
-const String CURRENCY_CODE = "currencyCode";
+const String itemsArg = 'items';
+const String countryCodeArg = 'countryCode';
+const String currencyCodeArg = 'currencyCode';
 
 /// Apple Pay request data
 class ApplePaymentRequest {
-  final List<PaymentItem> items;
-  final String currencyCode;
-  final String countryCode;
-
   ApplePaymentRequest(
     this.items,
     this.currencyCode,
     this.countryCode,
   );
 
+  final List<PaymentItem> items;
+  final String currencyCode;
+  final String countryCode;
+
+  /// Cast to Map for sanding to native
   Map<String, dynamic> map() {
     return <String, dynamic>{
-      ITEMS: items.map((e) => e.map()).toList(),
-      CURRENCY_CODE: currencyCode,
-      COUNTRY_CODE: countryCode,
+      itemsArg: items.map((e) => e.map()).toList(),
+      currencyCodeArg: currencyCode,
+      countryCodeArg: countryCode,
     };
   }
 }

@@ -3,14 +3,13 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:surfpay/controller/payment_controller.dart';
+import 'package:surfpay/data/apple_pay_data.dart';
 import 'package:surfpay/data/apple_payment_request.dart';
 import 'package:surfpay/data/google_pay_data.dart';
 import 'package:surfpay/data/goole_payment_request.dart';
 import 'package:surfpay/data/payment_item.dart';
 import 'package:surfpay/ui/apple_button.dart';
 import 'package:surfpay/ui/google_button.dart';
-
-import 'data/apple_pay_data.dart';
 
 /// Widget to easy integrate apple/google pay
 class Surfpay extends StatefulWidget {
@@ -26,12 +25,21 @@ class Surfpay extends StatefulWidget {
     this.onPaymentTokenCallback,
   }) : super(key: key);
 
-  final Widget Function(BuildContext context) customButton;
+  /// Custom button builder
+  final WidgetBuilder customButton;
+
+  /// On success payment
   final SuccessCallback onSuccess;
+  /// On user cancel payment
   final VoidCallback onCancel;
+  /// On Error while payment
   final ErrorCallback onError;
+  /// IOS callback to operate with token
   final ApplePayTokenCallback onPaymentTokenCallback;
+
+  /// Google pay payment system information
   final GooglePayData googlePayData;
+  /// Apple pay payment system information
   final ApplePayData applePayData;
 
   final bool buttonForceShow;
@@ -60,12 +68,13 @@ class _SurfpayState extends State<Surfpay> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return FutureBuilder<bool>(
       future: _paymentController.isServiceAvailable(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState != ConnectionState.done)
+        if (snapshot.connectionState != ConnectionState.done) {
           return const SizedBox();
-        if (snapshot.data as bool) {
+        }
+        if (snapshot.data) {
           if (Platform.isAndroid) {
             return _buildAndroid();
           }
@@ -95,28 +104,28 @@ class _SurfpayState extends State<Surfpay> {
           _exampleGoogleRequest,
           _exampleAppleRequest,
         ),
-      ); //_paymentController.pay());
+      );
     }
     return widget.customButton(context);
   }
 }
 
 final _exampleGoogleRequest = GooglePaymentRequest(
-  "10.00",
+  '10.00',
   {
     'merchantName': 'Example Merchant',
   },
   true,
-  ["RU", "EN"],
+  ['RU', 'EN'],
   false,
-  "RU",
-  "RUB",
+  'RU',
+  'RUB',
 );
 
 final _exampleAppleRequest = ApplePaymentRequest(
   [
-    PaymentItem("IPhone", "60000.00", true),
+    PaymentItem('IPhone', '60000.00', true),
   ],
-  "RUB",
-  "RU",
+  'RUB',
+  'RU',
 );

@@ -11,29 +11,29 @@ import 'package:surfpay/data/goole_payment_request.dart';
 import 'package:surfpay/data/payment_status.dart';
 
 /// Channel
-const String channelName = "surfpay";
+const String channelName = 'surfpay';
 
 /// Methods
-const String isReadyToPay = "is_ready_to_pay";
-const String payMethod = "pay";
-const String initMethod = "init";
+const String isReadyToPay = 'is_ready_to_pay';
+const String payMethod = 'pay';
+const String initMethod = 'init';
 
 /// Payment result callbacks
-const String onSuccessCallback = "payment_success";
-const String onCancelCallback = "payment_cancel";
-const String onErrorCallback = "payment_error";
+const String onSuccessCallback = 'payment_success';
+const String onCancelCallback = 'payment_cancel';
+const String onErrorCallback = 'payment_error';
 
 /// Return token for sending to server (IOS only)
-const String onPaymentResultCallback = "onPaymentResult";
+const String onPaymentResultCallback = 'onPaymentResult';
 
 /// Arguments
-const String paymentErrorStatus = "status";
-const String onSuccessData = "successData";
-const String isTest = "IS_TEST";
+const String paymentErrorStatus = 'status';
+const String onSuccessData = 'successData';
+const String isTest = 'isTest';
 
-const String paymentTokenData = "paymentTokenData";
-const String paymentTokenTransition = "paymentTokenTransition";
-const String paymentTokenNetwork = "paymentTokenNetwork";
+const String paymentTokenData = 'paymentTokenData';
+const String paymentTokenTransition = 'paymentTokenTransition';
+const String paymentTokenNetwork = 'paymentTokenNetwork';
 
 /// On success payment callback, payment data only on Android
 typedef SuccessCallback = Function(Map<String, dynamic> paymentData);
@@ -41,7 +41,8 @@ typedef SuccessCallback = Function(Map<String, dynamic> paymentData);
 /// On payment error callback
 typedef ErrorCallback = Function(PaymentErrorStatus);
 
-/// On payment token callback for IOS, with arguments: data, transition, paymentMethodType
+/// On payment token callback for IOS,
+/// with arguments: data, transition, paymentMethodType
 typedef ApplePayTokenCallback = Future<bool> Function(
   String,
   String,
@@ -89,18 +90,21 @@ class PaymentController {
   /// payment error callback
   final ErrorCallback onError;
 
-  MethodChannel _channel = MethodChannel(channelName);
+  final MethodChannel _channel = const MethodChannel(channelName);
 
   void _init(
     GooglePayData googlePayData,
     ApplePayData applePayData,
     bool isTestEnvironment,
   ) {
-    _channel.invokeMethod(initMethod, {
-      ...googlePayData.map(),
-      ...applePayData.map(),
-      isTest: isTestEnvironment,
-    });
+    _channel.invokeMethod<void>(
+      initMethod,
+      <String, dynamic>{
+        ...googlePayData.map(),
+        ...applePayData.map(),
+        isTest: isTestEnvironment,
+      },
+    );
   }
 
   void _initCallbackListener() {
@@ -109,11 +113,11 @@ class PaymentController {
       (call) async {
         switch (call.method) {
           case onSuccessCallback:
-            var paymentData = Map<String, dynamic>();
+            var paymentData = <String, dynamic>{};
             if (call.arguments[onSuccessData] != null) {
               paymentData = jsonDecode(
                 call.arguments[onSuccessData] as String,
-              );
+              ) as Map<String, dynamic>;
             }
             onSuccess?.call(paymentData);
             break;
@@ -160,10 +164,10 @@ class PaymentController {
   }
 
   void _payGoogle(GooglePaymentRequest request) {
-    _channel.invokeMethod(payMethod, request.map());
+    _channel.invokeMethod<void>(payMethod, request.map());
   }
 
   void _payApple(ApplePaymentRequest request) {
-    _channel.invokeMethod(payMethod, request.map());
+    _channel.invokeMethod<void>(payMethod, request.map());
   }
 }

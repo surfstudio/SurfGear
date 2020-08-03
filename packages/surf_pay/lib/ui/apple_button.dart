@@ -9,25 +9,41 @@ import 'package:surfpay/ui/assets/apple_pay/apple_pay_white.dart';
 const _backgroundColorWhite = Color(0xFFFFFFFF);
 const _backGroundColorBlack = Color(0xFF000000);
 
+/// Button for Apple Pay
 /// https://developer.apple.com/design/human-interface-guidelines/apple-pay/overview/buttons-and-marks/#apple-pay-mark
 class AppleButton extends StatelessWidget {
-  final double radius;
-  final VoidCallback onTap;
-  final double height;
-  final double width;
-  final logoHeight;
-  final IOSButtonStyle style;
-  final bool withPrefix;
-
-  AppleButton({
+  const AppleButton({
+    Key key,
     this.onTap,
     this.height = 48.0,
     this.logoHeight = 17.0,
     this.style = IOSButtonStyle.white,
-    this.withPrefix = false,
     this.radius = 4.0,
+    this.withPrefix = false,
     double width,
-  }) : width = width ?? withPrefix ? 152.0 : 90.0;
+  })  : width = width ?? (withPrefix ? 152.0 : 90.0),
+        super(key: key);
+
+  /// Corner radius
+  final double radius;
+
+  /// On tap callback
+  final VoidCallback onTap;
+
+  /// Button height
+  final double height;
+
+  /// Button width
+  final double width;
+
+  /// Button's logo height
+  final double logoHeight;
+
+  /// Button style
+  final IOSButtonStyle style;
+
+  /// If need 'Buy with' prefix
+  final bool withPrefix;
 
   @override
   Widget build(BuildContext context) {
@@ -75,16 +91,6 @@ class AppleButton extends StatelessWidget {
     }
   }
 
-  double _getElevation() {
-    switch (style) {
-      case IOSButtonStyle.white:
-        return 2.0;
-      case IOSButtonStyle.dark:
-      default:
-        return 0.0;
-    }
-  }
-
   String _getLogo() {
     switch (style) {
       case IOSButtonStyle.dark:
@@ -96,6 +102,7 @@ class AppleButton extends StatelessWidget {
   }
 }
 
+/// Apple pay button style
 enum IOSButtonStyle {
   dark,
   white,

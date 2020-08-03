@@ -15,7 +15,7 @@ let ON_CANCEL = "payment_cancel"
 let ON_ERROR = "payment_error"
 
 // Arguments
-let SUPPORTED_NETWORKS = "supported_networks"
+let SUPPORTED_NETWORKS = "supportedNetworks"
 let MERCHANT_IDENTIFIER = "merchantIdentifier"
 let MERCHANT_CAPABILITIES = "merchantCapabilities"
 

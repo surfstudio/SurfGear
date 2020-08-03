@@ -5,23 +5,23 @@ PaymentErrorStatus getPaymentErrorStatus(int errorStatus) {
   switch (errorStatus) {
   // only Android
     case 0:
-      return PaymentErrorStatus.RESULT_SUCCESS;
+      return PaymentErrorStatus.resultSuccess;
     case 14:
-      return PaymentErrorStatus.RESULT_INTERRUPTED;
+      return PaymentErrorStatus.resultInterrupted;
     case 8:
-      return PaymentErrorStatus.RESULT_INTERNAL_ERROR;
+      return PaymentErrorStatus.resultInternalError;
     case 15:
-      return PaymentErrorStatus.RESULT_TIMEOUT;
+      return PaymentErrorStatus.resultTimeout;
     case 16:
-      return PaymentErrorStatus.RESULT_CANCELED;
+      return PaymentErrorStatus.resultCanceled;
     case 18:
-      return PaymentErrorStatus.RESULT_DEAD_CLIENT;
+      return PaymentErrorStatus.resultDeadClient;
   // only IOS
     case 21:
-      return PaymentErrorStatus.FAIL_PAYMENT_CONTROLLER;
+      return PaymentErrorStatus.failPaymentController;
     case 22:
-      return PaymentErrorStatus.IOS_PAYMENT_ERROR;
+      return PaymentErrorStatus.iosPaymentError;
     default:
-      return PaymentErrorStatus.UNKNOWN;
+      return PaymentErrorStatus.unknown;
   }
 }

@@ -1,20 +1,12 @@
-const String PRICE = "price";
-const String MERCHANT_INFO = "merchantInfo";
-const String PHONE_NUMBER_REQUIRED = "phoneNumberRequired";
-const String ALLOWED_COUNTRY_CODES = "allowedCountryCodes";
-const String SHIPPING_ADDRESS_REQUIRED = "shippingAddressRequired";
-const String COUNTRY_CODE = "countryCode";
-const String CURRENCY_CODE = "currencyCode";
+const String priceArg = 'price';
+const String merchantInfoArg = 'merchantInfo';
+const String phoneNumberRequiredArg = 'phoneNumberRequired';
+const String allowedCountryCodesArg = 'allowedCountryCodes';
+const String shippingAddressRequiredArg = 'shippingAddressRequired';
+const String countryCodeArg = 'countryCode';
+const String currencyCodeArg = 'currencyCode';
 
 class GooglePaymentRequest {
-  final String price;
-  final Map<String, String> merchantInfo;
-  final bool phoneNumberRequired;
-  final List<String> allowedCountryCodes;
-  final bool shippingAddressRequired;
-  final String countryCode;
-  final String currencyCode;
-
   GooglePaymentRequest(
     this.price,
     this.merchantInfo,
@@ -25,15 +17,23 @@ class GooglePaymentRequest {
     this.currencyCode,
   );
 
+  final String price;
+  final Map<String, String> merchantInfo;
+  final bool phoneNumberRequired;
+  final List<String> allowedCountryCodes;
+  final bool shippingAddressRequired;
+  final String countryCode;
+  final String currencyCode;
+
   Map<String, dynamic> map() {
     return <String, dynamic>{
-      PRICE: price,
-      MERCHANT_INFO: merchantInfo,
-      PHONE_NUMBER_REQUIRED: phoneNumberRequired,
-      ALLOWED_COUNTRY_CODES: allowedCountryCodes,
-      SHIPPING_ADDRESS_REQUIRED: shippingAddressRequired,
-      COUNTRY_CODE: countryCode,
-      CURRENCY_CODE: currencyCode,
+      priceArg: price,
+      merchantInfoArg: merchantInfo,
+      phoneNumberRequiredArg: phoneNumberRequired,
+      allowedCountryCodesArg: allowedCountryCodes,
+      shippingAddressRequiredArg: shippingAddressRequired,
+      countryCodeArg: countryCode,
+      currencyCodeArg: currencyCode,
     };
   }
 }

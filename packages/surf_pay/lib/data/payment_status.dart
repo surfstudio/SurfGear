@@ -1,12 +1,19 @@
 /// Error while payment
 enum PaymentErrorStatus {
-  RESULT_SUCCESS,
-  RESULT_INTERRUPTED,
-  RESULT_INTERNAL_ERROR,
-  RESULT_TIMEOUT,
-  RESULT_CANCELED,
-  RESULT_DEAD_CLIENT,
-  FAIL_PAYMENT_CONTROLLER,
-  IOS_PAYMENT_ERROR,
-  UNKNOWN,
+  /// Android Errors
+  resultSuccess,
+  resultInterrupted,
+  resultInternalError,
+  resultTimeout,
+  resultCanceled,
+  resultDeadClient,
+  
+  /// IOS Errors
+
+  /// Can't show payment sheet
+  failPaymentController,
+
+  /// error
+  iosPaymentError,
+  unknown,
 }

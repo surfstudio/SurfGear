@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
 
             applePayData: ApplePayData(
               MerchantCapabilities.capability3DS,
-              "merchant.example.surfpay",
+              'merchant.example.surfpay',
               [
                 PaymentNetwork.visa,
                 PaymentNetwork.masterCard,
@@ -33,27 +33,27 @@ class _MyAppState extends State<MyApp> {
             ),
             googlePayData: GooglePayData(
               [
-                "PAN_ONLY",
-                "CRYPTOGRAM_3DS",
+                'PAN_ONLY',
+                'CRYPTOGRAM_3DS',
               ],
               [
-                "MASTERCARD",
-                "VISA",
+                'MASTERCARD',
+                'VISA',
               ],
               true,
               {
-                "format": "FULL",
+                'format': 'FULL',
               },
-              "CARD",
+              'CARD',
               'example',
               'exampleGatewayMerchantId',
               'PAYMENT_GATEWAY',
             ),
             onSuccess: (status) {
-              print("оплачено со статусом $status");
+              print('End with status - $status');
             },
-            onCancel: () => print("Отменено"),
-            onError: (_) => print("Error"),
+            onCancel: () => print('Canceled'),
+            onError: (_) => print('Error'),
           ),
         ),
       ),

@@ -46,7 +46,7 @@ const val PHONE_NUMBER_REQUIRED = "phoneNumberRequired"
 const val ALLOWED_COUNTRY_CODES = "allowedCountryCodes"
 const val SHIPPING_ADDRESS_REQUIRED = "shippingAddressRequired"
 
-const val IS_TEST = "IS_TEST"
+const val IS_TEST = "isTest"
 const val GATEWAY = "gateway"
 const val GATEWAY_MERCHANT_ID = "gatewayMerchantId"
 const val GATEWAY_TYPE = "gatewayType"
