@@ -100,7 +100,7 @@ pipeline.stages = [
         // изменения версии изменившихся модулей
         pipeline.stage(CHANGE_VIRSION) {
             script.echo "increment_unstable_versions"
-            // script.sh "./tools/ci/runner/increment_unstable_versions"
+            script.sh "./tools/ci/runner/increment_unstable_versions"
         },
 
         // сохранить хэш комита с версиями в файл
