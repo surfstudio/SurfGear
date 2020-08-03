@@ -93,6 +93,9 @@ pipeline.stages = [
 
         // поиск изменившихся модулей
         pipeline.stage(FIND_CHANGED) {
+
+            script.sh "cat ./.last_deploy_hash"
+
             // взять хэш из файла
             File file = new File(lastDeployHashFileName)
             String hash = file.text
