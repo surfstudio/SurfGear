@@ -23,6 +23,9 @@ def PUSH_CHANGES = 'Push changes'
 def CHECKS_RESULT = 'Checks Result'
 def CLEAR_CHANGED = 'Clear changed'
 
+// const
+def lastDeployHashFileName = '.last_deploy_hash'
+
 //vars
 def branchName = ""
 def buildDescription = ""
@@ -90,8 +93,12 @@ pipeline.stages = [
 
         // поиск изменившихся модулей
         pipeline.stage(FIND_CHANGED) {
-            // взять хэш из файла и передать параметром
-            script.sh "./tools/ci/runner/find_changed_modules --target=${branchName}"
+            // взять хэш из файла
+            File file = new File(lastDeployHashFileName)
+            String hash = file.text
+            
+            //и передать параметром
+            script.sh "./tools/ci/runner/find_changed_modules --target=${hash}"
         },
 
         // изменения версии изменившихся модулей
