@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart' hide Action;
+import 'package:flutter_template/domain/counter.dart';
 import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/ui/screen/welcome_screen/di/welcome_screen_component.dart';
 import 'package:injector/injector.dart';
@@ -6,7 +7,7 @@ import 'package:surf_mwwm/surf_mwwm.dart';
 
 /// Билдер для [WelcomeScreenWidgetModel].
 WelcomeScreenWidgetModel createWelcomeWidgetModel(BuildContext context) {
-  var component = Injector.of<WelcomeScreenComponent>(context).component;
+  final component = Injector.of<WelcomeScreenComponent>(context).component;
 
   return WelcomeScreenWidgetModel(
     component.wmDependencies,
@@ -17,18 +18,18 @@ WelcomeScreenWidgetModel createWelcomeWidgetModel(BuildContext context) {
 
 /// [WidgetModel] для экрана <Welcome>
 class WelcomeScreenWidgetModel extends WidgetModel {
-  final CounterInteractor _counterInteractor;
-  final NavigatorState navigator;
-
-  StreamedState<int> counterState = StreamedState();
-
-  Action nextAction = Action();
-
   WelcomeScreenWidgetModel(
     WidgetModelDependencies dependencies,
     this.navigator,
     this._counterInteractor,
   ) : super(dependencies);
+
+  final CounterInteractor _counterInteractor;
+  final NavigatorState navigator;
+
+  StreamedState<int> counterState = StreamedState();
+
+  Action nextAction = Action<void>();
 
   @override
   void onLoad() {
@@ -39,14 +40,14 @@ class WelcomeScreenWidgetModel extends WidgetModel {
   void _listenToStreams() {
     _listenToActions();
 
-    subscribe(
+    subscribe<Counter>(
       _counterInteractor.counterObservable,
       (c) => counterState.accept(c.count),
     );
   }
 
   void _listenToActions() {
-    bind(
+    bind<void>(
       nextAction,
       (_) {
         _counterInteractor.incrementCounter();

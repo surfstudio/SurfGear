@@ -7,7 +7,7 @@ import 'package:relation/relation.dart';
 void main() {
   testWidgets(
     'StreamedStateBuilder accept test',
-    (WidgetTester tester) async {
+    (tester) async {
       final testData = EntityStreamedState<String>(EntityState(data: 'test'));
 
       final streamedStateBuilder = EntityStateBuilder<String>(
@@ -35,14 +35,14 @@ void main() {
 
   testWidgets(
     'StreamedStateBuilder error test',
-    (WidgetTester tester) async {
+    (tester) async {
       final testData = EntityStreamedState<String>();
       final streamedStateBuilder = EntityStateBuilder<String>(
         streamedState: testData,
         child: (context, data) {
-          return Text('test');
+          return const Text('test');
         },
-        errorChild: Text('error_text'),
+        errorChild: const Text('error_text'),
       );
 
       unawaited(testData.error(Exception()));
@@ -62,14 +62,14 @@ void main() {
 
   testWidgets(
     'StreamedStateBuilder loading test',
-    (WidgetTester tester) async {
+    (tester) async {
       final testData = EntityStreamedState<String>();
       final streamedStateBuilder = EntityStateBuilder<String>(
         streamedState: testData,
         child: (context, data) {
-          return Text('test');
+          return const Text('test');
         },
-        loadingChild: Text('loading_child'),
+        loadingChild: const Text('loading_child'),
       );
 
       unawaited(testData.loading());

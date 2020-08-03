@@ -17,14 +17,6 @@ import 'package:counter/interactor/counter/repository/counter_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class CounterInteractor {
-  Counter _counter;
-
-  final CounterRepository _counterRepository;
-
-  BehaviorSubject<Counter> _subject = BehaviorSubject();
-
-  Stream<Counter> get counterObservable => _subject.stream;
-
   CounterInteractor(this._counterRepository) {
     _subject.listen(_counterRepository.setCounter);
 
@@ -34,8 +26,16 @@ class CounterInteractor {
     });
   }
 
-  incrementCounter() {
-    int c = _counter.count + 1;
+  Counter _counter;
+
+  final CounterRepository _counterRepository;
+
+  final BehaviorSubject<Counter> _subject = BehaviorSubject();
+
+  Stream<Counter> get counterObservable => _subject.stream;
+
+  void incrementCounter() {
+    final int c = _counter.count + 1;
     _counter = Counter(c);
     _subject.add(_counter);
   }

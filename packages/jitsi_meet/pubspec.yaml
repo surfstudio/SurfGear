@@ -1,0 +1,34 @@
+name: jitsi_meet
+description: Plugin for jitsi meet service
+version: 0.0.1-dev.0
+author:
+homepage:
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  surf_lint_rules:
+    path: ../surf_lint_rules
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: jitsimeet.jitsi_meet
+        pluginClass: JitsiMeetPlugin
+      ios:
+        pluginClass: JitsiMeetPlugin
+
+custom:
+  is_stable: false
+  unstable_version: 0
+  path: jitsi_meet
+  separate_repo_url:
+  hostUrl:

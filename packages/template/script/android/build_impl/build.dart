@@ -4,12 +4,12 @@ import 'package:args/args.dart';
 
 const String releaseBuildType = 'release';
 const String platform64 = 'android-arm64';
-const String apkPrefix64 = "arm64-v8a";
-const String apkPrefixV7 = "armeabi-v7a";
-const String apkPrefixUniversal = "universal";
+const String apkPrefix64 = 'arm64-v8a';
+const String apkPrefixV7 = 'armani-v7a';
+const String apkPrefixUniversal = 'universal';
 
-String flavor = "dev";
-String apk_path;
+String flavor = 'dev';
+String apkPath;
 String buildType;
 
 /// Script for build apk.
@@ -23,10 +23,10 @@ void main(List<String> arguments) {
   exitCode = 0;
   final parser = ArgParser();
 
-  var args = parser.parse(arguments).arguments;
+  final args = parser.parse(arguments).arguments;
   if (args.length != 1) {
     exitCode = 1;
-    throw Exception("You should pass build type.");
+    throw Exception('You should pass build type.');
   } else {
     buildType = args[0];
 
@@ -34,53 +34,61 @@ void main(List<String> arguments) {
   }
 }
 
-void build() async {
+Future<void> build() async {
   resolveFlavor();
   await buildApk();
+  // ignore: unawaited_futures
   rename();
 }
 
 void resolveFlavor() {
   if (buildType == releaseBuildType) {
-    flavor = "prod";
+    flavor = 'prod';
   }
 
-  apk_path = "./build/app/outputs/apk/${flavor}/release/";
+  apkPath = './build/app/outputs/apk/$flavor/release/';
 }
 
-void buildApk() async {
-  print("Build type ${buildType}");
+Future<void> buildApk() async {
+  // ignore: avoid_print
+  print('Build type $buildType');
 
-  var result = await Process.run('flutter', [
-    'build',
-    "apk",
-    "-t",
-    "lib/main-${buildType}.dart",
-    "--flavor",
-    "${flavor}",
-    "--split-per-abi"
-  ]);
+  final result = await Process.run(
+    'flutter',
+    [
+      'build',
+      'apk',
+      '-t',
+      'lib/main-$buildType.dart',
+      '--flavor',
+      flavor,
+      '--split-per-abi'
+    ],
+  );
   stdout.write(result.stdout);
   stderr.write(result.stderr);
 }
 
-void rename() async {
-  var postfix = "${buildType}";
-  print("Postfix ${postfix}");
-  print("Make postfix ...");
+Future<void> rename() async {
+  final postfix = buildType;
+  // ignore: avoid_print
+  print('Postfix $postfix');
+  // ignore: avoid_print
+  print('Make postfix ...');
 
-  var currentName = "app-${flavor}-${apkPrefixV7}-release.apk";
-  var newName = "app-${postfix}-${apkPrefixV7}.apk";
+  var currentName = 'app-$flavor-$apkPrefixV7-release.apk';
+  var newName = 'app-$postfix-$apkPrefixV7.apk';
   await renameApk(currentName, newName);
 
-  currentName = "app-${flavor}-${apkPrefix64}-release.apk";
-  newName = "app-${postfix}-${apkPrefix64}.apk";
+  currentName = 'app-$flavor-$apkPrefix64-release.apk';
+  newName = 'app-$postfix-$apkPrefix64.apk';
   await renameApk(currentName, newName);
 }
 
-void renameApk(String currentName, String newName) async {
-  var apk = File(apk_path + currentName);
-  await apk.rename(apk_path + newName);
+Future<void> renameApk(String currentName, String newName) async {
+  final apk = File(apkPath + currentName);
+  await apk.rename(apkPath + newName);
 
-  print("$currentName renamed to $newName");
+  // ignore: avoid_print
+  print('$currentName renamed to $newName');
 }

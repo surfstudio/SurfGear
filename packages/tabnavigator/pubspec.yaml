@@ -1,6 +1,6 @@
 name: tabnavigator
 description: Module can manage the tabs on the screen.
-version: 0.0.1
+version: 0.0.1-dev.0
 author:
 homepage:
 
@@ -11,10 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  pedantic: ^1.8.0+1
-
   surf_util:
     path: ../surf_util
+  surf_lint_rules:
+    path: ../surf_lint_rules
 
 dev_dependencies:
   flutter_test:

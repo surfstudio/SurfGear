@@ -10,9 +10,11 @@ import 'package:surf_mwwm/surf_mwwm.dart';
 
 /// Экран ввода телефона
 class WelcomeScreen extends MwwmWidget<WelcomeScreenComponent> {
-  WelcomeScreen([
+  WelcomeScreen({
+    Key key,
     WidgetModelBuilder widgetModelBuilder = createWelcomeWidgetModel,
-  ]) : super(
+  }) : super(
+          key: key,
           dependenciesBuilder: (context) => WelcomeScreenComponent(context),
           widgetStateBuilder: () => _WelcomeScreenState(),
           widgetModelBuilder: widgetModelBuilder,
@@ -32,20 +34,19 @@ class _WelcomeScreenState extends WidgetState<WelcomeScreenWidgetModel> {
         onPressed: wm.nextAction.accept,
       ),
       body: SafeArea(
-        top: true,
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: ConstrainedBox(
-            constraints: BoxConstraints.expand(height: 237.0),
+            constraints: const BoxConstraints.expand(height: 237.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Padding(
-                    padding: const EdgeInsets.only(top: 36.0),
+                const Padding(
+                    padding: EdgeInsets.only(top: 36.0),
                     child: FlutterLogo(
                       size: 128,
                     )),
-                Container(
+                SizedBox(
                   width: 304,
                   height: 45,
                   child: Text(

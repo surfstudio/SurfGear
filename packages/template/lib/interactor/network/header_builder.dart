@@ -4,16 +4,16 @@ import 'package:network/network.dart';
 
 /// Реализация билдера заголовков http запросов
 class DefaultHeaderBuilder extends HeadersBuilder {
-  String t = EMPTY_STRING;
+  DefaultHeaderBuilder(this._ts);
+
+  String t = emptyString;
 
   final AuthInfoStorage _ts;
 
-  DefaultHeaderBuilder(this._ts);
-
   @override
   Future<Map<String, String>> buildDynamicHeader(String url) async {
-    var token = await _ts.getAccessToken();
-    return url != EMPTY_STRING //todo доработать
+    final token = await _ts.getAccessToken();
+    return url != emptyString //todo доработать
         ? {
             'X-Auth-Token': token,
           }

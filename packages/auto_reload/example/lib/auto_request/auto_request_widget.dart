@@ -1,11 +1,14 @@
+import 'dart:convert';
+
 import 'package:auto_reload/auto_reload.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 import 'domain/post.dart';
 
 class DemoAutoRequestManager extends StatefulWidget {
+  const DemoAutoRequestManager({Key key}) : super(key: key);
+
   @override
   _DemoAutoRequestManagerState createState() => _DemoAutoRequestManagerState();
 }
@@ -21,7 +24,7 @@ class _DemoAutoRequestManagerState extends State<DemoAutoRequestManager> {
     _requestStatuses = List.generate(5, (idx) {
       _autoRequestManager.autoReload(
         id: idx.toString(),
-        toReload: () => fetchPost(),
+        toReload: fetchPost,
         onComplete: (id) => _complete(int.parse(id)),
       );
       return RequestStatus.error;
@@ -60,7 +63,7 @@ class _DemoAutoRequestManagerState extends State<DemoAutoRequestManager> {
 
     if (response.statusCode == 200) {
       // If server returns an OK response, parse the JSON.
-      return Post.fromJson(json.decode(response.body));
+      return Post.fromJson(jsonDecode(response.body) as Map<String, Object>);
     } else {
       // If that response was not OK, throw an error.
       throw Exception('Failed to load post');

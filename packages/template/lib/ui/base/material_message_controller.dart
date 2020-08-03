@@ -7,28 +7,28 @@ import 'package:mwwm/mwwm.dart';
 
 ///Стандартная реализация [MessageController]
 class MaterialMessageController extends MessageController {
-  final GlobalKey<ScaffoldState> _scaffoldState;
-  final BuildContext _context;
-  final CustomSnackBarOwner snackOwner;
-
-  /// Дефолтные снеки, используются если виджет не определил свои
-  final Map<dynamic, SnackBar Function(String text)> defaultSnackBarBuilder = {
-    MsgType.commonError: (text) => SnackBar(
-          content: Text(text),
-          duration: Duration(seconds: 2),
-          backgroundColor: colorError,
-        ),
-    MsgType.common: (text) => SnackBar(
-          content: Text(text),
-          duration: Duration(seconds: 2),
-        ),
-  };
-
   MaterialMessageController(this._scaffoldState, {this.snackOwner})
       : _context = null;
 
   MaterialMessageController.from(this._context, {this.snackOwner})
       : _scaffoldState = null;
+
+  final GlobalKey<ScaffoldState> _scaffoldState;
+  final BuildContext _context;
+  final CustomSnackBarOwner snackOwner;
+
+  /// Дефолтные снеки, используются если виджет не определил свои
+  final Map<MsgType, SnackBar Function(String text)> defaultSnackBarBuilder = {
+    MsgType.commonError: (text) => SnackBar(
+          content: Text(text),
+          duration: const Duration(seconds: 2),
+          backgroundColor: colorError,
+        ),
+    MsgType.common: (text) => SnackBar(
+          content: Text(text),
+          duration: const Duration(seconds: 2),
+        ),
+  };
 
   ScaffoldState get _state =>
       _scaffoldState?.currentState ?? Scaffold.of(_context);
@@ -38,14 +38,14 @@ class MaterialMessageController extends MessageController {
     assert(msg != null || msgType != null);
 
     final owner = snackOwner;
-    Logger.d(" SnackBar owner is nul? ${owner == null}");
+    Logger.d(' SnackBar owner is nul? ${owner == null}');
     SnackBar snack;
     if (owner != null) {
       snack = owner.registeredSnackBarsBuilder[msgType](msg);
     }
-    Logger.d(" SnackBar is nul? ${snack == null} by type = $msgType");
+    Logger.d(' SnackBar is nul? ${snack == null} by type = $msgType');
 
-    Future.delayed(Duration(milliseconds: 10), () {
+    Future.delayed(const Duration(milliseconds: 10), () {
       _state.showSnackBar(
         snack ?? defaultSnackBarBuilder[msgType](msg),
       );

@@ -2,25 +2,26 @@ import 'package:flutter_template/domain/counter.dart';
 import 'package:flutter_template/util/sp_helper.dart';
 
 class CounterRepository {
-  static const String KEY_COUNTER = 'KEY_COUNTER';
+  CounterRepository(this._preferencesHelper);
+
+  static const String keyCounter = 'KEY_COUNTER';
 
   final PreferencesHelper _preferencesHelper;
 
-  CounterRepository(this._preferencesHelper);
-
   void setCounter(Counter c) {
     if (c == null) return;
-    _preferencesHelper.set(KEY_COUNTER, c.count);
+    _preferencesHelper.set(keyCounter, c.count);
   }
 
   Future<Counter> getCounter() {
     return _preferencesHelper
-        .get(KEY_COUNTER, 0)
+        .get(keyCounter, 0)
         .then(
           (i) => Counter(i ?? 0),
         )
         .catchError(
-      (e) {
+      // ignore: avoid_types_on_closure_parameters
+      (Object e) {
         return Counter(0);
       },
     );

@@ -9,17 +9,8 @@ import 'package:mwwm/mwwm.dart';
 
 /// [Component] для экрана <SplashScreen>
 class SplashScreenComponent implements Component {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  MaterialMessageController messageController;
-  DefaultDialogController dialogController;
-  NavigatorState navigator;
-  WidgetModelDependencies wmDependencies;
-
-  DebugScreenInteractor debugScreenInteractor;
-
   SplashScreenComponent(BuildContext context) {
-    var app = Injector.of<AppComponent>(context).component;
+    final app = Injector.of<AppComponent>(context).component;
 
     messageController = MaterialMessageController(scaffoldKey);
     dialogController = DefaultDialogController(scaffoldKey);
@@ -35,4 +26,13 @@ class SplashScreenComponent implements Component {
 
     debugScreenInteractor = app.debugScreenInteractor;
   }
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  MaterialMessageController messageController;
+  DefaultDialogController dialogController;
+  NavigatorState navigator;
+  WidgetModelDependencies wmDependencies;
+
+  DebugScreenInteractor debugScreenInteractor;
 }

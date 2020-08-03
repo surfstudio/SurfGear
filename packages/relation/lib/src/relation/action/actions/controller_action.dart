@@ -17,21 +17,21 @@ import 'package:relation/src/relation/action/action.dart';
 
 /// Wrapper on controller
 class ControllerAction<T, C extends ValueNotifier<T>> extends Action<T> {
-  /// Some ValueNotifier
-  final C controller;
-
   ControllerAction(
-      this.controller, void Function(C controller, ControllerAction) onChanged)
-      : super() {
+    this.controller,
+    void Function(C controller, ControllerAction) onChanged,
+  ) : super() {
     controller.addListener(() {
       onChanged(controller, this);
     });
   }
 
+  /// Some ValueNotifier
+  final C controller;
+
   @override
-  Future<void> call([T data]) {
+  Future<void> call([T data]) async {
     controller.value = data;
-    return null;
   }
 
   @override

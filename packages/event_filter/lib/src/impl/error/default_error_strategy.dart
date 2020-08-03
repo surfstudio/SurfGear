@@ -19,6 +19,7 @@ import 'package:event_filter/src/impl/error/error_event.dart';
 class DefaultErrorStrategy extends EventStrategy<ErrorEvent> {
   @override
   void doResolve(ErrorEvent event) {
-    print("DEV_ERROR ${event.data}");
+    // ignore: avoid_print
+    print('DEV_ERROR ${event.data}');
   }
 }

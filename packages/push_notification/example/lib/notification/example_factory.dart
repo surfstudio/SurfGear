@@ -7,12 +7,12 @@ import 'second_strategy.dart';
 class ExampleFactory extends PushHandleStrategyFactory {
   @override
   Map<String, StrategyBuilder> get map => {
-        "type1": (payload) {
-          var message = Message.fromMap(payload);
+        'type1': (payload) {
+          final message = Message.fromMap(payload);
           return FirstStrategy(message);
         },
-        "type2": (payload) {
-          var message = Message.fromMap(payload);
+        'type2': (payload) {
+          final message = Message.fromMap(payload);
           return SecondStrategy(message);
         },
       };

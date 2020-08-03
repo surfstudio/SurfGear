@@ -6,12 +6,12 @@ import 'package:permission/base/strategy/proceed_permission_strategy.dart';
 /// Storage of proceed permission strategy.
 class DefaultProceedPermissionStrategyStorage
     implements ProceedPermissionStrategyStorage {
-  final Map<Permission, ProceedPermissionStrategy> strategies;
-  final ProceedPermissionStrategy defaultStrategy;
-
   DefaultProceedPermissionStrategyStorage(
       {@required this.strategies, @required this.defaultStrategy})
       : assert(strategies != null);
+
+  final Map<Permission, ProceedPermissionStrategy> strategies;
+  final ProceedPermissionStrategy defaultStrategy;
 
   @override
   ProceedPermissionStrategy getStrategy(Permission permission) {

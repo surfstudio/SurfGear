@@ -1,1 +1,1 @@
-enum TabState { show, hidden, double_tapped }
+enum TabState { show, hidden, doubleTapped }

@@ -22,16 +22,18 @@ class CrashlyticsRemoteLogStrategy extends RemoteUserLogStrategy {
 
   @override
   void setUser(String id, String username, String email) {
-    _crashlytics.setUserIdentifier(id);
-    _crashlytics.setUserName(username);
-    _crashlytics.setUserEmail(email);
+    _crashlytics
+      ..setUserIdentifier(id)
+      ..setUserName(username)
+      ..setUserEmail(email);
   }
 
   @override
   void clearUser() {
-    _crashlytics.setUserIdentifier('');
-    _crashlytics.setUserName('');
-    _crashlytics.setUserEmail('');
+    _crashlytics
+      ..setUserIdentifier('')
+      ..setUserName('')
+      ..setUserEmail('');
   }
 
   @override
@@ -48,7 +50,7 @@ class CrashlyticsRemoteLogStrategy extends RemoteUserLogStrategy {
   }
 
   @override
-  void logInfo(String key, dynamic info) {
+  void logInfo(String key, info) {
     if (info is bool) {
       _crashlytics.setBool(key, info);
       return;

@@ -16,7 +16,8 @@ import 'package:flutter/widgets.dart';
 import 'package:relation/src/relation/state/entity_state.dart';
 
 typedef DataWidgetBuilder<T> = Widget Function(BuildContext, T data);
-typedef ErrorWidgetBuilder = Widget Function(BuildContext, Exception error);
+// ignore: avoid_annotating_with_dynamic
+typedef ErrorWidgetBuilder = Widget Function(BuildContext, dynamic error);
 
 /// Reactive widget for [EntityStreamedState]
 ///
@@ -36,6 +37,20 @@ typedef ErrorWidgetBuilder = Widget Function(BuildContext, Exception error);
 ///    );
 ///  ```
 class EntityStateBuilder<T> extends StatelessWidget {
+  const EntityStateBuilder({
+    @required this.streamedState,
+    @required this.child,
+    Key key,
+    this.loadingBuilder,
+    this.errorBuilder,
+    Widget loadingChild,
+    Widget errorChild,
+  })  : loadingChild = loadingChild ?? const SizedBox(),
+        errorChild = errorChild ?? const SizedBox(),
+        assert(streamedState != null),
+        assert(child != null),
+        super(key: key);
+
   /// StreamedState of entity
   final EntityStreamedState<T> streamedState;
 
@@ -46,27 +61,13 @@ class EntityStateBuilder<T> extends StatelessWidget {
   final DataWidgetBuilder<T> loadingBuilder;
 
   /// Error child of builder
-  final DataWidgetBuilder<T> errorBuilder;
+  final ErrorWidgetBuilder errorBuilder;
 
   /// Loading child widget
   final Widget loadingChild;
 
   /// Error child widget
   final Widget errorChild;
-
-  const EntityStateBuilder({
-    Key key,
-    @required this.streamedState,
-    @required this.child,
-    this.loadingBuilder,
-    this.errorBuilder,
-    Widget loadingChild,
-    Widget errorChild,
-  })  : loadingChild = loadingChild ?? const SizedBox(),
-        errorChild = errorChild ?? const SizedBox(),
-        assert(streamedState != null),
-        assert(child != null),
-        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +84,7 @@ class EntityStateBuilder<T> extends StatelessWidget {
           }
         } else if (streamData.hasError) {
           if (streamData.data != null && errorBuilder != null) {
-            return errorBuilder(context, streamData.data);
+            return errorBuilder(context, streamData.error.e);
           } else {
             return errorChild;
           }

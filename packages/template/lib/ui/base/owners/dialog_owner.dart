@@ -14,35 +14,40 @@ import 'package:mwwm/mwwm.dart' show DialogData;
 /// Widget _buildType1Dialog(BuildContext context, {FooDialogData data}) {/* ... */}
 /// ```
 class DialogBuilder<T extends DialogData> {
-  final Widget Function(BuildContext context, {T data}) builder;
-
   DialogBuilder(this.builder);
 
-  call(BuildContext context, {DialogData data}) => builder(context, data: data);
+  final Widget Function(BuildContext context, {T data}) builder;
+
+  Widget call(BuildContext context, {DialogData data}) => builder(
+        context,
+        data: data as T,
+      );
 }
 
 /// Возвращает виджет для тянущегося боттом шита с контентом в виде списка
-/// [scrollController] - контроллер прокрутки на боттомшите,
-/// передается в дочерний спиоок
+/// scrollController - контроллер прокрутки на боттомшите,
+/// передается в дочерний список
 class FlexibleDialogBuilder<T extends DialogData> extends DialogBuilder<T> {
+  FlexibleDialogBuilder(this.builder) : super(builder);
+
   @override
   Widget Function(
     BuildContext context, {
     T data,
     ScrollController scrollController,
+    // ignore: overridden_fields
   }) builder;
 
-  FlexibleDialogBuilder(this.builder) : super(builder);
-
-  call(
+  @override
+  Widget call(
     BuildContext context, {
     DialogData data,
     ScrollController scrollController,
   }) =>
-      builder(context, data: data, scrollController: scrollController);
+      builder(context, data: data as T, scrollController: scrollController);
 }
 
-/// Миксин, добавляющий возможност зарегистрировать диалоги
+/// Миксин, добавляющий возможности зарегистрировать диалоги
 mixin DialogOwner {
   Map<dynamic, DialogBuilder> get registeredDialogs;
 }

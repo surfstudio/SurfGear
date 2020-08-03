@@ -5,13 +5,16 @@ import 'package:permission/base/strategy/proceed_permission_strategy.dart';
 /// Do not use it! It's just example.
 class ProceedPermissionStrategyExample implements ProceedPermissionStrategy {
   @override
-  Future<void> proceed(Permission permission, PermissionStrategyStatus status) {
+  Future<void> proceed(
+    Permission permission,
+    PermissionStrategyStatus status,
+  ) async {
     if (status == PermissionStrategyStatus.allow) {
-      print("We have permision - $permission.");
+      // ignore: avoid_print
+      print('We have permission - $permission.');
     } else {
-      print("Try get permission from user. $permission");
+      // ignore: avoid_print
+      print('Try get permission from user. $permission');
     }
-
-    return null;
   }
 }

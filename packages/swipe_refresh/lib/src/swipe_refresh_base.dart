@@ -5,19 +5,11 @@ import 'package:swipe_refresh/src/swipe_refresh_state.dart';
 
 /// Base refresh indicator widget.
 abstract class SwipeRefreshBase extends StatefulWidget {
-  final List<Widget> children;
-  final VoidCallback onRefresh;
-  final SwipeRefreshState initState;
-  final Stream<SwipeRefreshState> stateStream;
-  final ScrollController scrollController;
-  final SliverChildDelegate childrenDelegate;
-  final EdgeInsets padding;
-
   const SwipeRefreshBase({
-    Key key,
     @required this.children,
     @required this.stateStream,
     @required this.onRefresh,
+    Key key,
     this.initState,
     this.scrollController,
     this.childrenDelegate,
@@ -28,7 +20,17 @@ abstract class SwipeRefreshBase extends StatefulWidget {
         assert(onRefresh != null),
         super(key: key);
 
+  final List<Widget> children;
+  final VoidCallback onRefresh;
+  final SwipeRefreshState initState;
+  final Stream<SwipeRefreshState> stateStream;
+  final ScrollController scrollController;
+  final SliverChildDelegate childrenDelegate;
+  final EdgeInsets padding;
+
+  @override
   @protected
+  // ignore: no_logic_in_create_state
   SwipeRefreshBaseState createState();
 }
 

@@ -11,18 +11,17 @@ void main() {
   });
 
   test('TextEditingAction dispose test', () {
-    final action = TextEditingAction();
-    action.dispose();
+    final action = TextEditingAction()..dispose();
     expect(action.subject.isClosed, true);
   });
 
   test('ExtendedTextEditingController setText({String text}) test', () {
-    final TextEditingController controller = ExtendedTextEditingController();
-    controller.text = 'test';
+    final TextEditingController controller = ExtendedTextEditingController()
+      ..text = 'test';
     expect(controller.value.text, 'test');
     expect(
       controller.selection,
-      TextSelection.collapsed(offset: 'test'.length),
+      const TextSelection.collapsed(offset: 'test'.length),
     );
     expect(controller.value.composing, TextRange.empty);
   });

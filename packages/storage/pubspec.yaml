@@ -1,6 +1,6 @@
 name: storage
 description: A new Flutter package project.
-version: 0.0.1
+version: 0.0.1-dev.0
 author:
 homepage:
 
@@ -12,6 +12,9 @@ dependencies:
     sdk: flutter
 
   localstorage: 3.0.1+4
+
+  surf_lint_rules:
+    path: ../surf_lint_rules
 
 dev_dependencies:
   flutter_test:

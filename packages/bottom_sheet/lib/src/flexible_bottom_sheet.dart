@@ -28,21 +28,6 @@ import 'package:flutter/material.dart';
 ///
 /// [initHeight] - relevant height for init bottom sheet
 class FlexibleBottomSheet extends StatefulWidget {
-  final double minHeight;
-  final double initHeight;
-  final double maxHeight;
-  final FlexibleDraggableScrollableWidgetBuilder builder;
-  final FlexibleDraggableScrollableHeaderWidgetBuilder headerBuilder;
-  final FlexibleDraggableScrollableWidgetBodyBuilder bodyBuilder;
-  final bool isCollapsible;
-  final bool isExpand;
-  final AnimationController animationController;
-  final List<double> anchors;
-  final double minHeaderHeight;
-  final double maxHeaderHeight;
-  final Decoration decoration;
-  final VoidCallback onDismiss;
-
   const FlexibleBottomSheet(
       {Key key,
       this.minHeight = 0,
@@ -80,6 +65,7 @@ class FlexibleBottomSheet extends StatefulWidget {
     double maxHeaderHeight,
     Decoration decoration,
   }) : this(
+          key: key,
           maxHeight: maxHeight,
           builder: builder,
           headerBuilder: headerBuilder,
@@ -94,6 +80,21 @@ class FlexibleBottomSheet extends StatefulWidget {
           maxHeaderHeight: maxHeaderHeight,
           decoration: decoration,
         );
+
+  final double minHeight;
+  final double initHeight;
+  final double maxHeight;
+  final FlexibleDraggableScrollableWidgetBuilder builder;
+  final FlexibleDraggableScrollableHeaderWidgetBuilder headerBuilder;
+  final FlexibleDraggableScrollableWidgetBodyBuilder bodyBuilder;
+  final bool isCollapsible;
+  final bool isExpand;
+  final AnimationController animationController;
+  final List<double> anchors;
+  final double minHeaderHeight;
+  final double maxHeaderHeight;
+  final Decoration decoration;
+  final VoidCallback onDismiss;
 
   @override
   _FlexibleBottomSheetState createState() => _FlexibleBottomSheetState();
@@ -131,18 +132,19 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
       parent: _animationController,
       curve: Curves.linear,
     );
-    Animation topTweenAnimation = _topOffsetTween.animate(curve);
-    topTweenAnimation.addListener(() {
-      if (_animationController.isAnimating) {
-        _controller.extent.currentExtent = topTweenAnimation.value;
-      }
-    });
-    topTweenAnimation.addStatusListener((AnimationStatus status) {
-      if (status == AnimationStatus.completed) {
-        _controller.extent.currentExtent = _currentAnchor;
-        _animationController.reset();
-      }
-    });
+    final Animation<double> topTweenAnimation = _topOffsetTween.animate(curve);
+    topTweenAnimation
+      ..addListener(() {
+        if (_animationController.isAnimating) {
+          _controller.extent.currentExtent = topTweenAnimation.value;
+        }
+      })
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          _controller.extent.currentExtent = _currentAnchor;
+          _animationController.reset();
+        }
+      });
   }
 
   @override
@@ -159,13 +161,13 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
         initialChildSize: widget.initHeight,
         builder: (
           context,
-          ScrollController controller,
+          controller,
         ) {
           _controller =
               controller as FlexibleDraggableScrollableSheetScrollController;
 
           return AnimatedPadding(
-            duration: Duration(milliseconds: 100),
+            duration: const Duration(milliseconds: 100),
             padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
@@ -238,9 +240,8 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
   }
 
   void _keyboardOpened() {
-    double maxBottomSheetHeight = widget.maxHeight != null
-        ? widget.maxHeight
-        : _screenAnchors.reduce(max);
+    final double maxBottomSheetHeight =
+        widget.maxHeight ?? _screenAnchors.reduce(max);
 
     _currentAnchor = maxBottomSheetHeight;
     _animateToNextAnchor(maxBottomSheetHeight);
@@ -252,21 +253,22 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
   void _keyboardClosed() {}
 
   void _preScroll() {
-    double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+    final double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
 
     if (_controller.extent.currentExtent == widget.maxHeight &&
         keyboardHeight != 0) {
-      double widgetOffset = FocusManager.instance.primaryFocus.offset.dy;
-      double widgetHeight = FocusManager.instance.primaryFocus.size.height;
-      double screenHeight = MediaQuery.of(context).size.height;
+      final double widgetOffset = FocusManager.instance.primaryFocus.offset.dy;
+      final double widgetHeight =
+          FocusManager.instance.primaryFocus.size.height;
+      final double screenHeight = MediaQuery.of(context).size.height;
 
-      double valueToScroll =
+      final double valueToScroll =
           keyboardHeight - (screenHeight - (widgetOffset + widgetHeight));
       if (valueToScroll > 0) {
-        Future.delayed(Duration(milliseconds: 100)).then((_) {
+        Future<void>.delayed(const Duration(milliseconds: 100)).then((_) {
           _controller.animateTo(
             _controller.offset + valueToScroll + 10,
-            duration: Duration(milliseconds: 200),
+            duration: const Duration(milliseconds: 200),
             curve: Curves.linear,
           );
         });
@@ -290,8 +292,8 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
       }
     }
 
-    var currentVal = notification.extent;
-    var initVal = notification.initialExtent;
+    final double currentVal = notification.extent;
+    double initVal = notification.initialExtent;
 
     if (initVal == 0) {
       initVal = currentVal;
@@ -299,7 +301,7 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
 
     if (widget.animationController != null) {
       widget.animationController.value =
-          (1 + (currentVal - initVal) / (initVal)).clamp(0.0, 1.0);
+          (1 + (currentVal - initVal) / initVal).clamp(0.0, 1.0) as double;
     }
 
     _checkNeedCloseBottomSheet();
@@ -325,9 +327,9 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
   }
 
   void _scrollToNearestAnchor(DragEndDetails oldDragDetails) {
-    List<double> screenAnchors = _screenAnchors;
+    final List<double> screenAnchors = _screenAnchors;
 
-    double nextAnchor = _calculateNextAnchor(screenAnchors);
+    final double nextAnchor = _calculateNextAnchor(screenAnchors);
 
     _animateToNextAnchor(nextAnchor);
     _currentAnchor = nextAnchor;
@@ -338,10 +340,10 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
       return _controller.extent.currentExtent;
     }
 
-    List<double> nearestAnchor =
+    final List<double> nearestAnchor =
         _findNearestAnchors(screenAnchor, _controller.extent.currentExtent);
-    double firstAnchor = nearestAnchor[0];
-    double secondAnchor = nearestAnchor[1];
+    final double firstAnchor = nearestAnchor[0];
+    final double secondAnchor = nearestAnchor[1];
 
     if (firstAnchor == _currentAnchor) {
       return _findNextAnchorFromPrevious(firstAnchor, secondAnchor);
@@ -357,19 +359,17 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
 
   List<double> _findNearestAnchors(List<double> list, double x) {
     list.sort();
-    Map<double, double> diff = Map.fromIterable(
-      list,
-      key: (d) => d,
-      value: (d) => d - x,
-    );
-    double firstAnchor = diff.entries.where((me) => me.value > 0).first.key;
-    double secondAnchor = diff.entries.where((me) => me.value < 0).last.key;
+    final Map<double, double> diff = {for (var d in list) d: d - x};
+    final double firstAnchor =
+        diff.entries.where((me) => me.value > 0).first.key;
+    final double secondAnchor =
+        diff.entries.where((me) => me.value < 0).last.key;
 
     return [firstAnchor, secondAnchor];
   }
 
   double _findNextAnchorFromPrevious(double previousAnchor, double nextAnchor) {
-    double percent = 0.2;
+    const double percent = 0.2;
 
     return (_controller.extent.currentExtent - previousAnchor).abs() >
             (nextAnchor - previousAnchor).abs() * percent
@@ -377,11 +377,12 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
         : previousAnchor;
   }
 
-  void _animateToNextAnchor(double nextAnchor) async {
+  Future<void> _animateToNextAnchor(double nextAnchor) async {
     if (_controller.extent.currentExtent == nextAnchor) return;
 
-    _topOffsetTween.begin = _controller.extent.currentExtent;
-    _topOffsetTween.end = nextAnchor;
+    _topOffsetTween
+      ..begin = _controller.extent.currentExtent
+      ..end = nextAnchor;
 
     _animationController.forward();
 
@@ -392,12 +393,12 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
     }
   }
 
-  List<double> get _screenAnchors => [
+  List<double> get _screenAnchors => {
         ...widget.anchors,
         if (widget.maxHeight != null) widget.maxHeight,
         if (widget.minHeight != null) widget.minHeight,
         if (widget.initHeight != null) widget.initHeight,
-      ].toSet().toList();
+      }.toList();
 
   void _dismiss() {
     if (widget.onDismiss != null) widget.onDismiss();
@@ -406,6 +407,12 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
 }
 
 class FlexibleBottomSheetHeaderDelegate extends SliverPersistentHeaderDelegate {
+  FlexibleBottomSheetHeaderDelegate({
+    @required this.maxHeight,
+    @required this.child,
+    this.minHeight = 0,
+  }) : assert(child != null);
+
   final Widget child;
 
   final double minHeight;
@@ -420,12 +427,6 @@ class FlexibleBottomSheetHeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
-
-  FlexibleBottomSheetHeaderDelegate({
-    this.minHeight = 0,
-    @required this.maxHeight,
-    @required this.child,
-  }) : assert(child != null);
 
   @override
   Widget build(

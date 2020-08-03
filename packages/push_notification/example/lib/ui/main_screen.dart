@@ -3,10 +3,10 @@ import 'package:push_notification/push_notification.dart';
 
 import '../domain/message.dart';
 
-const String androidMipMapIcon = "@mipmap/ic_launcher";
+const String androidMipMapIcon = '@mipmap/ic_launcher';
 
 class MessageScreen extends StatefulWidget {
-  MessageScreen(this.pushHandler);
+  const MessageScreen(this.pushHandler, {Key key}) : super(key: key);
 
   final PushHandler pushHandler;
 
@@ -22,7 +22,7 @@ class MessageScreenState extends State<MessageScreen> {
     super.initState();
 
     widget.pushHandler.messageSubject.listen((messageMap) {
-      var message = Message.fromMap(messageMap);
+      final message = Message.fromMap(messageMap);
       setState(() {
         messageList.add(message);
       });
@@ -33,7 +33,7 @@ class MessageScreenState extends State<MessageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Push demo'),
+        title: const Text('Push demo'),
       ),
       body: ListView.builder(
         itemCount: messageList.length,

@@ -1,6 +1,6 @@
 name: network_cache
 description: A new Flutter package project.
-version: 0.0.1
+version: 0.0.1-dev.0
 author:
 
 environment:
@@ -11,6 +11,9 @@ dependencies:
     sdk: flutter
 
   rxdart: ^0.24.0
+
+  surf_lint_rules:
+    path: ../surf_lint_rules
 
 dev_dependencies:
   flutter_test:

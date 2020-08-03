@@ -7,9 +7,9 @@ import 'package:injector/injector.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
-/// Билдер для [WelcomeScreenWidgetModel].
+/// Билдер для WelcomeScreenWidgetModel.
 SplashScreenWidgetModel createSplashScreenWidgetModel(BuildContext context) {
-  var component = Injector.of<SplashScreenComponent>(context).component;
+  final component = Injector.of<SplashScreenComponent>(context).component;
 
   return SplashScreenWidgetModel(
     component.wmDependencies,
@@ -20,14 +20,14 @@ SplashScreenWidgetModel createSplashScreenWidgetModel(BuildContext context) {
 
 /// [WidgetModel] для экрана <SplashScreen>
 class SplashScreenWidgetModel extends WidgetModel {
-  final widgets.NavigatorState _navigator;
-  final DebugScreenInteractor _debugScreenInteractor;
-
   SplashScreenWidgetModel(
     WidgetModelDependencies dependencies,
     this._navigator,
     this._debugScreenInteractor,
   ) : super(dependencies);
+
+  final widgets.NavigatorState _navigator;
+  final DebugScreenInteractor _debugScreenInteractor;
 
   @override
   void onLoad() {
@@ -35,15 +35,15 @@ class SplashScreenWidgetModel extends WidgetModel {
     _loadApp();
   }
 
-  void _loadApp() async {
-    subscribeHandleError(
+  void _loadApp() {
+    subscribeHandleError<bool>(
       initApp(),
       (isAuth) {
         _openScreen(Router.root);
       },
     );
-    subscribe(
-      Stream.value(true).delay(Duration(seconds: 5)),
+    subscribe<bool>(
+      Stream.value(true).delay(const Duration(seconds: 5)),
       (_) => _debugScreenInteractor.showDebugScreenNotification(),
     );
   }
@@ -53,6 +53,6 @@ class SplashScreenWidgetModel extends WidgetModel {
   }
 
   Stream<bool> initApp() {
-    return Stream.value(true).delay(Duration(seconds: 2));
+    return Stream.value(true).delay(const Duration(seconds: 2));
   }
 }

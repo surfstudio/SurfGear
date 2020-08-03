@@ -21,16 +21,16 @@ import 'package:injector/injector.dart';
 
 /// Component для приложения
 class AppComponent implements Component {
-  AppWidgetModel wm;
-
-  final preferencesHelper = PreferencesHelper();
-  CounterInteractor counterInteractor;
-
-  AppComponent(Key navigatorKey) {
+  AppComponent(GlobalKey<NavigatorState> navigatorKey) {
     counterInteractor = CounterInteractor(CounterRepository(preferencesHelper));
 
     wm = AppWidgetModel(
       navigatorKey,
     );
   }
+
+  AppWidgetModel wm;
+
+  final preferencesHelper = PreferencesHelper();
+  CounterInteractor counterInteractor;
 }

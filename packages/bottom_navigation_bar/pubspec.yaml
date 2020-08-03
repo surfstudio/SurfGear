@@ -1,6 +1,6 @@
 name: bottom_navigation_bar
 description: Bottom navigation bar
-version: 0.0.1
+version: 0.0.1-dev.0
 author:
 
 environment:
@@ -12,6 +12,8 @@ dependencies:
 
   tabnavigator:
     path: ../tabnavigator
+  surf_lint_rules:
+    path: ../surf_lint_rules
 
   # testing mock
   mockito: ^4.1.1

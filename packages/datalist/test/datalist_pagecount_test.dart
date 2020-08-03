@@ -16,18 +16,18 @@ void main() {
 
 class DataListPageCountTest {
   static void testNormalMerge() {
-    test("testNormalMerge", () {
-      PageCountDataList<int> list1 = PageCountDataList<int>(
+    test('testNormalMerge', () {
+      final PageCountDataList<int> list1 = PageCountDataList<int>(
         data: [1, 2, 3, 4, 5],
         startPage: 0,
         pageSize: 5,
       );
-      PageCountDataList<int> list2 = PageCountDataList<int>(
+      final PageCountDataList<int> list2 = PageCountDataList<int>(
         data: [6, 7, 8, 8, 10],
         startPage: 1,
         pageSize: 5,
       );
-      PageCountDataList<int> list3 = PageCountDataList<int>(
+      final PageCountDataList<int> list3 = PageCountDataList<int>(
           data: [1, 2, 3, 4, 5, 6, 7, 8, 8, 10],
           startPage: 0,
           pageSize: 5,
@@ -40,19 +40,19 @@ class DataListPageCountTest {
   }
 
   static void testMergePagesWithSpace() {
-    test("testMergePagesWithSpace", () {
-      PageCountDataList<int> list1 = PageCountDataList<int>(
+    test('testMergePagesWithSpace', () {
+      final PageCountDataList<int> list1 = PageCountDataList<int>(
         data: [1, 2, 3, 4, 5],
         startPage: 0,
         pageSize: 5,
       );
-      PageCountDataList<int> list2 = PageCountDataList<int>(
+      final PageCountDataList<int> list2 = PageCountDataList<int>(
         data: [6, 7, 8, 8, 10],
         startPage: 2,
         pageSize: 5,
       );
 
-      PageCountDataList<int> list3 = PageCountDataList<int>(
+      final PageCountDataList<int> list3 = PageCountDataList<int>(
           data: [1, 2, 3, 4, 5], startPage: 0, pageSize: 5, numPages: 1);
 
       try {
@@ -67,20 +67,20 @@ class DataListPageCountTest {
   }
 
   static void testMergeNotFromFirstPage() {
-    test("testMergeNotFromFirstPage", () {
-      PageCountDataList<int> list1 = PageCountDataList<int>(
+    test('testMergeNotFromFirstPage', () {
+      final PageCountDataList<int> list1 = PageCountDataList<int>(
         data: [1, 2, 3, 4, 5],
         startPage: 4,
         pageSize: 5,
       );
 
-      PageCountDataList<int> list2 = PageCountDataList<int>(
+      final PageCountDataList<int> list2 = PageCountDataList<int>(
         data: [6, 7, 8, 8, 10],
         startPage: 5,
         pageSize: 5,
       );
 
-      PageCountDataList<int> list3 = PageCountDataList<int>(
+      final PageCountDataList<int> list3 = PageCountDataList<int>(
         data: [1, 2, 3, 4, 5, 6, 7, 8, 8, 10],
         startPage: 4,
         pageSize: 5,
@@ -94,18 +94,18 @@ class DataListPageCountTest {
   }
 
   static void testMergeWithEmptyList() {
-    test("testMergeWithEmptyList", () {
-      PageCountDataList<int> list1 = PageCountDataList(
+    test('testMergeWithEmptyList', () {
+      final PageCountDataList<int> list1 = PageCountDataList(
         data: [1, 2, 3, 4, 5],
         startPage: 0,
         pageSize: 5,
       );
-      PageCountDataList<int> list2 = PageCountDataList(
+      final PageCountDataList<int> list2 = PageCountDataList(
         data: [],
         startPage: 2,
         pageSize: 5,
       );
-      PageCountDataList<int> list3 = PageCountDataList(
+      final PageCountDataList<int> list3 = PageCountDataList(
         data: [1, 2, 3, 4, 5],
         startPage: 0,
         pageSize: 5,
@@ -118,18 +118,18 @@ class DataListPageCountTest {
   }
 
   static void testMergeWithEmptyList2() {
-    test("testMergeWithEmptyList2", () {
-      PageCountDataList<int> list1 = PageCountDataList(
+    test('testMergeWithEmptyList2', () {
+      final PageCountDataList<int> list1 = PageCountDataList(
         data: [],
         startPage: 0,
         pageSize: 5,
       );
-      PageCountDataList<int> list2 = PageCountDataList(
+      final PageCountDataList<int> list2 = PageCountDataList(
         data: [1, 2, 3, 4, 5],
         startPage: 2,
         pageSize: 5,
       );
-      PageCountDataList<int> list3 = PageCountDataList(
+      final PageCountDataList<int> list3 = PageCountDataList(
         data: [1, 2, 3, 4, 5],
         startPage: 0,
         pageSize: 5,
@@ -142,15 +142,15 @@ class DataListPageCountTest {
   }
 
   static void testMergeEmptyListWithAnotherList() {
-    test("testMergeEmptyListWithAnotherList", () {
-      PageCountDataList<int> list1 = PageCountDataList(
+    test('testMergeEmptyListWithAnotherList', () {
+      final PageCountDataList<int> list1 = PageCountDataList(
         data: [1, 2, 3, 4, 5],
         startPage: 0,
         pageSize: 5,
       );
-      PageCountDataList<int> list2 = PageCountDataList.empty();
+      final PageCountDataList<int> list2 = PageCountDataList.empty();
 
-      PageCountDataList<int> list3 = PageCountDataList(
+      final PageCountDataList<int> list3 = PageCountDataList(
         data: [1, 2, 3, 4, 5],
         startPage: 0,
         pageSize: 5,
@@ -163,18 +163,18 @@ class DataListPageCountTest {
   }
 
   static void testMergeWithCollision1() {
-    test("testMergeWithCollision1", () {
-      PageCountDataList<int> list1 = PageCountDataList<int>(
+    test('testMergeWithCollision1', () {
+      final PageCountDataList<int> list1 = PageCountDataList<int>(
         data: [1, 2, 3, 4, 5],
         startPage: 2,
         pageSize: 5,
       );
-      PageCountDataList<int> list2 = PageCountDataList<int>(
+      final PageCountDataList<int> list2 = PageCountDataList<int>(
         data: [6, 7, 8, 8, 10],
         startPage: 1,
         pageSize: 5,
       );
-      PageCountDataList<int> list3 = PageCountDataList<int>(
+      final PageCountDataList<int> list3 = PageCountDataList<int>(
           data: [6, 7, 8, 8, 10, 1, 2, 3, 4, 5],
           startPage: 1,
           pageSize: 5,
@@ -187,20 +187,20 @@ class DataListPageCountTest {
   }
 
   static void testMergeWithCollision2() {
-    test("testMergeWithCollision2", () {
-      PageCountDataList<int> list1 = PageCountDataList<int>(
+    test('testMergeWithCollision2', () {
+      final PageCountDataList<int> list1 = PageCountDataList<int>(
         data: [1, 2, 3, 4, 5],
         startPage: 0,
         numPages: 5,
         pageSize: 1,
       );
-      PageCountDataList<int> list2 = PageCountDataList<int>(
+      final PageCountDataList<int> list2 = PageCountDataList<int>(
         data: [6, 7, 8, 9, 10],
         startPage: 1,
         numPages: 5,
         pageSize: 1,
       );
-      PageCountDataList<int> list3 = PageCountDataList<int>(
+      final PageCountDataList<int> list3 = PageCountDataList<int>(
           data: [1, 6, 7, 8, 9, 10], startPage: 0, pageSize: 1, numPages: 6);
 
       list1.merge(list2);
@@ -210,13 +210,13 @@ class DataListPageCountTest {
   }
 
   static void testMergeWithError() {
-    test("testMergeWithError", () {
-      PageCountDataList<int> list1 = PageCountDataList(
+    test('testMergeWithError', () {
+      final PageCountDataList<int> list1 = PageCountDataList(
         data: [1, 2, 3, 4, 5],
         startPage: 2,
         pageSize: 5,
       );
-      PageCountDataList<int> list2 = PageCountDataList(
+      final PageCountDataList<int> list2 = PageCountDataList(
         data: [6, 7, 8, 8, 10],
         startPage: 1,
         pageSize: 1,
@@ -224,6 +224,7 @@ class DataListPageCountTest {
 
       try {
         list1.merge(list2);
+        // ignore: avoid_catching_errors
       } on ArgumentError catch (e) {
         expect(e.message, 'pageSize for merging DataList must be same');
         return;

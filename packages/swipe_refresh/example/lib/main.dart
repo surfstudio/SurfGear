@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:swipe_refresh/swipe_refresh.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,12 +14,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MainPage(),
+      home: const MainPage(),
     );
   }
 }
 
 class MainPage extends StatefulWidget {
+  const MainPage({Key key}) : super(key: key);
+
   @override
 
   _MainPageState createState() => _MainPageState();
@@ -27,7 +30,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final _controller = StreamController<SwipeRefreshState>.broadcast();
 
-  get _stream => _controller.stream;
+  Stream<SwipeRefreshState> get _stream => _controller.stream;
 
   @override
   Widget build(BuildContext context) {
@@ -66,9 +69,9 @@ class _MainPageState extends State<MainPage> {
                         return Container(
                           color: Colors.primaries[index],
                           height: 100,
-                          child: Center(
+                          child: const Center(
                             child: Text(
-                              "Builder example",
+                              'Builder example',
                               style: TextStyle(color: white),
                             ),
                           ),
@@ -109,16 +112,16 @@ class _MainPageState extends State<MainPage> {
   }
 
   List<Widget> _buildExampleBody(SwipeRefreshStyle style) {
-    var isMaterial = style == SwipeRefreshStyle.material;
-    var color = _getColor(style);
+    final isMaterial = style == SwipeRefreshStyle.material;
+    final color = _getColor(style);
     return <Widget>[
       Container(
         color: color,
         height: 100,
         child: Center(
           child: Text(
-            isMaterial ? "Material example" : "Coupertino example",
-            style: TextStyle(color: white),
+            isMaterial ? 'Material example' : 'Cupertino example',
+            style: const TextStyle(color: white),
           ),
         ),
       ),
@@ -141,25 +144,25 @@ class _MainPageState extends State<MainPage> {
   String _getText(SwipeRefreshStyle style) {
     switch (style) {
       case SwipeRefreshStyle.material:
-        return "Material";
+        return 'Material';
       case SwipeRefreshStyle.cupertino:
-        return "Coupertino";
+        return 'Cupertino';
       case SwipeRefreshStyle.builder:
-        return "Builder";
+        return 'Builder';
       default:
-        return "SipeRefresh";
+        return 'SipeRefresh';
     }
   }
 
-  void _refresh() async {
-    await Future.delayed(Duration(seconds: 3));
+  Future<void> _refresh() async {
+    await Future<void>.delayed(const Duration(seconds: 3));
     // when all needed is done change state
     _controller.sink.add(SwipeRefreshState.hidden);
   }
 }
 
-const white = const Color(0xFFFFFFFF);
-const black = const Color(0xFF000000);
-const red = const Color(0xFFFF0000);
-const green = const Color(0xFF00FF00);
-const blue = const Color(0xFF0000FF);
+const white = Color(0xFFFFFFFF);
+const black = Color(0xFF000000);
+const red = Color(0xFFFF0000);
+const green = Color(0xFF00FF00);
+const blue = Color(0xFF0000FF);

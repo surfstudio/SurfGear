@@ -6,7 +6,7 @@ import 'package:relation/relation.dart';
 void main() {
   testWidgets(
     'ScrollOffsetAction test',
-    (WidgetTester tester) async {
+    (tester) async {
       final action = ScrollOffsetAction((onChanged) {
         expect(1.0, onChanged);
       });
@@ -15,12 +15,12 @@ void main() {
         title: 'Flutter Demo',
         home: Scaffold(
           appBar: AppBar(
-            title: Text('test'),
+            title: const Text('test'),
           ),
           body: ListView(
             controller: action.controller,
             scrollDirection: Axis.vertical,
-            children: <Widget>[
+            children: const <Widget>[
               Text('test'),
               Text('test'),
               Text('test'),
@@ -35,19 +35,19 @@ void main() {
 
   testWidgets(
     'ScrollOffsetAction dispose test',
-    (WidgetTester tester) async {
+    (tester) async {
       final action = ScrollOffsetAction();
 
       await tester.pumpWidget(MaterialApp(
         title: 'Flutter Demo',
         home: Scaffold(
           appBar: AppBar(
-            title: Text('test'),
+            title: const Text('test'),
           ),
           body: ListView(
             controller: action.controller,
             scrollDirection: Axis.vertical,
-            children: <Widget>[
+            children: const <Widget>[
               Text('test'),
               Text('test'),
               Text('test'),

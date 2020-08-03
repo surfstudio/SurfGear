@@ -28,18 +28,6 @@ const int _defaultMaxReloadDurationSeconds = 1800;
 /// from [_minReloadDurationSeconds] to [_maxReloadDurationSeconds]
 /// exponentially increasing
 class AutoRequestManager implements AutoFutureManager {
-  final int _minReloadDurationSeconds;
-  final int _maxReloadDurationSeconds;
-  int _currentReloadDuration;
-
-  final Connectivity _connectivity = Connectivity();
-  StreamSubscription<ConnectivityResult> _connectivitySubscription;
-
-  HashMap _queue = HashMap<String, Future Function()>();
-  HashMap _callbacks = HashMap<String, AutoFutureCallback>();
-
-  Timer _requestTimer;
-
   AutoRequestManager({
     int minReloadDurationSeconds,
     int maxReloadDurationSeconds,
@@ -50,11 +38,23 @@ class AutoRequestManager implements AutoFutureManager {
     _currentReloadDuration = minReloadDurationSeconds;
   }
 
+  final int _minReloadDurationSeconds;
+  final int _maxReloadDurationSeconds;
+  int _currentReloadDuration;
+
+  final Connectivity _connectivity = Connectivity();
+  StreamSubscription<ConnectivityResult> _connectivitySubscription;
+
+  var _queue = HashMap<String, Future Function()>();
+  HashMap _callbacks = HashMap<String, AutoFutureCallback>();
+
+  Timer _requestTimer;
+
   /// register request for auto reload
   @override
   Future<void> autoReload({
     String id,
-    Future toReload(),
+    Future Function() toReload,
     AutoFutureCallback onComplete,
   }) async {
     _queue.putIfAbsent(id, () {
@@ -64,7 +64,7 @@ class AutoRequestManager implements AutoFutureManager {
       return toReload;
     });
 
-    _tryReload();
+    return _tryReload();
   }
 
   /// dispose, when need kill manager
@@ -76,7 +76,7 @@ class AutoRequestManager implements AutoFutureManager {
     _requestTimer.cancel();
   }
 
-  void _tryReload() async {
+  Future<void> _tryReload() async {
     await _connectivity.checkConnectivity();
     _connectivitySubscription ??=
         _connectivity.onConnectivityChanged.listen(_reloadRequest);
@@ -109,13 +109,14 @@ class AutoRequestManager implements AutoFutureManager {
     _requestTimer = null;
   }
 
-  Future<void> _timerHandler(timer) async {
+  Future<void> _timerHandler(Timer timer) async {
     final List<String> keys = _queue.keys.toList();
-    for (String key in keys) {
+    for (final String key in keys) {
       try {
         await _handleItemQueue(key);
-      } catch (e) {
+      } on Exception catch (e) {
         // do nothing, the timer will restart request
+        // ignore: avoid_print
         print('unsuccessful attempt to execute request with error: $e');
       }
     }

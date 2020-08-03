@@ -23,8 +23,7 @@ void main() {
   });
 
   test('Action dispose() test', () {
-    final action = Action<String>();
-    action.dispose();
+    final action = Action<String>()..dispose();
     expect(true, action.subject.isClosed);
   });
 }

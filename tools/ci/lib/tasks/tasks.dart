@@ -176,14 +176,17 @@ Future<void> addCopyright(
     ).run();
 
 /// Пушит open source модули в отдельные репозитории
-Future<void> mirrorOpenSourceModules(List<Element> elements) async {
+Future<void> mirrorOpenSourceModules(
+  List<Element> elements,
+  String currentBranch,
+) async {
   final hasRepo = (Element e) => e.openSourceInfo?.separateRepoUrl != null;
   final openSourceModules = elements.where(hasRepo).toList();
 
   openSourceModules.forEach(
     (e) {
       print('Mirror package ${e.name} to ${e.openSourceInfo.separateRepoUrl}');
-      return MirrorOpenSourceModuleTask(e).run();
+      return MirrorOpenSourceModuleTask(e, currentBranch).run();
     },
   );
 }

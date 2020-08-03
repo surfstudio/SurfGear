@@ -19,9 +19,9 @@ import 'package:bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-Key _greenKey = Key("greenButton");
-Key _redKey = Key("redButton");
-Key _blueKey = Key("blueButton");
+Key _greenKey = const Key('greenButton');
+Key _redKey = const Key('redButton');
+Key _blueKey = const Key('blueButton');
 
 List<BottomNavTabType> _types = [
   BottomNavTabType(0),
@@ -31,27 +31,27 @@ List<BottomNavTabType> _types = [
 
 Map<BottomNavTabType, BottomNavigationRelationship> _map = {
   _types[0]: BottomNavigationRelationship(
-    tabBuilder: () => _buildPage("Red"),
+    tabBuilder: () => _buildPage('Red'),
     navElementBuilder: (isSelected) => _buildButton(
       _redKey,
       isSelected,
-      Color(0x55FF0000),
+      const Color(0x55FF0000),
     ),
   ),
   _types[1]: BottomNavigationRelationship(
-    tabBuilder: () => _buildPage("Green"),
+    tabBuilder: () => _buildPage('Green'),
     navElementBuilder: (isSelected) => _buildButton(
       _greenKey,
       isSelected,
-      Color(0x5500FF00),
+      const Color(0x5500FF00),
     ),
   ),
   _types[2]: BottomNavigationRelationship(
-    tabBuilder: () => _buildPage("Blue"),
+    tabBuilder: () => _buildPage('Blue'),
     navElementBuilder: (isSelected) => _buildButton(
       _blueKey,
       isSelected,
-      Color(0x550000FF),
+      const Color(0x550000FF),
     ),
   ),
 };
@@ -70,7 +70,7 @@ Widget _buildButton(Key key, bool isSelected, Color color) {
 }
 
 Widget _buildPage(String color) {
-  return Container(
+  return SizedBox(
     child: Text(color),
   );
 }
@@ -87,26 +87,26 @@ void main() {
 }
 
 void redButtonTest() {
-  testWidgets('Red tap', (WidgetTester tester) async {
-    await _buttonTest(_redKey, "Red", tester);
+  testWidgets('Red tap', (tester) async {
+    await _buttonTest(_redKey, 'Red', tester);
   });
 }
 
 void greenButtonTest() {
-  testWidgets('Green tap', (WidgetTester tester) async {
-    await _buttonTest(_greenKey, "Green", tester);
+  testWidgets('Green tap', (tester) async {
+    await _buttonTest(_greenKey, 'Green', tester);
   });
 }
 
 void blueButtonTest() {
-  testWidgets('Blue tap', (WidgetTester tester) async {
-    await _buttonTest(_blueKey, "Blue", tester);
+  testWidgets('Blue tap', (tester) async {
+    await _buttonTest(_blueKey, 'Blue', tester);
   });
 }
 
 void outerActionTest() {
-  testWidgets('Outer action', (WidgetTester tester) async {
-    var sc = StreamController<BottomNavTabType>.broadcast();
+  testWidgets('Outer action', (tester) async {
+    final sc = StreamController<BottomNavTabType>.broadcast();
 
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
@@ -122,8 +122,9 @@ void outerActionTest() {
 
     await tester.pump();
 
-    expect(find.text("Blue"), findsOneWidget);
+    expect(find.text('Blue'), findsOneWidget);
 
+    // ignore: unawaited_futures
     sc.close();
   });
 }

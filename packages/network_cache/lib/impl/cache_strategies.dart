@@ -48,7 +48,8 @@ class CacheIfErrorStrategy implements CacheStrategy {
     Stream<Response> cacheResponse,
     Stream<Response> networkResponse,
   ) =>
-      networkResponse.onErrorResume((e) => Rx.concat([
+      // ignore: avoid_types_on_closure_parameters
+      networkResponse.onErrorResume((Object e) => Rx.concat([
             cacheResponse,
             Stream.error(e),
           ]));

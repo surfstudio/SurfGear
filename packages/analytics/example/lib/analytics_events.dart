@@ -12,15 +12,15 @@ class FantasticButtonTappedEvent implements FirebaseAnalyticEvent {
 }
 
 class SparklingButtonTappedEvent implements FirebaseAnalyticEvent {
-  final String payload;
-
   SparklingButtonTappedEvent(this.payload);
+
+  final String payload;
 
   @override
   String get key => 'sparkling_button_tapped';
 
   @override
-  Map<String, dynamic> get params => {
+  Map<String, String> get params => {
         'payload': payload,
       };
 
@@ -29,15 +29,15 @@ class SparklingButtonTappedEvent implements FirebaseAnalyticEvent {
 }
 
 class DelightfulButtonTappedEvent implements FirebaseAnalyticEvent {
-  final bool isDelightful;
+  DelightfulButtonTappedEvent({this.isDelightful});
 
-  DelightfulButtonTappedEvent(this.isDelightful);
+  final bool isDelightful;
 
   @override
   String get key => 'delightful_button_tapped';
 
   @override
-  Map<String, dynamic> get params => {
+  Map<String, bool> get params => {
         'isDelightful': isDelightful,
       };
 

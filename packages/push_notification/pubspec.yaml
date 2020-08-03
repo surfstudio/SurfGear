@@ -1,6 +1,6 @@
 name: push_notification
 description: A new Flutter plugin.
-version: 0.0.1
+version: 0.0.1-dev.0
 author:
 homepage:
 
@@ -13,6 +13,9 @@ dependencies:
 
   #rx
   rxdart: ^0.24.0
+
+  surf_lint_rules:
+    path: ../surf_lint_rules
 
 dev_dependencies:
   flutter_test:

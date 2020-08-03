@@ -11,8 +11,12 @@ import 'package:path/path.dart' as path;
 /// Зеркалирует open source модуль в его отдельный репозиторий
 class MirrorOpenSourceModuleTask implements Task<bool> {
   final Element element;
+  final String branchName;
 
-  MirrorOpenSourceModuleTask(this.element) {
+  MirrorOpenSourceModuleTask(
+    this.element,
+    this.branchName,
+  ) {
     if (element.openSourceInfo?.separateRepoUrl == null) {
       final message = getModuleIsNotOpenSourceExceptionText(element.name);
       throw ModuleIsNotOpenSourceException(message);
@@ -38,7 +42,7 @@ class MirrorOpenSourceModuleTask implements Task<bool> {
     }();
 
     // push only to stable branch, yet
-    final pushSubtree = 'git subtree push $prefix $repoWithCreds stable';
+    final pushSubtree = 'git subtree push $prefix $repoWithCreds $branchName';
     final pushResult = await sh(pushSubtree, path: Config.repoRootPath);
 
     if (pushResult.exitCode != 0) {

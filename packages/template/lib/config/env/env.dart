@@ -3,6 +3,12 @@ import 'package:flutter_template/config/build_types.dart';
 
 /// Конфигурация окружения
 class Environment<T> implements Listenable {
+  Environment._([BuildType buildType, T config])
+      : _currentBuildType = buildType ?? BuildType.debug,
+        _config = ValueNotifier(config);
+
+  factory Environment.instance() => _instance as Environment<T>;
+
   final BuildType _currentBuildType;
   ValueNotifier<T> _config;
 
@@ -12,10 +18,6 @@ class Environment<T> implements Listenable {
 
   static Environment _instance;
 
-  Environment._([BuildType buildType, T config])
-      : _currentBuildType = buildType ?? BuildType.debug,
-        _config = ValueNotifier(config);
-
   static void init<T>({
     @required BuildType buildType,
     @required T config,
@@ -23,19 +25,17 @@ class Environment<T> implements Listenable {
     _instance ??= Environment<T>._(buildType, config);
   }
 
-  factory Environment.instance() => _instance;
-
   bool get isDebug => _currentBuildType == BuildType.debug;
 
   BuildType get buildType => _currentBuildType;
 
   @override
-  void addListener(listener) {
+  void addListener(VoidCallback listener) {
     _config.addListener(listener);
   }
 
   @override
-  void removeListener(listener) {
+  void removeListener(VoidCallback listener) {
     _config.removeListener(listener);
   }
 }

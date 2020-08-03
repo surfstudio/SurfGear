@@ -2,11 +2,8 @@ import 'package:flutter/services.dart';
 
 /// Копипаст с либы
 class MaskTextInputFormatter extends TextInputFormatter {
-  Map<int, String> _maskMap;
-  List<int> _maskList;
-
-  MaskTextInputFormatter(maskString, {escapeChar = "_"}) {
-    assert(maskString != null);
+  MaskTextInputFormatter(String maskString, {String escapeChar = '_'})
+      : assert(maskString != null) {
     final entries = RegExp('[^$escapeChar]+')
         .allMatches(maskString)
         .map((match) => MapEntry<int, String>(match.start, match.group(0)));
@@ -15,24 +12,26 @@ class MaskTextInputFormatter extends TextInputFormatter {
     _maskList = _maskMap.keys.toList();
   }
 
+  Map<int, String> _maskMap;
+  List<int> _maskList;
+
   String getEscapedString(String inputText) {
+    String escapedString;
     _maskList.reversed
         .where((index) =>
             index < inputText.length && _substringIsMask(inputText, index))
-        .forEach((index) {
-      inputText = inputText.substring(0, index) +
-          inputText.substring(index + _maskMap[index].length);
-    });
-    return inputText;
+        .forEach(
+      (index) {
+        escapedString = inputText.substring(0, index) +
+            inputText.substring(index + _maskMap[index].length);
+      },
+    );
+    return escapedString;
   }
 
   bool _substringIsMask(String inputText, int index) {
-    try {
-      return inputText.substring(index, index + _maskMap[index].length) ==
-          _maskMap[index];
-    } on RangeError {
-      return false;
-    }
+    return inputText.substring(index, index + _maskMap[index].length) ==
+        _maskMap[index];
   }
 
   @override
@@ -42,14 +41,14 @@ class MaskTextInputFormatter extends TextInputFormatter {
     var position = newValue.selection.baseOffset -
         (newValue.text.length - escapedString.length);
 
-    _maskList.forEach((index) {
+    for (final int index in _maskList) {
       if (escapedString.length > index) {
         escapedString = escapedString.substring(0, index) +
             _maskMap[index] +
             escapedString.substring(index);
         position += _maskMap[index].length;
       }
-    });
+    }
 
     return newValue.copyWith(
         text: escapedString,

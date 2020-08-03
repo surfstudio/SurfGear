@@ -1,11 +1,12 @@
 /// incompatible data blocks
 class IncompatibleRangesException implements Exception {
-  final message;
-
   IncompatibleRangesException([this.message]);
 
+  final String message;
+
+  @override
   String toString() {
-    if (message == null) return "IncompatibleRangesException";
-    return "IncompatibleRangesException: $message";
+    if (message == null) return 'IncompatibleRangesException';
+    return 'IncompatibleRangesException: $message';
   }
 }

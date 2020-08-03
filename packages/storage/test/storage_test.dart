@@ -36,53 +36,54 @@ void main() {
 
 abstract class StorageTest {
   static void testEmptyGet(Storage storage) {
-    test("testEmptyGet", () async {
-      final nullValue = await storage.get("someKey");
+    test('testEmptyGet', () async {
+      final nullValue = await storage.get('someKey') as Object;
       expect(nullValue, null);
     });
   }
 
   static void testPutGet(Storage storage) {
-    test("testPutGet", () async {
+    test('testPutGet', () async {
       final value = {
-        "key1": "value1",
-        "key2": "value2",
+        'key1': 'value1',
+        'key2': 'value2',
       };
 
-      storage.put("someKey", value);
-      final savedValue = await storage.get("someKey");
+      storage.put('someKey', value);
+      final savedValue = await storage.get('someKey') as Object;
       expect(savedValue, value);
     });
   }
 
   static void testPutGetRichValue(Storage storage) {
-    test("testPutGetRichValue", () async {
+    test('testPutGetRichValue', () async {
       final value = {
-        "stringKey": "stringValue",
-        "intKey": 42,
-        "doubleKey": 42.42,
-        "boolKey": true,
+        'stringKey': 'stringValue',
+        'intKey': 42,
+        'doubleKey': 42.42,
+        'boolKey': true,
       };
 
-      storage.put("someKey", value);
-      final savedValue = await storage.get("someKey");
+      storage.put('someKey', value);
+      final savedValue = await storage.get('someKey') as Object;
       expect(savedValue, value);
     });
   }
 
   static void testMultipleValues(Storage storage) {
-    test("testMultipleValues", () async {
-      final value1 = {"key1": "value1"};
-      final value2 = {"key2": 42};
-      final value3 = {"key3": true};
+    test('testMultipleValues', () async {
+      final value1 = {'key1': 'value1'};
+      final value2 = {'key2': 42};
+      final value3 = {'key3': true};
 
-      storage.put("someKey1", value1);
-      storage.put("someKey2", value2);
-      storage.put("someKey3", value3);
+      storage
+        ..put('someKey1', value1)
+        ..put('someKey2', value2)
+        ..put('someKey3', value3);
 
-      final savedValue1 = await storage.get("someKey1");
-      final savedValue2 = await storage.get("someKey2");
-      final savedValue3 = await storage.get("someKey3");
+      final savedValue1 = await storage.get('someKey1') as Object;
+      final savedValue2 = await storage.get('someKey2') as Object;
+      final savedValue3 = await storage.get('someKey3') as Object;
 
       expect(savedValue1, value1);
       expect(savedValue2, value2);
@@ -91,26 +92,26 @@ abstract class StorageTest {
   }
 
   static void testClear(Storage storage) {
-    test("testClear", () async {
-      final value = {"key": "value"};
-      storage.put("someKey", value);
+    test('testClear', () async {
+      final value = {'key': 'value'};
+      storage
+        ..put('someKey', value)
+        ..clear();
 
-      storage.clear();
-
-      final nullValue = await storage.get("someKey");
+      final nullValue = await storage.get('someKey') as Object;
       expect(nullValue, null);
     });
   }
 
   static void testRewriteValue(Storage storage) {
-    test("testRewriteValue", () async {
-      final value = {"key": "value"};
-      storage.put("someKey", value);
+    test('testRewriteValue', () async {
+      final value = {'key': 'value'};
+      storage.put('someKey', value);
 
-      final newValue = {"newKey": "newValue"};
-      storage.put("someKey", newValue);
+      final newValue = {'newKey': 'newValue'};
+      storage.put('someKey', newValue);
 
-      final savedValue = await storage.get("someKey");
+      final savedValue = await storage.get('someKey') as Object;
       expect(savedValue, newValue);
     });
   }

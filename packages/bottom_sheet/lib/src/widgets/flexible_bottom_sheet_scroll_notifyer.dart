@@ -2,29 +2,29 @@ import 'package:bottom_sheet/src/widgets/flexible_draggable_scrollable_sheet.dar
 import 'package:flutter/material.dart';
 
 /// Start scrolling
-typedef bool ScrollStartCallback(ScrollStartNotification notification);
+typedef ScrollStartCallback = bool Function(ScrollStartNotification);
 
 /// Scrolling
-typedef bool ScrollCallback(
-    FlexibleDraggableScrollableNotification notification);
+typedef ScrollCallback = bool Function(FlexibleDraggableScrollableNotification);
 
 /// Scroll finished
-typedef bool ScrollEndCallback(ScrollEndNotification notification);
+typedef ScrollEndCallback = bool Function(ScrollEndNotification);
 
 /// Listen drag-notifications
 class FlexibleScrollNotifyer extends StatelessWidget {
+  const FlexibleScrollNotifyer({
+    Key key,
+    this.child,
+    this.scrollStartCallback,
+    this.scrollingCallback,
+    this.scrollEndCallback,
+  }) : super(key: key);
+
   final Widget child;
 
   final ScrollStartCallback scrollStartCallback;
   final ScrollCallback scrollingCallback;
   final ScrollEndCallback scrollEndCallback;
-
-  FlexibleScrollNotifyer({
-    this.child,
-    this.scrollStartCallback,
-    this.scrollingCallback,
-    this.scrollEndCallback,
-  });
 
   @override
   Widget build(BuildContext context) {

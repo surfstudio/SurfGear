@@ -1,6 +1,6 @@
 name: permission
 description: A new Flutter package project.
-version: 0.0.1
+version: 0.0.1-dev.0
 author:
 homepage:
 
@@ -14,6 +14,9 @@ dependencies:
   # before update check ios setup for deletion unused permission 
   # and update readme
   permission_handler: 5.0.1
+
+  surf_lint_rules:
+    path: ../surf_lint_rules
 
 dev_dependencies:
   flutter_test:

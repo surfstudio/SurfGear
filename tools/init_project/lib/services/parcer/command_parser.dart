@@ -29,6 +29,10 @@ class CommandParser {
   static const String _branch = 'branch';
   static const String _branchAbbr = 'b';
 
+  /// Option to provide Java package names and as prefix in the iOS bundle identifier
+  static const String _organization = 'orgId';
+  static const String _organizationAbbr = 'i';
+
   CommandParser() {
     _init_parser();
   }
@@ -66,6 +70,15 @@ class CommandParser {
         valueHelp: 'nameProject',
       )
 
+      /// Organization identifier.
+      ..addOption(
+        CommandParser._organization,
+        abbr: CommandParser._organizationAbbr,
+        help:
+            'Organization identifier for Java package names and as prefix in the iOS bundle identifier',
+        valueHelp: 'organization',
+      )
+
       /// Ветка зависимостей.
       ..addOption(
         CommandParser._branch,
@@ -84,7 +97,12 @@ class CommandParser {
       )
 
       /// Help.
-      ..addFlag(CommandParser._helpFlag, abbr: CommandParser._helpAbbr, negatable: false, help: 'Help');
+      ..addFlag(
+        CommandParser._helpFlag,
+        abbr: CommandParser._helpAbbr,
+        negatable: false,
+        help: 'Help',
+      );
   }
 
   /// Если опции введены верно, парсим их в [Command], иначе возвращаем help.
@@ -111,9 +129,16 @@ class CommandParser {
       return Future.error(Exception('Enter the URL of the remote repository.'));
     }
 
+    if (parsed[CommandParser._organization] == null) {
+      printMessageConsole(_argParser.usage);
+      sleep(Duration(microseconds: 10));
+      return Future.error(Exception('Enter organization identifier.'));
+    }
+
     return Command(
       parsed[CommandParser._nameProject],
       parsed[CommandParser._remoteUrl],
+      parsed[CommandParser._organization],
       path: parsed[CommandParser._path],
       branch: parsed[CommandParser._branch],
     );

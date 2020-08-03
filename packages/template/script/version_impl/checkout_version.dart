@@ -1,42 +1,48 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:pedantic/pedantic.dart';
 
 import 'package:args/args.dart';
 
-void main(List<String> arguments) async {
+Future<void> main(List<String> arguments) async {
   exitCode = 0;
   final parser = ArgParser();
 
-  var args = parser.parse(arguments).arguments;
+  final List<String> args = parser.parse(arguments).arguments;
   if (args.isEmpty) {
     exitCode = 1;
-    throw Exception("You should pass version of flutter to argument.");
+    throw Exception('You should pass version of flutter to argument.');
   } else {
-    var version = args[0];
+    final String version = args[0];
 
-    var checkVersion = await Process.run('flutter', ['--version', '--machine']);
+    final ProcessResult checkVersion = await Process.run(
+      'flutter',
+      ['--version', '--machine'],
+    );
 
     var needChangeVersion = true;
 
     // если запрос завершился ошибкой тогда все равно попробуем сменить версию
     if (checkVersion.stderr.toString().isEmpty) {
-      var parsedOut = json.decode(checkVersion.stdout);
-      var currentVersion = parsedOut["frameworkVersion"];
+      final parsedOut = json.decode(
+        checkVersion.stdout as String,
+      ) as Map<String, String>;
+      String currentVersion = parsedOut['frameworkVersion'];
 
-      if (currentVersion != null && currentVersion[0] != "v") {
-        currentVersion = "v$currentVersion";
+      if (currentVersion != null && currentVersion[0] != 'v') {
+        currentVersion = 'v$currentVersion';
       }
 
       needChangeVersion = currentVersion != version;
     }
 
     if (needChangeVersion) {
-      unawaited(Process.run('flutter', ['version', version]).then((result) {
+      // ignore: unawaited_futures
+      Process.run('flutter', ['version', version]).then((result) {
         stdout.write(result.stdout);
         stderr.write(result.stderr);
-      }));
+      });
     } else {
+      // ignore: avoid_print
       print('Current version is equal to target version. Skipping checkout...');
     }
   }
