@@ -93,10 +93,15 @@ pipeline.stages = [
 
         // поиск изменившихся модулей
         pipeline.stage(FIND_CHANGED) {
+
+            script.sh "ls"
+
             // взять хэш из файла
             File file = new File(lastDeployHashFileName)
             String hash = file.text
             
+
+
             //и передать параметром
             script.sh "./tools/ci/runner/find_changed_modules --target=${hash}"
         },
