@@ -93,21 +93,14 @@ pipeline.stages = [
 
         // поиск изменившихся модулей
         pipeline.stage(FIND_CHANGED) {
-
-            script.sh "cat ./.last_deploy_hash"
-
-            // взять хэш из файла
-            File file = new File(lastDeployHashFileName)
-            String hash = file.text
-
-            //и передать параметром
-            script.sh "./tools/ci/runner/find_changed_modules --target=${hash}"
+            // взять хэш из файла и передать параметром
+            script.sh "./tools/ci/runner/find_changed_modules --target=$(cat ${lastDeployHashFileName})"
         },
 
         // изменения версии изменившихся модулей
         pipeline.stage(CHANGE_VIRSION) {
-            // script.sh "./tools/ci/runner/increment_unstable_versions"
             script.echo "increment_unstable_versions"
+            // script.sh "./tools/ci/runner/increment_unstable_versions"
         },
 
         // сохранить хэш комита с версиями в файл
