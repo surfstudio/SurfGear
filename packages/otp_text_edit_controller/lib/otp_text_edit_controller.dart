@@ -1,13 +1,22 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:otp_text_edit_controller/base/strategy.dart';
+import 'package:otp_text_edit_controller/impl/push_strategy.dart';
+import 'package:otp_text_edit_controller/otp_interactor.dart';
 
-class OtpTextEditController {
-  static const MethodChannel _channel =
-      const MethodChannel('otp_text_edit_controller');
+class OTPTextEditController extends TextEditingController {
+  OTPTextEditController() {
+    _otpInteractor = OTPInteractor();
+  }
 
-  static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
+  OTPInteractor _otpInteractor;
+
+  void startListen(ExtractStringCallback codeExctractor,
+      [List<OTPStrategy> strategies]) {
+    _otpInteractor.startListen((rawSMS) {
+      text = codeExctractor(rawSMS);
+    });
   }
 }
