@@ -21,7 +21,9 @@ dependencies:
     path: ../swipe_refresh
 
   surf_lint_rules:
-    path: ../surf_lint_rules
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      path: ../surf_lint_rules
 
 dev_dependencies:
   flutter_test:

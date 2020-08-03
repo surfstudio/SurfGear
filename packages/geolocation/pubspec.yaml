@@ -20,7 +20,9 @@ dependencies:
   flutter:
     sdk: flutter
   surf_lint_rules:
-    path: ../surf_lint_rules
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      path: ../surf_lint_rules
 
   geolocator: ^5.2.0
   location: 2.4.0

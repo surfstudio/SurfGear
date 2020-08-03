@@ -13,7 +13,9 @@ dependencies:
   tabnavigator:
     path: ../tabnavigator
   surf_lint_rules:
-    path: ../surf_lint_rules
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      path: ../surf_lint_rules
 
   # testing mock
   mockito: ^4.1.1
