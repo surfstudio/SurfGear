@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ci/domain/dependency.dart';
 import 'package:ci/domain/element.dart';
 import 'package:ci/services/managers/file_system_manager.dart';
@@ -32,6 +34,7 @@ class SaveElementTask extends Action {
     _fileSystemManager.writeToFileAsString(
       filePath,
       _yamlManager.convertToYamlFile(yaml),
+      mode: FileMode.append,
     );
   }
 
