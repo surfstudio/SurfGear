@@ -17,7 +17,7 @@ void main() {
     channel.setMockMethodCallHandler(null);
   });
 
-  test('getPlatformVersion', () async {
-    expect(await OTPInteractor.hint, '42');
+  test('getTelephoneHint', () async {
+    expect(await OTPInteractor.hint, null);
   });
 }
