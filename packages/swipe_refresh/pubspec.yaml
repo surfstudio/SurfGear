@@ -26,3 +26,31 @@ custom:
   path: swipe_refresh
   separate_repo_url:
   hostUrl:
+name: swipe_refresh
+version: "0.0.1-dev.0"
+description: Widget for refresh by swipe.
+
+dependencies:
+  flutter:
+    sdk: flutter
+  surf_lint_rules:
+    git:
+      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
+      path: packages/surf_lint_rules
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+
+flutter:
+
+custom:
+  is_stable: false
+  unstable_version: 1
+  is_plugin: false
+  path: swipe_refresh
+  separate_repo_url:
+  hostUrl:

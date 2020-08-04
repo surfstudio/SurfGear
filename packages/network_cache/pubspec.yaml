@@ -69,3 +69,36 @@ custom:
   path: network_cache
   separate_repo_url:
   hostUrl:
+name: network_cache
+version: "0.0.1-dev.0"
+description: A new Flutter package project.
+
+dependencies:
+  flutter:
+    sdk: flutter
+  rxdart: ^0.24.0
+  surf_lint_rules:
+    git:
+      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
+      path: packages/surf_lint_rules
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  storage:
+    path: ../storage
+  network:
+    path: ../network
+
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+
+flutter:
+
+custom:
+  is_stable: false
+  unstable_version: 1
+  is_plugin: false
+  path: network_cache
+  separate_repo_url:
+  hostUrl:

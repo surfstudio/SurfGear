@@ -11,7 +11,9 @@ dependencies:
     sdk: flutter
 
   tabnavigator:
-    path: ../tabnavigator
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      path: packages/tabnavigator
   surf_lint_rules:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
@@ -28,6 +30,39 @@ flutter:
 custom:
   is_stable: false
   unstable_version: 0
+  is_plugin: false
+  path: bottom_navigation_bar
+  separate_repo_url:
+  hostUrl:
+name: bottom_navigation_bar
+version: "0.0.1-dev.0"
+description: Bottom navigation bar
+
+dependencies:
+  flutter:
+    sdk: flutter
+  tabnavigator:
+    git:
+      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
+      path: packages/tabnavigator
+  surf_lint_rules:
+    git:
+      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
+      path: packages/surf_lint_rules
+  mockito: ^4.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+
+flutter:
+
+custom:
+  is_stable: false
+  unstable_version: 1
   is_plugin: false
   path: bottom_navigation_bar
   separate_repo_url:
