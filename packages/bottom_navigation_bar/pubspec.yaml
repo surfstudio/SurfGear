@@ -11,7 +11,9 @@ dependencies:
     sdk: flutter
 
   tabnavigator:
-    path: ../tabnavigator
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      path: packages/tabnavigator
   surf_lint_rules:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
