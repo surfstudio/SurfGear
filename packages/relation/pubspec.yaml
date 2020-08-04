@@ -14,7 +14,9 @@ dependencies:
   rxdart: ^0.24.0
 
   surf_lint_rules:
-    path: ../surf_lint_rules
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      path: packages/surf_lint_rules
   pedantic: ^1.9.0
 
 dev_dependencies:
