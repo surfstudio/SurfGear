@@ -24,31 +24,4 @@ custom:
   unstable_version: 0
   is_plugin: false
   path: ink_widget
-  hostUrl:name: keyboard_listener
-version: "1.0.0-dev.0"
-description: Keyboard listener created only on Flutter
-
-dependencies:
-  flutter:
-    sdk: flutter
-  surf_lint_rules:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_lint_rules
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
-environment:
-  sdk: ">=2.6.0 <3.0.0"
-
-flutter:
-
-custom:
-  is_stable: false
-  unstable_version: 1
-  is_plugin: false
-  path: keyboard_listener
   hostUrl:
-  separate_repo_url:

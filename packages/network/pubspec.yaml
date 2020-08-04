@@ -67,35 +67,3 @@ custom:
   path: network
   separate_repo_url:
   hostUrl:
-name: network
-version: "0.0.1-dev.0"
-description: Network implementation for Flutter
-
-dependencies:
-  flutter:
-    sdk: flutter
-  logger:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/logger
-  dio: 3.0.8
-  http: 0.12.0+4
-  http_parser: 3.1.3
-  rxdart: ^0.24.0
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
-environment:
-  sdk: ">=2.6.0 <3.0.0"
-
-flutter:
-
-custom:
-  is_stable: false
-  unstable_version: 1
-  is_plugin: false
-  path: network
-  separate_repo_url:
-  hostUrl:

@@ -12,43 +12,25 @@ dependencies:
 
   #внутренние библиотеки
   network:
-    git:
-      url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      path: packages/network
+    path: ../network
   logger:
-    git:
-      url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      path: packages/logger
+    path: ../logger
   injector:
-    git:
-      url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      path: packages/injector
+    path: ../injector
   surf_mwwm:
-    git:
-      url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      path: packages/surf_mwwm
+    path: ../surf_mwwm
   geolocation:
-    git:
-      url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      path: packages/geolocation
+    path: ../geolocation
   analytics:
-    git:
-      url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      path: packages/analytics
+    path: ../analytics
   bottom_sheet:
-    git:
-      url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      path: packages/bottom_sheet
+    path: ../bottom_sheet
 
   # модуль push уведомлений
   push_notification:
-    git:
-      url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      path: packages/push_notification
+    path: ../push_notification
   surf_util:
-    git:
-      url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      path: packages/surf_util
+    path: ../surf_util
   surf_lint_rules:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
@@ -103,85 +85,6 @@ flutter:
 custom:
   is_stable: false
   unstable_version: 0
-  is_plugin: false
-  path: template
-  separate_repo_url:
-  hostUrl:
-name: flutter_template
-version: "0.0.1-dev.0"
-description: a Flutter template project for development.
-
-dependencies:
-  flutter:
-    sdk: flutter
-  network:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/network
-  logger:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/logger
-  injector:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/injector
-  surf_mwwm:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_mwwm
-  geolocation:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/geolocation
-  analytics:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/analytics
-  bottom_sheet:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/bottom_sheet
-  push_notification:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/push_notification
-  surf_util:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_util
-  surf_lint_rules:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_lint_rules
-  intl: ^0.16.1
-  flutter_svg: ^0.15.0
-  http: ^0.12.0+4
-  dio: ^3.0.8
-  shared_preferences: 0.5.6+3
-  path_provider: ^1.5.1
-  rxdart: ^0.24.0
-  firebase_crashlytics: ^0.1.2+4
-  string_mask: ^0.1.0
-  cupertino_icons: ^0.1.3
-  connectivity: ^0.4.6+2
-  mockito: ^4.1.1
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
-environment:
-  sdk: ">=2.7.0 <3.0.0"
-
-flutter:
-  uses-material-design: true
-  assets:
-    - res/assets/
-
-custom:
-  is_stable: false
-  unstable_version: 1
   is_plugin: false
   path: template
   separate_repo_url:

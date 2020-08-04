@@ -33,38 +33,4 @@ custom:
   unstable_version: 0
   path: jitsi_meet
   separate_repo_url:
-  hostUrl:name: jitsi_meet
-version: "0.0.1-dev.0"
-description: Plugin for jitsi meet service
-
-dependencies:
-  flutter:
-    sdk: flutter
-  surf_lint_rules:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_lint_rules
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
-environment:
-  sdk: ">=2.7.0 <3.0.0"
-
-flutter:
-  plugin:
-    platforms:
-      android:
-        package: jitsimeet.jitsi_meet
-        pluginClass: JitsiMeetPlugin
-      ios:
-        pluginClass: JitsiMeetPlugin
-
-custom:
-  is_stable: false
-  unstable_version: 1
-  path: jitsi_meet
-  separate_repo_url:
   hostUrl:
-  is_plugin:

@@ -13,19 +13,13 @@ dependencies:
 
   #inner packages
   injector:
-    git:
-      url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      path: packages/injector
+    path: ../injector
 
   relation:
-    git:
-      url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      path: packages/relation
+    path: ../relation
 
   mwwm:
-    git:
-      url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      path: packages/mwwm
+    path: ../mwwm
 
   #rx
   rxdart: ^0.24.0
@@ -41,44 +35,6 @@ flutter:
 custom:
   is_stable: false
   unstable_version: 0
-  is_plugin: false
-  path: surf_mwwm
-  separate_repo_url:
-  hostUrl:
-name: surf_mwwm
-version: "0.0.1-dev.0"
-description: Reflection of widget in a single entity
-
-dependencies:
-  flutter:
-    sdk: flutter
-  injector:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/injector
-  relation:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/relation
-  mwwm:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/mwwm
-  rxdart: ^0.24.0
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  pedantic: ^1.7.0
-
-environment:
-  sdk: ">=2.6.0 <3.0.0"
-
-flutter:
-
-custom:
-  is_stable: false
-  unstable_version: 1
   is_plugin: false
   path: surf_mwwm
   separate_repo_url:

@@ -25,28 +25,3 @@ custom:
   path: surf_lint_rules
   separate_repo_url:
   hostUrl:
-name: surf_lint_rules
-version: 0.0.1
-description: A new Flutter package.
-
-dependencies:
-  flutter:
-    sdk: flutter
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
-environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.17.0 <2.0.0"
-
-flutter:
-
-custom:
-  is_stable: false
-  unstable_version: 1
-  is_plugin: false
-  path: surf_lint_rules
-  separate_repo_url:
-  hostUrl:

@@ -78,35 +78,3 @@ custom:
   path: geolocation
   separate_repo_url:
   hostUrl:
-name: geolocation
-version: "0.0.1-dev.0"
-description: A new Flutter project.
-
-dependencies:
-  flutter:
-    sdk: flutter
-  surf_lint_rules:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_lint_rules
-  geolocator: ^5.2.0
-  location: 2.4.0
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  rxdart: ^0.24.0
-
-environment:
-  sdk: ">=2.6.0 <3.0.0"
-
-flutter:
-  uses-material-design: true
-
-custom:
-  is_stable: false
-  unstable_version: 1
-  is_plugin: false
-  path: geolocation
-  separate_repo_url:
-  hostUrl:

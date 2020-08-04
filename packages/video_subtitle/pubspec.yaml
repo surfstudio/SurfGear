@@ -25,30 +25,4 @@ custom:
   unstable_version: 0
   is_plugin: false
   path: video_subtitle
-  hostUrl:name: video_subtitle
-version: 0.0.1
-description: "Subtitle plugin for video-plugin"
-
-dependencies:
-  flutter:
-    sdk: flutter
-  pedantic: ^1.9.0
-  video_player: ">=0.10.11+1 <2.0.0"
-  srt_parser: ^1.1.0+5
-  http: ^0.12.1
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
-environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.10.0"
-
-custom:
-  is_stable: false
-  unstable_version: 1
-  is_plugin: false
-  path: video_subtitle
   hostUrl:
-  separate_repo_url:
