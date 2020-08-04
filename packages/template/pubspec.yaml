@@ -32,7 +32,9 @@ dependencies:
   surf_util:
     path: ../surf_util
   surf_lint_rules:
-    path: ../surf_lint_rules
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      path: packages/surf_lint_rules
 
   intl: ^0.16.1
 
