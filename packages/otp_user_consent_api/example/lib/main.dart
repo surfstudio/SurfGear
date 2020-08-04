@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:otp_user_consent_api/otp_interactor.dart';
 import 'package:otp_user_consent_api/otp_text_edit_controller.dart';
 
 void main() {
@@ -20,11 +21,17 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    OTPInteractor.getAppSignature()
+        .then((value) => print('signature - $value'));
     controller = OTPTextEditController(
       codeLength: 5,
       onCodeReceive: (code) => print('Your Application receive code - $code'),
     )..startListen(
-        (code) => code?.split(' ')?.last ?? '',
+        (code) {
+          final list = code?.split(' ')?.lastWhere(
+              (element) => !element.contains("6O") && element != "");
+          return list[list.length - 2];
+        },
       );
   }
 

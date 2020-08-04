@@ -47,7 +47,7 @@ class OTPTextEditController extends TextEditingController {
       if (strategiesListen != null) ...strategiesListen,
     ]).first.then((value) {
       text = codeExtractor(value);
-    }).catchError(onTimeOutException);
+    }).catchError(onTimeOutException ?? (_) {});
   }
 
   /// Get OTP code from another input

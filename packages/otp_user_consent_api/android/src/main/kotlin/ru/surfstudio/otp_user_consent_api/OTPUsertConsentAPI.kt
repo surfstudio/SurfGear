@@ -30,8 +30,8 @@ const val smsConsentRequest = 2
 /// Methods
 const val getTelephoneHint: String = "getTelephoneHint"
 const val startListenForCode: String = "startListenForCode"
-
 const val stopListenForCode: String = "stopListenForCode"
+const val getAppSignatureMethod: String = "getAppSignature"
 
 /// Arguments
 const val senderTelephoneNumber: String = "senderTelephoneNumber"
@@ -66,6 +66,10 @@ public class OTPUsertConsentAPI : FlutterPlugin, MethodCallHandler, PluginRegist
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         when (call.method) {
+            "startListenNewApi" -> {
+                resultForHint = result
+                startListening()
+            }
             startListenForCode -> {
                 listenForCode(call, result)
             }
@@ -75,6 +79,12 @@ public class OTPUsertConsentAPI : FlutterPlugin, MethodCallHandler, PluginRegist
             stopListenForCode -> {
                 this.activity?.unregisterReceiver(smsBroadcastReceiver)
                 result.success(true)
+            }
+            getAppSignatureMethod -> {
+                if (activity != null) {
+                    val signature = AppSignatureHelper(this.activity!!).getAppSignatures()[0]
+                    result.success(signature)
+                } else result.success(null)
             }
             else -> result.notImplemented()
         }
@@ -137,11 +147,19 @@ public class OTPUsertConsentAPI : FlutterPlugin, MethodCallHandler, PluginRegist
         }
     }
 
+    private fun startListening() {
+        if (activity != null) {
+            val client = SmsRetriever.getClient(activity!!)
+            val task = client.startSmsRetriever()
+        }
+    }
+
     private fun registerToSmsBroadcastReceiver() {
         smsBroadcastReceiver = SmsBroadcastReceiver().also {
             it.smsBroadcastReceiverListener = object : SmsBroadcastReceiver.SmsBroadcastReceiverListener {
-                override fun onSuccess(intent: Intent?) {
-                    intent?.let { context -> activity?.startActivityForResult(context, smsConsentRequest) }
+                override fun onSuccess(intent: String?) {
+                    resultForHint?.success(intent)
+//                    intent?.let { context -> activity?.startActivityForResult(context, smsConsentRequest) }
                 }
 
                 override fun onFailure() {

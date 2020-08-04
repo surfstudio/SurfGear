@@ -20,8 +20,11 @@ class SmsBroadcastReceiver : BroadcastReceiver() {
 
             when (smsRetrieverStatus.statusCode) {
                 CommonStatusCodes.SUCCESS -> {
-                    extras.getParcelable<Intent>(SmsRetriever.EXTRA_CONSENT_INTENT).also {
-                        smsBroadcastReceiverListener.onSuccess(it)
+//                    extras.getParcelable<Intent>(SmsRetriever.EXTRA_CONSENT_INTENT)?.also {
+//                        smsBroadcastReceiverListener.onSuccess(it)
+//                    }
+                    extras.get(SmsRetriever.EXTRA_SMS_MESSAGE)?.also {
+                        smsBroadcastReceiverListener.onSuccess(it as String)
                     }
                 }
 
@@ -33,7 +36,7 @@ class SmsBroadcastReceiver : BroadcastReceiver() {
     }
 
     interface SmsBroadcastReceiverListener {
-        fun onSuccess(intent: Intent?)
+        fun onSuccess(intent: String?)
         fun onFailure()
     }
 }

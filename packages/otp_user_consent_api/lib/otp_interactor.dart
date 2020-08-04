@@ -9,8 +9,9 @@ const channelName = 'otp_user_consent_api';
 
 /// Methods
 const getTelephoneHint = 'getTelephoneHint';
-const startListenForCodeMethod = 'startListenForCode';
+const startListenForCodeMethod = 'startListenNewApi';
 const stopListenForCodeMethod = 'stopListenForCode';
+const getAppSignatureMethod = 'getAppSignature';
 
 /// Arguments
 const senderTelephoneNumber = 'senderTelephoneNumber';
@@ -42,6 +43,14 @@ class OTPInteractor {
           senderTelephoneNumber: senderPhone,
         },
       );
+    } else {
+      return null;
+    }
+  }
+
+  static Future<String> getAppSignature() async {
+    if (Platform.isAndroid) {
+      return _channel.invokeMethod(getAppSignatureMethod);
     } else {
       return null;
     }
