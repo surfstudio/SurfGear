@@ -1,9 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:otp_user_consent_api/otp_text_edit_controller.dart';
+import 'package:otp_user_consent_api/otp_interactor.dart';
 
 void main() {
-  const MethodChannel channel = MethodChannel('otp_text_edit_controller');
+  const MethodChannel channel = MethodChannel('otp_user_consent_api');
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -15,5 +15,9 @@ void main() {
 
   tearDown(() {
     channel.setMockMethodCallHandler(null);
+  });
+
+  test('getPlatformVersion', () async {
+    expect(await OTPInteractor.hint, '42');
   });
 }

@@ -20,6 +20,9 @@ import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.common.PluginRegistry.Registrar
 
+/// Channel
+const val channelName: String = "otp_user_consent_api"
+
 /// Requests
 const val credentialPickerRequest = 1
 const val smsConsentRequest = 2
@@ -43,7 +46,7 @@ public class OTPUsertConsentAPI : FlutterPlugin, MethodCallHandler, PluginRegist
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         context = flutterPluginBinding.applicationContext
-        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "otp_text_edit_controller")
+        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), channelName)
         channel.setMethodCallHandler(this);
     }
 
@@ -54,7 +57,7 @@ public class OTPUsertConsentAPI : FlutterPlugin, MethodCallHandler, PluginRegist
         @JvmStatic
         fun registerWith(registrar: Registrar) {
             context = registrar.context()
-            val channel = MethodChannel(registrar.messenger(), "otp_text_edit_controller")
+            val channel = MethodChannel(registrar.messenger(), channelName)
             val plugin = OTPUsertConsentAPI()
             channel.setMethodCallHandler(plugin)
             registrar.addActivityResultListener(plugin)

@@ -4,6 +4,9 @@ import 'package:flutter/services.dart';
 
 typedef StringCallback = void Function(String);
 
+/// Channel
+const channelName = 'otp_user_consent_api';
+
 /// Methods
 const getTelephoneHint = 'getTelephoneHint';
 const startListenForCodeMethod = 'startListenForCode';
@@ -14,8 +17,7 @@ const senderTelephoneNumber = 'senderTelephoneNumber';
 
 /// Interact with native to get OTP code and telephone hint
 class OTPInteractor {
-  static const MethodChannel _channel =
-      MethodChannel('otp_text_edit_controller');
+  static const MethodChannel _channel = MethodChannel(channelName);
 
   /// Show user telephone picker and get chosen number
   static Future<String> get hint {
