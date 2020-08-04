@@ -145,7 +145,7 @@ public class OTPUsertConsentAPI : FlutterPlugin, MethodCallHandler, PluginRegist
                 }
 
                 override fun onFailure() {
-                    // Consent denied. User can type OTC manually.
+                    resultForHint?.error("408", "Timeout exception", null)
                 }
             }
         }

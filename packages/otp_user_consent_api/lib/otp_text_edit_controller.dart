@@ -11,6 +11,7 @@ class OTPTextEditController extends TextEditingController {
   OTPTextEditController({
     this.onCodeReceive,
     this.codeLength,
+    this.onTimeOutException,
   }) : assert(onCodeReceive != null && codeLength != null ||
             onCodeReceive == null && codeLength == null) {
     if (onCodeReceive != null && codeLength != null) {
@@ -27,6 +28,9 @@ class OTPTextEditController extends TextEditingController {
   /// OTPTextEditController receive OTP code
   final StringCallback onCodeReceive;
 
+  /// Receiver get TimeoutError after 5 minutes without sms
+  final VoidCallback onTimeOutException;
+
   /// Start listen for OTP code
   /// sms by default
   /// could be added another input as OTPStrategy
@@ -40,6 +44,20 @@ class OTPTextEditController extends TextEditingController {
 
     Stream.fromFutures([
       if (Platform.isAndroid) smsListen,
+      if (strategiesListen != null) ...strategiesListen,
+    ]).first.then((value) {
+      text = codeExtractor(value);
+    }).catchError(onTimeOutException);
+  }
+
+  /// Get OTP code from another input
+  /// don't registry BroadcastReceiver
+  void startListenOnlyStrategies(
+    List<OTPStrategy> strategies,
+    ExtractStringCallback codeExtractor,
+  ) {
+    final strategiesListen = strategies?.map((e) => e.listenForCode());
+    Stream.fromFutures([
       if (strategiesListen != null) ...strategiesListen,
     ]).first.then((value) {
       text = codeExtractor(value);
