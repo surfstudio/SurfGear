@@ -34,7 +34,6 @@ class SaveElementTask extends Action {
     _fileSystemManager.writeToFileAsString(
       filePath,
       _yamlManager.convertToYamlFile(yaml),
-      mode: FileMode.append,
     );
   }
 
