@@ -1,12 +1,6 @@
 name: surf_lint_rules
+version: "0.0.1-dev.0"
 description: A new Flutter package.
-version: 0.0.1-dev.0
-author:
-homepage:
-
-environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.17.0 <2.0.0"
 
 dependencies:
   flutter:
@@ -16,11 +10,15 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0 <2.0.0"
+
 flutter:
 
 custom:
   is_stable: false
-  unstable_version: 0
+  unstable_version: 1
   is_plugin: false
   path: surf_lint_rules
   separate_repo_url:

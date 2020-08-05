@@ -1,29 +1,26 @@
 name: auto_reload
+version: "0.0.1-dev.0"
 description: a library that helps to perform actions with some periodicity
-version: 0.0.1-dev.0
-author:
-
-environment:
-  sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-
   connectivity: 0.4.6+2
-
   surf_lint_rules:
     git:
-      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
       path: packages/surf_lint_rules
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+
 custom:
   is_stable: false
-  unstable_version: 0
+  unstable_version: 1
   is_plugin: false
   path: auto_reload
   separate_repo_url:

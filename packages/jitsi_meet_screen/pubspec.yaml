@@ -1,24 +1,22 @@
 name: jitsi_meet_screen
+version: "0.0.1-dev.0"
 description: Plugin to show JitsiMeetView as new native screen
-version: 0.0.1-dev.0
-author:
-homepage:
-
-environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.10.0"
 
 dependencies:
   flutter:
     sdk: flutter
   surf_lint_rules:
     git:
-      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
       path: packages/surf_lint_rules
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.10.0"
 
 flutter:
   plugin:
@@ -31,7 +29,8 @@ flutter:
 
 custom:
   is_stable: false
-  unstable_version: 0
+  unstable_version: 1
   is_plugin: true
   path: jitsi_meet_screen
   hostUrl:
+  separate_repo_url:
