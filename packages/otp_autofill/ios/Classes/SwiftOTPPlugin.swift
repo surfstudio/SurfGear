@@ -1,10 +1,10 @@
 import Flutter
 import UIKit
 
-public class SwiftOtpTextEditControllerPlugin: NSObject, FlutterPlugin {
+public class SwiftOTPPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "otp_surfstudio", binaryMessenger: registrar.messenger())
-    let instance = SwiftOtpTextEditControllerPlugin()
+    let instance = SwiftOTPPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 

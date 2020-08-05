@@ -1,4 +1,4 @@
-#import "OtpTextEditControllerPlugin.h"
+#import "OTPPlugin.h"
 #if __has_include(<otp_autofill/otp_autofill-Swift.h>)
 #import <otp_autofill/otp_autofill-Swift.h>
 #else
@@ -8,8 +8,8 @@
 #import "otp_autofill-Swift.h"
 #endif
 
-@implementation OtpTextEditControllerPlugin
+@implementation OTPPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  [SwiftOtpTextEditControllerPlugin registerWithRegistrar:registrar];
+  [SwiftOTPPlugin registerWithRegistrar:registrar];
 }
 @end
