@@ -13,13 +13,19 @@ dependencies:
 
   #inner packages
   injector:
-    path: ../injector
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      path: packages/injector
 
   relation:
-    path: ../relation
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      path: packages/relation
 
   mwwm:
-    path: ../mwwm
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      path: packages/mwwm
 
   #rx
   rxdart: ^0.24.0
