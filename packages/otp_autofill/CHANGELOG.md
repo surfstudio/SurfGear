@@ -1,3 +1,5 @@
-## 0.0.1
+[0.0.1] - Released
 
-* TODO: Describe initial release.
+* add SMS Retriever API support
+* add SMS User Consent API support
+* add OTPStrategy for another OTP code input
