@@ -12,13 +12,19 @@ dependencies:
     sdk: flutter
 
   logger:
-    path: ../logger
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      path: packages/logger
 
   relation:
-    path: ../relation
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      path: packages/relation
 
   swipe_refresh:
-    path: ../swipe_refresh
+    git:
+      url: https://gitlab.com/surfstudio/public/flutter-standard.git
+      path: packages/swipe_refresh
 
   surf_lint_rules:
     git:
