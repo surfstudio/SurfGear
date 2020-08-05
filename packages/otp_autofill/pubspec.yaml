@@ -1,0 +1,37 @@
+name: otp_autofill
+description: Android implementation of OTP autofill with using User Concent API and Retriever API
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  surf_lint_rules:
+    path: ../surf_lint_rules
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: ru.surfstudio.otp_autofill
+        pluginClass: OTPPlugin
+      ios:
+        pluginClass: OTPPlugin
+
+custom:
+  is_stable: false
+  unstable_version: 0
+  is_plugin: true
+  path: otp_autofill
+  separate_repo_url:
+  hostUrl:
