@@ -14,13 +14,15 @@ dependencies:
 
   otp_autofill:
     path: ../
-  surf_lint_rules:
-    path: ../../surf_lint_rules
+
   cupertino_icons: ^0.1.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  surf_lint_rules:
+    path: ../../surf_lint_rules
 
 flutter:
   uses-material-design: true

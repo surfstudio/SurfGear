@@ -1,7 +1,8 @@
 name: otp_autofill
-description: Android implementation of OTP autofill with using User Concent API and Retriever API
+description: >
+  Android implementation of OTP autofill with using User Consent API and Retriever API.
+  Add possibility to receive OTP code from another input.
 version: 0.0.1
-author:
 homepage:
 
 environment:
@@ -12,12 +13,12 @@ dependencies:
   flutter:
     sdk: flutter
 
-  surf_lint_rules:
-    path: ../surf_lint_rules
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  surf_lint_rules:
+    path: ../surf_lint_rules
 
 flutter:
   plugin:
