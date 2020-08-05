@@ -16,7 +16,7 @@ def CHECKOUT = 'Checkout'
 def GET_DEPENDENCIES = 'Getting dependencies'
 def FIND_CHANGED = 'Find changed'
 def CHANGE_VIRSION = 'Change version'
-def COMMIT_CHANGES = 'Commit changes'
+def SAVE_LAST_GIT_HASH = 'Save last git hash'
 def PUBLISHING_TO_PUB_DEV = 'Publishing to pub.dev'
 def MIRRORING = 'Mirroring'
 def PUSH_CHANGES = 'Push changes'
@@ -104,9 +104,12 @@ pipeline.stages = [
         },
 
         // сохранить хэш комита с версиями в файл
-        pipeline.stage(COMMIT_CHANGES) {
-            script.echo "Commit changes"
-            // TODO коммит изменений
+        pipeline.stage(SAVE_LAST_GIT_HASH) {
+            script.echo "Save last git hash"
+            script.sh "git rev-parse HEAD > $lastDeployHashFileName"
+            script.sh "git add -A"
+            script.sh "git commit -m \"change last git hash\""
+            script.sh "git push"
         },
 
         // паблишинга в паб
@@ -121,12 +124,6 @@ pipeline.stages = [
             //TODO mirroring
         },
         
-        // пуш изменений
-        pipeline.stage(PUSH_CHANGES) {
-            script.echo "Push changes"
-            //TODO mirroring
-        },
-
         pipeline.stage(CHECKS_RESULT) {
             def checksPassed = true
             [
