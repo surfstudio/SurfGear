@@ -1,6 +1,7 @@
 name: swipe_refresh
 version: "0.0.1-dev.0"
 description: Widget for refresh by swipe.
+repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/swipe_refresh
 
 dependencies:
   flutter:
