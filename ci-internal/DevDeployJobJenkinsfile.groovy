@@ -23,6 +23,10 @@ def PUSH_CHANGES = 'Push changes'
 def CHECKS_RESULT = 'Checks Result'
 def CLEAR_CHANGED = 'Clear changed'
 
+//Pipeline on commit stable-branch
+
+def mirrorRepoCredentialID = "76dbac13-e6ea-4ed0-a013-e06cad01be2d"
+
 // const
 def lastDeployHashFileName = './.last_deploy_hash'
 
@@ -103,27 +107,46 @@ pipeline.stages = [
             script.sh "./tools/ci/runner/increment_dev_unstable_versions"
         },
 
-        // сохранить хэш комита с версиями в файл
-        pipeline.stage(SAVE_LAST_GIT_HASH) {
-            script.echo "Save last git hash"
-            script.sh "git rev-parse HEAD > $lastDeployHashFileName"
-            script.sh "git add -A"
-            script.sh "git commit -m \"change last git hash\""
-            script.sh "git push"
-        },
-
         // паблишинга в паб
         pipeline.stage(PUBLISHING_TO_PUB_DEV) {
             script.echo "Publishing to pub.dev"
-            // TODO паблишинга в паб
+            script.withCredentials([
+                    script.string(credentialsId: FLUTTER_PUB_ACCESS_TOKEN, variable: FLUTTER_PUB_ACCESS_TOKEN ),
+                    script.string(credentialsId: FLUTTER_PUB_REFRESH_TOKEN, variable: FLUTTER_PUB_REFRESH_TOKEN ),
+                    script.string(credentialsId: FLUTTER_PUB_TOKEN_ENDPOINT, variable: FLUTTER_PUB_TOKEN_ENDPOINT ),
+                    script.string(credentialsId: FLUTTER_PUB_SCOPES, variable: FLUTTER_PUB_SCOPES ),
+                    script.string(credentialsId: FLUTTER_PUB_EXPIRATION, variable: FLUTTER_PUB_EXPIRATION ),
+            ]) {
+
+                script.sh "rm -rf ~/.pub-cache/credentials.json"
+                script.sh '''cat <<EOT >>  ~/.pub-cache/credentials.json
+{"accessToken":"${FLUTTER_PUB_ACCESS_TOKEN}","refreshToken":"${FLUTTER_PUB_REFRESH_TOKEN}","tokenEndpoint":"${FLUTTER_PUB_TOKEN_ENDPOINT}","scopes":${FLUTTER_PUB_SCOPES},"expiration":${FLUTTER_PUB_EXPIRATION}}
+EOT
+    '''
+
+                script.sh "./tools/ci/runner/publish_dev"
+            }
         },
 
         // зеркалирования в отдельные репо
         pipeline.stage(MIRRORING) {
             script.echo "Mirroring"
-            //TODO mirroring
+            withCredentials([usernamePassword(credentialsId: mirrorRepoCredentialID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                echo "credentialsId: $mirrorRepoCredentialID"
+                sh "./tools/ci/runner/mirror_dev"
+//                sh "git push --mirror https://${encodeUrl(USERNAME)}:${encodeUrl(PASSWORD)}@github.com/surfstudio/SurfGear.git"
+            }
         },
         
+        // сохранить хэш комита с версиями в файл
+        pipeline.stage(SAVE_LAST_GIT_HASH) {
+            script.echo "Save last git hash"
+            script.sh "git rev-parse HEAD > $lastDeployHashFileName"
+            script.sh "git add $lastDeployHashFileName"
+            script.sh "git commit -m \"change last git hash\""
+            script.sh "git push"
+        },
+
         pipeline.stage(CHECKS_RESULT) {
             def checksPassed = true
             [
