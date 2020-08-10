@@ -24,18 +24,18 @@ else
     echo DART_POST_PROCESS_FILE="$2 -w"
 
   fi
-#  java \
-#      -DapiTests=false \
-#      -DmodelTests=false \
-#      -DapiDocs=false \
-#      -DmodelDocs=false \
-#      -jar openapi-generator-cli.jar \
-#      generate \
-#      --input-spec $1 \
-#      --generator-name dart-jaguar \
-#      --config open-generator-config.yaml \
-#      --enable-post-process-file
-#
-#  flutter pub get
-#  flutter pub run build_runner build
+  java \
+      -DapiTests=false \
+      -DmodelTests=false \
+      -DapiDocs=false \
+      -DmodelDocs=false \
+      -jar openapi-generator-cli.jar \
+      generate \
+      --input-spec $1 \
+      --generator-name dart-jaguar \
+      --config open-generator-config.yaml \
+      --enable-post-process-file
+
+  flutter pub get
+  flutter pub run build_runner build
 fi
