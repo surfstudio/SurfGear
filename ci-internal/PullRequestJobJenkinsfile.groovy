@@ -198,7 +198,7 @@ pipeline.stages = [
 
         pipeline.stage(GET_DEPENDENCIES) {
             script.sh "cd tools/ci/ && pub get"
-            script.sh "flutter upgrade"
+            script.sh "flutter packages upgrade"
         },
 
         pipeline.stage(FIND_CHANGED) {
