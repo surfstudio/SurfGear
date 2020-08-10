@@ -1,5 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:logger/logger.dart';
+import 'package:surf_logger/logger.dart';
 import 'package:push_notification/push_notification.dart';
 
 /// Wrapper over [FirebaseMessaging]

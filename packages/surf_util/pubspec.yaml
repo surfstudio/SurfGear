@@ -5,10 +5,8 @@ description: Common classes and util.
 dependencies:
   flutter:
     sdk: flutter
-  logger:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/logger
+  surf_logger:
+    path: ../surf_logger
   relation:
     git:
       url: "https://gitlab.com/surfstudio/public/flutter-standard.git"

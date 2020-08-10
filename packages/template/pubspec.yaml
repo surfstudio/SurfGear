@@ -9,10 +9,8 @@ dependencies:
     git:
       url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
       path: packages/network
-  logger:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/logger
+  surf_logger:
+    path: ../surf_logger
   injector:
     git:
       url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
@@ -38,9 +36,7 @@ dependencies:
       url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
       path: packages/push_notification
   surf_util:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_util
+    path: ../surf_util
   surf_lint_rules:
     git:
       url: "https://gitlab.com/surfstudio/public/flutter-standard.git"

@@ -5,10 +5,8 @@ description: Network implementation for Flutter
 dependencies:
   flutter:
     sdk: flutter
-  logger:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/logger
+  surf_logger:
+    path: ../surf_logger
   dio: 3.0.8
   http: 0.12.0+4
   http_parser: 3.1.3

@@ -1,4 +1,4 @@
-name: logger
+name: surf_logger
 version: "0.0.1-dev.0"
 description: "Logger for Dart & Flutter"
 

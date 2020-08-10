@@ -15,7 +15,7 @@
 import 'package:analytics/core/analytic_action.dart';
 import 'package:analytics/core/analytic_action_performer.dart';
 import 'package:analytics/core/analytic_service.dart';
-import 'package:logger/logger.dart';
+import 'package:surf_logger/logger.dart';
 
 class DefaultAnalyticService implements AnalyticService<AnalyticAction> {
   final _performers = <AnalyticActionPerformer<AnalyticAction>>{};

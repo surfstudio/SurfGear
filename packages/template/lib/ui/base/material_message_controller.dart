@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/ui/base/owners/snackbar_owner.dart';
 import 'package:flutter_template/ui/res/colors.dart';
 import 'package:flutter_template/util/enum.dart';
-import 'package:logger/logger.dart';
+import 'package:surf_logger/logger.dart';
 import 'package:mwwm/mwwm.dart';
 
 ///Стандартная реализация [MessageController]

@@ -17,7 +17,9 @@ dependencies:
 
   #surfstudio
   injector:
-    path: ../../injector
+    git:
+      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
+      path: packages/injector
   surf_mwwm:
     path: ../../surf_mwwm
 

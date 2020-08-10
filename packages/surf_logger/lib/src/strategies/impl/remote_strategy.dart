@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:logger/src/const.dart';
-import 'package:logger/src/remote_logger.dart';
-import 'package:logger/src/strategies/log_strategy.dart';
+import 'package:surf_logger/src/const.dart';
+import 'package:surf_logger/src/remote_logger.dart';
+import 'package:surf_logger/src/strategies/log_strategy.dart';
 
 const minRemotePriority = priorityLogWarn;
 
