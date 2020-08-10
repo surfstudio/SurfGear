@@ -194,12 +194,11 @@ pipeline.stages = [
 
             //local merge with destination
             script.sh "git merge origin/$destinationBranch --no-ff"
-
-            script.sh "flutter upgrade"
         },
 
         pipeline.stage(GET_DEPENDENCIES) {
             script.sh "cd tools/ci/ && pub get"
+            script.sh "flutter upgrade"
         },
 
         pipeline.stage(FIND_CHANGED) {
