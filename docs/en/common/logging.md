@@ -2,7 +2,7 @@
 
 # Logging
 
-[Logging module discription](../../../packages/logger/README.md)
+[Logging module discription](../../../packages/surf_logger/README.md)
 
 Be sure to log:
 
