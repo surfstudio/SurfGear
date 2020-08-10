@@ -1,6 +1,7 @@
 name: network_cache
 version: "0.0.1-dev.0"
-description: A new Flutter package project.
+description: Caching http requests.
+repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/network_cache
 
 dependencies:
   flutter:

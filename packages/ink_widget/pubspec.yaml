@@ -1,6 +1,7 @@
 name: ink_widget
 version: "1.0.0-dev.0"
 description: Widget library with ink effect without problems with decoration for child.
+repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/ink_widget
 
 dependencies:
   flutter:

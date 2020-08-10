@@ -103,15 +103,13 @@ Future<void> addCopyrights(
   var filesToCheck = <FileSystemEntity>[];
 
   elements.forEach(
-    (e) async {
-      filesToCheck
-        ..addAll(
-          await fileSystemManager.getEntitiesInModule(
-            e,
-            recursive: true,
-            filter: licenseManager.isNeedCopyright,
-          ),
-        );
+    (element) {
+      List<FileSystemEntity> list = fileSystemManager.getEntitiesInModule(
+        element,
+        recursive: true,
+        filter: licenseManager.isNeedCopyright,
+      );
+      filesToCheck.addAll(list);
     },
   );
 
@@ -148,7 +146,7 @@ Future<void> addCopyrights(
   }
 
   if (troublesList.isNotEmpty) {
-    var errorString;
+    var errorString = '';
 
     troublesList.forEach((key, value) {
       errorString += key.path + ':\n';
