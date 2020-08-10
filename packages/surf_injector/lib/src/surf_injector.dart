@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:flutter/widgets.dart';
-import 'package:injector/src/component.dart';
+import 'package:surf_injector/src/component.dart';
 
 Type _typeOf<T>() => T;
 

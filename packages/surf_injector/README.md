@@ -1,4 +1,4 @@
-# injector
+# surf_injector
 
 Implementation of Dependency Injection for Flutter
 

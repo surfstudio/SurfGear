@@ -17,7 +17,7 @@ import 'package:counter/interactor/counter/repository/counter_repository.dart';
 import 'package:counter/ui/app/app_wm.dart';
 import 'package:counter/util/sp_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:injector/injector.dart';
+import 'package:surf_injector/surf_injector.dart';
 
 /// Component для приложения
 class AppComponent implements Component {

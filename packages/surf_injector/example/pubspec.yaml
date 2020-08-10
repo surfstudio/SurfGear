@@ -31,7 +31,7 @@ dependencies:
   shared_preferences: 0.5.6
 
   #surfstudio
-  injector:
+  surf_injector:
     path: ..
 
 dev_dependencies:
