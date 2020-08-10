@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart' as widgets;
 import 'package:flutter_template/interactor/debug/debug_screen_interactor.dart';
 import 'package:flutter_template/ui/app/app.dart';
 import 'package:flutter_template/ui/screen/splash_screen/di/splash_screen_component.dart';
-import 'package:injector/injector.dart';
+import 'package:surf_injector/surf_injector.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 

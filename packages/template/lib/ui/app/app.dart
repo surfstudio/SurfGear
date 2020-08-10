@@ -9,7 +9,7 @@ import 'package:flutter_template/ui/res/styles.dart';
 import 'package:flutter_template/ui/screen/splash_screen/splash_route.dart';
 import 'package:flutter_template/ui/screen/welcome_screen/welcome_route.dart';
 import 'package:flutter_template/util/error_widget.dart' as error_widget;
-import 'package:injector/injector.dart';
+import 'package:surf_injector/surf_injector.dart';
 import 'package:push_notification/push_notification.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
