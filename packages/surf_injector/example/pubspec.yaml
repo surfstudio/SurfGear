@@ -28,7 +28,7 @@ dependencies:
   rxdart: ^0.23.1
 
   #storage
-  shared_preferences: 0.5.6
+  shared_preferences: 0.5.8
 
   #surfstudio
   surf_injector:

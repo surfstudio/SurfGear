@@ -1,3 +1,3 @@
 # counter
 
-Демонстрационный проект для библиотеки injector
+Demo project for surf_injector library

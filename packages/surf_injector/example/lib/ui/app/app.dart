@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:surf_injector/surf_injector.dart';
 
-/// Widget приложения
+/// Widget of application
 class App extends StatefulWidget {
   const App({Key key}) : super(key: key);
 
