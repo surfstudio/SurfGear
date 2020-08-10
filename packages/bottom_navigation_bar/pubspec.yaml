@@ -1,6 +1,7 @@
 name: bottom_navigation_bar
 version: "0.0.1-dev.0"
 description: Bottom navigation bar
+repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/bottom_navigation_bar
 
 dependencies:
   flutter:

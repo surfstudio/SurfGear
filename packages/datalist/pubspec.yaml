@@ -1,6 +1,7 @@
 name: datalist
 version: "0.0.1-dev.0"
 description: Implementation DataList in Flutter
+repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/datalist
 
 dependencies:
   flutter:

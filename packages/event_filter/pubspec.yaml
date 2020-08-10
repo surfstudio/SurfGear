@@ -1,6 +1,7 @@
 name: event_filter
 version: "0.0.1-dev.0"
 description: Mecanism for filtering events.
+repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/event_filter
 
 dependencies:
   flutter:

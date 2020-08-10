@@ -1,6 +1,7 @@
 name: storage
 version: "0.0.1-dev.0"
-description: A new Flutter package project.
+description: Data storage wrap
+repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/storage
 
 dependencies:
   flutter:

@@ -1,6 +1,7 @@
 name: tabnavigator
 version: "0.0.1-dev.0"
 description: Module can manage the tabs on the screen.
+repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/tabnavigator
 
 dependencies:
   flutter:

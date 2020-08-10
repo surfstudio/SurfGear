@@ -16,7 +16,9 @@ dependencies:
     path: ..
 
   relation:
-    path: ../../relation
+    git:
+      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
+      path: packages/relation
 
 dev_dependencies:
   flutter_test:
