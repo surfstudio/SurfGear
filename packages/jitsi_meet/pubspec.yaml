@@ -1,6 +1,7 @@
 name: jitsi_meet
 version: "0.0.1-dev.0"
 description: Plugin for jitsi meet service
+repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/jitsi_meet
 
 dependencies:
   flutter:

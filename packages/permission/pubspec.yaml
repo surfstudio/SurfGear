@@ -1,6 +1,7 @@
 name: permission
 version: "0.0.1-dev.0"
-description: A new Flutter package project.
+description: Library for requesting and checking permissions
+repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/permission
 
 dependencies:
   flutter:
