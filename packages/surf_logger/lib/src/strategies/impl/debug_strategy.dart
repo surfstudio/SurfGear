@@ -13,8 +13,11 @@
 // limitations under the License.
 
 import 'package:flutter/foundation.dart';
-import 'package:logger/src/const.dart';
-import 'package:logger/src/strategies/log_strategy.dart';
+import 'package:logger/logger.dart';
+import 'package:surf_logger/src/const.dart';
+import 'package:surf_logger/src/strategies/log_strategy.dart';
+
+final _logger = Logger();
 
 /// Strategy for log output to console
 /// * used for local debugging
@@ -22,23 +25,25 @@ class DebugLogStrategy extends LogStrategy {
   @override
   void log(String message, int priority, [Exception error]) {
     if (error != null) {
-      debugPrint('ERROR: $error');
+      _logger.e(message, error);
+    } else {
+      _logMessage(message, priority);
     }
-
-    final logMessage = '${_mapPrefix(priority)} $message';
-    debugPrint(logMessage);
   }
 
-  String _mapPrefix(int priority) {
+  void _logMessage(String message, int priority) {
     switch (priority) {
       case priorityLogDebug:
-        return prefixLogDebug;
+        _logger.d(message);
+        break;
       case priorityLogWarn:
-        return prefixLogWarn;
+        _logger.w(message);
+        break;
       case priorityLogError:
-        return prefixLogError;
+        _logger.e(message);
+        break;
       default:
-        return '';
+        _logger.d(message);
     }
   }
 }
