@@ -1,3 +1,3 @@
-## 1.0.0
-### Added
-* Added `InkWidget` wrapper widget over InkWell
+## [1.0.0]
+
+* Initial release
