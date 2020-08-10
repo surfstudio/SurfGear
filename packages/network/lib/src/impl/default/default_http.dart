@@ -22,7 +22,7 @@ import 'package:network/src/base/status_mapper.dart';
 import 'package:network/src/base/headers.dart';
 import 'package:network/src/base/http.dart';
 import 'package:network/src/base/response.dart';
-import 'package:logger/logger.dart';
+import 'package:network/src/utils/logger.dart';
 
 /// Реализация Http на основе стандартного [http]
 /// Response.bodyRaw всегда String.
@@ -176,12 +176,12 @@ class DefaultHttp extends Http {
       headersMap.addAll(await headersBuilder.buildHeadersForUrl(url, headers));
     }
 
-    Logger.d("request  headers: $url, | $headersMap");
+    logger.d("request  headers: $url, | $headersMap");
     return headersMap;
   }
 
   Response<T> _toResponse<T>(http.Response r) {
-    Logger.d("${r.statusCode} | ${r.body}");
+    logger.d("${r.statusCode} | ${r.body}");
     final response = Response<T>(r.body as dynamic, r.statusCode);
     if (response.statusCode == 400) {
       mapError(response);

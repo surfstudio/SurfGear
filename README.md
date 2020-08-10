@@ -31,7 +31,7 @@ Statuses:
 | [injector](packages/injector/) | Dependency Injection Tool | surf |
 | [ink_widget](packages/ink_widget/) | Wrapper over InkWell | surf |
 | [keyboard_listener](packages/keyboard_listener/) | Keyboard widget | surf |
-| [logger](packages/logger/) | Library for logging | surf |
+| [logger](packages/surf_logger/) | Library for logging | surf |
 | [mixed_list](packages/mixed_list/) | Widget for displaying items of different types as a list | surf |
 | [mwwm](https://pub.dev/packages/mwwm) | MWWM Architecture Components Library | beta |
 | [network](packages/network/) | Library for working with server requests | surf |

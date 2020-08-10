@@ -10,10 +10,10 @@ dependencies:
     git:
       url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
       path: packages/network
-  logger:
+  surf_logger:
     git:
       url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/logger
+      path: packages/surf_logger
   surf_injector:
     git:
       url: "https://gitlab.com/surfstudio/public/flutter-standard.git"

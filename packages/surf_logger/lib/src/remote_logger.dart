@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:logger/src/remote/strategies/remote_log_user_strategy.dart';
+import 'package:surf_logger/src/remote/strategies/remote_log_user_strategy.dart';
 
 /// Wrapper for logging to a remote server
 /// using various strategies

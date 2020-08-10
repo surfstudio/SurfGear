@@ -1,6 +1,6 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
-import 'package:logger/logger.dart';
+import 'package:surf_logger/logger.dart';
 
 /// Strategy for sending logs to Crashlytics
 class CrashlyticsRemoteLogStrategy extends RemoteUserLogStrategy {
