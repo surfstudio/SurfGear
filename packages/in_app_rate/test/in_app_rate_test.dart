@@ -3,13 +3,16 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:in_app_rate/in_app_rate.dart';
 
 void main() {
-  const MethodChannel channel = MethodChannel('in_app_rate');
+  const MethodChannel channel = MethodChannel(channelName);
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUp(() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return '42';
+      switch (methodCall.method) {
+        case openRatingDialogMethod:
+          return true;
+      }
     });
   });
 
@@ -17,7 +20,7 @@ void main() {
     channel.setMockMethodCallHandler(null);
   });
 
-  test('getPlatformVersion', () async {
-    expect(await InAppRate.platformVersion, '42');
+  test(openRatingDialogMethod, () async {
+    expect(await InAppRate.openRatingDialog(), true);
   });
 }

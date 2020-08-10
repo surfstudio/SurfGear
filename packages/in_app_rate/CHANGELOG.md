@@ -1,3 +1,4 @@
-## 0.0.1
+[0.0.1]
 
-* TODO: Describe initial release.
+* add SKStoreReviewController for iOS
+* add Google Play In-App Review API for Android

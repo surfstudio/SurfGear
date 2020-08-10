@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
             onPressed: () async {
               final isSuccess = await InAppRate.openRatingDialog(
                 isTest: false,
-                onServiceError: () =>
+                onError: () =>
                     print("Error: try open url to application store"),
               );
 //              final isSuccess = await InAppRate.openRatingDialog(isTest: false)

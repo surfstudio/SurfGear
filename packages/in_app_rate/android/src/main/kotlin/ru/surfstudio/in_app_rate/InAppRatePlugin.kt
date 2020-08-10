@@ -29,7 +29,7 @@ public class InAppRatePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     private lateinit var channel: MethodChannel
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "in_app_rate")
+        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), channelName)
         channel.setMethodCallHandler(this);
     }
 
@@ -38,7 +38,8 @@ public class InAppRatePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
         @JvmStatic
         fun registerWith(registrar: Registrar) {
-            val channel = MethodChannel(registrar.messenger(), "in_app_rate")
+            val channel = MethodChannel(registrar.messenger(), channelName)
+            InAppRatePlugin.activity = registrar.activity()
             channel.setMethodCallHandler(InAppRatePlugin())
         }
     }
