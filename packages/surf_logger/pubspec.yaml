@@ -9,6 +9,7 @@ dependencies:
     git:
       url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
       path: packages/surf_lint_rules
+  logger: ^0.9.2
 
 dev_dependencies:
   flutter_test:
