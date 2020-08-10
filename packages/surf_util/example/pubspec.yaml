@@ -15,10 +15,7 @@ dependencies:
   surf_util:
     path: ..
 
-  relation:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/relation
+  relation: ^0.0.2
 
 dev_dependencies:
   flutter_test:
