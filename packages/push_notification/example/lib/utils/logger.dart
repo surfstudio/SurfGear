@@ -1,3 +1,3 @@
-import 'package:logger/surf_logger.dart';
+import 'package:logger/logger.dart';
 
 final logger = Logger();

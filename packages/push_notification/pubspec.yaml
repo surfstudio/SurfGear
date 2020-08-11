@@ -18,8 +18,12 @@ environment:
 
 flutter:
   plugin:
-    androidPackage: pushnotification.push_notification
-    pluginClass: PushNotificationPlugin
+    platforms:
+      android:
+        package: pushnotification.push_notification
+        pluginClass: PushNotificationPlugin
+      ios:
+        pluginClass: PushNotificationPlugin
 
 custom:
   is_stable: false

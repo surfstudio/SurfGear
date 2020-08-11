@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:push_demo/utils/surf_logger.dart';
+import 'package:push_demo/utils/logger.dart';
 import 'package:push_notification/push_notification.dart';
 
 /// Wrapper over [FirebaseMessaging]
