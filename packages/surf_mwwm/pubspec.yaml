@@ -10,14 +10,8 @@ dependencies:
     git:
       url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
       path: packages/injector
-  relation:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/relation
-  mwwm:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/mwwm
+  relation: ^0.0.2
+  mwwm: ^0.1.1
   rxdart: ^0.24.0
 
 dev_dependencies:
