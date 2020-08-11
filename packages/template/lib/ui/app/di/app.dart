@@ -15,7 +15,7 @@ import 'package:flutter_template/ui/base/material_message_controller.dart';
 import 'package:flutter_template/util/const.dart';
 import 'package:flutter_template/util/sp_helper.dart';
 import 'package:injector/injector.dart';
-import 'package:surf_logger/logger.dart';
+import 'package:surf_logger/surf_logger.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:network/network.dart';
 import 'package:push_notification/push_notification.dart';

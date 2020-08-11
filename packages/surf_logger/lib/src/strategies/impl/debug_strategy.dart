@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:flutter/foundation.dart';
-import 'package:logger/logger.dart';
+import 'package:logger/surf_logger.dart';
 import 'package:surf_logger/src/const.dart';
 import 'package:surf_logger/src/strategies/log_strategy.dart';
 

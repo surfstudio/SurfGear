@@ -14,7 +14,7 @@
 
 library logger;
 
-export 'package:surf_logger/src/logger.dart' show Logger;
+export 'package:surf_logger/src/surf_logger.dart' show Logger;
 export 'package:surf_logger/src/remote/strategies/remote_log_user_strategy.dart';
 export 'package:surf_logger/src/remote_logger.dart' show RemoteLogger;
 export 'package:surf_logger/src/strategies/impl/debug_strategy.dart';

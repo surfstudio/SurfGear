@@ -17,7 +17,7 @@ import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:http_parser/http_parser.dart';
-import 'package:network/src/utils/logger.dart';
+import 'package:network/src/utils/surf_logger.dart';
 import 'package:network/src/base/config/config.dart';
 import 'package:network/src/base/headers.dart';
 import 'package:network/src/base/http.dart';

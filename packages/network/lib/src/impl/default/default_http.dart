@@ -22,7 +22,7 @@ import 'package:network/src/base/status_mapper.dart';
 import 'package:network/src/base/headers.dart';
 import 'package:network/src/base/http.dart';
 import 'package:network/src/base/response.dart';
-import 'package:network/src/utils/logger.dart';
+import 'package:network/src/utils/surf_logger.dart';
 
 /// Реализация Http на основе стандартного [http]
 /// Response.bodyRaw всегда String.

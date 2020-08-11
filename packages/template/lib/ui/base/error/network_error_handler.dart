@@ -1,4 +1,4 @@
-import 'package:surf_logger/logger.dart';
+import 'package:surf_logger/surf_logger.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:network/network.dart';
 
