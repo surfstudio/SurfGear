@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:flutter/foundation.dart';
-import 'package:logger/logger.dart';
+import 'package:surf_logger/surf_logger.dart';
 import 'package:surf_logger/src/const.dart';
 import 'package:surf_logger/src/strategies/log_strategy.dart';
 
@@ -25,7 +25,7 @@ class DebugLogStrategy extends LogStrategy {
   @override
   void log(String message, int priority, [Exception error]) {
     if (error != null) {
-      _logger.e(message, error);
+      Logger.e(message, error);
     } else {
       _logMessage(message, priority);
     }
@@ -34,16 +34,16 @@ class DebugLogStrategy extends LogStrategy {
   void _logMessage(String message, int priority) {
     switch (priority) {
       case priorityLogDebug:
-        _logger.d(message);
+        Logger.d(message);
         break;
       case priorityLogWarn:
-        _logger.w(message);
+        Logger.w(message);
         break;
       case priorityLogError:
-        _logger.e(message);
+        Logger.e(message);
         break;
       default:
-        _logger.d(message);
+        Logger.d(message);
     }
   }
 }

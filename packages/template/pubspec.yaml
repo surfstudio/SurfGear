@@ -6,46 +6,20 @@ repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/template
 dependencies:
   flutter:
     sdk: flutter
-  network:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/network
-  surf_logger:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_logger
-  surf_injector:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_injector
-  surf_mwwm:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_mwwm
+  surf_network: ^0.0.1-dev.0
+  surf_logger: ^0.0.1-dev.1
+  surf_injector: ^0.0.1-dev.0
+  surf_mwwm: ^0.0.1-dev.0
   geolocation:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/geolocation
-  analytics:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/analytics
-  bottom_sheet:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/bottom_sheet
-  push_notification:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/push_notification
-  surf_util:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_util
-  surf_lint_rules:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_lint_rules
+    path: ../geolocation
+#    git:
+#      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
+#      path: packages/geolocation
+  analytics: ^0.0.1-dev.0
+  bottom_sheet: ^0.0.1-dev.0
+  push_notification: ^0.0.1-dev.0
+  surf_util: ^0.0.1-dev.0
+  surf_lint_rules: ^0.0.1-dev.0
   intl: ^0.16.1
   flutter_svg: ^0.15.0
   http: ^0.12.0+4

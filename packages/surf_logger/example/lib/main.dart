@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
-import 'package:surf_logger/logger.dart';
+import 'package:surf_logger/surf_logger.dart';
 
 void main() {
   _initLogger();

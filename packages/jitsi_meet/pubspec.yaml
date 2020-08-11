@@ -3,13 +3,12 @@ version: "0.0.1-dev.0"
 description: Plugin for jitsi meet service
 repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/jitsi_meet
 
+publish_to:
+
 dependencies:
   flutter:
     sdk: flutter
-  surf_lint_rules:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_lint_rules
+  surf_lint_rules: ^0.0.1-dev.0
 
 dev_dependencies:
   flutter_test:
@@ -17,6 +16,7 @@ dev_dependencies:
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.10.0"
 
 flutter:
   plugin:
