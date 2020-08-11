@@ -5,7 +5,7 @@ import 'package:flutter_template/ui/res/strings/strings.dart';
 import 'package:flutter_template/ui/res/text_styles.dart';
 import 'package:flutter_template/ui/screen/welcome_screen/di/welcome_screen_component.dart';
 import 'package:flutter_template/ui/screen/welcome_screen/welcome_screen_wm.dart';
-import 'package:injector/injector.dart';
+import 'package:surf_injector/surf_injector.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
 /// Экран ввода телефона

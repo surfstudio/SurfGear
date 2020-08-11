@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:injector/injector.dart';
+import 'package:surf_injector/surf_injector.dart';
 
 /// Widget приложения
 class App extends MwwmWidget<AppComponent> {
