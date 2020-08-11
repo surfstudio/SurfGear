@@ -6,10 +6,7 @@ repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/virtual_key
 dependencies:
   flutter:
     sdk: flutter
-  ink_widget:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/ink_widget
+  ink_widget: ^0.0.1-dev.0
   surf_lint_rules: ^0.0.1-dev.0
 
 dev_dependencies:
