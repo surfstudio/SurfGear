@@ -18,33 +18,33 @@ Statuses:
 
 | Name | Description | Status |
 | ---------- | ---------- | -------- |
-| [analytics](packages/analytics/)|Unified interface for working with analytics services | surf |
-| [auto_reload](packages/auto_reload/)| A library that allows you to perform any actions at a given frequency | surf |
-| [background_worker](packages/background_worker/)| Isolate Helper | surf |
-| [bottom_navigation_bar](packages/bottom_navigation_bar/)| Widget with navigation buttons between screens | surf |
-| [bottom_sheet](packages/bottom_sheet/) | Scrollable Curtain Widget | surf |
-| [build_context_holder](packages/build_context_holder/) | The context keeper of the last created widget | surf |
-| [datalist](packages/datalist/) | List that makes pagination easier to work with | surf |
-| [db_holder](packages/db_holder/) | Database interface | surf |
-| [event_filter](packages/event_filter/) | Event filtering interface | surf |
+| [analytics](https://pub.dev/packages/analytics)|Unified interface for working with analytics services | surf |
+| [auto_reload](https://pub.dev/packages/auto_reload)| A library that allows you to perform any actions at a given frequency | surf |
+| [background_worker](https://pub.dev/packages/background_worker)| Isolate Helper | surf |
+| [bottom_navigation_bar](https://pub.dev/packages/bottom_navigation_bar)| Widget with navigation buttons between screens | surf |
+| [bottom_sheet](https://pub.dev/packages/bottom_sheet) | Scrollable Curtain Widget | surf |
+| [build_context_holder](https://pub.dev/packages/build_context_holder) | The context keeper of the last created widget | surf |
+| [datalist](https://pub.dev/packages/datalist) | List that makes pagination easier to work with | surf |
+| [db_holder](https://pub.dev/packages/db_holder) | Database interface | surf |
+| [event_filter](https://pub.dev/packages/event_filter) | Event filtering interface | surf |
 | [geolocation](packages/geolocation/) | Library for working with geo-location | surf |
-| [injector](packages/injector/) | Dependency Injection Tool | surf |
-| [ink_widget](packages/ink_widget/) | Wrapper over InkWell | surf |
+| [ink_widget](https://pub.dev/packages/ink_widget) | Wrapper over InkWell | surf |
 | [keyboard_listener](packages/keyboard_listener/) | Keyboard widget | surf |
-| [logger](packages/surf_logger/) | Library for logging | surf |
-| [mixed_list](packages/mixed_list/) | Widget for displaying items of different types as a list | surf |
+| [mixed_list](https://pub.dev/packages/mixed_list) | Widget for displaying items of different types as a list | surf |
 | [mwwm](https://pub.dev/packages/mwwm) | MWWM Architecture Components Library | beta |
-| [network](packages/network/) | Library for working with server requests | surf |
-| [network_cache](packages/network_cache/) | Utility for caching responses from the server | surf |
+| [network_cache](https://pub.dev/packages/network_cache) | Utility for caching responses from the server | surf |
 | [permission](packages/permission/) | Library for requesting access to various device functions (geolocation, contact list, etc.) | surf |
-| [push_notification](packages/push_notification/) | Library for working with notifications | surf |
+| [push_notification](https://pub.dev/packages/push_notification) | Library for working with notifications | surf |
 | [relation](https://pub.dev/packages/relation) | Communication Widget - Wm Used In Surf | alpha |
 | [render_metrics](https://pub.dev/packages/render_metrics) | Library for removing metrics from a widget | release |
-| [storage](packages/storage/) | Interface for working with storages | surf |
-| [surf_mwwm](packages/surf_mwwm/) | A package that combines mwwm, injector, relation and various extension methods | surf |
-| [surf_util](packages/surf_util/) | Set of utilities | surf |
-| [swipe_refresh](packages/swipe_refresh/) | Pull-to-refresh widget | surf |
-| [tabnavigator](packages/tabnavigator/) | Library for navigation between tabs of the main screen | surf |
+| [surf_injector](https://pub.dev/packages/surf_injector) | Dependency Injection Tool | surf |
+| [surf_logger](https://pub.dev/packages/surf_logger) | Library for logging | surf |
+| [surf_mwwm](https://pub.dev/packages/surf_mwwm) | A package that combines mwwm, injector, relation and various extension methods | surf |
+| [surf_network](https://pub.dev/packages/surf_network) | Library for working with server requests | surf |
+| [surf_storage](https://pub.dev/packages/surf_storage) | Interface for working with storages | surf |
+| [surf_util](https://pub.dev/packages/surf_util) | Set of utilities | surf |
+| [swipe_refresh](https://pub.dev/packages/swipe_refresh) | Pull-to-refresh widget | surf |
+| [tabnavigator](https://pub.dev/packages/tabnavigator) | Library for navigation between tabs of the main screen | surf |
 | [virtual_keyboard](packages/virtual_keyboard/) | Widget for displaying virtual keyboard | surf |
 
 
