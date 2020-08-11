@@ -1,4 +1,4 @@
-name: injector
+name: surf_injector
 version: "0.0.1-dev.0"
 description: Implementaion of Dependency Injection for Flutter
 repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/injector
@@ -24,6 +24,6 @@ custom:
   is_stable: false
   unstable_version: 1
   is_plugin: false
-  path: injector
+  path: surf_injector
   separate_repo_url:
   hostUrl:

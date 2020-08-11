@@ -30,7 +30,7 @@
 | [db_holder](packages/db_holder/) | Интерфейс для работы с базами данных | surf |
 | [event_filter](packages/event_filter/) | Интерфейс для филтрации событий | surf |
 | [geolocation](packages/geolocation/) | Библиотека для работы с геопозицией | surf |
-| [injector](packages/injector/) | Инструмент для внедрения зависимостей | surf |
+| [injector](packages/surf_injector/) | Инструмент для внедрения зависимостей | surf |
 | [ink_widget](packages/ink_widget/) | Обертка над InkWell | surf |
 | [keyboard_listener](packages/keyboard_listener/) | Виджет для отслеживания состояния клавиатуры | surf |
 | [logger](packages/logger/) | Библиотека для логирования | surf |

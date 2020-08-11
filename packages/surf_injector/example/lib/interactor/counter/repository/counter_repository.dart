@@ -15,7 +15,7 @@
 import 'package:counter/domain/counter.dart';
 import 'package:counter/util/sp_helper.dart';
 
-/// хранилище состояния счетчика
+/// Counter state storage
 class CounterRepository {
   CounterRepository(this._preferencesHelper);
 
@@ -33,8 +33,7 @@ class CounterRepository {
         .get(keyCounter, 0)
         .then((i) => Counter(i as int ?? 0))
         .catchError(
-      // ignore: avoid_types_on_closure_parameters
-      (Exception e) {
+      (e) {
         // ignore: avoid_print
         print('DEV_ERROR ${e.toString()}');
         return Counter(0);

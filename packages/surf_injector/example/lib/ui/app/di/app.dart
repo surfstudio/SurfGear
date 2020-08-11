@@ -17,9 +17,10 @@ import 'package:counter/interactor/counter/repository/counter_repository.dart';
 import 'package:counter/ui/app/app_wm.dart';
 import 'package:counter/util/sp_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:injector/injector.dart';
+import 'package:surf_injector/surf_injector.dart';
+import 'package:counter/ui/app/app.dart';
 
-/// Component для приложения
+/// Component for [App]
 class AppComponent implements Component {
   AppComponent(GlobalKey<NavigatorState> navigatorKey) {
     counterInteractor = CounterInteractor(CounterRepository(preferencesHelper));

@@ -15,8 +15,9 @@
 import 'package:counter/ui/screen/counter/counter_route.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:counter/ui/app/app.dart';
 
-/// WidgetModel приложения
+/// WidgetModel for [App]
 class AppWidgetModel {
   AppWidgetModel(
     this._navigator,
@@ -37,7 +38,7 @@ class AppWidgetModel {
   void dispose() {}
 
   Stream<bool> initApp() {
-    /// имитация задержки на инициализацию приложения
+    /// imitation of application initialization delay
     return Stream.value(true).delay(const Duration(seconds: 2));
   }
 
