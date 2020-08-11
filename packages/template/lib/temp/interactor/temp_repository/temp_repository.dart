@@ -1,4 +1,4 @@
-import 'package:network/surf_network.dart';
+import 'package:surf_network/surf_network.dart';
 
 /// Репозиторий <todo>
 class TempRepository {

@@ -17,8 +17,8 @@ import 'package:network_cache/base/network_cache.dart';
 import 'package:network_cache/domain/response_entity.dart';
 import 'package:network_cache/network_cache.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:storage/storage.dart';
-import 'package:network/surf_network.dart';
+import 'package:surf_storage/surf_storage.dart';
+import 'package:surf_network/surf_network.dart';
 
 /// Default implementation based on json storage
 class DefaultNetworkCache implements NetworkCache {

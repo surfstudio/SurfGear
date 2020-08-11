@@ -11,10 +11,8 @@ dependencies:
 
   flutter_test:
     sdk: flutter
-  storage:
-    path: ../storage
-  surf_network:
-    path: ../surf_network
+  surf_storage: ^0.0.1-dev.0
+  surf_network: ^0.0.1-dev.0
 
 dev_dependencies:
 

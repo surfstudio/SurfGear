@@ -17,7 +17,7 @@ import 'package:flutter_template/util/sp_helper.dart';
 import 'package:surf_injector/surf_injector.dart';
 import 'package:surf_logger/surf_logger.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:network/surf_network.dart';
+import 'package:surf_network/surf_network.dart';
 import 'package:push_notification/push_notification.dart';
 
 /// Component per app

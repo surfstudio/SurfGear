@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:network/surf_network.dart';
+import 'package:surf_network/surf_network.dart';
 
 /// Service that incapsulates performing of the network requests
 /// and storage for their responses.
