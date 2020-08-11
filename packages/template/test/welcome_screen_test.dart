@@ -4,7 +4,7 @@ import 'package:flutter_template/interactor/counter/counter_interactor.dart';
 import 'package:flutter_template/ui/app/di/app.dart';
 import 'package:flutter_template/ui/screen/welcome_screen/welcome_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:injector/injector.dart';
+import 'package:surf_injector/surf_injector.dart';
 import 'package:mockito/mockito.dart';
 
 class AppComponentMock extends Mock implements AppComponent {}

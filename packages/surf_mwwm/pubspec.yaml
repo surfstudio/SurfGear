@@ -6,10 +6,10 @@ repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/surf_mwwm
 dependencies:
   flutter:
     sdk: flutter
-  injector:
+  surf_injector:
     git:
       url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/injector
+      path: packages/surf_injector
   relation: ^0.0.2
   mwwm: ^0.1.1
   rxdart: ^0.24.0

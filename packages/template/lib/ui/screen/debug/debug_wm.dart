@@ -7,7 +7,7 @@ import 'package:flutter_template/interactor/debug/debug_screen_interactor.dart';
 import 'package:flutter_template/ui/screen/debug/di/debug_screen_component.dart';
 import 'package:flutter_template/ui/screen/welcome_screen/welcome_route.dart';
 import 'package:flutter_template/util/const.dart';
-import 'package:injector/injector.dart';
+import 'package:surf_injector/surf_injector.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
 enum UrlType { test, prod, dev }

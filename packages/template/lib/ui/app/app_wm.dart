@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:injector/injector.dart';
+import 'package:surf_injector/surf_injector.dart';
 import 'package:mwwm/mwwm.dart';
 
 import 'di/app.dart';
