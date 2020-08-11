@@ -3,6 +3,8 @@ version: "1.0.0-dev.0"
 description: Keyboard listener created only on Flutter
 repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/keyboard_listener
 
+publish_to:
+
 dependencies:
   flutter:
     sdk: flutter

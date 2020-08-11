@@ -3,6 +3,8 @@ version: "0.0.1-dev.0"
 description: Network implementation for Flutter
 repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/network
 
+publish_to:
+
 dependencies:
   flutter:
     sdk: flutter

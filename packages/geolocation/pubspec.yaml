@@ -3,6 +3,8 @@ version: "0.0.1-dev.0"
 description: Geolocation service Wrapper
 repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/geolocation
 
+publish_to:
+
 dependencies:
   flutter:
     sdk: flutter
