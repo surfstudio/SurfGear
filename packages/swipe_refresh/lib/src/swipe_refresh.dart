@@ -50,7 +50,7 @@ class SwipeRefresh extends StatelessWidget {
         this.refreshIndicatorExtent = refreshIndicatorExtent ??
             CupertinoSwipeRefresh.DEFAULT_REFRESH_INDICATOR_EXTENT,
         this.indicatorBuilder = indicatorBuilder ??
-            CupertinoSliverRefreshControl.buildSimpleRefreshIndicator;
+            CupertinoSliverRefreshControl.buildRefreshIndicator;
 
   /// Create refresh indicator adaptive to platform.
   const SwipeRefresh.adaptive(
