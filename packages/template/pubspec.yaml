@@ -23,10 +23,7 @@ dependencies:
     git:
       url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
       path: packages/geolocation
-  analytics:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/analytics
+  analytics: ^0.0.1-dev.0
   bottom_sheet:
     git:
       url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
