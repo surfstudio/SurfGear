@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_template/ui/app/app.dart';
 import 'package:flutter_template/util/crashlytics_strategy.dart';
-import 'package:surf_logger/logger.dart';
+import 'package:surf_logger/surf_logger.dart';
 
 Future<void> run() async {
   // Нужно вызывать чтобы не падало проставление ориентации

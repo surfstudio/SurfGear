@@ -42,7 +42,7 @@
 | [push_notification](packages/push_notification/) | Библиотека для работы с уведомлениями | surf |
 | [relation](https://pub.dev/packages/relation) | Свзяь Widget - Wm , используемая в Surf | alpha |
 | [render_metrics](https://pub.dev/packages/render_metrics) | Библотека для снятия метрик с виджета | release |
-| [storage](packages/storage/) | Интерфейс для работы с хранилищами | surf |
+| [storage](packages/surf_storage/) | Интерфейс для работы с хранилищами | surf |
 | [surf_mwwm](packages/surf_mwwm/) | Пакет, объединяющий в себе mwwm, injector, relation и различные методы расширения | surf |
 | [surf_util](packages/surf_util/) | Набор утилит | surf |
 | [swipe_refresh](packages/swipe_refresh/) | Виджет для работы с pull-to-refresh | surf |

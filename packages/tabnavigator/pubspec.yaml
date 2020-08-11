@@ -6,14 +6,8 @@ repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/tabnavigato
 dependencies:
   flutter:
     sdk: flutter
-  surf_util:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_util
-  surf_lint_rules:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_lint_rules
+  surf_util: ^0.0.1-dev.0
+  surf_lint_rules: ^0.0.1-dev.0
 
 dev_dependencies:
   flutter_test:

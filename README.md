@@ -34,13 +34,13 @@ Statuses:
 | [logger](packages/surf_logger/) | Library for logging | surf |
 | [mixed_list](packages/mixed_list/) | Widget for displaying items of different types as a list | surf |
 | [mwwm](https://pub.dev/packages/mwwm) | MWWM Architecture Components Library | beta |
-| [network](packages/network/) | Library for working with server requests | surf |
+| [network](packages/surf_network/) | Library for working with server requests | surf |
 | [network_cache](packages/network_cache/) | Utility for caching responses from the server | surf |
 | [permission](packages/permission/) | Library for requesting access to various device functions (geolocation, contact list, etc.) | surf |
 | [push_notification](packages/push_notification/) | Library for working with notifications | surf |
 | [relation](https://pub.dev/packages/relation) | Communication Widget - Wm Used In Surf | alpha |
 | [render_metrics](https://pub.dev/packages/render_metrics) | Library for removing metrics from a widget | release |
-| [storage](packages/storage/) | Interface for working with storages | surf |
+| [storage](packages/surf_storage/) | Interface for working with storages | surf |
 | [surf_mwwm](packages/surf_mwwm/) | A package that combines mwwm, injector, relation and various extension methods | surf |
 | [surf_util](packages/surf_util/) | Set of utilities | surf |
 | [swipe_refresh](packages/swipe_refresh/) | Pull-to-refresh widget | surf |

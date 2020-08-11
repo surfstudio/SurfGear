@@ -7,22 +7,24 @@ dependencies:
   flutter:
     sdk: flutter
   rxdart: ^0.24.0
-  surf_lint_rules:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_lint_rules
+  surf_lint_rules: ^0.0.1-dev.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.10.0"
 
 flutter:
   plugin:
-    androidPackage: pushnotification.push_notification
-    pluginClass: PushNotificationPlugin
+    platforms:
+      android:
+        package: pushnotification.push_notification
+        pluginClass: PushNotificationPlugin
+      ios:
+        pluginClass: PushNotificationPlugin
 
 custom:
   is_stable: false

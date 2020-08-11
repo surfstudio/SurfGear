@@ -1,6 +1,6 @@
-import 'package:surf_logger/logger.dart';
+import 'package:surf_logger/surf_logger.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:network/network.dart';
+import 'package:surf_network/surf_network.dart';
 
 ///Базовый класс для обработки ошибок, связанных с сервисным слоем
 abstract class NetworkErrorHandler implements ErrorHandler {

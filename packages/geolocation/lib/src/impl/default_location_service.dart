@@ -45,8 +45,9 @@ class DefaultLocationService implements LocationService {
   }
 
   @override
-  Future<bool> hasPermission() {
-    return _locationService.hasPermission();
+  Future<bool> hasPermission() async {
+    final status = await _locationService.hasPermission();
+    return status == lib.PermissionStatus.GRANTED;
   }
 
   @override
@@ -68,7 +69,7 @@ class DefaultLocationService implements LocationService {
       throw LocationServiceNotAvailableException();
     }
 
-    if (!hasPermission) {
+    if (hasPermission != lib.PermissionStatus.GRANTED) {
       throw LocationPermissionNotGrantedException();
     }
   }
