@@ -6,11 +6,8 @@ repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/datalist
 dependencies:
   flutter:
     sdk: flutter
-  surf_lint_rules:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_lint_rules
-  http: 0.12.0+4
+  surf_lint_rules: ^0.0.1-dev.0
+  http: ^0.12.0+4
 
 dev_dependencies:
   flutter_test:

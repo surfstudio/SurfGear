@@ -6,11 +6,8 @@ repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/permission
 dependencies:
   flutter:
     sdk: flutter
-  permission_handler: 5.0.1
-  surf_lint_rules:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_lint_rules
+  permission_handler: ^5.0.1
+  surf_lint_rules: ^0.0.1-dev.0
 
 dev_dependencies:
   flutter_test:

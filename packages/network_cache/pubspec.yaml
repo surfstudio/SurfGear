@@ -7,18 +7,14 @@ dependencies:
   flutter:
     sdk: flutter
   rxdart: ^0.24.0
-  surf_lint_rules:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_lint_rules
+  surf_lint_rules: ^0.0.1-dev.0
 
-dev_dependencies:
   flutter_test:
     sdk: flutter
-  storage:
-    path: ../storage
-  network:
-    path: ../network
+  surf_storage: ^0.0.1-dev.0
+  surf_network: ^0.0.1-dev.0
+
+dev_dependencies:
 
 environment:
   sdk: ">=2.6.0 <3.0.0"

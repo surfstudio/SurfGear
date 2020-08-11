@@ -14,7 +14,7 @@
 
 import 'package:example/screen/main/di/main_screen_component.dart';
 import 'package:flutter/widgets.dart';
-import 'package:injector/injector.dart';
+import 'package:surf_injector/surf_injector.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 import 'package:surf_mwwm/surf_mwwm.dart' as m;
 

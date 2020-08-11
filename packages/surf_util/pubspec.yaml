@@ -6,17 +6,11 @@ repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/surf_util
 dependencies:
   flutter:
     sdk: flutter
-  surf_logger:
-    path: ../surf_logger
+  surf_logger: ^0.0.1-dev.0
   relation: ^0.0.2
-  swipe_refresh:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/swipe_refresh
-  surf_lint_rules:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_lint_rules
+  swipe_refresh: ^0.0.1-dev.0
+
+  surf_lint_rules: ^0.0.1-dev.0
 
 dev_dependencies:
   flutter_test:
