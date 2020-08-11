@@ -10,10 +10,7 @@ dependencies:
     git:
       url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
       path: packages/tabnavigator
-  surf_lint_rules:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_lint_rules
+  surf_lint_rules: ^0.0.1-dev.0
   mockito: ^4.1.1
 
 dev_dependencies:
