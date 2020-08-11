@@ -6,10 +6,7 @@ repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/bottom_navi
 dependencies:
   flutter:
     sdk: flutter
-  tabnavigator:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/tabnavigator
+  tabnavigator: ^0.0.1-dev.0
   surf_lint_rules: ^0.0.1-dev.0
   mockito: ^4.1.1
 
