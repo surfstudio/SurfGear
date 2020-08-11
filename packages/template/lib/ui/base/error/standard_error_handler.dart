@@ -4,7 +4,7 @@ import 'package:flutter_template/ui/base/error/network_error_handler.dart';
 import 'package:flutter_template/ui/base/material_message_controller.dart';
 import 'package:flutter_template/ui/res/strings/common_strings.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:network/network.dart';
+import 'package:network/surf_network.dart';
 
 /// Стандартная реализация ErrorHandler
 class StandardErrorHandler extends NetworkErrorHandler {

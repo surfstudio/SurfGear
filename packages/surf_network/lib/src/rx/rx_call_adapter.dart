@@ -12,20 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:network/surf_network.dart';
+import 'package:surf_network/src/base/call_adapter.dart';
 
-/// Service that incapsulates performing of the network requests
-/// and storage for their responses.
-abstract class NetworkCache {
-  /// Get data from local storage or
-  /// make network request and save response.
-  /// Behavior may be customized with CacheStrategy
-  Stream<Response> hybridGet(
-    String url, {
-    Map<String, dynamic> query,
-    Map<String, String> headers,
-    Duration lifetime,
-  });
-
-  void clearCache();
+///Адаптер для перевода сервисного слоя в [rx]
+class RxCallAdapter<T> implements CallAdapter<Future<T>, Stream<T>> {
+  @override
+  Stream<T> adapt(Future<T> call) => call.asStream();
 }

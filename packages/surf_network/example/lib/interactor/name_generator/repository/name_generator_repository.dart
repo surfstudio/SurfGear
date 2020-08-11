@@ -12,20 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:network/surf_network.dart';
+import 'package:name_generator/domain/User.dart';
+import 'package:name_generator/interactor/name_generator/repository/data/name_generator_response.dart';
+import 'package:surf_network/surf_network.dart';
 
-/// Service that incapsulates performing of the network requests
-/// and storage for their responses.
-abstract class NetworkCache {
-  /// Get data from local storage or
-  /// make network request and save response.
-  /// Behavior may be customized with CacheStrategy
-  Stream<Response> hybridGet(
-    String url, {
-    Map<String, dynamic> query,
-    Map<String, String> headers,
-    Duration lifetime,
-  });
+const String _url = 'https://uinames.com/api/?ext';
 
-  void clearCache();
+/// Repository для namefake.com/api
+class NameGeneratorRepository {
+  RxHttp _http;
+
+  NameGeneratorRepository(this._http);
+
+  /// Получение параметров пользователя
+  Stream<User> getUser() => _http.get(_url).map((r) {
+        return NameGeneratorResponse.fromJson(r.body).transform();
+      });
 }

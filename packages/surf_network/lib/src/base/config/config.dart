@@ -12,20 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:network/surf_network.dart';
+import 'package:surf_network/src/base/config/log_config.dart';
 
-/// Service that incapsulates performing of the network requests
-/// and storage for their responses.
-abstract class NetworkCache {
-  /// Get data from local storage or
-  /// make network request and save response.
-  /// Behavior may be customized with CacheStrategy
-  Stream<Response> hybridGet(
-    String url, {
-    Map<String, dynamic> query,
-    Map<String, String> headers,
-    Duration lifetime,
+///Http configuration
+class HttpConfig {
+  final String baseUrl;
+  final Duration timeout;
+  final String proxyUrl;
+
+  ///config for logging requests
+  ///
+  ///if null - requests will not logging
+  final LogConfig logConfig;
+
+  HttpConfig(
+    this.baseUrl,
+    this.timeout, {
+    this.proxyUrl,
+    this.logConfig,
   });
-
-  void clearCache();
 }

@@ -2,7 +2,7 @@ import 'package:flutter_template/interactor/common/urls.dart';
 import 'package:flutter_template/interactor/network/status_mapper.dart';
 import 'package:flutter_template/interactor/token/token_storage.dart';
 import 'package:flutter_template/util/sp_helper.dart';
-import 'package:network/network.dart';
+import 'package:network/surf_network.dart';
 
 /// Моковый компонент для тестирования сервисного слоя
 class MockAppComponent {

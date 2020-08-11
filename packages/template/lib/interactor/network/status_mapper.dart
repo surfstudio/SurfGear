@@ -1,6 +1,6 @@
 import 'package:flutter_template/interactor/common/exceptions.dart';
 import 'package:flutter_template/util/extensions.dart';
-import 'package:network/network.dart';
+import 'package:network/surf_network.dart';
 
 ///Стандартный для проекта обработчик статус кода
 class DefaultStatusMapper extends StandardStatusMapper {

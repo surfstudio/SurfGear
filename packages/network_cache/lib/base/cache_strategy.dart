@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:network/network.dart';
+import 'package:network/surf_network.dart';
 
 /// Strategy that decides what has to be done with
 /// both local and network data sources.

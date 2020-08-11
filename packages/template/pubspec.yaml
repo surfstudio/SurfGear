@@ -6,10 +6,10 @@ repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/template
 dependencies:
   flutter:
     sdk: flutter
-  network:
+  surf_network:
     git:
       url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/network
+      path: packages/surf_network
   surf_logger: ^0.0.1-dev.0
   injector:
     git:

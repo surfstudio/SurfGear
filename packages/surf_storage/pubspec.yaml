@@ -1,22 +1,17 @@
-name: network_cache
+name: surf_storage
 version: "0.0.1-dev.0"
-description: Caching http requests.
-repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/network_cache
+description: Data storage wrap
+repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/surf_storage
 
 dependencies:
   flutter:
     sdk: flutter
-  rxdart: ^0.24.0
+  localstorage: ^3.0.1+4
   surf_lint_rules: ^0.0.1-dev.0
 
+dev_dependencies:
   flutter_test:
     sdk: flutter
-  storage:
-    path: ../storage
-  surf_network:
-    path: ../surf_network
-
-dev_dependencies:
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
@@ -27,6 +22,6 @@ custom:
   is_stable: false
   unstable_version: 1
   is_plugin: false
-  path: network_cache
+  path: surf_storage
   separate_repo_url:
   hostUrl:
