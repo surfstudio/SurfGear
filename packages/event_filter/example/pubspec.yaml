@@ -16,10 +16,10 @@ dependencies:
   rxdart: 0.24.0
 
   #surfstudio
-  injector:
+  surf_injector:
     git:
       url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/injector
+      path: packages/surf_injector
   surf_mwwm:
     git:
       url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
