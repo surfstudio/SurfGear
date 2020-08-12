@@ -57,7 +57,7 @@ class _PaginationMixedListDemo extends State<PaginationMixedListDemo> {
         paginationController.sink.add(PaginationState.none);
       }
       // ignore: avoid_types_on_closure_parameters
-    }).catchError((Exception error) {
+    }).catchError((error) {
       paginationController.sink.add(PaginationState.error);
     });
   }
