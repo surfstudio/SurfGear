@@ -5,7 +5,7 @@
 ## Set SDK version
 
 In most cases, all projects use the same SDK version in stable.
-This version must be installed in the file [./script/version.sh](../../../packages/template/script/version)
+This version must be installed in the file [./script/version.sh](../../../template/script/version)
 
 ```
 current_version=*sdk version*
