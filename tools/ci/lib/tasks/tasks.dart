@@ -180,13 +180,29 @@ Future<void> mirrorOpenSourceModules(
 ) async {
   final hasRepo = (Element e) => e.openSourceInfo?.separateRepoUrl != null;
   final openSourceModules = elements.where(hasRepo).toList();
+  var failedModulesNames = <String>[];
 
   openSourceModules.forEach(
-    (e) {
-      print('Mirror package ${e.name} to ${e.openSourceInfo.separateRepoUrl}');
-      return MirrorOpenSourceModuleTask(e, currentBranch).run();
+    (element) {
+      print(
+          'Mirror package ${element.name} to ${element.openSourceInfo.separateRepoUrl}');
+      try {
+        return MirrorOpenSourceModuleTask(element, currentBranch).run();
+      } on ModuleMirroringException catch (exception) {
+        print('Package ${element.name} mirroring error !!!');
+        print(exception.message);
+        failedModulesNames.add(element.name);
+      } catch (exception) {
+        print('Package ${element.name} mirroring error !!!');
+        print(exception.toString());
+        failedModulesNames.add(element.name);
+      }
     },
   );
+
+  if (failedModulesNames.isNotEmpty) {
+    print('Modules were not mirrored: ${failedModulesNames.join(',')}');
+  }
 }
 
 /// Обновляет зависимости переданных модулей по данным тега.
