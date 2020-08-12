@@ -1,6 +1,6 @@
 #### [SurfGear](https://github.com/surfstudio/SurfGear)
 
-# storage
+# surf_storage
 
 Data storage wrap
 
