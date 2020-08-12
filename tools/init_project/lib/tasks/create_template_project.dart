@@ -10,7 +10,7 @@ import 'package:plain_optional/plain_optional.dart';
 import 'package:pubspec_yaml/pubspec_yaml.dart';
 
 /// Путь до папки с template.
-const String _pathPackagesTemplate = 'packages/template';
+const String _pathPackagesTemplate = 'template';
 
 /// For find files with some extension
 const String _fileDart = '.dart';
