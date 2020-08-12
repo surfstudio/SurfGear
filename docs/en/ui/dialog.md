@@ -2,7 +2,7 @@
 
 # Dialogs
 
-There are two types of [controllers](../../../packages/template/lib/ui/base/default_dialog_controller.dart) for displaying dialogs:
+There are two types of [controllers](../../../template/lib/ui/base/default_dialog_controller.dart) for displaying dialogs:
 
 * `DefaultDialogController` for pop-up dialogs and bottom sheet
 * `DatePickerDialogController` to select a date
@@ -11,7 +11,7 @@ Using showAlertDialog(), DefaultDialogController can display a pop-up dialog who
 
 ## DialogOwner
 
-Work with dialogs is built around the mixin [DialogOwner](../../../packages/template/lib/ui/base/owners/dialog_owner.dart). 
+Work with dialogs is built around the mixin [DialogOwner](../../../template/lib/ui/base/owners/dialog_owner.dart).
 To describe the necessary dialogs, you need to create a class in which the getter *registeredDialogs* of this mixin is redefined. The getter returns a Map, where the values are the builders that return the dialog widgets. 
 In WidgetModel, the necessary dialog is located by the key of this Map.
 
