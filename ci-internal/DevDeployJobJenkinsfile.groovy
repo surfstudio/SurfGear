@@ -23,8 +23,14 @@ def PUSH_CHANGES = 'Push changes'
 def CHECKS_RESULT = 'Checks Result'
 def CLEAR_CHANGED = 'Clear changed'
 
-//Pipeline on commit stable-branch
+// Constants
+def FLUTTER_PUB_ACCESS_TOKEN = "FLUTTER_PUB_ACCESS_TOKEN"
+def FLUTTER_PUB_REFRESH_TOKEN = "FLUTTER_PUB_REFRESH_TOKEN"
+def FLUTTER_PUB_TOKEN_ENDPOINT = "FLUTTER_PUB_TOKEN_ENDPOINT"
+def FLUTTER_PUB_SCOPES = "FLUTTER_PUB_SCOPES"
+def FLUTTER_PUB_EXPIRATION = "FLUTTER_PUB_EXPIRATION"
 
+//Pipeline on commit stable-branch
 def mirrorRepoCredentialID = "76dbac13-e6ea-4ed0-a013-e06cad01be2d"
 
 // const
