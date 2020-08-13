@@ -1,5 +1,5 @@
 name: jitsi_meet_screen
-version: "0.0.1-dev.1"
+version: "0.0.1-dev.2"
 description: Plugin to show JitsiMeetView as new native screen
 repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/jitsi_meet_screen"
 
