@@ -1,13 +1,13 @@
 name: bottom_navigation_bar
-version: "0.0.1-dev.0"
+version: "0.0.1-dev.1"
 description: Bottom navigation bar
-repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/bottom_navigation_bar
+repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/bottom_navigation_bar"
 
 dependencies:
   flutter:
     sdk: flutter
-  tabnavigator: ^0.0.1-dev.0
-  surf_lint_rules: ^0.0.1-dev.0
+  tabnavigator: "^0.0.1-dev.0"
+  surf_lint_rules: "^0.0.1-dev.0"
   mockito: ^4.1.1
 
 dev_dependencies:
@@ -21,7 +21,7 @@ flutter:
 
 custom:
   is_stable: false
-  unstable_version: 1
+  unstable_version:
   is_plugin: false
   path: bottom_navigation_bar
   separate_repo_url:

@@ -1,7 +1,7 @@
 name: video_subtitle
-version: "0.0.1-dev.0"
+version: "0.0.1-dev.1"
 description: "Subtitle plugin for video-plugin"
-repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/video_subtitle
+repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/video_subtitle"
 
 dependencies:
   flutter:
@@ -21,7 +21,7 @@ environment:
 
 custom:
   is_stable: false
-  unstable_version: 1
+  unstable_version:
   is_plugin: false
   path: video_subtitle
   hostUrl:

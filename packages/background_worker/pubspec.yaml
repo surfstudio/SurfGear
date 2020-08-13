@@ -1,13 +1,13 @@
 name: background_worker
-version: "0.0.1-dev.0"
+version: "0.0.1-dev.1"
 description: A new Flutter project.
-repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/background_worker
+repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/background_worker"
 
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^0.1.3
-  surf_lint_rules: ^0.0.1-dev.0
+  surf_lint_rules: "^0.0.1-dev.0"
 
 dev_dependencies:
   flutter_test:
@@ -21,7 +21,7 @@ flutter:
 
 custom:
   is_stable: false
-  unstable_version: 1
+  unstable_version:
   is_plugin: false
   path: background_worker
   separate_repo_url:

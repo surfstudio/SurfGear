@@ -1,12 +1,12 @@
 name: surf_logger
-version: "0.0.1-dev.1"
+version: "0.0.1-dev.2"
 description: "Logger for Dart & Flutter"
-repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/logger
+repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/logger"
 
 dependencies:
   flutter:
     sdk: flutter
-  surf_lint_rules: ^0.0.1-dev.0
+  surf_lint_rules: "^0.0.1-dev.0"
   logger: ^0.9.2
 
 dev_dependencies:
@@ -20,8 +20,8 @@ flutter:
 
 custom:
   is_stable: false
-  unstable_version: 1
+  unstable_version:
   is_plugin: false
-  path: logger
+  path: surf_logger
   separate_repo_url:
   hostUrl:

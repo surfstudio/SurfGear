@@ -1,13 +1,13 @@
 name: auto_reload
-version: "0.0.1-dev.0"
+version: "0.0.1-dev.1"
 description: a library that helps to perform actions with some periodicity
-repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/auto_reload
+repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/auto_reload"
 
 dependencies:
   flutter:
     sdk: flutter
   connectivity: ^0.4.6+2
-  surf_lint_rules: ^0.0.1-dev.0
+  surf_lint_rules: "^0.0.1-dev.0"
 
 dev_dependencies:
   flutter_test:
@@ -18,7 +18,7 @@ environment:
 
 custom:
   is_stable: false
-  unstable_version: 1
+  unstable_version:
   is_plugin: false
   path: auto_reload
   separate_repo_url:

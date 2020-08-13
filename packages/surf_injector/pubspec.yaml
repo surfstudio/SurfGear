@@ -1,12 +1,12 @@
 name: surf_injector
-version: "0.0.1-dev.0"
+version: "0.0.1-dev.1"
 description: Implementaion of Dependency Injection for Flutter
-repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/injector
+repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/injector"
 
 dependencies:
   flutter:
     sdk: flutter
-  surf_lint_rules: ^0.0.1-dev.0
+  surf_lint_rules: "^0.0.1-dev.0"
 
 dev_dependencies:
   flutter_test:
@@ -19,7 +19,7 @@ flutter:
 
 custom:
   is_stable: false
-  unstable_version: 1
+  unstable_version:
   is_plugin: false
   path: surf_injector
   separate_repo_url:
