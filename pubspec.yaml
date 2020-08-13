@@ -1,5 +1,5 @@
 name: relation
-version: "0.0.2-dev.0"
+version: "0.0.2-dev.1"
 description: the stream representation of the relations of the entities and widget utilities
 homepage: "https://github.com/surfstudio/relation"
 
@@ -24,7 +24,7 @@ flutter:
 
 custom:
   is_stable: false
-  unstable_version: 1
+  unstable_version:
   is_plugin: false
   path: relation
   separate_repo_url: "https://github.com/surfstudio/relation"
