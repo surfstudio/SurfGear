@@ -2,6 +2,7 @@ name: virtual_keyboard
 version: "0.0.1-dev.2"
 description: Keyboard widget for use in widget tree
 repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/virtual_keyboard"
+publish_to: 'none'
 
 dependencies:
   flutter:
