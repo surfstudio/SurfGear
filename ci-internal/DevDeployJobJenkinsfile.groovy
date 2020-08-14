@@ -114,7 +114,7 @@ pipeline.stages = [
         },
 
         // паблишинга в паб
-        pipeline.stage(PUBLISHING_TO_PUB_DEV) {
+        pipeline.stage(PUBLISHING_TO_PUB_DEV, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
             script.echo "Publishing to pub.dev"
             script.withCredentials([
                     script.string(credentialsId: FLUTTER_PUB_ACCESS_TOKEN, variable: FLUTTER_PUB_ACCESS_TOKEN ),
