@@ -4,10 +4,7 @@
 # 1) положить template_api в корень проекта, дать необходимое имя, далее NAME
 # 2) в open-generator-config.yaml указать pubName, совпадает с NAME
 # 3) перейти в паку NAME, и выполнить скрипт ./generate.sh
-#    передав первым параметром путь до спецификации, вторым если необходимо путь к файлу dartfmt,
-#    входящему в Flutter SDK, необходим для форматирование сгенерированного кода
-
-#    пример: ./generate.sh ../../rosbank-swagger/ros-api.yaml /Users/krasikov/development/flutter/bin/cache/dart-sdk/bin/dartfmt
+#    передав первым параметром путь до спецификации
 
 # Сгенерированный код будет в паке NAME
 
@@ -17,13 +14,6 @@ if [ "$1" = "" ]; then
 else
 
   rm -rf lib
-
-  # Путь к файлу dartfmt, входящему в Flutter SDK, необходим для форматирование сгенерированного кода
-  # формата: path -w
-  if [ "$2" != "" ]; then
-    echo DART_POST_PROCESS_FILE="$2 -w"
-
-  fi
   java \
       -DapiTests=false \
       -DmodelTests=false \
@@ -38,4 +28,5 @@ else
 
   flutter pub get
   flutter pub run build_runner build
+  flutter format .
 fi
