@@ -92,14 +92,14 @@ class _MainScreenState extends State<MainScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.play_arrow,
               size: 30,
             ),
             onPressed: _backgroundWorker.start,
           ),
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.stop,
               size: 30,
             ),
@@ -117,8 +117,8 @@ Future<List<Data>> backgroundWork(dynamic _) async {
   final String json = response.body;
   // ignore: avoid_print
   print(json);
-  return (jsonDecode(json) as List<Map<String, Object>>)
-      .map<Data>((json) => Data.fromJson(json))
+  return (jsonDecode(json) as List<dynamic>)
+      .map<Data>((json) => Data.fromJson(json as Map<String, dynamic>))
       .toList();
 }
 
