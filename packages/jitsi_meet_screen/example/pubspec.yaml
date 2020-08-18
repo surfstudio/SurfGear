@@ -13,13 +13,13 @@ dependencies:
   jitsi_meet_screen:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-LLC
+      ref: project-LLC-1
       path: packages/
 
   permission:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-LLC
+      ref: project-LLC-1
       path: packages/../permission
 
   cupertino_icons: ^0.1.3

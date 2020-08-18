@@ -31,13 +31,13 @@ dependencies:
   logger:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-LLC
+      ref: project-LLC-1
       path: packages/../logger
 
   push_notification:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-LLC
+      ref: project-LLC-1
       path: packages/
 
 dev_dependencies:

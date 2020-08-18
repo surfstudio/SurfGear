@@ -19,12 +19,12 @@ dependencies:
   injector:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-LLC
+      ref: project-LLC-1
       path: packages/../injector
   surf_mwwm:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-LLC
+      ref: project-LLC-1
       path: packages/../surf_mwwm
 
   event_filter:
