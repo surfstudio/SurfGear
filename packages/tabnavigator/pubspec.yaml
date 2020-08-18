@@ -16,7 +16,7 @@ dependencies:
   surf_util:
     git:
       url: https://gitlab.com/surfstudio/public/flutter-standard.git
-      ref: project-LLC
+      ref: project-LLC-1
       path: packages/surf_util
 
 dev_dependencies:
