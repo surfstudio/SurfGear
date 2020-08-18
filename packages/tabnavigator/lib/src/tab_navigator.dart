@@ -26,6 +26,7 @@ class TabNavigator extends StatefulWidget {
   final ObserversBuilder observersBuilder;
   final RouteTransitionsBuilder transitionsBuilder;
   final Duration transitionDuration;
+  final RouteFactory onGenerateRoute;
 
   static TabNavigatorState of(BuildContext context) {
     final Type type = _typeOf<TabNavigatorState>();
@@ -33,7 +34,8 @@ class TabNavigator extends StatefulWidget {
     tabNavigator = context.findAncestorStateOfType<TabNavigatorState>();
     if (tabNavigator == null) {
       throw Exception(
-          'Can not find nearest _TabNavigator of type $type. Do you define it?');
+        'Can not find nearest _TabNavigator of type $type. Do you define it?',
+      );
     }
 
     return tabNavigator;
@@ -48,6 +50,7 @@ class TabNavigator extends StatefulWidget {
     this.observersBuilder,
     RouteTransitionsBuilder transitionsBuilder,
     this.transitionDuration = const Duration(milliseconds: 300),
+    this.onGenerateRoute,
   })  : assert(mappedTabs != null),
         assert(selectedTabStream != null),
         assert(initialTab != null),
@@ -86,6 +89,9 @@ class TabNavigatorState extends State<TabNavigator> {
       stream: widget.selectedTabStream,
       initialData: widget.initialTab,
       builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.active) {
+          return const SizedBox();
+        }
         TabType tabType = snapshot.data;
         if (!_initializedTabs.contains(tabType)) {
           _initializedTabs.add(tabType);
@@ -124,22 +130,24 @@ class TabNavigatorState extends State<TabNavigator> {
               observers: widget.observersBuilder != null
                   ? widget.observersBuilder(tabType)
                   : [],
-              onGenerateRoute: (rs) => PageRouteBuilder(
-                settings: RouteSettings(
-                  name: Navigator.defaultRouteName,
-                ),
-                transitionsBuilder: widget.transitionsBuilder,
-                transitionDuration: widget.transitionDuration,
-                pageBuilder: (
-                  context,
-                  animation,
-                  secondaryAnimation,
-                ) =>
-                    widget.mappedTabs[tabType](),
-              ),
+              onGenerateRoute: (rs) => rs.name == Navigator.defaultRouteName
+                  ? PageRouteBuilder(
+                      settings: RouteSettings(
+                        name: Navigator.defaultRouteName,
+                      ),
+                      transitionsBuilder: widget.transitionsBuilder,
+                      transitionDuration: widget.transitionDuration,
+                      pageBuilder: (
+                        context,
+                        animation,
+                        secondaryAnimation,
+                      ) =>
+                          widget.mappedTabs[tabType](),
+                    )
+                  : widget.onGenerateRoute?.call(rs),
             ),
           ),
-        )
+        ),
     ];
   }
 }
