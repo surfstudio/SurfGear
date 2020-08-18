@@ -14,7 +14,9 @@
 
 import 'dart:io';
 
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart' as dio;
+import 'package:http_parser/http_parser.dart';
 import 'package:surf_network/src/utils/logger.dart';
 import 'package:surf_network/src/base/config/config.dart';
 import 'package:surf_network/src/base/headers.dart';
@@ -217,8 +219,8 @@ class DioHttp extends Http {
     var proxyUrl = config.proxyUrl;
 
     if (proxyUrl != null && proxyUrl.isNotEmpty) {
-      (_dio.httpClientAdapter as dio.DefaultHttpClientAdapter)
-          .onHttpClientCreate = (client) {
+      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+          (client) {
         client.findProxy = (uri) {
           return "PROXY $proxyUrl";
         };
