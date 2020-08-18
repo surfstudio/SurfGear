@@ -19,11 +19,11 @@
 ///  [E] - exception
 abstract class Interceptor<RQ, RS, E> {
   /// The callback will be executed before the request is initiated.
-  onRequest(RQ options);
+  dynamic onRequest(RQ options);
 
   /// The callback will be executed on success.
-  onResponse(RS response);
+  dynamic onResponse(RS response);
 
   /// The callback will be executed on error.
-  onError(E err);
+  dynamic onError(E err);
 }
