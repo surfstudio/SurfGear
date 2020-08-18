@@ -4,6 +4,8 @@ description: Library for requesting and checking permissions
 repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/permission"
 publish_to: none
 
+publish_to:
+
 dependencies:
   flutter:
     sdk: flutter
