@@ -25,6 +25,10 @@ class IncrementDevUnstableVersionsScenario extends ChangedElementScenario {
   @override
   Future<void> doExecute(List<Element> elements) async {
     var incrementedList = await incrementDevUnstableVersion(elements);
+    if (incrementedList.isEmpty) {
+      print('Change list is empty.');
+      return;
+    }
 
     /// сохраняем изменения
     await saveElements(incrementedList);
