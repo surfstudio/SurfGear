@@ -1,6 +1,6 @@
 #### [SurfGear](https://github.com/surfstudio/SurfGear)
 
-# logger
+# surf_logger
 
 Logger for Dart & Flutter
 
