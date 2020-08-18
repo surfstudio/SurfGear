@@ -12,7 +12,6 @@ import ru.surfstudio.ci.AbortDuplicateStrategy
 import ru.surfstudio.ci.stage.StageStrategy
 
 // Stage names
-
 def CHECKOUT = 'Checkout'
 def GET_DEPENDENCIES = 'Getting dependencies'
 def FIND_CHANGED = 'Find changed'
@@ -154,7 +153,7 @@ EOT
             script.echo "Save last git hash"
             script.sh "git rev-parse HEAD > $lastDeployHashFileName"
             script.sh "git add $lastDeployHashFileName"
-            script.sh "git commit -m \"change last git hash\""
+            script.sh "git commit -m \"[skip ci] change last git hash\""
             script.sh "git push"
         },
 
