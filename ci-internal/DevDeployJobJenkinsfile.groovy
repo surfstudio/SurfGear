@@ -74,6 +74,10 @@ pipeline.initializeBody = {
         branchName = branchName.replace("origin/", "")
     }
 
+    if (branchName.contains('refs/heads/')) {
+        branchName = branchName.replace('refs/heads/', '')
+    }
+
     buildDescription = branchName
     CommonUtil.setBuildDescription(script, buildDescription)
 
