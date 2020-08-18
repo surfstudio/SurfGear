@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:name_generator/domain/User.dart';
+import 'package:name_generator/domain/user.dart';
 import 'package:name_generator/interactor/name_generator/repository/name_generator_repository.dart';
 
 class NameGeneratorInteractor {

@@ -18,31 +18,29 @@
 
 import 'dart:convert';
 
-import 'package:name_generator/domain/User.dart';
+import 'package:name_generator/domain/user.dart';
 
 class NameGeneratorResponse {
   String name;
-  String surname;
-  String gender;
-  String region;
-  int age;
-  String title;
-  String phone;
-  String email;
+  String address;
+  int height;
+  double weight;
+  String blood;
+  String eye;
+  String hair;
+  String username;
   String password;
-  String photo;
 
   NameGeneratorResponse({
     this.name,
-    this.surname,
-    this.gender,
-    this.region,
-    this.age,
-    this.title,
-    this.phone,
-    this.email,
+    this.height,
+    this.address,
+    this.blood,
+    this.eye,
+    this.hair,
+    this.weight,
     this.password,
-    this.photo,
+    this.username,
   });
 
   factory NameGeneratorResponse.fromRawJson(String str) =>
@@ -52,35 +50,38 @@ class NameGeneratorResponse {
 
   factory NameGeneratorResponse.fromJson(Map<String, dynamic> json) =>
       new NameGeneratorResponse(
-        name: json["name"] == null ? null : json["name"],
-        surname: json["surname"] == null ? null : json["surname"],
-        gender: json["gender"] == null ? null : json["gender"],
-        region: json["region"] == null ? null : json["region"],
-        age: json["age"] == null ? null : json["age"],
-        title: json["title"] == null ? null : json["title"],
-        phone: json["phone"] == null ? null : json["phone"],
-        email: json["email"] == null ? null : json["email"],
-        password: json["password"] == null ? null : json["password"],
-        photo: json["photo"] == null ? null : json["photo"],
+        name: json["name"],
+        height: json["height"] == null ? null : json["height"] as int,
+        address: json["address"],
+        blood: json["blood"],
+        eye: json["eye"],
+        hair: json["hair"],
+        weight: json["weight"] == null ? null : json["weight"] as double,
+        password: json["password"],
+        username: json["username"],
       );
 
   Map<String, dynamic> toJson() => {
-        "name": name == null ? null : name,
-        "surname": surname == null ? null : surname,
-        "gender": gender == null ? null : gender,
-        "region": region == null ? null : region,
-        "age": age == null ? null : age,
-        "title": title == null ? null : title,
-        "phone": phone == null ? null : phone,
-        "email": email == null ? null : email,
-        "password": password == null ? null : password,
-        "photo": photo == null ? null : photo,
+        "name": name,
+        "height": height,
+        "address": address,
+        "blood": blood,
+        "eye": eye,
+        "hair": hair,
+        "weight": weight,
+        "password": password,
+        "username": username,
       };
 
   User transform() => User(
-        name: '${this.name} ${this.surname}',
-        phone: this.phone,
-        email: this.email,
-        region: this.region,
+        name: name,
+        height: height,
+        address: address,
+        blood: blood,
+        eye: eye,
+        hair: hair,
+        weight: weight,
+        password: password,
+        username: username,
       );
 }

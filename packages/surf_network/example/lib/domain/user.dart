@@ -13,15 +13,25 @@
 // limitations under the License.
 
 class User {
-  String name;
-  String phone;
-  String email;
-  String region;
+  final String name;
+  final String address;
+  final int height;
+  final double weight;
+  final String blood;
+  final String eye;
+  final String hair;
+  final String username;
+  final String password;
 
   User({
     this.name,
-    this.phone,
-    this.email,
-    this.region,
+    this.address,
+    this.height,
+    this.weight,
+    this.blood,
+    this.eye,
+    this.hair,
+    this.username,
+    this.password,
   });
 }

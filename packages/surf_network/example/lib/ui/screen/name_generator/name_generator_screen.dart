@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
-import 'package:name_generator/domain/User.dart';
+import 'package:name_generator/domain/user.dart';
 import 'package:name_generator/interactor/name_generator/name_generator_interactor.dart';
 import 'package:name_generator/ui/res/text_styles.dart';
 import 'package:name_generator/ui/screen/name_generator/name_generator_wm.dart';
@@ -86,9 +86,8 @@ class _NameGeneratorScreenState extends State<NameGeneratorScreen> {
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Text('Region: ${user.region}'),
-                Text('Phone: ${user.phone}'),
-                Text('Email: ${user.email}'),
+                Text('Username: ${user.username}'),
+                Text('Password: ${user.password}'),
               ],
             ),
           ),
