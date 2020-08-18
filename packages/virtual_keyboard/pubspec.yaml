@@ -4,6 +4,8 @@ description: Keyboard widget for use in widget tree
 repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/virtual_keyboard"
 publish_to: none
 
+publish_to:
+
 dependencies:
   flutter:
     sdk: flutter
