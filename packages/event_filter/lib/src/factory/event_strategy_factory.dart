@@ -19,10 +19,10 @@ import 'package:event_filter/src/strategy/event_strategy.dart';
 /// Factory of event strategy.
 class EventStrategyFactory extends BaseStrategyFactory<EventStrategy> {
   EventStrategyFactory(
-      Map<Type, EventStrategy<Event>> strategies,
-      EventStrategy<Event> defaultStrategy,
-      ) : super(
-    strategies,
-    defaultStrategy,
-  );
+    Map<Type, EventStrategy<Event>> strategies,
+    EventStrategy<Event> defaultStrategy,
+  ) : super(
+          strategies,
+          defaultStrategy,
+        );
 }

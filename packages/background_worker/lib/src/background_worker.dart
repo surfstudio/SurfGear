@@ -1,7 +1,21 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:async';
 import 'dart:isolate';
 
-const int _DEFAULT_BACKGROUND_WORKER_CAPACITY = 1;
+const int _defaultBackgroundWorkerCapacity = 1;
 
 /// Background Worker is a helper class for work with isolates
 ///
@@ -10,10 +24,11 @@ class BackgroundWorker {
   /// isolates count in worker
   final int capacity;
 
-  List<_Worker> _workers = [];
+  final _workers = <_Worker>[];
 
+  // ignore: sort_constructors_first
   BackgroundWorker({
-    this.capacity: _DEFAULT_BACKGROUND_WORKER_CAPACITY,
+    this.capacity = _defaultBackgroundWorkerCapacity,
   });
 
   ///Start BackgroundWorker
@@ -21,11 +36,11 @@ class BackgroundWorker {
   ///Create and start isolates
   Future<void> start() async {
     if (_workers.isNotEmpty) {
-      throw Exception("BackgroundWorker started already!");
+      throw Exception('BackgroundWorker started already!');
     }
 
     for (int i = 0; i < capacity; i++) {
-      _Worker worker = _Worker();
+      final _Worker worker = _Worker();
       await worker.start();
       _workers.add(worker);
     }
@@ -36,13 +51,15 @@ class BackgroundWorker {
     if (_workers.isEmpty) {
       throw Exception("BackgroundWorker isn't started.");
     }
-    return await _getWorkerWithMinWorks().doInBackground(workItem);
+    return _getWorkerWithMinWorks().doInBackground(workItem);
   }
 
   /// Stop BackgroundWorker
   void stop() {
     if (_workers.isNotEmpty) {
-      _workers.forEach((worker) => worker.stop());
+      for (final worker in _workers) {
+        worker.stop();
+      }
       _workers.clear();
     }
   }
@@ -69,18 +86,18 @@ class _Worker {
   ///
   /// Create and initialize isolate
   Future<void> start() async {
-    ReceivePort receivePort = ReceivePort();
+    final receivePort = ReceivePort();
     isolate = await Isolate.spawn(_initBackgroundIsolate, receivePort.sendPort);
-    port = await receivePort.first;
+    port = await receivePort.first as SendPort;
   }
 
   ///Background work
   Future<WorkItem> doInBackground(WorkItem workItem) async {
     size++;
 
-    ReceivePort response = new ReceivePort();
+    final response = ReceivePort();
     port.send([workItem, response.sendPort]);
-    WorkItem result = await response.first;
+    final result = await response.first as WorkItem;
 
     size--;
 
@@ -100,19 +117,18 @@ class _Worker {
 }
 
 /// Entry point for background isolate
-void _initBackgroundIsolate(SendPort sendPort) async {
-  var receivePort = ReceivePort();
+Future<void> _initBackgroundIsolate(SendPort sendPort) async {
+  final receivePort = ReceivePort();
 
   // Notify any other isolates what port this isolate listens to.
   sendPort.send(receivePort.sendPort);
 
   /// Infinit loop makes background work
-  await for (var message in receivePort) {
-    WorkItem workItem = message[0];
-    SendPort replyTo = message[1];
-    replyTo.send(
-      await _doBackgroundWork(workItem),
-    );
+  await for (final message in receivePort) {
+    final workItem = message[0] as WorkItem;
+    // ignore: unused_local_variable
+    final replyTo = message[1] as SendPort
+      ..send(await _doBackgroundWork(workItem));
   }
 }
 

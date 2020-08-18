@@ -1,3 +1,17 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -5,9 +19,10 @@ import 'package:relation/relation.dart';
 import 'package:surf_util/surf_util.dart';
 import 'package:swipe_refresh/swipe_refresh.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,12 +30,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: RefresherPage(),
+      home: const RefresherPage(),
     );
   }
 }
 
 class RefresherPage extends StatefulWidget {
+  const RefresherPage({Key key}) : super(key: key);
   @override
   _RefresherPageState createState() => _RefresherPageState();
 }
@@ -34,7 +50,7 @@ class _RefresherPageState extends State<RefresherPage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("RefreshExample"),
+          title: const Text('RefreshExample'),
         ),
         body: Column(
           children: <Widget>[
@@ -65,7 +81,7 @@ class _RefresherPageState extends State<RefresherPage> {
   }
 
   Widget _buildTab(SwipeRefreshStyle style) {
-    var isMaterial = style == SwipeRefreshStyle.material;
+    final isMaterial = style == SwipeRefreshStyle.material;
     var color = isMaterial ? red : blue;
     color = color.withOpacity(.5);
     return InkWell(
@@ -73,7 +89,7 @@ class _RefresherPageState extends State<RefresherPage> {
         height: 100,
         child: Center(
           child: Text(
-            isMaterial ? "Material" : "Cupertino",
+            isMaterial ? 'Material' : 'Cupertino',
             style: TextStyle(color: color),
           ),
         ),
@@ -82,29 +98,30 @@ class _RefresherPageState extends State<RefresherPage> {
   }
 
   List<Widget> _buildExampleBody(SwipeRefreshStyle style) {
-    var isMaterial = style == SwipeRefreshStyle.material;
-    var color = isMaterial ? red : blue;
+    final isMaterial = style == SwipeRefreshStyle.material;
+    final color = isMaterial ? red : blue;
     return <Widget>[
       Container(
         color: color,
         height: 100,
         child: Center(
           child: Text(
-            isMaterial ? "Material example" : "Coupertino example",
-            style: TextStyle(color: white),
+            isMaterial ? 'Material example' : 'Cupertino example',
+            style: const TextStyle(color: white),
           ),
         ),
       ),
     ];
   }
 
-  void _refresh() async {
-    await Future.delayed(Duration(seconds: 3));
+  Future<void> _refresh() async {
+    await Future<void>.delayed(const Duration(seconds: 3));
     // when all needed is done change state
+    // ignore: unawaited_futures
     _stream.accept(SwipeRefreshState.hidden);
   }
 }
 
-const white = const Color(0xFFFFFFFF);
-const red = const Color(0xFFFF0000);
-const blue = const Color(0xFF0000FF);
+const white = Color(0xFFFFFFFF);
+const red = Color(0xFFFF0000);
+const blue = Color(0xFF0000FF);

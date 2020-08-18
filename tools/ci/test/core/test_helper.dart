@@ -177,6 +177,7 @@ Element createTestElement({
   bool isChanged = false,
   OpenSourceInfo openSourceInfo,
   int unstableVersion = 0,
+  String version,
   List<Dependency> dependencies,
 }) {
   return Element(
@@ -186,6 +187,7 @@ Element createTestElement({
     changed: isChanged,
     openSourceInfo: openSourceInfo,
     unstableVersion: unstableVersion,
+    version: version,
     dependencies: dependencies ?? <Dependency>[],
   );
 }

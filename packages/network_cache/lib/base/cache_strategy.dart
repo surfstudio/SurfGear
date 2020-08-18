@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:network/network.dart';
+import 'package:surf_network/surf_network.dart';
 
 /// Strategy that decides what has to be done with
 /// both local and network data sources.
+// ignore: one_member_abstracts
 abstract class CacheStrategy {
   Stream<Response> resolve(
     Stream<Response> cacheResponse,

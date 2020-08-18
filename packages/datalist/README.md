@@ -1,5 +1,7 @@
+#### [SurfGear](https://github.com/surfstudio/SurfGear)
+
 # datalist limit-offset
-The main entity - [`OffsetDataList`] [dl_offset] - a list for paginated data through the limit / offset mechanism
+The main entity - [`OffsetDataList`][dl_offset] - a list for paginated data through the limit / offset mechanism
 Has methods:
   1. `merge (DataList data)`, which allows you to combine 2 data blocks. The input should be only OffsetDataList
   2. `int nextOffset` - returns the offset for the trace of the data block
@@ -11,7 +13,7 @@ It can combine two subsequent blocks, and in reverse order.
 [dl_offset]: lib/src/impl/datalist_limit_offset.dart
 
 # DataList page-count
-The main entity - [`PageCountDataList`] [dl_pagecount] - a list of paginated data through the page / count mechanism
+The main entity - [`PageCountDataList`][dl_pagecount] - a list of paginated data through the page / count mechanism
 Has methods:
   1. `merge (DataList data)`, which allows you to combine 2 data blocks. Input should be only PageCount DataList
   2. `int getNextPage ()` - returns the number of the trace of the data block

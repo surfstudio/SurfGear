@@ -10,7 +10,9 @@ import 'package:path/path.dart';
 abstract class Config {
   static final String _resourcesPath = join(
     Directory.current.path,
-    'lib'
+    'tools',
+    'ci',
+    'lib',
     'resources',
   );
 

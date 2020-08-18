@@ -20,9 +20,9 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 
 class FirebaseUserPropertyUpdater
     implements AnalyticActionPerformer<FirebaseUserProperty> {
-  final FirebaseAnalytics _firebaseAnalytics;
-
   FirebaseUserPropertyUpdater(this._firebaseAnalytics);
+
+  final FirebaseAnalytics _firebaseAnalytics;
 
   @override
   bool canHandle(AnalyticAction action) => action is FirebaseUserProperty;
@@ -35,13 +35,12 @@ class FirebaseUserPropertyUpdater
     );
   }
 
-  String _cutName(String name) =>
-      name.length <= MAX_SET_USER_PROPERTY_KEY_LENGTH
-          ? name
-          : name.substring(0, MAX_SET_USER_PROPERTY_KEY_LENGTH);
+  String _cutName(String name) => name.length <= maxSetUserPropertyKeyLength
+      ? name
+      : name.substring(0, maxSetUserPropertyKeyLength);
 
   String _cutValue(String value) =>
-      value.length <= MAX_SET_USER_PROPERTY_VALUE_LENGTH
+      value.length <= maxSetUserPropertyValueLength
           ? value
-          : value.substring(0, MAX_SET_USER_PROPERTY_VALUE_LENGTH);
+          : value.substring(0, maxSetUserPropertyValueLength);
 }

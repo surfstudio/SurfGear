@@ -7,13 +7,16 @@ import 'package:ci/exceptions/exceptions_strings.dart';
 import 'package:ci/services/runner/shell_runner.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:path/path.dart' as path;
-import 'dart:convert' show utf8;
 
 /// Зеркалирует open source модуль в его отдельный репозиторий
 class MirrorOpenSourceModuleTask implements Task<bool> {
   final Element element;
+  final String branchName;
 
-  MirrorOpenSourceModuleTask(this.element) {
+  MirrorOpenSourceModuleTask(
+    this.element,
+    this.branchName,
+  ) {
     if (element.openSourceInfo?.separateRepoUrl == null) {
       final message = getModuleIsNotOpenSourceExceptionText(element.name);
       throw ModuleIsNotOpenSourceException(message);
@@ -32,11 +35,14 @@ class MirrorOpenSourceModuleTask implements Task<bool> {
 
     final repoWithCreds = () {
       var parts = repoUrl.split('//').toList(); // two parts
-      return parts[0] + '//' + '${Uri.encodeComponent(Platform.environment['USERNAME'])}:${Uri.encodeComponent(Platform.environment['PASSWORD'])}@' + parts[1];
+      return parts[0] +
+          '//' +
+          '${Uri.encodeComponent(Platform.environment['USERNAME'])}:${Uri.encodeComponent(Platform.environment['PASSWORD'])}@' +
+          parts[1];
     }();
 
     // push only to stable branch, yet
-    final pushSubtree = 'git subtree push $prefix $repoWithCreds stable';
+    final pushSubtree = 'git subtree push $prefix $repoWithCreds $branchName';
     final pushResult = await sh(pushSubtree, path: Config.repoRootPath);
 
     if (pushResult.exitCode != 0) {

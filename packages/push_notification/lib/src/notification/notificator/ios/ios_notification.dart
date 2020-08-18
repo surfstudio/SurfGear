@@ -1,9 +1,29 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:flutter/services.dart';
 import 'package:push_notification/src/notification/notificator/ios/ios_notification_specifics.dart';
 import 'package:push_notification/src/notification/notificator/notificator.dart';
 
 /// Notifications for the ios platform
 class IOSNotification {
+  IOSNotification({
+    this.channel,
+    this.onNotificationTap,
+    this.onPermissionDecline,
+  });
+
   /// MethodChannel for connecting to ios native platform
   final MethodChannel channel;
 
@@ -11,25 +31,21 @@ class IOSNotification {
   final OnNotificationTapCallback onNotificationTap;
 
   /// Callback notification decline
-  final OnPemissionDeclineCallback onPermissionDecline;
-
-  IOSNotification({
-    this.channel,
-    this.onNotificationTap,
-    this.onPermissionDecline,
-  });
+  final OnPermissionDeclineCallback onPermissionDecline;
 
   Future init() async {
     channel.setMethodCallHandler(
       (call) async {
         switch (call.method) {
-          case CALLBACK_OPEN:
+          case openCallback:
             if (onNotificationTap != null) {
-              final notificationData = Map.of(call.arguments);
+              final notificationData = Map<String, Object>.of(
+                call.arguments as Map<String, Object>,
+              );
               onNotificationTap(notificationData);
             }
             break;
-          case CALLBACK_PERMISSION_DECLINE:
+          case permissionDeclineCallback:
             onPermissionDecline();
             break;
         }
@@ -46,7 +62,7 @@ class IOSNotification {
     bool requestAlertPermission = false,
   }) async {
     return channel.invokeMethod<bool>(
-      CALL_REQUEST,
+      callRequest,
       <String, dynamic>{
         'requestAlertPermission': requestAlertPermission,
         'requestSoundPermission': requestSoundPermission,
@@ -62,16 +78,18 @@ class IOSNotification {
     int id,
     String title,
     String body,
+    String imageUrl,
     Map<String, String> data,
     IosNotificationSpecifics notificationSpecifics,
   ) async {
-    return channel.invokeMethod(
-      CALL_SHOW,
+    return channel.invokeMethod<dynamic>(
+      callShow,
       <String, dynamic>{
-        ARG_PUSH_ID: id ?? 0,
-        ARG_TITLE: title ?? "",
-        ARG_BODY: body ?? "",
-        ARG_DATA: data,
+        pushIdArg: id ?? 0,
+        titleArg: title ?? '',
+        bodyArg: body ?? '',
+        imageUrlArg: imageUrl,
+        dataArg: data,
       },
     );
   }

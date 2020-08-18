@@ -20,9 +20,9 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 
 class FirebaseAnalyticEventSender
     implements AnalyticActionPerformer<FirebaseAnalyticEvent> {
-  final FirebaseAnalytics _firebaseAnalytics;
-
   FirebaseAnalyticEventSender(this._firebaseAnalytics);
+
+  final FirebaseAnalytics _firebaseAnalytics;
 
   @override
   bool canHandle(AnalyticAction action) => action is FirebaseAnalyticEvent;
@@ -37,11 +37,11 @@ class FirebaseAnalyticEventSender
   }
 
   // Shortening of parameters to meet requirements of Firebase Analytics
-  Map<String, dynamic> _cutParamsLength(Map<String, dynamic> params) {
+  Map<String, dynamic> _cutParamsLength(Map<String, Object> params) {
     if (params == null) return null;
 
     final resultParams = <String, dynamic>{};
-    for (var key in params.keys) {
+    for (final String key in params.keys) {
       final value = params[key];
       resultParams[_cutName(key)] = value is String ? _cutValue(value) : value;
     }
@@ -49,11 +49,11 @@ class FirebaseAnalyticEventSender
     return resultParams;
   }
 
-  String _cutName(String name) => name.length <= MAX_EVENT_KEY_LENGTH
+  String _cutName(String name) => name.length <= maxEventKeyLength
       ? name
-      : name.substring(0, MAX_EVENT_KEY_LENGTH);
+      : name.substring(0, maxEventKeyLength);
 
-  String _cutValue(String value) => value.length <= MAX_EVENT_VALUE_LENGTH
+  String _cutValue(String value) => value.length <= maxEventValueLength
       ? value
-      : value.substring(0, MAX_EVENT_VALUE_LENGTH);
+      : value.substring(0, maxEventValueLength);
 }

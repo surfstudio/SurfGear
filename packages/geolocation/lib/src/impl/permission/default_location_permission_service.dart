@@ -39,7 +39,7 @@ class DefaultLocationPermissionService implements LocationPermissionService {
 
   @override
   Future<PermissionStatus> requestPermission() async {
-    return await _mapStatuses(await _permissionService.requestPermissions())
+    return _mapStatuses(await _permissionService.requestPermissions())
         .catchError(_handleError);
   }
 
@@ -49,11 +49,11 @@ class DefaultLocationPermissionService implements LocationPermissionService {
         return PermissionStatus.unknown;
         break;
       case lib.PermissionStatus.denied:
-        bool shouldShowRationale =
+        final bool shouldShowRationale =
             await _permissionService.shouldShowRequestPermissionRationale() ||
                 Platform.isIOS;
         return shouldShowRationale
-            ? PermissionStatus.should_show_rationale
+            ? PermissionStatus.shouldShowRationale
             : PermissionStatus.denied;
         break;
       case lib.PermissionStatus.granted:
@@ -66,7 +66,7 @@ class DefaultLocationPermissionService implements LocationPermissionService {
     }
   }
 
-  Future<PermissionStatus> _handleError(error, stacktrace) {
+  Future<PermissionStatus> _handleError(Exception error, String stacktrace) {
     if (error is PlatformException) {
       throw error;
     }

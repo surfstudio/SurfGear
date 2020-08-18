@@ -16,18 +16,21 @@ import 'package:flutter/widgets.dart' show ValueNotifier;
 import 'package:relation/src/relation/action/action.dart';
 
 /// Wrapper on controller
-class Controller<T, C extends ValueNotifier<T>> extends Action<T> {
-  final C controller;
-
-  Controller(this.controller, void Function(C controller, Controller) onChanged)
-      : super() {
+class ControllerAction<T, C extends ValueNotifier<T>> extends Action<T> {
+  ControllerAction(
+    this.controller,
+    void Function(C controller, ControllerAction) onChanged,
+  ) : super() {
     controller.addListener(() {
       onChanged(controller, this);
     });
   }
 
+  /// Some ValueNotifier
+  final C controller;
+
   @override
-  call([T data]) {
+  Future<void> call([T data]) async {
     controller.value = data;
   }
 

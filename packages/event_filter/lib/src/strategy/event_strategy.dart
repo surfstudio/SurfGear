@@ -18,17 +18,19 @@ import 'package:event_filter/src/strategy/base_event_strategy.dart';
 import 'package:flutter/cupertino.dart';
 
 /// The strategy of event processing.
-abstract class EventStrategy<E extends Event> extends BaseEventStrategy<E> {
-  final EventFilterStrategy<E> filterStrategy;
-
+abstract class EventStrategy<E extends Event<dynamic>>
+    extends BaseEventStrategy<E> {
   EventStrategy({this.filterStrategy});
+
+  final EventFilterStrategy<E> filterStrategy;
 
   /// Resolve event by selected strategy.
   void resolve(E event) {
     _resolve(event, filterStrategy);
   }
 
-  /// Resolve event by selected strategy if it passed through transmitted filter.
+  /// Resolve event by selected strategy if it passed through transmitted
+  /// filter.
   void resolveWithCurrentFilter(
     E event, {
     EventFilterStrategy<E> filter,
@@ -41,6 +43,7 @@ abstract class EventStrategy<E extends Event> extends BaseEventStrategy<E> {
 
   void _resolve(E event, EventFilterStrategy<E> filter) {
     if (filter != null) {
+      // ignore: parameter_assignments
       event = filter.filter(event);
     }
 

@@ -1,3 +1,17 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:async';
 import 'dart:io';
 
@@ -9,29 +23,37 @@ import 'package:push_notification/src/notification/notificator/notification_spec
 /// Callback notification clicks
 ///
 /// notificationData - notification data
-typedef void OnNotificationTapCallback(Map notificationData);
+typedef OnNotificationTapCallback = void Function(Map notificationData);
 
 /// Callback permission decline
-typedef void OnPemissionDeclineCallback();
+typedef OnPermissionDeclineCallback = void Function();
 
 /// Channels and methods names
-const String CHANNEL_NAME = "surf_notification";
-const String CALL_INIT = "initialize";
-const String CALL_SHOW = "show";
-const String CALL_REQUEST = "request";
-const String CALLBACK_OPEN = "notificationOpen";
-const String CALLBACK_PERMISSION_DECLINE = "permissionDecline";
+const String channelName = 'surf_notification';
+const String callInit = 'initialize';
+const String callShow = 'show';
+const String callRequest = 'request';
+const String openCallback = 'notificationOpen';
+const String permissionDeclineCallback = 'permissionDecline';
 
 /// Arguments names
-const String ARG_PUSH_ID = "pushId";
-const String ARG_TITLE = "title";
-const String ARG_BODY = "body";
-const String ARG_DATA = "data";
-const String ARG_NOTIFICATION_SPECIFICS = "notificationSpecifics";
+const String pushIdArg = 'pushId';
+const String titleArg = 'title';
+const String bodyArg = 'body';
+const String imageUrlArg = 'imageUrl';
+const String dataArg = 'data';
+const String notificationSpecificsArg = 'notificationSpecifics';
 
 /// Util for displaying notifications for android and ios
 class Notificator {
-  MethodChannel _channel = const MethodChannel(CHANNEL_NAME);
+  Notificator({
+    this.onNotificationTapCallback,
+    this.onPermissionDecline,
+  }) {
+    _init();
+  }
+
+  final MethodChannel _channel = const MethodChannel(channelName);
   IOSNotification _iosNotification;
   AndroidNotification _androidNotification;
 
@@ -39,14 +61,7 @@ class Notificator {
   OnNotificationTapCallback onNotificationTapCallback;
 
   /// Callback notification decline(ios only)
-  final OnPemissionDeclineCallback onPermissionDecline;
-
-  Notificator({
-    this.onNotificationTapCallback,
-    this.onPermissionDecline,
-  }) {
-    _init();
-  }
+  final OnPermissionDeclineCallback onPermissionDecline;
 
   Future _init() async {
     if (Platform.isAndroid) {
@@ -62,9 +77,7 @@ class Notificator {
         onNotificationTap: (notificationData) {
           return onNotificationTapCallback(notificationData);
         },
-        onPermissionDecline: () {
-          return onPermissionDecline();
-        },
+        onPermissionDecline: onPermissionDecline,
       );
       return _iosNotification.init();
     }
@@ -92,6 +105,7 @@ class Notificator {
     int id,
     String title,
     String body, {
+    String imageUrl,
     Map<String, String> data,
     NotificationSpecifics notificationSpecifics,
   }) async {
@@ -100,6 +114,7 @@ class Notificator {
         id,
         title,
         body,
+        imageUrl,
         data,
         notificationSpecifics.androidNotificationSpecifics,
       );
@@ -108,6 +123,7 @@ class Notificator {
         id,
         title,
         body,
+        imageUrl,
         data,
         notificationSpecifics.iosNotificationSpecifics,
       );

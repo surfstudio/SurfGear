@@ -16,22 +16,23 @@ import 'dart:async';
 import 'package:bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
@@ -60,28 +61,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
     _map = {
       _types[0]: BottomNavigationRelationship(
-        tabBuilder: () => _buildPage(Color(0xFFFF0000)),
+        tabBuilder: () => _buildPage(const Color(0xFFFF0000)),
         navElementBuilder: (isSelected) => _buildElement(
           isSelected,
-          Color(0x55FF0000),
+          const Color(0x55FF0000),
         ),
       ),
       _types[1]: BottomNavigationRelationship(
-        tabBuilder: () => _buildPage(Color(0xFF00FF00)),
+        tabBuilder: () => _buildPage(const Color(0xFF00FF00)),
         navElementBuilder: (isSelected) => _buildElement(
           isSelected,
-          Color(0x5500FF00),
+          const Color(0x5500FF00),
         ),
       ),
       _types[2]: BottomNavigationRelationship(
-        tabBuilder: () => _buildPage(Color(0xFF0000FF)),
+        tabBuilder: () => _buildPage(const Color(0xFF0000FF)),
         navElementBuilder: (isSelected) => _buildElement(
           isSelected,
-          Color(0x550000FF),
+          const Color(0x550000FF),
         ),
       ),
     };
 
+    // ignore: avoid_print
     _selectorController.stream.listen((type) => print(type.value));
   }
 
@@ -132,7 +134,6 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           FlatButton(
-            child: Text("Change mode"),
             onPressed: () {
               setState(
                 () {
@@ -140,7 +141,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               );
             },
-            color: Color(0xFFFFFFFF),
+            color: const Color(0xFFFFFFFF),
+            child: const Text('Change mode'),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -157,11 +159,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildChangeButton(int value) {
     return FlatButton(
-      child: Text(value.toString()),
       onPressed: () {
         _selectorController.sink.add(_types[value]);
       },
-      color: Color(0xFFFFFFFF),
+      color: const Color(0xFFFFFFFF),
+      child: Text(value.toString()),
     );
   }
 
@@ -181,7 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Container(
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
           Radius.circular(50),
         ),
       ),
@@ -199,19 +201,19 @@ class _MyHomePageState extends State<MyHomePage> {
       elements: {
         _types[0]: (isSelected) => _buildCustomElement(
               isSelected,
-              Color(0x55FF0000),
+              const Color(0x55FF0000),
             ),
         _types[1]: (isSelected) => _buildCustomElement(
               isSelected,
-              Color(0x5500FF00),
+              const Color(0x5500FF00),
             ),
         _types[2]: (isSelected) => _buildCustomElement(
               isSelected,
-              Color(0x550000FF),
+              const Color(0x550000FF),
             ),
       },
       initType: _types[0],
-      selectedController:_selectorController,
+      selectedController: _selectorController,
     );
   }
 

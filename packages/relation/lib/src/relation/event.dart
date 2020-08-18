@@ -14,16 +14,21 @@
 
 /// An event that can take some value
 abstract class Event<T> {
+  /// The stream to which the event is transmitted
   Stream<T> get stream;
 
+  /// Acceptance of a new event
   Future<void> accept([T data]);
 }
 
 /// An event that has multiple States
 abstract class EntityEvent<T> {
+  /// Acceptance of a new entity event
   Future<void> content([T data]);
 
+  /// Setting the event data is loading
   Future<void> loading();
 
+  /// Setting the event data is error
   Future<void> error([Exception error]);
 }

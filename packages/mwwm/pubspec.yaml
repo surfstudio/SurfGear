@@ -1,13 +1,9 @@
 name: mwwm
-description: >
-  Software architecture pattern for teams with different sizes.
-  Add possibility to work separately.
-  Separate UI, presentation logic and business logic.
-version: 0.0.4
-homepage: https://github.com/surfstudio/mwwm
-
-environment:
-  sdk: ">=2.6.0 <3.0.0"
+version: "0.1.0-dev.2"
+description: |
+  Software architecture pattern for teams with different sizes. Add possibility to work separately. Separate UI, presentation logic and business logic.
+  
+homepage: "https://github.com/surfstudio/mwwm"
 
 dependencies:
   flutter:
@@ -16,15 +12,17 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  pedantic: ^1.8.0+1
 
-  pedantic: ^1.9.0
+environment:
+  sdk: ">=2.6.0 <3.0.0"
 
 flutter:
 
 custom:
   is_stable: false
-  unstable_version: 0
+  unstable_version:
   is_plugin: false
   path: mwwm
-  separate_repo_url: https://github.com/surfstudio/mwwm
+  separate_repo_url: "https://github.com/surfstudio/mwwm"
   hostUrl:

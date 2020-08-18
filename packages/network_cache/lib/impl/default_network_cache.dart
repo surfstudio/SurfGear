@@ -17,16 +17,11 @@ import 'package:network_cache/base/network_cache.dart';
 import 'package:network_cache/domain/response_entity.dart';
 import 'package:network_cache/network_cache.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:storage/storage.dart';
-import 'package:network/network.dart';
+import 'package:surf_storage/surf_storage.dart';
+import 'package:surf_network/surf_network.dart';
 
 /// Default implementation based on json storage
 class DefaultNetworkCache implements NetworkCache {
-  final Storage<String, Map<String, dynamic>> _storage;
-  final RxHttp _http;
-  final CacheStrategy _strategy;
-  final Duration lifetime;
-
   DefaultNetworkCache(
     this._storage,
     this._http, {
@@ -36,6 +31,11 @@ class DefaultNetworkCache implements NetworkCache {
         assert(_storage != null),
         assert(_http != null),
         assert(lifetime != null);
+
+  final Storage<String, Map<String, dynamic>> _storage;
+  final RxHttp _http;
+  final CacheStrategy _strategy;
+  final Duration lifetime;
 
   @override
   void clearCache() => _storage.clear();
@@ -55,7 +55,7 @@ class DefaultNetworkCache implements NetworkCache {
         .where((data) => data != null);
 
     final networkResponse = _http
-        .get(url, query: query, headers: headers)
+        .get<Object>(url, query: query, headers: headers)
         .doOnData((data) => _writeCache(key, data, lifetime ?? this.lifetime));
 
     final resolvedResponse = _strategy.resolve(cacheResponse, networkResponse);
@@ -75,7 +75,7 @@ class DefaultNetworkCache implements NetworkCache {
       return null;
     }
 
-    return Response(entity.data, 200);
+    return Response<Object>(entity.data, 200);
   }
 
   void _writeCache(String key, Response response, Duration lifetime) {
@@ -91,21 +91,18 @@ class DefaultNetworkCache implements NetworkCache {
   }
 
   String _buildStorageKey(String url, Map<String, dynamic> query) {
-    String buildParam(String param, dynamic value) =>
-        "$param=" + value?.toString() ?? "";
+    String buildParam(String param, Object value) => '$param=$value';
 
-    StringBuffer buffer = StringBuffer(url);
+    final StringBuffer buffer = StringBuffer(url);
 
     if (query == null || query.isEmpty) return buffer.toString();
 
     final params = query.entries;
 
-    buffer.write("?");
-    buffer.write(buildParam(params.first.key, params.first.value));
+    buffer..write('?')..write(buildParam(params.first.key, params.first.value));
 
-    for (var param in params.skip(1)) {
-      buffer.write("&");
-      buffer.write(buildParam(param.key, param.value));
+    for (final param in params.skip(1)) {
+      buffer..write('&')..write(buildParam(param.key, param.value));
     }
 
     return buffer.toString();

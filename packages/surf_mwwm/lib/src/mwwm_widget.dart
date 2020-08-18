@@ -1,8 +1,23 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:flutter/widgets.dart';
-import 'package:injector/injector.dart';
+import 'package:surf_injector/surf_injector.dart';
 import 'package:mwwm/mwwm.dart';
 
 typedef DependenciesBuilder<C> = C Function(BuildContext);
+typedef WidgetStateBuilder = State Function();
 
 /// Base class for widgets that has [WidgetModel]
 /// and has dependencies in [Component]
@@ -34,15 +49,20 @@ abstract class MwwmWidget<C extends Component> extends StatefulWidget {
 /// Hidden widget that create [WidgetState]
 /// It's only proxy builder for [State]
 class _ProxyMwwmWidget extends CoreMwwmWidget {
+  final WidgetStateBuilder _wsBuilder;
+
   const _ProxyMwwmWidget({
     Key key,
     WidgetStateBuilder widgetStateBuilder,
     WidgetModelBuilder widgetModelBuilder,
-  }) : super(
+  })  : _wsBuilder = widgetStateBuilder,
+        super(
           key: key,
-          widgetStateBuilder: widgetStateBuilder,
           widgetModelBuilder: widgetModelBuilder,
         );
+
+  @override
+  State<StatefulWidget> createState() => _wsBuilder();
 }
 
 /// Hold child widget

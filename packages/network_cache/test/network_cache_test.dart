@@ -12,4 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-void main() {}
+import 'package:flutter_test/flutter_test.dart';
+
+void main() {
+  test('test', () {
+    expect(true, isTrue);
+  });
+}

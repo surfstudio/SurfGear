@@ -40,36 +40,40 @@ class EntityStreamedState<T> extends StreamedState<EntityState<T>>
   }
 }
 
-///Стейт некоторой логической сущности
+/// State of some logical entity
 class EntityState<T> {
-  final T data;
-  final bool isLoading;
-  final bool hasError;
-  ExceptionWrapper error;
-
-  //возможные поля
-  // final List<Exception> errors
-
   EntityState({
     this.data,
     this.isLoading = false,
     this.hasError = false,
-    dynamic error,
+    Exception error,
   }) : error = ExceptionWrapper(error);
 
-  EntityState.loading([T previousData])
+  /// Loading constructor
+  EntityState.loading([this.data])
       : isLoading = true,
-        hasError = false,
-        data = previousData;
+        hasError = false;
 
-  EntityState.error([dynamic error, T previousData])
+  /// Error constructor
+  EntityState.error([Exception error, this.data])
       : isLoading = false,
         hasError = true,
-        error = ExceptionWrapper(error),
-        data = previousData;
+        error = ExceptionWrapper(error);
 
-  EntityState.content([T data])
+  /// Content constructor
+  EntityState.content([this.data])
       : isLoading = false,
-        hasError = false,
-        data = data;
+        hasError = false;
+
+  /// Data of entity
+  final T data;
+
+  /// State is loading
+  final bool isLoading;
+
+  /// State has error
+  final bool hasError;
+
+  /// Error from state
+  ExceptionWrapper error;
 }

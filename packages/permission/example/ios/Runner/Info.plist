@@ -42,16 +42,18 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>location</string>
+	<string>location</string>
 	<key>NSCameraUsageDescription</key>
-    <string>camera</string>
+	<string>camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-    <string>photos</string>
+	<string>photos</string>
 	<key>NSCalendarsUsageDescription</key>
-    <string>calendar</string>
+	<string>calendar</string>
 	<key>NSContactsUsageDescription</key>
-    <string>contacts</string>
+	<string>contacts</string>
 	<key>NSMicrophoneUsageDescription</key>
-    <string>microphone</string>
+	<string>microphone</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>speach</string>
 </dict>
 </plist>

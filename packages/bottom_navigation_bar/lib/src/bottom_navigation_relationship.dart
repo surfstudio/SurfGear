@@ -18,11 +18,11 @@ import 'package:tabnavigator/tabnavigator.dart';
 
 /// Class describes relations between navigation widget and content widget.
 class BottomNavigationRelationship {
-  final TabBuilder tabBuilder;
-  final NavElementBuilder navElementBuilder;
-
   BottomNavigationRelationship({
     @required this.tabBuilder,
     @required this.navElementBuilder,
   });
+
+  final TabBuilder tabBuilder;
+  final NavElementBuilder navElementBuilder;
 }

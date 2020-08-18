@@ -1,10 +1,25 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import 'dart:convert';
+
 import 'package:background_worker/background_worker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
-void main() => runApp(MaterialApp(home: new MainScreen()));
+void main() => runApp(const MaterialApp(home: MainScreen()));
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key key}) : super(key: key);
@@ -14,13 +29,13 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  var _backgroudWorker = BackgroundWorker(capacity: 2);
+  final _backgroundWorker = BackgroundWorker(capacity: 2);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Test App"),
+        title: const Text('Test App'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,15 +46,15 @@ class _MainScreenState extends State<MainScreen> {
               _buildButton(),
             ],
           ),
-          _buildControllButtons(),
+          _buildControlButtons(),
         ],
       ),
     );
   }
 
   Widget _buildProgressIndicator() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16),
+    return const Padding(
+      padding: EdgeInsets.only(top: 16),
       child: CircularProgressIndicator(),
     );
   }
@@ -51,44 +66,44 @@ class _MainScreenState extends State<MainScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           OutlineButton(
-            child: Text("Do in Foreground"),
             onPressed: () async {
               await backgroundWork(null);
             },
+            child: const Text('Do in Foreground'),
           ),
           OutlineButton(
-            child: Text("Do in Background"),
             onPressed: () async {
-              var workItem = WorkItem<List<Data>, dynamic>.calculate(
+              final workItem = WorkItem<List<Data>, dynamic>.calculate(
                 backgroundWork,
               );
-              await _backgroudWorker.send(workItem);
+              await _backgroundWorker.send(workItem);
             },
+            child: const Text('Do in Background'),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildControllButtons() {
+  Widget _buildControlButtons() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.play_arrow,
               size: 30,
             ),
-            onPressed: () => _backgroudWorker.start(),
+            onPressed: _backgroundWorker.start,
           ),
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.stop,
               size: 30,
             ),
-            onPressed: () => _backgroudWorker.stop(),
+            onPressed: _backgroundWorker.stop,
           ),
         ],
       ),
@@ -96,19 +111,18 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
-Future<List<Data>> backgroundWork(dynamic) async {
-  var response = await http.get('http://jsonplaceholder.typicode.com/posts');
-  String json = response.body;
+// ignore: avoid_annotating_with_dynamic
+Future<List<Data>> backgroundWork(dynamic _) async {
+  final response = await http.get('http://jsonplaceholder.typicode.com/posts');
+  final String json = response.body;
+  // ignore: avoid_print
   print(json);
-  return jsonDecode(json).map<Data>((json) => Data.fromJson(json)).toList();
+  return (jsonDecode(json) as List<dynamic>)
+      .map<Data>((json) => Data.fromJson(json as Map<String, dynamic>))
+      .toList();
 }
 
 class Data {
-  final int userId;
-  final int id;
-  final String title;
-  final String body;
-
   Data({
     this.userId,
     this.id,
@@ -118,10 +132,15 @@ class Data {
 
   factory Data.fromJson(Map<String, dynamic> json) {
     return Data(
-      userId: json['userId'],
-      id: json['id'],
-      title: json['title'],
-      body: json['body'],
+      userId: json['userId'] as int,
+      id: json['id'] as int,
+      title: json['title'] as String,
+      body: json['body'] as String,
     );
   }
+
+  final int userId;
+  final int id;
+  final String title;
+  final String body;
 }

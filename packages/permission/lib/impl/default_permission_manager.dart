@@ -18,14 +18,15 @@ import 'package:permission/base/exceptions.dart';
 import 'package:permission/base/permission_manager.dart';
 import 'package:permission/base/strategy/deny_resolve_strategy_storage.dart';
 import 'package:permission/base/strategy/proceed_permission_strategy.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:permission_handler/permission_handler.dart'
+    as permission_handler;
 
 class DefaultPermissionManager implements PermissionManager {
-  final PermissionHandler _permissionHandler = PermissionHandler();
-  final ProceedPermissionStrategyStorage _strategyStorage;
-
   DefaultPermissionManager(this._strategyStorage);
 
+  final ProceedPermissionStrategyStorage _strategyStorage;
+
+  @override
   Future<bool> request(
     Permission permission, {
     bool checkRationale = false,
@@ -33,25 +34,21 @@ class DefaultPermissionManager implements PermissionManager {
     final permissionGroup = _mapPermission(permission);
     final strategy = _strategyStorage.getStrategy(permission);
 
-    final statuses = await _permissionHandler.requestPermissions([
-      permissionGroup,
-    ]);
+    final status = await permissionGroup.request();
 
-    final status = statuses[permissionGroup];
     if (_isGoodStatus(status)) {
       await strategy?.proceed(permission, PermissionStrategyStatus.allow);
       return true;
     }
 
     if (checkRationale) {
-      final showRationale = await _permissionHandler
-          .shouldShowRequestPermissionRationale(permissionGroup);
+      final showRationale = await permissionGroup.shouldShowRequestRationale;
 
       await strategy?.proceed(
           permission,
           showRationale
               ? PermissionStrategyStatus.deny
-              : PermissionStrategyStatus.permanent_deny);
+              : PermissionStrategyStatus.permanentDeny);
 
       if (showRationale) {
         return false;
@@ -64,40 +61,44 @@ class DefaultPermissionManager implements PermissionManager {
     return false;
   }
 
+  @override
   Future<bool> check(Permission permission) async {
-    final status = await _permissionHandler.checkPermissionStatus(
-      _mapPermission(permission),
-    );
+    final status = await _mapPermission(permission).status;
 
     return _isGoodStatus(status);
   }
 
-  Future<bool> openSettings() => _permissionHandler.openAppSettings();
+  @override
+  Future<bool> openSettings() => permission_handler.openAppSettings();
 
-  bool _isGoodStatus(PermissionStatus status) =>
-      status == PermissionStatus.granted ||
-      status == PermissionStatus.restricted;
+  bool _isGoodStatus(permission_handler.PermissionStatus status) =>
+      status == permission_handler.PermissionStatus.granted ||
+      status == permission_handler.PermissionStatus.restricted;
 
-  PermissionGroup _mapPermission(Permission permission) {
+  permission_handler.Permission _mapPermission(Permission permission) {
     switch (permission) {
       case Permission.camera:
-        return PermissionGroup.camera;
+        return permission_handler.Permission.camera;
       case Permission.gallery:
         return Platform.isAndroid
-            ? PermissionGroup.storage
-            : PermissionGroup.photos;
+            ? permission_handler.Permission.storage
+            : permission_handler.Permission.photos;
       case Permission.location:
-        return PermissionGroup.location;
+        return permission_handler.Permission.location;
       case Permission.calendar:
-        return PermissionGroup.calendar;
+        return permission_handler.Permission.calendar;
       case Permission.contacts:
-        return PermissionGroup.contacts;
+        return permission_handler.Permission.contacts;
       case Permission.microphone:
-        return PermissionGroup.microphone;
+        return permission_handler.Permission.microphone;
       case Permission.phone:
-        return PermissionGroup.phone;
+        return permission_handler.Permission.phone;
+      case Permission.speech:
+        return permission_handler.Permission.speech;
+      case Permission.notification:
+        return permission_handler.Permission.notification;
       default:
-        return PermissionGroup.unknown;
+        return permission_handler.Permission.unknown;
     }
   }
 }

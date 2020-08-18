@@ -16,7 +16,8 @@ import 'package:flutter/widgets.dart';
 import 'package:relation/src/relation/state/entity_state.dart';
 
 typedef DataWidgetBuilder<T> = Widget Function(BuildContext, T data);
-typedef ErrorWidgetBuilder = Widget Function(BuildContext, Exception error);
+// ignore: avoid_annotating_with_dynamic
+typedef ErrorWidgetBuilder = Widget Function(BuildContext, dynamic error);
 
 /// Reactive widget for [EntityStreamedState]
 ///
@@ -36,18 +37,10 @@ typedef ErrorWidgetBuilder = Widget Function(BuildContext, Exception error);
 ///    );
 ///  ```
 class EntityStateBuilder<T> extends StatelessWidget {
-  final EntityStreamedState<T> streamedState;
-
-  final DataWidgetBuilder<T> child;
-  final DataWidgetBuilder<T> loadingBuilder;
-  final DataWidgetBuilder<T> errorBuilder;
-  final Widget loadingChild;
-  final Widget errorChild;
-
   const EntityStateBuilder({
-    Key key,
     @required this.streamedState,
     @required this.child,
+    Key key,
     this.loadingBuilder,
     this.errorBuilder,
     Widget loadingChild,
@@ -57,6 +50,24 @@ class EntityStateBuilder<T> extends StatelessWidget {
         assert(streamedState != null),
         assert(child != null),
         super(key: key);
+
+  /// StreamedState of entity
+  final EntityStreamedState<T> streamedState;
+
+  /// Child of builder
+  final DataWidgetBuilder<T> child;
+
+  /// Loading child of builder
+  final DataWidgetBuilder<T> loadingBuilder;
+
+  /// Error child of builder
+  final ErrorWidgetBuilder errorBuilder;
+
+  /// Loading child widget
+  final Widget loadingChild;
+
+  /// Error child widget
+  final Widget errorChild;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +84,7 @@ class EntityStateBuilder<T> extends StatelessWidget {
           }
         } else if (streamData.hasError) {
           if (streamData.data != null && errorBuilder != null) {
-            return errorBuilder(context, streamData.data);
+            return errorBuilder(context, streamData.error.e);
           } else {
             return errorChild;
           }

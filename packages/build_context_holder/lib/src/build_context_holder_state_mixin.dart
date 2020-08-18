@@ -17,6 +17,7 @@ import 'package:flutter/widgets.dart';
 
 /// Getting context by mixing into a widget
 mixin BuildContextHolderStateMixin<T extends StatefulWidget> on State<T> {
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     BuildContextHolder.instance.context = context;
