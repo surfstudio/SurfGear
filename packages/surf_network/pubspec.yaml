@@ -1,7 +1,7 @@
 name: surf_network
-version: "0.0.1-dev.0"
+version: "0.0.1-dev.3"
 description: Network implementation for Flutter
-repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/surf_network
+repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/surf_network"
 
 dependencies:
   flutter:
@@ -23,7 +23,7 @@ flutter:
 
 custom:
   is_stable: false
-  unstable_version: 1
+  unstable_version:
   is_plugin: false
   path: surf_network
   separate_repo_url:

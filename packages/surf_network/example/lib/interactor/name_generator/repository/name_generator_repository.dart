@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:name_generator/domain/User.dart';
+import 'package:name_generator/domain/user.dart';
 import 'package:name_generator/interactor/name_generator/repository/data/name_generator_response.dart';
 import 'package:surf_network/surf_network.dart';
 
-const String _url = 'https://uinames.com/api/?ext';
+const String _url = 'https://api.namefake.com/';
 
 /// Repository для namefake.com/api
 class NameGeneratorRepository {
