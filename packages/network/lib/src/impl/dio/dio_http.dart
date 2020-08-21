@@ -111,13 +111,17 @@ class DioHttp extends Http {
     Map<String, dynamic> query,
     Map<String, String> headers,
     Map<String, dynamic> body,
+    String contentType,
   }) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return _dio
         .post(
           url,
           queryParameters: query,
-          options: dio.Options(headers: headersMap),
+          options: dio.Options(
+            headers: headersMap,
+            contentType: contentType,
+          ),
           data: body,
         )
         .then(_toResponse);
