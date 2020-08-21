@@ -61,6 +61,7 @@ class DefaultHttp extends Http {
     Map<String, dynamic> query,
     Map<String, String> headers,
     Map<String, dynamic> body,
+    String contentType,
   }) async {
     print("DEV_WEB request : $url, $body | $headers");
     Map<String, String> headersMap = await _buildHeaders(url, headers);

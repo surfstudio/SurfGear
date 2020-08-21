@@ -31,6 +31,7 @@ abstract class Http {
     Map<String, dynamic> query,
     Map<String, String> headers,
     Map<String, dynamic> body,
+    String contentType,
   });
 
   ///PUT -request
