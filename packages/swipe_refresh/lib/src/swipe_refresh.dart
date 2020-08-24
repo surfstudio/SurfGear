@@ -191,6 +191,7 @@ class SwipeRefresh extends StatelessWidget {
           stateStream: stateStream,
           initState: initState,
           onRefresh: onRefresh,
+          scrollController: scrollController,
           backgroundColor: backgroundColor,
           indicatorColor: indicatorColor,
         );
@@ -202,6 +203,7 @@ class SwipeRefresh extends StatelessWidget {
           stateStream: stateStream,
           initState: initState,
           onRefresh: onRefresh,
+          scrollController: scrollController,
           refreshIndicatorExtent: refreshIndicatorExtent,
           refreshTriggerPullDistance: refreshTriggerPullDistance,
           indicatorBuilder: indicatorBuilder,
