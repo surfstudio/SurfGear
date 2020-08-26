@@ -44,8 +44,20 @@ class MirrorOpenSourceModuleTask implements Task<bool> {
     // push only to stable branch, yet
     final pushSubtree = 'git subtree push $prefix $repoWithCreds $branchName';
     final pushResult = await sh(pushSubtree, path: Config.repoRootPath);
-
     if (pushResult.exitCode != 0) {
+      _throwModuleMirroringException(element.name, pushResult);
+    }
+
+    // After submitting the changes, you need to get them back
+    final pullSubtree = 'git subtree pull $prefix $repoWithCreds $branchName';
+    final pullResult = await sh(pullSubtree, path: Config.repoRootPath);
+    if (pullResult.exitCode != 0) {
+      _throwModuleMirroringException(element.name, pushResult);
+    }
+
+    final pushLocal = 'git push';
+    final pushLocalResult = await sh(pushLocal, path: Config.repoRootPath);
+    if (pushLocalResult.exitCode != 0) {
       _throwModuleMirroringException(element.name, pushResult);
     }
 
