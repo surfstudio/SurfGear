@@ -9,31 +9,20 @@ import ru.surfstudio.ci.RepositoryUtil
 import ru.surfstudio.ci.Result
 import ru.surfstudio.ci.NodeProvider
 import ru.surfstudio.ci.AbortDuplicateStrategy
-import ru.surfstudio.ci.stage.StageStrategy
+
+// repo urls
+def mwwmRepoUrl = 'https://github.com/surfstudio/mwwm.git'
+def relationRepoUrl = 'https://github.com/surfstudio/relation.git'
+def renderMetricRepoUrl = 'https://github.com/surfstudio/render_metrics.git'
 
 // Stage names
 def CHECKOUT = 'Checkout'
-def GET_DEPENDENCIES = 'Getting dependencies'
-def FIND_CHANGED = 'Find changed'
-def CHANGE_VIRSION = 'Change version'
-def SAVE_LAST_GIT_HASH = 'Save last git hash'
-def PUBLISHING_TO_PUB_DEV = 'Publishing to pub.dev'
+def GET_CHANGES_MWWM = 'Get mwwm package changes'
+def GET_CHANGES_RELATION = 'Get relation package changes'
+def GET_CHANGES_RENDER_METRICS = 'Get render-metrics changes'
 def MIRRORING = 'Mirroring'
 def CHECKS_RESULT = 'Checks Result'
 def CLEAR_CHANGED = 'Clear changed'
-
-// Constants
-def FLUTTER_PUB_ACCESS_TOKEN = 'FLUTTER_PUB_ACCESS_TOKEN'
-def FLUTTER_PUB_REFRESH_TOKEN = 'FLUTTER_PUB_REFRESH_TOKEN'
-def FLUTTER_PUB_TOKEN_ENDPOINT = 'FLUTTER_PUB_TOKEN_ENDPOINT'
-def FLUTTER_PUB_SCOPES = 'FLUTTER_PUB_SCOPES'
-def FLUTTER_PUB_EXPIRATION = 'FLUTTER_PUB_EXPIRATION'
-
-//Pipeline on commit stable-branch
-def mirrorRepoCredentialID = '76dbac13-e6ea-4ed0-a013-e06cad01be2d'
-
-// const
-def lastDeployHashFileName = './.last_deploy_hash'
 
 //vars
 def branchName = ''
@@ -104,59 +93,24 @@ pipeline.stages = [
             RepositoryUtil.saveCurrentGitCommitHash(script)
         },
 
-        // получение зависимостей
-        pipeline.stage(GET_DEPENDENCIES) {
-            script.sh 'cd tools/ci/ && pub get'
+        // получение изменений mwwm
+        pipeline.stage(GET_CHANGES_MWWM) {
+            script.echo 'get changes from mwwm'
+            script.sh "git subtree pull -m \"[skip ci] get changes from mirror\" --prefix=packages/mwwm $mwwmRepoUrl dev"
+            script.sh 'git push'
         },
 
-        // поиск изменившихся модулей
-        pipeline.stage(FIND_CHANGED) {
-            // взять хэш из файла и передать параметром
-            script.sh "./tools/ci/runner/find_changed_modules --target=\$(cat ${lastDeployHashFileName})"
+        // получение изменений
+        pipeline.stage(GET_CHANGES_RELATION) {
+            script.echo 'get changes from relation'
+            script.sh "git subtree pull -m \"[skip ci] get changes from mirror\" --prefix=packages/relation $relationRepoUrl dev"
+            script.sh 'git push'
         },
 
-        // изменения версии изменившихся модулей
-        pipeline.stage(CHANGE_VIRSION) {
-            script.echo 'increment_dev_unstable_versions'
-            script.sh './tools/ci/runner/increment_dev_unstable_versions'
-        },
-
-        // паблишинга в паб
-        pipeline.stage(PUBLISHING_TO_PUB_DEV, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.echo 'Publishing to pub.dev'
-            script.withCredentials([
-                    script.string(credentialsId: FLUTTER_PUB_ACCESS_TOKEN, variable: FLUTTER_PUB_ACCESS_TOKEN ),
-                    script.string(credentialsId: FLUTTER_PUB_REFRESH_TOKEN, variable: FLUTTER_PUB_REFRESH_TOKEN ),
-                    script.string(credentialsId: FLUTTER_PUB_TOKEN_ENDPOINT, variable: FLUTTER_PUB_TOKEN_ENDPOINT ),
-                    script.string(credentialsId: FLUTTER_PUB_SCOPES, variable: FLUTTER_PUB_SCOPES ),
-                    script.string(credentialsId: FLUTTER_PUB_EXPIRATION, variable: FLUTTER_PUB_EXPIRATION ),
-            ]) {
-                script.sh 'rm -rf ~/.pub-cache/credentials.json'
-                script.sh '''cat <<EOT >>  ~/.pub-cache/credentials.json
-{"accessToken":"${FLUTTER_PUB_ACCESS_TOKEN}","refreshToken":"${FLUTTER_PUB_REFRESH_TOKEN}","tokenEndpoint":"${FLUTTER_PUB_TOKEN_ENDPOINT}","scopes":${FLUTTER_PUB_SCOPES},"expiration":${FLUTTER_PUB_EXPIRATION}}
-EOT
-    '''
-
-                script.sh './tools/ci/runner/publish_dev'
-            }
-        },
-
-        // зеркалирования в отдельные репо
-        pipeline.stage(MIRRORING) {
-            script.echo 'Mirroring'
-            withCredentials([usernamePassword(credentialsId: mirrorRepoCredentialID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                echo "credentialsId: $mirrorRepoCredentialID"
-                sh './tools/ci/runner/mirror_dev'
-            //                sh "git push --mirror https://${encodeUrl(USERNAME)}:${encodeUrl(PASSWORD)}@github.com/surfstudio/SurfGear.git"
-            }
-        },
-
-        // сохранить хэш комита с версиями в файл
-        pipeline.stage(SAVE_LAST_GIT_HASH) {
-            script.echo 'Save last git hash'
-            script.sh "git rev-parse HEAD > $lastDeployHashFileName"
-            script.sh "git add $lastDeployHashFileName"
-            script.sh "git commit -m \"[skip ci] change last git hash\""
+        // получение изменений
+        pipeline.stage(GET_CHANGES_RENDER_METRICS) {
+            script.echo 'get changes from render_metrics'
+            script.sh "git subtree pull -m \"[skip ci] get changes from mirror\" --prefix=packages/render_metrics $renderMetricRepoUrl dev"
             script.sh 'git push'
         },
 
