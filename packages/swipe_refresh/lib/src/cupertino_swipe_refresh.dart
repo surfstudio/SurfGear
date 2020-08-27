@@ -32,7 +32,7 @@ class CupertinoSwipeRefresh extends SwipeRefreshBase {
     this.refreshTriggerPullDistance = defaultRefreshTriggerPullDistance,
     this.refreshIndicatorExtent = defaultRefreshIndicatorExtent,
     this.indicatorBuilder =
-        CupertinoSliverRefreshControl.buildSimpleRefreshIndicator,
+        CupertinoSliverRefreshControl.buildRefreshIndicator,
   }) : super(
           key: key,
           children: children,
