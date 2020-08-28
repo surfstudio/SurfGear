@@ -31,7 +31,8 @@ def BUILD = 'Build'
 
 def CLEAR_CHANGED = 'Clear changed'
 
-// git variables
+def VERSION_FLUTTER = 'Specify version flutter'
+
 def sourceBranch = ""
 def destinationBranch = ""
 def authorUsername = ""
@@ -48,6 +49,7 @@ final String TARGET_BRANCH_CHANGED_PARAMETER = 'targetBranchChanged'
 final String TEMP_FOLDER_NAME = "temp"
 
 def stagesForProjectMode = [
+        VERSION_FLUTTER,
         PRE_MERGE,
         GET_DEPENDENCIES,
         FIND_CHANGED,
@@ -61,6 +63,7 @@ def stagesForTargetBranchChangedMode = [
 ]
 
 def stagesForReleaseMode = [
+        VERSION_FLUTTER,
         PRE_MERGE,
         GET_DEPENDENCIES,
         FIND_CHANGED,
@@ -76,6 +79,7 @@ def stagesForReleaseMode = [
         CLEAR_CHANGED,
 ]
 def stagesForDevMode = [
+        VERSION_FLUTTER,
         PRE_MERGE,
         GET_DEPENDENCIES,
         FIND_CHANGED,
@@ -194,6 +198,10 @@ pipeline.stages = [
 
             //local merge with destination
             script.sh "git merge origin/$destinationBranch --no-ff"
+        },
+        // сменить версию flutter
+        pipeline.stage(VERSION_FLUTTER){
+            script.sh "flutter version 1.20.2"
         },
 
         pipeline.stage(GET_DEPENDENCIES) {
