@@ -11,22 +11,21 @@ import ru.surfstudio.ci.NodeProvider
 import ru.surfstudio.ci.AbortDuplicateStrategy
 
 // repo urls
-def mwwmRepoUrl = 'https://github.com/surfstudio/mwwm.git'
-def relationRepoUrl = 'https://github.com/surfstudio/relation.git'
-def renderMetricRepoUrl = 'https://github.com/surfstudio/render_metrics.git'
+def mainRepoUrl = 'https://github.com/surfstudio/SurfGear.git'
+
+//Pipeline on commit stable-branch
+def mainRepoCredentialID = "76dbac13-e6ea-4ed0-a013-e06cad01be2d"
 
 // Stage names
 def CHECKOUT = 'Checkout'
-def GET_CHANGES_MWWM = 'Get mwwm package changes'
-def GET_CHANGES_RELATION = 'Get relation package changes'
-def GET_CHANGES_RENDER_METRICS = 'Get render-metrics changes'
-def MIRRORING = 'Mirroring'
+def GET_CHANGES = 'Get package changes'
 def CHECKS_RESULT = 'Checks Result'
 def CLEAR_CHANGED = 'Clear changed'
 
 //vars
 def branchName = ''
 def buildDescription = ''
+def prefixName = ''
 
 //init
 def script = this
@@ -77,8 +76,8 @@ pipeline.stages = [
         // чекаут
         pipeline.stage(CHECKOUT) {
             script.git(
-                    url: pipeline.repoUrl,
-                    credentialsId: pipeline.repoCredentialsId
+                    url: mainRepoUrl,
+                    credentialsId: mainRepoCredentialID
             )
             script.sh "git checkout -B $branchName origin/$branchName"
 
@@ -93,25 +92,24 @@ pipeline.stages = [
             RepositoryUtil.saveCurrentGitCommitHash(script)
         },
 
-        // получение изменений mwwm
-        pipeline.stage(GET_CHANGES_MWWM) {
-            script.echo 'get changes from mwwm'
-            script.sh "git subtree pull -m \"[skip ci] get changes from mirror\" --prefix=packages/mwwm $mwwmRepoUrl dev"
-            script.sh 'git push'
-        },
-
         // получение изменений
-        pipeline.stage(GET_CHANGES_RELATION) {
-            script.echo 'get changes from relation'
-            script.sh "git subtree pull -m \"[skip ci] get changes from mirror\" --prefix=packages/relation $relationRepoUrl dev"
-            script.sh 'git push'
-        },
+        pipeline.stage(GET_CHANGES) {
+            if (pipeline.repoUrl.contains('mwwm')) {
+                prefixName = 'mwwm'
+            }
 
-        // получение изменений
-        pipeline.stage(GET_CHANGES_RENDER_METRICS) {
-            script.echo 'get changes from render_metrics'
-            script.sh "git subtree pull -m \"[skip ci] get changes from mirror\" --prefix=packages/render_metrics $renderMetricRepoUrl dev"
-            script.sh 'git push'
+            if (pipeline.repoUrl.contains('relation')) {
+                prefixName = 'relation'
+            }
+
+            if (pipeline.repoUrl.contains('render_metrics')) {
+                prefixName = 'render_metrics'
+            }
+
+            script.echo "get changes from $prefixName"
+
+            script.echo "git subtree pull -m \"[skip ci] get changes from mirror\" --prefix=packages/$prefixName ${pipeline.repoUrl} dev"
+            script.echo 'git push'
         },
 
         pipeline.stage(CHECKS_RESULT) {
