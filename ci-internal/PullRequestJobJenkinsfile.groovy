@@ -177,6 +177,8 @@ pipeline.initializeBody = {
 
 pipeline.stages = [
         pipeline.stage(PRE_MERGE) {
+            script.sh "flutter upgrade"
+
             CommonUtil.safe(script) {
                 script.sh "git reset --merge" //revert previous failed merge
             }
