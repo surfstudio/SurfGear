@@ -44,9 +44,9 @@ Widget _buildSheet(
 }) {
   return Container(
     height: 100,
-    decoration: BoxDecoration(
+    decoration: const BoxDecoration(
       color: Colors.red,
-      borderRadius: const BorderRadius.only(
+      borderRadius: BorderRadius.only(
         topLeft: Radius.circular(16),
         topRight: Radius.circular(16),
       ),
@@ -54,7 +54,7 @@ Widget _buildSheet(
     child: Center(
       child: Text(
         'Hello ${data.testData}',
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontSize: 42,
         ),
