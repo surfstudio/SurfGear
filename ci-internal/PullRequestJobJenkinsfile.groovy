@@ -1,5 +1,5 @@
 @Library('surf-lib@version-3.0.0-SNAPSHOT')
-// https://bitbucket.org/surfstudio/jenkins-pipeline-lib/
+// https://gitlab.com/surfstudio/infrastructure/tools/jenkins-pipeline-lib
 
 import ru.surfstudio.ci.*
 import ru.surfstudio.ci.pipeline.empty.EmptyScmPipeline
@@ -31,7 +31,30 @@ def BUILD = 'Build'
 
 def CLEAR_CHANGED = 'Clear changed'
 
-// git variables
+//def VERSION_FLUTTER = 'Specify version flutter'
+
+def STAGE_DOCKER = "Docker Flutter"
+
+//def List<Stage> androidStages
+//def List<Stage> iosStages
+//
+//def STAGE_ANDROID = 'Android'
+//def STAGE_IOS = 'IOS'
+
+//docker
+//
+// Чтобы изменить канал Flutter для сборки проекта
+// необходимо в конфиге нужного job'a (лежит в мастер ветке проекта)
+// переопределить это поле и изменить тег образа на название
+// нужного канала (stable, beta или dev). Например:
+//
+// def pipeline = new PrPipelineFlutter(this)
+// pipeline.dockerImageName = "cirrusci/flutter:dev"
+//
+def dockerImageName = "cirrusci/flutter:1.20.2"
+def dockerArguments = "-it -v \${PWD}:/build --workdir /build"
+
+
 def sourceBranch = ""
 def destinationBranch = ""
 def authorUsername = ""
@@ -260,7 +283,18 @@ pipeline.stages = [
         pipeline.stage(CLEAR_CHANGED) {
             script.sh "./tools/ci/runner/clear_changed"
         },
+
+        docker(STAGE_DOCKER, dockerImageName, dockerArguments, [
+                stage(UNIT_TEST, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
+                    script.sh("./tools/ci/runner/run_tests")
+                },
+
+                stage(CLEAR_CHANGED) {
+                    script.sh "./tools/ci/runner/clear_changed"
+                },
+        ])
 ]
+
 pipeline.finalizeBody = {
     if (pipeline.jobResult != Result.SUCCESS && pipeline.jobResult != Result.ABORTED) {
         def unsuccessReasons = CommonUtil.unsuccessReasonsToString(pipeline.stages)
