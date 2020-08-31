@@ -1,4 +1,4 @@
-## 0.1.0-dev.3
+## 0.1.0-dev.4
 
 * Replace dynamic type in WidgetModel's errorCallbacks
 
