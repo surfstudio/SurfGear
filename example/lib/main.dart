@@ -165,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
               'Blue Container() widget metrics:'
               '\n\n'
               '${_getRenderDataText(_containerPositionedId)}',
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
           ),
         ),
