@@ -46,7 +46,7 @@ class CircleBuilder extends ItemBuilder<Circle> {
       child: Container(
         width: 64,
         height: 64,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.blueAccent,
           shape: BoxShape.circle,
         ),

@@ -76,7 +76,7 @@ class _MyAppState extends State<MyApp> {
               ),
             );
           },
-          child: Icon(
+          child: const Icon(
             Icons.notifications,
             color: Colors.white,
           ),

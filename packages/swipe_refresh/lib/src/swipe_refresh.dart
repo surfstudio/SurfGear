@@ -169,9 +169,6 @@ class SwipeRefresh extends StatelessWidget {
       childrenDelegate: SliverChildBuilderDelegate(
         itemBuilder,
         childCount: itemCount,
-        addAutomaticKeepAlives: true,
-        addRepaintBoundaries: true,
-        addSemanticIndexes: true,
       ),
     );
   }
