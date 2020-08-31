@@ -46,7 +46,7 @@ class _LoginScreenState extends WidgetState<LoginWm> {
                 children: <Widget>[
                   Text(
                     logoText,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'Helvetica',
                       fontSize: 32,
                       fontWeight: FontWeight.w300,
@@ -61,7 +61,7 @@ class _LoginScreenState extends WidgetState<LoginWm> {
                       color: Colors.blue,
                       child: Text(
                         buttonText,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                         ),
                       ),
