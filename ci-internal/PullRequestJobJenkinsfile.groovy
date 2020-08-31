@@ -31,15 +31,7 @@ def BUILD = 'Build'
 
 def CLEAR_CHANGED = 'Clear changed'
 
-//def VERSION_FLUTTER = 'Specify version flutter'
-
 def STAGE_DOCKER = "Docker Flutter"
-
-//def List<Stage> androidStages
-//def List<Stage> iosStages
-//
-//def STAGE_ANDROID = 'Android'
-//def STAGE_IOS = 'IOS'
 
 //docker
 //
@@ -272,27 +264,21 @@ pipeline.stages = [
             }
         },
 
-        pipeline.stage(BUILD) {
-            script.sh("./tools/ci/runner/build")
-        },
 
-        pipeline.stage(UNIT_TEST, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./tools/ci/runner/run_tests")
-        },
+        docker(STAGE_DOCKER, dockerImageName, dockerArguments, [
+                stage(BUILD) {
+                    script.sh("./tools/ci/runner/build")
+                },
+
+                stage(UNIT_TEST, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
+                    script.sh("./tools/ci/runner/run_tests")
+                },
+        ]),
 
         pipeline.stage(CLEAR_CHANGED) {
             script.sh "./tools/ci/runner/clear_changed"
         },
 
-        docker(STAGE_DOCKER, dockerImageName, dockerArguments, [
-                stage(UNIT_TEST, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-                    script.sh("./tools/ci/runner/run_tests")
-                },
-
-                stage(CLEAR_CHANGED) {
-                    script.sh "./tools/ci/runner/clear_changed"
-                },
-        ])
 ]
 
 pipeline.finalizeBody = {
