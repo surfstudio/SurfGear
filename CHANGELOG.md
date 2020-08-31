@@ -1,3 +1,7 @@
+## 0.1.0-dev.3
+
+* Replace dynamic type in WidgetModel's errorCallbacks
+
 ## 0.1.0+1
 
 * [BREAKING CHANGE!] Change API of Performer and Model. Now R may be any object.
