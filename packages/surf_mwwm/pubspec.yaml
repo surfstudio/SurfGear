@@ -1,23 +1,14 @@
 name: surf_mwwm
-version: "0.0.1-dev.0"
+version: "0.0.1-dev.2"
 description: Reflection of widget in a single entity
-repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/surf_mwwm
+repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/surf_mwwm"
 
 dependencies:
   flutter:
     sdk: flutter
-  injector:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/injector
-  relation:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/relation
-  mwwm:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/mwwm
+  surf_injector: "^0.0.1-dev.0"
+  relation: ^0.0.2
+  mwwm: ^0.1.1
   rxdart: ^0.24.0
 
 dev_dependencies:
@@ -32,7 +23,7 @@ flutter:
 
 custom:
   is_stable: false
-  unstable_version: 1
+  unstable_version:
   is_plugin: false
   path: surf_mwwm
   separate_repo_url:

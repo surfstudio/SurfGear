@@ -1,3 +1,7 @@
-## [0.0.1] - TODO: Add release date.
+## 0.0.1-dev.1
 
-* TODO: Describe initial release.
+* Update README
+
+## 0.0.1-dev.0
+
+* Initial release

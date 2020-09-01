@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
-import 'package:injector/injector.dart';
+import 'package:surf_injector/surf_injector.dart';
 
 /// Component для приложения
 class AppComponent extends Component {

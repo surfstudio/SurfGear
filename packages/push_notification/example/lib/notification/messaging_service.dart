@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:logger/logger.dart';
+import 'package:push_demo/utils/logger.dart';
 import 'package:push_notification/push_notification.dart';
 
 /// Wrapper over [FirebaseMessaging]
@@ -27,9 +27,7 @@ class MessagingService extends BaseMessagingService {
 
   /// request notification permissions for ios platform
   void requestNotificationPermissions() {
-    _messaging.requestNotificationPermissions(
-      const IosNotificationSettings(),
-    );
+    _messaging.requestNotificationPermissions();
   }
 
   /// no need to call. initialization is called inside the [PushHandler]
@@ -83,7 +81,7 @@ class MessagingService extends BaseMessagingService {
     Map<String, dynamic> message,
     MessageHandlerType handlerType,
   ) async {
-    Logger.d('FIREBASE MESSAGE: $handlerType - $message');
+    logger.d('FIREBASE MESSAGE: $handlerType - $message');
     _handleMessage?.call(message, handlerType);
   }
 }

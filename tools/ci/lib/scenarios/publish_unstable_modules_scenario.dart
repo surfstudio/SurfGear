@@ -64,7 +64,7 @@ class PublishModulesScenario extends ChangedElementScenario {
           if (!isNewVersion) {
             _bufferSameVersion ??=
                 StringBuffer('Packages with the same version:');
-            _bufferSameVersion.write('$element.name v${element.version}');
+            _bufferSameVersion.write('\n${element.name} v${element.version}');
             continue;
           }
 
@@ -82,9 +82,10 @@ class PublishModulesScenario extends ChangedElementScenario {
       if (_bufferSameVersion != null) print(_bufferSameVersion.toString());
       if (_bufferError != null) print(_bufferError.toString());
 
-      if (elements.length == failedModulesNames.length) {
+      if (failedModulesNames.length > 0) {
         throw OpenSourceModuleCanNotBePublishException(
-          getModuleCannotBePublishedExceptionText(failedModulesNames.join(',')),
+          getModuleCannotBePublishedExceptionText(
+              failedModulesNames.join(', ')),
         );
       }
     } on BaseCiException {

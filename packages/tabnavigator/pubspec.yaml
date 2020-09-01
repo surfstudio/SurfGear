@@ -1,19 +1,13 @@
 name: tabnavigator
-version: "0.0.1-dev.0"
+version: "0.0.1-dev.2"
 description: Module can manage the tabs on the screen.
-repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/tabnavigator
+repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/tabnavigator"
 
 dependencies:
   flutter:
     sdk: flutter
-  surf_util:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_util
-  surf_lint_rules:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_lint_rules
+  surf_util: "^0.0.1-dev.0"
+  surf_lint_rules: "^0.0.1-dev.0"
 
 dev_dependencies:
   flutter_test:
@@ -26,7 +20,7 @@ flutter:
 
 custom:
   is_stable: false
-  unstable_version: 1
+  unstable_version:
   is_plugin: false
   path: tabnavigator
   separate_repo_url:

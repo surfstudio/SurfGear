@@ -9,9 +9,9 @@ import ru.surfstudio.ci.RepositoryUtil
 import ru.surfstudio.ci.Result
 import ru.surfstudio.ci.NodeProvider
 import ru.surfstudio.ci.AbortDuplicateStrategy
+import ru.surfstudio.ci.stage.StageStrategy
 
 // Stage names
-
 def CHECKOUT = 'Checkout'
 def GET_DEPENDENCIES = 'Getting dependencies'
 def FIND_CHANGED = 'Find changed'
@@ -23,8 +23,14 @@ def PUSH_CHANGES = 'Push changes'
 def CHECKS_RESULT = 'Checks Result'
 def CLEAR_CHANGED = 'Clear changed'
 
-//Pipeline on commit stable-branch
+// Constants
+def FLUTTER_PUB_ACCESS_TOKEN = "FLUTTER_PUB_ACCESS_TOKEN"
+def FLUTTER_PUB_REFRESH_TOKEN = "FLUTTER_PUB_REFRESH_TOKEN"
+def FLUTTER_PUB_TOKEN_ENDPOINT = "FLUTTER_PUB_TOKEN_ENDPOINT"
+def FLUTTER_PUB_SCOPES = "FLUTTER_PUB_SCOPES"
+def FLUTTER_PUB_EXPIRATION = "FLUTTER_PUB_EXPIRATION"
 
+//Pipeline on commit stable-branch
 def mirrorRepoCredentialID = "76dbac13-e6ea-4ed0-a013-e06cad01be2d"
 
 // const
@@ -65,6 +71,10 @@ pipeline.initializeBody = {
 
     if (branchName.contains("origin/")) {
         branchName = branchName.replace("origin/", "")
+    }
+
+    if (branchName.contains('refs/heads/')) {
+        branchName = branchName.replace('refs/heads/', '')
     }
 
     buildDescription = branchName
@@ -108,7 +118,7 @@ pipeline.stages = [
         },
 
         // паблишинга в паб
-        pipeline.stage(PUBLISHING_TO_PUB_DEV) {
+        pipeline.stage(PUBLISHING_TO_PUB_DEV, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
             script.echo "Publishing to pub.dev"
             script.withCredentials([
                     script.string(credentialsId: FLUTTER_PUB_ACCESS_TOKEN, variable: FLUTTER_PUB_ACCESS_TOKEN ),
@@ -143,7 +153,7 @@ EOT
             script.echo "Save last git hash"
             script.sh "git rev-parse HEAD > $lastDeployHashFileName"
             script.sh "git add $lastDeployHashFileName"
-            script.sh "git commit -m \"change last git hash\""
+            script.sh "git commit -m \"[skip ci] change last git hash\""
             script.sh "git push"
         },
 

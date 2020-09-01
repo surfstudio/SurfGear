@@ -130,7 +130,7 @@ class _RepositoriesScreenState extends WidgetState<RepositoriesWm> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.exit_to_app),
+            icon: const Icon(Icons.exit_to_app),
             onPressed: wm.exitAction,
           ),
         ],

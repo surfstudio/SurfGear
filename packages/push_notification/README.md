@@ -4,7 +4,7 @@
 
 [TOC]
 
-# Push
+# push_notification
 Library for implementing push notifications.
 The module contains the main work with push notifications.
 

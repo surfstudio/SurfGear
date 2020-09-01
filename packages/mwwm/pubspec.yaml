@@ -1,5 +1,5 @@
 name: mwwm
-version: "0.1.0-dev.0"
+version: "0.1.0-dev.127"
 description: |
   Software architecture pattern for teams with different sizes. Add possibility to work separately. Separate UI, presentation logic and business logic.
   
@@ -21,7 +21,7 @@ flutter:
 
 custom:
   is_stable: false
-  unstable_version: 1
+  unstable_version:
   is_plugin: false
   path: mwwm
   separate_repo_url: "https://github.com/surfstudio/mwwm"

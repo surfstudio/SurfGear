@@ -1,22 +1,21 @@
 name: geolocation
-version: "0.0.1-dev.0"
+version: "0.0.1-dev.3"
 description: Geolocation service Wrapper
-repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/geolocation
+repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/geolocation"
+publish_to: none
 
 dependencies:
   flutter:
     sdk: flutter
-  surf_lint_rules:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_lint_rules
+  surf_lint_rules: "^0.0.1-dev.0"
   geolocator: ^5.2.0
-  location: 2.4.0
+  location_permissions: ^3.0.0+1
+  location: ^2.4.0
+  rxdart: ^0.24.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  rxdart: ^0.24.0
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
@@ -26,7 +25,7 @@ flutter:
 
 custom:
   is_stable: false
-  unstable_version: 1
+  unstable_version:
   is_plugin: false
   path: geolocation
   separate_repo_url:

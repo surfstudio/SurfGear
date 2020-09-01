@@ -1,0 +1,27 @@
+name: surf_storage
+version: "0.0.1-dev.3"
+description: Data storage wrap
+repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/surf_storage"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  localstorage: ^3.0.1+4
+  surf_lint_rules: "^0.0.1-dev.0"
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+
+flutter:
+
+custom:
+  is_stable: false
+  unstable_version:
+  is_plugin: false
+  path: surf_storage
+  separate_repo_url:
+  hostUrl:

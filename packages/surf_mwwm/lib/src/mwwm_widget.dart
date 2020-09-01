@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:flutter/widgets.dart';
-import 'package:injector/injector.dart';
+import 'package:surf_injector/surf_injector.dart';
 import 'package:mwwm/mwwm.dart';
 
 typedef DependenciesBuilder<C> = C Function(BuildContext);
