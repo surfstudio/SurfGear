@@ -44,6 +44,7 @@ class RepositorySearchWm extends WidgetModel {
 
 }
 ``` 
+
 1 - [WidgetModelDependencies](./lib/src/dependencies/wm_dependencies.dart) is a bundle of required dependencies. Default there is [ErrorHandler](./lib/src/error/error_handler.dart), which 
 give possibility to place error handling logic in one place. You must provide an implementation of handler.
 
