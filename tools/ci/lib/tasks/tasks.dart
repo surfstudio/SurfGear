@@ -196,6 +196,7 @@ Future<void> mirrorOpenSourceModules(
         print('Package ${element.name} mirroring error !!!');
         print(exception.toString());
         failedModulesNames.add(element.name);
+        rethrow;
       }
     },
   );
