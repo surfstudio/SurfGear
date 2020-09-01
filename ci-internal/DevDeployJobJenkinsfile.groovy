@@ -114,7 +114,7 @@ pipeline.stages = [
         // изменения версии изменившихся модулей
         pipeline.stage(CHANGE_VIRSION) {
             script.echo "increment_dev_unstable_versions"
-            script.sh "./tools/ci/runner/increment_dev_unstable_versions"
+            //script.sh "./tools/ci/runner/increment_dev_unstable_versions"
         },
 
         // паблишинга в паб
@@ -134,16 +134,16 @@ pipeline.stages = [
 EOT
     '''
 
-                script.sh "./tools/ci/runner/publish_dev"
+                //script.sh "./tools/ci/runner/publish_dev"
             }
         },
 
         // зеркалирования в отдельные репо
-        pipeline.stage(MIRRORING) {
+        pipeline.stage(MIRRORING, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
             script.echo "Mirroring"
             withCredentials([usernamePassword(credentialsId: mirrorRepoCredentialID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 echo "credentialsId: $mirrorRepoCredentialID"
-                sh "./tools/ci/runner/mirror_dev"
+                //sh "./tools/ci/runner/mirror_dev"
 //                sh "git push --mirror https://${encodeUrl(USERNAME)}:${encodeUrl(PASSWORD)}@github.com/surfstudio/SurfGear.git"
             }
         },
