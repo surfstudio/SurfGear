@@ -159,20 +159,6 @@ EOT
             script.sh "git push"
         },
 
-        pipeline.stage(CHECKS_RESULT) {
-            def checksPassed = true
-            [
-                MIRRORING
-            ].each { stageName ->
-                def stageResult = pipeline.getStage(stageName).result
-                checksPassed = checksPassed && (stageResult == Result.SUCCESS || stageResult == Result.NOT_BUILT)
-            }
-
-            if (!checksPassed) {
-                script.error("Checks Failed")
-            }
-        },
-
         pipeline.stage(CLEAR_CHANGED) {
             script.sh "./tools/ci/runner/clear_changed"
         },
