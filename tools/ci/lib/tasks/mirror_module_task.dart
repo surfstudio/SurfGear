@@ -45,7 +45,7 @@ class MirrorOpenSourceModuleTask implements Task<bool> {
     final pullSubtreeBefore = 'git subtree pull -m "[skip_ci] pull subtree before" $prefix $repoWithCreds $branchName';
     final pullResultBefore = await sh(pullSubtreeBefore, path: Config.repoRootPath);
     if (pullResultBefore.exitCode != 0) {
-      _throwModuleMirroringException(element.name, pushResult);
+      _throwModuleMirroringException(element.name, pullResultBefore);
     }
 
     // push to mirror commits for module only
@@ -59,13 +59,13 @@ class MirrorOpenSourceModuleTask implements Task<bool> {
     final pullSubtree = 'git subtree pull -m "[skip_ci] pull subtree" $prefix $repoWithCreds $branchName';
     final pullResult = await sh(pullSubtree, path: Config.repoRootPath);
     if (pullResult.exitCode != 0) {
-      _throwModuleMirroringException(element.name, pushResult);
+      _throwModuleMirroringException(element.name, pullResult);
     }
 
     final pushLocal = 'git push';
     final pushLocalResult = await sh(pushLocal, path: Config.repoRootPath);
     if (pushLocalResult.exitCode != 0) {
-      _throwModuleMirroringException(element.name, pushResult);
+      _throwModuleMirroringException(element.name, pushLocalResult);
     }
 
     return true;
