@@ -172,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
       height: 100,
       color: color,
       child: isSelected
-          ? Center(
+          ? const Center(
               child: Icon(Icons.check),
             )
           : Container(),
