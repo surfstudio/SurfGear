@@ -7,7 +7,6 @@
 
 Software architectural pattern for Flutter apps.
 
-
 ## Description
 
 MWWM is based on principles of Clean Architecture and is a variation of *MVVM*.
