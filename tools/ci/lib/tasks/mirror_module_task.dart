@@ -42,9 +42,9 @@ class MirrorOpenSourceModuleTask implements Task<bool> {
     }();
 
      // After submitting the changes, you need to get them back
-    final pullSubtree = 'git subtree pull -m "[skip_ci] pull subtree" $prefix $repoWithCreds $branchName';
-    final pullResult = await sh(pullSubtree, path: Config.repoRootPath);
-    if (pullResult.exitCode != 0) {
+    final pullSubtreeBefore = 'git subtree pull -m "[skip_ci] pull subtree before" $prefix $repoWithCreds $branchName';
+    final pullResultBefore = await sh(pullSubtreeBefore, path: Config.repoRootPath);
+    if (pullResultBefore.exitCode != 0) {
       _throwModuleMirroringException(element.name, pushResult);
     }
 
