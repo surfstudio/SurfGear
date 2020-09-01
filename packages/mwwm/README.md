@@ -25,7 +25,7 @@ a possibility to modify one layer with no need for changing the other. Model is
 represented by two components: **Change** (a signal to model which means *what* we want
 to achieve) and **Performer** (that knows *how* to achieve it).
 
-![](doc/images/mwwm.png) 
+![](https://github.com/surfstudio/mwwm/blob/dev/doc/images/mwwm.png?raw=true) 
 
 ## Why?
 
