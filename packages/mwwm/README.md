@@ -118,7 +118,7 @@ There is a getter - **wm** - to get your WidgetModel in your Widget.
 
 Only in WidgetModel. But we don't hardcodea way to do this, yet.
 
-## Sercice(bussines) Layer
+## Service(bussines) Layer
 
 ***It is optional paragraph. You can write connection with services your favorite way.***
 
