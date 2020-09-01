@@ -117,7 +117,7 @@ There is a getter - **wm** - to get your WidgetModel in your Widget.
 
 ### Where should I place navigation logic?
 
-Only in WidgetModel. But we don't hardcodea way to do this, yet.
+Only in **WidgetModel**. But we don't hardcodea way to do this, yet.
 
 ## Service(bussines) Layer
 
