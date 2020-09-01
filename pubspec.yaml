@@ -1,5 +1,5 @@
 name: mwwm
-version: "0.1.0-dev.126"
+version: "0.1.0-dev.127"
 description: |
   Software architecture pattern for teams with different sizes. Add possibility to work separately. Separate UI, presentation logic and business logic.
   
