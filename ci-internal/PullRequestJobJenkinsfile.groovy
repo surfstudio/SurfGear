@@ -265,7 +265,7 @@ pipeline.stages = [
         },
 
 
-        docker(STAGE_DOCKER, dockerImageName, dockerArguments, [
+        pipeline.docker(STAGE_DOCKER, dockerImageName, dockerArguments, [
                 stage(BUILD) {
                     script.sh("./tools/ci/runner/build")
                 },
