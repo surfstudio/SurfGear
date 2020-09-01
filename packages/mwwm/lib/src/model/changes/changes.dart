@@ -20,7 +20,7 @@
 abstract class Change<R> {
   @override
   String toString() {
-    return '${runtimeType}';
+    return '$runtimeType';
   }
 }
 
