@@ -1,6 +1,7 @@
 name: surf_util
 version: "0.0.1-dev.3"
-description: Common classes and util.
+description: |
+  Common classes and util. Includes: [Enum<T>] - Java-like enum, [Transformable<T>] - Base class for transformation, [DisableOverscroll] = Prevent glowing when scrolling over the edge
 repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/surf_util"
 
 dependencies:
