@@ -34,6 +34,7 @@ This architecture completely separates design and logic. Adds the ability to wor
 ##  How to use
 
 Create a WidgetModel class by extending [WidgetModel].
+
 ```
 class RepositorySearchWm extends WidgetModel {
 
@@ -44,6 +45,7 @@ class RepositorySearchWm extends WidgetModel {
 
 }
 ``` 
+
 1 - [WidgetModelDependencies](./lib/src/dependencies/wm_dependencies.dart) is a bundle of required dependencies. Default there is [ErrorHandler](./lib/src/error/error_handler.dart), which 
 give possibility to place error handling logic in one place. You must provide an implementation of handler.
 
