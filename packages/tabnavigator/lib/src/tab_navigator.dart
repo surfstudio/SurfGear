@@ -140,7 +140,7 @@ class TabNavigatorState extends State<TabNavigator> {
                   ? widget.observersBuilder(tabType)
                   : [],
               onGenerateRoute: (rs) => PageRouteBuilder<Object>(
-                settings: RouteSettings(
+                settings: const RouteSettings(
                   name: Navigator.defaultRouteName,
                 ),
                 transitionsBuilder: widget.transitionsBuilder,

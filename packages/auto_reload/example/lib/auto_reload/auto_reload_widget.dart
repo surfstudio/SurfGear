@@ -50,7 +50,7 @@ class _DemoAutoReloadWidgetState extends _AutoReloadState with AutoReloadMixin {
     return Column(
       children: <Widget>[
         const Spacer(),
-        Text(
+        const Text(
           'auto reload example:',
           style: TextStyle(
             fontStyle: FontStyle.normal,
