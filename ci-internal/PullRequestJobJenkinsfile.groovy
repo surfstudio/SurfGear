@@ -153,14 +153,6 @@ pipeline.initializeBody = {
     configureStageSkipping(
             script,
             pipeline,
-            targetBranchChanged,
-            stagesForTargetBranchChangedMode,
-            "Build triggered by target branch changes, run only ${stagesForTargetBranchChangedMode} stages"
-    )
-
-    configureStageSkipping(
-            script,
-            pipeline,
             isSourceBranchRelease(sourceBranch),
             stagesForReleaseMode,
             "Build triggered by release source branch, run only ${stagesForReleaseMode} stages"
@@ -180,6 +172,14 @@ pipeline.initializeBody = {
             isDestinationBranchDev(destinationBranch),
             stagesForDevMode,
             "Build triggered by dev destination branch, run only ${stagesForDevMode} stages"
+    )
+
+    configureStageSkipping(
+            script,
+            pipeline,
+            targetBranchChanged,
+            stagesForTargetBranchChangedMode,
+            "Build triggered by target branch changes, run only ${stagesForTargetBranchChangedMode} stages"
     )
 
     def buildDescription = targetBranchChanged ?
