@@ -45,8 +45,8 @@ class RenderMetricsObject<T> extends SingleChildRenderObjectWidget {
 
   final T id;
   final RenderManager manager;
-  final MountCallback onMount;
-  final UnMountCallback onUnMount;
+  final MountCallback<T> onMount;
+  final UnMountCallback<T> onUnMount;
 
   @override
   RenderMetricsBox createRenderObject(BuildContext context) {
