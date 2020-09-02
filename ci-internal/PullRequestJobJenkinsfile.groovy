@@ -210,74 +210,74 @@ pipeline.stages = [
             //local merge with destination
             script.sh "git merge origin/$destinationBranch --no-ff"
         },
+        
+        pipeline.docker(STAGE_DOCKER, dockerImageName, dockerArguments, [
+            pipeline.stage(GET_DEPENDENCIES) {
+                script.sh "cd tools/ci/ && pub get"
+            },
 
-        pipeline.stage(GET_DEPENDENCIES) {
-            script.sh "cd tools/ci/ && pub get"
-        },
+            pipeline.stage(FIND_CHANGED) {
+                script.sh "./tools/ci/runner/find_changed_modules --target=${destinationBranch}"
+            },
 
-        pipeline.stage(FIND_CHANGED) {
-            script.sh "./tools/ci/runner/find_changed_modules --target=${destinationBranch}"
-        },
+            pipeline.stage(CHECK_STABLE_MODULES_NOT_CHANGED, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
+                script.sh("./tools/ci/runner/check_stable_modules_not_changed")
+            },
 
-        pipeline.stage(CHECK_STABLE_MODULES_NOT_CHANGED, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./tools/ci/runner/check_stable_modules_not_changed")
-        },
+            pipeline.stage(CHECK_UNSTABLE_MODULES_DO_NOT_BECAME_STABLE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
+                script.sh("./tools/ci/runner/check_stability_not_changed")
+            },
 
-        pipeline.stage(CHECK_UNSTABLE_MODULES_DO_NOT_BECAME_STABLE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./tools/ci/runner/check_stability_not_changed")
-        },
+            pipeline.stage(CHECK_MODULES_IN_DEPENDENCY_TREE_OF_STABLE_MODULE_ALSO_STABLE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
+                script.sh("./tools/ci/runner/check_dependencies_stable")
+            },
 
-        pipeline.stage(CHECK_MODULES_IN_DEPENDENCY_TREE_OF_STABLE_MODULE_ALSO_STABLE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./tools/ci/runner/check_dependencies_stable")
-        },
+            pipeline.stage(CHECK_RELEASE_NOTES_VALID, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
+                script.sh("./tools/ci/runner/check_version_in_release_note")
+                script.sh("./tools/ci/runner/check_cyrillic_in_changelog")
+            },
 
-        pipeline.stage(CHECK_RELEASE_NOTES_VALID, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./tools/ci/runner/check_version_in_release_note")
-            script.sh("./tools/ci/runner/check_cyrillic_in_changelog")
-        },
+            pipeline.stage(WRITE_RELEASE_NOTE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
+                script.sh("./tools/ci/runner/write_release_note")
+            },
 
-        pipeline.stage(WRITE_RELEASE_NOTE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./tools/ci/runner/write_release_note")
-        },
+            pipeline.stage(CHECKS_RESULT) {
+                script.sh "rm -rf $TEMP_FOLDER_NAME"
+                def checksPassed = true
+                [
+                        CHECK_STABLE_MODULES_NOT_CHANGED,
+                        CHECK_UNSTABLE_MODULES_DO_NOT_BECAME_STABLE,
+                        CHECK_MODULES_IN_DEPENDENCY_TREE_OF_STABLE_MODULE_ALSO_STABLE,
+                        // TODO: раскоментировать после правок модулей
+//                        CHECK_RELEASE_NOTES_VALID,
+//                        WRITE_RELEASE_NOTE
+                ].each { stageName ->
+                    def stageResult = pipeline.getStage(stageName).result
+                    checksPassed = checksPassed && (stageResult == Result.SUCCESS || stageResult == Result.NOT_BUILT)
 
-        pipeline.stage(CHECKS_RESULT) {
-            script.sh "rm -rf $TEMP_FOLDER_NAME"
-            def checksPassed = true
-            [
-                    CHECK_STABLE_MODULES_NOT_CHANGED,
-                    CHECK_UNSTABLE_MODULES_DO_NOT_BECAME_STABLE,
-                    CHECK_MODULES_IN_DEPENDENCY_TREE_OF_STABLE_MODULE_ALSO_STABLE,
-                    // TODO: раскоментировать после правок модулей
-//                    CHECK_RELEASE_NOTES_VALID,
-//                    WRITE_RELEASE_NOTE
-            ].each { stageName ->
-                def stageResult = pipeline.getStage(stageName).result
-                checksPassed = checksPassed && (stageResult == Result.SUCCESS || stageResult == Result.NOT_BUILT)
+                    if (!checksPassed) {
+                        script.echo "Stage '${stageName}' ${stageResult}"
+                    }
+                }
 
                 if (!checksPassed) {
-                    script.echo "Stage '${stageName}' ${stageResult}"
+                    throw script.error("Checks Failed, see reason above ^^^")
                 }
-            }
+            },
 
-            if (!checksPassed) {
-                throw script.error("Checks Failed, see reason above ^^^")
-            }
-        },
+            pipeline.stage(BUILD) {
+                script.sh("./tools/ci/runner/build")
+            },
+            pipeline.stage(UNIT_TEST, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
+                script.sh("./tools/ci/runner/run_tests")
+            },
 
-
-        pipeline.docker(STAGE_DOCKER, dockerImageName, dockerArguments, [
-                pipeline.stage(BUILD) {
-                    script.sh("./tools/ci/runner/build")
-                },
-
-                pipeline.stage(UNIT_TEST, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-                    script.sh("./tools/ci/runner/run_tests")
-                },
+            pipeline.stage(CLEAR_CHANGED) {
+                script.sh "./tools/ci/runner/clear_changed"
+            },
         ]),
 
-        pipeline.stage(CLEAR_CHANGED) {
-            script.sh "./tools/ci/runner/clear_changed"
-        },
+
 
 ]
 
