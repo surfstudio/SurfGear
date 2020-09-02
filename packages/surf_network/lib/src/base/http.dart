@@ -14,7 +14,7 @@
 
 import 'dart:io';
 
-import 'package:surf_network/src/base/response.dart';
+import 'response.dart';
 
 ///Фасад над работой с сетью
 abstract class Http {

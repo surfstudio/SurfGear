@@ -12,12 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/foundation.dart';
 import 'package:surf_logger/surf_logger.dart';
 import 'package:surf_logger/src/const.dart';
 import 'package:surf_logger/src/strategies/log_strategy.dart';
-
-final _logger = Logger();
 
 /// Strategy for log output to console
 /// * used for local debugging

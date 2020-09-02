@@ -112,7 +112,7 @@ class _MainPageState extends State<MainPage> {
     var color = _getColor(style);
     color = color.withOpacity(.5);
     return InkWell(
-      child: Container(
+      child: SizedBox(
         height: 100,
         child: Center(
           child: Text(
