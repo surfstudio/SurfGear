@@ -266,11 +266,11 @@ pipeline.stages = [
 
 
         pipeline.docker(STAGE_DOCKER, dockerImageName, dockerArguments, [
-                stage(BUILD) {
+                pipeline.stage(BUILD) {
                     script.sh("./tools/ci/runner/build")
                 },
 
-                stage(UNIT_TEST, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
+                pipeline.stage(UNIT_TEST, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
                     script.sh("./tools/ci/runner/run_tests")
                 },
         ]),
