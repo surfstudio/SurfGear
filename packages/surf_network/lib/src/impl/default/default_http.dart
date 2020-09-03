@@ -138,9 +138,9 @@ class DefaultHttp extends Http {
   Future<Response<T>> head<T>(
     String url,
     Map<String, Object> query,
-    Map<String, String> headers,
+    Map<String, String> headers, {
     String contentType,
-  ) async {
+  }) async {
     print("DEV_WEB request : $url");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return http
