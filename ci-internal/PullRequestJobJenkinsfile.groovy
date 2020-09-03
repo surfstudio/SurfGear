@@ -8,6 +8,7 @@ import ru.surfstudio.ci.stage.SimpleStage
 import ru.surfstudio.ci.stage.StageStrategy
 import ru.surfstudio.ci.NodeProvider
 import ru.surfstudio.ci.stage.StageWithStrategy
+import ru.surfstudio.ci.stage.StageGroup
 
 import static ru.surfstudio.ci.CommonUtil.extractValueFromEnvOrParamsAndRun
 
@@ -296,7 +297,7 @@ pipeline.run()
 def configureStageSkipping(script, pipeline, isSkip, stageNames, message) {
     if (isSkip) {
         script.echo message
-        def skipStage = { stages, stageNames -> 
+        def skipStage = { stages -> 
             stages.each { stage ->
                 if (stage instanceof StageGroup) {
                     skipStage(stage.stages, stageNames)
