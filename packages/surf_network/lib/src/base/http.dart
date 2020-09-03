@@ -65,9 +65,9 @@ abstract class Http {
   Future<Response<T>> head<T>(
     String url,
     Map<String, Object> query,
-    Map<String, String> headers,
+    Map<String, String> headers, {
     String contentType,
-  );
+  });
 
   /// Multipart request
   Future<Response<T>> multipart<T>(
