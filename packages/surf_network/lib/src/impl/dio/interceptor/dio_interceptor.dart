@@ -32,13 +32,13 @@ class DioInterceptorWrapper extends DioInterceptor {
   });
 
   @override
-  dynamic onRequest(dio.RequestOptions options) => requestCallback?.call(options);
+  Object onRequest(dio.RequestOptions options) => requestCallback?.call(options);
 
   @override
-  dynamic onResponse(dio.Response response) => responseCallback?.call(response);
+  Object onResponse(dio.Response response) => responseCallback?.call(response);
 
   @override
-  dynamic onError(dio.DioError err) => errorCallback?.call(err);
+  Object onError(dio.DioError err) => errorCallback?.call(err);
 }
 
 /// decorator for [dio.Interceptor]
