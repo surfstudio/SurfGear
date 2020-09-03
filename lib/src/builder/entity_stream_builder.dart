@@ -19,9 +19,9 @@ typedef DataWidgetBuilder<T> = Widget Function(BuildContext, T data);
 typedef ErrorWidgetBuilder = Widget Function(BuildContext, Exception);
 typedef DataWidgetErrorBuilder<T> = Widget Function(
   BuildContext,
-  T data,
+  T data, [
   Exception,
-);
+]);
 
 /// Reactive widget for [EntityStreamedState]
 ///
