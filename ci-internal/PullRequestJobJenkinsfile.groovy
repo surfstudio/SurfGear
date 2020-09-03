@@ -305,10 +305,12 @@ def skipStage(stages, stageNames) {
     stages.each { stage ->
         if (stage instanceof StageGroup) {
             skipStage(stage.getStages(), stageNames)
-        
+        }
+
         if (!(stage instanceof StageWithStrategy)) {
             return
-        
+        }
+
         def executeStage = false
         stageNames.each { stageName ->
             executeStage = executeStage || (stageName == stage.getName())
@@ -318,6 +320,7 @@ def skipStage(stages, stageNames) {
         }
     }
 }
+
 
 def static isSourceBranchRelease(String sourceBranch) {
     return sourceBranch.startsWith("release")
