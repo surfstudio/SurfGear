@@ -15,6 +15,8 @@
 import 'package:counter/main.dart';
 import 'package:counter/ui/app/app_wm.dart';
 import 'package:counter/ui/app/di/app.dart';
+import 'package:counter/ui/screen/counter/counter_route.dart';
+import 'package:counter/ui/screen/counter/counter_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
@@ -44,15 +46,27 @@ class _AppState extends WidgetState<AppWidgetModel> {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: _navKey,
-      home: Scaffold(
-        body: Center(
-          child: Icon(
-            Icons.plus_one,
-            size: 200,
-            color: Colors.indigo,
-          ),
-        ),
-      ),
+      onGenerateRoute: (settings) {
+        if (settings.name == '/') {
+          return MaterialPageRoute(builder: (_) {
+            return Scaffold(
+              body: Center(
+                child: Icon(
+                  Icons.plus_one,
+                  size: 200,
+                  color: Colors.indigo,
+                ),
+              ),
+            );
+          });
+        }
+
+        if (settings.name == '/counter') {
+          return CounterScreenRoute(settings);
+        }
+
+        throw ArgumentError();
+      },
     );
   }
 }

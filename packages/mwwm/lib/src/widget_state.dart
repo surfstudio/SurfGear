@@ -50,16 +50,14 @@ abstract class WidgetState<WM extends WidgetModel>
   @protected
   WM wm;
 
-  /// Descendants must call super firstly
-  @mustCallSuper
   @override
-  void initState() {
-    wm = widget.widgetModelBuilder(context);
-
-    super.initState();
-
-    wm.onLoad();
-    wm.onBind();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (wm == null) {
+      wm = widget.widgetModelBuilder(context)
+        ..onLoad()
+        ..onBind();
+    }
   }
 
   /// Descendants must call super in the end

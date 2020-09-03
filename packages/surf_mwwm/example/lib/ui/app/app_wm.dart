@@ -27,16 +27,19 @@ class AppWidgetModel extends WidgetModel {
   ) : super(dependencies);
 
   @override
-  void onLoad() {
-    _loadApp();
-    super.onLoad();
-  }
+  void onBind() {
+    super.onBind();
 
-  void _loadApp() async {
     subscribeHandleError(
       initApp(),
       (isAuth) {
-        _openScreen(CounterScreenRoute());
+        _navigator.currentState.pushReplacementNamed(
+          '/counter',
+          arguments: CounterScreenParams(
+            argument1: 'hello world',
+            argument2: 42,
+          ),
+        );
       },
     );
   }
@@ -44,9 +47,5 @@ class AppWidgetModel extends WidgetModel {
   Stream<bool> initApp() {
     /// имитация задержки на инициализацию приложения
     return Stream.value(true).delay(Duration(seconds: 2));
-  }
-
-  void _openScreen(PageRoute route) {
-    _navigator.currentState.pushReplacement(route);
   }
 }
