@@ -20,9 +20,8 @@ import 'package:mwwm_github_client/model/github/performers.dart';
 import 'package:mwwm_github_client/model/github/repository/github_repository.dart';
 import 'package:mwwm_github_client/ui/main_screen/pages/users/users_wm.dart';
 import 'package:mwwm_github_client/ui/widgets/user_widget.dart';
-
-import 'package:relation/relation.dart';
 import 'package:provider/provider.dart';
+import 'package:relation/relation.dart';
 
 final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -63,7 +62,7 @@ class _UsersPageState extends WidgetState<UsersWm> {
 
   Widget _buildBody() => EntityStateBuilder<List<Owner>>(
         streamedState: wm.usersState,
-        errorBuilder: (ctx, _) => Center(
+        errorBuilder: (ctx, _, e) => Center(
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
