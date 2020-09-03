@@ -21,52 +21,59 @@ abstract class Http {
   ///GET- request
   Future<Response<T>> get<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
+    String contentType,
   });
 
   ///POST-request
   Future<Response<T>> post<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
-    Map<String, dynamic> body,
+    Map<String, Object> body,
+    String contentType,
   });
 
   ///PUT -request
   Future<Response<T>> put<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
-    Map<String, dynamic> body,
+    Map<String, Object> body,
+    String contentType,
   });
 
   ///DELETE -request
   Future<Response<T>> delete<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
+    String contentType,
   });
 
   ///PATCH -request
   Future<Response<T>> patch<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
-    Map<String, dynamic> body,
+    Map<String, Object> body,
+    String contentType,
   });
 
   ///HEAD - request
   Future<Response<T>> head<T>(
     String url,
-    Map<String, dynamic> query,
-    Map<String, String> headers,
-  );
+    Map<String, Object> query,
+    Map<String, String> headers, {
+    String contentType,
+  });
 
   /// Multipart request
   Future<Response<T>> multipart<T>(
     String url, {
     Map<String, String> headers,
     File body,
+    String contentType,
   });
 }

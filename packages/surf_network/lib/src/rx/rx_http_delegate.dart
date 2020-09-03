@@ -30,7 +30,7 @@ class RxHttpDelegate implements RxHttp {
   @override
   Stream<Response> get<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
   }) {
     final request = http.get(url, headers: headers, query: query);
@@ -40,9 +40,9 @@ class RxHttpDelegate implements RxHttp {
   @override
   Stream<Response> post<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
-    Map<String, dynamic> body,
+    Map<String, Object> body,
   }) {
     final request = http.post(url, headers: headers, body: body, query: query);
     return _adapt(request);
@@ -51,9 +51,9 @@ class RxHttpDelegate implements RxHttp {
   @override
   Stream<Response> put<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
-    Map<String, dynamic> body,
+    Map<String, Object> body,
   }) {
     final request = http.put(url, headers: headers, body: body, query: query);
     return _adapt(request);
@@ -62,7 +62,7 @@ class RxHttpDelegate implements RxHttp {
   @override
   Stream<Response> delete<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
   }) {
     final request = http.delete(url, headers: headers, query: query);
@@ -72,7 +72,7 @@ class RxHttpDelegate implements RxHttp {
   @override
   Stream<Response> head<T>(
     String url,
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
   ) {
     final request = http.head(url, query, headers);
@@ -82,9 +82,9 @@ class RxHttpDelegate implements RxHttp {
   @override
   Stream<Response> patch<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
-    Map<String, dynamic> body,
+    Map<String, Object> body,
   }) {
     final request = http.patch(url, headers: headers, body: body, query: query);
     return _adapt(request);

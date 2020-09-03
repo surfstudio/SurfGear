@@ -19,9 +19,9 @@ class Response<T> {
   final T bodyRaw;
   final int statusCode;
 
-  Map<String, dynamic> get body => bodyRaw is String
+  Map<String, Object> get body => bodyRaw is String
       ? jsonDecode(bodyRaw as String)
-      : bodyRaw as Map<String, dynamic>;
+      : bodyRaw as Map<String, Object>;
 
   Response(
     this.bodyRaw,
