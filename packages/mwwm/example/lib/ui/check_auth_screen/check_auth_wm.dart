@@ -44,7 +44,12 @@ class CheckAuthWm extends WidgetModel {
         if (isUserAuth) {
           await navigator.push(MainScreenRoute());
         } else {
-          await navigator.push(LoginScreenRoute());
+          await navigator.push(
+            LoginScreenRoute(
+              argument1: 'hello',
+              argument2: 42,
+            ),
+          );
         }
       },
       onError: handleError,

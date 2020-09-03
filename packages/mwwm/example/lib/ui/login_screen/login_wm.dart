@@ -15,11 +15,12 @@
 import 'package:flutter/material.dart' hide Action;
 import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_github_client/model/auth/changes.dart';
+import 'package:mwwm_github_client/ui/login_screen/login_screen.dart';
 import 'package:mwwm_github_client/ui/main_screen/main_screen_route.dart';
 import 'package:relation/relation.dart';
 
 /// Login screen's widget model
-class LoginWm extends WidgetModel {
+class LoginWm extends WidgetModel<LoginScreen> {
   LoginWm(
     WidgetModelDependencies baseDependencies,
     Model model,
@@ -28,6 +29,13 @@ class LoginWm extends WidgetModel {
 
   final loginAction = Action<void>();
   final NavigatorState navigator;
+
+  @override
+  void onLoad() {
+    super.onLoad();
+
+    print('${widget.argument1} + ${widget.argument2}');
+  }
 
   @override
   void onBind() {

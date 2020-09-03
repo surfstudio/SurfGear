@@ -24,8 +24,13 @@ import 'login_wm.dart';
 class LoginScreen extends CoreMwwmWidget {
   LoginScreen({
     @required WidgetModelBuilder widgetModelBuilder,
+    this.argument1,
+    this.argument2,
   })  : assert(widgetModelBuilder != null),
         super(widgetModelBuilder: widgetModelBuilder);
+
+  final String argument1;
+  final int argument2;
 
   @override
   State<StatefulWidget> createState() => _LoginScreenState();

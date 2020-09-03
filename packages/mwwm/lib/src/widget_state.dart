@@ -55,11 +55,18 @@ abstract class WidgetState<WM extends WidgetModel>
   @override
   void initState() {
     wm = widget.widgetModelBuilder(context);
+    wm.widget = widget;
 
     super.initState();
 
     wm.onLoad();
     wm.onBind();
+  }
+
+  @mustCallSuper
+  @override
+  void didUpdateWidget(CoreMwwmWidget _) {
+    wm.widget = widget;
   }
 
   /// Descendants must call super in the end
