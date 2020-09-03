@@ -297,27 +297,25 @@ pipeline.run()
 def configureStageSkipping(script, pipeline, isSkip, stageNames, message) {
     if (isSkip) {
         script.echo message
-        def skipStage = { stages -> 
-            stages.each { stage ->
-                if (stage instanceof StageGroup) {
-                    skipStage(stage.stages, stageNames)
-                }
-
-                if (!(stage instanceof StageWithStrategy)) {
-                    return
-                }
-
-                def executeStage = false
-                stageNames.each { stageName ->
-                    executeStage = executeStage || (stageName == stage.getName())
-                }
-                if (!executeStage) {
-                    stage.strategy = StageStrategy.SKIP_STAGE
-                }
-            }
-        }
-
         skipStage(pipeline.stages, stageNames)
+    }
+}
+
+def skipStage(stages, stageNames) { 
+    stages.each { stage ->
+        if (stage instanceof StageGroup) {
+            skipStage(stage.getStages(), stageNames)
+        
+        if (!(stage instanceof StageWithStrategy)) {
+            return
+        
+        def executeStage = false
+        stageNames.each { stageName ->
+            executeStage = executeStage || (stageName == stage.getName())
+        }
+        if (!executeStage) {
+            stage.strategy = StageStrategy.SKIP_STAGE
+        }
     }
 }
 
