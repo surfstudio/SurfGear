@@ -1,3 +1,7 @@
+## 0.0.1-dev.6
+
+* Added Scroll controller to Refreshers
+
 ## 0.0.1-dev.5
 
 * Fix lint hints

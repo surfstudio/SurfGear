@@ -48,7 +48,7 @@ class NameGeneratorResponse {
 
   String toRawJson() => json.encode(toJson());
 
-  factory NameGeneratorResponse.fromJson(Map<String, dynamic> json) =>
+  factory NameGeneratorResponse.fromJson(Map<String, Object> json) =>
       new NameGeneratorResponse(
         name: json["name"],
         height: json["height"] == null ? null : json["height"] as int,
@@ -61,7 +61,7 @@ class NameGeneratorResponse {
         username: json["username"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, Object> toJson() => {
         "name": name,
         "height": height,
         "address": address,
