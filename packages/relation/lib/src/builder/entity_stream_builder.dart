@@ -65,7 +65,7 @@ class EntityStateBuilder<T> extends StatelessWidget {
   final DataWidgetBuilder<T> loadingBuilder;
 
   /// Error child of builder
-  final DataWidgetErrorBuilder errorBuilder;
+  final DataWidgetErrorBuilder<T> errorBuilder;
 
   /// Loading child widget
   final Widget loadingChild;
