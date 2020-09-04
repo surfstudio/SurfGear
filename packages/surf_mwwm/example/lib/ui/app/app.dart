@@ -23,16 +23,17 @@ import 'package:surf_injector/surf_injector.dart';
 
 /// Widget приложения
 class App extends MwwmWidget<AppComponent> {
-  App()
+  App({Key key})
       : super(
-          dependenciesBuilder: (BuildContext context) => AppComponent(),
+          key: key,
+          dependenciesBuilder: (context) => AppComponent(),
           widgetStateBuilder: () => _AppState(),
           widgetModelBuilder: createAppModel,
         );
 }
 
 class _AppState extends WidgetState<AppWidgetModel> {
-  Key _navKey;
+  GlobalKey<NavigatorState> _navKey;
 
   @override
   void initState() {
@@ -44,7 +45,7 @@ class _AppState extends WidgetState<AppWidgetModel> {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: _navKey,
-      home: Scaffold(
+      home: const Scaffold(
         body: Center(
           child: Icon(
             Icons.plus_one,
