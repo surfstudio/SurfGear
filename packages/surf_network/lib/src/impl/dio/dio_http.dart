@@ -17,13 +17,13 @@ import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:http_parser/http_parser.dart';
-import 'package:surf_network/src/utils/logger.dart';
 import 'package:surf_network/src/base/config/config.dart';
 import 'package:surf_network/src/base/headers.dart';
 import 'package:surf_network/src/base/http.dart';
 import 'package:surf_network/src/base/response.dart';
 import 'package:surf_network/src/base/status_mapper.dart';
 import 'package:surf_network/src/impl/dio/interceptor/dio_interceptor.dart';
+import 'package:surf_network/src/utils/logger.dart';
 
 ///Library Based Http Implementation [dio]
 class DioHttp extends Http {
@@ -48,7 +48,9 @@ class DioHttp extends Http {
     if (httpClientAdapter != null) _dio.httpClientAdapter = httpClientAdapter;
 
     _configProxy(config);
-    addInterceptors(interceptors);
+    interceptors
+        ?.map((interceptor) => DioInterceptorDecorator(interceptor))
+        ?.forEach((interceptor) => _dio.interceptors.add(interceptor));
 
     var logConfig = config.logConfig;
     if (logConfig != null) {
@@ -71,18 +73,38 @@ class DioHttp extends Http {
     }));
   }
 
+  ///Proxy config for tracking data
+  ///
+  /// @param config - HttpConfig of client. Get proxy url
+  void _configProxy(HttpConfig config) {
+    var proxyUrl = config.proxyUrl;
+
+    if (proxyUrl != null && proxyUrl.isNotEmpty) {
+      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+          (client) {
+        client.findProxy = (uri) {
+          return "PROXY $proxyUrl";
+        };
+      };
+    }
+  }
+
   @override
   Future<Response<T>> get<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
+    String contentType,
   }) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return _dio
         .get(
           url,
           queryParameters: query,
-          options: dio.Options(headers: headersMap),
+          options: dio.Options(
+            headers: headersMap,
+            contentType: contentType,
+          ),
         )
         .then(_toResponse);
   }
@@ -90,16 +112,20 @@ class DioHttp extends Http {
   @override
   Future<Response<T>> post<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
-    Map<String, dynamic> body,
+    Map<String, Object> body,
+    String contentType,
   }) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return _dio
         .post(
           url,
           queryParameters: query,
-          options: dio.Options(headers: headersMap),
+          options: dio.Options(
+            headers: headersMap,
+            contentType: contentType,
+          ),
           data: body,
         )
         .then(_toResponse);
@@ -108,15 +134,19 @@ class DioHttp extends Http {
   @override
   Future<Response<T>> put<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
-    Map<String, dynamic> body,
+    Map<String, Object> body,
+    String contentType,
   }) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return _dio
         .put(
           url,
-          options: dio.Options(headers: headersMap),
+          options: dio.Options(
+            headers: headersMap,
+            contentType: contentType,
+          ),
           data: body,
         )
         .then(_toResponse);
@@ -125,15 +155,19 @@ class DioHttp extends Http {
   @override
   Future<Response<T>> delete<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
+    String contentType,
   }) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return _dio
         .delete(
           url,
           queryParameters: query,
-          options: dio.Options(headers: headersMap),
+          options: dio.Options(
+            headers: headersMap,
+            contentType: contentType,
+          ),
         )
         .then(_toResponse);
   }
@@ -141,16 +175,20 @@ class DioHttp extends Http {
   @override
   Future<Response<T>> patch<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
-    Map<String, dynamic> body,
+    Map<String, Object> body,
+    String contentType,
   }) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return _dio
         .patch(
           url,
           queryParameters: query,
-          options: dio.Options(headers: headersMap),
+          options: dio.Options(
+            headers: headersMap,
+            contentType: contentType,
+          ),
           data: body,
         )
         .then(_toResponse);
@@ -159,15 +197,19 @@ class DioHttp extends Http {
   @override
   Future<Response<T>> head<T>(
     String url,
-    Map<String, dynamic> query,
-    Map<String, String> headers,
-  ) async {
+    Map<String, Object> query,
+    Map<String, String> headers, {
+    String contentType,
+  }) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return _dio
         .head(
           url,
           queryParameters: query,
-          options: dio.Options(headers: headersMap),
+          options: dio.Options(
+            headers: headersMap,
+            contentType: contentType,
+          ),
         )
         .then(_toResponse);
   }
@@ -177,6 +219,7 @@ class DioHttp extends Http {
     String url, {
     Map<String, String> headers,
     File body,
+    String contentType,
   }) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     final data = dio.FormData.fromMap({
@@ -189,7 +232,10 @@ class DioHttp extends Http {
         .post(
           url,
           data: data,
-          options: dio.Options(headers: headersMap),
+          options: dio.Options(
+            headers: headersMap,
+            contentType: contentType,
+          ),
         )
         .then(_toResponse);
   }
@@ -210,22 +256,6 @@ class DioHttp extends Http {
     interceptors
         ?.map((interceptor) => DioInterceptorDecorator(interceptor))
         ?.forEach((interceptor) => _dio.interceptors.add(interceptor));
-  }
-
-  ///Proxy config for tracking data
-  ///
-  /// @param config - HttpConfig of client. Get proxy url
-  void _configProxy(HttpConfig config) {
-    var proxyUrl = config.proxyUrl;
-
-    if (proxyUrl != null && proxyUrl.isNotEmpty) {
-      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-          (client) {
-        client.findProxy = (uri) {
-          return "PROXY $proxyUrl";
-        };
-      };
-    }
   }
 
   Response<T> _toResponse<T>(dio.Response r) {

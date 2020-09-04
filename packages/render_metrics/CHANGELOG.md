@@ -1,3 +1,7 @@
+## 1.0.1-dev.4
+
+* Fix lint hints
+
 ## 1.0.0
 ### Added
 * `RenderData` class with widget metrics added

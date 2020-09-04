@@ -1,5 +1,5 @@
 @Library('surf-lib@version-2.0.0-SNAPSHOT')
-// https://bitbucket.org/surfstudio/jenkins-pipeline-lib/
+// https://gitlab.com/surfstudio/infrastructure/tools/jenkins-pipeline-lib
 
 import ru.surfstudio.ci.pipeline.empty.EmptyScmPipeline
 import ru.surfstudio.ci.pipeline.ScmPipeline
@@ -117,6 +117,16 @@ pipeline.stages = [
             script.sh "./tools/ci/runner/increment_dev_unstable_versions"
         },
 
+        // зеркалирования в отдельные репо
+        pipeline.stage(MIRRORING, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
+            script.echo "Mirroring"
+            withCredentials([usernamePassword(credentialsId: mirrorRepoCredentialID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                echo "credentialsId: $mirrorRepoCredentialID"
+                sh "./tools/ci/runner/mirror_dev"
+//                sh "git push --mirror https://${encodeUrl(USERNAME)}:${encodeUrl(PASSWORD)}@github.com/surfstudio/SurfGear.git"
+            }
+        },
+
         // паблишинга в паб
         pipeline.stage(PUBLISHING_TO_PUB_DEV, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
             script.echo "Publishing to pub.dev"
@@ -138,15 +148,7 @@ EOT
             }
         },
 
-        // зеркалирования в отдельные репо
-        pipeline.stage(MIRRORING) {
-            script.echo "Mirroring"
-            withCredentials([usernamePassword(credentialsId: mirrorRepoCredentialID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                echo "credentialsId: $mirrorRepoCredentialID"
-                sh "./tools/ci/runner/mirror_dev"
-//                sh "git push --mirror https://${encodeUrl(USERNAME)}:${encodeUrl(PASSWORD)}@github.com/surfstudio/SurfGear.git"
-            }
-        },
+        
         
         // сохранить хэш комита с версиями в файл
         pipeline.stage(SAVE_LAST_GIT_HASH) {
@@ -155,20 +157,6 @@ EOT
             script.sh "git add $lastDeployHashFileName"
             script.sh "git commit -m \"[skip ci] change last git hash\""
             script.sh "git push"
-        },
-
-        pipeline.stage(CHECKS_RESULT) {
-            def checksPassed = true
-            [
-                MIRRORING
-            ].each { stageName ->
-                def stageResult = pipeline.getStage(stageName).result
-                checksPassed = checksPassed && (stageResult == Result.SUCCESS || stageResult == Result.NOT_BUILT)
-            }
-
-            if (!checksPassed) {
-                script.error("Checks Failed")
-            }
         },
 
         pipeline.stage(CLEAR_CHANGED) {

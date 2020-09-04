@@ -86,7 +86,7 @@ class _RepositoriesScreenState extends WidgetState<RepositoriesWm> {
 
   Widget _buildBody() => EntityStateBuilder<List<Repository>>(
         streamedState: wm.repositoriesState,
-        errorBuilder: (ctx, _) => Center(
+        errorBuilder: (ctx, _, e) => Center(
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
@@ -130,7 +130,7 @@ class _RepositoriesScreenState extends WidgetState<RepositoriesWm> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.exit_to_app),
+            icon: const Icon(Icons.exit_to_app),
             onPressed: wm.exitAction,
           ),
         ],

@@ -47,13 +47,13 @@ class ErrorResponse {
 
   ErrorResponse({this.errorCode, this.message});
 
-  ErrorResponse.fromJson(Map<String, dynamic> json) {
+  ErrorResponse.fromJson(Map<String, Object> json) {
     errorCode = json['errorCode'];
     message = json['message'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+  Map<String, Object> toJson() {
+    final Map<String, Object> data = new Map<String, Object>();
     data['errorCode'] = this.errorCode;
     data['message'] = this.message;
     return data;

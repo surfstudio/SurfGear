@@ -18,9 +18,11 @@ import 'package:analytics/core/analytic_service.dart';
 
 import 'package:analytics/utils/logger.dart';
 
+/// Logs services and sends actions to the analyst.
 class DefaultAnalyticService implements AnalyticService<AnalyticAction> {
   final _performers = <AnalyticActionPerformer<AnalyticAction>>{};
 
+  /// Send analytic action.
   @override
   void performAction(AnalyticAction action) {
     _getPerformersByAction(action)
@@ -41,6 +43,7 @@ class DefaultAnalyticService implements AnalyticService<AnalyticAction> {
     return properPerformers;
   }
 
+  /// Add performer to the service.
   // ignore: avoid_returning_this
   DefaultAnalyticService addActionPerformer(
     AnalyticActionPerformer<AnalyticAction> performer,
