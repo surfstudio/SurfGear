@@ -19,6 +19,7 @@ void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -84,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       decoration: const BoxDecoration(
         color: Colors.teal,
-        borderRadius:  BorderRadius.only(
+        borderRadius: BorderRadius.only(
           topLeft: Radius.circular(40.0),
           topRight: Radius.circular(40.0),
         ),
@@ -101,7 +102,12 @@ class _MyHomePageState extends State<MyHomePage> {
               topRight: Radius.circular(offset == 0.8 ? 0 : 40),
             ),
           ),
-          child: const Text('Заголовок', style: TextStyle(color: Colors.black)),
+          child: const Text(
+            'Заголовок',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
         );
       },
       builder: (context, offset) {
