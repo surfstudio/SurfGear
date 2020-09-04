@@ -34,7 +34,7 @@ class MaterialMessageController extends MessageController {
       _scaffoldState?.currentState ?? Scaffold.of(_context);
 
   @override
-  void show({String msg, msgType = MsgType.common}) {
+  void show({String msg, Object msgType = MsgType.common}) {
     assert(msg != null || msgType != null);
 
     final owner = snackOwner;
