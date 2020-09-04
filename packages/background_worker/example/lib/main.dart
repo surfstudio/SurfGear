@@ -117,8 +117,8 @@ Future<List<Data>> backgroundWork(dynamic _) async {
   final String json = response.body;
   // ignore: avoid_print
   print(json);
-  return (jsonDecode(json) as List<dynamic>)
-      .map<Data>((json) => Data.fromJson(json as Map<String, dynamic>))
+  return (jsonDecode(json) as List<Object>)
+      .map<Data>((json) => Data.fromJson(json as Map<String, Object>))
       .toList();
 }
 

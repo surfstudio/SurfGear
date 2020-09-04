@@ -102,7 +102,12 @@ class _MyHomePageState extends State<MyHomePage> {
               topRight: Radius.circular(offset == 0.8 ? 0 : 40),
             ),
           ),
-          child: const Text('Заголовок', style: TextStyle(color: Colors.black)),
+          child: const Text(
+            'Заголовок',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
         );
       },
       builder: (context, offset) {

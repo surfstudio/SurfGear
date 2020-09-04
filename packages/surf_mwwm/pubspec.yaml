@@ -1,13 +1,15 @@
 name: surf_mwwm
-version: "0.0.1-dev.2"
-description: Reflection of widget in a single entity
+version: "0.0.1-dev.3"
+description: |
+  Reflection of widget in a single entity. Includes: surf_injector, relation, mwwm, rxdart.
+  
 repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/surf_mwwm"
 
 dependencies:
   flutter:
     sdk: flutter
   surf_injector: "^0.0.1-dev.0"
-  relation: ^0.0.2
+  relation: "^0.0.3-dev.1"
   mwwm: ^0.1.1
   rxdart: ^0.24.0
 
