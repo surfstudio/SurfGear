@@ -12,6 +12,7 @@ dependencies:
   location_permissions: ^3.0.0+1
   location: ^2.4.0
   rxdart: ^0.24.0
+  pedantic: ^1.9.0
 
 dev_dependencies:
   flutter_test:
