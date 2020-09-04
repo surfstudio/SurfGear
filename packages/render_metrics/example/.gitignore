@@ -40,3 +40,4 @@ build/
 .ios/
 .flutter-plugins
 .flutter-plugins-dependencies
+**/ios/Podfile
