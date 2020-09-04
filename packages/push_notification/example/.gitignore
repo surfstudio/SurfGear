@@ -32,6 +32,7 @@
 
 # iOS/XCode related
 **/ios/Flutter/flutter_export_environment.sh
+**/ios/Podfile
 
 # Web related
 lib/generated_plugin_registrant.dart
