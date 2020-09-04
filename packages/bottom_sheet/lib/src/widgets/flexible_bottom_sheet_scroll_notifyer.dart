@@ -44,10 +44,10 @@ class FlexibleScrollNotifyer extends StatelessWidget {
   Widget build(BuildContext context) {
     return NotificationListener<ScrollStartNotification>(
       onNotification: scrollStartCallback,
-      child: NotificationListener<FlexibleDraggableScrollableNotification>(
-        onNotification: scrollingCallback,
-        child: NotificationListener<ScrollEndNotification>(
-          onNotification: scrollEndCallback,
+      child: NotificationListener<ScrollEndNotification>(
+        onNotification: scrollEndCallback,
+        child: NotificationListener<FlexibleDraggableScrollableNotification>(
+          onNotification: scrollingCallback,
           child: child,
         ),
       ),
