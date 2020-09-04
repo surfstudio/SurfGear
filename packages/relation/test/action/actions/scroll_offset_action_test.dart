@@ -33,7 +33,6 @@ void main() {
           ),
           body: ListView(
             controller: action.controller,
-            scrollDirection: Axis.vertical,
             children: const <Widget>[
               Text('test'),
               Text('test'),
@@ -60,7 +59,6 @@ void main() {
           ),
           body: ListView(
             controller: action.controller,
-            scrollDirection: Axis.vertical,
             children: const <Widget>[
               Text('test'),
               Text('test'),

@@ -169,9 +169,6 @@ class SwipeRefresh extends StatelessWidget {
       childrenDelegate: SliverChildBuilderDelegate(
         itemBuilder,
         childCount: itemCount,
-        addAutomaticKeepAlives: true,
-        addRepaintBoundaries: true,
-        addSemanticIndexes: true,
       ),
     );
   }
@@ -204,6 +201,7 @@ class SwipeRefresh extends StatelessWidget {
           stateStream: stateStream,
           initState: initState,
           onRefresh: onRefresh,
+          scrollController: scrollController,
           backgroundColor: backgroundColor,
           indicatorColor: indicatorColor,
           children: children,
@@ -215,6 +213,7 @@ class SwipeRefresh extends StatelessWidget {
           stateStream: stateStream,
           initState: initState,
           onRefresh: onRefresh,
+          scrollController: scrollController,
           refreshIndicatorExtent: refreshIndicatorExtent,
           refreshTriggerPullDistance: refreshTriggerPullDistance,
           indicatorBuilder: indicatorBuilder,

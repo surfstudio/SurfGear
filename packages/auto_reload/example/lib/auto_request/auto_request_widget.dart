@@ -50,7 +50,7 @@ class _DemoAutoRequestManagerState extends State<DemoAutoRequestManager> {
     return Column(
       children: <Widget>[
         const Spacer(),
-        Text(
+        const Text(
           'auto request example:',
           style: TextStyle(
             fontStyle: FontStyle.normal,

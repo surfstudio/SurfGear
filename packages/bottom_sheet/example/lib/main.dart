@@ -82,9 +82,9 @@ class _MyHomePageState extends State<MyHomePage> {
       maxHeight: .8,
       headerHeight: 200,
       context: context,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.teal,
-        borderRadius: const BorderRadius.only(
+        borderRadius:  BorderRadius.only(
           topLeft: Radius.circular(40.0),
           topRight: Radius.circular(40.0),
         ),
@@ -101,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
               topRight: Radius.circular(offset == 0.8 ? 0 : 40),
             ),
           ),
-          child: Text('Заголовок', style: TextStyle(color: Colors.black)),
+          child: const Text('Заголовок', style: TextStyle(color: Colors.black)),
         );
       },
       builder: (context, offset) {
@@ -168,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _buildTextField() => TextField(
+  Widget _buildTextField() => const TextField(
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: 'Enter a search term',

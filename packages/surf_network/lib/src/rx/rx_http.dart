@@ -21,45 +21,45 @@ abstract class RxHttp {
   ///GET- request
   Stream<Response> get<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
   });
 
   ///POST-request
   Stream<Response> post<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
-    Map<String, dynamic> body,
+    Map<String, Object> body,
   });
 
   ///PUT -request
   Stream<Response> put<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
-    Map<String, dynamic> body,
+    Map<String, Object> body,
   });
 
   ///DELETE -request
   Stream<Response> delete<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
   });
 
   ///PATCH -request
   Stream<Response> patch<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
-    Map<String, dynamic> body,
+    Map<String, Object> body,
   });
 
   ///HEAD - request
   Stream<Response> head<T>(
     String url,
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
   );
 
