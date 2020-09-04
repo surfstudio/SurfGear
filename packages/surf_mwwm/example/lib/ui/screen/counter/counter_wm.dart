@@ -12,25 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/material.dart' show NavigatorState;
-import 'package:flutter/material.dart' as w;
+// import 'package:flutter/material.dart' show NavigatorState;
+// import 'package:flutter/material.dart' as w;
+// import 'package:flutter/material.dart' hide Action;
+// import 'package:surf_mwwm/surf_mwwm.dart';
+
+import 'package:flutter/material.dart' hide Action;
 import 'package:surf_mwwm/surf_mwwm.dart';
 
 /// WidgetModel для экрана счетчика
 class CounterWidgetModel extends WidgetModel {
-  final NavigatorState navigator;
-  final w.GlobalKey<w.ScaffoldState> _key;
-
-  StreamedState<int> counterState = StreamedState(0);
-
-  Action incrementAction = Action();
-  final showInit = Action();
-
   CounterWidgetModel(
     WidgetModelDependencies dependencies,
     this.navigator,
     this._key,
   ) : super(dependencies);
+
+  final NavigatorState navigator;
+  final GlobalKey<ScaffoldState> _key;
+
+  StreamedState<int> counterState = StreamedState(0);
+
+  Action incrementAction = Action<void>();
+  final showInit = Action<int>();
 
   @override
   void onLoad() {
@@ -39,29 +43,29 @@ class CounterWidgetModel extends WidgetModel {
   }
 
   void _listenToActions() {
-    subscribe(
+    subscribe<void>(
       incrementAction.stream,
       (_) => counterState.accept(counterState.value + 1),
     );
 
-    subscribe(
+    subscribe<void>(
       showInit.stream,
       (_) => _key.currentState.showSnackBar(
-        w.SnackBar(
-          content: w.Text('init'),
+        const SnackBar(
+          content: Text('init'),
         ),
       ),
     );
 
     subscribe(
-      counterState.stream.where((c) => c % 2 == 0).skip(1),
+      counterState.stream.where((c) => c.isEven).skip(1),
       (c) {
         navigator.push(
-          w.MaterialPageRoute(
-            builder: (ctx) => w.Scaffold(
-              body: w.Column(
+          MaterialPageRoute<void>(
+            builder: (ctx) => Scaffold(
+              body: Column(
                 children: [
-                  w.TextField(
+                  TextField(
                     autofocus: true,
                     onChanged: (_) {},
                   ),
