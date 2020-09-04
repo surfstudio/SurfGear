@@ -67,7 +67,7 @@ class DataListPageCountTest {
       );
 
       final PageCountDataList<int> list3 = PageCountDataList<int>(
-          data: [1, 2, 3, 4, 5], startPage: 0, pageSize: 5, numPages: 1);
+          data: [1, 2, 3, 4, 5], startPage: 0, pageSize: 5);
 
       try {
         list1.merge(list2);

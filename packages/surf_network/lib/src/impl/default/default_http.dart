@@ -12,17 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:convert' as json;
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
-import 'dart:convert' as json;
 import 'package:surf_network/src/base/config/config.dart';
-import 'package:surf_network/src/base/status_mapper.dart';
 import 'package:surf_network/src/base/headers.dart';
 import 'package:surf_network/src/base/http.dart';
 import 'package:surf_network/src/base/response.dart';
-
+import 'package:surf_network/src/base/status_mapper.dart';
 import 'package:surf_network/src/utils/logger.dart';
 
 /// Реализация Http на основе стандартного [http]
@@ -41,8 +40,9 @@ class DefaultHttp extends Http {
   @override
   Future<Response<T>> get<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
+    String contentType,
   }) async {
     print("DEV_WEB request : $url");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
@@ -59,9 +59,10 @@ class DefaultHttp extends Http {
   @override
   Future<Response<T>> post<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
-    Map<String, dynamic> body,
+    Map<String, Object> body,
+    String contentType,
   }) async {
     print("DEV_WEB request : $url, $body | $headers");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
@@ -78,9 +79,10 @@ class DefaultHttp extends Http {
   @override
   Future<Response<T>> put<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
-    Map<String, dynamic> body,
+    Map<String, Object> body,
+    String contentType,
   }) async {
     print("DEV_WEB request : $url, $body");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
@@ -97,8 +99,9 @@ class DefaultHttp extends Http {
   @override
   Future<Response<T>> delete<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
+    String contentType,
   }) async {
     print("DEV_WEB request : $url");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
@@ -114,9 +117,10 @@ class DefaultHttp extends Http {
   @override
   Future<Response<T>> patch<T>(
     String url, {
-    Map<String, dynamic> query,
+    Map<String, Object> query,
     Map<String, String> headers,
-    Map<String, dynamic> body,
+    Map<String, Object> body,
+    String contentType,
   }) async {
     print("DEV_WEB request : $url, $body");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
@@ -133,9 +137,10 @@ class DefaultHttp extends Http {
   @override
   Future<Response<T>> head<T>(
     String url,
-    Map<String, dynamic> query,
-    Map<String, String> headers,
-  ) async {
+    Map<String, Object> query,
+    Map<String, String> headers, {
+    String contentType,
+  }) async {
     print("DEV_WEB request : $url");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
     return http
@@ -151,6 +156,7 @@ class DefaultHttp extends Http {
     String url, {
     Map<String, String> headers,
     File body,
+    String contentType,
   }) async {
     print("DEV_WEB request : $url");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
@@ -183,14 +189,14 @@ class DefaultHttp extends Http {
 
   Response<T> _toResponse<T>(http.Response r) {
     logger.d("${r.statusCode} | ${r.body}");
-    final response = Response<T>(r.body as dynamic, r.statusCode);
+    final response = Response<T>(r.body as Object, r.statusCode);
     if (response.statusCode == 400) {
       mapError(response);
     }
     return response;
   }
 
-  dynamic mapError(Response e) {
+  Object mapError(Response e) {
     errorMapper?.checkStatus(e);
   }
 }

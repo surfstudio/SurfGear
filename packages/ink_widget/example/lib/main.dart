@@ -77,9 +77,9 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: () {},
               child: Container(
                 padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.red,
-                  borderRadius: const BorderRadius.all(
+                  borderRadius: BorderRadius.all(
                     Radius.circular(20),
                   ),
                 ),
@@ -99,9 +99,9 @@ class _MyHomePageState extends State<MyHomePage> {
               disableWidget: Container(
                 height: 50,
                 color: Colors.white.withOpacity(.2),
-                child: Align(
+                child: const Align(
                   alignment: Alignment.bottomLeft,
-                  child: const Text('text in disableWidget'),
+                  child: Text('text in disableWidget'),
                 ),
               ),
               child: const Text('Custom disableWidget (see code)'),

@@ -50,7 +50,7 @@ abstract class WidgetModel {
   StreamSubscription subscribe<T>(
     Stream<T> stream,
     void Function(T t) onValue, {
-    void Function(dynamic e) onError,
+    void Function(Object e) onError,
   }) {
     StreamSubscription subscription = stream.listen(onValue, onError: (e) {
       onError?.call(e);
@@ -64,8 +64,9 @@ abstract class WidgetModel {
   StreamSubscription subscribeHandleError<T>(
     Stream<T> stream,
     void Function(T t) onValue, {
-    void Function(dynamic e) onError,
+    void Function(Object e) onError,
   }) {
+
     StreamSubscription subscription = stream.listen(onValue, onError: (e) {
       handleError(e);
       onError?.call(e);
@@ -80,7 +81,7 @@ abstract class WidgetModel {
   void doFuture<T>(
     Future<T> future,
     void Function(T t) onValue, {
-    void onError(e),
+    void Function(Object) onError,
   }) {
     future.then(onValue).catchError((e) {
       onError?.call(e);
@@ -91,7 +92,7 @@ abstract class WidgetModel {
   void doFutureHandleError<T>(
     Future<T> future,
     Function(T t) onValue, {
-    onError(e),
+        void Function(Object) onError,
   }) {
     future.then(onValue).catchError((e) {
       handleError(e);
