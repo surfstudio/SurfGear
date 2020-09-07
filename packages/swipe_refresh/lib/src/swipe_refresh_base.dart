@@ -28,6 +28,7 @@ abstract class SwipeRefreshBase extends StatefulWidget {
     this.scrollController,
     this.childrenDelegate,
     this.padding,
+    this.shrinkWrap = false,
   })  : assert((children == null || childrenDelegate == null) &&
             (children != null || childrenDelegate != null)),
         assert(stateStream != null),
@@ -41,6 +42,7 @@ abstract class SwipeRefreshBase extends StatefulWidget {
   final ScrollController scrollController;
   final SliverChildDelegate childrenDelegate;
   final EdgeInsets padding;
+  final bool shrinkWrap;
 
   @override
   @protected

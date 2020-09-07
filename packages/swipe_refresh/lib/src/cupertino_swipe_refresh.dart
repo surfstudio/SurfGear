@@ -29,10 +29,10 @@ class CupertinoSwipeRefresh extends SwipeRefreshBase {
     VoidCallback onRefresh,
     EdgeInsets padding,
     ScrollController scrollController,
+    bool shrinkWrap = false,
     this.refreshTriggerPullDistance = defaultRefreshTriggerPullDistance,
     this.refreshIndicatorExtent = defaultRefreshIndicatorExtent,
-    this.indicatorBuilder =
-        CupertinoSliverRefreshControl.buildRefreshIndicator,
+    this.indicatorBuilder = CupertinoSliverRefreshControl.buildRefreshIndicator,
   }) : super(
           key: key,
           children: children,
@@ -42,6 +42,7 @@ class CupertinoSwipeRefresh extends SwipeRefreshBase {
           onRefresh: onRefresh,
           padding: padding,
           scrollController: scrollController,
+          shrinkWrap: shrinkWrap,
         );
 
   static const double defaultRefreshTriggerPullDistance = 100.0;
@@ -69,6 +70,7 @@ class _CupertinoSwipeRefreshState
   @override
   Widget buildRefresher(Key key, List<Widget> children, onRefresh) {
     return CustomScrollView(
+      shrinkWrap: widget.shrinkWrap,
       controller: _scrollController,
       physics: const BouncingScrollPhysics(
         parent: AlwaysScrollableScrollPhysics(),
