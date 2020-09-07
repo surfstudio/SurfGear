@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-//apply from: "../keystore/signingConfigs.gradle"
+apply from: "../keystore/signingConfigs.gradle"
 
 android {
     compileSdkVersion 29

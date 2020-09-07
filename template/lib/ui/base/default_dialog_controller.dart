@@ -59,8 +59,11 @@ class DefaultDialogController implements DialogController {
   }
 
   @override
-  Future<R> showSheet<R>(Object type,
-      {VoidCallback onDismiss, DialogData data}) {
+  Future<R> showSheet<R>(
+    Object type, {
+    VoidCallback onDismiss,
+    DialogData data,
+  }) {
     assert(dialogOwner != null);
 
     final buildDialog = dialogOwner.registeredDialogs[type];
