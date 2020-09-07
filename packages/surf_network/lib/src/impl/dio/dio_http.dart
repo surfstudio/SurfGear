@@ -157,6 +157,7 @@ class DioHttp extends Http {
     String url, {
     Map<String, Object> query,
     Map<String, String> headers,
+    Map<String, Object> body,
     String contentType,
   }) async {
     Map<String, String> headersMap = await _buildHeaders(url, headers);
@@ -164,6 +165,7 @@ class DioHttp extends Http {
         .delete(
           url,
           queryParameters: query,
+          data: body,
           options: dio.Options(
             headers: headersMap,
             contentType: contentType,

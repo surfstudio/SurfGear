@@ -49,6 +49,7 @@ abstract class Http {
     String url, {
     Map<String, Object> query,
     Map<String, String> headers,
+    Map<String, Object> body,
     String contentType,
   });
 

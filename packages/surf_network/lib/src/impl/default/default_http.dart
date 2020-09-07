@@ -96,11 +96,14 @@ class DefaultHttp extends Http {
   }
 
   ///DELETE -request
+  ///
+  /// TODO: Don't work body
   @override
   Future<Response<T>> delete<T>(
     String url, {
     Map<String, Object> query,
     Map<String, String> headers,
+    Map<String, Object> body,
     String contentType,
   }) async {
     print("DEV_WEB request : $url");
