@@ -5,7 +5,7 @@ import 'package:ci/domain/element.dart';
 abstract class Dependency {
   /// Подключаемая библиотека, от которой
   /// зависит работа других библиотек.
-  final Element element;
+  Element element;
 
   /// Зависимость не из flutter-standard
   final bool thirdParty;

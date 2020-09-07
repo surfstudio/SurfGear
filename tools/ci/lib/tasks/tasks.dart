@@ -9,6 +9,7 @@ import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/services/managers/yaml_manager.dart';
 import 'package:ci/services/pub_publish_manager.dart';
 import 'package:ci/tasks/checks.dart';
+import 'package:ci/tasks/impl/building/increment_dev_version_task.dart';
 import 'package:ci/tasks/impl/building/package_builder_task.dart';
 import 'package:ci/tasks/impl/git/fix_changes_task.dart';
 import 'package:ci/tasks/impl/license/add_copyright_task.dart';
@@ -18,6 +19,7 @@ import 'package:ci/tasks/impl/project/add_project_tag_task.dart';
 import 'package:ci/tasks/impl/project/update_dependencies_by_tag_task.dart';
 import 'package:ci/tasks/mirror_module_task.dart';
 import 'package:ci/tasks/save_element_task.dart';
+import 'package:ci/tasks/utils.dart';
 
 import 'impl/publish/pub_publish_module_task.dart';
 
@@ -253,8 +255,33 @@ Future<void> fixChanges({String message}) => FixChangesTask(
 
 /// Публикуем модули
 /// [pathServer] принимать адрес сервера куда паблишить, необзательный параметр
-Future<void> pubPublishModules(Element element, {String pathServer}) {
-  return PubPublishModuleTask(element, PubPublishManager(),
-          pathServer: pathServer)
-      .run();
+Future<void> pubPublishModules(Element element, {String pathServer}) =>
+    PubPublishModuleTask(
+      element,
+      PubPublishManager(),
+      pathServer: pathServer,
+    ).run();
+
+/// Инкриминирует версию у зависимых от элемнета элементов рукурсивно
+Future<List<Element>> updateVersionsDependingOnModule(
+  List<Element> elements,
+) async {
+  final Set<Element> independents = {...elements.toSet()};
+
+  Future<void> incrementDependent(List<Element> elements) async {
+    var dependents = await findDependentByChangedElements(elements);
+    independents.removeAll(await findChangedElements(elements));
+    if (dependents.isNotEmpty) {
+      dependents.forEach(
+          (Element element) => IncrementDevVersionTask(element).run());
+      saveElements(dependents);
+      await incrementDependent(independents.toList());
+    }
+  }
+
+  await incrementDependent(elements);
+
+  final updateElements = elements.toSet()..removeAll(independents);
+
+  return updateElements.toList();
 }

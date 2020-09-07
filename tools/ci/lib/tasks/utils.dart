@@ -136,27 +136,32 @@ Future<List<Element>> markChangedElements(List<Element> elements) async {
   var content = file.readAsStringSync();
 
   return elements.map(
-    (e) {
-      if (content.contains(e.directoryName)) {
-        e.changed = true;
+    (Element element) {
+      if (content.contains(element.directoryName)) {
+        element.changed = true;
       }
 
-      return e;
+      return element;
     },
   ).toList();
 }
 
 /// Создаёт файл со списком измененных файлов.
-Future<void> createChangedListFile(List<Element> elements, String target) async {
+Future<void> createChangedListFile(
+  List<Element> elements,
+  String target,
+) async {
   final result = await sh('git diff --name-only $target');
   final diff = result.stdout as String;
 
   print('Файлы, изменённые в сравнении с целевой веткой :\n$diff');
 
-  final changedList = elements.where((e) => diff.contains(e.directoryName)).toList()
-    ..forEach((e) => e.changed = true);
+  final changedList = elements
+      .where((Element element) => diff.contains(element.directoryName))
+      .toList()
+        ..forEach((Element element) => element.changed = true);
 
-  final names = changedList.map((e) => e.name).join('\n');
+  final names = changedList.map((Element element) => element.name).join('\n');
 
   print('Модули были изменены:\n$names');
 
