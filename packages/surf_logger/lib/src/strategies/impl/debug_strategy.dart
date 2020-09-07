@@ -12,17 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:surf_logger/surf_logger.dart';
+import 'package:logger/logger.dart';
 import 'package:surf_logger/src/const.dart';
 import 'package:surf_logger/src/strategies/log_strategy.dart';
 
 /// Strategy for log output to console
 /// * used for local debugging
 class DebugLogStrategy extends LogStrategy {
+  DebugLogStrategy([this._logger]) {
+    _logger ??= Logger();
+  }
+
+  Logger _logger;
+
   @override
   void log(String message, int priority, [Exception error]) {
     if (error != null) {
-      Logger.e(message, error);
+      _logger.e(message, error);
     } else {
       _logMessage(message, priority);
     }
@@ -31,16 +37,16 @@ class DebugLogStrategy extends LogStrategy {
   void _logMessage(String message, int priority) {
     switch (priority) {
       case priorityLogDebug:
-        Logger.d(message);
+        _logger.d(message);
         break;
       case priorityLogWarn:
-        Logger.w(message);
+        _logger.w(message);
         break;
       case priorityLogError:
-        Logger.e(message);
+        _logger.e(message);
         break;
       default:
-        Logger.d(message);
+        _logger.d(message);
     }
   }
 }
