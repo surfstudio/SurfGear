@@ -1,3 +1,7 @@
+## 0.0.1-dev.6
+
+*  Replace print in DebugLogStrategy to third library Logger
+
 ## 0.0.1-dev.5
 
 * Fix lint hints
