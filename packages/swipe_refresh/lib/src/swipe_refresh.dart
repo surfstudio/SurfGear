@@ -39,6 +39,7 @@ class SwipeRefresh extends StatelessWidget {
     this.childrenDelegate,
     this.padding,
     this.indicatorColor,
+    this.shrinkWrap = false,
     Color backgroundColor,
     double refreshTriggerPullDistance,
     double refreshIndicatorExtent,
@@ -53,20 +54,21 @@ class SwipeRefresh extends StatelessWidget {
         super(key: key);
 
   /// Create refresh indicator adaptive to platform.
-  const SwipeRefresh.adaptive(
-      {Key key,
-      List<Widget> children,
-      Stream<SwipeRefreshState> stateStream,
-      SwipeRefreshState initState,
-      VoidCallback onRefresh,
-      Color indicatorColor,
-      Color backgroundColor,
-      double refreshTriggerPullDistance,
-      double refreshIndicatorExtent,
-      RefreshControlIndicatorBuilder indicatorBuilder,
-      ScrollController scrollController,
-      EdgeInsets padding})
-      : this(
+  const SwipeRefresh.adaptive({
+    Key key,
+    List<Widget> children,
+    Stream<SwipeRefreshState> stateStream,
+    SwipeRefreshState initState,
+    VoidCallback onRefresh,
+    Color indicatorColor,
+    Color backgroundColor,
+    double refreshTriggerPullDistance,
+    double refreshIndicatorExtent,
+    RefreshControlIndicatorBuilder indicatorBuilder,
+    ScrollController scrollController,
+    EdgeInsets padding,
+    bool shrinkWrap = false,
+  }) : this(
           SwipeRefreshStyle.adaptive,
           key: key,
           children: children,
@@ -80,6 +82,7 @@ class SwipeRefresh extends StatelessWidget {
           indicatorBuilder: indicatorBuilder,
           scrollController: scrollController,
           padding: padding,
+          shrinkWrap: shrinkWrap,
         );
 
   /// Create refresh indicator with Material Design style.
@@ -93,6 +96,7 @@ class SwipeRefresh extends StatelessWidget {
     Color backgroundColor,
     ScrollController scrollController,
     EdgeInsets padding,
+    bool shrinkWrap = false,
   }) : this(
           SwipeRefreshStyle.material,
           key: key,
@@ -104,6 +108,7 @@ class SwipeRefresh extends StatelessWidget {
           backgroundColor: backgroundColor,
           scrollController: scrollController,
           padding: padding,
+          shrinkWrap: shrinkWrap,
         );
 
   /// Create refresh indicator with Cupertino style.
@@ -118,6 +123,7 @@ class SwipeRefresh extends StatelessWidget {
     RefreshControlIndicatorBuilder indicatorBuilder,
     ScrollController scrollController,
     EdgeInsets padding,
+    bool shrinkWrap = false,
   }) : this(
           SwipeRefreshStyle.cupertino,
           key: key,
@@ -130,6 +136,7 @@ class SwipeRefresh extends StatelessWidget {
           indicatorBuilder: indicatorBuilder,
           scrollController: scrollController,
           padding: padding,
+          shrinkWrap: shrinkWrap,
         );
 
   /// Crete SwipeRefresh as common link
@@ -149,6 +156,7 @@ class SwipeRefresh extends StatelessWidget {
     RefreshControlIndicatorBuilder indicatorBuilder,
     ScrollController scrollController,
     EdgeInsets padding,
+    bool shrinkWrap = false,
   }) {
     assert(itemBuilder != null);
     assert(itemCount != null);
@@ -166,6 +174,7 @@ class SwipeRefresh extends StatelessWidget {
       indicatorBuilder: indicatorBuilder,
       scrollController: scrollController,
       padding: padding,
+      shrinkWrap: shrinkWrap,
       childrenDelegate: SliverChildBuilderDelegate(
         itemBuilder,
         childCount: itemCount,
@@ -186,6 +195,7 @@ class SwipeRefresh extends StatelessWidget {
   final ScrollController scrollController;
   final SliverChildDelegate childrenDelegate;
   final EdgeInsets padding;
+  final bool shrinkWrap;
 
   @override
   Widget build(BuildContext context) {
@@ -205,6 +215,7 @@ class SwipeRefresh extends StatelessWidget {
           backgroundColor: backgroundColor,
           indicatorColor: indicatorColor,
           children: children,
+          shrinkWrap: shrinkWrap,
         );
       case SwipeRefreshStyle.cupertino:
         return CupertinoSwipeRefresh(
@@ -218,6 +229,7 @@ class SwipeRefresh extends StatelessWidget {
           refreshTriggerPullDistance: refreshTriggerPullDistance,
           indicatorBuilder: indicatorBuilder,
           children: children,
+          shrinkWrap: shrinkWrap,
         );
       case SwipeRefreshStyle.builder:
       case SwipeRefreshStyle.adaptive:
