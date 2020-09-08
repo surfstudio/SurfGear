@@ -18,10 +18,7 @@ class UpdateVersionsDependingOnModuleScenario extends ChangedElementScenario {
 
   @override
   Future<void> doExecute(List<Element> elements) async {
-    var res = await updateVersionsDependingOnModule(elements);
-    if (res.isEmpty) {
-      print('Dependent list is empty.');
-    }
+    await updateVersionsDependingOnModule(elements);
   }
 
   @override

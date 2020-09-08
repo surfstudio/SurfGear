@@ -263,25 +263,16 @@ Future<void> pubPublishModules(Element element, {String pathServer}) =>
     ).run();
 
 /// Инкриминирует версию у зависимых от элемнета элементов рукурсивно
-Future<List<Element>> updateVersionsDependingOnModule(
+Future<void> updateVersionsDependingOnModule(
   List<Element> elements,
 ) async {
-  final Set<Element> independents = {...elements.toSet()};
-
-  Future<void> incrementDependent(List<Element> elements) async {
-    var dependents = await findDependentByChangedElements(elements);
-    independents.removeAll(await findChangedElements(elements));
-    if (dependents.isNotEmpty) {
-      dependents.forEach(
-          (Element element) => IncrementDevVersionTask(element).run());
-      saveElements(dependents);
-      await incrementDependent(independents.toList());
-    }
+  /// Set чтобы избавиться от дубликатов в зависимых элементах
+  Set<Element> dependents =
+      (await findDependentByChangedElements(elements)).toSet();
+  if (dependents.isNotEmpty) {
+    dependents
+        .forEach((Element element) => IncrementDevVersionTask(element).run());
+    saveElements(dependents.toList());
+    updateVersionsDependingOnModule(dependents.toList());
   }
-
-  await incrementDependent(elements);
-
-  final updateElements = elements.toSet()..removeAll(independents);
-
-  return updateElements.toList();
 }
