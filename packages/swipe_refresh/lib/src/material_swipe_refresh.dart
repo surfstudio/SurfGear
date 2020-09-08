@@ -32,6 +32,7 @@ class MaterialSwipeRefresh extends SwipeRefreshBase {
     Color backgroundColor,
     ScrollController scrollController,
     EdgeInsets padding,
+    bool shrinkWrap = false,
   })  : backgroundColor = backgroundColor ?? const Color(0xFFFFFFFF),
         super(
           key: key,
@@ -42,6 +43,7 @@ class MaterialSwipeRefresh extends SwipeRefreshBase {
           onRefresh: onRefresh,
           scrollController: scrollController,
           padding: padding,
+          shrinkWrap: shrinkWrap,
         );
 
   final Color indicatorColor;
@@ -62,12 +64,14 @@ class _MaterialSwipeRefreshState
       backgroundColor: widget.backgroundColor,
       child: widget.childrenDelegate == null
           ? ListView(
+              shrinkWrap: widget.shrinkWrap,
               padding: widget.padding,
               controller: widget.scrollController ?? ScrollController(),
               physics: const AlwaysScrollableScrollPhysics(),
               children: children,
             )
           : ListView.custom(
+              shrinkWrap: widget.shrinkWrap,
               padding: widget.padding,
               childrenDelegate: widget.childrenDelegate,
               controller: widget.scrollController ?? ScrollController(),
