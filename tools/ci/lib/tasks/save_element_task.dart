@@ -5,6 +5,7 @@ import 'package:ci/services/managers/yaml_manager.dart';
 import 'package:ci/services/parsers/pubspec_parser.dart';
 import 'package:ci/tasks/core/task.dart';
 import 'package:ci/utils/pubspec_yaml_extension.dart';
+import 'package:ci/utils/string_util.dart';
 import 'package:path/path.dart';
 import 'package:plain_optional/plain_optional.dart';
 import 'package:pubspec_yaml/pubspec_yaml.dart';
@@ -94,7 +95,10 @@ class SaveElementTask extends Action {
             HostedPackageDependencySpec(
               package: hostedDep.package,
               url: hostedDep.url,
-              version: hostedDep.version,
+              version: dep is HostedDependency
+                  ? Optional(caret + dep.version)
+                  : hostedDep.version,
+              // version: hostedDep.version,
               name: hostedDep.name,
             ),
           );

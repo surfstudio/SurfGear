@@ -11,6 +11,7 @@ import 'package:ci/services/pub_publish_manager.dart';
 import 'package:ci/tasks/checks.dart';
 import 'package:ci/tasks/impl/building/increment_dev_version_task.dart';
 import 'package:ci/tasks/impl/building/package_builder_task.dart';
+import 'package:ci/tasks/impl/building/update_versions_depending_on_module_task.dart';
 import 'package:ci/tasks/impl/git/fix_changes_task.dart';
 import 'package:ci/tasks/impl/license/add_copyright_task.dart';
 import 'package:ci/tasks/impl/license/add_license_task.dart';
@@ -264,15 +265,47 @@ Future<void> pubPublishModules(Element element, {String pathServer}) =>
 
 /// Инкриминирует версию у зависимых от элемнета элементов рукурсивно
 Future<void> updateVersionsDependingOnModule(
-  List<Element> elements,
-) async {
-  /// Set чтобы избавиться от дубликатов в зависимых элементах
-  Set<Element> dependents =
-      (await findDependentByChangedElements(elements)).toSet();
+  List<Element> allElements, {
+  List<Element> incrementElements = const [],
+}) async {
+  /// toSet чтобы избавиться от дубликатов в зависимых элементах
+  List<Element> dependents =
+      (await findDependentByChangedElements(allElements)).toSet().toList();
+
+  /// Удаляем уже ранее инкрементированые элементы
+  dependents = dependents.where(
+    (Element element) {
+      for (var inc in incrementElements) {
+        if (inc.name == element.name) {
+          return false;
+        }
+      }
+      return true;
+    },
+  ).toList();
+
   if (dependents.isNotEmpty) {
-    dependents
-        .forEach((Element element) => IncrementDevVersionTask(element).run());
-    saveElements(dependents.toList());
-    updateVersionsDependingOnModule(dependents.toList());
+    for (var i = 0; dependents.length > i; i++) {
+      dependents[i] = await IncrementDevVersionTask(dependents[i]).run();
+    }
+
+    /// обновляем элементы с изменной зависимостью
+    for (var element in allElements) {
+      for (var dependent in dependents) {
+        if (element.name == dependent.name) {
+          element = dependent;
+        }
+      }
+    }
+
+    dependents =
+        await UpdateVersionsDependingOnModuleTask(allElements, dependents)
+            .run();
+
+    await saveElements(dependents);
+    updateVersionsDependingOnModule(
+      allElements,
+      incrementElements: dependents,
+    );
   }
 }
