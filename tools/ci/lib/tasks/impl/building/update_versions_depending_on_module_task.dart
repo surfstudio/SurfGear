@@ -30,11 +30,8 @@ class UpdateVersionsDependingOnModuleTask implements Action {
       (Dependency dependency) {
         _elements.forEach(
           (Element element) {
-            if (dependency is HostedDependency && !dependency.thirdParty) {
-              if (dependency.element?.name == element.name &&
-                  dependency.version != element.version) {
-                newDependency.add(_newDependency(dependency, element));
-              }
+            if (_checkElement(dependency, element)) {
+              newDependency.add(_updateDependency(dependency, element));
             }
           },
         );
@@ -44,7 +41,18 @@ class UpdateVersionsDependingOnModuleTask implements Action {
     return Element.byTemplate(updateElement, dependencies: newDependency);
   }
 
-  Dependency _newDependency(Dependency oldDependency, Element newElement) {
+  /// Элемент должен отличаться только версией
+  bool _checkElement(Dependency dependency, Element element) {
+    if (dependency is HostedDependency &&
+        !dependency.thirdParty &&
+        dependency.element?.name == element.name &&
+        dependency.version != element.version) {
+      return true;
+    }
+    return false;
+  }
+
+  Dependency _updateDependency(Dependency oldDependency, Element newElement) {
     switch (oldDependency.runtimeType) {
       case HostedDependency:
         return HostedDependency.byTemplate(

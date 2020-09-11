@@ -136,12 +136,12 @@ Future<List<Element>> markChangedElements(List<Element> elements) async {
   var content = file.readAsStringSync();
 
   return elements.map(
-    (Element element) {
-      if (content.contains(element.directoryName)) {
-        element.changed = true;
+    (Element e) {
+      if (content.contains(e.directoryName)) {
+        e.changed = true;
       }
 
-      return element;
+      return e;
     },
   ).toList();
 }
