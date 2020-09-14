@@ -16,8 +16,4 @@ void main() {
   tearDown(() {
     channel.setMockMethodCallHandler(null);
   });
-
-  test('getTelephoneHint', () async {
-    expect(await OTPInteractor.hint, null);
-  });
 }
