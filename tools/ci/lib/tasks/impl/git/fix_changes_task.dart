@@ -6,7 +6,8 @@ import 'package:ci/utils/process_result_extension.dart';
 
 const String _defaultCommitMessage = 'Changes by ci.';
 
-/// Задача фиксирования изменений в git.
+/// Задача фиксирования изменений в git. 
+/// НЕ ДЕЛАЕТ ПУШ В ВЕТКУ
 class FixChangesTask extends Action {
   final String message;
 
@@ -32,17 +33,6 @@ class FixChangesTask extends Action {
       return Future.error(
         CommitException(
           getGitCommitExceptionText(''),
-        ),
-      );
-    }
-
-    res = await sh('git push');
-    res.print();
-
-    if (res.exitCode != 0) {
-      return Future.error(
-        PushException(
-          getGitPushExceptionText(''),
         ),
       );
     }

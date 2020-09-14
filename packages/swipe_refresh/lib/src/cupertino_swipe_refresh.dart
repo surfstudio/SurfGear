@@ -1,3 +1,17 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
@@ -15,10 +29,10 @@ class CupertinoSwipeRefresh extends SwipeRefreshBase {
     VoidCallback onRefresh,
     EdgeInsets padding,
     ScrollController scrollController,
+    bool shrinkWrap = false,
     this.refreshTriggerPullDistance = defaultRefreshTriggerPullDistance,
     this.refreshIndicatorExtent = defaultRefreshIndicatorExtent,
-    this.indicatorBuilder =
-        CupertinoSliverRefreshControl.buildSimpleRefreshIndicator,
+    this.indicatorBuilder = CupertinoSliverRefreshControl.buildRefreshIndicator,
   }) : super(
           key: key,
           children: children,
@@ -28,6 +42,7 @@ class CupertinoSwipeRefresh extends SwipeRefreshBase {
           onRefresh: onRefresh,
           padding: padding,
           scrollController: scrollController,
+          shrinkWrap: shrinkWrap,
         );
 
   static const double defaultRefreshTriggerPullDistance = 100.0;
@@ -55,6 +70,7 @@ class _CupertinoSwipeRefreshState
   @override
   Widget buildRefresher(Key key, List<Widget> children, onRefresh) {
     return CustomScrollView(
+      shrinkWrap: widget.shrinkWrap,
       controller: _scrollController,
       physics: const BouncingScrollPhysics(
         parent: AlwaysScrollableScrollPhysics(),

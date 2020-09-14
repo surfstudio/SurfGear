@@ -15,7 +15,7 @@
 import 'package:event_filter/event_filter.dart';
 import 'package:example/error/standard_error_handler.dart';
 import 'package:flutter/material.dart';
-import 'package:injector/injector.dart';
+import 'package:surf_injector/surf_injector.dart';
 import 'package:mwwm/mwwm.dart';
 
 /// [Component] for screen MainScreen

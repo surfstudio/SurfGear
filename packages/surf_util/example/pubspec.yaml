@@ -15,8 +15,7 @@ dependencies:
   surf_util:
     path: ..
 
-  relation:
-    path: ../../relation
+  relation: ^0.0.3-dev.1
 
 dev_dependencies:
   flutter_test:

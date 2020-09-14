@@ -1,25 +1,27 @@
 name: keyboard_listener
+version: "1.0.0-dev.4"
 description: Keyboard listener created only on Flutter
-version: 1.0.0-dev.0
-
-environment:
-  sdk: ">=2.6.0 <3.0.0"
+repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/keyboard_listener"
+publish_to: none
 
 dependencies:
   flutter:
     sdk: flutter
-  surf_lint_rules:
-    path: ../surf_lint_rules
+  surf_lint_rules: "^0.0.1-dev.0"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+
 flutter:
 
 custom:
   is_stable: false
-  unstable_version: 0
+  unstable_version:
   is_plugin: false
-  path: ink_widget
+  path: keyboard_listener
   hostUrl:
+  separate_repo_url:

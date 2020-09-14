@@ -1,3 +1,17 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -18,6 +32,7 @@ class MaterialSwipeRefresh extends SwipeRefreshBase {
     Color backgroundColor,
     ScrollController scrollController,
     EdgeInsets padding,
+    bool shrinkWrap = false,
   })  : backgroundColor = backgroundColor ?? const Color(0xFFFFFFFF),
         super(
           key: key,
@@ -28,6 +43,7 @@ class MaterialSwipeRefresh extends SwipeRefreshBase {
           onRefresh: onRefresh,
           scrollController: scrollController,
           padding: padding,
+          shrinkWrap: shrinkWrap,
         );
 
   final Color indicatorColor;
@@ -48,12 +64,14 @@ class _MaterialSwipeRefreshState
       backgroundColor: widget.backgroundColor,
       child: widget.childrenDelegate == null
           ? ListView(
+              shrinkWrap: widget.shrinkWrap,
               padding: widget.padding,
               controller: widget.scrollController ?? ScrollController(),
               physics: const AlwaysScrollableScrollPhysics(),
               children: children,
             )
           : ListView.custom(
+              shrinkWrap: widget.shrinkWrap,
               padding: widget.padding,
               childrenDelegate: widget.childrenDelegate,
               controller: widget.scrollController ?? ScrollController(),

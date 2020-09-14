@@ -56,37 +56,58 @@ class SaveElementTask extends Action {
           orElse: () => null,
         );
 
-        // рассматриваем только гит сценарий, у нас других тут быть не должно,
+        // рассматриваем гит сценарий, и сценарий зависимости из pub.dev
+        // у нас других тут быть не должно,
         // при необходимости добавить с обработкой ошибок и тд
-
         GitPackageDependencySpec gitDep;
+        HostedPackageDependencySpec hostedDep;
 
         // Страшный хак конечно, но все только потому что все необходимое
         // запривачено так что не добраться.
         // TODO: В идеале бы сделать на все это свой нормальный парсер
         yamlDep.iswitch(
-            sdk: null,
-            git: (g) {
-              gitDep = g;
-            },
-            path: null,
-            hosted: null);
-
-        var updatedYamlDep = PackageDependencySpec.git(
-          GitPackageDependencySpec(
-            package: gitDep.package,
-            url: gitDep.url,
-            path: gitDep.path,
-            ref: Optional((dep as GitDependency).ref),
-          ),
+          sdk: null,
+          git: (g) {
+            gitDep = g;
+          },
+          path: null,
+          hosted: (h) {
+            hostedDep = h;
+          },
         );
 
-        var updateIndex = yamlDependencies.indexOf(yamlDep);
-        yamlDependencies.removeAt(updateIndex);
-        yamlDependencies.insert(
-          updateIndex,
-          updatedYamlDep,
-        );
+        PackageDependencySpec updatedYamlDep;
+
+        if (gitDep != null) {
+          updatedYamlDep = PackageDependencySpec.git(
+            GitPackageDependencySpec(
+              package: gitDep.package,
+              url: gitDep.url,
+              path: gitDep.path,
+              ref: Optional((dep as GitDependency).ref),
+            ),
+          );
+        }
+
+        if (hostedDep != null) {
+          updatedYamlDep = PackageDependencySpec.hosted(
+            HostedPackageDependencySpec(
+              package: hostedDep.package,
+              url: hostedDep.url,
+              version: hostedDep.version,
+              name: hostedDep.name,
+            ),
+          );
+        }
+
+        if (updatedYamlDep != null) {
+          var updateIndex = yamlDependencies.indexOf(yamlDep);
+          yamlDependencies.removeAt(updateIndex);
+          yamlDependencies.insert(
+            updateIndex,
+            updatedYamlDep,
+          );
+        }
       }
     }
 

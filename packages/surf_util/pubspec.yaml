@@ -1,37 +1,26 @@
 name: surf_util
+version: "0.0.1-dev.6"
 description: Common classes and util.
-version: 0.0.1-dev.0
-author:
-homepage:
-
-environment:
-  sdk: ">=2.6.0 <3.0.0"
+repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/surf_util"
 
 dependencies:
   flutter:
     sdk: flutter
-
-  logger:
-    path: ../logger
-
-  relation:
-    path: ../relation
-
-  swipe_refresh:
-    path: ../swipe_refresh
-
-  surf_lint_rules:
-    path: ../surf_lint_rules
+  surf_logger: "^0.0.1-dev.0"
+  surf_lint_rules: "^0.0.1-dev.0"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+
 flutter:
 
 custom:
   is_stable: false
-  unstable_version: 0
+  unstable_version:
   is_plugin: false
   path: surf_util
   separate_repo_url:
