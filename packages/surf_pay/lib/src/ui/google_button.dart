@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:surfpay/ui/assets/google_pay/google_buy_with_grey.dart';
-import 'package:surfpay/ui/assets/google_pay/google_pay_grey.dart';
-import 'package:surfpay/ui/assets/google_pay/google_pay_white.dart';
-import 'package:surfpay/ui/assets/google_pay/google_with_white.dart';
+
+import 'assets/google_pay/google_buy_with_grey.dart';
+import 'assets/google_pay/google_pay_grey.dart';
+import 'assets/google_pay/google_pay_white.dart';
+import 'assets/google_pay/google_with_white.dart';
 
 const _backgroundColorWhite = Color(0xFFFFFFFF);
 const _backGroundColorBlack = Color(0xFF000000);
@@ -77,7 +78,6 @@ class GoogleButton extends StatelessWidget {
     return style != AndroidButtonStyle.whiteWithBorder
         ? null
         : Border.all(
-            width: 1,
             color: Colors.grey[300],
           );
   }

@@ -1,21 +1,20 @@
+import 'package:surfpay/src/data/apple_payment_request.dart';
+
 const String priceArg = 'price';
 const String merchantInfoArg = 'merchantInfo';
 const String phoneNumberRequiredArg = 'phoneNumberRequired';
 const String allowedCountryCodesArg = 'allowedCountryCodes';
 const String shippingAddressRequiredArg = 'shippingAddressRequired';
-const String countryCodeArg = 'countryCode';
-const String currencyCodeArg = 'currencyCode';
 
 class GooglePaymentRequest {
-  GooglePaymentRequest(
-    this.price,
-    this.merchantInfo,
+  GooglePaymentRequest(this.price,
+      this.merchantInfo,
+    // ignore: avoid_positional_boolean_parameters
     this.phoneNumberRequired,
-    this.allowedCountryCodes,
-    this.shippingAddressRequired,
-    this.countryCode,
-    this.currencyCode,
-  );
+      this.allowedCountryCodes,
+      this.shippingAddressRequired,
+      this.countryCode,
+      this.currencyCode,);
 
   final String price;
   final Map<String, String> merchantInfo;
@@ -25,8 +24,8 @@ class GooglePaymentRequest {
   final String countryCode;
   final String currencyCode;
 
-  Map<String, dynamic> map() {
-    return <String, dynamic>{
+  Map<String, Object> map() {
+    return <String, Object>{
       priceArg: price,
       merchantInfoArg: merchantInfo,
       phoneNumberRequiredArg: phoneNumberRequired,

@@ -1,4 +1,4 @@
-import 'package:surfpay/data/payment_item.dart';
+import 'payment_item.dart';
 
 const String itemsArg = 'items';
 const String countryCodeArg = 'countryCode';
@@ -17,9 +17,9 @@ class ApplePaymentRequest {
   final String countryCode;
 
   /// Cast to Map for sanding to native
-  Map<String, dynamic> map() {
-    return <String, dynamic>{
-      itemsArg: items.map((e) => e.map()).toList(),
+  Map<String, Object> map() {
+    return <String, Object>{
+      itemsArg: items.map((item) => item.map()).toList(),
       currencyCodeArg: currencyCode,
       countryCodeArg: countryCode,
     };

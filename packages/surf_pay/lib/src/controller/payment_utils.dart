@@ -1,4 +1,4 @@
-import 'package:surfpay/data/payment_status.dart';
+import '../data/payment_status.dart';
 
 /// Transform RawValue to Error
 PaymentErrorStatus getPaymentErrorStatus(int errorStatus) {

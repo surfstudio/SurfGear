@@ -20,8 +20,8 @@ class ApplePayData {
   final List<PaymentNetwork> supportedNetworks;
 
   /// Cast to Map for sanding to native part
-  Map<String, dynamic> map() {
-    return <String, dynamic>{
+  Map<String, Object> map() {
+    return <String, Object>{
       merchantIdentifierArg: merchantIdentifier,
       merchantCapabilitiesArg: merchantCapabilities.value,
       supportedNetworksArg:
@@ -90,7 +90,7 @@ class PaymentNetwork {
   static const interac = PaymentNetwork._('Interac');
 
   //available(iOS 10.1, *)
-  static const JCB = PaymentNetwork._('JCB');
+  static const jcb = PaymentNetwork._('JCB');
 
   //available(iOS 12.1.1, *)
   static const mada = PaymentNetwork._('mada');

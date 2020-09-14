@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_svg: 0.17.4
+  flutter_svg: 0.19.0
 
   surf_lint_rules:
     path: ../surf_lint_rules

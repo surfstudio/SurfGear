@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:surfpay/ui/assets/apple_pay/apple_buy_with_dark.dart';
-import 'package:surfpay/ui/assets/apple_pay/apple_buy_with_white.dart';
-import 'package:surfpay/ui/assets/apple_pay/apple_pay_dark.dart';
-import 'package:surfpay/ui/assets/apple_pay/apple_pay_white.dart';
+
+import 'assets/apple_pay/apple_buy_with_dark.dart';
+import 'assets/apple_pay/apple_buy_with_white.dart';
+import 'assets/apple_pay/apple_pay_dark.dart';
+import 'assets/apple_pay/apple_pay_white.dart';
 
 const _backgroundColorWhite = Color(0xFFFFFFFF);
 const _backGroundColorBlack = Color(0xFF000000);
@@ -76,7 +77,6 @@ class AppleButton extends StatelessWidget {
     return style != IOSButtonStyle.white
         ? null
         : Border.all(
-            width: 1,
             color: Colors.black,
           );
   }

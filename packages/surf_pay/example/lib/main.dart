@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:surfpay/data/apple_pay_data.dart';
-import 'package:surfpay/data/google_pay_data.dart';
 import 'package:surfpay/surfpay.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -22,7 +22,6 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
           child: Surfpay(
-
             applePayData: ApplePayData(
               MerchantCapabilities.capability3DS,
               'merchant.example.surfpay',
@@ -50,9 +49,12 @@ class _MyAppState extends State<MyApp> {
               'PAYMENT_GATEWAY',
             ),
             onSuccess: (status) {
+              // ignore: avoid_print
               print('End with status - $status');
             },
+            // ignore: avoid_print
             onCancel: () => print('Canceled'),
+            // ignore: avoid_print
             onError: (_) => print('Error'),
           ),
         ),

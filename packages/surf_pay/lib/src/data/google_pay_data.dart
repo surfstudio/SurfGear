@@ -12,6 +12,7 @@ class GooglePayData {
   GooglePayData(
     this.allowedAuthMethods,
     this.allowedCardNetworks,
+    // ignore: avoid_positional_boolean_parameters
     this.billingAddressRequired,
     this.billingAddressParameters,
     this.cardPaymentMethod,
@@ -36,8 +37,8 @@ class GooglePayData {
   final String cardPaymentMethod;
 
   /// Cast to Map for sanding to native
-  Map<String, dynamic> map() {
-    return <String, dynamic>{
+  Map<String, Object> map() {
+    return <String, Object>{
       allowedAuthMethodsArg: allowedAuthMethods,
       allowedCardNetworksArg: allowedCardNetworks,
       billingAddressRequiredArg: billingAddressRequired,

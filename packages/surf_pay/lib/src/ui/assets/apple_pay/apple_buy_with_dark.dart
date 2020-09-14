@@ -1,4 +1,4 @@
-const String googleBuyWithGrey = """
+const String appleBuyWithDark = '''
 <svg xmlns="http://www.w3.org/2000/svg"
     width="104"
     height="17"
@@ -44,4 +44,4 @@ const String googleBuyWithGrey = """
       fill="#E94235"
       stroke="#E94235"/>
 </svg>
-""";
+''';

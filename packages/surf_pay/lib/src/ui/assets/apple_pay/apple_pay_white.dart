@@ -1,4 +1,4 @@
-const String applePayWhite = """
+const String applePayWhite = '''
 <svg  xmlns="http://www.w3.org/2000/svg"
 	 width="165.52107px" 
 	 height="105.9651px" 
@@ -29,4 +29,4 @@ const String applePayWhite = """
 				z"/>
 		</g>
 </svg>
-""";
+''';

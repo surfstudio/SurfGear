@@ -3,12 +3,13 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:surfpay/controller/payment_utils.dart';
-import 'package:surfpay/data/apple_pay_data.dart';
-import 'package:surfpay/data/apple_payment_request.dart';
-import 'package:surfpay/data/google_pay_data.dart';
-import 'package:surfpay/data/goole_payment_request.dart';
-import 'package:surfpay/data/payment_status.dart';
+
+import '../data/apple_pay_data.dart';
+import '../data/apple_payment_request.dart';
+import '../data/google_pay_data.dart';
+import '../data/goole_payment_request.dart';
+import '../data/payment_status.dart';
+import 'payment_utils.dart';
 
 /// Channel
 const String channelName = 'surfpay';
@@ -36,7 +37,7 @@ const String paymentTokenTransition = 'paymentTokenTransition';
 const String paymentTokenNetwork = 'paymentTokenNetwork';
 
 /// On success payment callback, payment data only on Android
-typedef SuccessCallback = Function(Map<String, dynamic> paymentData);
+typedef SuccessCallback = Function(Map<String, Object> paymentData);
 
 /// On payment error callback
 typedef ErrorCallback = Function(PaymentErrorStatus);
@@ -99,7 +100,7 @@ class PaymentController {
   ) {
     _channel.invokeMethod<void>(
       initMethod,
-      <String, dynamic>{
+      <String, Object>{
         ...googlePayData.map(),
         ...applePayData.map(),
         isTest: isTestEnvironment,
@@ -113,11 +114,11 @@ class PaymentController {
       (call) async {
         switch (call.method) {
           case onSuccessCallback:
-            var paymentData = <String, dynamic>{};
+            var paymentData = <String, Object>{};
             if (call.arguments[onSuccessData] != null) {
               paymentData = jsonDecode(
                 call.arguments[onSuccessData] as String,
-              ) as Map<String, dynamic>;
+              ) as Map<String, Object>;
             }
             onSuccess?.call(paymentData);
             break;
@@ -153,7 +154,7 @@ class PaymentController {
 
   /// callback for payment token, only IOS
   Future<bool> onPaymentToken(MethodCall call) {
-    final params = call.arguments as Map<dynamic, dynamic>;
+    final params = call.arguments as Map<Object, Object>;
 
     final data = params[paymentTokenData] as String;
     final transition = params[paymentTokenTransition] as String;
