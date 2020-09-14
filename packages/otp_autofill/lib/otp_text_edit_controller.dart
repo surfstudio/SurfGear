@@ -61,7 +61,8 @@ class OTPTextEditController extends TextEditingController {
     ]).first.then((value) {
       stopListen();
       text = codeExtractor(value);
-    }).catchError((_) {
+      //ignore: avoid_types_on_closure_parameters
+    }).catchError((Object _) {
       stopListen();
       onTimeOutException?.call();
     });
@@ -72,10 +73,12 @@ class OTPTextEditController extends TextEditingController {
   /// could be added another input as OTPStrategy
   void startListenRetriever(
     ExtractStringCallback codeExtractor, {
-    List<OTPStrategy> strategies,
+    List<OTPStrategy> additionalStrategies,
   }) {
     final smsListen = _otpInteractor.startListenRetriever();
-    final strategiesListen = strategies?.map((e) => e.listenForCode());
+    final strategiesListen = additionalStrategies?.map(
+      (e) => e.listenForCode(),
+    );
 
     Stream.fromFutures([
       if (Platform.isAndroid) smsListen,
@@ -83,7 +86,8 @@ class OTPTextEditController extends TextEditingController {
     ]).first.then((value) {
       stopListen();
       text = codeExtractor(value);
-    }).catchError((_) {
+      //ignore: avoid_types_on_closure_parameters
+    }).catchError((Object _) {
       stopListen();
       onTimeOutException?.call();
     });
@@ -104,7 +108,7 @@ class OTPTextEditController extends TextEditingController {
   }
 
   /// Broadcast receiver stop listen for OTP code, use in dispose
-  Future<dynamic> stopListen() {
+  Future<Object> stopListen() {
     return _otpInteractor.stopListenForCode();
   }
 

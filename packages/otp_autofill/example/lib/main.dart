@@ -7,10 +7,12 @@ import 'package:otp_autofill/otp_text_edit_controller.dart';
 import 'package:otp_autofill_example/sample_strategy.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -23,9 +25,11 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     OTPInteractor.getAppSignature()
+        //ignore: avoid_print
         .then((value) => print('signature - $value'));
     controller = OTPTextEditController(
       codeLength: 5,
+      //ignore: avoid_print
       onCodeReceive: (code) => print('Your Application receive code - $code'),
     )..startListenUserConsent(
         (code) {

@@ -16,6 +16,7 @@ typedef ExtractStringCallback = String Function(String);
 
 /// Strategy interface, another variant of code input
 /// e.g. from push notification or for testing
+// ignore: one_member_abstracts
 abstract class OTPStrategy {
   Future<String> listenForCode();
 }

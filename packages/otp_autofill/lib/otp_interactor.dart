@@ -15,6 +15,7 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:otp_autofill/base/exceptions.dart';
 
 typedef StringCallback = void Function(String);
 
@@ -40,7 +41,7 @@ class OTPInteractor {
     if (Platform.isAndroid) {
       return _channel.invokeMethod(getTelephoneHint);
     } else {
-      return Future.value(null);
+      return throw UnsupportedPlatform();
     }
   }
 
@@ -49,13 +50,13 @@ class OTPInteractor {
     if (Platform.isAndroid) {
       return _channel.invokeMethod(getAppSignatureMethod);
     } else {
-      return null;
+      return throw UnsupportedPlatform();
     }
   }
 
   /// Broadcast receiver stop listen for OTP code, use in dispose
-  Future<dynamic> stopListenForCode() {
-    return _channel.invokeMethod<dynamic>(stopListenForCodeMethod);
+  Future<Object> stopListenForCode() {
+    return _channel.invokeMethod<Object>(stopListenForCodeMethod);
   }
 
   /// Broadcast receiver start listen for OTP code with User Consent API
@@ -68,7 +69,7 @@ class OTPInteractor {
         },
       );
     } else {
-      return null;
+      throw UnsupportedPlatform();
     }
   }
 
@@ -77,7 +78,7 @@ class OTPInteractor {
     if (Platform.isAndroid) {
       return _channel.invokeMethod<String>(startListenRetrieverMethod);
     } else {
-      return null;
+      throw UnsupportedPlatform();
     }
   }
 }
