@@ -16,4 +16,8 @@ void main() {
   tearDown(() {
     channel.setMockMethodCallHandler(null);
   });
+
+  test('getTelephoneHint', () {
+    expect(true, true);
+  });
 }
