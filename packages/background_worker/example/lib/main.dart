@@ -1,3 +1,17 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:convert';
 
 import 'package:background_worker/background_worker.dart';
@@ -78,14 +92,14 @@ class _MainScreenState extends State<MainScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.play_arrow,
               size: 30,
             ),
             onPressed: _backgroundWorker.start,
           ),
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.stop,
               size: 30,
             ),
@@ -103,8 +117,8 @@ Future<List<Data>> backgroundWork(dynamic _) async {
   final String json = response.body;
   // ignore: avoid_print
   print(json);
-  return (jsonDecode(json) as List<Map<String, Object>>)
-      .map<Data>((json) => Data.fromJson(json))
+  return (jsonDecode(json) as List<Object>)
+      .map<Data>((json) => Data.fromJson(json as Map<String, Object>))
       .toList();
 }
 

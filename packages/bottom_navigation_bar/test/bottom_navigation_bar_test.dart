@@ -62,7 +62,7 @@ Widget _buildButton(Key key, bool isSelected, Color color) {
     height: 100,
     color: color,
     child: isSelected
-        ? Center(
+        ? const Center(
             child: Icon(Icons.check),
           )
         : Container(),

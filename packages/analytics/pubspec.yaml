@@ -1,30 +1,28 @@
 name: analytics
-description: A new Flutter package project.
-version: 0.0.1-dev.0
-author:
-homepage:
-
-environment:
-  sdk: ">=2.6.0 <3.0.0"
+version: "0.0.1-dev.3"
+description: |
+  Interface for working with analytic services. The library is supposed to unify work with various analytic services.
+  
+repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/analytics"
 
 dependencies:
   flutter:
     sdk: flutter
-  
-  logger:
-    path: ../logger
-  surf_lint_rules:
-    path: ../surf_lint_rules
+  logger: ^0.9.2
+  surf_lint_rules: "^0.0.1-dev.0"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+
 flutter:
 
 custom:
   is_stable: false
-  unstable_version: 0
+  unstable_version:
   is_plugin: false
   path: analytics
   separate_repo_url:

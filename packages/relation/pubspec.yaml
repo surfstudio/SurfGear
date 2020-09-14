@@ -1,32 +1,28 @@
 name: relation
+version: "0.0.3-dev.2"
 description: the stream representation of the relations of the entities and widget utilities
-version: 0.0.2
-homepage: https://github.com/surfstudio/relation
-
-environment:
-  sdk: ">=2.6.0 <3.0.0"
+homepage: "https://github.com/surfstudio/relation"
 
 dependencies:
   flutter:
     sdk: flutter
-
-  #rx
   rxdart: ^0.24.0
-
-  surf_lint_rules:
-    path: ../surf_lint_rules
+  surf_lint_rules: "^0.0.1-dev.0"
   pedantic: ^1.9.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+
 flutter:
 
 custom:
   is_stable: false
-  unstable_version: 0
+  unstable_version:
   is_plugin: false
   path: relation
-  separate_repo_url: https://github.com/surfstudio/relation
+  separate_repo_url: "https://github.com/surfstudio/relation"
   hostUrl:

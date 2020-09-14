@@ -1,3 +1,17 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
@@ -5,6 +19,7 @@ void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -68,9 +83,9 @@ class _MyHomePageState extends State<MyHomePage> {
       maxHeight: .8,
       headerHeight: 200,
       context: context,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.teal,
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           topLeft: Radius.circular(40.0),
           topRight: Radius.circular(40.0),
         ),
@@ -87,7 +102,12 @@ class _MyHomePageState extends State<MyHomePage> {
               topRight: Radius.circular(offset == 0.8 ? 0 : 40),
             ),
           ),
-          child: Text('Заголовок', style: TextStyle(color: Colors.black)),
+          child: const Text(
+            'Заголовок',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
         );
       },
       builder: (context, offset) {
@@ -154,7 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _buildTextField() => TextField(
+  Widget _buildTextField() => const TextField(
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: 'Enter a search term',

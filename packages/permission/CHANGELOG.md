@@ -1,3 +1,7 @@
-## [0.0.1] - TODO: Add release date.
+## 0.0.1-dev.4
 
-* TODO: Describe initial release.
+* Fix lint hints
+
+## 0.0.1-dev.0
+
+* Initial release

@@ -1,12 +1,9 @@
 name: surf_lint_rules
-description: A new Flutter package.
-version: 0.0.1
-author:
-homepage:
-
-environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.17.0 <2.0.0"
+version: "0.0.2-dev.1"
+description: |
+  Lint rules for "Surf" company for Dart and Flutter projects. Like pedantic but stricter.
+  
+repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/surf_lint_rules"
 
 dependencies:
   flutter:
@@ -16,11 +13,15 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0 <2.0.0"
+
 flutter:
 
 custom:
   is_stable: false
-  unstable_version: 0
+  unstable_version:
   is_plugin: false
   path: surf_lint_rules
   separate_repo_url:
