@@ -1,1 +1,0 @@
-/Users/osipov-e/Library/Application Support/Code/User/snippets
