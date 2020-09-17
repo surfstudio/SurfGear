@@ -42,15 +42,11 @@ class UpdateVersionsDependingOnModuleTask implements Action {
   }
 
   /// Элемент должен отличаться только версией
-  bool _checkElement(Dependency dependency, Element element) {
-    if (dependency is HostedDependency &&
-        !dependency.thirdParty &&
-        dependency.element?.name == element.name &&
-        dependency.version != element.version) {
-      return true;
-    }
-    return false;
-  }
+  bool _checkElement(Dependency dependency, Element element) =>
+      dependency is HostedDependency &&
+      !dependency.thirdParty &&
+      dependency.element?.name == element.name &&
+      dependency.version != element.version;
 
   Dependency _updateDependency(Dependency oldDependency, Element newElement) {
     switch (oldDependency.runtimeType) {
