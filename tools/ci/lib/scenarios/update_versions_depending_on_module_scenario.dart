@@ -7,7 +7,7 @@ import 'package:ci/tasks/tasks.dart';
 /// Инкрементирует версию в зависимых от модуля элементов рекурсивно.
 /// Обновляет Element в [List<Dependency>]
 ///
-/// dart ci update_versions_depending
+/// dart ci update_depending_elements
 class UpdateVersionsDependingOnModuleScenario extends ChangedElementScenario {
   static const String commandName = 'update_depending_elements';
 
