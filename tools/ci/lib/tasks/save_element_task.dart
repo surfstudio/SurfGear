@@ -96,9 +96,8 @@ class SaveElementTask extends Action {
               package: hostedDep.package,
               url: hostedDep.url,
               version: dep is HostedDependency
-                  ? Optional(caret + dep.version)
+                  ? Optional(dep.version)
                   : hostedDep.version,
-              // version: hostedDep.version,
               name: hostedDep.name,
             ),
           );
