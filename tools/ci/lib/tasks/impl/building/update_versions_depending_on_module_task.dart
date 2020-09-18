@@ -1,6 +1,7 @@
 import 'package:ci/domain/dependency.dart';
 import 'package:ci/domain/element.dart';
 import 'package:ci/tasks/core/task.dart';
+import 'package:ci/utils/string_util.dart';
 
 /// Обновляет Element в зависимых модулях
 class UpdateVersionsDependingOnModuleTask implements Action {
@@ -54,7 +55,7 @@ class UpdateVersionsDependingOnModuleTask implements Action {
         return HostedDependency.byTemplate(
           oldDependency,
           element: newElement,
-          version: newElement.version,
+          version: caret + newElement.version,
         );
       default:
         return oldDependency;
