@@ -9,10 +9,13 @@ class IncrementDevVersionTask extends Action {
 
   @override
   Future<Element> run() async {
-    return Element.byTemplate(
-      element,
-      version: _getIncrementVersion(),
-    );
+    if (!element.isStable && element.changed)
+      return Element.byTemplate(
+        element,
+        version: _getIncrementVersion(),
+      );
+
+    return element;
   }
 
   ///todo сделать сброс счетчика

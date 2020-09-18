@@ -23,7 +23,7 @@ void main() {
       );
 
       test(
-        'If the element is stable but has been changed , it returns same version.',
+        'If the element is stable but has been changed, it returns same version.',
         () async {
           var res =
               await _prepareTestTask(isStable: true, isChanged: true).run();
