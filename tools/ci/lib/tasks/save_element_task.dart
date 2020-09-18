@@ -98,7 +98,6 @@ class SaveElementTask extends Action {
               version: dep is HostedDependency
                   ? Optional(caret + dep.version)
                   : hostedDep.version,
-              // version: hostedDep.version,
               name: hostedDep.name,
             ),
           );
