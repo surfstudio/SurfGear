@@ -18,10 +18,12 @@ class FindChangedModulesScenario extends Scenario {
 
   @override
   Map<String, String> getCommandsHelp() => {
-        commandName: 'A script to search for modified items and write a list to a file.',
+        commandName:
+            'A script to search for modified items and write a list to a file.',
       };
 
-  FindChangedModulesScenario(Command command, PubspecParser pubspecParser) : super(command, pubspecParser);
+  FindChangedModulesScenario(Command command, PubspecParser pubspecParser)
+      : super(command, pubspecParser);
 
   @override
   Future<void> validate(Command command) async {

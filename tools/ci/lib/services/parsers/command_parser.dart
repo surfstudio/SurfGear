@@ -22,6 +22,7 @@ import 'package:ci/scenarios/publish_unstable_modules_scenario.dart';
 import 'package:ci/scenarios/run_test_scenario.dart';
 import 'package:ci/scenarios/show_dependency_graph_scenario.dart';
 import 'package:ci/scenarios/show_help_scenario.dart';
+import 'package:ci/scenarios/update_versions_depending_on_module_scenario.dart';
 import 'package:ci/scenarios/upgrade_project_tag_scenario.dart';
 import 'package:ci/scenarios/write_release_note_scenario.dart';
 import 'package:ci/utils/arg_results_extension.dart';
@@ -147,7 +148,7 @@ class CommandParser {
       /// run_tests
       ..addCommand(RunTestScenario.commandName)
 
-      ///publish
+      /// publish
       ..addCommand(
           PublishModulesScenario.commandName,
           ArgParser()
@@ -171,14 +172,17 @@ class CommandParser {
       /// help
       ..addFlag(helpFlag, negatable: false, abbr: helpAbbr)
 
-      //mirror
+      /// mirror
       ..addCommand(
         MirrorOpenSourceModuleScenario.commandName,
         ArgParser()
           ..addOption(
             MirrorOpenSourceModuleScenario.branchNameParam,
           ),
-      );
+      )
+
+      /// Update depending elements
+      ..addCommand(UpdateVersionsDependingOnModuleScenario.commandName);
   }
 
   /// Проверяем, требовался ли вызов help, если нет, то запускаем команду

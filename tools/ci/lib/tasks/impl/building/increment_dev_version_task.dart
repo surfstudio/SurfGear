@@ -9,13 +9,6 @@ class IncrementDevVersionTask extends Action {
 
   @override
   Future<Element> run() async {
-    if (!element.isStable && element.changed) {
-      return Element.byTemplate(
-        element,
-        version: _getIncrementVersion(),
-      );
-    }
-
     return Element.byTemplate(
       element,
       version: _getIncrementVersion(),

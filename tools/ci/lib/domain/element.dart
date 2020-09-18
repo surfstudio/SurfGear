@@ -66,7 +66,7 @@ class Element {
     this.changed = false,
   });
 
-  /// Создадим новый Element по образцу старого
+  /// Создадим новый Element по шаблону старого
   Element.byTemplate(
       Element oldElement, {
         String name,

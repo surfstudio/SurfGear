@@ -12,6 +12,7 @@ import 'package:ci/scenarios/check_version_in_release_note_scenario.dart';
 import 'package:ci/scenarios/clear_changed_scenario.dart';
 import 'package:ci/scenarios/find_changed_modules_scenario.dart';
 import 'package:ci/scenarios/increment_dev_unstable_versions_scenario.dart';
+import 'package:ci/scenarios/update_versions_depending_on_module_scenario.dart';
 import 'package:ci/scenarios/increment_unstable_versions_scenario.dart';
 import 'package:ci/scenarios/mirror_opensource_module_scenario.dart';
 import 'package:ci/scenarios/publish_unstable_modules_scenario.dart';
@@ -69,4 +70,6 @@ Map<String, ScenarioBuilder> scenarioMap = <String, ScenarioBuilder>{
       ShowDependencyGraphScenario(command, parser),
   MirrorOpenSourceModuleScenario.commandName: (command, parser) =>
       MirrorOpenSourceModuleScenario(command, parser),
+  UpdateVersionsDependingOnModuleScenario.commandName: (command, parser) =>
+      UpdateVersionsDependingOnModuleScenario(command, parser),
 };
