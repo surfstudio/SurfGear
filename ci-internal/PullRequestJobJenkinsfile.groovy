@@ -45,7 +45,7 @@ def STAGE_DOCKER = "Docker Flutter"
 // def pipeline = new PrPipelineFlutter(this)
 // pipeline.dockerImageName = "cirrusci/flutter:dev"
 //
-def dockerImageName = "cirrusci/flutter:1.20.3"
+def dockerImageName = "cirrusci/flutter:1.20.4"
 def dockerArguments = "-it -v \${PWD}:/build --workdir /build"
 
 
