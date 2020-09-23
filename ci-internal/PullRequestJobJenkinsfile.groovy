@@ -109,7 +109,8 @@ def script = this
 def pipeline = new EmptyScmPipeline(script)
 
 pipeline.init()
-pipeline.node = NodeProvider.getAndroidFlutterNode()
+pipeline.node = "android-1"
+// /* NodeProvider.getAndroidFlutterNode() */
 
 //configuration
 pipeline.propertiesProvider = {
