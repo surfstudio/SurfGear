@@ -28,7 +28,7 @@ class EntityStreamedState<T> extends StreamedState<EntityState<T>>
   }
 
   @override
-  Future<void> error([Exception error]) {
+  Future<void> error([Object error]) {
     final newState = EntityState<T>.error(error);
     return super.accept(newState);
   }
@@ -55,7 +55,7 @@ class EntityState<T> {
         hasError = false;
 
   /// Error constructor
-  EntityState.error([Exception error, this.data])
+  EntityState.error([Object error, this.data])
       : isLoading = false,
         hasError = true,
         error = ExceptionWrapper(error);
