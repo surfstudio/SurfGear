@@ -289,15 +289,6 @@ Future<void> updateVersionsDependingOnModule(
       dependents[i] = await IncrementDevVersionTask(dependents[i]).run();
     }
 
-    /// обновляем элементы с изменной зависимостью
-    for (var element in allElements) {
-      for (var dependent in dependents) {
-        if (element.name == dependent.name) {
-          element = dependent;
-        }
-      }
-    }
-
     dependents =
         await UpdateVersionsDependingOnModuleTask(allElements, dependents)
             .run();
