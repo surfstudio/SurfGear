@@ -1,0 +1,25 @@
+name: surf_text_input_formatter
+description: A library containing a TextInputFormatter with an arbitrary number of spaces
+version: 0.0.1
+homepage: https://github.com/surfstudio/surf_text_input_formatter
+
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+custom:
+  is_stable: false
+  unstable_version: 0
+  is_plugin: false
+  path: surf_text_input_formatter
+  separate_repo_url:
+  hostUrl:
