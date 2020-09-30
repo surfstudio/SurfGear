@@ -33,7 +33,8 @@ class CounterRepository {
         .get(keyCounter, 0)
         .then((i) => Counter(i as int ?? 0))
         .catchError(
-      (e) {
+      // ignore: avoid_annotating_with_dynamic
+      (dynamic e) {
         // ignore: avoid_print
         print('DEV_ERROR ${e.toString()}');
         return Counter(0);

@@ -34,7 +34,11 @@ class DefaultHttp extends Http {
   final HttpConfig config;
   final StatusCodeMapper errorMapper;
 
-  DefaultHttp({this.headersBuilder, this.config, this.errorMapper});
+  DefaultHttp({
+    this.headersBuilder,
+    this.config,
+    this.errorMapper,
+  });
 
   ///GET- request
   @override
@@ -192,14 +196,13 @@ class DefaultHttp extends Http {
 
   Response<T> _toResponse<T>(http.Response r) {
     logger.d("${r.statusCode} | ${r.body}");
-    final response = Response<T>(r.body as Object, r.statusCode);
+    final Object body = r.body;
+    final response = Response<T>(body, r.statusCode);
     if (response.statusCode == 400) {
       mapError(response);
     }
     return response;
   }
 
-  Object mapError(Response e) {
-    errorMapper?.checkStatus(e);
-  }
+  mapError(Response e) => errorMapper?.checkStatus(e);
 }

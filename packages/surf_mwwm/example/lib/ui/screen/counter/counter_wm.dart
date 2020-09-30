@@ -57,7 +57,7 @@ class CounterWidgetModel extends WidgetModel {
       ),
     );
 
-    subscribe(
+    subscribe<int>(
       counterState.stream.where((c) => c.isEven).skip(1),
       (c) {
         navigator.push(

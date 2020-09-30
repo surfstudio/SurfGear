@@ -56,7 +56,7 @@ class _PaginationMixedListDemo extends State<PaginationMixedListDemo> {
         itemsController.sink.add(response);
         paginationController.sink.add(PaginationState.none);
       }
-      // ignore: avoid_types_on_closure_parameters
+      // ignore: avoid_annotating_with_dynamic
     }).catchError((dynamic error) {
       paginationController.sink.add(PaginationState.error);
     });

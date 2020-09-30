@@ -6,6 +6,7 @@ repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/template
 dependencies:
   flutter:
     sdk: flutter
+  pedantic: ^1.9.0
   surf_network: ^0.0.1-dev.0
   surf_logger: ^0.0.1-dev.1
   surf_injector: ^0.0.1-dev.0

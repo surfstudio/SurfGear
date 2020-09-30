@@ -9,6 +9,7 @@ dependencies:
   tabnavigator: "^0.0.1-dev.0"
   surf_lint_rules: "^0.0.1-dev.0"
   mockito: ^4.1.1
+  pedantic: ^1.9.0
 
 dev_dependencies:
   flutter_test:

@@ -45,7 +45,7 @@ class _AppState extends State<App> {
   Widget _buildState(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey,
-      home: Scaffold(
+      home: const Scaffold(
         body: Center(
           child: Icon(
             Icons.plus_one,
