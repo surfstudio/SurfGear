@@ -12,12 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/widgets.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:srt_parser/srt_parser.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:http/http.dart' as http;
+
+enum SubtitleSource {
+  file,
+  asset,
+  network,
+}
 
 typedef SubtitleBuilder = Widget Function(BuildContext, String);
 
@@ -28,6 +37,8 @@ class VideoSubtitle extends StatefulWidget {
     Key key,
     this.asset,
     this.url,
+    this.subtitleFile,
+    this.subtitleSource,
   })  : assert(videoController != null),
         assert(builder != null),
         super(key: key);
@@ -42,7 +53,9 @@ class VideoSubtitle extends StatefulWidget {
           key: key,
           asset: asset,
           url: null,
+          subtitleFile: null,
           builder: builder,
+          subtitleSource: SubtitleSource.asset,
         );
 
   VideoSubtitle.network(
@@ -55,13 +68,32 @@ class VideoSubtitle extends StatefulWidget {
           key: key,
           url: url,
           asset: null,
+          subtitleFile: null,
           builder: builder,
+          subtitleSource: SubtitleSource.network,
+        );
+
+  VideoSubtitle.file(
+    File subtitleFile, {
+    @required VideoPlayerController videoController,
+    @required SubtitleBuilder builder,
+    Key key,
+  }) : this._(
+          videoController: videoController,
+          key: key,
+          subtitleFile: subtitleFile,
+          asset: null,
+          url: null,
+          builder: builder,
+          subtitleSource: SubtitleSource.file,
         );
 
   final VideoPlayerController videoController;
   final String asset;
   final String url;
+  final File subtitleFile;
   final SubtitleBuilder builder;
+  final SubtitleSource subtitleSource;
 
   @override
   _VideoSubtitleState createState() => _VideoSubtitleState();
@@ -74,10 +106,11 @@ class _VideoSubtitleState extends State<VideoSubtitle> {
   Subtitle _subtitle;
 
   VideoPlayerController get _videoController => widget.videoController;
-  bool get _isSubtitledFromAssets => widget.asset != null && widget.url == null;
   bool get _isPlayTaped => !_isPlaying && _videoController.value.isPlaying;
   bool get _isPauseTaped => _isPlaying && !_videoController.value.isPlaying;
   int get _currentDuration => _videoController.value.position.inMilliseconds;
+  SubtitleSource get _subtitleSource => widget.subtitleSource;
+  File get _subtitleFile => widget.subtitleFile;
 
   @override
   void initState() {
@@ -121,14 +154,23 @@ class _VideoSubtitleState extends State<VideoSubtitle> {
   }
 
   Future<List<Subtitle>> _getSubtitles() async {
-    if (_isSubtitledFromAssets) {
-      final String subtitleStr = await rootBundle.loadString(widget.asset);
-      final List<Subtitle> subtitles = parseSrt(subtitleStr);
-      return subtitles;
-    } else {
-      final http.Response response = await http.get(widget.url);
-      final List<Subtitle> subtitles = parseSrt(response.body);
-      return subtitles;
+    switch (_subtitleSource) {
+      case SubtitleSource.asset:
+        final String subtitleStr = await rootBundle.loadString(widget.asset);
+        final List<Subtitle> subtitles = parseSrt(subtitleStr);
+        return subtitles;
+      case SubtitleSource.network:
+        final http.Response response = await http.get(widget.url);
+        final List<Subtitle> subtitles = parseSrt(response.body);
+        return subtitles;
+      case SubtitleSource.file:
+        final String content = await _subtitleFile.readAsString(encoding: utf8);
+        assert(content != null && content.isNotEmpty);
+        final List<Subtitle> subtitles = parseSrt(content);
+        assert(subtitles != null && subtitles.isNotEmpty);
+        return subtitles;
+      default:
+        return null;
     }
   }
 
