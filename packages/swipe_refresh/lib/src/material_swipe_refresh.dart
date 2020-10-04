@@ -33,6 +33,8 @@ class MaterialSwipeRefresh extends SwipeRefreshBase {
     ScrollController scrollController,
     EdgeInsets padding,
     bool shrinkWrap = false,
+    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior,
+    ScrollPhysics physics,
   })  : backgroundColor = backgroundColor ?? const Color(0xFFFFFFFF),
         super(
           key: key,
@@ -44,6 +46,8 @@ class MaterialSwipeRefresh extends SwipeRefreshBase {
           scrollController: scrollController,
           padding: padding,
           shrinkWrap: shrinkWrap,
+          keyboardDismissBehavior: keyboardDismissBehavior,
+          physics: physics,
         );
 
   final Color indicatorColor;
@@ -67,7 +71,8 @@ class _MaterialSwipeRefreshState
               shrinkWrap: widget.shrinkWrap,
               padding: widget.padding,
               controller: widget.scrollController ?? ScrollController(),
-              physics: const AlwaysScrollableScrollPhysics(),
+              physics: AlwaysScrollableScrollPhysics(parent: widget.physics),
+              keyboardDismissBehavior: widget.keyboardDismissBehavior,
               children: children,
             )
           : ListView.custom(
@@ -75,7 +80,8 @@ class _MaterialSwipeRefreshState
               padding: widget.padding,
               childrenDelegate: widget.childrenDelegate,
               controller: widget.scrollController ?? ScrollController(),
-              physics: const AlwaysScrollableScrollPhysics(),
+              keyboardDismissBehavior: widget.keyboardDismissBehavior,
+              physics: AlwaysScrollableScrollPhysics(parent: widget.physics),
             ),
     );
   }
