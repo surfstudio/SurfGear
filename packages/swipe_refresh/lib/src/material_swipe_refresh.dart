@@ -71,7 +71,7 @@ class _MaterialSwipeRefreshState
               shrinkWrap: widget.shrinkWrap,
               padding: widget.padding,
               controller: widget.scrollController ?? ScrollController(),
-              physics: widget.physics ?? const AlwaysScrollableScrollPhysics(),
+              physics: AlwaysScrollableScrollPhysics(parent: widget.physics),
               keyboardDismissBehavior: widget.keyboardDismissBehavior,
               children: children,
             )
@@ -81,7 +81,7 @@ class _MaterialSwipeRefreshState
               childrenDelegate: widget.childrenDelegate,
               controller: widget.scrollController ?? ScrollController(),
               keyboardDismissBehavior: widget.keyboardDismissBehavior,
-              physics: widget.physics ?? const AlwaysScrollableScrollPhysics(),
+              physics: AlwaysScrollableScrollPhysics(parent: widget.physics),
             ),
     );
   }
