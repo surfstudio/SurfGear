@@ -1,3 +1,7 @@
+##0.0.1-dev.9
+
+* Added keyboardDismissBehavior (Material) and scroll physics
+
 ## 0.0.1-dev.7
 
 * Added shrinkWrap to Refreshers

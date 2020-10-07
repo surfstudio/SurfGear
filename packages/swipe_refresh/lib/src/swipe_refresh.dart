@@ -40,6 +40,8 @@ class SwipeRefresh extends StatelessWidget {
     this.padding,
     this.indicatorColor,
     this.shrinkWrap = false,
+    this.keyboardDismissBehavior,
+    this.physics,
     Color backgroundColor,
     double refreshTriggerPullDistance,
     double refreshIndicatorExtent,
@@ -68,6 +70,8 @@ class SwipeRefresh extends StatelessWidget {
     ScrollController scrollController,
     EdgeInsets padding,
     bool shrinkWrap = false,
+    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior,
+    ScrollPhysics physics,
   }) : this(
           SwipeRefreshStyle.adaptive,
           key: key,
@@ -83,6 +87,8 @@ class SwipeRefresh extends StatelessWidget {
           scrollController: scrollController,
           padding: padding,
           shrinkWrap: shrinkWrap,
+          keyboardDismissBehavior: keyboardDismissBehavior,
+          physics: physics,
         );
 
   /// Create refresh indicator with Material Design style.
@@ -97,6 +103,8 @@ class SwipeRefresh extends StatelessWidget {
     ScrollController scrollController,
     EdgeInsets padding,
     bool shrinkWrap = false,
+    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior,
+    ScrollPhysics physics,
   }) : this(
           SwipeRefreshStyle.material,
           key: key,
@@ -109,6 +117,8 @@ class SwipeRefresh extends StatelessWidget {
           scrollController: scrollController,
           padding: padding,
           shrinkWrap: shrinkWrap,
+          keyboardDismissBehavior: keyboardDismissBehavior,
+          physics: physics,
         );
 
   /// Create refresh indicator with Cupertino style.
@@ -124,6 +134,8 @@ class SwipeRefresh extends StatelessWidget {
     ScrollController scrollController,
     EdgeInsets padding,
     bool shrinkWrap = false,
+    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior,
+    ScrollPhysics physics,
   }) : this(
           SwipeRefreshStyle.cupertino,
           key: key,
@@ -137,6 +149,8 @@ class SwipeRefresh extends StatelessWidget {
           scrollController: scrollController,
           padding: padding,
           shrinkWrap: shrinkWrap,
+          keyboardDismissBehavior: keyboardDismissBehavior,
+          physics: physics,
         );
 
   /// Crete SwipeRefresh as common link
@@ -157,6 +171,8 @@ class SwipeRefresh extends StatelessWidget {
     ScrollController scrollController,
     EdgeInsets padding,
     bool shrinkWrap = false,
+    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior,
+    ScrollPhysics physics,
   }) {
     assert(itemBuilder != null);
     assert(itemCount != null);
@@ -175,6 +191,8 @@ class SwipeRefresh extends StatelessWidget {
       scrollController: scrollController,
       padding: padding,
       shrinkWrap: shrinkWrap,
+      keyboardDismissBehavior: keyboardDismissBehavior,
+      physics: physics,
       childrenDelegate: SliverChildBuilderDelegate(
         itemBuilder,
         childCount: itemCount,
@@ -196,6 +214,8 @@ class SwipeRefresh extends StatelessWidget {
   final SliverChildDelegate childrenDelegate;
   final EdgeInsets padding;
   final bool shrinkWrap;
+  final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
+  final ScrollPhysics physics;
 
   @override
   Widget build(BuildContext context) {
@@ -214,8 +234,10 @@ class SwipeRefresh extends StatelessWidget {
           scrollController: scrollController,
           backgroundColor: backgroundColor,
           indicatorColor: indicatorColor,
-          children: children,
           shrinkWrap: shrinkWrap,
+          keyboardDismissBehavior: keyboardDismissBehavior,
+          physics: physics,
+          children: children,
         );
       case SwipeRefreshStyle.cupertino:
         return CupertinoSwipeRefresh(
@@ -228,8 +250,9 @@ class SwipeRefresh extends StatelessWidget {
           refreshIndicatorExtent: refreshIndicatorExtent,
           refreshTriggerPullDistance: refreshTriggerPullDistance,
           indicatorBuilder: indicatorBuilder,
-          children: children,
           shrinkWrap: shrinkWrap,
+          physics: physics,
+          children: children,
         );
       case SwipeRefreshStyle.builder:
       case SwipeRefreshStyle.adaptive:

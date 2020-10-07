@@ -29,6 +29,8 @@ abstract class SwipeRefreshBase extends StatefulWidget {
     this.childrenDelegate,
     this.padding,
     this.shrinkWrap = false,
+    this.keyboardDismissBehavior,
+    this.physics,
   })  : assert((children == null || childrenDelegate == null) &&
             (children != null || childrenDelegate != null)),
         assert(stateStream != null),
@@ -43,6 +45,8 @@ abstract class SwipeRefreshBase extends StatefulWidget {
   final SliverChildDelegate childrenDelegate;
   final EdgeInsets padding;
   final bool shrinkWrap;
+  final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
+  final ScrollPhysics physics;
 
   @override
   @protected
