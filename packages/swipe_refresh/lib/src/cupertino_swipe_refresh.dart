@@ -77,11 +77,9 @@ class _CupertinoSwipeRefreshState
     return CustomScrollView(
       shrinkWrap: widget.shrinkWrap,
       controller: _scrollController,
-      physics: widget.physics == null
-          ? const BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics(),
-            )
-          : AlwaysScrollableScrollPhysics(parent: widget.physics),
+      physics: BouncingScrollPhysics(
+        parent: AlwaysScrollableScrollPhysics(parent: widget.physics),
+      ),
       slivers: <Widget>[
         CupertinoSliverRefreshControl(
           key: key,
