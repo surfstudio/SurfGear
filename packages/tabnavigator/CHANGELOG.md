@@ -1,3 +1,7 @@
+## 0.0.1-dev.5
+
+* add emptyValue to clear current tabs
+
 ## 0.0.1-dev.3
 
 * Fix lint hints

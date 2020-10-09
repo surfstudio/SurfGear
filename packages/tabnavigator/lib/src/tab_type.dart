@@ -19,6 +19,8 @@ import 'package:surf_util/surf_util.dart';
 abstract class TabType extends Enum<int> {
   const TabType(int value) : super(value);
 
+  static const emptyValue = -1;
+
   static List<TabType> values = [];
 
   static TabType defaultType;

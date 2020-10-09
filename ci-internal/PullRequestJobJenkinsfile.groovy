@@ -1,5 +1,5 @@
-@Library('surf-lib@version-3.0.0-SNAPSHOT')
-// https://gitlab.com/surfstudio/infrastructure/tools/jenkins-pipeline-lib
+@Library('surf-lib@version-4.0.0-SNAPSHOT')
+// https://github.com/surfstudio/SurfGear
 
 import ru.surfstudio.ci.*
 import ru.surfstudio.ci.pipeline.empty.EmptyScmPipeline
@@ -46,7 +46,7 @@ def STAGE_DOCKER = "Docker Flutter"
 // pipeline.dockerImageName = "cirrusci/flutter:dev"
 //
 def dockerImageName = "cirrusci/flutter:1.20.3"
-def dockerArguments = "-it -v \${PWD}:/build --workdir /build"
+def dockerArguments = "-it -u 0:0 -v \${PWD}:/build --workdir /build"
 
 
 def sourceBranch = ""
@@ -109,7 +109,8 @@ def script = this
 def pipeline = new EmptyScmPipeline(script)
 
 pipeline.init()
-pipeline.node = NodeProvider.getAndroidFlutterNode()
+pipeline.node = "android-1"
+// /* NodeProvider.getAndroidFlutterNode() */
 
 //configuration
 pipeline.propertiesProvider = {
@@ -123,15 +124,14 @@ pipeline.propertiesProvider = {
             ),
             PrPipeline.parameters(script),
             PrPipeline.triggers(script, pipeline.repoUrl),
-            script.gitLabConnection(pipeline.gitlabConnection)
     ]
 }
 
 pipeline.preExecuteStageBody = { stage ->
-    if (stage.name != PRE_MERGE) RepositoryUtil.notifyGitlabAboutStageStart(script, pipeline.repoUrl, stage.name)
+    if (stage.name != PRE_MERGE) RepositoryUtil.notifyGithubAboutStageStart(script, pipeline.repoUrl, stage.name)
 }
 pipeline.postExecuteStageBody = { stage ->
-    RepositoryUtil.notifyGitlabAboutStageFinish(script, pipeline.repoUrl, stage.name, stage.result)
+    RepositoryUtil.notifyGithubAboutStageFinish(script, pipeline.repoUrl, stage.name, stage.result)
 }
 
 pipeline.initializeBody = {

@@ -90,11 +90,18 @@ class TabNavigatorState extends State<TabNavigator> {
       });
 
     // to track clicks on the tab
-    widget.selectedTabStream.listen((tabType) {
-      if (_activeTab.value == tabType) {
-        tabObserver.onDoubleTapped(tabType);
-      }
-    });
+    widget.selectedTabStream.listen(
+      (tabType) {
+        if (tabType.value == TabType.emptyValue) {
+          _initializedTabs.clear();
+          mappedNavKeys.clear();
+        } else {
+          if (_activeTab.value == tabType) {
+            tabObserver.onDoubleTapped(tabType);
+          }
+        }
+      },
+    );
   }
 
   @override
