@@ -20,7 +20,7 @@ environment:
 flutter:
 
 custom:
-  is_stable: false
+  is_stable: true
   unstable_version:
   is_plugin: false
   path: relation
