@@ -11,3 +11,7 @@
 * Added class `RenderParametersManager`
 * Added class `RenderMetricsObject`
 * Added class `RenderMetricsBox`
+
+## 1.0.1
+### Added
+* Updated paths in Readme
