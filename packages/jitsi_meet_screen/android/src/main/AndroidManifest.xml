@@ -1,0 +1,15 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="ru.surf.jitsi_meet_screen">
+
+    <application>
+        <activity
+            android:name=".SurfJitsiMeetActivity"
+            android:label="SurfJitsiMeetActivity"
+            android:supportsPictureInPicture="true"
+            android:configChanges=
+                "screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTask"
+            tools:targetApi="n" />
+    </application>
+</manifest>

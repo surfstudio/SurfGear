@@ -28,7 +28,13 @@ import 'package:rxdart/rxdart.dart';
 ///   )
 /// ```
 class StreamedState<T> implements Event<T> {
-  /// Behaviour state for updating events
+  StreamedState([T initialData]) {
+    if (initialData != null) {
+      accept(initialData);
+    }
+  }
+
+  /// Behavior state for updating events
   final BehaviorSubject<T> stateSubject = BehaviorSubject();
 
   /// current value in stream
@@ -36,12 +42,6 @@ class StreamedState<T> implements Event<T> {
 
   @override
   Stream<T> get stream => stateSubject.stream;
-
-  StreamedState([T initialData]) {
-    if (initialData != null) {
-      accept(initialData);
-    }
-  }
 
   @override
   Future<void> accept([T data]) {

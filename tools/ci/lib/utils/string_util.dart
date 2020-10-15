@@ -2,3 +2,4 @@
 
 /// Стандартный разделитель
 const String defaultStringSeparator = ' ';
+const String caret = '^';

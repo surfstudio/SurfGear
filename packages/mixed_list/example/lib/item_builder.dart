@@ -1,3 +1,17 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:example/items/circle.dart';
 import 'package:example/items/post.dart';
 import 'package:example/items/user.dart';
@@ -7,15 +21,15 @@ import 'package:mixed_list/mixed_list.dart';
 
 class PostBuilder extends ItemBuilder<Post> {
   @override
-  Widget build(BuildContext context, Post posts) {
+  Widget build(BuildContext context, data) {
     return Padding(
       padding: const EdgeInsets.only(top: 4.0, bottom: 4),
       child: Card(
         child: Column(
           children: <Widget>[
-            Text("POST ITEM ${posts.id}"),
+            Text('POST ITEM ${data.id}'),
             Text(
-              posts.body,
+              data.body,
             ),
           ],
         ),
@@ -32,7 +46,7 @@ class CircleBuilder extends ItemBuilder<Circle> {
       child: Container(
         width: 64,
         height: 64,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.blueAccent,
           shape: BoxShape.circle,
         ),

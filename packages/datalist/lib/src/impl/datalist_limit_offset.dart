@@ -1,6 +1,21 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:collection';
 import 'dart:core';
 
+import 'package:datalist/datalist.dart';
 import 'package:datalist/src/datalist.dart';
 import 'package:datalist/src/exceptions.dart';
 
@@ -10,6 +25,23 @@ import 'package:datalist/src/exceptions.dart';
 ///
 /// @param <T> Item
 class OffsetDataList<T> extends DataList<T> {
+  OffsetDataList({
+    this.data,
+    this.limit = 0,
+    this.offset = 0,
+    this.totalCount = 0,
+  }) : super(data);
+
+  /// Creating an Empty DataList
+  factory OffsetDataList.empty() {
+    return OffsetDataList<T>(data: []);
+  }
+
+  /// Creating an empty DataList with a limit on the maximum number of elements
+  factory OffsetDataList.emptyWithTotal(int totalCount) {
+    return OffsetDataList(data: [], totalCount: totalCount);
+  }
+
   /// Item count in List
   int limit;
 
@@ -20,24 +52,9 @@ class OffsetDataList<T> extends DataList<T> {
   int totalCount;
 
   /// List of items
+  @override
+  // ignore: overridden_fields
   List<T> data;
-
-  /// Creating an Empty DataList
-  factory OffsetDataList.empty() {
-    return new OffsetDataList<T>(data: []);
-  }
-
-  /// Creating an empty DataList with a limit on the maximum number of elements
-  factory OffsetDataList.emptyWithTotal(int totalCount) {
-    return new OffsetDataList(data: [], totalCount: totalCount);
-  }
-
-  OffsetDataList({
-    this.data,
-    this.limit = 0,
-    this.offset = 0,
-    this.totalCount = 0,
-  }) : super(data);
 
   /// Merge two DataList
   ///
@@ -45,26 +62,29 @@ class OffsetDataList<T> extends DataList<T> {
   /// @return current instance
   @override
   DataList<T> merge(DataList<T> _data) {
-    OffsetDataList data = _data as OffsetDataList;
+    final OffsetDataList data = _data as OffsetDataList;
 
-    bool reverse = data.offset < this.offset;
-    List<T> merged = _tryMerge(reverse ? data : this, reverse ? this : data);
+    final bool reverse = data.offset < offset;
+    final List<T> merged = _tryMerge(
+      (reverse ? data : this) as OffsetDataList<T>,
+      (reverse ? this : data) as OffsetDataList<T>,
+    );
     if (merged == null) {
       //Отрезки данных не совпадают, слияние не возможно
-      throw IncompatibleRangesException("incorrect data range");
+      throw IncompatibleRangesException('incorrect data range');
     }
     this.data.clear();
     this.data.addAll(merged);
-    if (this.offset < data.offset) {
-      this.limit = data.offset + data.limit - this.offset;
-    } else if (this.offset == data.offset) {
-      this.limit = data.limit;
+    if (offset < data.offset) {
+      limit = data.offset + data.limit - offset;
+    } else if (offset == data.offset) {
+      limit = data.limit;
     } else {
-      this.offset = data.offset;
-      this.limit = length;
+      offset = data.offset;
+      limit = length;
     }
 
-    this.totalCount = data.totalCount;
+    totalCount = data.totalCount;
     return this;
   }
 
@@ -74,32 +94,34 @@ class OffsetDataList<T> extends DataList<T> {
   /// @param data              DataList for merge with current
   /// @param distinctPredicate predicate by which duplicate elements are deleted
   /// @return current instance
+  // ignore: avoid_returning_this
   OffsetDataList<T> mergeWithPredicate<R>(
     OffsetDataList<T> data,
     R Function(T item) distinctPredicate,
   ) {
-    bool reverse = data.offset < this.offset;
-    List<T> merged = _tryMerge(reverse ? data : this, reverse ? this : data);
+    final bool reverse = data.offset < offset;
+    final List<T> merged =
+        _tryMerge(reverse ? data : this, reverse ? this : data);
     if (merged == null) {
-      throw new IncompatibleRangesException("incorrect data range");
+      throw IncompatibleRangesException('incorrect data range');
     }
 
-    List<T> filtered = distinctByLast(merged, distinctPredicate);
+    final List<T> filtered = distinctByLast(merged, distinctPredicate);
     this.data.clear();
     this.data.addAll(filtered);
-    if (this.offset < data.offset) {
+    if (offset < data.offset) {
       //загрузка вниз, как обычно
-      this.limit = data.offset + data.limit - this.offset;
-    } else if (this.offset == data.offset) {
+      limit = data.offset + data.limit - offset;
+    } else if (offset == data.offset) {
       //коллизия?
-      this.limit = data.limit;
+      limit = data.limit;
     } else {
       // загрузка вверх
-      this.offset = data.offset;
-      this.limit = length;
+      offset = data.offset;
+      limit = length;
     }
 
-    this.totalCount = data.totalCount;
+    totalCount = data.totalCount;
     return this;
   }
 
@@ -108,9 +130,10 @@ class OffsetDataList<T> extends DataList<T> {
   /// @param mapFunc mapping function
   /// @param <R>     data type of new list
   /// @return DataList<R>
+  @override
   OffsetDataList<R> transform<R>(R Function(T item) mapFunc) {
-    List<R> resultData = new List();
-    for (T item in this) {
+    final List<R> resultData = [];
+    for (final T item in this) {
       resultData.add(mapFunc.call(item));
     }
 
@@ -122,7 +145,8 @@ class OffsetDataList<T> extends DataList<T> {
     );
   }
 
-  /// Returns the offset value from which you need to start to load the next data block
+  /// Returns the offset value from which you need to start to load the next
+  /// data block
   int get nextOffset => limit + offset;
 
   int getLimit() {
@@ -152,25 +176,26 @@ class OffsetDataList<T> extends DataList<T> {
   }
 
   List<T> _mergeLists(List<T> to, List<T> from, int start) {
-    List<T> result = new List();
-    result.addAll(start < to.length ? to.sublist(0, start) : to);
-    result.addAll(from);
+    final List<T> result = [
+      ...start < to.length ? to.sublist(0, start) : to,
+      ...from
+    ];
     return result;
   }
 
   @override
-  bool add(T t) {
-    throw Exception("Unsupported operation \'add\'");
+  bool add(T value) {
+    throw Exception("Unsupported operation 'add'");
   }
 
   @override
-  bool remove(Object o) {
-    throw Exception("Unsupported operation \'remove\'");
+  bool remove(Object value) {
+    throw Exception("Unsupported operation 'remove'");
   }
 
   bool containsAll(Iterable<dynamic> another) {
     bool contains = false;
-    for (var c in another) {
+    for (final c in another) {
       contains = data.contains(c);
     }
 
@@ -179,7 +204,7 @@ class OffsetDataList<T> extends DataList<T> {
 
   @override
   void addAll(Iterable<T> iterable) {
-    throw Exception("Unsupported operation \'addAll\'");
+    throw Exception("Unsupported operation 'addAll'");
   }
 
   @override
@@ -191,16 +216,17 @@ class OffsetDataList<T> extends DataList<T> {
 
   @override
   List<T> sublist(int start, [int end]) {
-    throw new Exception("Unsupported operation \'sublist\'");
+    throw Exception("Unsupported operation 'sublist'");
   }
 
   @override
   String toString() {
-    return "DataList {limit= $limit , offset= $offset , data= $data }";
+    return 'DataList {limit= $limit , offset= $offset , data= $data }';
   }
 
   /// Removing duplicate items from source list
-  /// The criterion that the elements are the same is set by the distinctPredicate parameter
+  /// The criterion that the elements are the same is set by the
+  /// distinctPredicate parameter
   ///
   /// @param source            source list
   /// @param distinctPredicate criterion that the elements are the same
@@ -209,10 +235,10 @@ class OffsetDataList<T> extends DataList<T> {
     List<T> source,
     R Function(T item) distinctPredicate,
   ) {
-    LinkedHashMap<R, T> resultSet = LinkedHashMap<R, T>.of({});
+    final LinkedHashMap<R, T> resultSet = LinkedHashMap<R, T>.of({});
 
-    for (T element in source) {
-      R key = distinctPredicate.call(element);
+    for (final element in source) {
+      final R key = distinctPredicate.call(element);
       resultSet[key] = element;
     }
 

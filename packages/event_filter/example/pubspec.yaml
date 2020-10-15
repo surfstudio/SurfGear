@@ -16,10 +16,8 @@ dependencies:
   rxdart: 0.24.0
 
   #surfstudio
-  injector:
-    path: ../../injector
-  surf_mwwm:
-    path: ../../surf_mwwm
+  surf_injector: ^0.0.1-dev.0
+  surf_mwwm: ^0.0.1-dev.0
 
   event_filter:
     path: ..

@@ -1,3 +1,17 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:async';
 import 'dart:math';
 
@@ -12,6 +26,8 @@ import 'items/post.dart';
 
 /// Widget for demonstration Mixed List pagination.
 class PaginationMixedListDemo extends StatefulWidget {
+  const PaginationMixedListDemo({Key key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _PaginationMixedListDemo();
 }
@@ -20,7 +36,7 @@ class _PaginationMixedListDemo extends State<PaginationMixedListDemo> {
   StreamController<PaginationState> paginationController = StreamController();
   StreamController<OffsetDataList<Post>> itemsController = StreamController();
 
-  var _dataList = OffsetDataList<Post>.empty();
+  final _dataList = OffsetDataList<Post>.empty();
 
   @override
   void initState() {
@@ -40,7 +56,8 @@ class _PaginationMixedListDemo extends State<PaginationMixedListDemo> {
         itemsController.sink.add(response);
         paginationController.sink.add(PaginationState.none);
       }
-    }).catchError((error) {
+      // ignore: avoid_types_on_closure_parameters
+    }).catchError((dynamic error) {
       paginationController.sink.add(PaginationState.error);
     });
   }
@@ -62,8 +79,8 @@ class _PaginationMixedListDemo extends State<PaginationMixedListDemo> {
           paginationState: paginationController.stream,
           paginationFooterBuilder: (context, state) {
             if (state == PaginationState.loading) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
+              return const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Center(
                   child: CircularProgressIndicator(),
                 ),
@@ -71,13 +88,11 @@ class _PaginationMixedListDemo extends State<PaginationMixedListDemo> {
             } else if (state == PaginationState.error) {
               return Container(
                 height: 50,
-                color: Color(0xFFFF0000),
+                color: const Color(0xFFFF0000),
                 child: Center(
                   child: FlatButton(
-                    child: Text("Press to reload"),
-                    onPressed: () {
-                      _loadNext();
-                    },
+                    onPressed: _loadNext,
+                    child: const Text('Press to reload'),
                   ),
                 ),
               );

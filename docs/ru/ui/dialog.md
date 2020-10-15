@@ -2,7 +2,7 @@
 
 # Диалоги
 
-Для отображения диалогов существует два вида [контроллеров](../../../packages/template/lib/ui/base/default_dialog_controller.dart):
+Для отображения диалогов существует два вида [контроллеров](../../../template/lib/ui/base/default_dialog_controller.dart):
 
 * `DefaultDialogController` для всплывающих диалогов и шторок (bottom sheet)
 * `DatePickerDialogController` для выбора даты
@@ -11,7 +11,7 @@
 
 ## DialogOwner
 
-Работа с диалогами строится вокруг миксина [DialogOwner](../../../packages/template/lib/ui/base/owners/dialog_owner.dart). Чтобы описать необходимые диалоги, нужно создать класс, в котором переопределяется геттер *registeredDialogs* этого миксина. Геттер возвращает Map, где значения — билдеры, которые возвращают виджеты диалогов. В WidgetModel нужный диалог находится по ключу этой Map.
+Работа с диалогами строится вокруг миксина [DialogOwner](../../../template/lib/ui/base/owners/dialog_owner.dart). Чтобы описать необходимые диалоги, нужно создать класс, в котором переопределяется геттер *registeredDialogs* этого миксина. Геттер возвращает Map, где значения — билдеры, которые возвращают виджеты диалогов. В WidgetModel нужный диалог находится по ключу этой Map.
 
 Применение:
 

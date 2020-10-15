@@ -1,26 +1,25 @@
 name: build_context_holder
+version: "0.0.1-dev.6"
 description: The BuildContext store received from the last created widget.
-version: 0.0.1
-author:
-homepage:
-
-environment:
-  sdk: ">=2.6.0 <3.0.0"
+repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/build_context_holder"
 
 dependencies:
   flutter:
     sdk: flutter
+  surf_lint_rules: "^0.0.1-dev.0"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  pedantic: ^1.8.0+1
+environment:
+  sdk: ">=2.6.0 <3.0.0"
 
 flutter:
+
 custom:
   is_stable: false
-  unstable_version: 0
+  unstable_version:
   is_plugin: false
   path: build_context_holder
   separate_repo_url:

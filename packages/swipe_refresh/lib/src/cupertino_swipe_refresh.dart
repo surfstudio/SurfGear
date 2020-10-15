@@ -1,3 +1,17 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
@@ -6,13 +20,6 @@ import 'package:swipe_refresh/src/swipe_refresh_state.dart';
 
 /// Refresh indicator widget with Cupertino style.
 class CupertinoSwipeRefresh extends SwipeRefreshBase {
-  static const double DEFAULT_REFRESH_TRIGGER_PULL_DISTANCE = 100.0;
-  static const double DEFAULT_REFRESH_INDICATOR_EXTENT = 60.0;
-
-  final double refreshTriggerPullDistance;
-  final double refreshIndicatorExtent;
-  final RefreshControlIndicatorBuilder indicatorBuilder;
-
   const CupertinoSwipeRefresh({
     Key key,
     List<Widget> children,
@@ -22,10 +29,13 @@ class CupertinoSwipeRefresh extends SwipeRefreshBase {
     VoidCallback onRefresh,
     EdgeInsets padding,
     ScrollController scrollController,
-    this.refreshTriggerPullDistance = DEFAULT_REFRESH_TRIGGER_PULL_DISTANCE,
-    this.refreshIndicatorExtent = DEFAULT_REFRESH_INDICATOR_EXTENT,
-    this.indicatorBuilder =
-        CupertinoSliverRefreshControl.buildSimpleRefreshIndicator,
+    bool shrinkWrap = false,
+    this.refreshTriggerPullDistance = defaultRefreshTriggerPullDistance,
+    this.refreshIndicatorExtent = defaultRefreshIndicatorExtent,
+    this.indicatorBuilder = CupertinoSliverRefreshControl.buildRefreshIndicator,
+    //FIXME add parameter to CustomScrollView, when fix it in Flutter
+    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior,
+    ScrollPhysics physics,
   }) : super(
           key: key,
           children: children,
@@ -35,27 +45,43 @@ class CupertinoSwipeRefresh extends SwipeRefreshBase {
           onRefresh: onRefresh,
           padding: padding,
           scrollController: scrollController,
+          shrinkWrap: shrinkWrap,
+          keyboardDismissBehavior: keyboardDismissBehavior,
+          physics: physics,
         );
 
+  static const double defaultRefreshTriggerPullDistance = 100.0;
+  static const double defaultRefreshIndicatorExtent = 60.0;
+
+  final double refreshTriggerPullDistance;
+  final double refreshIndicatorExtent;
+  final RefreshControlIndicatorBuilder indicatorBuilder;
+
   @override
-  SwipeRefreshBaseState createState() =>
-      _CupertinoSwipeRefreshState(scrollController);
+  // ignore: no_logic_in_create_state
+  SwipeRefreshBaseState createState() => _CupertinoSwipeRefreshState(
+        scrollController,
+      );
 }
 
 class _CupertinoSwipeRefreshState
     extends SwipeRefreshBaseState<CupertinoSwipeRefresh> {
-  final ScrollController _scrollController;
+  _CupertinoSwipeRefreshState(
+    ScrollController scrollController,
+  ) : _scrollController = scrollController ?? ScrollController();
 
-  _CupertinoSwipeRefreshState(ScrollController scrollController)
-      : _scrollController = scrollController ?? ScrollController();
+  final ScrollController _scrollController;
 
   @override
   Widget buildRefresher(Key key, List<Widget> children, onRefresh) {
     return CustomScrollView(
+      shrinkWrap: widget.shrinkWrap,
       controller: _scrollController,
-      physics: BouncingScrollPhysics(
-        parent: AlwaysScrollableScrollPhysics(),
-      ),
+      physics: widget.physics == null
+          ? const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics(),
+            )
+          : AlwaysScrollableScrollPhysics(parent: widget.physics),
       slivers: <Widget>[
         CupertinoSliverRefreshControl(
           key: key,
@@ -86,23 +112,22 @@ class _CupertinoSwipeRefreshState
   }
 
   Widget _buildList(List<Widget> children) {
-    if (widget.padding != null)
+    if (widget.padding != null) {
       return SliverPadding(
         padding: widget.padding,
         sliver: SliverList(
-          delegate: widget.childrenDelegate == null
-              ? SliverChildListDelegate(
-                  children,
-                )
-              : widget.childrenDelegate,
+          delegate: widget.childrenDelegate ??
+              SliverChildListDelegate(
+                children,
+              ),
         ),
       );
+    }
     return SliverList(
-      delegate: widget.childrenDelegate == null
-          ? SliverChildListDelegate(
-              children,
-            )
-          : widget.childrenDelegate,
+      delegate: widget.childrenDelegate ??
+          SliverChildListDelegate(
+            children,
+          ),
     );
   }
 }

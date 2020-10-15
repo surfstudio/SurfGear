@@ -1,9 +1,25 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -11,13 +27,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -36,12 +52,12 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             RaisedButton(
               onPressed: _showSheet,
-              child: Text("Open BottomSheet"),
+              child: const Text('Open BottomSheet'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             RaisedButton(
               onPressed: _showSheetWithoutList,
-              child: Text("Open StickyBottomSheet"),
+              child: const Text('Open StickyBottomSheet'),
             ),
           ],
         ),
@@ -50,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _showSheet() {
-    showFlexibleBottomSheet(
+    showFlexibleBottomSheet<void>(
       minHeight: 0,
       initHeight: 0.5,
       maxHeight: 1,
@@ -61,22 +77,22 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _showSheetWithoutList() {
-    showStickyFlexibleBottomSheet(
+    showStickyFlexibleBottomSheet<void>(
       minHeight: 0,
       initHeight: 0.5,
       maxHeight: .8,
       headerHeight: 200,
       context: context,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.teal,
         borderRadius: BorderRadius.only(
-          topLeft: const Radius.circular(40.0),
-          topRight: const Radius.circular(40.0),
+          topLeft: Radius.circular(40.0),
+          topRight: Radius.circular(40.0),
         ),
       ),
-      headerBuilder: (BuildContext context, double offset) {
+      headerBuilder: (context, offset) {
         return AnimatedContainer(
-          duration: Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 300),
           width: double.infinity,
           height: 200,
           decoration: BoxDecoration(
@@ -86,10 +102,15 @@ class _MyHomePageState extends State<MyHomePage> {
               topRight: Radius.circular(offset == 0.8 ? 0 : 40),
             ),
           ),
-          child: Text('Заголовок', style: TextStyle(color: Colors.black)),
+          child: const Text(
+            'Заголовок',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
         );
       },
-      builder: (BuildContext context, double offset) {
+      builder: (context, offset) {
         return SliverChildListDelegate(
           _getChildren(offset),
         );
@@ -99,23 +120,23 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Widget> _getChildren(double bottomSheetOffset) => <Widget>[
-        Text("$bottomSheetOffset"),
+        Text('$bottomSheetOffset'),
         _buildTextField(),
-        _testContainer(Color(0xEEFFFF00)),
+        _testContainer(const Color(0xEEFFFF00)),
         _buildTextField(),
-        _testContainer(Color(0xDD99FF00)),
+        _testContainer(const Color(0xDD99FF00)),
         _buildTextField(),
-        _testContainer(Color(0xCC00FFFF)),
+        _testContainer(const Color(0xCC00FFFF)),
         _buildTextField(),
-        _testContainer(Color(0xBB555555)),
+        _testContainer(const Color(0xBB555555)),
         _buildTextField(),
-        _testContainer(Color(0xAAFF5555)),
+        _testContainer(const Color(0xAAFF5555)),
         _buildTextField(),
-        _testContainer(Color(0x9900FF00)),
+        _testContainer(const Color(0x9900FF00)),
         _buildTextField(),
-        _testContainer(Color(0x8800FF00)),
+        _testContainer(const Color(0x8800FF00)),
         _buildTextField(),
-        _testContainer(Color(0x7700FF00)),
+        _testContainer(const Color(0x7700FF00)),
         _buildTextField(),
       ];
 
@@ -137,7 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return SafeArea(
       child: Material(
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color(0xFFFFFFFF),
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(16),
@@ -145,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           child: ListView(
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               controller: scrollController,
               children: _getChildren(bottomSheetOffset)),
         ),
@@ -153,7 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _buildTextField() => TextField(
+  Widget _buildTextField() => const TextField(
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: 'Enter a search term',

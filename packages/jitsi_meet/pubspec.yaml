@@ -1,0 +1,35 @@
+name: jitsi_meet
+version: "0.0.1-dev.4"
+description: Plugin for jitsi meet service
+repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/jitsi_meet"
+publish_to: none
+
+dependencies:
+  flutter:
+    sdk: flutter
+  surf_lint_rules: "^0.0.1-dev.0"
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.10.0"
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: jitsimeet.jitsi_meet
+        pluginClass: JitsiMeetPlugin
+      ios:
+        pluginClass: JitsiMeetPlugin
+
+custom:
+  is_stable: false
+  unstable_version:
+  path: jitsi_meet
+  separate_repo_url:
+  hostUrl:
+  is_plugin:

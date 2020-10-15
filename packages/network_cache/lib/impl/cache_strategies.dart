@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:network/network.dart';
+import 'package:surf_network/surf_network.dart';
 import 'package:network_cache/base/cache_strategy.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -48,7 +48,8 @@ class CacheIfErrorStrategy implements CacheStrategy {
     Stream<Response> cacheResponse,
     Stream<Response> networkResponse,
   ) =>
-      networkResponse.onErrorResume((e) => Rx.concat([
+      // ignore: avoid_types_on_closure_parameters
+      networkResponse.onErrorResume((Object e) => Rx.concat([
             cacheResponse,
             Stream.error(e),
           ]));

@@ -28,20 +28,43 @@ class EntityStreamedState<T> extends StreamedState<EntityState<T>>
   }
 
   @override
-  Future<void> error([Exception error]) {
+  Future<void> error([Object error]) {
     final newState = EntityState<T>.error(error);
     return super.accept(newState);
   }
 
   @override
-  Future<void> loading() {
-    final newState = EntityState<T>.loading();
+  Future<void> loading([T previousData]) {
+    final newState = EntityState<T>.loading(previousData);
     return super.accept(newState);
   }
 }
 
 /// State of some logical entity
 class EntityState<T> {
+  EntityState({
+    this.data,
+    this.isLoading = false,
+    this.hasError = false,
+    Exception error,
+  }) : error = ExceptionWrapper(error);
+
+  /// Loading constructor
+  EntityState.loading([this.data])
+      : isLoading = true,
+        hasError = false;
+
+  /// Error constructor
+  EntityState.error([Object error, this.data])
+      : isLoading = false,
+        hasError = true,
+        error = ExceptionWrapper(error);
+
+  /// Content constructor
+  EntityState.content([this.data])
+      : isLoading = false,
+        hasError = false;
+
   /// Data of entity
   final T data;
 
@@ -53,30 +76,4 @@ class EntityState<T> {
 
   /// Error from state
   ExceptionWrapper error;
-
-  EntityState({
-    this.data,
-    this.isLoading = false,
-    this.hasError = false,
-    dynamic error,
-  }) : error = ExceptionWrapper(error);
-
-  /// Loading constructor
-  EntityState.loading([T previousData])
-      : isLoading = true,
-        hasError = false,
-        data = previousData;
-
-  /// Error constructor
-  EntityState.error([dynamic error, T previousData])
-      : isLoading = false,
-        hasError = true,
-        error = ExceptionWrapper(error),
-        data = previousData;
-
-  /// Content constructor
-  EntityState.content([T data])
-      : isLoading = false,
-        hasError = false,
-        data = data;
 }

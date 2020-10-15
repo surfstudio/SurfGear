@@ -1,8 +1,39 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:flutter/material.dart';
 import 'package:virtual_keyboard/src/virtual_keyboard_effect.dart';
 import 'package:ink_widget/ink_widget.dart';
 
 class TableButton extends StatelessWidget {
+  const TableButton({
+    Key key,
+    this.width,
+    this.height,
+    this.child,
+    this.onTap,
+    this.padding,
+    this.keyDecoration,
+    this.inkShapeRipple,
+    this.inkShapeBorder,
+    VirtualKeyboardEffect virtualKeyboardEffect,
+    bool useAsKey,
+  })  : virtualKeyboardEffect =
+            virtualKeyboardEffect ?? VirtualKeyboardEffect.none,
+        useAsKey = useAsKey ?? false,
+        super(key: key);
+
   /// Button Width
   final double width;
 
@@ -28,21 +59,6 @@ class TableButton extends StatelessWidget {
 
   /// [ShapeBorder] for InkWell
   final ShapeBorder inkShapeBorder;
-
-  TableButton({
-    this.width,
-    this.height,
-    this.child,
-    this.onTap,
-    this.padding,
-    this.keyDecoration,
-    this.inkShapeRipple,
-    this.inkShapeBorder,
-    VirtualKeyboardEffect virtualKeyboardEffect,
-    bool useAsKey,
-  })  : virtualKeyboardEffect =
-            virtualKeyboardEffect ?? VirtualKeyboardEffect.none,
-        useAsKey = useAsKey ?? false;
 
   @override
   Widget build(BuildContext context) {

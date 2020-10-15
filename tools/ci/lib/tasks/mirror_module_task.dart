@@ -11,8 +11,12 @@ import 'package:path/path.dart' as path;
 /// Зеркалирует open source модуль в его отдельный репозиторий
 class MirrorOpenSourceModuleTask implements Task<bool> {
   final Element element;
+  final String branchName;
 
-  MirrorOpenSourceModuleTask(this.element) {
+  MirrorOpenSourceModuleTask(
+    this.element,
+    this.branchName,
+  ) {
     if (element.openSourceInfo?.separateRepoUrl == null) {
       final message = getModuleIsNotOpenSourceExceptionText(element.name);
       throw ModuleIsNotOpenSourceException(message);
@@ -37,12 +41,31 @@ class MirrorOpenSourceModuleTask implements Task<bool> {
           parts[1];
     }();
 
-    // push only to stable branch, yet
-    final pushSubtree = 'git subtree push $prefix $repoWithCreds stable';
-    final pushResult = await sh(pushSubtree, path: Config.repoRootPath);
+     // After submitting the changes, you need to get them back
+    final pullSubtreeBefore = "git subtree pull $prefix $repoWithCreds $branchName";
+    final pullResultBefore = await sh(pullSubtreeBefore, path: Config.repoRootPath);
+    if (pullResultBefore.exitCode != 0) {
+      _throwModuleMirroringException(element.name, pullResultBefore);
+    }
 
+    // push to mirror commits for module only
+    final pushSubtree = 'git subtree push $prefix $repoWithCreds $branchName';
+    final pushResult = await sh(pushSubtree, path: Config.repoRootPath);
     if (pushResult.exitCode != 0) {
       _throwModuleMirroringException(element.name, pushResult);
+    }
+
+    // After submitting the changes, you need to get them back
+    final pullSubtree = "git subtree pull -m \"[skip ci] after pulling\" $prefix $repoWithCreds $branchName";
+    final pullResult = await sh(pullSubtree, path: Config.repoRootPath);
+    if (pullResult.exitCode != 0) {
+      _throwModuleMirroringException(element.name, pullResult);
+    }
+
+    final pushLocal = 'git push';
+    final pushLocalResult = await sh(pushLocal, path: Config.repoRootPath);
+    if (pushLocalResult.exitCode != 0) {
+      _throwModuleMirroringException(element.name, pushLocalResult);
     }
 
     return true;

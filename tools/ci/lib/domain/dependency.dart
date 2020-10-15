@@ -34,6 +34,21 @@ class GitDependency extends Dependency {
     Element element,
     bool thirdParty,
   }) : super(element, thirdParty);
+
+  GitDependency.byTemplate(
+    GitDependency oldDependency, {
+    String url,
+    String path,
+    String ref,
+    Element element,
+    bool thirdParty,
+  })  : url = url ?? oldDependency.url,
+        path = path ?? oldDependency.path,
+        ref = ref ?? oldDependency.ref,
+        super(
+          element ?? oldDependency.element,
+          thirdParty ?? oldDependency.thirdParty,
+        );
 }
 
 /// Библиотека, подключённая локально.
@@ -46,6 +61,17 @@ class PathDependency extends Dependency {
     Element element,
     bool thirdParty,
   }) : super(element, thirdParty);
+
+  PathDependency.byTemplate(
+    PathDependency oldDependency, {
+    String path,
+    Element element,
+    bool thirdParty,
+  })  : path = path ?? oldDependency.path,
+        super(
+          element ?? oldDependency.element,
+          thirdParty ?? oldDependency.thirdParty,
+        );
 }
 
 /// Библиотека, подключённая через pub.
@@ -58,4 +84,15 @@ class HostedDependency extends Dependency {
     Element element,
     bool thirdParty,
   }) : super(element, thirdParty);
+
+  HostedDependency.byTemplate(
+    HostedDependency oldDependency, {
+    String version,
+    Element element,
+    bool thirdParty,
+  })  : version = version ?? oldDependency.version,
+        super(
+          element ?? oldDependency.element,
+          thirdParty ?? oldDependency.thirdParty,
+        );
 }

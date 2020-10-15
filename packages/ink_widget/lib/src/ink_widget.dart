@@ -1,8 +1,62 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:flutter/material.dart';
 
 /// Wrapper for InkWell
 /// Solves the problem when Material effects overlap with a child’s decoration
 class InkWidget extends StatelessWidget {
+  InkWidget({
+    Key key,
+    this.child,
+    bool disable,
+    double disableOpacity,
+    Color disableColor,
+    this.disableWidget,
+    this.shape,
+    this.shapeBorder,
+    this.inkWellWidget,
+    this.onTap,
+    this.onDoubleTap,
+    this.onLongPress,
+    this.onTapDown,
+    this.onTapCancel,
+    this.onHighlightChanged,
+    this.onHover,
+    this.focusColor,
+    this.hoverColor,
+    this.highlightColor,
+    this.splashColor,
+    this.splashFactory,
+    this.radius,
+    this.borderRadius,
+    this.customBorder,
+    bool enableFeedback,
+    bool excludeFromSemantics,
+    this.focusNode,
+    bool canRequestFocus,
+    this.onFocusChange,
+    bool autofocus,
+  })  : disable = disable ?? false,
+        disableOpacity = disableOpacity ?? .5,
+        disableColor = disableColor ?? Colors.black.withOpacity(.5),
+        enableFeedback = enableFeedback ?? true,
+        excludeFromSemantics = excludeFromSemantics ?? false,
+        canRequestFocus = canRequestFocus ?? true,
+        autofocus = autofocus ?? false,
+        super(key: key);
+
   final Widget child;
 
   /// true - disable the widget
@@ -50,46 +104,6 @@ class InkWidget extends StatelessWidget {
   final ValueChanged<bool> onFocusChange;
   final bool autofocus;
 
-  InkWidget({
-    Key key,
-    this.child,
-    bool disable,
-    double disableOpacity,
-    Color disableColor,
-    this.disableWidget,
-    this.shape,
-    this.shapeBorder,
-    this.inkWellWidget,
-    this.onTap,
-    this.onDoubleTap,
-    this.onLongPress,
-    this.onTapDown,
-    this.onTapCancel,
-    this.onHighlightChanged,
-    this.onHover,
-    this.focusColor,
-    this.hoverColor,
-    this.highlightColor,
-    this.splashColor,
-    this.splashFactory,
-    this.radius,
-    this.borderRadius,
-    this.customBorder,
-    bool enableFeedback,
-    bool excludeFromSemantics,
-    this.focusNode,
-    bool canRequestFocus,
-    this.onFocusChange,
-    bool autofocus,
-  })  : disable = disable ?? false,
-        disableOpacity = disableOpacity ?? .5,
-        disableColor = disableColor ?? Colors.black.withOpacity(.5),
-        enableFeedback = enableFeedback ?? true,
-        excludeFromSemantics = excludeFromSemantics ?? false,
-        canRequestFocus = canRequestFocus ?? true,
-        autofocus = autofocus ?? false,
-        super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -109,27 +123,27 @@ class InkWidget extends StatelessWidget {
   InkWell _buildInkWell() {
     return inkWellWidget ??
         InkWell(
-          customBorder: this.customBorder ?? shapeBorder,
-          onTap: this.onTap,
-          onDoubleTap: this.onDoubleTap,
-          onLongPress: this.onLongPress,
-          onTapDown: this.onTapDown,
-          onTapCancel: this.onTapCancel,
-          onHighlightChanged: this.onHighlightChanged,
-          onHover: this.onHover,
-          focusColor: this.focusColor,
-          hoverColor: this.hoverColor,
-          highlightColor: this.highlightColor,
-          splashColor: this.splashColor,
-          splashFactory: this.splashFactory,
-          radius: this.radius,
-          borderRadius: this.borderRadius,
-          enableFeedback: this.enableFeedback,
-          excludeFromSemantics: this.excludeFromSemantics,
-          focusNode: this.focusNode,
-          canRequestFocus: this.canRequestFocus,
-          onFocusChange: this.onFocusChange,
-          autofocus: this.autofocus,
+          customBorder: customBorder ?? shapeBorder,
+          onTap: onTap,
+          onDoubleTap: onDoubleTap,
+          onLongPress: onLongPress,
+          onTapDown: onTapDown,
+          onTapCancel: onTapCancel,
+          onHighlightChanged: onHighlightChanged,
+          onHover: onHover,
+          focusColor: focusColor,
+          hoverColor: hoverColor,
+          highlightColor: highlightColor,
+          splashColor: splashColor,
+          splashFactory: splashFactory,
+          radius: radius,
+          borderRadius: borderRadius,
+          enableFeedback: enableFeedback,
+          excludeFromSemantics: excludeFromSemantics,
+          focusNode: focusNode,
+          canRequestFocus: canRequestFocus,
+          onFocusChange: onFocusChange,
+          autofocus: autofocus,
         );
   }
 

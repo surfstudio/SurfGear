@@ -1,5 +1,5 @@
-@Library('surf-lib@version-3.0.0-SNAPSHOT')
-// https://bitbucket.org/surfstudio/jenkins-pipeline-lib/
+@Library('surf-lib@version-4.0.0-SNAPSHOT')
+// https://gitlab.com/surfstudio/infrastructure/tools/jenkins-pipeline-lib
 
 import ru.surfstudio.ci.pipeline.empty.EmptyScmPipeline
 import ru.surfstudio.ci.pipeline.ScmPipeline
@@ -8,6 +8,7 @@ import ru.surfstudio.ci.CommonUtil
 import ru.surfstudio.ci.RepositoryUtil
 import ru.surfstudio.ci.Result
 import ru.surfstudio.ci.AbortDuplicateStrategy
+import ru.surfstudio.ci.NodeProvider
 import ru.surfstudio.ci.stage.StageStrategy
 
 //Pipeline on commit stable-branch
@@ -43,7 +44,7 @@ def pipeline = new EmptyScmPipeline(script)
 pipeline.init()
 
 //configuration
-pipeline.node = "android"
+pipeline.node = NodeProvider.getAndroidFlutterNode()
 pipeline.propertiesProvider = { initProperties(pipeline) }
 
 pipeline.preExecuteStageBody = { stage ->

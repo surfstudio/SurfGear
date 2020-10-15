@@ -1,3 +1,17 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:math';
 import 'dart:ui';
 
@@ -7,7 +21,12 @@ import 'package:flutter/widgets.dart';
 typedef KeyboardChangeListener = Function(bool isVisible);
 
 /// Keyboard display listener
+// ignore: prefer_mixin
 class KeyboardListener with WidgetsBindingObserver {
+  KeyboardListener() {
+    _init();
+  }
+
   static final Random _random = Random();
 
   final Map<String, KeyboardChangeListener> _changeListeners = {};
@@ -26,10 +45,6 @@ class KeyboardListener with WidgetsBindingObserver {
   /// Getter values whether the keyboard is visible
   bool get isVisibleKeyboard =>
       WidgetsBinding.instance.window.viewInsets.bottom > 0;
-
-  KeyboardListener() {
-    _init();
-  }
 
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
@@ -71,32 +86,32 @@ class KeyboardListener with WidgetsBindingObserver {
     return id;
   }
 
-  /// Delete [onChange] listener
+  /// Delete onChange listener
   void removeChangeListener(KeyboardChangeListener listener) {
     _removeListener(_changeListeners, listener);
   }
 
-  /// Delete [onShow] listener
+  /// Delete onShow listener
   void removeShowListener(VoidCallback listener) {
     _removeListener(_showListeners, listener);
   }
 
-  /// Delete [onHide] listener
+  /// Delete onHide listener
   void removeHideListener(VoidCallback listener) {
     _removeListener(_hideListeners, listener);
   }
 
-  /// Delete [onChange] listener by id
+  /// Delete onChange listener by id
   void removeAtChangeListener(String id) {
     _removeAtListener(_changeListeners, id);
   }
 
-  /// Delete [onShow] listener by id
+  /// Delete onShow listener by id
   void removeAtShowListener(String id) {
     _removeAtListener(_changeListeners, id);
   }
 
-  /// Delete [onHide] listener by id
+  /// Delete onHide listener by id
   void removeAtHideListener(String id) {
     _removeAtListener(_changeListeners, id);
   }
@@ -143,19 +158,19 @@ class KeyboardListener with WidgetsBindingObserver {
   }
 
   void _onChange(bool isOpen) {
-    for (KeyboardChangeListener listener in _changeListeners.values) {
+    for (final KeyboardChangeListener listener in _changeListeners.values) {
       listener(isOpen);
     }
   }
 
   void _onShow() {
-    for (VoidCallback listener in _showListeners.values) {
+    for (final VoidCallback listener in _showListeners.values) {
       listener();
     }
   }
 
   void _onHide() {
-    for (VoidCallback listener in _hideListeners.values) {
+    for (final VoidCallback listener in _hideListeners.values) {
       listener();
     }
   }

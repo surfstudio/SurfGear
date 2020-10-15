@@ -22,7 +22,8 @@ class LocationServiceNotAvailableException implements Exception {}
 class LocationNotAvailableException implements Exception {
   @override
   String toString() {
-    return "LocationNotAvailableException: App can not receive current or last known location and defaultLocation == null";
+    return 'LocationNotAvailableException: App can not receive current or last '
+        'known location and defaultLocation == null';
   }
 }
 

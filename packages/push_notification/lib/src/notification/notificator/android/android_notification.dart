@@ -1,19 +1,33 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:flutter/services.dart';
 import 'package:push_notification/src/notification/notificator/android/android_notiffication_specifics.dart';
 import 'package:push_notification/src/notification/notificator/notificator.dart';
 
 /// Notifications for the android platform
 class AndroidNotification {
+  AndroidNotification({
+    this.channel,
+    this.onNotificationTap,
+  });
+
   /// MethodChannel for connecting to android native code
   final MethodChannel channel;
 
   /// Callback notification push
   final OnNotificationTapCallback onNotificationTap;
-
-  AndroidNotification({
-    this.channel,
-    this.onNotificationTap,
-  });
 
   /// Initialize notification
   ///
@@ -22,9 +36,11 @@ class AndroidNotification {
     channel.setMethodCallHandler(
       (call) async {
         switch (call.method) {
-          case CALLBACK_OPEN:
+          case openCallback:
             if (onNotificationTap != null) {
-              Map<String, String> notificationData = Map.of(call.arguments).map(
+              final Map<String, String> notificationData = Map.of(
+                call.arguments as Map<Object, Object>,
+              ).map(
                 (key, value) => MapEntry(
                   key.toString(),
                   value.toString(),
@@ -36,7 +52,7 @@ class AndroidNotification {
         }
       },
     );
-    return channel.invokeMethod(CALL_INIT);
+    return channel.invokeMethod<dynamic>(callInit);
   }
 
   /// Show notification
@@ -53,17 +69,17 @@ class AndroidNotification {
     Map<String, String> data,
     AndroidNotificationSpecifics notificationSpecifics,
   ) async {
-    return channel.invokeMethod(
-      CALL_SHOW,
+    return channel.invokeMethod<dynamic>(
+      callShow,
       <String, dynamic>{
-        ARG_PUSH_ID: id ?? 0,
-        ARG_TITLE: title ?? "",
-        ARG_BODY: body ?? "",
-        ARG_IMAGE_URL: imageUrl,
-        ARG_DATA: data,
-        ARG_NOTIFICATION_SPECIFICS: notificationSpecifics != null
+        pushIdArg: id ?? 0,
+        titleArg: title ?? '',
+        bodyArg: body ?? '',
+        imageUrlArg: imageUrl,
+        dataArg: data,
+        notificationSpecificsArg: notificationSpecifics != null
             ? notificationSpecifics.toMap()
-            : Map(),
+            : <String, Object>{},
       },
     );
   }

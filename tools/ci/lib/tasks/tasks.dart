@@ -9,7 +9,9 @@ import 'package:ci/services/managers/license_manager.dart';
 import 'package:ci/services/managers/yaml_manager.dart';
 import 'package:ci/services/pub_publish_manager.dart';
 import 'package:ci/tasks/checks.dart';
+import 'package:ci/tasks/impl/building/increment_dev_version_task.dart';
 import 'package:ci/tasks/impl/building/package_builder_task.dart';
+import 'package:ci/tasks/impl/building/update_versions_depending_on_module_task.dart';
 import 'package:ci/tasks/impl/git/fix_changes_task.dart';
 import 'package:ci/tasks/impl/license/add_copyright_task.dart';
 import 'package:ci/tasks/impl/license/add_license_task.dart';
@@ -18,6 +20,7 @@ import 'package:ci/tasks/impl/project/add_project_tag_task.dart';
 import 'package:ci/tasks/impl/project/update_dependencies_by_tag_task.dart';
 import 'package:ci/tasks/mirror_module_task.dart';
 import 'package:ci/tasks/save_element_task.dart';
+import 'package:ci/tasks/utils.dart';
 
 import 'impl/publish/pub_publish_module_task.dart';
 
@@ -103,15 +106,13 @@ Future<void> addCopyrights(
   var filesToCheck = <FileSystemEntity>[];
 
   elements.forEach(
-    (e) async {
-      filesToCheck
-        ..addAll(
-          await fileSystemManager.getEntitiesInModule(
-            e,
-            recursive: true,
-            filter: licenseManager.isNeedCopyright,
-          ),
-        );
+    (element) {
+      List<FileSystemEntity> list = fileSystemManager.getEntitiesInModule(
+        element,
+        recursive: true,
+        filter: licenseManager.isNeedCopyright,
+      );
+      filesToCheck.addAll(list);
     },
   );
 
@@ -148,7 +149,7 @@ Future<void> addCopyrights(
   }
 
   if (troublesList.isNotEmpty) {
-    var errorString;
+    var errorString = '';
 
     troublesList.forEach((key, value) {
       errorString += key.path + ':\n';
@@ -176,16 +177,36 @@ Future<void> addCopyright(
     ).run();
 
 /// Пушит open source модули в отдельные репозитории
-Future<void> mirrorOpenSourceModules(List<Element> elements) async {
+Future<void> mirrorOpenSourceModules(
+  List<Element> elements,
+  String currentBranch,
+) async {
   final hasRepo = (Element e) => e.openSourceInfo?.separateRepoUrl != null;
   final openSourceModules = elements.where(hasRepo).toList();
+  var failedModulesNames = <String>[];
 
   openSourceModules.forEach(
-    (e) {
-      print('Mirror package ${e.name} to ${e.openSourceInfo.separateRepoUrl}');
-      return MirrorOpenSourceModuleTask(e).run();
+    (element) {
+      print(
+          'Mirror package ${element.name} to ${element.openSourceInfo.separateRepoUrl}');
+      try {
+        return MirrorOpenSourceModuleTask(element, currentBranch).run();
+      } on ModuleMirroringException catch (exception) {
+        print('Package ${element.name} mirroring error !!!');
+        print(exception.message);
+        failedModulesNames.add(element.name);
+      } catch (exception) {
+        print('Package ${element.name} mirroring error !!!');
+        print(exception.toString());
+        failedModulesNames.add(element.name);
+        rethrow;
+      }
     },
   );
+
+  if (failedModulesNames.isNotEmpty) {
+    print('Modules were not mirrored: ${failedModulesNames.join(',')}');
+  }
 }
 
 /// Обновляет зависимости переданных модулей по данным тега.
@@ -235,8 +256,47 @@ Future<void> fixChanges({String message}) => FixChangesTask(
 
 /// Публикуем модули
 /// [pathServer] принимать адрес сервера куда паблишить, необзательный параметр
-Future<void> pubPublishModules(Element element, {String pathServer}) {
-  return PubPublishModuleTask(element, PubPublishManager(),
-          pathServer: pathServer)
-      .run();
+Future<void> pubPublishModules(Element element, {String pathServer}) =>
+    PubPublishModuleTask(
+      element,
+      PubPublishManager(),
+      pathServer: pathServer,
+    ).run();
+
+/// Инкриминирует версию у зависимых от элемнета элементов рукурсивно
+Future<void> updateVersionsDependingOnModule(
+  List<Element> allElements, {
+  List<Element> incrementElements = const [],
+}) async {
+  /// toSet чтобы избавиться от дубликатов в зависимых элементах
+  List<Element> dependents =
+      (await findDependentByChangedElements(allElements)).toSet().toList();
+
+  /// Удаляем уже ранее инкрементированые элементы
+  dependents = dependents.where(
+    (Element element) {
+      for (var inc in incrementElements) {
+        if (inc.name == element.name) {
+          return false;
+        }
+      }
+      return true;
+    },
+  ).toList();
+
+  if (dependents.isNotEmpty) {
+    for (var i = 0; dependents.length > i; i++) {
+      dependents[i] = await IncrementDevVersionTask(dependents[i]).run();
+    }
+
+    dependents =
+        await UpdateVersionsDependingOnModuleTask(allElements, dependents)
+            .run();
+
+    await saveElements(dependents);
+    updateVersionsDependingOnModule(
+      allElements,
+      incrementElements: dependents,
+    );
+  }
 }

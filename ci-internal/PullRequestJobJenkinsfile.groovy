@@ -1,11 +1,14 @@
-@Library('surf-lib@version-3.0.0-SNAPSHOT')
-// https://bitbucket.org/surfstudio/jenkins-pipeline-lib/
+@Library('surf-lib@version-4.0.0-SNAPSHOT')
+// https://github.com/surfstudio/SurfGear
 
 import ru.surfstudio.ci.*
 import ru.surfstudio.ci.pipeline.empty.EmptyScmPipeline
 import ru.surfstudio.ci.pipeline.pr.PrPipeline
 import ru.surfstudio.ci.stage.SimpleStage
 import ru.surfstudio.ci.stage.StageStrategy
+import ru.surfstudio.ci.NodeProvider
+import ru.surfstudio.ci.stage.StageWithStrategy
+import ru.surfstudio.ci.stage.StageGroup
 
 import static ru.surfstudio.ci.CommonUtil.extractValueFromEnvOrParamsAndRun
 
@@ -30,7 +33,22 @@ def BUILD = 'Build'
 
 def CLEAR_CHANGED = 'Clear changed'
 
-// git variables
+def STAGE_DOCKER = "Docker Flutter"
+
+//docker
+//
+// Чтобы изменить канал Flutter для сборки проекта
+// необходимо в конфиге нужного job'a (лежит в мастер ветке проекта)
+// переопределить это поле и изменить тег образа на название
+// нужного канала (stable, beta или dev). Например:
+//
+// def pipeline = new PrPipelineFlutter(this)
+// pipeline.dockerImageName = "cirrusci/flutter:dev"
+//
+def dockerImageName = "cirrusci/flutter:1.20.3"
+def dockerArguments = "-it -u 0:0 -v \${PWD}:/build --workdir /build"
+
+
 def sourceBranch = ""
 def destinationBranch = ""
 def authorUsername = ""
@@ -91,6 +109,8 @@ def script = this
 def pipeline = new EmptyScmPipeline(script)
 
 pipeline.init()
+pipeline.node = "android-1"
+// /* NodeProvider.getAndroidFlutterNode() */
 
 //configuration
 pipeline.propertiesProvider = {
@@ -104,15 +124,14 @@ pipeline.propertiesProvider = {
             ),
             PrPipeline.parameters(script),
             PrPipeline.triggers(script, pipeline.repoUrl),
-            script.gitLabConnection(pipeline.gitlabConnection)
     ]
 }
 
 pipeline.preExecuteStageBody = { stage ->
-    if (stage.name != PRE_MERGE) RepositoryUtil.notifyGitlabAboutStageStart(script, pipeline.repoUrl, stage.name)
+    if (stage.name != PRE_MERGE) RepositoryUtil.notifyGithubAboutStageStart(script, pipeline.repoUrl, stage.name)
 }
 pipeline.postExecuteStageBody = { stage ->
-    RepositoryUtil.notifyGitlabAboutStageFinish(script, pipeline.repoUrl, stage.name, stage.result)
+    RepositoryUtil.notifyGithubAboutStageFinish(script, pipeline.repoUrl, stage.name, stage.result)
 }
 
 pipeline.initializeBody = {
@@ -136,14 +155,6 @@ pipeline.initializeBody = {
     configureStageSkipping(
             script,
             pipeline,
-            targetBranchChanged,
-            stagesForTargetBranchChangedMode,
-            "Build triggered by target branch changes, run only ${stagesForTargetBranchChangedMode} stages"
-    )
-
-    configureStageSkipping(
-            script,
-            pipeline,
             isSourceBranchRelease(sourceBranch),
             stagesForReleaseMode,
             "Build triggered by release source branch, run only ${stagesForReleaseMode} stages"
@@ -163,6 +174,14 @@ pipeline.initializeBody = {
             isDestinationBranchDev(destinationBranch),
             stagesForDevMode,
             "Build triggered by dev destination branch, run only ${stagesForDevMode} stages"
+    )
+
+    configureStageSkipping(
+            script,
+            pipeline,
+            targetBranchChanged,
+            stagesForTargetBranchChangedMode,
+            "Build triggered by target branch changes, run only ${stagesForTargetBranchChangedMode} stages"
     )
 
     def buildDescription = targetBranchChanged ?
@@ -193,72 +212,77 @@ pipeline.stages = [
             //local merge with destination
             script.sh "git merge origin/$destinationBranch --no-ff"
         },
+        
+        pipeline.docker(STAGE_DOCKER, dockerImageName, dockerArguments, [
+            pipeline.stage(GET_DEPENDENCIES) {
+                script.sh "cd tools/ci/ && pub get"
+            },
 
-        pipeline.stage(GET_DEPENDENCIES) {
-            script.sh "cd tools/ci/ && pub get"
-        },
+            pipeline.stage(FIND_CHANGED) {
+                script.sh "./tools/ci/runner/find_changed_modules --target=${destinationBranch}"
+            },
 
-        pipeline.stage(FIND_CHANGED) {
-            script.sh "./tools/ci/runner/find_changed_modules --target=${destinationBranch}"
-        },
+            pipeline.stage(CHECK_STABLE_MODULES_NOT_CHANGED, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
+                script.sh("./tools/ci/runner/check_stable_modules_not_changed")
+            },
 
-        pipeline.stage(CHECK_STABLE_MODULES_NOT_CHANGED, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./tools/ci/runner/check_stable_modules_not_changed")
-        },
+            pipeline.stage(CHECK_UNSTABLE_MODULES_DO_NOT_BECAME_STABLE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
+                script.sh("./tools/ci/runner/check_stability_not_changed")
+            },
 
-        pipeline.stage(CHECK_UNSTABLE_MODULES_DO_NOT_BECAME_STABLE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./tools/ci/runner/check_stability_not_changed")
-        },
+            pipeline.stage(CHECK_MODULES_IN_DEPENDENCY_TREE_OF_STABLE_MODULE_ALSO_STABLE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
+                script.sh("./tools/ci/runner/check_dependencies_stable")
+            },
 
-        pipeline.stage(CHECK_MODULES_IN_DEPENDENCY_TREE_OF_STABLE_MODULE_ALSO_STABLE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./tools/ci/runner/check_dependencies_stable")
-        },
+            pipeline.stage(CHECK_RELEASE_NOTES_VALID, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
+                script.sh("./tools/ci/runner/check_version_in_release_note")
+                script.sh("./tools/ci/runner/check_cyrillic_in_changelog")
+            },
 
-        pipeline.stage(CHECK_RELEASE_NOTES_VALID, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./tools/ci/runner/check_version_in_release_note")
-            script.sh("./tools/ci/runner/check_cyrillic_in_changelog")
-        },
+            pipeline.stage(WRITE_RELEASE_NOTE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
+                script.sh("./tools/ci/runner/write_release_note")
+            },
 
-        pipeline.stage(WRITE_RELEASE_NOTE, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./tools/ci/runner/write_release_note")
-        },
+            pipeline.stage(CHECKS_RESULT) {
+                script.sh "rm -rf $TEMP_FOLDER_NAME"
+                def checksPassed = true
+                [
+                        CHECK_STABLE_MODULES_NOT_CHANGED,
+                        CHECK_UNSTABLE_MODULES_DO_NOT_BECAME_STABLE,
+                        CHECK_MODULES_IN_DEPENDENCY_TREE_OF_STABLE_MODULE_ALSO_STABLE,
+                        // TODO: раскоментировать после правок модулей
+//                        CHECK_RELEASE_NOTES_VALID,
+//                        WRITE_RELEASE_NOTE
+                ].each { stageName ->
+                    def stageResult = pipeline.getStage(stageName).result
+                    checksPassed = checksPassed && (stageResult == Result.SUCCESS || stageResult == Result.NOT_BUILT)
 
-        pipeline.stage(CHECKS_RESULT) {
-            script.sh "rm -rf $TEMP_FOLDER_NAME"
-            def checksPassed = true
-            [
-                    CHECK_STABLE_MODULES_NOT_CHANGED,
-                    CHECK_UNSTABLE_MODULES_DO_NOT_BECAME_STABLE,
-                    CHECK_MODULES_IN_DEPENDENCY_TREE_OF_STABLE_MODULE_ALSO_STABLE,
-                    // TODO: раскоментировать после правок модулей
-//                    CHECK_RELEASE_NOTES_VALID,
-//                    WRITE_RELEASE_NOTE
-            ].each { stageName ->
-                def stageResult = pipeline.getStage(stageName).result
-                checksPassed = checksPassed && (stageResult == Result.SUCCESS || stageResult == Result.NOT_BUILT)
+                    if (!checksPassed) {
+                        script.echo "Stage '${stageName}' ${stageResult}"
+                    }
+                }
 
                 if (!checksPassed) {
-                    script.echo "Stage '${stageName}' ${stageResult}"
+                    throw script.error("Checks Failed, see reason above ^^^")
                 }
-            }
+            },
 
-            if (!checksPassed) {
-                throw script.error("Checks Failed, see reason above ^^^")
-            }
-        },
+            pipeline.stage(BUILD) {
+                script.sh("./tools/ci/runner/build")
+            },
+            pipeline.stage(UNIT_TEST, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
+                script.sh("./tools/ci/runner/run_tests")
+            },
 
-        pipeline.stage(BUILD) {
-            script.sh("./tools/ci/runner/build")
-        },
+            pipeline.stage(CLEAR_CHANGED) {
+                script.sh "./tools/ci/runner/clear_changed"
+            },
+        ]),
 
-        pipeline.stage(UNIT_TEST, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.sh("./tools/ci/runner/run_tests")
-        },
 
-        pipeline.stage(CLEAR_CHANGED) {
-            script.sh "./tools/ci/runner/clear_changed"
-        },
+
 ]
+
 pipeline.finalizeBody = {
     if (pipeline.jobResult != Result.SUCCESS && pipeline.jobResult != Result.ABORTED) {
         def unsuccessReasons = CommonUtil.unsuccessReasonsToString(pipeline.stages)
@@ -273,20 +297,30 @@ pipeline.run()
 def configureStageSkipping(script, pipeline, isSkip, stageNames, message) {
     if (isSkip) {
         script.echo message
-        pipeline.stages.each { stage ->
-            if (!(stage instanceof SimpleStage)) {
-                return
-            }
-            def executeStage = false
-            stageNames.each { stageName ->
-                executeStage = executeStage || (stageName == stage.getName())
-            }
-            if (!executeStage) {
-                stage.strategy = StageStrategy.SKIP_STAGE
-            }
+        skipStage(pipeline.stages, stageNames)
+    }
+}
+
+def skipStage(stages, stageNames) { 
+    stages.each { stage ->
+        if (stage instanceof StageGroup) {
+            skipStage(stage.getStages(), stageNames)
+        }
+
+        if (!(stage instanceof StageWithStrategy)) {
+            return
+        }
+
+        def executeStage = false
+        stageNames.each { stageName ->
+            executeStage = executeStage || (stageName == stage.getName())
+        }
+        if (!executeStage) {
+            stage.strategy = StageStrategy.SKIP_STAGE
         }
     }
 }
+
 
 def static isSourceBranchRelease(String sourceBranch) {
     return sourceBranch.startsWith("release")

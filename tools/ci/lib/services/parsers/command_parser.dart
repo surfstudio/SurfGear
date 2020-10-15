@@ -15,12 +15,14 @@ import 'package:ci/scenarios/check_stable_modules_not_changed_scenario.dart';
 import 'package:ci/scenarios/check_version_in_release_note_scenario.dart';
 import 'package:ci/scenarios/clear_changed_scenario.dart';
 import 'package:ci/scenarios/find_changed_modules_scenario.dart';
+import 'package:ci/scenarios/increment_dev_unstable_versions_scenario.dart';
 import 'package:ci/scenarios/increment_unstable_versions_scenario.dart';
 import 'package:ci/scenarios/mirror_opensource_module_scenario.dart';
-import 'package:ci/scenarios/publish_modules_scenario.dart';
+import 'package:ci/scenarios/publish_unstable_modules_scenario.dart';
 import 'package:ci/scenarios/run_test_scenario.dart';
 import 'package:ci/scenarios/show_dependency_graph_scenario.dart';
 import 'package:ci/scenarios/show_help_scenario.dart';
+import 'package:ci/scenarios/update_versions_depending_on_module_scenario.dart';
 import 'package:ci/scenarios/upgrade_project_tag_scenario.dart';
 import 'package:ci/scenarios/write_release_note_scenario.dart';
 import 'package:ci/utils/arg_results_extension.dart';
@@ -137,6 +139,9 @@ class CommandParser {
       /// increment_unstable
       ..addCommand(IncrementUnstableVersionsScenario.commandName)
 
+      /// increment_dev_unstable
+      ..addCommand(IncrementDevUnstableVersionsScenario.commandName)
+
       /// clear_changed
       ..addCommand(ClearChangedScenario.commandName)
 
@@ -150,6 +155,9 @@ class CommandParser {
             ..addOption(
               PublishModulesScenario.server,
               help: PublishModulesScenario.helpServer,
+            )
+            ..addOption(
+              PublishModulesScenario.isStableOptionName,
             ))
 
       /// graph dependency
@@ -164,8 +172,17 @@ class CommandParser {
       /// help
       ..addFlag(helpFlag, negatable: false, abbr: helpAbbr)
 
-      //mirror
-      ..addCommand(MirrorOpenSourceModuleScenario.commandName);
+      /// mirror
+      ..addCommand(
+        MirrorOpenSourceModuleScenario.commandName,
+        ArgParser()
+          ..addOption(
+            MirrorOpenSourceModuleScenario.branchNameParam,
+          ),
+      )
+
+      /// Update depending elements
+      ..addCommand(UpdateVersionsDependingOnModuleScenario.commandName);
   }
 
   /// Проверяем, требовался ли вызов help, если нет, то запускаем команду

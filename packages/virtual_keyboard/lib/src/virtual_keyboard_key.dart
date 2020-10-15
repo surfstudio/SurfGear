@@ -1,3 +1,17 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -5,7 +19,18 @@ import 'package:virtual_keyboard/src/parser.dart';
 
 /// Keyboard key base class
 abstract class VirtualKeyboardKey {
-  static Random _r = Random();
+  VirtualKeyboardKey(
+    String id, {
+    this.widget,
+    bool useAsKey,
+    this.keyDecoration,
+    this.inkShapeRipple,
+    this.inkShapeBorder,
+  })  : id = id ?? _r.nextDouble().toString(),
+        useAsKey = useAsKey ?? false,
+        assert(useAsKey == null || useAsKey != null && widget != null);
+
+  static final Random _r = Random();
 
   /// Is [instance] a subtype of [T]
   static bool checkType<T extends VirtualKeyboardKey>(
@@ -31,22 +56,14 @@ abstract class VirtualKeyboardKey {
   /// [ShapeBorder] for InkWell
   final ShapeBorder inkShapeBorder;
 
-  VirtualKeyboardKey(
-    String id, {
-    this.widget,
-    bool useAsKey,
-    this.keyDecoration,
-    this.inkShapeRipple,
-    this.inkShapeBorder,
-  })  : id = id ?? _r.nextDouble().toString(),
-        useAsKey = useAsKey ?? false,
-        assert(useAsKey == null || useAsKey != null && widget != null);
-
-  bool operator ==(other) {
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes , avoid_annotating_with_dynamic
+  bool operator ==(dynamic other) {
     return id == other.id;
   }
 
   @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
   int get hashCode => id.hashCode;
 
   /// Type check
@@ -57,11 +74,6 @@ abstract class VirtualKeyboardKey {
 
 /// Keyboard key with value
 abstract class VirtualKeyboardValueKey extends VirtualKeyboardKey {
-  final String _value;
-
-  /// Key value
-  String get value => _value;
-
   VirtualKeyboardValueKey(
     this._value, {
     String id,
@@ -78,15 +90,15 @@ abstract class VirtualKeyboardValueKey extends VirtualKeyboardKey {
           inkShapeRipple: inkShapeRipple,
           inkShapeBorder: inkShapeBorder,
         );
+
+  final String _value;
+
+  /// Key value
+  String get value => _value;
 }
 
 /// Numeric key
 class VirtualKeyboardNumberKey extends VirtualKeyboardValueKey {
-  int _parsedVale;
-
-  /// Get a numeric representation of the key value
-  int get number => _parsedVale ??= parseInt(value);
-
   VirtualKeyboardNumberKey(
     String value, {
     String id,
@@ -104,6 +116,11 @@ class VirtualKeyboardNumberKey extends VirtualKeyboardValueKey {
           inkShapeRipple: inkShapeRipple,
           inkShapeBorder: inkShapeBorder,
         );
+
+  int _parsedVale;
+
+  /// Get a numeric representation of the key value
+  int get number => _parsedVale ??= parseInt(value);
 }
 
 /// Blank dummy key
@@ -114,8 +131,6 @@ class VirtualKeyboardEmptyStubKey extends VirtualKeyboardKey {
 
 /// Delete key
 class VirtualKeyboardDeleteKey extends VirtualKeyboardKey {
-  static String _defaultId = 'delete';
-
   VirtualKeyboardDeleteKey({
     String id,
     Widget widget,
@@ -131,4 +146,6 @@ class VirtualKeyboardDeleteKey extends VirtualKeyboardKey {
           inkShapeRipple: inkShapeRipple,
           inkShapeBorder: inkShapeBorder,
         );
+
+  static const String _defaultId = 'delete';
 }

@@ -1,3 +1,17 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:collection';
 
 import 'package:flutter/rendering.dart';
@@ -10,7 +24,7 @@ import 'package:render_metrics/src/render/render_metrics.dart';
 /// Contains a collection of mounted RenderMetricsBox
 /// and provides methods for working with it.
 class RenderParametersManager<T> extends RenderManager<T> {
-  HashMap<T, RenderMetricsBox> _renderObjects = HashMap();
+  final HashMap<T, RenderMetricsBox> _renderObjects = HashMap();
 
   /// Collection with mounted RenderMetricsBox
   RenderMetricsBox operator [](T id) {
@@ -18,8 +32,9 @@ class RenderParametersManager<T> extends RenderManager<T> {
   }
 
   /// Add Instance to _renderObjects Collection
+  @override
   void addRenderObject(T id, RenderObject renderObject) {
-    _renderObjects[id] = renderObject;
+    _renderObjects[id] = renderObject as RenderMetricsBox;
   }
 
   /// Get an instance of [RenderObject] by [id]
@@ -33,6 +48,7 @@ class RenderParametersManager<T> extends RenderManager<T> {
   }
 
   /// Delete an instance of [RenderObject] by id
+  @override
   void removeRenderObject(T id) {
     _renderObjects.remove(id);
   }
@@ -40,8 +56,8 @@ class RenderParametersManager<T> extends RenderManager<T> {
   /// Get the difference between
   /// two instances [RenderObject] by id
   ComparisonDiff getDiffById(T firstId, T secondId) {
-    RenderData first = getRenderData(firstId);
-    RenderData second = getRenderData(secondId);
+    final RenderData first = getRenderData(firstId);
+    final RenderData second = getRenderData(secondId);
     return getDiffByInstance(first, second);
   }
 

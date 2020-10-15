@@ -1,67 +1,65 @@
-<!--![logo](logo.gif)-->
-
-# <img src="logo.gif" title="logo" width="400" height="400" align="middle"/>
+# <img src="logo.gif" title="logo" width="400" height="400" align="middle" />
 
 
-Набор библиотек, стандартов, инструментов используемых студией Surf при разработке на Flutter.
+A set of libraries, standards, tools used by Surf studio when developing on Flutter.
 
-Данный репозиторий предназанчен скорее **для демонстрации**.
+This repository is intended **for demonstration**.
 
-**Отдельные библиотеки будут иметь свои репозитории(ссылка на них будет указана).**
+**Individual libraries will have their own repositories (link to them will be provided).**
 
-[**Документация и стандарты**](docs/ru/main.md)
+[**Documentation and standards**](docs/en/main.md)
 
-## Модули
+## Modules
 
-Статусы:
+Statuses:
 
-- surf - модуль только для внутреннего использования
-- alpha, beta, release - статусы для модулей, которые могут использоваться во вне
+- surf - module for internal use only
+- alpha, beta, release - statuses for modules that can be used outside
 
-| Название | Описание | Статус |
-|----------|----------|--------|
-| [analytics](packages/analytics/) | Единый интерфейс для работы с сервисами аналитики | surf |
-| [auto_reload](packages/auto_reload/) | Библиотека, позволяющая выполнять какие-либо действия с заданной периодичностью | surf |
-| [background_worker](packages/background_worker/) | Хелпер для работы с изолятами | surf |
-| [bottom_navigation_bar](packages/bottom_navigation_bar/) | Виджет с кнопками навигации между экранами | surf |
-| [bottom_sheet](packages/bottom_sheet/) | Виджет раскрывающейся шторки с возможностью прокрутки | surf |
-| [build_context_holder](packages/build_context_holder/) | Хранитель контекста последнего созданного виджета | surf |
-| [datalist](packages/datalist/) | Список, упрощающий работу с пагинацией | surf |
-| [db_holder](packages/db_holder/) | Интерфейс для работы с базами данных | surf |
-| [event_filter](packages/event_filter/) | Интерфейс для филтрации событий | surf |
-| [geolocation](packages/geolocation/) | Библиотека для работы с геопозицией | surf |
-| [injector](packages/injector/) | Инструмент для внедрения зависимостей | surf |
-| [ink_widget](packages/ink_widget/) | Обертка над InkWell | surf |
-| [keyboard_listener](packages/keyboard_listener/) | Виджет для отслеживания состояния клавиатуры | surf |
-| [logger](packages/logger/) | Библиотека для логирования | surf |
-| [mixed_list](packages/mixed_list/) | Виджет для отображения элементов разного типа в виде списка | surf |
-| [mwwm](https://pub.dev/packages/mwwm) | Библиотека с компонентами архитектуры MWWM | beta |
-| [network](packages/network/) | Библиотека для работы с запросами к серверу | surf |
-| [network_cache](packages/network_cache/) | Утилита для кеширования ответов от сервера | surf |
-| [permission](packages/permission/) | Библиотека для запроса доступа к различным функциям устройства (геолокация, список контактов и т.д.) | surf |
-| [push_notification](packages/push_notification/) | Библиотека для работы с уведомлениями | surf |
-| [relation](https://pub.dev/packages/relation) | Свзяь Widget - Wm , используемая в Surf | alpha |
-| [render_metrics](https://pub.dev/packages/render_metrics) | Библотека для снятия метрик с виджета | release |
-| [storage](packages/storage/) | Интерфейс для работы с хранилищами | surf |
-| [surf_mwwm](packages/surf_mwwm/) | Пакет, объединяющий в себе mwwm, injector, relation и различные методы расширения | surf |
-| [surf_util](packages/surf_util/) | Набор утилит | surf |
-| [swipe_refresh](packages/swipe_refresh/) | Виджет для работы с pull-to-refresh | surf |
-| [tabnavigator](packages/tabnavigator/) | Библиотека для навигации между табами главного экрана | surf |
-| [virtual_keyboard](packages/virtual_keyboard/) | Виджет для отображения виртуальной клавиатуры | surf |
+| Name | Description | Status |
+| ---------- | ---------- | -------- |
+| [analytics](https://pub.dev/packages/analytics)|Unified interface for working with analytics services | surf |
+| [auto_reload](https://pub.dev/packages/auto_reload)| A library that allows you to perform any actions at a given frequency | surf |
+| [background_worker](https://pub.dev/packages/background_worker)| Isolate Helper | surf |
+| [bottom_navigation_bar](https://pub.dev/packages/bottom_navigation_bar)| Widget with navigation buttons between screens | surf |
+| [bottom_sheet](https://pub.dev/packages/bottom_sheet) | Scrollable Curtain Widget | surf |
+| [build_context_holder](https://pub.dev/packages/build_context_holder) | The context keeper of the last created widget | surf |
+| [datalist](https://pub.dev/packages/datalist) | List that makes pagination easier to work with | surf |
+| [db_holder](https://pub.dev/packages/db_holder) | Database interface | surf |
+| [event_filter](https://pub.dev/packages/event_filter) | Event filtering interface | surf |
+| [geolocation](packages/geolocation/) | Library for working with geo-location | surf |
+| [ink_widget](https://pub.dev/packages/ink_widget) | Wrapper over InkWell | surf |
+| [keyboard_listener](packages/keyboard_listener/) | Keyboard widget | surf |
+| [mixed_list](https://pub.dev/packages/mixed_list) | Widget for displaying items of different types as a list | surf |
+| [mwwm](https://pub.dev/packages/mwwm) | MWWM Architecture Components Library | beta |
+| [network_cache](https://pub.dev/packages/network_cache) | Utility for caching responses from the server | surf |
+| [permission](packages/permission/) | Library for requesting access to various device functions (geolocation, contact list, etc.) | surf |
+| [push_notification](https://pub.dev/packages/push_notification) | Library for working with notifications | surf |
+| [relation](https://pub.dev/packages/relation) | Communication Widget - Wm Used In Surf | alpha |
+| [render_metrics](https://pub.dev/packages/render_metrics) | Library for removing metrics from a widget | release |
+| [surf_injector](https://pub.dev/packages/surf_injector) | Dependency Injection Tool | surf |
+| [surf_logger](https://pub.dev/packages/surf_logger) | Library for logging | surf |
+| [surf_mwwm](https://pub.dev/packages/surf_mwwm) | A package that combines mwwm, injector, relation and various extension methods | surf |
+| [surf_network](https://pub.dev/packages/surf_network) | Library for working with server requests | surf |
+| [surf_storage](https://pub.dev/packages/surf_storage) | Interface for working with storages | surf |
+| [surf_util](https://pub.dev/packages/surf_util) | Set of utilities | surf |
+| [swipe_refresh](https://pub.dev/packages/swipe_refresh) | Pull-to-refresh widget | surf |
+| [tabnavigator](https://pub.dev/packages/tabnavigator) | Library for navigation between tabs of the main screen | surf |
+| [virtual_keyboard](packages/virtual_keyboard/) | Widget for displaying virtual keyboard | surf |
 
 
-## Как задать вопросы?
+## How to ask questions?
 
-Задать интересующие вопросы можно либо в issue к репозиторию,
-либо в специальном [чате в Telegram](https://t.me/SurfGear).
+You can ask questions of interest either in the issue to the repository,
+or in a special [chat on Telegram](https://t.me/SurfGear).
 
-## Благодарности
+## Thanks
 
-За вклад в развитие репозитория огромное спасибо всей команде Surf!
+Many thanks to the entire **Surf team** for their contribution to the development of the repository!
 
-## Лицензия
+## License
 ```
-Copyright (c) 2019-present,  SurfStudio LLC
+Copyright (c) 2019-present, SurfStudio LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

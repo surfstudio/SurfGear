@@ -15,9 +15,11 @@
 import 'package:build_context_holder/build_context_holder.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,13 +27,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -60,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               'You have pushed the button this many times:',
             ),
             Text(
@@ -68,8 +70,8 @@ class _MyHomePageState extends State<MyHomePage>
               style: Theme.of(context).textTheme.headline4,
             ),
             RaisedButton.icon(
-              icon: Icon(Icons.info_outline),
-              label: Text('Get information'),
+              icon: const Icon(Icons.info_outline),
+              label: const Text('Get information'),
               onPressed: () => _showInfoDialog(_counter),
             ),
           ],
@@ -78,29 +80,29 @@ class _MyHomePageState extends State<MyHomePage>
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
 }
 
 void _showInfoDialog(int counter) {
-  showDialog(
+  showDialog<void>(
       // Get the current context without explicit passing
       context: BuildContextHolder.instance.context,
       builder: (context) {
         return AlertDialog(
-          title: Text("You have pushed the button this many times:"),
+          title: const Text('You have pushed the button this many times:'),
           content: Text(
             '$counter',
             style: Theme.of(context).textTheme.headline4,
           ),
           actions: <Widget>[
             FlatButton(
-              child: new Text("Close"),
               onPressed: () {
                 Navigator.of(context).pop();
               },
+              child: const Text('Close'),
             ),
           ],
         );

@@ -17,6 +17,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class TestWidget extends StatefulWidget {
+  const TestWidget({Key key}) : super(key: key);
+
   @override
   TestWidgetState createState() => TestWidgetState();
 }
@@ -27,29 +29,29 @@ class TestWidgetState extends State<TestWidget>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('TestWidget title'),
+        title: const Text('TestWidget title'),
       ),
     );
   }
 }
 
 void main() {
-  testWidgets('Holder testing', (WidgetTester tester) async {
+  testWidgets('Holder testing', (tester) async {
     await tester.pumpWidget(
       Builder(
-        builder: (BuildContext context) {
+        builder: (context) {
           BuildContextHolder.instance.context = context;
           expect(context, BuildContextHolder.instance.context);
-          return Placeholder();
+          return const Placeholder();
         },
       ),
     );
   });
 
-  testWidgets('Mixin testing', (WidgetTester tester) async {
+  testWidgets('Mixin testing', (tester) async {
     BuildContextHolder.instance.context = null;
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: TestWidget(),
       ),
     );

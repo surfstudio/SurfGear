@@ -20,9 +20,11 @@ import 'package:surf_mwwm/surf_mwwm.dart';
 
 /// Main screen
 class MainScreen extends MwwmWidget<MainScreenComponent> {
-  MainScreen(
-      [WidgetModelBuilder widgetModelBuilder = createMainScreenWidgetModel])
-      : super(
+  MainScreen({
+    Key key,
+    WidgetModelBuilder widgetModelBuilder = createMainScreenWidgetModel,
+  }) : super(
+          key: key,
           dependenciesBuilder: (context) => MainScreenComponent(context),
           widgetStateBuilder: () => _MainScreenState(),
           widgetModelBuilder: widgetModelBuilder,
@@ -41,7 +43,7 @@ class _MainScreenState extends WidgetState<MainScreenWidgetModel> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               'You have pushed the button this many times:',
             ),
             Text(
@@ -54,7 +56,7 @@ class _MainScreenState extends WidgetState<MainScreenWidgetModel> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

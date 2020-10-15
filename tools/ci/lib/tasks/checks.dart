@@ -10,6 +10,7 @@ import 'package:ci/services/pub_publish_manager.dart';
 import 'package:ci/tasks/factories/license_task_factory.dart';
 import 'package:ci/tasks/impl/building/check_dependency_stable.dart';
 import 'package:ci/tasks/impl/building/check_stability_dev.dart';
+import 'package:ci/tasks/impl/building/increment_dev_version_task.dart';
 import 'package:ci/tasks/impl/building/linter_check.dart';
 import 'package:ci/tasks/impl/building/stable_modules_for_changes_check.dart';
 import 'package:ci/tasks/impl/license/copyright_check.dart';
@@ -39,7 +40,8 @@ Future<bool> checkModulesWithLinter(List<Element> elements) async {
   }
 
   if (errorMessages.isNotEmpty) {
-    errorMessages.insert(0, 'Пожалуйста, исправьте ошибки в следующих модулях:\n\n');
+    errorMessages.insert(
+        0, 'Пожалуйста, исправьте ошибки в следующих модулях:\n\n');
 
     throw AnalyzerFailedException(errorMessages.join());
   }
@@ -62,7 +64,9 @@ Future<bool> checkStableModulesForChanges(List<Element> elements) async {
   if (changedModules.isNotEmpty) {
     final modulesNames = changedModules.map((e) => e.name).join(', ');
     return Future.error(
-      StableModulesWasModifiedException('Модули, отмеченные как stable, были изменены: $modulesNames'),
+      StableModulesWasModifiedException(
+        'Модули, отмеченные как stable, были изменены: $modulesNames',
+      ),
     );
   }
 
@@ -82,7 +86,8 @@ Future<bool> runTests(List<Element> elements, {bool needReport = false}) async {
   }
 
   if (errorMessages.isNotEmpty) {
-    final message = getTestsFailedExceptionText(errorMessages.length, errorMessages.join());
+    final message =
+        getTestsFailedExceptionText(errorMessages.length, errorMessages.join());
 
     if (needReport) {
       File(_testsReportName).writeAsStringSync(message, flush: true);
@@ -108,7 +113,8 @@ Future<bool> checkVersionInReleaseNote(Element element) {
 }
 
 /// Проверка стабильности зависимостей модуля.
-Future<bool> checkDependenciesStable(Element element) => CheckDependencyStable(element).run();
+Future<bool> checkDependenciesStable(Element element) =>
+    CheckDependencyStable(element).run();
 
 /// Создаём общий RELEASE_NOTES.md и коммитим его
 Future<void> writeReleaseNotes(List<Element> elements) {
@@ -125,6 +131,7 @@ Future<bool> checkCyrillicChangelog(Element element) {
     FileSystemManager(),
   ).run();
 }
+
 /// Выводим граф зависимостей
 Future<void> showDependencyGraph(List<Element> elements) {
   return ShowDependencyGraphTask(elements).run();
@@ -198,6 +205,19 @@ Future<List<Element>> incrementUnstableVersion(List<Element> elements) async {
 
   for (var element in elements) {
     updatedList.add(await IncrementUnstableVersionTask(element).run());
+  }
+
+  return updatedList;
+}
+
+/// Увеличение 'X.Y.Z-dev.TTTT' нестабильных версий
+Future<List<Element>> incrementDevUnstableVersion(
+  List<Element> elements,
+) async {
+  var updatedList = <Element>[];
+
+  for (var element in elements) {
+    updatedList.add(await IncrementDevVersionTask(element).run());
   }
 
   return updatedList;

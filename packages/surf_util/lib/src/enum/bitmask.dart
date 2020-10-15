@@ -1,3 +1,17 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import '../../surf_util.dart';
 
 /// Реализация Enum в виде битовой маски.
@@ -10,7 +24,9 @@ abstract class Bitmask extends Enum<int> {
   /// Возвращает значение маски по списку значений
   static int getMask(Iterable<Bitmask> list) {
     var res = 0;
-    list.forEach((e) => res = res | e.value);
+    for (final item in list) {
+      res = res | item.value;
+    }
 
     return res;
   }

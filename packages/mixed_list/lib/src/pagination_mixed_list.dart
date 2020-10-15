@@ -1,3 +1,17 @@
+// Copyright (c) 2019-present,  SurfStudio LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
@@ -13,6 +27,31 @@ typedef PaginationPredicate = bool Function(int position);
 
 /// Widget list for display different type of data with pagination.
 class PaginationMixedList extends MixedList {
+  const PaginationMixedList({
+    @required List items,
+    @required Map<Type, ItemBuilder> supportedItemControllers,
+    @required ListMode listMode,
+    @required this.onLoadMore,
+    @required this.paginationState,
+    Key key,
+    this.paginationFooterBuilder,
+    this.paginationPredicate,
+    this.headerSlivers = const [],
+    ScrollPhysics scrollPhysics,
+    ScrollController scrollController,
+    SliverGridDelegate gridDelegate,
+    SliverChildBuilderDelegate itemsDelegate,
+  }) : super(
+          key: key,
+          supportedItemControllers: supportedItemControllers,
+          items: items,
+          listMode: listMode,
+          scrollPhysics: scrollPhysics,
+          scrollController: scrollController,
+          gridDelegate: gridDelegate,
+          itemsDelegate: itemsDelegate,
+        );
+
   /// Function that will be called when need load more data.
   final VoidCallback onLoadMore;
 
@@ -28,30 +67,6 @@ class PaginationMixedList extends MixedList {
   /// Slivers that will be display before the first items in list.
   final List<Widget> headerSlivers;
 
-  PaginationMixedList({
-    this.paginationFooterBuilder,
-    this.paginationPredicate,
-    this.headerSlivers = const [],
-    ScrollPhysics scrollPhysics,
-    ScrollController scrollController,
-    SliverPadding sliverPadding,
-    SliverGridDelegate gridDelegate,
-    SliverChildBuilderDelegate itemsDelegate,
-    @required List items,
-    @required Map<Type, ItemBuilder> supportedItemControllers,
-    @required ListMode listMode,
-    @required this.onLoadMore,
-    @required this.paginationState,
-  }) : super(
-          supportedItemControllers: supportedItemControllers,
-          items: items,
-          listMode: listMode,
-          scrollPhysics: scrollPhysics,
-          scrollController: scrollController,
-          gridDelegate: gridDelegate,
-          itemsDelegate: itemsDelegate,
-        );
-
   @override
   State<StatefulWidget> createState() => _PaginationState();
 }
@@ -66,10 +81,10 @@ class _PaginationState extends MixedListState<PaginationMixedList> {
   @override
   void initState() {
     _defaultPaginationPredicate = (position) {
-      var isComplete = _currentState == PaginationState.complete;
-      var isError = _currentState == PaginationState.error;
+      final isComplete = _currentState == PaginationState.complete;
+      final isError = _currentState == PaginationState.error;
 
-      var itemsLength = widget.items.length;
+      final itemsLength = widget.items.length;
 
       return position > itemsLength / 2 &&
           !_isLoading &&
@@ -85,7 +100,7 @@ class _PaginationState extends MixedListState<PaginationMixedList> {
       });
     });
 
-    if (_currentState != PaginationState.complete && widget.items.length == 0) {
+    if (_currentState != PaginationState.complete && widget.items.isEmpty) {
       widget.onLoadMore();
       _isLoading = true;
     }
@@ -102,7 +117,7 @@ class _PaginationState extends MixedListState<PaginationMixedList> {
 
   @override
   SliverChildBuilderDelegate getItemDelegate() {
-    var itemsLength = widget.items.length;
+    final itemsLength = widget.items.length;
 
     return SliverChildBuilderDelegate(
       (ctx, position) {
