@@ -1,3 +1,7 @@
+## 1.0.0
+
+* stable release
+
 ## 0.0.3-dev.3
 
 * change error type from Exception to Object
