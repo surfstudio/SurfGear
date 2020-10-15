@@ -1,3 +1,7 @@
+## 1.0.0
+
+* make mwwm stable
+
 ## 0.1.0-dev.4
 
 * Replace dynamic type in WidgetModel's errorCallbacks
