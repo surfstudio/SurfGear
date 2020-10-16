@@ -12,7 +12,7 @@ android {
             storePassword keystoreConfig.storePassword
         }
 
-        test {
+        debug {
             storeFile file("../keystore/test.keystore")
             storePassword "qatest"
             keyAlias "test"
