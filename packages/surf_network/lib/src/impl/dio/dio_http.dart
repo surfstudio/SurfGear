@@ -271,16 +271,4 @@ class DioHttp extends Http {
     errorMapper.checkStatus(response);
     return response;
   }
-
-  DioInterceptor _buildDefaultResponseErrorMapper() {
-    return DioInterceptorWrapper(
-      errorCallback: (e) {
-        if (e.type == dio.DioErrorType.RESPONSE) {
-          return e.response;
-        }
-
-        throw e;
-      },
-    );
-  }
 }
