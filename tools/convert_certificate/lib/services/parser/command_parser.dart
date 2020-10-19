@@ -1,26 +1,26 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:convert_certificate/domain/path_certificate.dart';
+import 'package:certificate_binarizator/domain/path_certificate.dart';
 import 'package:path/path.dart' as path;
 
-/// Парсер команд.
+/// Command parser.
 class CommandParser {
   final ArgParser _argParser = ArgParser();
 
-  /// Опция для указания имени сертификата.
+  /// Option to specify the certificate name.
   static const String _name = 'name';
   static const String _nameAbbr = 'n';
 
-  /// Опция для указания дирректории сертификата.
+  /// Option for specifying the certificate directorate.
   static const String _inputPath = 'input';
   static const String _inputPathAbbr = 'i';
 
-  /// Опция для указания дирректории бинарного файла.
+  /// Option to specify the directory of the binary file.
   static const String _outputPath = 'out';
   static const String _outputPathAbbr = 'o';
 
-  /// Флаг для вызова help.
+  /// Flag to call for help.
   static const String _helpFlag = 'help';
   static const String _helpAbbr = 'h';
 
@@ -31,7 +31,7 @@ class CommandParser {
   void _init() {
     _argParser
 
-      /// Дирректория до сертификата.
+      /// Certificate file name.
       ..addOption(
         CommandParser._name,
         abbr: CommandParser._nameAbbr,
@@ -39,7 +39,7 @@ class CommandParser {
         valueHelp: 'name certificate',
       )
 
-      /// Дирректория сертификата.
+      /// Directory before the certificate.
       ..addOption(
         CommandParser._inputPath,
         abbr: CommandParser._inputPathAbbr,
@@ -48,7 +48,7 @@ class CommandParser {
         defaultsTo: path.current,
       )
 
-      /// Дирректория сохранения бинарного сертификата
+      /// Binary certificate preservation directory.
       ..addOption(
         CommandParser._outputPath,
         abbr: CommandParser._outputPathAbbr,
@@ -66,7 +66,7 @@ class CommandParser {
       );
   }
 
-  /// Выполняет парсинг переданных аргументов и возвращает команду на исполнение.
+  /// Performs parsing of passed arguments and returns the command for execution.
   Future<PathCertificate> parser(List<String> arguments) async {
     try {
       final parsed = _argParser.parse(arguments);
@@ -77,7 +77,7 @@ class CommandParser {
     }
   }
 
-  /// Если опции введены верно, парсим их в [Command], иначе возвращаем help.
+  /// If the options are entered correctly, parse them in [Command], otherwise return help.
   Future<PathCertificate> _getCommandByArgs(ArgResults parsed) async {
     final isShowHelp = parsed[CommandParser._helpFlag] as bool;
     if (isShowHelp) {
@@ -100,9 +100,9 @@ class CommandParser {
     );
   }
 
-  /// Выводим ссобщение в консоль
-  /// [sleep] необходим в случаи неправильно введённых комманд/опций/флагов,
-  /// в редких случаях вывод ошибки смешавается с help.
+  /// Output the message to the console
+  /// [sleep] is necessary in case of incorrectly entered commands/options/flags,
+  /// in rare cases the error output is mixed with help.
   void _printMessage() {
     print(_argParser.usage);
     sleep(const Duration(microseconds: 10));

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:path/path.dart' as path;
 
-/// Создаем файл dart с сертификатом
+/// We create a dart file with a certificate.
 Future<void> certificateBinarization(File file) async {
   final fileNameWithoutExt = path.basenameWithoutExtension(file.path);
   final cert = file.readAsBytesSync();

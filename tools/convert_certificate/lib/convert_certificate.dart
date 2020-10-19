@@ -1,8 +1,8 @@
-import 'package:convert_certificate/services/parser/command_parser.dart';
-import 'package:convert_certificate/tasks/analysis_certificate.dart';
-import 'package:convert_certificate/tasks/certificate_binaryization.dart';
-import 'package:convert_certificate/tasks/check_file.dart';
-import 'package:convert_certificate/tasks/shell_convert.dart';
+import 'package:certificate_binarizator/services/parser/command_parser.dart';
+import 'package:certificate_binarizator/tasks/analysis_certificate.dart';
+import 'package:certificate_binarizator/tasks/certificate_binaryization.dart';
+import 'package:certificate_binarizator/tasks/check_file.dart';
+import 'package:certificate_binarizator/tasks/shell_convert.dart';
 
 /// Консольное приложение для создание бинарного сертификата
 class ConvertCertificate {

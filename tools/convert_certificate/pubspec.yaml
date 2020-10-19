@@ -1,6 +1,6 @@
-name: convert_certificate
-description: A sample command-line application.
-# version: 1.0.0
+name: certificate_binarizator
+description: Creates a binary certificate. Util for representation of certificate as variable list of bytes.
+version: 0.0.1
 # homepage: https://www.example.com
 
 environment:

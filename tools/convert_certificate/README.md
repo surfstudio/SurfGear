@@ -2,21 +2,21 @@
 
 Converts certificate to *.dart the binary file.
 
-## Описание
+## Description
 
-Утилита создаёт файл *.dart с сертификатом.
+The utility creates a *.dart file with a certificate.
 
 ### FAQ
 
-Обязательные опции:
-    -n, --name      -   Имя исходного сертификата.
+Mandatory options:
+    -n, --name      -   Name of the original certificate.
 
-Необязательные опции:
-    -i, --input     -   Дирректория исходного сертификата, по умолчанию принимает директорию утилиты.
-    -o, --out       -   Директория конвертированного сертификата, по умолчанию принимает директорию утилиты.
-    -h, --help      -   Показать help.
+Optional options:
+    -i, --input     -   The directory of the source certificate, by default accepts the directory of the utility.
+    -o, --out       -   Converted certificate directory, accepts utility directory by default.
+    -h, --help      -   Show help.
 
 #### Exception
-    Exception:  Enter the name of the certificate. - не ввели имя исходного сертификата.
-    Exception:  File certificate $path not found. - сертификат не найден в дирректории.
-    Exception:  Certificate conversion error. -  ошибка при конвертации сертификата.
+    Exception:  Enter the name of the certificate. - did not enter the name of the original certificate.
+    Exception:  File certificate $path not found. - certificate not found in the directory.
+    Exception:  Certificate conversion error. -  certificate conversion error.

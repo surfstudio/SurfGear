@@ -1,9 +1,9 @@
 import 'dart:io';
 
-/// Ищем в файле сертификата
+/// We are looking in the certificate file.
 const _textContent = 'BEGIN CERTIFICATE';
 
-/// Является сертификат PEM
+/// Is a PEM certificate
 ///
 /// todo: тут стоит рассмотреть подход к проверки, расширений больше
 /// todo: https://rtfm.co.ua/tlsssl-der-vs-pem-tipy-fajlov-i-ix-konvertaciya/
@@ -12,7 +12,7 @@ Future<bool> analysisCertificate(File file) async {
   try {
     content = await file.readAsString();
   } on FileSystemException {
-    /// при попытке прочитать бинарный, вылетит ошибка
+    /// When trying to read a binary, an error will be emitted
     return false;
   }
 

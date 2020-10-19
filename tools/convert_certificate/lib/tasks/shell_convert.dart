@@ -8,7 +8,7 @@ Future<File> shellConvert(String inputPath, String outputPath, String name) asyn
 
   final shell = Shell();
 
-  /// split обязателен, иначе работать не будет и ошибок не выдаст
+  /// split obligatory, otherwise it will not work and will not give out errors
   final commandShell = 'x509 -inform der -in $inputPath -out $outputPath/${res}.pem'.split(' ');
 
   final processResult = await shell.run('openssl', [...commandShell]);

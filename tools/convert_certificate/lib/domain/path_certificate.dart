@@ -1,12 +1,12 @@
-///  Пути для сертификата
+/// Path for certificate.
 class PathCertificate {
-  /// Имя файла сертификата
+  /// Certificate file name.
   final String name;
 
-  /// Где лежит сертификат
+  /// Where is the certificate.
   final String inputPath;
 
-  /// Куда положить сертификат
+  /// Where to put the certificate.
   final String outputPath;
 
   PathCertificate({
