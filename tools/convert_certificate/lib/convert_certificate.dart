@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:certificate_binarizator/services/parser/command_parser.dart';
 import 'package:certificate_binarizator/tasks/analysis_certificate.dart';
 import 'package:certificate_binarizator/tasks/certificate_binaryization.dart';
@@ -16,9 +18,9 @@ class ConvertCertificate {
         pathCertificate.name,
         pathCertificate.inputPath,
       );
-      final res = await analysisCertificate(file);
+      final isPem = await analysisCertificate(file);
 
-      if (res) {
+      if (isPem) {
         await certificateBinarization(file);
       } else {
         final fileConvert = await shellConvert(
@@ -27,6 +29,7 @@ class ConvertCertificate {
           pathCertificate.name,
         );
         await certificateBinarization(fileConvert);
+        fileConvert.deleteSync();
       }
     } catch (e) {
       rethrow;
