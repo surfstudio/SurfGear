@@ -12,3 +12,6 @@ dev_dependencies:
   args: ^1.6.0
   path: ^1.7.0
   shell: ^1.0.1
+
+executables:
+  aqueduct: main
