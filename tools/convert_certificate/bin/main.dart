@@ -5,6 +5,6 @@ import 'package:certificate_binarizator/convert_certificate.dart';
 /// 0 - success
 /// 1 - error
 void main(List<String> arguments) async {
-  final convertCertificate = ConvertCertificate();
-  await convertCertificate.execute(arguments);
+  final certificateConverter = CertificateConverter();
+  await certificateConverter.convertCertificate(arguments);
 }

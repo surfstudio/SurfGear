@@ -67,7 +67,7 @@ class CommandParser {
   }
 
   /// Performs parsing of passed arguments and returns the command for execution.
-  Future<PathCertificate> parser(List<String> arguments) async {
+  Future<ConversionParams> parser(List<String> arguments) async {
     try {
       final parsed = _argParser.parse(arguments);
 
@@ -78,7 +78,7 @@ class CommandParser {
   }
 
   /// If the options are entered correctly, parse them in [Command], otherwise return help.
-  Future<PathCertificate> _getCommandByArgs(ArgResults parsed) async {
+  Future<ConversionParams> _getCommandByArgs(ArgResults parsed) async {
     final isShowHelp = parsed[CommandParser._helpFlag] as bool;
     if (isShowHelp) {
       _printMessage();
@@ -93,7 +93,7 @@ class CommandParser {
       return Future.error(Exception('Enter the name of the certificate.'));
     }
 
-    return PathCertificate(
+    return ConversionParams(
       inputPath: inputPath,
       outputPath: outputPath,
       name: name,

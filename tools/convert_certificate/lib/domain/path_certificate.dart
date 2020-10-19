@@ -1,5 +1,5 @@
 /// Path for certificate.
-class PathCertificate {
+class ConversionParams {
   /// Certificate file name.
   final String name;
 
@@ -9,7 +9,7 @@ class PathCertificate {
   /// Where to put the certificate.
   final String outputPath;
 
-  PathCertificate({
+  ConversionParams({
     this.inputPath,
     this.outputPath,
     this.name,

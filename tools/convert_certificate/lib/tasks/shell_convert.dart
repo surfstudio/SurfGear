@@ -3,13 +3,12 @@ import 'dart:io';
 import 'package:shell/shell.dart';
 
 /// todo: форматов сертификатов больше, чем 2
-Future<File> shellConvert(String inputPath, String outputPath, String name) async {
+Future<File> convert(String inputPath, String outputPath, String name) async {
+  final shell = Shell();
   final res = name.split('.')[0];
 
-  final shell = Shell();
-
   /// split obligatory, otherwise it will not work and will not give out errors
-  final commandShell = 'x509 -inform der -in $inputPath -out $outputPath/${res}.pem'.split(' ');
+  final commandShell = _commandOpenssl(inputPath, outputPath, res).split(' ');
 
   final processResult = await shell.run('openssl', [...commandShell]);
 
@@ -21,4 +20,8 @@ Future<File> shellConvert(String inputPath, String outputPath, String name) asyn
   print(processResult.stdout);
 
   return File('$outputPath\/$res.pem');
+}
+
+String _commandOpenssl(String inputPath, String outputPath, String name) {
+  return 'x509 -inform der -in $inputPath -out $outputPath/${name}.pem';
 }
