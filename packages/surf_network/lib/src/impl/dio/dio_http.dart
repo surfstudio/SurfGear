@@ -37,6 +37,7 @@ class DioHttp extends Http {
     HttpConfig config,
     this.errorMapper,
     List<DioInterceptor> interceptors,
+    DioInterceptor responseErrorWrapper,
     dio.HttpClientAdapter httpClientAdapter,
   }) {
     _dio.options
@@ -64,13 +65,17 @@ class DioHttp extends Http {
       ));
     }
 
-    _dio.interceptors.add(dio.InterceptorsWrapper(onError: (e) {
-      if (e.type == dio.DioErrorType.RESPONSE) {
-        return e.response;
-      }
+    if (responseErrorWrapper != null) {
+      _dio.interceptors.add(DioInterceptorDecorator(responseErrorWrapper));
+    } else {
+      _dio.interceptors.add(dio.InterceptorsWrapper(onError: (e) {
+        if (e.type == dio.DioErrorType.RESPONSE) {
+          return e.response;
+        }
 
-      throw e;
-    }));
+        throw e;
+      }));
+    }
   }
 
   ///Proxy config for tracking data
