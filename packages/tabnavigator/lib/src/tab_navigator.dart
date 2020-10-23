@@ -114,7 +114,8 @@ class TabNavigatorState extends State<TabNavigator> {
           return const SizedBox();
         }
         final TabType tabType = snapshot.data;
-        if (!_initializedTabs.contains(tabType)) {
+        if (tabType.value != TabType.emptyValue &&
+            !_initializedTabs.contains(tabType)) {
           _initializedTabs.add(tabType);
           tabObserver.addTab(tabType);
         }
@@ -134,10 +135,12 @@ class TabNavigatorState extends State<TabNavigator> {
   }
 
   List<Widget> _buildTabs(TabType selectedTab) {
-    mappedNavKeys.putIfAbsent(
-      selectedTab,
-      () => GlobalKey(debugLabel: '$selectedTab'),
-    );
+    if (selectedTab.value != TabType.emptyValue) {
+      mappedNavKeys.putIfAbsent(
+        selectedTab,
+        () => GlobalKey(debugLabel: '$selectedTab'),
+      );
+    }
     return [
       for (TabType tabType in _initializedTabs)
         WillPopScope(
@@ -162,8 +165,9 @@ class TabNavigatorState extends State<TabNavigator> {
                         context,
                         animation,
                         secondaryAnimation,
-                      ) =>
-                          widget.mappedTabs[tabType](),
+                      ) {
+                        return widget.mappedTabs[tabType]();
+                      },
                     )
                   : widget.onGenerateRoute?.call(rs),
             ),
