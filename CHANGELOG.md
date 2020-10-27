@@ -1,3 +1,8 @@
+## 0.0.3-dev.4
+  
+* add 'from' constructors to StreamedStates
+
+
 ## 0.0.3-dev.3
 
 * change error type from Exception to Object
