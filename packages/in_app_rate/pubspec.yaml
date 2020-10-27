@@ -1,12 +1,7 @@
 name: in_app_rate
-description: Plugin use in-app review and App Store Review
-version: 0.0.1-dev.0
-author:
+version: "0.0.1-dev.1"
+description: "Plugin use in-app review and App Store Review"
 publish_to: none
-
-environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.10.0"
 
 dependencies:
   flutter:
@@ -15,11 +10,14 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   surf_lint_rules:
     git:
       url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
       path: packages/surf_lint_rules
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.10.0"
 
 flutter:
   plugin:
@@ -32,7 +30,7 @@ flutter:
 
 custom:
   is_stable: false
-  unstable_version: 1
+  unstable_version:
   is_plugin: true
   path: in_app_rate
   separate_repo_url:
