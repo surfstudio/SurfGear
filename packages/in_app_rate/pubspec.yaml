@@ -1,8 +1,8 @@
 name: in_app_rate
 description: Plugin use in-app review and App Store Review
-version: 0.0.1
+version: 0.0.1-dev.0
 author:
-homepage:
+publish_to: none
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
