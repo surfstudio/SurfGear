@@ -21,6 +21,8 @@ class EntityStreamedState<T> extends StreamedState<EntityState<T>>
     implements EntityEvent<T> {
   EntityStreamedState([EntityState<T> initialData]) : super(initialData);
 
+  EntityStreamedState.from(Stream<EntityState<T>> stream) : super.from(stream);
+
   @override
   Future<void> content([T data]) {
     final newState = EntityState<T>.content(data);
