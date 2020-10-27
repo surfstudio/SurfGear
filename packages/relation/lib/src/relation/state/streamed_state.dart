@@ -34,6 +34,10 @@ class StreamedState<T> implements Event<T> {
     }
   }
 
+  StreamedState.from(Stream<T> stream) {
+    stateSubject.addStream(stream);
+  }
+
   /// Behavior state for updating events
   final BehaviorSubject<T> stateSubject = BehaviorSubject();
 
