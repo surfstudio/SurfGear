@@ -26,7 +26,7 @@ typedef HandleMessageFunction = void Function(
 class PushHandler {
   PushHandler(
     this._strategyFactory,
-    this._notificationController,
+    this.notificationController,
     this._messagingService,
   ) {
     _messagingService?.initNotification(handleMessage);
@@ -38,7 +38,7 @@ class PushHandler {
       BehaviorSubject();
 
   final PushHandleStrategyFactory _strategyFactory;
-  final NotificationController _notificationController;
+  final NotificationController notificationController;
   final BaseMessagingService _messagingService;
 
   /// display local notification
@@ -49,18 +49,21 @@ class PushHandler {
     MessageHandlerType handlerType, {
     bool localNotification = false,
   }) {
+
     if (!localNotification) {
       messageSubject.add(message);
     }
 
     final strategy = _strategyFactory.createByData(message);
+
     if (message != null) {
       if (handlerType == MessageHandlerType.onLaunch ||
           handlerType == MessageHandlerType.onResume) {
         strategy.onBackgroundProcess(message);
       }
+
       if (handlerType == MessageHandlerType.onMessage) {
-        _notificationController.show(
+        notificationController.show(
           strategy,
           (_) {
             selectNotificationSubject.add(strategy);

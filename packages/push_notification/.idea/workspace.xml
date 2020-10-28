@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="61857ff7-9adf-4914-a414-5b77cb0e9bad" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/SwiftPushNotificationPlugin.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/SwiftPushNotificationPlugin.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/push_handler.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/push_handler.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../tools/ci/bin/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../../tools/ci/bin/main.dart" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="1dqZpGxMRuHG7mcR7tYJdHEtesH" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="android.sdk.path" value="$PROJECT_DIR$/../../../../android_sdk" />
+    <property name="dart.analysis.tool.window.force.activate" value="false" />
+    <property name="io.flutter.reload.alreadyRun" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RunManager">
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/example/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="61857ff7-9adf-4914-a414-5b77cb0e9bad" name="Default Changelist" comment="" />
+      <created>1593154764241</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1593154764241</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="184" y="98" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603350955776">
+      <screen x="0" y="23" width="1440" height="826" />
+    </state>
+    <state x="184" y="98" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.826@0.23.1440.826" timestamp="1603350955776" />
+    <state width="999" height="213" key="GridCell.Tab.0.bottom" timestamp="1603440426718">
+      <screen x="0" y="23" width="1440" height="826" />
+    </state>
+    <state width="999" height="213" key="GridCell.Tab.0.bottom/0.23.1440.826@0.23.1440.826" timestamp="1603440426718" />
+    <state width="999" height="213" key="GridCell.Tab.0.center" timestamp="1603440426717">
+      <screen x="0" y="23" width="1440" height="826" />
+    </state>
+    <state width="999" height="213" key="GridCell.Tab.0.center/0.23.1440.826@0.23.1440.826" timestamp="1603440426717" />
+    <state width="999" height="213" key="GridCell.Tab.0.left" timestamp="1603440426717">
+      <screen x="0" y="23" width="1440" height="826" />
+    </state>
+    <state width="999" height="213" key="GridCell.Tab.0.left/0.23.1440.826@0.23.1440.826" timestamp="1603440426717" />
+    <state width="999" height="213" key="GridCell.Tab.0.right" timestamp="1603440426718">
+      <screen x="0" y="23" width="1440" height="826" />
+    </state>
+    <state width="999" height="213" key="GridCell.Tab.0.right/0.23.1440.826@0.23.1440.826" timestamp="1603440426718" />
+    <state x="318" y="137" key="NewModule_or_Project.wizard" timestamp="1603274943507">
+      <screen x="0" y="23" width="1440" height="826" />
+    </state>
+    <state x="318" y="137" key="NewModule_or_Project.wizard/0.23.1440.826@0.23.1440.826" timestamp="1603274943507" />
+  </component>
+</project>

@@ -41,6 +41,7 @@ abstract class PushHandleStrategyFactory {
       } else if (Platform.isIOS) {
         builder = map[messageData[key]];
       }
+
       return builder(messageData);
     } on Exception catch (e) {
       // ignore: avoid_print
