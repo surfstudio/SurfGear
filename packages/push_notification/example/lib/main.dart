@@ -45,7 +45,8 @@ class _MyAppState extends State<MyApp> {
           },
         );
       },
-    )..requestPermissions(
+    )
+      ..requestPermissions(
         requestSoundPermission: true,
         requestAlertPermission: true,
       );

@@ -1,0 +1,6 @@
+framework module push_notification {
+  umbrella header "push_notification-umbrella.h"
+
+  export *
+  module * { export * }
+}

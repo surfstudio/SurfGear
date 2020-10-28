@@ -1,0 +1,36 @@
+{
+  "name": "firebase_messaging",
+  "version": "0.0.1",
+  "summary": "Firebase Cloud Messaging plugin for Flutter.",
+  "description": "Firebase Cloud Messaging plugin for Flutter.",
+  "homepage": "https://github.com/FirebaseExtended/flutterfire/tree/master/packages/firebase_messaging",
+  "license": {
+    "file": "../LICENSE"
+  },
+  "authors": {
+    "Flutter Team": "flutter-dev@googlegroups.com"
+  },
+  "source": {
+    "path": "."
+  },
+  "source_files": "Classes/**/*",
+  "public_header_files": "Classes/**/*.h",
+  "dependencies": {
+    "Flutter": [
+
+    ],
+    "Firebase/Core": [
+
+    ],
+    "Firebase/Messaging": [
+
+    ]
+  },
+  "static_framework": true,
+  "platforms": {
+    "ios": "8.0"
+  },
+  "pod_target_xcconfig": {
+    "GCC_PREPROCESSOR_DEFINITIONS": "LIBRARY_VERSION=\\@\\\"6.0.16\\\" LIBRARY_NAME=\\@\\\"flutter-fire-fcm\\\""
+  }
+}

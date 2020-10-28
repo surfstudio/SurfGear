@@ -62,4 +62,13 @@ abstract class PushHandleStrategy<PT extends NotificationPayload> {
 
   /// function that is called to process notification background
   void onBackgroundProcess(Map<String, dynamic> message);
+
+  @override
+  String toString() {
+    return 'PushHandleStrategy{notificationChannelId: $notificationChannelId,'
+        ' notificationChannelName: $notificationChannelName, pushId: $pushId,'
+        ' autoCancelable: $autoCancelable, color: $color, icon: $icon, ongoing:'
+        ' $ongoing, playSound: $playSound, presentAlert: $presentAlert,'
+        ' payload: $payload}';
+  }
 }

@@ -27,7 +27,7 @@ const String pushIdParam = 'localPushId';
 class NotificationController {
   NotificationController(OnPermissionDeclineCallback onPermissionDecline) {
     _notificator = Notificator(
-      onNotificationTapCallback: _internalOnSelectNotification,
+      onNotificationTapCallback:_internalOnSelectNotification,
       onPermissionDecline: onPermissionDecline,
     );
   }
@@ -89,7 +89,7 @@ class NotificationController {
     );
   }
 
-  Future<dynamic> _internalOnSelectNotification(Map payload) async {
+  void _internalOnSelectNotification(Map<dynamic, dynamic> payload) {
     // ignore: avoid_print
     print('DEV_INFO onSelectNotification, payload: $payload');
 
@@ -98,6 +98,6 @@ class NotificationController {
     final onSelectNotification = callbackMap[pushId];
     callbackMap.remove(pushId);
 
-    return onSelectNotification?.call(tmpPayload);
+    onSelectNotification?.call(tmpPayload);
   }
 }
