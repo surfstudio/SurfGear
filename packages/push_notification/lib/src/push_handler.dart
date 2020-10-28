@@ -26,7 +26,7 @@ typedef HandleMessageFunction = void Function(
 class PushHandler {
   PushHandler(
     this._strategyFactory,
-    this.notificationController,
+    this._notificationController,
     this._messagingService,
   ) {
     _messagingService?.initNotification(handleMessage);
@@ -38,8 +38,21 @@ class PushHandler {
       BehaviorSubject();
 
   final PushHandleStrategyFactory _strategyFactory;
-  final NotificationController notificationController;
+  final NotificationController _notificationController;
   final BaseMessagingService _messagingService;
+
+  /// request permission for show notification
+  /// soundPemission - is play sound
+  /// alertPermission - is show alert
+  Future<bool> requestPermissions({
+    bool soundPemission = true,
+    bool alertPermission = true,
+  }) {
+    return _notificationController.requestPermissions(
+      requestSoundPermission: soundPemission,
+      requestAlertPermission: alertPermission,
+    );
+  }
 
   /// display local notification
   /// MessagingService calls this method to display the notification that
@@ -49,7 +62,6 @@ class PushHandler {
     MessageHandlerType handlerType, {
     bool localNotification = false,
   }) {
-
     if (!localNotification) {
       messageSubject.add(message);
     }
@@ -63,7 +75,7 @@ class PushHandler {
       }
 
       if (handlerType == MessageHandlerType.onMessage) {
-        notificationController.show(
+        _notificationController.show(
           strategy,
           (_) {
             selectNotificationSubject.add(strategy);

@@ -79,8 +79,8 @@ public class SwiftPushNotificationPlugin: NSObject, FlutterPlugin, UNUserNotific
     
     // Show notifications
     func show(args: NSDictionary) {
-           //Implements a notification display while the program is running
-                                         notificationCenter.delegate = self
+        //Implements a notification display while the program is running
+        notificationCenter.delegate = self
         // Notification id
         let id: Int = args[ARG_PUSH_ID] as! Int
         // Notification title
