@@ -8,6 +8,6 @@ class PaymentCardTextInputFormatter extends SeparateTextInputFormatter {
           step: 4,
           stepSymbol: ' ',
           maxLength: 19,
-          type: SeparateTextInputFormatterType.number,
+          type: SeparateTextInputFormatterType.number,isAfterFormat: true,
         );
 }

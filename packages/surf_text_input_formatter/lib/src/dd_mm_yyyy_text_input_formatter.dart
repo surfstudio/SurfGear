@@ -27,7 +27,7 @@ class DdMmYyyyTextInputFormatter extends SeparateTextInputFormatter {
   ) {
     if (isManualRemove(oldValue, newValue)) return newValue;
 
-    final String newRawText = onlyNeedSymbols(newValue.text);
+    final String newRawText = getOnlyNeedSymbols(newValue.text);
 
     final int count = newRawText.length;
 

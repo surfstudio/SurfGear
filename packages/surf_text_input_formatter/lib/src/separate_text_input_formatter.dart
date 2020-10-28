@@ -22,6 +22,7 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   final String stepSymbol;
   final RegExp excludeRegExp;
   final SeparateTextInputFormatterType type;
+  final bool isAfterFormat;
 
   final int maxLength;
 
@@ -40,7 +41,9 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     this.maxLength,
     this.excludeRegExp,
     this.type,
+    bool isAfterFormat,
   })  : stepSymbol = stepSymbol ?? '',
+        isAfterFormat = isAfterFormat ?? false,
         assert(excludeRegExp != null || type != null) {
     if (separatorPositions != null) {
       this.separatorPositions = [...separatorPositions]..sort();
@@ -48,7 +51,7 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   }
 
   String _getSeparator(int index) {
-    if (separateSymbols == null) return '';
+    if (separateSymbols?.isEmpty ?? false) return '';
     if (index >= separateSymbols.length) {
       return separateSymbols[separateSymbols.length - 1];
     }
@@ -62,77 +65,31 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   ) {
     if (isManualRemove(oldValue, newValue)) return newValue;
     final String newText = newValue.text;
-    final String newRawText = onlyNeedSymbols(newText);
+    final String newRawText = getOnlyNeedSymbols(newText);
     final int newTextLength = newRawText.length;
     final int separatorPosCount = separatorPositions?.length ?? 0;
     final StringBuffer buffer = StringBuffer();
 
-    int rawOffset = onlyNeedSymbols(
+    int rawOffset = getOnlyNeedSymbols(
       newText.substring(0, newValue.selection.baseOffset),
     ).length;
 
-    int calculateOffset = rawOffset;
-
-    int separatorIndex = 0;
-
+    int calculateOffset = isAfterFormat
+        ? _formatAfter(
+            newTextLength: newTextLength,
+            newRawText: newRawText,
+            rawOffset: rawOffset,
+            buffer: buffer,
+            separatorPosCount: separatorPosCount,
+          )
+        : _formatBefore(
+            newTextLength: newTextLength,
+            newRawText: newRawText,
+            rawOffset: rawOffset,
+            buffer: buffer,
+            separatorPosCount: separatorPosCount,
+          );
     try {
-      /*
-      /// Option with insertion after entering a character
-      for (int i = 0; i < newTextLength; i++) {
-        buffer.write(newRawText[i]);
-        if (step != null && i > 0 && (i + 1) % step == 0) {
-          buffer.write(stepSymbol);
-          calculateOffset = _updateOffset(
-            calculateOffset: calculateOffset,
-            rawOffset: rawOffset,
-            index: i,
-            symbol: stepSymbol,
-          );
-        }
-
-        if (_isSeparators && separatorIndex < separatorPosCount) {
-          for (int j = separatorIndex; j < separatorPosCount; j++) {
-            if (i + separatorIndex != separatorPositions[j] - 1) continue;
-            buffer.write(_getSeparator(j));
-            separatorIndex++;
-            calculateOffset = _updateOffset(
-              calculateOffset: calculateOffset,
-              rawOffset: rawOffset,
-              index: i,
-              symbol: _getSeparator(j),
-            );
-          }
-        }
-      }
-
-      */
-      /// Option with an insert before entering a character
-      for (int i = 0; i < newTextLength; i++) {
-        if (step != null && i > 0 && i % step == 0) {
-          buffer.write(stepSymbol);
-          calculateOffset = _updateOffset(
-            calculateOffset: calculateOffset,
-            rawOffset: rawOffset,
-            index: i,
-            symbol: stepSymbol,
-          );
-        }
-
-        if (_isSeparators && separatorIndex < separatorPosCount) {
-          for (int j = separatorIndex; j < separatorPosCount; j++) {
-            if (i + separatorIndex != separatorPositions[j]) continue;
-            buffer.write(_getSeparator(j));
-            separatorIndex++;
-            calculateOffset = _updateOffset(
-              calculateOffset: calculateOffset,
-              rawOffset: rawOffset,
-              index: i,
-              symbol: _getSeparator(j),
-            );
-          }
-        }
-        buffer.write(newRawText[i]);
-      }
       String result = buffer.toString();
 
       if (maxLength != null) {
@@ -152,6 +109,86 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     }
   }
 
+  int _formatBefore({
+    @required int newTextLength,
+    @required String newRawText,
+    @required int rawOffset,
+    @required StringBuffer buffer,
+    @required int separatorPosCount,
+  }) {
+    int calculateOffset = rawOffset;
+    int separatorIndex = 0;
+
+    /// Option with an insert before entering a character
+    for (int i = 0; i < newTextLength; i++) {
+      if (step != null && i > 0 && i % step == 0) {
+        buffer.write(stepSymbol);
+        calculateOffset = _updateOffset(
+          calculateOffset: calculateOffset,
+          rawOffset: rawOffset,
+          index: i,
+          symbol: stepSymbol,
+        );
+      }
+
+      if (_isSeparators && separatorIndex < separatorPosCount) {
+        for (int j = separatorIndex; j < separatorPosCount; j++) {
+          if (i + separatorIndex != separatorPositions[j]) continue;
+          buffer.write(_getSeparator(j));
+          separatorIndex++;
+          calculateOffset = _updateOffset(
+            calculateOffset: calculateOffset,
+            rawOffset: rawOffset,
+            index: i,
+            symbol: _getSeparator(j),
+          );
+        }
+      }
+      buffer.write(newRawText[i]);
+    }
+    return calculateOffset;
+  }
+
+  int _formatAfter({
+    @required int newTextLength,
+    @required String newRawText,
+    @required int rawOffset,
+    @required StringBuffer buffer,
+    @required int separatorPosCount,
+  }) {
+    int calculateOffset = rawOffset;
+    int separatorIndex = 0;
+
+    /// Option with insertion after entering a character
+    for (int i = 0; i < newTextLength; i++) {
+      buffer.write(newRawText[i]);
+      if (step != null && i > 0 && (i + 1) % step == 0) {
+        buffer.write(stepSymbol);
+        calculateOffset = _updateOffset(
+          calculateOffset: calculateOffset,
+          rawOffset: rawOffset,
+          index: i,
+          symbol: stepSymbol,
+        );
+      }
+
+      if (_isSeparators && separatorIndex < separatorPosCount) {
+        for (int j = separatorIndex; j < separatorPosCount; j++) {
+          if (i + separatorIndex != separatorPositions[j] - 1) continue;
+          buffer.write(_getSeparator(j));
+          separatorIndex++;
+          calculateOffset = _updateOffset(
+            calculateOffset: calculateOffset,
+            rawOffset: rawOffset,
+            index: i,
+            symbol: _getSeparator(j),
+          );
+        }
+      }
+    }
+    return calculateOffset;
+  }
+
   int _updateOffset({
     @required int calculateOffset,
     @required int rawOffset,
@@ -166,7 +203,7 @@ class SeparateTextInputFormatter extends TextInputFormatter {
 
   /// Delete everything except regExp
   @protected
-  String onlyNeedSymbols(String text) {
+  String getOnlyNeedSymbols(String text) {
     return text.replaceAll(excludeRegExpValue, EMPTY_STRING);
   }
 
@@ -176,11 +213,13 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
-    final int newTextLength = onlyNeedSymbols(newValue.text).length;
+    final int newTextLength = getOnlyNeedSymbols(newValue.text).length;
 
     return (oldValue.text.length > 0 &&
             newValue.text.length == oldValue.text.length - 1) &&
         newTextLength ==
-            onlyNeedSymbols(oldValue.text).substring(0, newTextLength).length;
+            getOnlyNeedSymbols(oldValue.text)
+                .substring(0, newTextLength)
+                .length;
   }
 }
