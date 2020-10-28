@@ -9,3 +9,4 @@ export 'package:surf_text_input_formatter/src/kpp_text_input_formatter.dart';
 export 'package:surf_text_input_formatter/src/bic_text_input_formatter.dart';
 export 'package:surf_text_input_formatter/src/account_number_text_input_formatter.dart';
 export 'package:surf_text_input_formatter/src/uin_uip_text_input_formatter.dart';
+export 'package:surf_text_input_formatter/src/phone_text_input_formatter.dart';

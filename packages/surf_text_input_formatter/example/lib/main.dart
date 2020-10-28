@@ -43,10 +43,6 @@ class _MyHomePageState extends State<MyHomePage> {
     excludeRegExp: RegExp(r"\D"),
   );
 
-  final _formatterSchema0 = SeparateTextInputFormatter.fromSchema(
-    '#-# #.#//#',
-    excludeRegExp: RegExp(r"\D"),
-  );
   final _dateFormatter = DdMmYyyyTextInputFormatter();
 
   @override
@@ -75,12 +71,24 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               _buildItem(
                 text: '#-# #.#//# (from schema)',
-                formatter: _formatterSchema0,
-//                formatter: SeparateTextInputFormatter(
-//                  separateSymbols: ['-', ' ', '1', '/', '/'],
-//                  separatorPositions: [1, 3, 5, 7, 8],
-//                  excludeRegExp: RegExp(r"\D"),
-//                ),
+
+                /// formatter: SeparateTextInputFormatter(
+                ///   separateSymbols: ['-', ' ', '.', '/', '/'],
+                ///   separatorPositions: [1, 3, 5, 7, 8],
+                ///   excludeRegExp: RegExp(r"\D"),
+                /// ),
+                formatter: SeparateTextInputFormatter.fromSchema(
+                  '#-# #.#//#',
+                  excludeRegExp: RegExp(r"\D"),
+                ),
+              ),
+              _buildItem(
+                text: '+7 (000) 000 00 00 (before)',
+                formatter: PhoneTextInputFormatter('+7'),
+              ),
+              _buildItem(
+                text: '+7 (000) 000 00 00 (after)',
+                formatter: PhoneTextInputFormatter('8'),
               ),
               _buildItem(
                 text: 'ИНН individual',

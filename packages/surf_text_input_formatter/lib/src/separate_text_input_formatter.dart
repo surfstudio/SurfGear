@@ -52,12 +52,17 @@ class SeparateTextInputFormatter extends TextInputFormatter {
 
   final int maxLength;
 
+  final String fixedPrefix;
+  final int _prefixLength;
+
   bool get _isSeparators => (separatorPositions?.length ?? 0) > 0;
 
   @protected
   RegExp get excludeRegExpValue {
     return excludeRegExp ?? type.value;
   }
+
+  bool get _isExistPrefix => fixedPrefix != null;
 
   SeparateTextInputFormatter({
     List<int> separatorPositions,
@@ -68,8 +73,10 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     this.excludeRegExp,
     this.type,
     bool isAfterFormat,
+    this.fixedPrefix,
   })  : stepSymbol = stepSymbol ?? '',
         isAfterFormat = isAfterFormat ?? false,
+        _prefixLength = fixedPrefix?.length ?? 0,
         assert(excludeRegExp != null || type != null) {
     if (separatorPositions != null) {
       this.separatorPositions = [...separatorPositions]..sort();
@@ -77,34 +84,29 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   }
 
   /// Separation according to the schema
-  factory SeparateTextInputFormatter.fromSchema(
+  SeparateTextInputFormatter.fromSchema(
     String schema, {
-    int maxLength,
-    RegExp excludeRegExp,
-    SeparateTextInputFormatterType type,
+    this.maxLength,
+    this.excludeRegExp,
+    this.type,
     bool isAfterFormat,
-  }) {
+    this.fixedPrefix,
+  })  : step = null,
+        stepSymbol = null,
+        isAfterFormat = isAfterFormat ?? false,
+        _prefixLength = fixedPrefix?.length ?? 0 {
     assert(schema != null);
 
     final schemaLength = schema.length;
 
-    final List<int> separatorPositions = [];
-    final List<String> separateSymbols = [];
+    separatorPositions = [];
+    separateSymbols = [];
 
     for (int i = 0; i < schemaLength; i++) {
       if (schema[i] == _schemaSymbol) continue;
       separatorPositions.add(i);
       separateSymbols.add(schema[i]);
     }
-
-    return SeparateTextInputFormatter(
-      separatorPositions: separatorPositions,
-      separateSymbols: separateSymbols,
-      maxLength: maxLength,
-      excludeRegExp: excludeRegExp,
-      type: type,
-      isAfterFormat: isAfterFormat,
-    );
   }
 
   String _getSeparator(int index) {
@@ -120,40 +122,56 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
-    if (isManualRemove(oldValue, newValue)) return newValue;
-    final String newText = newValue.text;
+    if (isManualRemove(oldValue, newValue)) {
+      if (_isExistPrefix && oldValue.text == fixedPrefix) {
+        return TextEditingValue(
+          text: fixedPrefix,
+          selection: TextSelection.collapsed(
+            offset: _prefixLength,
+          ),
+        );
+      }
+      return newValue;
+    }
+    final String newText = getTextWithoutPrefix(newValue.text);
     final String newRawText = getOnlyNeedSymbols(newText);
     final int newTextLength = newRawText.length;
     final int separatorPosCount = separatorPositions?.length ?? 0;
     final StringBuffer buffer = StringBuffer();
-    int rawOffset = getOnlyNeedSymbols(
-      newText.substring(0, newValue.selection.baseOffset),
-    ).length;
 
-    int calculateOffset = isAfterFormat
-        ? _formatAfter(
-            newTextLength: newTextLength,
-            newRawText: newRawText,
-            rawOffset: rawOffset,
-            buffer: buffer,
-            separatorPosCount: separatorPosCount,
-          )
-        : _formatBefore(
-            newTextLength: newTextLength,
-            newRawText: newRawText,
-            rawOffset: rawOffset,
-            buffer: buffer,
-            separatorPosCount: separatorPosCount,
-          );
     try {
+      int rawOffset = _getRawOffset(newValue, newText);
+
+      int calculateOffset = isAfterFormat
+          ? _formatAfter(
+              newTextLength: newTextLength,
+              newRawText: newRawText,
+              rawOffset: rawOffset,
+              buffer: buffer,
+              separatorPosCount: separatorPosCount,
+            )
+          : _formatBefore(
+              newTextLength: newTextLength,
+              newRawText: newRawText,
+              rawOffset: rawOffset,
+              buffer: buffer,
+              separatorPosCount: separatorPosCount,
+            );
+
       String result = buffer.toString();
 
       if (maxLength != null) {
-        if (result.length >= maxLength) result = result.substring(0, maxLength);
+        if (result.length > maxLength) result = result.substring(0, maxLength);
         result = result.substring(0, min(result.length, maxLength));
       }
       calculateOffset =
           rawOffset == result.length ? rawOffset : calculateOffset;
+
+      if (_isExistPrefix) {
+        result = fixedPrefix + result;
+        calculateOffset += _prefixLength;
+      }
+
       return TextEditingValue(
         text: result,
         selection: TextSelection.collapsed(
@@ -257,10 +275,17 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     return calculateOffset;
   }
 
+  @protected
+  String getTextWithoutPrefix(String text) {
+    if (!_isExistPrefix) return text;
+    return text.replaceFirst(fixedPrefix, EMPTY_STRING);
+  }
+
   /// Delete everything except regExp
   @protected
   String getOnlyNeedSymbols(String text) {
-    if(excludeRegExpValue == null) return text;
+    if (excludeRegExpValue == null) return text;
+
     return text.replaceAll(excludeRegExpValue, EMPTY_STRING);
   }
 
@@ -278,5 +303,16 @@ class SeparateTextInputFormatter extends TextInputFormatter {
             getOnlyNeedSymbols(oldValue.text)
                 .substring(0, newTextLength)
                 .length;
+  }
+
+  _getRawOffset(TextEditingValue value, String text) {
+    int offset = _isExistPrefix && value.text.contains(fixedPrefix)
+        ? value.selection.baseOffset - _prefixLength
+        : value.selection.baseOffset;
+
+    int rawOffset = getOnlyNeedSymbols(
+      text.substring(0, offset),
+    ).length;
+    return rawOffset;
   }
 }
