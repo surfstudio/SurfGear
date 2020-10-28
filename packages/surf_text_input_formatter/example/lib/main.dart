@@ -84,10 +84,13 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               _buildItem(
                 text: '+7 (000) 000 00 00 (before)',
-                formatter: PhoneTextInputFormatter('+7'),
+                formatter: PhoneTextInputFormatter(
+                  '+7',
+                  isFormatAfterEnter: true,
+                ),
               ),
               _buildItem(
-                text: '+7 (000) 000 00 00 (after)',
+                text: '8 (000) 000 00 00 (after)',
                 formatter: PhoneTextInputFormatter('8'),
               ),
               _buildItem(

@@ -48,7 +48,7 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   final String stepSymbol;
   final RegExp excludeRegExp;
   final SeparateTextInputFormatterType type;
-  final bool isAfterFormat;
+  final bool isFormatAfterEnter;
 
   final int maxLength;
 
@@ -65,18 +65,21 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   bool get _isExistPrefix => fixedPrefix != null;
 
   SeparateTextInputFormatter({
-    List<int> separatorPositions,
     this.step,
-    String stepSymbol,
     this.separateSymbols,
-    this.maxLength,
     this.excludeRegExp,
     this.type,
-    bool isAfterFormat,
     this.fixedPrefix,
+    int maxLength,
+    bool isFormatAfterEnter,
+    String stepSymbol,
+    List<int> separatorPositions,
   })  : stepSymbol = stepSymbol ?? '',
-        isAfterFormat = isAfterFormat ?? false,
+        isFormatAfterEnter = isFormatAfterEnter ?? false,
         _prefixLength = fixedPrefix?.length ?? 0,
+        maxLength = fixedPrefix == null
+            ? maxLength
+            : maxLength - fixedPrefix?.length ?? 0,
         assert(excludeRegExp != null || type != null) {
     if (separatorPositions != null) {
       this.separatorPositions = [...separatorPositions]..sort();
@@ -86,15 +89,18 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   /// Separation according to the schema
   SeparateTextInputFormatter.fromSchema(
     String schema, {
-    this.maxLength,
     this.excludeRegExp,
     this.type,
-    bool isAfterFormat,
     this.fixedPrefix,
+    int maxLength,
+    bool isFormatAfterEnter,
   })  : step = null,
         stepSymbol = null,
-        isAfterFormat = isAfterFormat ?? false,
-        _prefixLength = fixedPrefix?.length ?? 0 {
+        isFormatAfterEnter = isFormatAfterEnter ?? false,
+        _prefixLength = fixedPrefix?.length ?? 0,
+        maxLength = fixedPrefix == null
+            ? maxLength
+            : maxLength - fixedPrefix?.length ?? 0 {
     assert(schema != null);
 
     final schemaLength = schema.length;
@@ -123,15 +129,14 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     TextEditingValue newValue,
   ) {
     if (isManualRemove(oldValue, newValue)) {
-      if (_isExistPrefix && oldValue.text == fixedPrefix) {
-        return TextEditingValue(
-          text: fixedPrefix,
-          selection: TextSelection.collapsed(
-            offset: _prefixLength,
-          ),
-        );
-      }
-      return newValue;
+      if (_checkIsExistPrefix(oldValue, newValue)) return newValue;
+
+      return TextEditingValue(
+        text: oldValue.text,
+        selection: TextSelection.collapsed(
+          offset: oldValue.text.length,
+        ),
+      );
     }
     final String newText = getTextWithoutPrefix(newValue.text);
     final String newRawText = getOnlyNeedSymbols(newText);
@@ -142,7 +147,7 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     try {
       int rawOffset = _getRawOffset(newValue, newText);
 
-      int calculateOffset = isAfterFormat
+      int calculateOffset = isFormatAfterEnter
           ? _formatAfter(
               newTextLength: newTextLength,
               newRawText: newRawText,
@@ -183,6 +188,36 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     }
   }
 
+  @protected
+  String getTextWithoutPrefix(String text) {
+    if (!_isExistPrefix) return text;
+    return text.replaceFirst(fixedPrefix, EMPTY_STRING);
+  }
+
+  /// Delete everything except regExp
+  @protected
+  String getOnlyNeedSymbols(String text) {
+    if (excludeRegExpValue == null) return text;
+
+    return text.replaceAll(excludeRegExpValue, EMPTY_STRING);
+  }
+
+  /// Check for character-by-character manual deletion
+  @protected
+  bool isManualRemove(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    final int newTextLength = getOnlyNeedSymbols(newValue.text).length;
+
+    return (oldValue.text.length > 0 &&
+            newValue.text.length == oldValue.text.length - 1) &&
+        newTextLength ==
+            getOnlyNeedSymbols(oldValue.text)
+                .substring(0, newTextLength)
+                .length;
+  }
+
   int _formatBefore({
     @required int newTextLength,
     @required String newRawText,
@@ -193,6 +228,7 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     int calculateOffset = rawOffset;
     int separatorIndex = 0;
 
+    ///
     /// Option with an insert before entering a character
     for (int i = 0; i < newTextLength; i++) {
       if (step != null && i > 0 && i % step == 0) {
@@ -275,36 +311,6 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     return calculateOffset;
   }
 
-  @protected
-  String getTextWithoutPrefix(String text) {
-    if (!_isExistPrefix) return text;
-    return text.replaceFirst(fixedPrefix, EMPTY_STRING);
-  }
-
-  /// Delete everything except regExp
-  @protected
-  String getOnlyNeedSymbols(String text) {
-    if (excludeRegExpValue == null) return text;
-
-    return text.replaceAll(excludeRegExpValue, EMPTY_STRING);
-  }
-
-  /// Check for character-by-character manual deletion
-  @protected
-  bool isManualRemove(
-    TextEditingValue oldValue,
-    TextEditingValue newValue,
-  ) {
-    final int newTextLength = getOnlyNeedSymbols(newValue.text).length;
-
-    return (oldValue.text.length > 0 &&
-            newValue.text.length == oldValue.text.length - 1) &&
-        newTextLength ==
-            getOnlyNeedSymbols(oldValue.text)
-                .substring(0, newTextLength)
-                .length;
-  }
-
   _getRawOffset(TextEditingValue value, String text) {
     int offset = _isExistPrefix && value.text.contains(fixedPrefix)
         ? value.selection.baseOffset - _prefixLength
@@ -314,5 +320,14 @@ class SeparateTextInputFormatter extends TextInputFormatter {
       text.substring(0, offset),
     ).length;
     return rawOffset;
+  }
+
+  bool _checkIsExistPrefix(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    if (!_isExistPrefix) return false;
+    return oldValue.text.contains(fixedPrefix) &&
+        newValue.text.contains(fixedPrefix);
   }
 }
