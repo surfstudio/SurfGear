@@ -43,6 +43,10 @@ class _MyHomePageState extends State<MyHomePage> {
     excludeRegExp: RegExp(r"\D"),
   );
 
+  final _formatterSchema0 = SeparateTextInputFormatter.fromSchema(
+    '#-# #.#//#',
+    excludeRegExp: RegExp(r"\D"),
+  );
   final _dateFormatter = DdMmYyyyTextInputFormatter();
 
   @override
@@ -52,41 +56,57 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            _buildItem(
-              text: 'xxxx xxxx xxxx xxxx (Payment card)',
-              formatter: _paymentCardFormatter,
-            ),
-            _buildItem(text: 'xxx-x x xx', formatter: _formatter0),
-            _buildItem(
-              text: 'x-x.x,xx//xxxxx//xxxxx//xxxxx (no length limit)',
-              formatter: _formatter1,
-            ),
-            _buildItem(text: 'xx.xx.xxxx (Date)', formatter: _dateFormatter),
-            _buildItem(
-              text: 'ИНН individual',
-              formatter: InnTextInputFormatter.individual(),
-            ),
-            _buildItem(
-              text: 'ИНН entity',
-              formatter: InnTextInputFormatter.entity(),
-            ),
-            _buildItem(text: 'KPP', formatter: KppTextInputFormatter()),
-            _buildItem(text: 'Bic', formatter: BicTextInputFormatter()),
-            _buildItem(
-              text: 'Account number',
-              formatter: AccountNumberTextInputFormatter(),
-            ),
-            _buildItem(
-              text: 'UIN/UIP',
-              formatter: UinUipTextInputFormatter(),
-            ),
-            AnimatedPadding(
-              duration: const Duration(microseconds: 200),
-              padding: MediaQuery.of(context).viewInsets,
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: <Widget>[
+              _buildItem(
+                text: 'xxxx xxxx xxxx xxxx (Payment card)',
+                formatter: _paymentCardFormatter,
+              ),
+              _buildItem(text: 'xxx-x x xx', formatter: _formatter0),
+              _buildItem(
+                text: 'x-x.x,xx//xxxxx//xxxxx//xxxxx (no length limit)',
+                formatter: _formatter1,
+              ),
+              _buildItem(
+                text: 'xx.xx.xxxx (Date)',
+                formatter: _dateFormatter,
+              ),
+              _buildItem(
+                text: '#-# #.#//# (from schema)',
+                formatter: _formatterSchema0,
+//                formatter: SeparateTextInputFormatter(
+//                  separateSymbols: ['-', ' ', '1', '/', '/'],
+//                  separatorPositions: [1, 3, 5, 7, 8],
+//                  excludeRegExp: RegExp(r"\D"),
+//                ),
+              ),
+              _buildItem(
+                text: 'ИНН individual',
+                formatter: InnTextInputFormatter.individual(),
+              ),
+              _buildItem(
+                text: 'ИНН entity',
+                formatter: InnTextInputFormatter.entity(),
+              ),
+              _buildItem(text: 'KPP', formatter: KppTextInputFormatter()),
+              _buildItem(text: 'Bic', formatter: BicTextInputFormatter()),
+              _buildItem(
+                text: 'Account number',
+                formatter: AccountNumberTextInputFormatter(),
+              ),
+              _buildItem(
+                text: 'UIN/UIP',
+                formatter: UinUipTextInputFormatter(),
+              ),
+              const SizedBox(height: 100),
+              AnimatedPadding(
+                duration: const Duration(microseconds: 200),
+                padding: MediaQuery.of(context).viewInsets,
+              ),
+            ],
+          ),
         ),
       ),
     );

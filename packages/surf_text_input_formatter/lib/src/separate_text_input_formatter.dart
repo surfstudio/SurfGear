@@ -7,6 +7,7 @@ import 'package:surf_text_input_formatter/src/separate_text_input_formatter_type
 /// [TextInputFormatter] with custom parameters
 class SeparateTextInputFormatter extends TextInputFormatter {
   static const EMPTY_STRING = '';
+  static const _schemaSymbol = '#';
 
   /// Positions for delimiters
   List<int> separatorPositions;
@@ -15,9 +16,34 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   /// Match [separatorPositions]
   /// If [separatorPositions] is less
   /// - the last separator from the list will be used
+  ///
+  /// [separatorPositions] and [separateSymbols]
+  /// depends on the separator characters. #.# - when setting the separator,
+  /// you need to write position 1.
+  ///
+  /// separatorPositions: [1, 3, 5],
+  /// separateSymbols: ['-', '.', ','],
+  /// result:
+  /// #-#.#,#
+  ///
+  /// separatorPositions: [1, 3, 5],
+  /// separateSymbols: ['-', '.'],
+  /// result:
+  /// #-#.#.#
   List<String> separateSymbols;
 
   /// Space position step, if you need to paste them evenly
+  /// Complements [separateSymbols]
+  ///
+  /// [step] and [stepSymbol] ignore [separateSymbols]
+  /// and take position only from the entered text
+  ///
+  /// separatorPositions: [1, 3, 5, 10],
+  /// separateSymbols: ['-', '.', ','],
+  /// step: 5,
+  /// stepSymbol: '//',
+  /// result:
+  /// '#-#.#,##//##,###//#####
   final int step;
   final String stepSymbol;
   final RegExp excludeRegExp;
@@ -50,6 +76,37 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     }
   }
 
+  /// Separation according to the schema
+  factory SeparateTextInputFormatter.fromSchema(
+    String schema, {
+    int maxLength,
+    RegExp excludeRegExp,
+    SeparateTextInputFormatterType type,
+    bool isAfterFormat,
+  }) {
+    assert(schema != null);
+
+    final schemaLength = schema.length;
+
+    final List<int> separatorPositions = [];
+    final List<String> separateSymbols = [];
+
+    for (int i = 0; i < schemaLength; i++) {
+      if (schema[i] == _schemaSymbol) continue;
+      separatorPositions.add(i);
+      separateSymbols.add(schema[i]);
+    }
+
+    return SeparateTextInputFormatter(
+      separatorPositions: separatorPositions,
+      separateSymbols: separateSymbols,
+      maxLength: maxLength,
+      excludeRegExp: excludeRegExp,
+      type: type,
+      isAfterFormat: isAfterFormat,
+    );
+  }
+
   String _getSeparator(int index) {
     if (separateSymbols?.isEmpty ?? false) return '';
     if (index >= separateSymbols.length) {
@@ -69,7 +126,6 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     final int newTextLength = newRawText.length;
     final int separatorPosCount = separatorPositions?.length ?? 0;
     final StringBuffer buffer = StringBuffer();
-
     int rawOffset = getOnlyNeedSymbols(
       newText.substring(0, newValue.selection.baseOffset),
     ).length;
@@ -204,6 +260,7 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   /// Delete everything except regExp
   @protected
   String getOnlyNeedSymbols(String text) {
+    if(excludeRegExpValue == null) return text;
     return text.replaceAll(excludeRegExpValue, EMPTY_STRING);
   }
 
