@@ -12,11 +12,16 @@ export function activate(context: vscode.ExtensionContext) {
 			const widgetPath = getWidgetLocation(args);
 			if (widgetPath === "") return;
 
-			const widgetName = await getWidgetName();
-			if (widgetName === "") return;
+			// const widgetName = await getWidgetName();
+			const widgetName = "TestWidget";
+			if (!checkWidgetName(widgetName)) return;
+			const filePrefix = getFilePrefix(widgetName);
 
+			const widgetSourceCodePath = vscode.Uri.file(path.join(context.extensionPath, 'templates', 'widget', 'widget.txt'));
+			const widgetSourceCode = fs.readFileSync(widgetSourceCodePath.fsPath, 'utf8');
+			const d = widgetSourceCode.replace(/Template/gi, widgetName);
 
-			console.log('widgetName ' + widgetName);
+			console.log(d);
 		}
 		catch (e) {
 			console.log(e);
@@ -52,14 +57,31 @@ function getWidgetLocation(args: any[]): String {
 }
 
 // Return widget/screen name
-async function getWidgetName(): Promise<String> {
+async function getWidgetName(): Promise<string> {
 	let options: vscode.InputBoxOptions = {
 		prompt: "Widget name: ",
-		placeHolder: "Input widget name (CamelCase)"
+		placeHolder: "Input widget name (PascalCase)"
 	}
-	let widgetName: String = await vscode.window.showInputBox(options).then(value => {
+	let widgetName: string = await vscode.window.showInputBox(options).then(value => {
 		if (!value) return '';
 		return value;
 	});
 	return widgetName;
+}
+
+function checkWidgetName(widgetName: string): Boolean {
+	if (widgetName === "") {
+		vscode.window.showInformationMessage("Widget name can't be empty!");
+		return false;
+	} else if (!/^[A-Z][A-Za-z]*$/.test(widgetName)) {
+		vscode.window.showInformationMessage("Widget name isn't in PascalCase");
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function getFilePrefix(widgetName: String): String {
+	const camelToSnakeCase = widgetName.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+	return camelToSnakeCase.substring(1) + '_';
 }
