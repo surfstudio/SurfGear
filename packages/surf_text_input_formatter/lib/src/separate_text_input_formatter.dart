@@ -44,14 +44,24 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   /// stepSymbol: '//',
   /// result:
   /// '#-#.#,##//##,###//#####
+  ///
+  /// step to insert [stepSymbol]
   final int step;
+
+  ///Separator inserted at intervals equal to [step]
   final String stepSymbol;
+
+  /// Regular expression characters to exclude
   final RegExp excludeRegExp;
+
+  /// A type indicating which characters should remain in the original string.
+  /// Used when [excludeRegExp] is not passed.
   final SeparateTextInputFormatterType type;
   final bool isFormatBeforeEnterNextSymbol;
 
   final int maxLength;
 
+  /// A character string that cannot be removed
   final String fixedPrefix;
   final int _prefixLength;
 
@@ -103,7 +113,7 @@ class SeparateTextInputFormatter extends TextInputFormatter {
             : maxLength - fixedPrefix?.length ?? 0 {
     assert(schema != null);
 
-    final schemaLength = schema.length;
+    final int schemaLength = schema.length;
 
     separatorPositions = [];
     separateSymbols = [];
@@ -198,7 +208,6 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   @protected
   String getOnlyNeedSymbols(String text) {
     if (excludeRegExpValue == null) return text;
-
     return text.replaceAll(excludeRegExpValue, EMPTY_STRING);
   }
 
@@ -335,9 +344,9 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     int rawOffset,
     buffer,
   ) {
-    if (step != null &&
-        index > 0 &&
-        (index + (isFormatBeforeEnterNextSymbol ? 0 : 1)) % step == 0) {
+    final int stepPosition = isFormatBeforeEnterNextSymbol ? index : index + 1;
+
+    if (step != null && index > 0 && stepPosition % step == 0) {
       buffer.write(stepSymbol);
       calculateOffset = _updateOffset(
         calculateOffset: calculateOffset,
