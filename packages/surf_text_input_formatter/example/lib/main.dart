@@ -41,7 +41,6 @@ class _MyHomePageState extends State<MyHomePage> {
     separatorPositions: [1, 3, 5],
     separateSymbols: ['-', '.', ','],
     excludeRegExp: RegExp(r"\D"),
-    //isFormatBeforeEnterNextSymbol: true,
   );
 
   final _dateFormatter = DdMmYyyyTextInputFormatter();

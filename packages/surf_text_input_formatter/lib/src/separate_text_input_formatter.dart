@@ -237,15 +237,6 @@ class SeparateTextInputFormatter extends TextInputFormatter {
         rawOffset,
         buffer,
       );
-//      if (step != null && i > 0 && i % step == 0) {
-//        buffer.write(stepSymbol);
-//        calculateOffset = _updateOffset(
-//          calculateOffset: calculateOffset,
-//          rawOffset: rawOffset,
-//          index: i,
-//          symbol: stepSymbol,
-//        );
-//      }
 
       if (_isSeparators && separatorIndex < separatorPosCount) {
         /// The nested loop is needed to display more than one separator
@@ -297,6 +288,8 @@ class SeparateTextInputFormatter extends TextInputFormatter {
         );
       }
 
+      buffer.write(newRawText[i]);
+
       calculateOffset = _insertStepSymbol(
         i,
         step,
@@ -305,11 +298,9 @@ class SeparateTextInputFormatter extends TextInputFormatter {
         buffer,
       );
 
-      buffer.write(newRawText[i]);
-
       if (_isSeparators && separatorIndex < separatorPosCount) {
         for (int j = separatorIndex; j < separatorPosCount; j++) {
-          if (i  == 0 && isFirstZeroIndex ||
+          if (i == 0 && isFirstZeroIndex ||
               i + separatorIndex + 1 != separatorPositions[j]) continue;
           buffer.write(_getSeparator(j));
           separatorIndex++;
@@ -344,7 +335,9 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     int rawOffset,
     buffer,
   ) {
-    if (step != null && index > 0 && index % step == 0) {
+    if (step != null &&
+        index > 0 &&
+        (index + (isFormatBeforeEnterNextSymbol ? 0 : 1)) % step == 0) {
       buffer.write(stepSymbol);
       calculateOffset = _updateOffset(
         calculateOffset: calculateOffset,
