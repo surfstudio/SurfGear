@@ -48,7 +48,7 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   final String stepSymbol;
   final RegExp excludeRegExp;
   final SeparateTextInputFormatterType type;
-  final bool isFormatAfterEnter;
+  final bool isFormatBeforeEnterNextSymbol;
 
   final int maxLength;
 
@@ -71,11 +71,11 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     this.type,
     this.fixedPrefix,
     int maxLength,
-    bool isFormatAfterEnter,
+    bool isFormatBeforeEnterNextSymbol,
     String stepSymbol,
     List<int> separatorPositions,
   })  : stepSymbol = stepSymbol ?? '',
-        isFormatAfterEnter = isFormatAfterEnter ?? false,
+        isFormatBeforeEnterNextSymbol = isFormatBeforeEnterNextSymbol ?? false,
         _prefixLength = fixedPrefix?.length ?? 0,
         maxLength = fixedPrefix == null
             ? maxLength
@@ -93,10 +93,10 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     this.type,
     this.fixedPrefix,
     int maxLength,
-    bool isFormatAfterEnter,
+    bool isFormatBeforeEnterNextSymbol,
   })  : step = null,
         stepSymbol = null,
-        isFormatAfterEnter = isFormatAfterEnter ?? false,
+        isFormatBeforeEnterNextSymbol = isFormatBeforeEnterNextSymbol ?? false,
         _prefixLength = fixedPrefix?.length ?? 0,
         maxLength = fixedPrefix == null
             ? maxLength
@@ -147,15 +147,15 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     try {
       int rawOffset = _getRawOffset(newValue, newText);
 
-      int calculateOffset = isFormatAfterEnter
-          ? _formatAfter(
+      int calculateOffset = isFormatBeforeEnterNextSymbol
+          ? _formatBefore(
               newTextLength: newTextLength,
               newRawText: newRawText,
               rawOffset: rawOffset,
               buffer: buffer,
               separatorPosCount: separatorPosCount,
             )
-          : _formatBefore(
+          : _formatAfter(
               newTextLength: newTextLength,
               newRawText: newRawText,
               rawOffset: rawOffset,
@@ -218,6 +218,7 @@ class SeparateTextInputFormatter extends TextInputFormatter {
                 .length;
   }
 
+  /// Option with an insert before entering next a character
   int _formatBefore({
     @required int newTextLength,
     @required String newRawText,
@@ -228,20 +229,28 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     int calculateOffset = rawOffset;
     int separatorIndex = 0;
 
-    ///
-    /// Option with an insert before entering a character
     for (int i = 0; i < newTextLength; i++) {
-      if (step != null && i > 0 && i % step == 0) {
-        buffer.write(stepSymbol);
-        calculateOffset = _updateOffset(
-          calculateOffset: calculateOffset,
-          rawOffset: rawOffset,
-          index: i,
-          symbol: stepSymbol,
-        );
-      }
+      calculateOffset = _insertStepSymbol(
+        i,
+        step,
+        calculateOffset,
+        rawOffset,
+        buffer,
+      );
+//      if (step != null && i > 0 && i % step == 0) {
+//        buffer.write(stepSymbol);
+//        calculateOffset = _updateOffset(
+//          calculateOffset: calculateOffset,
+//          rawOffset: rawOffset,
+//          index: i,
+//          symbol: stepSymbol,
+//        );
+//      }
 
       if (_isSeparators && separatorIndex < separatorPosCount) {
+        /// The nested loop is needed to display more than one separator
+        /// of the following one after another
+        /// #.#.#..#
         for (int j = separatorIndex; j < separatorPosCount; j++) {
           if (i + separatorIndex != separatorPositions[j]) continue;
           buffer.write(_getSeparator(j));
@@ -259,6 +268,7 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     return calculateOffset;
   }
 
+  /// Option with an insert after entering current a character
   int _formatAfter({
     @required int newTextLength,
     @required String newRawText,
@@ -268,23 +278,39 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   }) {
     int calculateOffset = rawOffset;
     int separatorIndex = 0;
+    final bool isFirstZeroIndex =
+        separatorPositions != null && separatorPositions[0] == 0;
 
     /// Option with insertion after entering a character
     for (int i = 0; i < newTextLength; i++) {
-      buffer.write(newRawText[i]);
-      if (step != null && i > 0 && (i + 1) % step == 0) {
-        buffer.write(stepSymbol);
+      if (separatorIndex < separatorPosCount &&
+          i + separatorIndex == 0 &&
+          isFirstZeroIndex) {
+        buffer.write(_getSeparator(0));
+
+        separatorIndex++;
         calculateOffset = _updateOffset(
           calculateOffset: calculateOffset,
           rawOffset: rawOffset,
           index: i,
-          symbol: stepSymbol,
+          symbol: _getSeparator(0),
         );
       }
 
+      calculateOffset = _insertStepSymbol(
+        i,
+        step,
+        calculateOffset,
+        rawOffset,
+        buffer,
+      );
+
+      buffer.write(newRawText[i]);
+
       if (_isSeparators && separatorIndex < separatorPosCount) {
         for (int j = separatorIndex; j < separatorPosCount; j++) {
-          if (i + separatorIndex != separatorPositions[j] - 1) continue;
+          if (i  == 0 && isFirstZeroIndex ||
+              i + separatorIndex + 1 != separatorPositions[j]) continue;
           buffer.write(_getSeparator(j));
           separatorIndex++;
           calculateOffset = _updateOffset(
@@ -311,7 +337,26 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     return calculateOffset;
   }
 
-  _getRawOffset(TextEditingValue value, String text) {
+  int _insertStepSymbol(
+    int index,
+    int step,
+    int calculateOffset,
+    int rawOffset,
+    buffer,
+  ) {
+    if (step != null && index > 0 && index % step == 0) {
+      buffer.write(stepSymbol);
+      calculateOffset = _updateOffset(
+        calculateOffset: calculateOffset,
+        rawOffset: rawOffset,
+        index: index,
+        symbol: stepSymbol,
+      );
+    }
+    return calculateOffset;
+  }
+
+  int _getRawOffset(TextEditingValue value, String text) {
     int offset = _isExistPrefix && value.text.contains(fixedPrefix)
         ? value.selection.baseOffset - _prefixLength
         : value.selection.baseOffset;
@@ -326,7 +371,7 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
-    if (!_isExistPrefix) return false;
+    if (!_isExistPrefix) return true;
     return oldValue.text.contains(fixedPrefix) &&
         newValue.text.contains(fixedPrefix);
   }

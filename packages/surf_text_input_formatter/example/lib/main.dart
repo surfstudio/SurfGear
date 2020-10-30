@@ -41,6 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
     separatorPositions: [1, 3, 5],
     separateSymbols: ['-', '.', ','],
     excludeRegExp: RegExp(r"\D"),
+    //isFormatBeforeEnterNextSymbol: true,
   );
 
   final _dateFormatter = DdMmYyyyTextInputFormatter();
@@ -86,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 text: '+7 (000) 000 00 00 (before)',
                 formatter: PhoneTextInputFormatter(
                   '+7',
-                  isFormatAfterEnter: true,
+                  isFormatBeforeEnterNextSymbol: true,
                 ),
               ),
               _buildItem(

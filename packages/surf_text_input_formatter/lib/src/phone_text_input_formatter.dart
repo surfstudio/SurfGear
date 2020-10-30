@@ -4,12 +4,13 @@ import 'package:surf_text_input_formatter/src/separate_text_input_formatter_type
 
 /// [TextInputFormatter] for Phone
 class PhoneTextInputFormatter extends SeparateTextInputFormatter {
-  PhoneTextInputFormatter(String countryCode, {bool isFormatAfterEnter})
+  PhoneTextInputFormatter(String countryCode,
+      {bool isFormatBeforeEnterNextSymbol})
       : super.fromSchema(
           '(###) ### ## ##',
-          maxLength: 18,
+          maxLength: 16 + countryCode.length,
           type: SeparateTextInputFormatterType.number,
-          isFormatAfterEnter: isFormatAfterEnter,
+          isFormatBeforeEnterNextSymbol: isFormatBeforeEnterNextSymbol,
           fixedPrefix: countryCode + ' ',
         );
 }
