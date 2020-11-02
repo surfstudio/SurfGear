@@ -101,6 +101,7 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   }
 
   /// Separation according to the schema
+  /// (###) ### ## ##
   SeparateTextInputFormatter.fromSchema(
     String schema, {
     this.symbolRegExp,
@@ -127,6 +128,39 @@ class SeparateTextInputFormatter extends TextInputFormatter {
       if (schema[i] == _schemaSymbol) continue;
       separatorPositions.add(i);
       separateSymbols.add(schema[i]);
+    }
+  }
+
+  ///{
+  /// 0: (,
+  /// 4: ),
+  /// 5: ' ',
+  /// 9: ' ',
+  /// 12: ' ',
+  ///}
+  SeparateTextInputFormatter.fromMap(
+    Map<int, String> map, {
+    this.symbolRegExp,
+    this.type,
+    this.prefix,
+    bool isFixedPrefix,
+    int maxLength,
+    bool isFormatBeforeEnterNextSymbol,
+  })  : step = null,
+        stepSymbol = null,
+        isFormatBeforeEnterNextSymbol = isFormatBeforeEnterNextSymbol ?? false,
+        isFixedPrefix = isFixedPrefix ?? false,
+        _prefixLength = prefix?.length ?? 0,
+        maxLength =
+            prefix == null ? maxLength : maxLength - prefix?.length ?? 0 {
+    assert(map != null);
+
+    separatorPositions = [];
+    separateSymbols = [];
+
+    for (int i = 0; i < map.keys.length; i++) {
+      separatorPositions.add(map.keys.elementAt(i));
+      separateSymbols.add(map.values.elementAt(i));
     }
   }
 

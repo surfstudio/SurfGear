@@ -117,6 +117,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               _buildItem(
+                text: 'xxx-x x xx (from map)',
+                formatter: SeparateTextInputFormatter.fromMap(
+                  {3: '-', 5: ' ', 7: ' '},
+                  maxLength: 10,
+                  type: SeparateTextInputFormatterType.number,
+                  isFormatBeforeEnterNextSymbol: _isBefore,
+                ),
+              ),
+              _buildItem(
                 text: 'x-x.x,xx//xxxxx//xxxxx//xxxxx (no length limit)',
                 formatter: SeparateTextInputFormatter(
                   step: 5,
