@@ -5,7 +5,6 @@ final _numberRegExp = RegExp(r"\d");
 /// Character types for [TextInputFormatter]
 enum SeparateTextInputFormatterType {
   number,
-  word,
 }
 
 extension SeparateTextInputFormatterTypeValue
