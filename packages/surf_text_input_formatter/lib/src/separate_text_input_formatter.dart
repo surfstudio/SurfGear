@@ -60,17 +60,20 @@ class SeparateTextInputFormatter extends TextInputFormatter {
 
   final int maxLength;
 
-  /// A character string that cannot be removed
+  /// prefix inserted when entering characters
   final String prefix;
+
+  /// true - the prefix cannot be removed
   final bool isFixedPrefix;
   final int _prefixLength;
 
-  bool get _isSeparators => (separatorPositions?.length ?? 0) > 0;
-
+  /// Regular expression telling which characters to keep
   @protected
   RegExp get symbolRegExpValue {
     return symbolRegExp ?? type.value;
   }
+
+  bool get _isSeparators => (separatorPositions?.length ?? 0) > 0;
 
   bool get _isExistPrefix => prefix != null;
 
@@ -125,14 +128,6 @@ class SeparateTextInputFormatter extends TextInputFormatter {
       separatorPositions.add(i);
       separateSymbols.add(schema[i]);
     }
-  }
-
-  String _getSeparator(int index) {
-    if (separateSymbols?.isEmpty ?? false) return '';
-    if (index >= separateSymbols.length) {
-      return separateSymbols[separateSymbols.length - 1];
-    }
-    return separateSymbols[index];
   }
 
   @override
@@ -336,6 +331,14 @@ class SeparateTextInputFormatter extends TextInputFormatter {
     return calculateOffset;
   }
 
+  String _getSeparator(int index) {
+    if (separateSymbols?.isEmpty ?? false) return '';
+    if (index >= separateSymbols.length) {
+      return separateSymbols[separateSymbols.length - 1];
+    }
+    return separateSymbols[index];
+  }
+
   int _updateOffset({
     @required int calculateOffset,
     @required int rawOffset,
@@ -371,7 +374,7 @@ class SeparateTextInputFormatter extends TextInputFormatter {
 
   int _getRawOffset(TextEditingValue value, String text) {
     int _prefixLength = 0;
-    if(_isExistPrefix) {
+    if (_isExistPrefix) {
       for (int i = 0; i < value.text.length; i++) {
         if (i >= prefix.length || value.text[i] != prefix[i]) {
           break;
