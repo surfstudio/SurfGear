@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 
-final _noNumberRegExp = RegExp(r"\D");
+final _numberRegExp = RegExp(r"\d");
 
 /// Character types for [TextInputFormatter]
 enum SeparateTextInputFormatterType {
@@ -13,7 +13,7 @@ extension SeparateTextInputFormatterTypeValue
   RegExp get value {
     switch (this) {
       case SeparateTextInputFormatterType.number:
-        return _noNumberRegExp;
+        return _numberRegExp;
     }
     return null;
   }

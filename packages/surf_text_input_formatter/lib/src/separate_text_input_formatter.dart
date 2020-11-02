@@ -51,11 +51,10 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   ///Separator inserted at intervals equal to [step]
   final String stepSymbol;
 
-  /// Regular expression characters to exclude
-  final RegExp excludeRegExp;
+  /// Regular expression characters to include
+  final RegExp symbolRegExp;
 
-  /// A type indicating which characters should remain in the original string.
-  /// Used when [excludeRegExp] is not passed.
+  /// Used when [symbolRegExp] is not passed.
   final SeparateTextInputFormatterType type;
   final bool isFormatBeforeEnterNextSymbol;
 
@@ -68,8 +67,8 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   bool get _isSeparators => (separatorPositions?.length ?? 0) > 0;
 
   @protected
-  RegExp get excludeRegExpValue {
-    return excludeRegExp ?? type.value;
+  RegExp get symbolRegExpValue {
+    return symbolRegExp ?? type.value;
   }
 
   bool get _isExistPrefix => fixedPrefix != null;
@@ -77,7 +76,7 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   SeparateTextInputFormatter({
     this.step,
     this.separateSymbols,
-    this.excludeRegExp,
+    this.symbolRegExp,
     this.type,
     this.fixedPrefix,
     int maxLength,
@@ -90,7 +89,7 @@ class SeparateTextInputFormatter extends TextInputFormatter {
         maxLength = fixedPrefix == null
             ? maxLength
             : maxLength - fixedPrefix?.length ?? 0,
-        assert(excludeRegExp != null || type != null) {
+        assert(symbolRegExp != null || type != null) {
     if (separatorPositions != null) {
       this.separatorPositions = [...separatorPositions]..sort();
     }
@@ -99,7 +98,7 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   /// Separation according to the schema
   SeparateTextInputFormatter.fromSchema(
     String schema, {
-    this.excludeRegExp,
+    this.symbolRegExp,
     this.type,
     this.fixedPrefix,
     int maxLength,
@@ -207,8 +206,13 @@ class SeparateTextInputFormatter extends TextInputFormatter {
   /// Delete everything except regExp
   @protected
   String getOnlyNeedSymbols(String text) {
-    if (excludeRegExpValue == null) return text;
-    return text.replaceAll(excludeRegExpValue, EMPTY_STRING);
+    StringBuffer buffer = StringBuffer();
+    for(int i = 0; i < text.length; i++) {
+      if(!symbolRegExpValue.hasMatch(text[i])) continue;
+      buffer.write(text[i]);
+    }
+
+    return buffer.toString();
   }
 
   /// Check for character-by-character manual deletion

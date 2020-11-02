@@ -123,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   stepSymbol: '//',
                   separatorPositions: [1, 3, 5],
                   separateSymbols: ['-', '.', ','],
-                  excludeRegExp: RegExp(r"\D"),
+                  symbolRegExp: RegExp(r"\d"),
                   isFormatBeforeEnterNextSymbol: _isBefore,
                 ),
               ),
@@ -132,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     'x-x.x,xx//xxxxx//xxxxx//xxxxx (no length limit, from schema)',
                 formatter: SeparateTextInputFormatter.fromSchema(
                   '#-#.#,##//#####//#####//#####',
-                  excludeRegExp: RegExp(r"\D"),
+                  symbolRegExp: RegExp(r"\d"),
                   isFormatBeforeEnterNextSymbol: _isBefore,
                 ),
               ),
