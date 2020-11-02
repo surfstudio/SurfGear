@@ -7,11 +7,13 @@ class PhoneTextInputFormatter extends SeparateTextInputFormatter {
   PhoneTextInputFormatter(
     String countryCode, {
     bool isFormatBeforeEnterNextSymbol,
+    bool isFixedCountryCode,
   }) : super.fromSchema(
           '(###) ### ## ##',
           maxLength: 16 + countryCode.length,
           type: SeparateTextInputFormatterType.number,
           isFormatBeforeEnterNextSymbol: isFormatBeforeEnterNextSymbol,
-          fixedPrefix: countryCode + ' ',
+          prefix: countryCode + ' ',
+          isFixedPrefix: isFixedCountryCode ?? false,
         );
 }

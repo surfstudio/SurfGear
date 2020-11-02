@@ -147,6 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 formatter: PhoneTextInputFormatter(
                   _countryCode,
                   isFormatBeforeEnterNextSymbol: _isBefore,
+                  isFixedCountryCode: true,
                 ),
                 controller: _phoneController,
                 focusNode: _phoneFocusNode,
