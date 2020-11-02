@@ -4,9 +4,10 @@ import 'package:surf_text_input_formatter/src/separate_text_input_formatter_type
 
 /// [TextInputFormatter] for Phone
 class PhoneTextInputFormatter extends SeparateTextInputFormatter {
-  PhoneTextInputFormatter(String countryCode,
-      {bool isFormatBeforeEnterNextSymbol})
-      : super.fromSchema(
+  PhoneTextInputFormatter(
+    String countryCode, {
+    bool isFormatBeforeEnterNextSymbol,
+  }) : super.fromSchema(
           '(###) ### ## ##',
           maxLength: 16 + countryCode.length,
           type: SeparateTextInputFormatterType.number,

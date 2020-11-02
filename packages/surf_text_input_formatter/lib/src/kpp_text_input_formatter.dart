@@ -4,9 +4,10 @@ import 'package:surf_text_input_formatter/src/separate_text_input_formatter_type
 
 /// [TextInputFormatter] for KPP
 class KppTextInputFormatter extends SeparateTextInputFormatter {
-  KppTextInputFormatter()
+  KppTextInputFormatter({bool isFormatBeforeEnterNextSymbol})
       : super(
           maxLength: 9,
           type: SeparateTextInputFormatterType.number,
+          isFormatBeforeEnterNextSymbol: isFormatBeforeEnterNextSymbol,
         );
 }

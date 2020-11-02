@@ -12,12 +12,13 @@ class DdMmYyyyTextInputFormatter extends SeparateTextInputFormatter {
   final int _maxDayValue = 31;
   final int _maxMonthValue = 12;
 
-  DdMmYyyyTextInputFormatter()
+  DdMmYyyyTextInputFormatter({bool isFormatBeforeEnterNextSymbol})
       : super(
           separatorPositions: [2, 5],
           separateSymbols: ['.'],
           maxLength: 10,
           type: SeparateTextInputFormatterType.number,
+          isFormatBeforeEnterNextSymbol: isFormatBeforeEnterNextSymbol,
         );
 
   @override

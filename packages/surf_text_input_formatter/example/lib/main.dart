@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Auto reload Home Page'),
+      home: MyHomePage(),
     );
   }
 }
@@ -27,29 +27,64 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _paymentCardFormatter = PaymentCardTextInputFormatter();
+  bool _isBefore = false;
 
-  final _formatter0 = SeparateTextInputFormatter(
-    separatorPositions: [7, 3, 5],
-    separateSymbols: ['-', ' '],
-    maxLength: 10,
-    type: SeparateTextInputFormatterType.number,
-  );
-  final _formatter1 = SeparateTextInputFormatter(
-    step: 5,
-    stepSymbol: '//',
-    separatorPositions: [1, 3, 5],
-    separateSymbols: ['-', '.', ','],
-    excludeRegExp: RegExp(r"\D"),
-  );
+  final _countryCode = '+7';
 
-  final _dateFormatter = DdMmYyyyTextInputFormatter();
+  TextEditingController _phoneController = TextEditingController();
+  FocusNode _phoneFocusNode = FocusNode();
+
+  String get _trimmedPhoneText => _phoneController.text.trim();
+
+  bool get _isEmptyPhoneText => _trimmedPhoneText.isEmpty;
+
+  @override
+  void initState() {
+    _phoneFocusNode.addListener(() {
+      if (_phoneFocusNode.hasFocus && _isEmptyPhoneText) {
+        _phoneController.text = _countryCode + ' ';
+        return;
+      } else if (!_phoneFocusNode.hasFocus &&
+          _trimmedPhoneText == _countryCode) {
+        _phoneController.clear();
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _phoneController.dispose();
+    _phoneFocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Row(
+              children: [
+                Switch(
+                  inactiveThumbColor: Colors.black,
+                  inactiveTrackColor: Colors.white,
+                  activeColor: Colors.white,
+                  activeTrackColor: Colors.black,
+                  value: _isBefore,
+                  onChanged: (bool value) {
+                    setState(() {
+                      _isBefore = value;
+                    });
+                  },
+                ),
+                Text('formatting before')
+              ],
+            ),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -58,58 +93,106 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               _buildItem(
                 text: 'xxxx xxxx xxxx xxxx (Payment card)',
-                formatter: _paymentCardFormatter,
+                formatter: PaymentCardTextInputFormatter(
+                  isFormatBeforeEnterNextSymbol: _isBefore,
+                ),
               ),
-              _buildItem(text: 'xxx-x x xx', formatter: _formatter0),
+              _buildItem(
+                text: 'xxx-x x xx',
+                formatter: SeparateTextInputFormatter(
+                  separatorPositions: [7, 3, 5],
+                  separateSymbols: ['-', ' '],
+                  maxLength: 10,
+                  type: SeparateTextInputFormatterType.number,
+                  isFormatBeforeEnterNextSymbol: _isBefore,
+                ),
+              ),
+              _buildItem(
+                text: 'xxx-x x xx (from schema)',
+                formatter: SeparateTextInputFormatter.fromSchema(
+                  '###-# # ##',
+                  maxLength: 10,
+                  type: SeparateTextInputFormatterType.number,
+                  isFormatBeforeEnterNextSymbol: _isBefore,
+                ),
+              ),
               _buildItem(
                 text: 'x-x.x,xx//xxxxx//xxxxx//xxxxx (no length limit)',
-                formatter: _formatter1,
+                formatter: SeparateTextInputFormatter(
+                  step: 5,
+                  stepSymbol: '//',
+                  separatorPositions: [1, 3, 5],
+                  separateSymbols: ['-', '.', ','],
+                  excludeRegExp: RegExp(r"\D"),
+                  isFormatBeforeEnterNextSymbol: _isBefore,
+                ),
+              ),
+              _buildItem(
+                text:
+                    'x-x.x,xx//xxxxx//xxxxx//xxxxx (no length limit, from schema)',
+                formatter: SeparateTextInputFormatter.fromSchema(
+                  '#-#.#,##//#####//#####//#####',
+                  excludeRegExp: RegExp(r"\D"),
+                  isFormatBeforeEnterNextSymbol: _isBefore,
+                ),
               ),
               _buildItem(
                 text: 'xx.xx.xxxx (Date)',
-                formatter: _dateFormatter,
-              ),
-              _buildItem(
-                text: '#-# #.#//# (from schema)',
-
-                /// formatter: SeparateTextInputFormatter(
-                ///   separateSymbols: ['-', ' ', '.', '/', '/'],
-                ///   separatorPositions: [1, 3, 5, 7, 8],
-                ///   excludeRegExp: RegExp(r"\D"),
-                /// ),
-                formatter: SeparateTextInputFormatter.fromSchema(
-                  '#-# #.#//#',
-                  excludeRegExp: RegExp(r"\D"),
+                formatter: DdMmYyyyTextInputFormatter(
+                  isFormatBeforeEnterNextSymbol: _isBefore,
                 ),
               ),
               _buildItem(
-                text: '+7 (000) 000 00 00 (before)',
+                text: '+7 (000) 000 00 00 - Insert country code by autofocus',
                 formatter: PhoneTextInputFormatter(
-                  '+7',
-                  isFormatBeforeEnterNextSymbol: true,
+                  _countryCode,
+                  isFormatBeforeEnterNextSymbol: _isBefore,
                 ),
+                controller: _phoneController,
+                focusNode: _phoneFocusNode,
               ),
               _buildItem(
-                text: '8 (000) 000 00 00 (after)',
-                formatter: PhoneTextInputFormatter('8'),
+                text: '8 (000) 000 00 00',
+                formatter: PhoneTextInputFormatter(
+                  '8',
+                  isFormatBeforeEnterNextSymbol: _isBefore,
+                ),
               ),
               _buildItem(
                 text: 'ИНН individual',
-                formatter: InnTextInputFormatter.individual(),
+                formatter: InnTextInputFormatter.individual(
+                  isFormatBeforeEnterNextSymbol: _isBefore,
+                ),
               ),
               _buildItem(
                 text: 'ИНН entity',
-                formatter: InnTextInputFormatter.entity(),
+                formatter: InnTextInputFormatter.entity(
+                  isFormatBeforeEnterNextSymbol: _isBefore,
+                ),
               ),
-              _buildItem(text: 'KPP', formatter: KppTextInputFormatter()),
-              _buildItem(text: 'Bic', formatter: BicTextInputFormatter()),
+              _buildItem(
+                text: 'KPP',
+                formatter: KppTextInputFormatter(
+                  isFormatBeforeEnterNextSymbol: _isBefore,
+                ),
+              ),
+              _buildItem(
+                text: 'Bic',
+                formatter: BicTextInputFormatter(
+                  isFormatBeforeEnterNextSymbol: _isBefore,
+                ),
+              ),
               _buildItem(
                 text: 'Account number',
-                formatter: AccountNumberTextInputFormatter(),
+                formatter: AccountNumberTextInputFormatter(
+                  isFormatBeforeEnterNextSymbol: _isBefore,
+                ),
               ),
               _buildItem(
                 text: 'UIN/UIP',
-                formatter: UinUipTextInputFormatter(),
+                formatter: UinUipTextInputFormatter(
+                  isFormatBeforeEnterNextSymbol: _isBefore,
+                ),
               ),
               const SizedBox(height: 100),
               AnimatedPadding(
@@ -127,6 +210,8 @@ class _MyHomePageState extends State<MyHomePage> {
     @required String text,
     @required TextInputFormatter formatter,
     TextInputType keyboardType = TextInputType.number,
+    TextEditingController controller,
+    FocusNode focusNode,
   }) {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -136,6 +221,8 @@ class _MyHomePageState extends State<MyHomePage> {
         TextField(
           inputFormatters: [formatter],
           keyboardType: keyboardType,
+          controller: controller,
+          focusNode: focusNode,
         ),
         const SizedBox(height: 20),
       ],

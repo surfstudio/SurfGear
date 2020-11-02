@@ -4,17 +4,22 @@ import 'package:surf_text_input_formatter/src/separate_text_input_formatter_type
 
 /// [TextInputFormatter] for UIN / UIP
 class UinUipTextInputFormatter extends SeparateTextInputFormatter {
-  UinUipTextInputFormatter()
+  UinUipTextInputFormatter({bool isFormatBeforeEnterNextSymbol})
       : super(
           maxLength: 25,
           type: SeparateTextInputFormatterType.number,
+          isFormatBeforeEnterNextSymbol: isFormatBeforeEnterNextSymbol,
         );
 
-  UinUipTextInputFormatter.min()
+  UinUipTextInputFormatter.min({bool isFormatBeforeEnterNextSymbol})
       : super(
           maxLength: 20,
           type: SeparateTextInputFormatterType.number,
+          isFormatBeforeEnterNextSymbol: isFormatBeforeEnterNextSymbol,
         );
 
-  factory UinUipTextInputFormatter.max() => UinUipTextInputFormatter();
+  factory UinUipTextInputFormatter.max({bool isFormatBeforeEnterNextSymbol}) =>
+      UinUipTextInputFormatter(
+        isFormatBeforeEnterNextSymbol: isFormatBeforeEnterNextSymbol,
+      );
 }
