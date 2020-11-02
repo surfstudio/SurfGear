@@ -41,6 +41,19 @@ class PushHandler {
   final NotificationController _notificationController;
   final BaseMessagingService _messagingService;
 
+  /// request permission for show notification
+  /// soundPemission - is play sound
+  /// alertPermission - is show alert
+  Future<bool> requestPermissions({
+    bool soundPemission = true,
+    bool alertPermission = true,
+  }) {
+    return _notificationController.requestPermissions(
+      requestSoundPermission: soundPemission,
+      requestAlertPermission: alertPermission,
+    );
+  }
+
   /// display local notification
   /// MessagingService calls this method to display the notification that
   /// came from message service
@@ -54,11 +67,13 @@ class PushHandler {
     }
 
     final strategy = _strategyFactory.createByData(message);
+
     if (message != null) {
       if (handlerType == MessageHandlerType.onLaunch ||
           handlerType == MessageHandlerType.onResume) {
         strategy.onBackgroundProcess(message);
       }
+
       if (handlerType == MessageHandlerType.onMessage) {
         _notificationController.show(
           strategy,

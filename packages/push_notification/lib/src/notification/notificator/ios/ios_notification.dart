@@ -39,9 +39,7 @@ class IOSNotification {
         switch (call.method) {
           case openCallback:
             if (onNotificationTap != null) {
-              final notificationData = Map<String, Object>.of(
-                call.arguments as Map<String, Object>,
-              );
+              final notificationData = call.arguments;
               onNotificationTap(notificationData);
             }
             break;
