@@ -5,19 +5,19 @@ import 'package:mwwm/mwwm.dart';
 import '../di/temp_component.dart';
 
 /// Билдер для [GiftsWidgetModel]
-$Temp$WidgetModel create$Temp$WidgetModel(BuildContext context) {
-  var component = Injector.of<$Temp$Component>(context).component;
-  return $Temp$WidgetModel(
+TemplateWidgetModel createTemplateWidgetModel(BuildContext context) {
+  var component = Injector.of<TemplateComponent>(context).component;
+  return TemplateWidgetModel(
     component.wmDependencies,
     component.navigator
   );
 }
 
-/// [WidgetModel] для [$Temp$]
-class $Temp$WidgetModel extends WidgetModel {
+/// [WidgetModel] для [Template]
+class TemplateWidgetModel extends WidgetModel {
   final NavigatorState navigator;
 
-  $Temp$WidgetModel(
+  TemplateWidgetModel(
     WidgetModelDependencies dependencies,
     this.navigator,
   ) : super(dependencies);

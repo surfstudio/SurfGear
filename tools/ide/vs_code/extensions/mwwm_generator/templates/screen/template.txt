@@ -7,18 +7,18 @@ import 'package:mwwm/mwwm.dart';
 import 'di/temp_component.dart';
 import 'temp_wm.txt';
 
-/// Виджет [$Temp$]
-class $Temp$ extends MwwmWidget<$Temp$Component> {
-  $Temp$([
-    WidgetModelBuilder widgetModelBuilder = create$Temp$WidgetModel,
+/// Виджет [Template]
+class Template extends MwwmWidget<TemplateComponent> {
+  Template([
+    WidgetModelBuilder widgetModelBuilder = createTemplateWidgetModel,
   ]) : super(
           widgetModelBuilder: widgetModelBuilder,
-          dependenciesBuilder: (context) => $Temp$Component(context),
-          widgetStateBuilder: () => _$Temp$State(),
+          dependenciesBuilder: (context) => TemplateComponent(context),
+          widgetStateBuilder: () => _TemplateState(),
         );
 }
 
-class _$Temp$State extends WidgetState<$Temp$WidgetModel> {
+class _TemplateState extends WidgetState<TemplateWidgetModel> {
   @override
   Widget build(BuildContext context) {
     return _buildScreen(context);
@@ -26,7 +26,7 @@ class _$Temp$State extends WidgetState<$Temp$WidgetModel> {
 
   Widget _buildScreen(BuildContext context) {
     return Scaffold(
-      key: Injector.of<$Temp$Component>(context).component.scaffoldKey,
+      key: Injector.of<TemplateComponent>(context).component.scaffoldKey,
       appBar: AppBar(
         iconTheme: IconThemeData(
           color: white,

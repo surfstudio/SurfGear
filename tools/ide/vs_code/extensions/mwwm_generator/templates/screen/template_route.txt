@@ -1,0 +1,8 @@
+import 'package:flutter/material.dart';
+
+import 'temp.txt';
+
+/// Роут для [Template]
+class TemplateRoute extends MaterialPageRoute {
+  TemplateRoute() : super(builder: (ctx) => Template());
+}
