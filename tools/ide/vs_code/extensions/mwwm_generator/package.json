@@ -1,7 +1,9 @@
 {
 	"name": "mwwm-generator",
+	"publisher":"SurfGear",
 	"displayName": "mwwm-generator",
 	"description": "Extension helps you to create mwwm-widgets",
+	"repository": "https://github.com/surfstudio/SurfGear",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.50.0"
