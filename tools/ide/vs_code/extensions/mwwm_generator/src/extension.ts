@@ -12,8 +12,7 @@ export function activate(context: vscode.ExtensionContext) {
 			const widgetPath = getWidgetLocation(args);
 			if (widgetPath === "") return;
 
-			// const widgetName = await getWidgetName();
-			const widgetName = "Testing";
+			const widgetName = await getWidgetName();
 			if (!checkName(widgetName)) return;
 
 			const filePrefix = getFilePrefix(widgetName);
@@ -29,12 +28,11 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 
-	let screenDisposable = vscode.commands.registerCommand('mwwm-generator.create-screen', (...args: any[]) => {
+	let screenDisposable = vscode.commands.registerCommand('mwwm-generator.create-screen', async (...args: any[]) => {
 		const screenPath = getWidgetLocation(args);
 		if (screenPath === "") return;
 
-		// const widgetName = await getScreenName();
-		const screenName = "Settings";
+		const screenName = await getScreenName();
 		if (!checkName(screenName)) return;
 
 		const filePrefix = getFilePrefix(screenName);

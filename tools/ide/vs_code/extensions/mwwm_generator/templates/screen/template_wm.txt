@@ -1,30 +1,18 @@
 import 'package:flutter/widgets.dart';
-import 'package:injector/injector.dart';
 import 'package:mwwm/mwwm.dart';
-
-import '../di/temp_component.dart';
-
-/// Билдер для [GiftsWidgetModel]
-TemplateWidgetModel createTemplateWidgetModel(BuildContext context) {
-  var component = Injector.of<TemplateComponent>(context).component;
-  return TemplateWidgetModel(
-    component.wmDependencies,
-    component.navigator
-  );
-}
 
 /// [WidgetModel] для [Template]
 class TemplateWidgetModel extends WidgetModel {
-  final NavigatorState navigator;
-
   TemplateWidgetModel(
     WidgetModelDependencies dependencies,
     this.navigator,
   ) : super(dependencies);
 
+  final NavigatorState navigator;
+
   @override
   void onLoad() {
     super.onLoad();
-    //todo
+    //TODO
   }
 }
