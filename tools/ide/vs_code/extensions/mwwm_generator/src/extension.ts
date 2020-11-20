@@ -136,7 +136,7 @@ function createDiFolder(parentFolderPath: string): string {
 
 /// Create Template file
 function createTemplate(sourceCodeFolderPath: string, name: string, folderPath: string, filePrefix: string, isScreen: boolean) {
-	const widgetSourceCodePath = vscode.Uri.file(path.join(sourceCodeFolderPath, 'template.txt')).fsPath;
+	const widgetSourceCodePath = vscode.Uri.file(path.join(sourceCodeFolderPath, 'template.dart')).fsPath;
 	const widgetSourceCode = fs.readFileSync(widgetSourceCodePath, 'utf8').replace(/Template/gi, name);
 	const filePath = vscode.Uri.file(path.join(folderPath, `${filePrefix}.dart`)).fsPath
 
@@ -145,7 +145,7 @@ function createTemplate(sourceCodeFolderPath: string, name: string, folderPath: 
 
 /// Create WM file
 function createWm(sourceCodeFolderPath: string, name: string, folderPath: string, filePrefix: string) {
-	const wmSourceCodePath = vscode.Uri.file(path.join(sourceCodeFolderPath, 'template_wm.txt')).fsPath;
+	const wmSourceCodePath = vscode.Uri.file(path.join(sourceCodeFolderPath, 'template_wm.dart')).fsPath;
 	const wmSourceCode = fs.readFileSync(wmSourceCodePath, 'utf8').replace(/Template/gi, name);
 
 	const filePath = vscode.Uri.file(path.join(folderPath, `${filePrefix}_wm.dart`)).fsPath
@@ -156,7 +156,7 @@ function createWm(sourceCodeFolderPath: string, name: string, folderPath: string
 function createDi(sourceCodeFolderPath: string, name: string, folderPath: string, filePrefix: string) {
 	const diFolderPath = createDiFolder(folderPath);
 
-	const diSourceCodePath = vscode.Uri.file(path.join(sourceCodeFolderPath, 'di', 'template_component.txt')).fsPath;
+	const diSourceCodePath = vscode.Uri.file(path.join(sourceCodeFolderPath, 'di', 'template_component.dart')).fsPath;
 	const diSourceCode = fs.readFileSync(diSourceCodePath, 'utf8').replace(/Template/gi, name);
 
 	const filePath = vscode.Uri.file(path.join(diFolderPath, `${filePrefix}_component.dart`)).fsPath
@@ -165,7 +165,7 @@ function createDi(sourceCodeFolderPath: string, name: string, folderPath: string
 
 /// Create Route file
 function createRoute(sourceCodeFolderPath: string, name: string, folderPath: string, filePrefix: string) {
-	const routeSourceCodePath = vscode.Uri.file(path.join(sourceCodeFolderPath, 'template_route.txt')).fsPath;
+	const routeSourceCodePath = vscode.Uri.file(path.join(sourceCodeFolderPath, 'template_route.dart')).fsPath;
 	const routeSourceCode = fs.readFileSync(routeSourceCodePath, 'utf8').replace(/Template/gi, name);
 
 	const filePath = vscode.Uri.file(path.join(folderPath, `${filePrefix}_route.dart`)).fsPath
