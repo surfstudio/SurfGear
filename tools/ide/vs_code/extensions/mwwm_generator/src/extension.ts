@@ -4,6 +4,8 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 
+// TODO добавить проверки что файлы есть при создании виджетов.
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -18,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
 			const filePrefix = getFilePrefix(widgetName);
 			const folderPath = createFolder(widgetPath, filePrefix);
 
-			const sourceCodeFolderPath = vscode.Uri.file(path.join(context.extensionPath, 'templates', 'widget')).fsPath;
+			const sourceCodeFolderPath = getSourceCodeFolderPath(context, 'widget');
 			createTemplate(sourceCodeFolderPath, widgetName, folderPath, filePrefix, false);
 			createWm(sourceCodeFolderPath, widgetName, folderPath, filePrefix);
 			createDi(sourceCodeFolderPath, widgetName, folderPath, filePrefix);
@@ -38,7 +40,7 @@ export function activate(context: vscode.ExtensionContext) {
 		const filePrefix = getFilePrefix(screenName);
 		const folderPath = createFolder(screenPath, filePrefix);
 
-		const sourceCodeFolderPath = vscode.Uri.file(path.join(context.extensionPath, 'templates', 'screen')).fsPath;
+		const sourceCodeFolderPath = getSourceCodeFolderPath(context, 'screen');
 		createTemplate(sourceCodeFolderPath, screenName, folderPath, filePrefix, true);
 		createWm(sourceCodeFolderPath, screenName, folderPath, filePrefix);
 		createDi(sourceCodeFolderPath, screenName, folderPath, filePrefix);
@@ -105,6 +107,24 @@ function checkName(widgetName: string): Boolean {
 	} else {
 		return true;
 	}
+}
+
+function getSourceCodeFolderPath(context: vscode.ExtensionContext, lastFolderName: string): string {
+	let sourceCodeFolderPath;
+	let workspaceFolders = vscode.workspace.workspaceFolders;
+	if (workspaceFolders) {
+		const workspacePath = workspaceFolders[0].uri.path;
+		const templateFolderPath = vscode.Uri.file(path.join(workspacePath, 'templates', lastFolderName)).fsPath;
+		if (fs.existsSync(templateFolderPath)) {
+			sourceCodeFolderPath = templateFolderPath;
+		}
+	}
+
+	if (sourceCodeFolderPath == null) {
+		sourceCodeFolderPath = vscode.Uri.file(path.join(context.extensionPath, 'templates', lastFolderName)).fsPath;
+	}
+
+	return sourceCodeFolderPath;
 }
 
 /// Files name prefix
