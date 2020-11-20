@@ -134,23 +134,11 @@ function createDiFolder(parentFolderPath: string): string {
 	return folderPath;
 }
 
-/// Create Template(Widget/Screen) file
+/// Create Template file
 function createTemplate(sourceCodeFolderPath: string, name: string, folderPath: string, filePrefix: string, isScreen: boolean) {
 	const widgetSourceCodePath = vscode.Uri.file(path.join(sourceCodeFolderPath, 'template.txt')).fsPath;
-	let className = name;
-	if (isScreen) {
-		className = `${className}Screen`;
-	}
-	const widgetSourceCode = fs.readFileSync(widgetSourceCodePath, 'utf8').replace(/Template/gi, className);
-
-	let fileName;
-	if (isScreen) {
-		fileName = `${filePrefix}_screen.dart`;
-
-	} else {
-		fileName = `${filePrefix}.dart`;
-	}
-	const filePath = vscode.Uri.file(path.join(folderPath, fileName)).fsPath
+	const widgetSourceCode = fs.readFileSync(widgetSourceCodePath, 'utf8').replace(/Template/gi, name);
+	const filePath = vscode.Uri.file(path.join(folderPath, `${filePrefix}.dart`)).fsPath
 
 	fs.writeFileSync(filePath, widgetSourceCode);
 }

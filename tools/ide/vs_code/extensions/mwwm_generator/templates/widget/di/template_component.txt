@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:surf_injector/surf_injector.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
-/// [Component] для [Template]
+/// [Component] для Template
 class TemplateComponent extends WidgetComponent {
   TemplateComponent(BuildContext context) : super(context) {
     final appComponent = Injector.of<AppComponent>(context).component;
-    final scaffoldKey = Injector.of<>(context).scaffoldKey;
+    final parentScaffoldKey = Injector.of<>(context).scaffoldKey;
 
     _navigator = Navigator.of(context);
-    _messageController = MaterialMessageController(scaffoldKey);
-    _dialogController = DefaultDialogController(scaffoldKey);
+    _messageController = MaterialMessageController(parentScaffoldKey);
+    _dialogController = DefaultDialogController(parentScaffoldKey);
 
-    _wmDependencies = WidgetModelDependencies(
+    _wmDependencies = WmDependencies(
       errorHandler: StandardErrorHandler(
         _messageController,
         _dialogController
@@ -23,13 +23,13 @@ class TemplateComponent extends WidgetComponent {
   NavigatorState _navigator;
   MessageController _messageController;
   DialogController _dialogController;
-  WidgetModelDependencies _wmDependencies;
+  WmDependencies _wmDependencies;
 }
 
-/// Билдер для [TemplateWidgetModel]
-TemplateWidgetModel createTemplateWidgetModel(BuildContext context) {
+/// Билдер для [TemplateWm]
+TemplateWm createTemplateWm(BuildContext context) {
   final component = Injector.of<TemplateComponent>(context).component;
-  return TemplateWidgetModel(
+  return TemplateWm(
     component._wmDependencies,
     component._navigator,
   );
