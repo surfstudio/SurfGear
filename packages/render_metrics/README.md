@@ -1,4 +1,4 @@
-# render_metrics
+# Render Metrics
 
 ![](logo.png)
 
