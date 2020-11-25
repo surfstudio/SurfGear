@@ -3,8 +3,6 @@ version: "0.0.1-dev.2"
 description: |
   Android implementation of OTP autofill with using User Consent API and Retriever API. Add possibility to receive OTP code from another input.
   
-publish_to: none
-
 dependencies:
   flutter:
     sdk: flutter
