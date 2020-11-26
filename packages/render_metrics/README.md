@@ -42,6 +42,35 @@ Get a bundle with the positioning coordinates of the wrapped widget.
 ```dart
 RenderData data = renderManager.getRenderData("uniqueWidgetId");
 ```
+
+### Calculating two widgets positioning difference
+
+Wrap both widgets you want to compare in a `RenderMetricsObject`s. Specify two different `id`s for each of them. Please note, that the `manager` parameter of both widgets should accept a link to the same `RenderParametersManager` instance.
+
+```dart
+RenderMetricsObject(
+    id: "rowWidgetId",
+    manager: renderManager,
+    child: Row(
+        ...
+    ),
+),
+RenderMetricsObject(
+    id: "columnWidgetId",
+    manager: renderManager,
+    child: Column(
+        ...
+    ),
+),
+```
+
+Specify two unique widget identifiers when calling `getDiffById()` function to extract a bundle with the relative difference between the positioning coordinates of comparing widgets.
+
+```dart
+ComparisonDiff diff =
+    renderManager.getDiffById("rowWidgetId", "columnWidgetId");
+```
+
 ## Installation
 
 Add Render Metrics to your `pubspec.yaml` file:
