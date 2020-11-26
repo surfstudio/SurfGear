@@ -99,7 +99,7 @@ dependencies:
 ```
 
 ## Issues
-For issues, file directly in the [main SurfGear repo]().
+For issues, file directly in the [main SurfGear repo](https://github.com/surfstudio/SurfGear).
 ## How to reach us
 
 Please, feel free to ask any questions about this package. Join our community chat on Telegram. We speak English and Russian.
