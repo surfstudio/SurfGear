@@ -71,6 +71,24 @@ ComparisonDiff diff =
     renderManager.getDiffById("rowWidgetId", "columnWidgetId");
 ```
 
+## What metrics can I get?
+
+`RenderData` instance contains a complete set of properties that characterize any widget in a two-dimensional space.
+
+All metrics positioning coordinates are global (relative to the entire screen coordinate space).
+
+| Metrics | Description       |
+|---------|-------------------|
+| width   | Widget widgth     |
+| height  | Widget height     |
+| yTop    | Top Y position    |
+| yBottom | Bottom Y position |
+| yCenter | Center Y position |
+| xLeft   | Left X position   |
+| xRight  | Right X position  |
+| xCenter | Center X position |
+
+
 ## Installation
 
 Add Render Metrics to your `pubspec.yaml` file:
