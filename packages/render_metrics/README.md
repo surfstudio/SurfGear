@@ -1,156 +1,112 @@
-# render_metrics
+# Render Metrics
+![Pub Version](https://img.shields.io/pub/v/render_metrics)
+![Pub Version (including pre-releases)](https://img.shields.io/pub/v/render_metrics?include_prereleases)
+![Pub Likes](https://badgen.net/pub/likes/render_metrics)
 
-![](logo.png)
+This package is a part of [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
 
-#### [SurfGear](https://github.com/surfstudio/SurfGear)
-[![pub package](https://img.shields.io/pub/v/render_metrics?label=render_metrics)](https://pub.dev/packages/render_metrics)
+[![SurfGear](logo.png)](https://github.com/surfstudio/SurfGear)
 
-A library that helps to perform actions with some periodicity
-## Usage of RenderMetrics
+## About
+This package gives you an ability to get the current positioning coordinates of any widget in a widgets tree in your Flutter application.
 
-main classes:
+## Currently supported features
 
-1. [RenderMetricsObject](./lib/src/render/render_metrics.dart)
-2. [RenderMetricsBox](./lib/src/render/render_metrics.dart)
-3. [RenderManager](./lib/src/manager/render_manager.dart)
-4. [RenderParametersManager](./lib/src/manager/render_parameters_manager.dart)
-5. [RenderData](./lib/src/data/render_data.dart)
-6. [ComparisonDiff](./lib/src/data/comparison_diff.dart)
-7. [CoordsMetrics](./lib/src/data/coords_metrics.dart)
+- Get the full set of positioning coordinates of the desired widget at any time;
+- Calculate the difference between the positions of two different widgets and use it the way you want to.
 
-# Library for getting widget metrics.
+## Usage
 
-Allows you to get the sizes of widgets even without their explicit indication and coordinates relative to the screen.
+### Getting widget's coordinates
 
-## Classes in the library
+Instantiate `RenderParametersManager` object. You can declare a special type for the unique widget's identifier you will set the next step or you can leave it `dynamic`.
 
-### Render classes
-**RenderMetricsObject** - Descendant of SingleChildRenderObjectWidget. Accepts the widget from which to get metrics.
+```dart
+final renderManager = RenderParametersManager<dynamic>();
+```
 
-**RenderMetricsBox** - descendant of RenderProxyBox. Provides metric data.
+Wrap the desired widget in a `RenderMetricsObject`. The `id` parameter is a unique identifier for the widget.
 
-### Data classes
-**RenderData** - class provides widget metrics data.
+```dart
+RenderMetricsObject(
+    id: "uniqueWidgetId",
+    manager: renderManager,
+    child: Container(
+        ...
+    ),
+),
+```
 
-**CoordsMetrics** - coordinate point class.
+Get a bundle with the positioning coordinates of the wrapped widget.
 
-**ComparisonDiff** - class with a difference of coordinates between two RenderData
-List of available values:
+```dart
+RenderData data = renderManager.getRenderData("uniqueWidgetId");
+```
 
-### Managers
-**RenderManager** - Base class for the manager. Your own managers should inherit from it.
-**RenderParametersManager** - Ready Render Manager successor storing the RenderMetricsBox list and functionality for working with them.
-____
+### Calculating two widgets positioning difference
 
-## Metric Data Provided
+Wrap both widgets you want to compare in a `RenderMetricsObject`s. Specify two different `id`s for each of them. Please note, that the `manager` parameter of both widgets should accept a link to the same `RenderParametersManager` instance.
 
-### double data:
-**width** - Widget width.
+```dart
+RenderMetricsObject(
+    id: "rowWidgetId",
+    manager: renderManager,
+    child: Row(
+        ...
+    ),
+),
+RenderMetricsObject(
+    id: "columnWidgetId",
+    manager: renderManager,
+    child: Column(
+        ...
+    ),
+),
+```
 
-**height** - Widget height.
+Specify two unique widget identifiers when calling `getDiffById()` function to extract a bundle with the relative difference between the positioning coordinates of comparing widgets.
 
-**yTop** - Top Y position relative to the screen.
+```dart
+ComparisonDiff diff =
+    renderManager.getDiffById("rowWidgetId", "columnWidgetId");
+```
 
-**yBottom** - Lower Y position relative to the screen.
+## What metrics can I get?
 
-**yCenter** - Center Y position relative to the screen.
+`RenderData` instance contains a complete set of properties that characterize any widget in a two-dimensional space.
 
-**xLeft** - Left X position relative to the screen.
+All metrics positioning coordinates are global (relative to the entire screen coordinate space).
 
-**xRight** - Right X position relative to the screen.
-
-**xCenter** - Center X position relative to the screen.
-
-### CoordsMetrics Instances:
-**topLeft** - Upper left coordinate.
-
-**topRight** - Upper right coordinate.
-
-**bottomLeft** - Lower left coordinate.
-
-**bottomRight** - Lower right coordinate.
-
-**center** - Central coordinate.
-
-**topCenter** - Upper center coordinate.
-
-**bottomCenter** - Lower central coordinate.
-
-**centerLeft** - Center left coordinate.
-
-**centerRight** - Center right coordinate.
-
-![](metrics_image.jpg)
-____
-
-## RenderData difference data in ComparisonDiff
-**yTop** - Difference of the upper Y position relative to the screen.
-
-**yBottom** - Difference of the lower Y position relative to the screen.
-
-**yCenter** - Difference of the central Y position relative to the screen.
-
-**xLeft** - Difference left X position relative to the screen.
-
-**xRight** - Difference of the right X position relative to the screen.
-
-**xCenter** - Difference of the central X position relative to the screen.
-
-**diffTopToBottom** - Difference of the upper border.
-
-**diffBottomToTop** - Difference of the lower border.
-
-**diffLeftToRight** - Difference of the left border.
-
-**diffRightToLeft** - Difference of the right border.
-
-**width** - Difference in width of elements.
-
-**height** - Difference in element heights.
-
-**topLeft** - The difference between the upper left coordinates.
-
-**topRight** - The difference between the upper right coordinates.
-
-**bottomLeft** - The difference between the lower left coordinates.
-
-**bottomRight** - The difference between the lower right coordinates.
-
-**center** - The difference between the central coordinates.
-
-**topCenter** - The difference between the upper center coordinates.
-
-**bottomCenter** - The difference between the lower center coordinates.
-
-**centerLeft** - The difference between the central left coordinates.
-
-**centerRight** - The difference between the center right coordinates.
-![](diff_image.jpg)
-
-## RenderParametersManager functionality
-**addRenderObject** - Add an instance of RenderObject.
-
-**getRenderObject** - Add an instance of RenderObject by id.
-
-**getRenderData** - Get an instance of RenderData with metrics. widget by id.
-
-**removeRenderObject** - Remove an instance of RenderObject.
+| Metrics | Description       |
+|---------|-------------------|
+| width   | Widget widgth     |
+| height  | Widget height     |
+| yTop    | Top Y position    |
+| yBottom | Bottom Y position |
+| yCenter | Center Y position |
+| xLeft   | Left X position   |
+| xRight  | Right X position  |
+| xCenter | Center X position |
 
 
-## Usage:
+## Installation
 
-1. Wrap the widget from which you want to get metrics (size, position, etc.) in [RenderMetricsObject].
-2. Pass the id. Only required when using RenderManager.
-3. onMount method - will work when creating a RenderObject.
-Takes in the parameters:
-Passed id.
-An instance of the RenderMetricsBox - the successor to the RenderProxyBox.
-4. The onUnMount method will work when deleting widgets from the tree.
-Takes in the parameters:
-Passed id.
-5. manager - an optional parameter. Waiting for a RenderManager descendant.
-[RenderParametersManager] - a ready-made descendant of the RenderManager.
-Allows you to get widget metrics:
-Position and dimensions in [RenderData]
-The difference between the two [RenderData] in the class instance [ComparisonDiff]
-You can use your heir [RenderManager].
+Add Render Metrics to your `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  render_metrics: 1.0.1
+```
+
+## Issues
+For issues, file directly in the [main SurfGear repo](https://github.com/surfstudio/SurfGear).
+## How to reach us
+
+Please, feel free to ask any questions about this package. Join our community chat on Telegram. We speak English and Russian.
+
+[![Telegram](https://img.shields.io/badge/chat-on%20Telegram-blue.svg)](https://t.me/SurfGear)
+
+## License
+
+[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
