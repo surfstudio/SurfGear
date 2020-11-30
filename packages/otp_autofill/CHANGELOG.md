@@ -1,3 +1,7 @@
+## 0.0.1-dev.4
+
+* fix platformException on TimeOut
+
 ## 0.0.1 - Released
 
 * add SMS Retriever API support
