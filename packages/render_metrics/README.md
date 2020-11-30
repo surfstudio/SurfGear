@@ -5,7 +5,7 @@
 
 This package is a part of [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
 
-[![SurfGear](logo.png)](https://github.com/surfstudio/SurfGear)
+[![SurfGear](https://i.ibb.co/ySbGgP9/logo.png)](https://github.com/surfstudio/SurfGear)
 
 ## About
 This package gives you an ability to get the current positioning coordinates of any widget in a widgets tree in your Flutter application.
@@ -98,8 +98,17 @@ dependencies:
   render_metrics: 1.0.1
 ```
 
+## Changelog
+
+All notable changes to this project will be documented in [this file](./CHANGELOG.md).
+
 ## Issues
 For issues, file directly in the [main SurfGear repo](https://github.com/surfstudio/SurfGear).
+
+## Contribute
+If you would like to contribute to the package (e.g. by improving the documentation, solving a bug or adding a cool new feature), please review our [contribution guide](../../CONTRIBUTING.md) first and send us your pull request.
+
+You PR's are always welcome.
 ## How to reach us
 
 Please, feel free to ask any questions about this package. Join our community chat on Telegram. We speak English and Russian.
