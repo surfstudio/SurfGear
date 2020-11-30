@@ -14,14 +14,14 @@ import 'package:push_notification/push_notification.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
 // todo оставить здесь только необходимые маршруты
-class Router {
+class AppRouter {
   static const String root = '/';
   static const String splashScreen = '/splash';
 
   // ignore: avoid_annotating_with_dynamic
   static final Map<String, Route Function(Object)> routes = {
-    Router.root: (data) => WelcomeScreenRoute(),
-    Router.splashScreen: (data) => SplashScreenRoute(),
+    AppRouter.root: (data) => WelcomeScreenRoute(),
+    AppRouter.splashScreen: (data) => SplashScreenRoute(),
   };
 }
 
@@ -78,9 +78,9 @@ class _AppState extends WidgetState<AppWidgetModel> {
       checkerboardOffscreenLayers: getDebugConfig().checkerboardOffscreenLayers,
       showSemanticsDebugger: getDebugConfig().showSemanticsDebugger,
       debugShowCheckedModeBanner: getDebugConfig().debugShowCheckedModeBanner,
-      initialRoute: Router.splashScreen,
+      initialRoute: AppRouter.splashScreen,
       onGenerateRoute: (routeSettings) =>
-          Router.routes[routeSettings.name](routeSettings.arguments),
+          AppRouter.routes[routeSettings.name](routeSettings.arguments),
     );
   }
 
