@@ -26,7 +26,11 @@ class SmsUserConsentReceiver : BroadcastReceiver() {
                 }
 
                 CommonStatusCodes.TIMEOUT -> {
-                    smsBroadcastReceiverListener.onFailure()
+                    try{
+                        smsBroadcastReceiverListener.onFailure()
+                    } catch (e: Exception) {
+                        ///DO NOTHING, end listening
+                    }
                 }
             }
         }
