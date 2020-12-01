@@ -1,13 +1,26 @@
 <!--![logo](logo.gif)-->
 
+# mwwm
+![[Pub Version](https://img.shields.io/pub/v/mwwm)](https://pub.dev/packages/mwwm)
+![[Pub Version (including pre-releases)](https://img.shields.io/pub/v/mwwm?include_prereleases)](https://pub.dev/packages/mwwm)
+![[Pub Likes](https://badgen.net/pub/likes/mwwm)](https://pub.dev/packages/mwwm)
+
+This package is a part of [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
+
 # <img src="https://i.ibb.co/N719LCW/logo.png" title="logo" align="middle"/>
 
-#### [SurfGear](https://github.com/surfstudio/SurfGear)
-[![pub package](https://img.shields.io/pub/v/mwwm?label=mwwm)](https://pub.dev/packages/mwwm)
+## About
 
 Software architectural pattern for Flutter apps.
 
-## Description
+## Currently supported features
+
+- Completely separate UI and logic layers;
+- Adds the ability to work on independent layers by different developers, like HTML and CSS.
+
+## Usage
+
+### What is MWWM
 
 MWWM is based on principles of Clean Architecture and is a variation of *MVVM*.
 
@@ -27,11 +40,7 @@ to achieve) and **Performer** (that knows *how* to achieve it).
 
 ![](https://github.com/surfstudio/mwwm/blob/dev/doc/images/mwwm.png?raw=true) 
 
-## Why?
-
-This architecture completely separates design and logic. Adds the ability to work on independent layers by different developers. Adds autonomy to work, like HTML and CSS.
-
-##  How to use
+###  Create Widget and WidgetModel
 
 Create a WidgetModel class by extending [WidgetModel].
 
@@ -40,8 +49,7 @@ class RepositorySearchWm extends WidgetModel {
 
   RepositorySearchWm(
     WidgetModelDependencies baseDependencies, //1
-    Model model, //2
-    ) : super(baseDependencies, model: model); //3
+    ) : super(baseDependencies);
 
 }
 ``` 
@@ -49,10 +57,7 @@ class RepositorySearchWm extends WidgetModel {
 1 - [WidgetModelDependencies](./lib/src/dependencies/wm_dependencies.dart) is a bundle of required dependencies. Default there is [ErrorHandler](./lib/src/error/error_handler.dart), which 
 give possibility to place error handling logic in one place. You must provide an implementation of handler.
 
-2 - [Model](./lib/src/model/model.dart) is contract with service layer. For now, it is optional feature. It is possible to use services directly but 
-not recommended.
 
-3 - don't forgive about provide model to superclass if you wont to use Model.
 
 Add Widget simply by creating StatefulWidget and replace parent class with [CoreMwwmWidget](./lib/src/widget_state.dart)
 
@@ -91,10 +96,7 @@ or by route:
   }
 
   WidgetModel _buildWm(BuildContext context) => RepositorySearchWm(
-        context.read<WidgetModelDependencies>(),
-        Model([
-          // performets
-        ]),
+        context.read<WidgetModelDependencies>(), // this example based on Provider
       );
 ```
 
@@ -103,34 +105,89 @@ Change parent of State of StatefulWidget to [WidgetState](./lib/src/widget_state
 class _RepositorySearchScreenState extends WidgetState<RepositorySearchWm>
 ```
 
-All done! You create your presentation.
+All done! You create your presentation layer.
 
-## FAQ
+### Creating Model layer
 
-### Where can I place UI?
+This package give you optional possibility to use a Model  - a facade over business logic and service layer of your app.
+
+To use Model you must:
+
+1. Create a `Change` - an intention to do something on service layer. Change can has data. Formally, it is an arguments of some function. It is like Event in Bloc.
+```
+class GetData extends FutureChange<String> {
+  //...
+  // there can be some data
+}
+```
+
+2. Create a `Performer` - is a functional part of this contract. It is so close to UseCase. Performer, in ideal world, do only one thing. It is small part og logic which needed to perform Change.
+```
+class GetDataPerformer extends FuturePerformer<String, GetData> { 
+
+  @override
+  Future<String> perform(GetData change) {
+    //...
+  }
+}
+```
+3. Provide a Model to your WidgetModel. 
+
+```
+class RepositorySearchWm extends WidgetModel {
+
+  RepositorySearchWm(
+    WidgetModelDependencies baseDependencies,
+    Model model, //1
+    ) : super(baseDependencies, model: model); //2
+
+}
+``` 
+1 - Add model as param to constructor;
+2 - provide model to superclass.
+
+```
+  WidgetModel _buildWm(BuildContext context) => RepositorySearchWm(
+        context.read<WidgetModelDependencies>(), 
+        Model([
+          GetDataPerformer(), // 1
+        ]),
+      );
+```
+1 - create model instance and provide a list with performers, in this case with GetDataPerformer.
+
+4. Call model from your WM.
+```
+class RepositorySearchWm extends WidgetModel {
+//...
+  void doSomething() {
+    doFuture(model.perform(GetData()),
+      onValue: (data){
+        print(data);
+      }
+    );
+  }
+}
+```
+
+That's all folks!
+
+### FAQ
+
+#### Where can I place UI?
 
 Simply in **build** method in WidgetState. No difference with Flutter framework.
 
-### How can I obtain a WM?
+#### How can I obtain a WM?
 
 WidgetState has WidgetModel after initState() called.
 There is a getter - **wm** - to get your WidgetModel in your Widget.
 
-### Where should I place navigation logic?
+#### Where should I place navigation logic?
 
 Only in **WidgetModel**. But we don't hardcodea way to do this, yet.
 
-## Service(bussines) Layer
-
-***It is optional paragraph. You can write connection with services your favorite way.***
-
-To work with business logic need to decribe a contract which consists of two parts: [Change](./lib/src/model/changes/changes.dart) and [Performer](./lib/src/model/performer/performer.dart).
-
-**Change** - is an intention to do something on service layer. Change can has data. Formally, it is an arguments of some function.
-
-**Performer<R, Change>** - is a functional part of this contract. It is so close to UseCase. Performer, in ideal world, do only one thing. It is small part og logic which needed to perform Change.
-
-## Recommended file structure
+### Recommended file structure
 
 We recomend following structure:
 
@@ -144,11 +201,36 @@ We recomend following structure:
     - screen(widget)/
       - wm.dart
       - route.dart
-      - screen(widget).dart   
+      - screen(widget).dart  
+      
+      
+## Installation
 
+Add Render Metrics to your `pubspec.yaml` file:
 
-# Feature RoadMap
+```yaml
+dependencies:
+  mwwm: version
+```
 
-- Coordinator - abstraction to place navigation logic
-- Code generation (may be)
-- Somthing else ? Create an issue with request to feature.
+## Changelog
+
+All notable changes to this project will be documented in [this file](./CHANGELOG.md).
+
+## Issues
+For issues, file directly in the [main SurfGear repo](https://github.com/surfstudio/SurfGear).
+
+## Contribute
+If you would like to contribute to the package (e.g. by improving the documentation, solving a bug or adding a cool new feature), please review our [contribution guide](../../CONTRIBUTING.md) first and send us your pull request.
+
+You PR's are always welcome.
+## How to reach us
+
+Please, feel free to ask any questions about this package. Join our community chat on Telegram. We speak English and Russian.
+
+[![Telegram](https://img.shields.io/badge/chat-on%20Telegram-blue.svg)](https://t.me/SurfGear)
+
+## License
+
+[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
