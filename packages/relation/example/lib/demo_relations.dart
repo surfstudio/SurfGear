@@ -15,6 +15,8 @@
 import 'package:flutter/material.dart';
 import 'package:relation/relation.dart' as r;
 
+import '../../lib/relation.dart';
+
 class DemoRelations extends StatefulWidget {
   const DemoRelations({Key? key}) : super(key: key);
 
@@ -24,10 +26,14 @@ class DemoRelations extends StatefulWidget {
 
 class _DemoRelationsState extends State<DemoRelations> {
   final incrementAction = r.Action<void>();
-  final incrementState = r.StreamedState<int>(0);
 
   final reloadAction = r.Action<void>();
   final loadDataState = r.EntityStreamedState<int>();
+
+  final textAction = r.TextEditingAction();
+  final incrementState = r.StreamedState<int>(0);
+
+  final scrollAction = r.ScrollOffsetAction();
 
   @override
   void initState() {
@@ -37,6 +43,14 @@ class _DemoRelationsState extends State<DemoRelations> {
     );
 
     reloadAction.stream.listen((_) => _load());
+
+    textAction.stream.listen((event) {
+      print("typed $event");
+    });
+
+    scrollAction.stream.listen((event) {
+      print("scroll offset $event");
+    });
   }
 
   Future _load() async {
@@ -54,16 +68,20 @@ class _DemoRelationsState extends State<DemoRelations> {
       appBar: AppBar(
         title: const Text('Demo for relations'),
       ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: _buildDemo(),
-            ),
-            Expanded(
-              child: _buildEntityDemo(),
-            ),
-          ],
+      body: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+        controller: scrollAction.controller,
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              _buildDemo(),
+              _buildEntityDemo(),
+              TextField(
+                controller: textAction.controller,
+                onChanged: textAction,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -90,7 +108,6 @@ class _DemoRelationsState extends State<DemoRelations> {
             ),
 
             const SizedBox(width: 32.0),
-
             /// button for increment
             TextButton(
               onPressed: incrementAction,
