@@ -13,8 +13,6 @@ This repository is intended **for demonstration**.
   
 Statuses: 
 
-| [![pub version](https://img.shields.io/badge/pub-0.0.1--dev.5-blue)](https://pub.dev/packages/auto_reload/versions) | [![pub points](https://img.shields.io/badge/pub%20points-100-brightgreen)](https://pub.dev/packages/auto_reload/score) | [![pub popularity](https://img.shields.io/badge/pub%20popularity-61-brightgreen)](https://pub.dev/packages/auto_reload/score) | [![pub likes](https://img.shields.io/badge/pub%20likes-4-brightgreen)](https://pub.dev/packages/auto_reload/score) | surf | 
-  
 - surf - module for internal use only  
 - alpha, beta, release - statuses for modules that can be used outside  
   
