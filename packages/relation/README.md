@@ -34,6 +34,9 @@ Main classes:
 It's wrapper over an action on screen.
 =======
 [![pub version](https://img.shields.io/badge/pub-0.0.2-blue)](https://pub.dev/packages/relation/versions)
+[![pub points](https://img.shields.io/badge/pub%20points-100-brightgreen)](https://pub.dev/packages/relation/score)
+[![pub popularity](https://img.shields.io/badge/pub%20popularity-73-brightgreen)](https://pub.dev/packages/relation/score)
+[![pub likes](https://img.shields.io/badge/pub%20likes-7-brightgreen)](https://pub.dev/packages/relation/score)
 This package is a part of [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
 
 [![SurfGear](https://i.ibb.co/zbZ8081/Group-59.png)](https://github.com/surfstudio/SurfGear/tree/dev/packages/relation)
