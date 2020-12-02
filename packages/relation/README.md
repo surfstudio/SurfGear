@@ -36,7 +36,7 @@ It's wrapper over an action on screen.
 [![pub version](https://img.shields.io/badge/pub-0.0.2-blue)](https://pub.dev/packages/relation/versions)
 This package is a part of [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
 
-[![SurfGear](https://ibb.co/sQq5M5h)](https://github.com/surfstudio/SurfGear/tree/dev/packages/relation)
+[![SurfGear](https://i.ibb.co/zbZ8081/Group-59.png)](https://github.com/surfstudio/SurfGear/tree/dev/packages/relation)
 ## About
 This package provides the ability to associate user actions with application state.
 ## Currently supported features
