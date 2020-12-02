@@ -1,13 +1,13 @@
 <!--![logo](logo.gif)-->
 
 # mwwm
-![[Pub Version](https://img.shields.io/pub/v/mwwm)](https://pub.dev/packages/mwwm)
-![[Pub Version (including pre-releases)](https://img.shields.io/pub/v/mwwm?include_prereleases)](https://pub.dev/packages/mwwm)
-![[Pub Likes](https://badgen.net/pub/likes/mwwm)](https://pub.dev/packages/mwwm)
+[![Pub Version](https://img.shields.io/pub/v/mwwm)](https://pub.dev/packages/mwwm)
+[![Pub Version (including pre-releases)](https://img.shields.io/pub/v/mwwm?include_prereleases)](https://pub.dev/packages/mwwm)
+[![Pub Likes](https://badgen.net/pub/likes/mwwm)](https://pub.dev/packages/mwwm)
 
 This package is a part of [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
 
-# <img src="https://i.ibb.co/N719LCW/logo.png" title="logo" align="middle"/>
+# <img src="https://i.ibb.co/mGZkvRD/logo.png" title="logo" align="middle" width=716 height=225/>
 
 ## About
 
@@ -42,9 +42,9 @@ to achieve) and **Performer** (that knows *how* to achieve it).
 
 ###  Create Widget and WidgetModel
 
-Create a WidgetModel class by extending [WidgetModel].
+Create a `WidgetModel` class by extending [WidgetModel].
 
-```
+```dart
 class RepositorySearchWm extends WidgetModel {
 
   RepositorySearchWm(
@@ -61,7 +61,7 @@ give possibility to place error handling logic in one place. You must provide an
 
 Add Widget simply by creating StatefulWidget and replace parent class with [CoreMwwmWidget](./lib/src/widget_state.dart)
 
-```
+```dart
 class RepositorySearchScreen extends CoreMwwmWidget {
 
   //...
@@ -74,7 +74,7 @@ class RepositorySearchScreen extends CoreMwwmWidget {
 ```
 
 By **convention** create a same constructor:
-```
+```dart
   RepositorySearchScreen({
     WidgetModelBuilder wmBuilder, // need to testing
   }) : super(
@@ -85,7 +85,7 @@ By **convention** create a same constructor:
         );
 ```
 or by route:
-```
+```dart
   class RepositorySearchRoute extends MaterialPageRoute {
     RepositorySearchRoute()
         : super(
@@ -100,8 +100,8 @@ or by route:
       );
 ```
 
-Change parent of State of StatefulWidget to [WidgetState](./lib/src/widget_state.dart):
-```
+Change parent of `State` of `StatefulWidget` to [WidgetState](./lib/src/widget_state.dart):
+```dart
 class _RepositorySearchScreenState extends WidgetState<RepositorySearchWm>
 ```
 
@@ -109,12 +109,12 @@ All done! You create your presentation layer.
 
 ### Creating Model layer
 
-This package give you optional possibility to use a Model  - a facade over business logic and service layer of your app.
+This package give you optional possibility to use a `Model`  - a facade over business logic and service layer of your app.
 
 To use Model you must:
 
 1. Create a `Change` - an intention to do something on service layer. Change can has data. Formally, it is an arguments of some function. It is like Event in Bloc.
-```
+```dart
 class GetData extends FutureChange<String> {
   //...
   // there can be some data
@@ -122,7 +122,7 @@ class GetData extends FutureChange<String> {
 ```
 
 2. Create a `Performer` - is a functional part of this contract. It is so close to UseCase. Performer, in ideal world, do only one thing. It is small part og logic which needed to perform Change.
-```
+```dart
 class GetDataPerformer extends FuturePerformer<String, GetData> { 
 
   @override
@@ -131,9 +131,9 @@ class GetDataPerformer extends FuturePerformer<String, GetData> {
   }
 }
 ```
-3. Provide a Model to your WidgetModel. 
+3. Provide a `Model` to your `WidgetModel`. 
 
-```
+```dart
 class RepositorySearchWm extends WidgetModel {
 
   RepositorySearchWm(
@@ -146,7 +146,7 @@ class RepositorySearchWm extends WidgetModel {
 1 - Add model as param to constructor;
 2 - provide model to superclass.
 
-```
+```dart
   WidgetModel _buildWm(BuildContext context) => RepositorySearchWm(
         context.read<WidgetModelDependencies>(), 
         Model([
@@ -154,10 +154,10 @@ class RepositorySearchWm extends WidgetModel {
         ]),
       );
 ```
-1 - create model instance and provide a list with performers, in this case with GetDataPerformer.
+1 - create model instance and provide a list with performers, in this case with `GetDataPerformer`.
 
 4. Call model from your WM.
-```
+```dart
 class RepositorySearchWm extends WidgetModel {
 //...
   void doSomething() {
@@ -172,22 +172,22 @@ class RepositorySearchWm extends WidgetModel {
 
 That's all folks!
 
-### FAQ
+## FAQ
 
-#### Where can I place UI?
+### Where can I place UI?
 
-Simply in **build** method in WidgetState. No difference with Flutter framework.
+Simply in **build** method in `WidgetState`. No difference with Flutter framework.
 
-#### How can I obtain a WM?
+### How can I obtain a WM?
 
-WidgetState has WidgetModel after initState() called.
-There is a getter - **wm** - to get your WidgetModel in your Widget.
+`WidgetState` has `WidgetModel` after `initState()` called.
+There is a getter - **wm** - to get your `WidgetModel` in your Widget.
 
-#### Where should I place navigation logic?
+### Where should I place navigation logic?
 
 Only in **WidgetModel**. But we don't hardcodea way to do this, yet.
 
-### Recommended file structure
+## Recommended file structure
 
 We recomend following structure:
 
@@ -206,7 +206,7 @@ We recomend following structure:
       
 ## Installation
 
-Add Render Metrics to your `pubspec.yaml` file:
+Add mwwm to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
