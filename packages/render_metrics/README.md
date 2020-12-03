@@ -79,11 +79,11 @@ ComparisonDiff diff =
 
 All metrics positioning coordinates are global, meaning they are relative to the entire screen coordinate space.
 
-<img src="https://i.ibb.co/Jkczrmg/Group-20.png" alt="RenderData" width="300"/>
+<img src="https://i.ibb.co/8mCwg6b/first.png" alt="RenderData" width="300"/>
 
 `RenderData` also provides you an ability to get all widget keypoint XY-coordinates by calling one of special getters.
 
-<img src="https://i.ibb.co/QQbP0rm/2020-12-03-10-01-29.png" alt="RenderData" width="300"/>
+<img src="https://i.ibb.co/vQZ9qgW/secondary.png" alt="RenderData" width="300"/>
 
 ### ComparisonDiff
 
@@ -91,7 +91,7 @@ You can get the comparison relative results for each widget keypoint from the `C
 
 An additional set of special getters can help you calculate the difference between two adjacent sides of two different widgets (e.g. right to left, top to bottom, etc.).
 
-<img src="https://i.ibb.co/MC68wTT/Group-12.png" alt="RenderData" width="300"/>
+<img src="https://i.ibb.co/RHvSHy9/third.png" alt="RenderData" width="300"/>
 
 ## Installation
 
