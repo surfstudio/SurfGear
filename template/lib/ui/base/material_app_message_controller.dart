@@ -5,20 +5,30 @@ import 'package:flutter_template/util/enum.dart';
 import 'package:surf_logger/surf_logger.dart';
 import 'package:mwwm/mwwm.dart';
 
-///Стандартная реализация [MessageController]
-@Deprecated(
-  'This version of the controller is deprecated.'
-  ' Use MaterialAppMessageController to get snackbar context'
-  ' throughout your app',
-)
-class MaterialMessageController extends MessageController {
-  MaterialMessageController(this._scaffoldState, {this.snackOwner})
+/// Standard implementation of [MessageController]
+/// running on ScaffoldMessengerState
+/// https://flutter.dev/docs/release/breaking-changes/scaffold-messenger
+///
+/// Snacks receive context not from the current State, but from MaterialApp
+/// This allows the snack to be displayed between screen transitions
+///
+/// usage
+/// final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
+/// GlobalKey<ScaffoldMessengerState>();
+/// MaterialApp(
+///   scaffoldMessengerKey: rootScaffoldMessengerKey,
+///   home: ...
+/// )
+///
+/// rootScaffoldMessengerKey.currentState.showSnackBar(mySnackBar);
+class MaterialAppMessageController extends MessageController {
+  MaterialAppMessageController(this._scaffoldMessengerKey, {this.snackOwner})
       : _context = null;
 
-  MaterialMessageController.from(this._context, {this.snackOwner})
-      : _scaffoldState = null;
+  MaterialAppMessageController.from(this._context, {this.snackOwner})
+      : _scaffoldMessengerKey = null;
 
-  final GlobalKey<ScaffoldState> _scaffoldState;
+  final GlobalKey<ScaffoldMessengerState> _scaffoldMessengerKey;
   final BuildContext _context;
   final CustomSnackBarOwner snackOwner;
 
@@ -35,8 +45,8 @@ class MaterialMessageController extends MessageController {
         ),
   };
 
-  ScaffoldState get _state =>
-      _scaffoldState?.currentState ?? Scaffold.of(_context);
+  ScaffoldMessengerState get _state =>
+      _scaffoldMessengerKey?.currentState ?? ScaffoldMessenger.of(_context);
 
   @override
   void show({String msg, Object msgType = MsgType.common}) {
