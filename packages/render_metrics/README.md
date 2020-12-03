@@ -73,11 +73,25 @@ ComparisonDiff diff =
 
 ## What metrics can I get?
 
+### RenderData
+
 `RenderData` instance contains a complete set of properties that characterize any widget in a two-dimensional space.
 
 All metrics positioning coordinates are global (relative to the entire screen coordinate space).
 
 <img src="https://i.ibb.co/Jkczrmg/Group-20.png" alt="RenderData" width="300"/>
+
+`RenderData` also provides you an ability to get all widget keypoint XY-coordinates by calling one of special getters.
+
+<img src="https://i.ibb.co/QQbP0rm/2020-12-03-10-01-29.png" alt="RenderData" width="300"/>
+
+### ComparisonDiff
+
+You can get the comparison relative results for each widget keypoint from the `ComparisonDiff` instance.
+
+An additional set of special getters can help you calculate the difference between two adjacent sides of two different widgets (e.g. right to left, top to bottom, etc.).
+
+<img src="https://i.ibb.co/MC68wTT/Group-12.png" alt="RenderData" width="300"/>
 
 ## Installation
 
@@ -85,8 +99,10 @@ Add Render Metrics to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  render_metrics: 1.0.1
+  render_metrics: version
 ```
+
+You can use both `stable` and `dev` versions of the package listed above in the badges bar.
 
 ## Changelog
 
