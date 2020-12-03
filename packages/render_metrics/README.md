@@ -1,7 +1,7 @@
 # Render Metrics
-![Pub Version](https://img.shields.io/pub/v/render_metrics)
-![Pub Version (including pre-releases)](https://img.shields.io/pub/v/render_metrics?include_prereleases)
-![Pub Likes](https://badgen.net/pub/likes/render_metrics)
+[![Pub Version](https://img.shields.io/pub/v/render_metrics)](https://pub.dev/packages/render_metrics)
+[![Pub Version (including pre-releases)](https://img.shields.io/pub/v/render_metrics?include_prereleases)](https://pub.dev/packages/render_metrics)
+[![Pub Likes](https://badgen.net/pub/likes/render_metrics)](https://pub.dev/packages/render_metrics)
 
 This package is a part of [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
 
@@ -77,17 +77,7 @@ ComparisonDiff diff =
 
 All metrics positioning coordinates are global (relative to the entire screen coordinate space).
 
-| Metrics | Description       |
-|---------|-------------------|
-| width   | Widget widgth     |
-| height  | Widget height     |
-| yTop    | Top Y position    |
-| yBottom | Bottom Y position |
-| yCenter | Center Y position |
-| xLeft   | Left X position   |
-| xRight  | Right X position  |
-| xCenter | Center X position |
-
+<img src="https://i.ibb.co/Jkczrmg/Group-20.png" alt="RenderData" width="300"/>
 
 ## Installation
 
