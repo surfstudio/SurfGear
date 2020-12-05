@@ -151,4 +151,4 @@ We recomend following structure:
 
 - Coordinator - abstraction to place navigation logic
 - Code generation (may be)
-- Somthing else ? Create an issue with request to feature.
+- Something else? Create an issue with request to feature.
