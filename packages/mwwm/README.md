@@ -8,6 +8,7 @@ This package is a part of [SurfGear](https://github.com/surfstudio/SurfGear) too
 
 <img src="https://i.ibb.co/mGZkvRD/logo.png" title="logo" align="middle" width=716 height=225/>
 
+![drawing](https://i.ibb.co/mGZkvRD/logo.png)
 ## About
 
 MVVM-inspired lightweight architectural framework for Flutter apps with respect to Clean Architecture.
@@ -33,9 +34,13 @@ MWWM is a perfect mix of the [Flutter framework architectural concept](https://f
 
 - **Not limited** - this architecture package doesn't dictate you what DI, navigation or any other approaches you should use in your project. You can even implement communication between layers the way you want (or you can do it with another package to follow our reccomendations). Everything is up to you!
 
-## Usage
+### Key components
 
-MWWM is based on principles of Clean Architecture and is a variation of *MVVM*.
+#### Widget
+
+a representation layer that contains only UI related code.
+
+## Usage
 
 It consists of three parts: *Widget*, *WidgetModel* and *Model*.
 
