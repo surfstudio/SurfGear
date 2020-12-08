@@ -19,9 +19,21 @@ MVVM-inspired lightweight architectural framework for Flutter apps with respect 
 - Built-in mechanisms for handling asynchronous operations with the default error handling strategy support;
 - Event-like mechanism that helps to keep business logic well structured and testable.
 
-## Usage
+## Overview
 
-### What is MWWM
+MWWM is a perfect mix of the [Flutter framework architectural concept](https://flutter.dev/docs/resources/architectural-overview), pretty clear [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) pattern, as well as the [Clean Architecture principles](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
+
+### MWWM's superpowers
+
+- **Simple** - no crazy complex abstractions that change the structure of your project beyond recognition;
+
+- **Flexible** - you can restrict the scope of MWWM components usage only to a certain project area (screen or widget). You still can use `StatefulWidget` and `StatelessWidget` anywhere you don't want to overcomplicate;
+
+- **Scalable** - the complexity and scale of your project is not a problem. You can use additional MWWM features as the complexity of your project grows (such as `Model`);
+
+- **Not limited** - this architecture package doesn't dictate you what DI, navigation or any other approaches you should use in your project. You can even implement communication between layers the way you want (or you can do it with another package to follow our reccomendations). Everything is up to you!
+
+## Usage
 
 MWWM is based on principles of Clean Architecture and is a variation of *MVVM*.
 
