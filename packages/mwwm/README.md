@@ -6,9 +6,8 @@
 
 This package is a part of [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
 
-<img src="https://i.ibb.co/mGZkvRD/logo.png" title="logo" align="middle" width=716 height=225/>
+![MWWM Cover](https://i.ibb.co/BZ1WCF5/logo-mwwm-black.png)
 
-![drawing](https://i.ibb.co/mGZkvRD/logo.png =716x225)
 ## About
 
 MVVM-inspired lightweight architectural framework for Flutter apps with respect to Clean Architecture.
