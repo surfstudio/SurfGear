@@ -32,7 +32,7 @@ class MaterialAppMessageController extends MessageController {
   final BuildContext _context;
   final CustomSnackBarOwner snackOwner;
 
-  /// Дефолтные снеки, используются если виджет не определил свои
+  /// Default snack
   final Map<MsgType, SnackBar Function(String text)> defaultSnackBarBuilder = {
     MsgType.commonError: (text) => SnackBar(
           content: Text(text),
@@ -53,12 +53,10 @@ class MaterialAppMessageController extends MessageController {
     assert(msg != null || msgType != null);
 
     final owner = snackOwner;
-    Logger.d(' SnackBar owner is nul? ${owner == null}');
     SnackBar snack;
     if (owner != null) {
       snack = owner.registeredSnackBarsBuilder[msgType](msg);
     }
-    Logger.d(' SnackBar is nul? ${snack == null} by type = $msgType');
 
     Future.delayed(const Duration(milliseconds: 10), () {
       _state.showSnackBar(
@@ -68,7 +66,7 @@ class MaterialAppMessageController extends MessageController {
   }
 }
 
-/// Типы сообщений
+/// Message types
 class MsgType extends Enum<String> {
   const MsgType(String value) : super(value);
 
