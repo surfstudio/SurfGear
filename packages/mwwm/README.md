@@ -1,22 +1,23 @@
-<!--![logo](logo.gif)-->
-
 # mwwm
+
 [![Pub Version](https://img.shields.io/pub/v/mwwm)](https://pub.dev/packages/mwwm)
 [![Pub Version (including pre-releases)](https://img.shields.io/pub/v/mwwm?include_prereleases)](https://pub.dev/packages/mwwm)
 [![Pub Likes](https://badgen.net/pub/likes/mwwm)](https://pub.dev/packages/mwwm)
 
 This package is a part of [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
 
-# <img src="https://i.ibb.co/mGZkvRD/logo.png" title="logo" align="middle" width=716 height=225/>
+<img src="https://i.ibb.co/mGZkvRD/logo.png" title="logo" align="middle" width=716 height=225/>
 
 ## About
 
-Software architectural pattern for Flutter apps.
+MVVM-inspired lightweight architectural framework for Flutter apps with respect to Clean Architecture.
 
 ## Currently supported features
 
-- Completely separate UI and logic layers;
-- Adds the ability to work on independent layers by different developers, like HTML and CSS.
+- Complete separation of the application's codebase into independent logical layers: *UI*, *presentation* and *business logic*; 
+- Widget tree remains crystal clear: the main building block is just an extended version of StatefulWidget;
+- Built-in mechanisms for handling asynchronous operations with the default error handling strategy support;
+- Event-like mechanism that helps to keep business logic well structured and testable.
 
 ## Usage
 
