@@ -29,9 +29,9 @@ MWWM is a perfect mix of the [Flutter framework architectural concept](https://f
 
 - **Flexible** - you can restrict the scope of MWWM components usage only to a certain project area (screen or widget). You still can use `StatefulWidget` and `StatelessWidget` anywhere you don't want to overcomplicate;
 
-- **Scalable** - the complexity and scale of your project is not a problem. You can use additional MWWM features as the complexity of your project grows (such as `Model`);
+- **Scalable** - the complexity and scale of your project are not a problem. You can use additional MWWM features as the complexity of your project grows (such as `Model`);
 
-- **Not limited** - this architecture package doesn't dictate you what DI, navigation or any other approaches you should use in your project. You can even implement communication between layers the way you want (or you can do it with another package to follow our reccomendations). Everything is up to you!
+- **Not limited** - this architecture package doesn't dictate to you what DI, navigation, or any other approaches you should use in your project. You can even implement communication between layers the way you want (or you can do it with another package to follow our recommendations). Everything is up to you!
 
 ### Key components
 
@@ -45,10 +45,10 @@ Presented by `CoreMwwmWidget` class.
 
 #### WidgetModel
 
-`WidgetModel` is like a back side of your widget. Its concept is very similar to `State` with one big difference. `State` knows nothing about the business logic of your application and can't even reference any business-logic components, but `WidgetModel` does.
+`WidgetModel` is like the backside of your widget. Its concept is very similar to `State` with one big difference. `State` knows nothing about the business logic of your application and can't even reference any business-logic components, but `WidgetModel` does.
 
 - It holds the current state of the widget, which can be meaningful for business logic scenarios;
-- It knows which user input (or any other UI event) should trigger which business logic scenarios and acts like a dispatcher between them.
+- It knows which user input (or any other UI event) should trigger which business logic scenarios and acts as a dispatcher between them.
 
 Presented by `WidgetModel` class.
 
@@ -56,7 +56,7 @@ Presented by `WidgetModel` class.
 
 Unlike other components, the `Model` is optional.
 
-`Model` is a great way to reduce complexity of the business logic layer of your application by separating it between two sets of abstractions:
+`Model` is a great way to reduce the complexity of the business logic layer of your application by separating it between two sets of abstractions:
 - `Change` - is an intent to do something without any concrete implementation details, there can only be input parameters;
 - `Performer` - is a reaction to the associated `Сhange`, containing an implementation of some operation.
 
@@ -64,72 +64,95 @@ Presented by `Model`, `Change` and `Performer` classes.
 
 ## Usage
 
-###  Create Widget and WidgetModel
+### Basic use case (without `Model`)
 
-Create a `WidgetModel` class by extending [WidgetModel].
+#### Create WidgetModel
+
+Create a WidgetModel for the widget by extending the `WidgetModel` class.
+
+If you want some piece of code to run as soon as the widget will be initialized, you can override `onLoad()` function and place this code right after the super-function invocation.
 
 ```dart
-class RepositorySearchWm extends WidgetModel {
+class LoginWm extends WidgetModel {
 
-  RepositorySearchWm(
-    WidgetModelDependencies baseDependencies, //1
-    ) : super(baseDependencies);
+  LoginWm(
+    WidgetModelDependencies baseDependencies,
+  ) : super(baseDependencies);
 
+  @override
+  void onLoad() {
+    super.onLoad();
+    ...
+  }
 }
 ``` 
 
-1 - [WidgetModelDependencies](./lib/src/dependencies/wm_dependencies.dart) is a bundle of required dependencies. Default there is [ErrorHandler](./lib/src/error/error_handler.dart), which 
-give possibility to place error handling logic in one place. You must provide an implementation of handler.
+#### Implement WidgetModel builder
 
+You need to create an instance of the `WidgetModel`. We recommend using the top-level functions for this.
 
-
-Add Widget simply by creating StatefulWidget and replace parent class with [CoreMwwmWidget](./lib/src/widget_state.dart)
+Don't forget to pass `WidgetModelDependencies` as the first argument. Use it as a bundle that contains a set of dependencies required for all WidgetModels in your app (e.g. error handlers, loggers).
 
 ```dart
-class RepositorySearchScreen extends CoreMwwmWidget {
+WidgetModel buildLoginWM(BuildContext context) => 
+  LoginWm(
+    WidgetModelDependencies(),
+  );
+}
+``` 
 
-  //...
+#### Create Widget
+
+Create a Widget by extending `CoreMwwmWidget` class.
+
+```dart
+class LoginScreen extends CoreMwwmWidget {
+
+  LoginScreen({
+    @required WidgetModelBuilder widgetModelBuilder,
+  })  : assert(widgetModelBuilder != null),
+        super(widgetModelBuilder: widgetModelBuilder);
 
   @override
-  State<StatefulWidget> createState() {
-    return _RepositorySearchScreenState();
-  }
+  State<StatefulWidget> createState() => _LoginScreenState();
 }
 ```
 
-By **convention** create a same constructor:
+#### Create WidgetState
+
+`CoreMwwmWidget` is an extended version of `StatefulWidget`. So, we need to declare State for it by extending `WidgetState` class.
+
+Collect the widget tree and return it from a `build()` function the way you are used to doing it with regular `StatefulWidget`.
+
+Every `WidgetState` has a reference to its `WidgetModel`. That's why you need to specify the concrete `WidgetModel` type as a generic type of declaring `WidgetState`.
+
 ```dart
-  RepositorySearchScreen({
-    WidgetModelBuilder wmBuilder, // need to testing
-  }) : super(
-          widgetModelBuilder: wmBuilder ??
-              (ctx) => RepositorySearchWm(
-                    // provide args,
-                  ),
-        );
+class _LoginScreenState extends WidgetState<LoginWm> {
+
+  @override
+  Widget build(BuildContext context) => 
+    Scaffold(
+      body: ... 
+    );
+}
 ```
-or by route:
+
+#### Create entry point
+
+Most likely, you will start your screen with a `Route`. In this case, the `Route` becomes the place where you put everything together.
+
 ```dart
-  class RepositorySearchRoute extends MaterialPageRoute {
-    RepositorySearchRoute()
+  class LoginScreenRoute extends MaterialPageRoute {
+    LoginScreenRoute()
         : super(
-            builder: (context) => RepositorySearchScreen(
-              widgetModelBuilder: _buildWm,
+            builder: (context) => LoginScreen(
+              widgetModelBuilder: buildLoginWM(),
             ),
           );
   }
-
-  WidgetModel _buildWm(BuildContext context) => RepositorySearchWm(
-        context.read<WidgetModelDependencies>(), // this example based on Provider
-      );
 ```
 
-Change parent of `State` of `StatefulWidget` to [WidgetState](./lib/src/widget_state.dart):
-```dart
-class _RepositorySearchScreenState extends WidgetState<RepositorySearchWm>
-```
-
-All done! You create your presentation layer.
+That's it! Now you can implement your first MWWM-powered screen.
 
 ### Creating Model layer
 
