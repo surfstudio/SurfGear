@@ -14,7 +14,7 @@ MVVM-inspired lightweight architectural framework for Flutter apps with respect 
 
 ## Currently supported features
 
-- Complete separation of the application's codebase into independent logical layers: *UI*, *presentation* and *business logic*; 
+- Complete separation of the application's codebase into independent logical layers: *UI*, *presentation* and *business logic*;
 - Widget tree remains crystal clear: the main building block is just an extended version of StatefulWidget;
 - Built-in mechanisms for handling asynchronous operations with the default error handling strategy support;
 - Event-like mechanism that helps to keep business logic well structured and testable.
@@ -35,15 +35,24 @@ MWWM is a perfect mix of the [Flutter framework architectural concept](https://f
 
 ### Key components
 
+![MWWM logical layers scheme](https://github.com/surfstudio/mwwm/blob/dev/doc/images/mwwm.png?raw=true)
+
 #### Widget
 
-a representation layer that contains only UI related code.
+This is where your declarative layouts live. Components of this layer contain UI related code only and act like typical `StatefulWidget`. Widget holds a link to its widget model.
+
+Presented by `CoreMwwmWidget` class.
+
+#### WidgetModel
+
+`WidgetModel` is like a back side of your widget. Its concept is very similar to `State` with one big difference. `State` knows nothing about the business logic of your application and can't even reference any business-logic components, but `WidgetModel` does.
+
+- It holds the current state of the widget, which can be meaningful for business logic scenarios;
+- It knows which user input (or any other UI event) should trigger which business logic scenarios and acts like a dispatcher between them.
+
+Presented by `WidgetModel` class.
 
 ## Usage
-
-It consists of three parts: *Widget*, *WidgetModel* and *Model*.
-
-**Widget** — a representation layer that contains only UI related code. 
 
 **WidgetModel** - handles and accumulates all data needed for Widget:
 objects of the domain layer, scroll position, text fields values, animation state, etc.
@@ -54,8 +63,6 @@ services or other abstraction layers. It allows to develop both separately and h
 a possibility to modify one layer with no need for changing the other. Model is
 represented by two components: **Change** (a signal to model which means *what* we want
 to achieve) and **Performer** (that knows *how* to achieve it).
-
-![](https://github.com/surfstudio/mwwm/blob/dev/doc/images/mwwm.png?raw=true) 
 
 ###  Create Widget and WidgetModel
 
