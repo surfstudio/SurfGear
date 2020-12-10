@@ -200,7 +200,7 @@ class LoginUserPerformer extends FuturePerformer<UserProfile, LoginUser> {
 
 #### Pass configured Model to WidgetModel
 
-It is assumed that you already know the basic MWWM use case. If not, see [this section](###-Basic-use-case-(without-Model)).
+It is assumed that you already know the basic MWWM use case. If not, see [this section](#basic-use-case-without-model).
 
 Declare `Model` instance as an argument for your *WidgetModel* constructor and pass it to its super-constructor.
 
@@ -247,34 +247,41 @@ That's all folks! You are now familiar with the advanced technique of using MWWM
 
 ## FAQ
 
-### Where can I place UI?
+### Where should my UI layout be placed?
 
-Simply in **build** method in `WidgetState`. No difference with Flutter framework.
+Directly in `WidgetState.build()` function. For those widgets that are simple enough you can use `StatelessWidget` or `StatefulWidget` from SDK.
 
-### How can I obtain a WM?
+### How can I access the widget model?
 
-`WidgetState` has `WidgetModel` after `initState()` called.
-There is a getter - **wm** - to get your `WidgetModel` in your Widget.
+Every `WidgetState` reference its `WidgetModel` through `wm` getter. You can access it immediately after `initState()` has run.
 
-### Where should I place navigation logic?
+### Where should I place the navigation?
 
-Only in **WidgetModel**. But we don't hardcodea way to do this, yet.
+We don't limit you in the choice of navigation approaches, but we strongly recommend to implement navigation in the **WidgetModel**.
 
-## Recommended file structure
+## Recommended project structure
 
-We recomend following structure:
+You decide how your project will be arranged by your own. However, we recommend you to organize your code this way:
 
-- ./
-  - data/
+- /lib
   - model/
-    - services(repository)/
-    - changes.dart  // can split
-    - performer.dart // can split
+    - feature1/
+      - services
+      - changes.dart
+      - performer.dart
+    - feature2/
+      - services
+      - changes.dart
+      - performer.dart
   - ui/
-    - screen(widget)/
+    - screen1/
       - wm.dart
+      - widget.dart  
       - route.dart
-      - screen(widget).dart  
+    - screen2/
+      - wm.dart
+      - widget.dart  
+      - route.dart
       
       
 ## Installation
