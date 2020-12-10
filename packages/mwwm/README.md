@@ -245,6 +245,80 @@ class LoginWm extends WidgetModel {
 
 That's all folks! You are now familiar with the advanced technique of using MWWM-architecture.
 
+### Asynchronous operations handling
+
+MWWM package provides built-in capabilities for handling asynchronous operations. In addition, you can take advantage of the centralized error handling mechanism.
+
+| Function name        | Supported data type | Is default error handling mechanism enabled |
+|----------------------|---------------------|---------------------------------------------|
+| subscribe()            | Stream              | -                                           |
+| subscribeHandleError() | Stream              | +                                           |
+| doFuture()             | Future              | -                                           |
+| doFutureHandleError()  | Future              | +                                           |
+
+When using a `doFuture()` and `subscribe()`, you can pass `Future` or `Stream` respectively as the first parameter, and `onValue` function that handles the result of the asyncronous operation as the second.
+
+`onError` parameter is optional and can be used to manually handle errors.
+
+```dart
+doFuture<bool>(
+  isAuthenticated(),
+  (isAuth) {
+    if (isAuth)
+      navigator.push(MainScreenRoute());
+  },
+  onError: (error) {
+    print(error);
+  },
+);
+```
+
+What about `doFutureHandleError()` and `subscribeHandleError()`? You can use it exactly the same way as their "no handle error" companions but with all benefits of the default error handling mechanism.
+
+You still able to pass `onError` function but it will act as an addition to default error handling.
+
+```dart
+doFutureHandleError<bool>(
+  login(),
+  (isLogin) {
+    if (isLogin)
+      navigator.push(MainScreenRoute());
+  },
+  onError: (error) {
+    print(error);
+  },
+);
+```
+
+#### Default error handling customisation
+
+You can customize the default error handling in an easy way.
+
+First, you need to extend `ErrorHandler` class and override `handleError()` function. This function will be called whenever an error occurs. You can implement your error handling right there.
+
+```dart
+class CustomErrorHandler extends ErrorHandler {
+  @override
+  void handleError(Object e) {
+    debugPrint('Custom error handler regretfully informs that $e has occured.');
+  }
+}
+```
+
+Follow the top-level function that creates WidgetModel. Pass your custom error handler instance as errorHandler argument value. That's it.
+
+```dart
+WidgetModel buildLoginWM(BuildContext context) => 
+  LoginWm(
+    WidgetModelDependencies(
+      errorHandler: LoginScreenErrorHandler(),
+    ),    
+  );
+}
+```
+
+Now all errors that occur during asynchronous operations launched through `doFutureHandleError()` and `subscribeHandleError()` functions will fall into a custom handler.
+
 ## FAQ
 
 ### Where should my UI layout be placed?
