@@ -64,7 +64,7 @@ Presented by `Model`, `Change` and `Performer` classes.
 
 ## Usage
 
-### Basic use case (without `Model`)
+### Basic use case (without Model)
 
 #### Create WidgetModel
 
@@ -122,7 +122,7 @@ class LoginScreen extends CoreMwwmWidget {
 
 `CoreMwwmWidget` is an extended version of `StatefulWidget`. So, we need to declare State for it by extending `WidgetState` class.
 
-Collect the widget tree and return it from a `build()` function the way you are used to doing it with regular `StatefulWidget`.
+Collect the widget tree and return it from a `build()` function the way you are used to doing it with regular *StatefulWidget*.
 
 Every `WidgetState` has a reference to its `WidgetModel`. That's why you need to specify the concrete `WidgetModel` type as a generic type of declaring `WidgetState`.
 
@@ -132,14 +132,14 @@ class _LoginScreenState extends WidgetState<LoginWm> {
   @override
   Widget build(BuildContext context) => 
     Scaffold(
-      body: ... 
+      body: Container(), 
     );
 }
 ```
 
 #### Create entry point
 
-Most likely, you will start your screen with a `Route`. In this case, the `Route` becomes the place where you put everything together.
+Most likely, you will start your screen with a *Route*. In this case, the *Route* becomes the place where you put everything together.
 
 ```dart
   class LoginScreenRoute extends MaterialPageRoute {
@@ -154,70 +154,96 @@ Most likely, you will start your screen with a `Route`. In this case, the `Route
 
 That's it! Now you can implement your first MWWM-powered screen.
 
-### Creating Model layer
+### Advanced use case (with Model)
 
-This package give you optional possibility to use a `Model`  - a facade over business logic and service layer of your app.
+In case your application is complex enough, you can simplify it by breaking down the business logic layer into a set of small components (*Performers*), each of which is responsible for performing a single business logic operation.
 
-To use Model you must:
+#### Create Change
 
-1. Create a `Change` - an intention to do something on service layer. Change can has data. Formally, it is an arguments of some function. It is like Event in Bloc.
+**Change** is the intention to perform some action. Each operation is associated with a *Change*.
+
+Create a *Change* by extending `FutureChange` or `StreamChange` classes.
+
+The difference is in the type of the returned operation result. `FutureChange` will wrap the result of the operation into a `Future`, and `StreamChange` into a `Stream`.
+
+A *Change* can also serve as a container for passing input parameters if they are needed to perform an operation. If not, you can leave the class body empty.
+
 ```dart
-class GetData extends FutureChange<String> {
-  //...
-  // there can be some data
+class LoginUser extends FutureChange<UserProfile> {
+  final String login;
+  final String password;
 }
 ```
 
-2. Create a `Performer` - is a functional part of this contract. It is so close to UseCase. Performer, in ideal world, do only one thing. It is small part og logic which needed to perform Change.
+#### Create Performer
+
+**Performer** - is a functional part of the contract. *Performer* should be responsible for the single operation. Each *Performer* is associated with *Change* one-to-one.
+
+While declaring *Performer* you should specify two type parameters: the first is the operation result type (the same as you already set up in *Change*), the second is the associated *Change* type.
+
+You can inject any object into the *Performer* to do necessary operations.
+
+Create a Performer by extending `FuturePerformer` or `StreamPerformer` classes.
+
 ```dart
-class GetDataPerformer extends FuturePerformer<String, GetData> { 
+class LoginUserPerformer extends FuturePerformer<UserProfile, LoginUser> {
+
+  final AuthService authService;
 
   @override
-  Future<String> perform(GetData change) {
-    //...
+  Future<UserProfile> perform(LoginUser change) {
+    // api call retrieving user profile instance
+    return userProfile;
   }
 }
 ```
-3. Provide a `Model` to your `WidgetModel`. 
+
+#### Pass configured Model to WidgetModel
+
+It is assumed that you already know the basic MWWM use case. If not, see [this section](###-Basic-use-case-(without-Model)).
+
+Declare `Model` instance as an argument for your *WidgetModel* constructor and pass it to its super-constructor.
 
 ```dart
-class RepositorySearchWm extends WidgetModel {
+class LoginWm extends WidgetModel {
 
-  RepositorySearchWm(
+  LoginWm(
     WidgetModelDependencies baseDependencies,
-    Model model, //1
-    ) : super(baseDependencies, model: model); //2
-
+    Model model,
+    ) : super(baseDependencies, model: model);
 }
 ``` 
-1 - Add model as param to constructor;
-2 - provide model to superclass.
+
+Go back to the top-level function that creates *WidgetModel*. Pass the newly created *Model* instance to the *WidgetModel's* constructor.
+
+Remember to pass an array containing all the *Performers* that can be accessed through this *WidgetModel* to the *Model's* constructor.
 
 ```dart
-  WidgetModel _buildWm(BuildContext context) => RepositorySearchWm(
-        context.read<WidgetModelDependencies>(), 
-        Model([
-          GetDataPerformer(), // 1
-        ]),
-      );
-```
-1 - create model instance and provide a list with performers, in this case with `GetDataPerformer`.
+WidgetModel buildLoginWM(BuildContext context) => 
+  LoginWm(
+    WidgetModelDependencies(),
+    Model([
+      LoginUserPerformer(),
+    ]),
+  );
+}
+``` 
 
-4. Call model from your WM.
+#### Perform the operation
+
+Finally, you can ask your *Model* to perform any operation by passing the right *Change* through the `Model.perform()` function. You just have to correctly process the result of the operation.
+
 ```dart
-class RepositorySearchWm extends WidgetModel {
-//...
-  void doSomething() {
-    doFuture(model.perform(GetData()),
-      onValue: (data){
-        print(data);
-      }
-    );
+class LoginWm extends WidgetModel {
+
+  void performUserLogin() async {
+    final userProfile = await model.perform(LoginUser(login, password);,
+    ...
   }
 }
 ```
 
-That's all folks!
+That's all folks! You are now familiar with the advanced technique of using MWWM-architecture.
 
 ## FAQ
 
