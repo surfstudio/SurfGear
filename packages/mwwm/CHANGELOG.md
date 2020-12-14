@@ -1,7 +1,3 @@
-## 0.1.0-dev.6
-
-* Added new parameter action for MessageController
-
 ## 0.1.0-dev.4
 
 * Replace dynamic type in WidgetModel's errorCallbacks
