@@ -35,7 +35,7 @@ MWWM is the perfect mix of the [Flutter framework architectural concept](https:/
 
 ### Key components
 
-![MWWM logical layers scheme](https://github.com/surfstudio/mwwm/blob/dev/doc/images/mwwm.png?raw=true)
+![MWWM Architecture Sheme](https://i.ibb.co/HDDYJrs/Key-components.png)
 
 #### Widget
 
@@ -66,6 +66,8 @@ Presented by the `Model`, `Change`, and `Performer` classes.
 ## Usage
 
 ### Basic use case (without Model)
+
+![MWWM Architecture Mini Sheme](https://i.ibb.co/N9kXqYz/arch-scheme-min.png)
 
 #### Create WidgetModel
 
