@@ -118,14 +118,14 @@ pipeline.stages = [
         },
 
         // зеркалирования в отдельные репо
-        pipeline.stage(MIRRORING, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
-            script.echo "Mirroring"
-            withCredentials([usernamePassword(credentialsId: mirrorRepoCredentialID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                echo "credentialsId: $mirrorRepoCredentialID"
-                sh "./tools/ci/runner/mirror_dev"
+       // pipeline.stage(MIRRORING, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {
+         //   script.echo "Mirroring"
+           // withCredentials([usernamePassword(credentialsId: mirrorRepoCredentialID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+             //   echo "credentialsId: $mirrorRepoCredentialID"
+               // sh "./tools/ci/runner/mirror_dev"
 //                sh "git push --mirror https://${encodeUrl(USERNAME)}:${encodeUrl(PASSWORD)}@github.com/surfstudio/SurfGear.git"
-            }
-        },
+            //}
+        //},
 
         // паблишинга в паб
         pipeline.stage(PUBLISHING_TO_PUB_DEV, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR) {

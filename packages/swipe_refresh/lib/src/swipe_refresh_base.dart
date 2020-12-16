@@ -60,6 +60,7 @@ abstract class SwipeRefreshBaseState<T extends SwipeRefreshBase>
   Completer<void> completer;
   @protected
   final GlobalKey refreshKey = GlobalKey();
+  StreamSubscription<SwipeRefreshState> _stateSubscription;
 
   SwipeRefreshState _currentState = SwipeRefreshState.hidden;
 
@@ -71,7 +72,7 @@ abstract class SwipeRefreshBaseState<T extends SwipeRefreshBase>
       _currentState = widget.initState;
     }
 
-    widget.stateStream.listen(_updateState);
+    _stateSubscription = widget.stateStream.listen(_updateState);
   }
 
   @override
@@ -107,5 +108,12 @@ abstract class SwipeRefreshBaseState<T extends SwipeRefreshBase>
     widget.onRefresh();
     completer = Completer<void>();
     return completer.future;
+  }
+
+  @override
+  void dispose() {
+    _stateSubscription?.cancel();
+
+    super.dispose();
   }
 }
