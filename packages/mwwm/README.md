@@ -16,7 +16,8 @@ MVVM-inspired lightweight architectural framework for Flutter apps made with res
 
 - Complete separation of the application's codebase into independent layers: *UI*, *presentation* and *business logic*;
 - Keeps widget tree clear: the main building block is just an extended version of StatefulWidget;
-- Built-in mechanisms for handling asynchronous operations with the default error handling strategy support;
+- Built-in mechanisms for handling asynchronous operations;
+- The ability to easily implement the default error handling strategy;
 - An event-like mechanism that helps keep the business logic well structured and testable.
 
 ## Overview
@@ -112,7 +113,7 @@ Create a Widget by extending the `CoreMwwmWidget` class.
 class LoginScreen extends CoreMwwmWidget {
 
   LoginScreen({
-    @required WidgetModelBuilder widgetModelBuilder,
+    WidgetModelBuilder widgetModelBuilder,
   })  : assert(widgetModelBuilder != null),
         super(widgetModelBuilder: widgetModelBuilder);
 
