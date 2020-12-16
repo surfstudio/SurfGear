@@ -35,7 +35,7 @@ MWWM is the perfect mix of the [Flutter framework architectural concept](https:/
 
 ### Key components
 
-![MWWM Architecture Sheme](https://i.ibb.co/HDDYJrs/Key-components.png)
+![MWWM Architecture Sheme](https://i.ibb.co/Y778rtM/Key-components.png)
 
 #### Widget
 
