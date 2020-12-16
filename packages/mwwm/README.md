@@ -4,34 +4,34 @@
 [![Pub Version (including pre-releases)](https://img.shields.io/pub/v/mwwm?include_prereleases)](https://pub.dev/packages/mwwm)
 [![Pub Likes](https://badgen.net/pub/likes/mwwm)](https://pub.dev/packages/mwwm)
 
-This package is a part of [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
+This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
 
 ![MWWM Cover](https://i.ibb.co/BZ1WCF5/logo-mwwm-black.png)
 
 ## About
 
-MVVM-inspired lightweight architectural framework for Flutter apps with respect to Clean Architecture.
+MVVM-inspired lightweight architectural framework for Flutter apps made with respect to Clean Architecture.
 
 ## Currently supported features
 
-- Complete separation of the application's codebase into independent logical layers: *UI*, *presentation* and *business logic*;
-- Widget tree remains crystal clear: the main building block is just an extended version of StatefulWidget;
+- Complete separation of the application's codebase into independent layers: *UI*, *presentation* and *business logic*;
+- Keeps widget tree clear: the main building block is just an extended version of StatefulWidget;
 - Built-in mechanisms for handling asynchronous operations with the default error handling strategy support;
-- Event-like mechanism that helps to keep business logic well structured and testable.
+- An event-like mechanism that helps keep the business logic well structured and testable.
 
 ## Overview
 
-MWWM is a perfect mix of the [Flutter framework architectural concept](https://flutter.dev/docs/resources/architectural-overview), pretty clear [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) pattern, as well as the [Clean Architecture principles](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
+MWWM is the perfect mix of the [Flutter framework architectural concept](https://flutter.dev/docs/resources/architectural-overview), the simple [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) pattern, and the [Clean Architecture principles](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
 
 ### MWWM's superpowers
 
 - **Simple** - no crazy complex abstractions that change the structure of your project beyond recognition;
 
-- **Flexible** - you can restrict the scope of MWWM components usage only to a certain project area (screen or widget). You still can use `StatefulWidget` and `StatelessWidget` anywhere you don't want to overcomplicate;
+- **Flexible** - you can apply MWWM components to a certain project area (screen or widget). You still can use `StatefulWidget` and `StatelessWidget` wherever you would like to keep things simple;
 
-- **Scalable** - the complexity and scale of your project are not a problem. You can use additional MWWM features as the complexity of your project grows (such as `Model`);
+- **Scalable** - the scale of your project is not a problem. You can use additional MWWM features as your project grows more complex (such as `Model`);
 
-- **Not limited** - this architecture package doesn't dictate to you what DI, navigation, or any other approaches you should use in your project. You can even implement communication between layers the way you want (or you can do it with another package to follow our recommendations). Everything is up to you!
+- **No limitations** - this architecture package doesn't dictate what DI, navigation, or any other approaches you should use in your project. You can even implement communication between layers the way you want. Or take our advice and do so with another package. Everything is up to you!
 
 ### Key components
 
@@ -39,28 +39,29 @@ MWWM is a perfect mix of the [Flutter framework architectural concept](https://f
 
 #### Widget
 
-This is where your declarative layouts live. Components of this layer contain UI related code only and act like typical `StatefulWidget`. Widget holds a link to its widget model.
+This is where your declarative layouts live. Components of this layer contain UI-related code only and act like typical `StatefulWidget`. The Widget contains the link to its widget model.
 
 Presented by `CoreMwwmWidget` class.
 
 #### WidgetModel
 
-`WidgetModel` is like the backside of your widget. Its concept is very similar to `State` with one big difference. `State` knows nothing about the business logic of your application and can't even reference any business-logic components, but `WidgetModel` does.
+`WidgetModel` is like the mechanism behind your widget. Its concept is very similar to `State` but there is one big difference. `State` knows nothing about the business logic of your app and can't refer to any business logic components, while `WidgetModel` can.
 
-- It holds the current state of the widget, which can be meaningful for business logic scenarios;
-- It knows which user input (or any other UI event) should trigger which business logic scenarios and acts as a dispatcher between them.
+- It tells the current state of the widget, which can be meaningful for business logic scenarios;
+- It knows which user input (or any other UI event) triggers a certain business logic scenario and acts as a dispatcher between them.
 
-Presented by `WidgetModel` class.
+Presented by the `WidgetModel` class.
 
 #### Model
 
 Unlike other components, the `Model` is optional.
 
-`Model` is a great way to reduce the complexity of the business logic layer of your application by separating it between two sets of abstractions:
-- `Change` - is an intent to do something without any concrete implementation details, there can only be input parameters;
-- `Performer` - is a reaction to the associated `Сhange`, containing an implementation of some operation.
+`Model` is a great way to simplify the business logic layer of your app by breaking it into two sets of abstractions:
 
-Presented by `Model`, `Change` and `Performer` classes.
+- `Change` is an intent to do something without any concrete implementation details, only input parameters;
+- `Performer` is the reaction to the associated `Сhange` that contains an implementation of some operation.
+
+Presented by the `Model`, `Change`, and `Performer` classes.
 
 ## Usage
 
@@ -70,7 +71,7 @@ Presented by `Model`, `Change` and `Performer` classes.
 
 Create a WidgetModel for the widget by extending the `WidgetModel` class.
 
-If you want some piece of code to run as soon as the widget will be initialized, you can override `onLoad()` function and place this code right after the super-function invocation.
+If you want certain part of your code to run as soon as the widget is initialized, you can override the `onLoad()` function and place this code right after the super-function invocation.
 
 ```dart
 class LoginWm extends WidgetModel {
@@ -85,11 +86,11 @@ class LoginWm extends WidgetModel {
     ...
   }
 }
-``` 
+```
 
 #### Implement WidgetModel builder
 
-You need to create an instance of the `WidgetModel`. We recommend using the top-level functions for this.
+You need to create an instance of the `WidgetModel`. We recommend using top-level functions for this.
 
 Don't forget to pass `WidgetModelDependencies` as the first argument. Use it as a bundle that contains a set of dependencies required for all WidgetModels in your app (e.g. error handlers, loggers).
 
@@ -99,11 +100,11 @@ WidgetModel buildLoginWM(BuildContext context) =>
     WidgetModelDependencies(),
   );
 }
-``` 
+```
 
 #### Create Widget
 
-Create a Widget by extending `CoreMwwmWidget` class.
+Create a Widget by extending the `CoreMwwmWidget` class.
 
 ```dart
 class LoginScreen extends CoreMwwmWidget {
@@ -120,11 +121,11 @@ class LoginScreen extends CoreMwwmWidget {
 
 #### Create WidgetState
 
-`CoreMwwmWidget` is an extended version of `StatefulWidget`. So, we need to declare State for it by extending `WidgetState` class.
+`CoreMwwmWidget` is an extended version of `StatefulWidget`. We need to attach a State for it by extending `WidgetState` class.
 
-Collect the widget tree and return it from a `build()` function the way you are used to doing it with regular *StatefulWidget*.
+Collect the widget tree and return it from a `build()` function the way you usually do it with regular *StatefulWidget*.
 
-Every `WidgetState` has a reference to its `WidgetModel`. That's why you need to specify the concrete `WidgetModel` type as a generic type of declaring `WidgetState`.
+Every `WidgetState` refers to its `WidgetModel`. That's why you need to specify the concrete `WidgetModel` type as a generic type of the `WidgetState`.
 
 ```dart
 class _LoginScreenState extends WidgetState<LoginWm> {
@@ -139,7 +140,7 @@ class _LoginScreenState extends WidgetState<LoginWm> {
 
 #### Create entry point
 
-Most likely, you will start your screen with a *Route*. In this case, the *Route* becomes the place where you put everything together.
+You will most likely start your screen with a *Route*. In this case, the *Route* becomes the place where you put everything together.
 
 ```dart
   class LoginScreenRoute extends MaterialPageRoute {
@@ -156,17 +157,17 @@ That's it! Now you can implement your first MWWM-powered screen.
 
 ### Advanced use case (with Model)
 
-In case your application is complex enough, you can simplify it by breaking down the business logic layer into a set of small components (*Performers*), each of which is responsible for performing a single business logic operation.
+In case your app is too complicated, you can simplify it by breaking down the business logic layer into a set of smaller components (*Performers*), each responsible for performing a single business logic operation.
 
 #### Create Change
 
-**Change** is the intention to perform some action. Each operation is associated with a *Change*.
+**Change** is the intention to perform an action. Each operation is associated with a *Change*.
 
 Create a *Change* by extending `FutureChange` or `StreamChange` classes.
 
-The difference is in the type of the returned operation result. `FutureChange` will wrap the result of the operation into a `Future`, and `StreamChange` into a `Stream`.
+The difference between them is the type of the returned operation result. `FutureChange` will wrap the result into a `Future`, and `StreamChange` into a `Stream`.
 
-A *Change* can also serve as a container for passing input parameters if they are needed to perform an operation. If not, you can leave the class body empty.
+A *Change* can also serve to contain passing input parameters if they are needed to perform an operation. If not, leave the class body empty.
 
 ```dart
 class LoginUser extends FutureChange<UserProfile> {
@@ -177,13 +178,13 @@ class LoginUser extends FutureChange<UserProfile> {
 
 #### Create Performer
 
-**Performer** - is a functional part of the contract. *Performer* should be responsible for the single operation. Each *Performer* is associated with *Change* one-to-one.
+**Performer** - is a functional part of the contract. *Performer* should be responsible for no more than one operation. Each *Performer* is associated with *Change* one-to-one.
 
-While declaring *Performer* you should specify two type parameters: the first is the operation result type (the same as you already set up in *Change*), the second is the associated *Change* type.
+While declaring *Performer* you should specify two types of parameters: the first is the operation result type (the same as you already set up in *Change*), the second is the associated *Change* type.
 
-You can inject any object into the *Performer* to do necessary operations.
+You can insert any object into the *Performer* to launch any necessary operations.
 
-Create a Performer by extending `FuturePerformer` or `StreamPerformer` classes.
+Create a Performer by extending the `FuturePerformer` or `StreamPerformer` classes.
 
 ```dart
 class LoginUserPerformer extends FuturePerformer<UserProfile, LoginUser> {
@@ -200,7 +201,7 @@ class LoginUserPerformer extends FuturePerformer<UserProfile, LoginUser> {
 
 #### Pass configured Model to WidgetModel
 
-It is assumed that you already know the basic MWWM use case. If not, see [this section](#basic-use-case-without-model).
+You probably already know the basic MWWM use case. If not, see [this section](#basic-use-case-without-model).
 
 Declare `Model` instance as an argument for your *WidgetModel* constructor and pass it to its super-constructor.
 
@@ -212,7 +213,7 @@ class LoginWm extends WidgetModel {
     Model model,
     ) : super(baseDependencies, model: model);
 }
-``` 
+```
 
 Go back to the top-level function that creates *WidgetModel*. Pass the newly created *Model* instance to the *WidgetModel's* constructor.
 
@@ -227,11 +228,11 @@ WidgetModel buildLoginWM(BuildContext context) =>
     ]),
   );
 }
-``` 
+```
 
 #### Perform the operation
 
-Finally, you can ask your *Model* to perform any operation by passing the right *Change* through the `Model.perform()` function. You just have to correctly process the result of the operation.
+Finally, you can request your *Model* to perform any operation by passing the right *Change* through the `Model.perform()` function. You just have to correctly process the result of the operation.
 
 ```dart
 class LoginWm extends WidgetModel {
@@ -247,7 +248,7 @@ That's all folks! You are now familiar with the advanced technique of using MWWM
 
 ### Asynchronous operations handling
 
-MWWM package provides built-in capabilities for handling asynchronous operations. In addition, you can take advantage of the centralized error handling mechanism.
+MWWM package provides built-in capabilities for asynchronous operations. In addition, you can take advantage of the centralized error handling function.
 
 | Function name        | Supported data type | Is default error handling mechanism enabled |
 |----------------------|---------------------|---------------------------------------------|
@@ -256,9 +257,9 @@ MWWM package provides built-in capabilities for handling asynchronous operations
 | doFuture()             | Future              | -                                           |
 | doFutureHandleError()  | Future              | +                                           |
 
-When using a `doFuture()` and `subscribe()`, you can pass `Future` or `Stream` respectively as the first parameter, and `onValue` function that handles the result of the asyncronous operation as the second.
+When using `doFuture()` and `subscribe()`, select `Future` or `Stream` respectively as the first parameter. The `onValue` function handles the result of the asynchronous operation as the second.
 
-`onError` parameter is optional and can be used to manually handle errors.
+The `onError` parameter is optional and can be used to handle errors manually.
 
 ```dart
 doFuture<bool>(
@@ -273,9 +274,9 @@ doFuture<bool>(
 );
 ```
 
-What about `doFutureHandleError()` and `subscribeHandleError()`? You can use it exactly the same way as their "no handle error" companions but with all benefits of the default error handling mechanism.
+What about `doFutureHandleError()` and `subscribeHandleError()`? You can use them the same exact way as their "no handle error" companions, with all the benefits of the default error handling mechanism.
 
-You still able to pass `onError` function but it will act as an addition to default error handling.
+You can still use the `onError` function to pass but it will now act as an addition to default error handling.
 
 ```dart
 doFutureHandleError<bool>(
@@ -292,9 +293,9 @@ doFutureHandleError<bool>(
 
 #### Default error handling customisation
 
-You can customize the default error handling in an easy way.
+Error handling is easily customizable.
 
-First, you need to extend `ErrorHandler` class and override `handleError()` function. This function will be called whenever an error occurs. You can implement your error handling right there.
+First, extend the `ErrorHandler` class and override the `handleError()` function. This function will be used whenever an error occurs. You can implement your error handling right there.
 
 ```dart
 class CustomErrorHandler extends ErrorHandler {
@@ -323,19 +324,19 @@ Now all errors that occur during asynchronous operations launched through `doFut
 
 ### Where should my UI layout be placed?
 
-Directly in `WidgetState.build()` function. For those widgets that are simple enough you can use `StatelessWidget` or `StatefulWidget` from SDK.
+Directly in the `WidgetState.build()` function. For widgets that are simple use `StatelessWidget` or `StatefulWidget` from SDK.
 
 ### How can I access the widget model?
 
-Every `WidgetState` reference its `WidgetModel` through `wm` getter. You can access it immediately after `initState()` has run.
+Every `WidgetState` reference its `WidgetModel` through `wm` getter. You can access it immediately after running `initState()`.
 
 ### Where should I place the navigation?
 
-We don't limit you in the choice of navigation approaches, but we strongly recommend to implement navigation in the **WidgetModel**.
+We don't limit you in the choice of navigation approaches, but we strongly recommend implementing navigation in the **WidgetModel**.
 
 ## Recommended project structure
 
-You decide how your project will be arranged by your own. However, we recommend you to organize your code this way:
+You decide how your project will be arranged. However, we recommend you organize your code this way:
 
 - /lib
   - model/
@@ -356,8 +357,7 @@ You decide how your project will be arranged by your own. However, we recommend 
       - wm.dart
       - widget.dart  
       - route.dart
-      
-      
+
 ## Installation
 
 Add mwwm to your `pubspec.yaml` file:
@@ -372,19 +372,21 @@ dependencies:
 All notable changes to this project will be documented in [this file](./CHANGELOG.md).
 
 ## Issues
+
 For issues, file directly in the [main SurfGear repo](https://github.com/surfstudio/SurfGear).
 
 ## Contribute
+
 If you would like to contribute to the package (e.g. by improving the documentation, solving a bug or adding a cool new feature), please review our [contribution guide](../../CONTRIBUTING.md) first and send us your pull request.
 
-You PR's are always welcome.
+You PRs are always welcome.
+
 ## How to reach us
 
-Please, feel free to ask any questions about this package. Join our community chat on Telegram. We speak English and Russian.
+Please feel free to ask any questions about this package. Join our community chat on Telegram. We speak English and Russian.
 
 [![Telegram](https://img.shields.io/badge/chat-on%20Telegram-blue.svg)](https://t.me/SurfGear)
 
 ## License
 
 [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
-
