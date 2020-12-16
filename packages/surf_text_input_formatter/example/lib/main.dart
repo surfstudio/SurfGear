@@ -169,6 +169,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               _buildItem(
+                text: 'email',
+                keyboardType: TextInputType.text,
+                formatter: EmailTextInputFormatter(),
+              ),
+              _buildItem(
                 text: 'ИНН individual',
                 formatter: InnTextInputFormatter.individual(
                   isFormatBeforeEnterNextSymbol: _isBefore,
