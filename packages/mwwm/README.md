@@ -67,7 +67,7 @@ Presented by the `Model`, `Change`, and `Performer` classes.
 
 ### Basic use case (without Model)
 
-![MWWM Architecture Mini Sheme](https://i.ibb.co/N9kXqYz/arch-scheme-min.png)
+![MWWM Architecture Mini Sheme](https://i.ibb.co/qN4z81w/arch-scheme-min.png)
 
 #### Create WidgetModel
 
