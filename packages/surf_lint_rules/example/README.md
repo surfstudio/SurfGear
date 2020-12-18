@@ -1,4 +1,4 @@
-Add `lint` as dependency to your pubspec.yaml
+Add `surf_lint_rules` as dependency to your pubspec.yaml
 
 ```yaml
 dev_dependencies:
