@@ -6,7 +6,7 @@
 
 This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
 
-![MWWM Cover](https://i.ibb.co/BZ1WCF5/logo-mwwm-black.png)
+![MWWM Cover](https://i.ibb.co/9qBTf3S/Bunner-LOGO.png)
 
 ## About
 
@@ -60,7 +60,7 @@ Unlike other components, the `Model` is optional.
 `Model` is a great way to simplify the business logic layer of your app by breaking it into two sets of abstractions:
 
 - `Change` is an intent to do something without any concrete implementation details, only input parameters;
-- `Performer` is the reaction to the associated `Сhange` that contains an implementation of some operation.
+- `Performer` is the reaction to the `Сhange` that is associated with it. The Performer contains the implementation of a certain operation that is triggered by the Change.
 
 Presented by the `Model`, `Change`, and `Performer` classes.
 
@@ -260,7 +260,7 @@ MWWM package provides built-in capabilities for asynchronous operations. In addi
 | doFuture()             | Future              | -                                           |
 | doFutureHandleError()  | Future              | +                                           |
 
-When using `doFuture()` and `subscribe()`, select `Future` or `Stream` respectively as the first parameter. The `onValue` function handles the result of the asynchronous operation as the second.
+When using `doFuture()` and `subscribe()`, select `Future` or `Stream` as the first parameter. The `onValue` function handles the result of the asynchronous operation as the second.
 
 The `onError` parameter is optional and can be used to handle errors manually.
 
@@ -321,7 +321,7 @@ WidgetModel buildLoginWM(BuildContext context) =>
 }
 ```
 
-Now all errors that occur during asynchronous operations launched through `doFutureHandleError()` and `subscribeHandleError()` functions will fall into a custom handler.
+Now all errors that occur during asynchronous operations launched by the `doFutureHandleError()` and `subscribeHandleError()` functions will fall into a custom handler.
 
 ## FAQ
 
@@ -367,7 +367,7 @@ Add mwwm to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  mwwm: version
+  mwwm: any
 ```
 
 ## Changelog
