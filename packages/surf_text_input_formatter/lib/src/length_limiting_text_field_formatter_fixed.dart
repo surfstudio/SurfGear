@@ -14,10 +14,10 @@ class LengthLimitingTextFieldFormatterFixed
   ) {
     if (maxLength == null ||
         maxLength <= 0 ||
-        newValue.text.characters.length <= maxLength) {
+        newValue.text.length <= maxLength) {
       return newValue;
     }
-    if (oldValue.text.characters.length == maxLength) {
+    if (oldValue.text.length == maxLength) {
       return oldValue;
     }
     return LengthLimitingTextInputFormatter.truncate(newValue, maxLength);
