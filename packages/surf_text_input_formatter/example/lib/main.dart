@@ -209,6 +209,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   isFormatBeforeEnterNextSymbol: _isBefore,
                 ),
               ),
+              _buildItem(
+                text: 'LengthLimitingTextFieldFormatterFixed',
+                formatter: LengthLimitingTextFieldFormatterFixed(
+                  10,
+                ),
+              ),
               const SizedBox(height: 100),
               AnimatedPadding(
                 duration: const Duration(microseconds: 200),
