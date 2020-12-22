@@ -1,13 +1,15 @@
 # Render Metrics
+
 [![Pub Version](https://img.shields.io/pub/v/render_metrics)](https://pub.dev/packages/render_metrics)
 [![Pub Version (including pre-releases)](https://img.shields.io/pub/v/render_metrics?include_prereleases)](https://pub.dev/packages/render_metrics)
 [![Pub Likes](https://badgen.net/pub/likes/render_metrics)](https://pub.dev/packages/render_metrics)
 
-This package is a part of [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
+This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
 
-[![SurfGear](https://i.ibb.co/ySbGgP9/logo.png)](https://github.com/surfstudio/SurfGear)
+[![SurfGear](https://i.ibb.co/wpPb5N5/render-metrics-logo.png)](https://github.com/surfstudio/SurfGear)
 
 ## About
+
 This package helps retrieve the current positioning coordinates of any widget in a widgets tree in your Flutter application.
 
 ## Currently supported features
@@ -79,11 +81,11 @@ ComparisonDiff diff =
 
 All metrics positioning coordinates are global, meaning they are relative to the entire screen coordinate space.
 
-<img src="https://i.ibb.co/8mCwg6b/first.png" alt="RenderData" width="300"/>
+![RenderData](https://i.ibb.co/84R4xLQ/first.png)
 
 `RenderData` also provides you an ability to get all widget keypoint XY-coordinates by calling one of special getters.
 
-<img src="https://i.ibb.co/vQZ9qgW/secondary.png" alt="RenderData" width="300"/>
+![RenderData](https://i.ibb.co/sVc5V28/secondary.png)
 
 ### ComparisonDiff
 
@@ -91,7 +93,7 @@ You can get the comparison relative results for each widget keypoint from the `C
 
 An additional set of special getters can help you calculate the difference between two adjacent sides of two different widgets (e.g. right to left, top to bottom, etc.).
 
-<img src="https://i.ibb.co/RHvSHy9/third.png" alt="RenderData" width="300"/>
+![RenderData](https://i.ibb.co/L8z4NYF/third.png)
 
 ## Installation
 
@@ -106,22 +108,24 @@ You can use both `stable` and `dev` versions of the package listed above in the 
 
 ## Changelog
 
-All significant changes to this project will be documented in [this file](./CHANGELOG.md).
+All notable changes to this project will be documented in [this file](./CHANGELOG.md).
 
 ## Issues
-Please report any issues directly to the [main SurfGear repo](https://github.com/surfstudio/SurfGear).
+
+For issues, file directly in the [main SurfGear repo](https://github.com/surfstudio/SurfGear).
 
 ## Contribute
-If you would like to contribute to the package (such as by improving the documentation, solving a bug, or adding a cool new feature), please address our [contribution guide](../../CONTRIBUTING.md) first and send us your pull request.
 
-Your help is always appreciated.
+If you would like to contribute to the package (e.g. by improving the documentation, solving a bug or adding a cool new feature), please review our [contribution guide](../../CONTRIBUTING.md) first and send us your pull request.
+
+You PRs are always welcome.
+
 ## How to reach us
 
-Please, feel free to ask any questions about this package. Join our community chat on Telegram. We speak English and Russian.
+Please feel free to ask any questions about this package. Join our community chat on Telegram. We speak English and Russian.
 
 [![Telegram](https://img.shields.io/badge/chat-on%20Telegram-blue.svg)](https://t.me/SurfGear)
 
 ## License
 
 [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
-
