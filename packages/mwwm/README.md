@@ -1,4 +1,4 @@
-# mwwm
+# MWWM
 
 [![Pub Version](https://img.shields.io/pub/v/mwwm)](https://pub.dev/packages/mwwm)
 [![Pub Version (including pre-releases)](https://img.shields.io/pub/v/mwwm?include_prereleases)](https://pub.dev/packages/mwwm)
@@ -369,6 +369,8 @@ Add mwwm to your `pubspec.yaml` file:
 dependencies:
   mwwm: any
 ```
+
+You can use both `stable` and `dev` versions of the package listed above in the badges bar.
 
 ## Changelog
 
