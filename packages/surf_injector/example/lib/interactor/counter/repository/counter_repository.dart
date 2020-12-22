@@ -31,9 +31,12 @@ class CounterRepository {
   Future<Counter> getCounter() {
     return _preferencesHelper
         .get(keyCounter, 0)
-        .then((i) => Counter(i as int ?? 0))
+        .then(
+          (i) => Counter(i as int ?? 0),
+        )
         .catchError(
-      (e) {
+      // ignore: avoid_types_on_closure_parameters
+      (Object e) {
         // ignore: avoid_print
         print('DEV_ERROR ${e.toString()}');
         return Counter(0);
