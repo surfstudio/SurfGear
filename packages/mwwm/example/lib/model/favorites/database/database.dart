@@ -14,14 +14,15 @@
 
 import 'dart:io';
 
+import 'package:moor/ffi.dart';
+import 'package:moor/moor.dart';
 import 'package:moor_flutter/moor_flutter.dart';
 import 'package:mwwm_github_client/data/owner.dart';
 import 'package:mwwm_github_client/data/repository.dart';
-import 'package:moor_ffi/moor_ffi.dart';
 import 'package:mwwm_github_client/model/favorites/database/table/tables.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
-import 'package:moor/moor.dart';
+import 'package:path_provider/path_provider.dart';
+
 part 'database.g.dart';
 
 LazyDatabase _openConnection() {
