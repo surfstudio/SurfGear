@@ -1,5 +1,6 @@
 # Relation
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 [![Build Status](https://github.com/surfstudio/SurfGear/workflows/build/badge.svg)](https://github.com/surfstudio/SurfGear)
 [![Coverage Status](https://codecov.io/gh/surfstudio/SurfGear/branch/dev/graph/badge.svg?flag=relation)](https://codecov.io/gh/surfstudio/SurfGear)
@@ -38,18 +39,39 @@ It's wrapper over an action on screen.
 [![pub popularity](https://img.shields.io/badge/pub%20popularity-73-brightgreen)](https://pub.dev/packages/relation/score)
 [![pub likes](https://img.shields.io/badge/pub%20likes-7-brightgreen)](https://pub.dev/packages/relation/score)
 This package is a part of [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
+=======
+>>>>>>> ef8539c6 (Currentlty supported features in Relation readme)
 
-[![SurfGear](https://i.ibb.co/zbZ8081/Group-59.png)](https://github.com/surfstudio/SurfGear/tree/dev/packages/relation)
+[![Pub Version](https://img.shields.io/pub/v/relation)](https://pub.dev/packages/relation)
+[![Pub Version (including pre-releases)](https://img.shields.io/pub/v/relation?include_prereleases)](https://pub.dev/packages/relation)
+[![Pub Likes](https://badgen.net/pub/likes/relation)](https://pub.dev/packages/relation)
+
+This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
+
+![Relation Cover](https://i.ibb.co/f1yC8d5/relation-logo.png)
+
 ## About
-This package provides the ability to associate user actions with application state.
+
+Two-way communication channels for transferring data between different architectural layers of a Flutter application.
+
 ## Currently supported features
+<<<<<<< HEAD
 - Action - It's wrapper over an action on screen.
 >>>>>>> b845f14a (add new README.md)
 It may be a tap on button, text changes, focus changes and so on.
 - StreamedState - A state of some type wrapped in a stream
 dictates the widget's state
 - EntityStreamedState - A state that have download/error/content status
+=======
+
+- Notify your app's presentation layer about every user input or UI event (button tap, focus change, gesture detection, etc.) using `Action` and implement a reaction to them;
+- Write less code with *Actions* that are customized for specific use cases (scrolling, text changing, `ValueNotifier` value changing).
+- React to the data state changes and redraw UI using `StreamedState` together with `StreamedStateBuilder` and its variations;
+- Manage the screen state in an easy way with a special stream that handles three predefined states: data, loading, error.
+
+>>>>>>> ef8539c6 (Currentlty supported features in Relation readme)
 ## Usage
+
 ### Initialization
 First you need to initialize Action and StreamedState
 ```dart 
