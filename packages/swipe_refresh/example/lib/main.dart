@@ -68,16 +68,19 @@ class _MainPageState extends State<MainPage> {
                     SwipeRefresh.material(
                       stateStream: _stream,
                       onRefresh: _refresh,
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       children: _buildExampleBody(SwipeRefreshStyle.material),
                     ),
                     SwipeRefresh.cupertino(
                       stateStream: _stream,
                       onRefresh: _refresh,
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       children: _buildExampleBody(SwipeRefreshStyle.cupertino),
                     ),
                     SwipeRefresh.builder(
                       stateStream: _stream,
                       onRefresh: _refresh,
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       itemCount: Colors.primaries.length,
                       itemBuilder: (context, index) {
                         return Container(
