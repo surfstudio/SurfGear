@@ -12,10 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Action;
+import 'package:flutter/widgets.dart' hide Action;
 import 'package:relation/relation.dart' as r;
-
-import '../../lib/relation.dart';
 
 class DemoRelations extends StatefulWidget {
   const DemoRelations({Key? key}) : super(key: key);
