@@ -123,14 +123,14 @@ class _MyHomePageState extends State<MyHomePage> {
       },
       builder: (context, offset) {
         return SliverChildListDelegate(
-          _getChildren(offset, false),
+          _getChildren(offset, isShowPosition: false),
         );
       },
       anchors: [.2, 0.5, .8],
     );
   }
 
-  List<Widget> _getChildren(double bottomSheetOffset, bool isShowPosition) => <Widget>[
+  List<Widget> _getChildren(double bottomSheetOffset, {bool isShowPosition}) => <Widget>[
         if (isShowPosition)
           Text(
             'position $bottomSheetOffset',
@@ -183,7 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: ListView(
               padding: const EdgeInsets.all(0),
               controller: scrollController,
-              children: _getChildren(bottomSheetOffset, true)),
+              children: _getChildren(bottomSheetOffset, isShowPosition: true)),
         ),
       ),
     );
