@@ -7,4 +7,4 @@ the [video_player](https://pub.dev/packages/video_player) package
 
 ### screenshot
 
-![](media/screenshot1.png)
+![](media/screenshot1.PNG)
