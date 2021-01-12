@@ -4,6 +4,9 @@
 
 Widget for refresh by swipe.
 
+![](media/material.gif)
+![](media/cupertino.gif)
+
 ## Usage
 
 Main classes:
