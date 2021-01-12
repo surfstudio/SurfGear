@@ -20,7 +20,7 @@ import 'package:relation/relation.dart';
 import 'package:surf_injector/surf_injector.dart';
 import 'package:rxdart/rxdart.dart';
 
-/// утилиты-расширения для [WidgetModel]
+/// Extensions for [WidgetModel]
 extension SurfMwwmExtension on WidgetModel {
   /// bind ui [Event]'s
   void bind<T>(
