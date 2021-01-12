@@ -36,25 +36,25 @@ abstract class CoreMwwmWidget extends StatefulWidget {
   final WidgetModelBuilder widgetModelBuilder;
 
   const CoreMwwmWidget({
-    Key key,
-    @required this.widgetModelBuilder,
-  })  : assert(widgetModelBuilder != null),
-        super(key: key);
+    Key? key,
+    required this.widgetModelBuilder,
+  }) : super(key: key);
 }
 
 /// Base class for state of [CoreMwwmWidget].
 /// Has [WidgetModel] from [initState].
-abstract class WidgetState<WM extends WidgetModel>
-    extends State<CoreMwwmWidget> {
+abstract class WidgetState<WM extends WidgetModel> extends State<CoreMwwmWidget> {
   /// [WidgetModel] for widget.
   @protected
-  WM wm;
+  WM? _wm;
+
+  WM get wm => _wm!;
 
   /// Descendants must call super firstly
   @mustCallSuper
   @override
   void initState() {
-    wm = widget.widgetModelBuilder(context);
+    _wm = widget.widgetModelBuilder(context) as WM;
 
     super.initState();
 

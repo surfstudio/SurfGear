@@ -62,7 +62,7 @@ class _UsersPageState extends WidgetState<UsersWm> {
 
   Widget _buildBody() => EntityStateBuilder<List<Owner>>(
         streamedState: wm.usersState,
-        errorBuilder: (ctx, _) => Center(
+        errorBuilder: (ctx, _, __) => Center(
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[

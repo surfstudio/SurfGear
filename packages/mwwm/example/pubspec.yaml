@@ -30,7 +30,7 @@ dev_dependencies:
   build_runner: ^1.10.11
   flutter_test:
     sdk: flutter
-  pedantic: ^1.9.0
+  pedantic: ^1.9.2
 
 flutter:
   uses-material-design: true

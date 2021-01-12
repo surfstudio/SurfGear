@@ -13,8 +13,8 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
-import 'package:mwwm_github_client/utils/exceptions.dart';
 import 'package:mwwm_github_client/model/common/error/network_error_handler.dart';
+import 'package:mwwm_github_client/utils/exceptions.dart';
 
 class StandardErrorHandler extends NetworkErrorHandler {
   StandardErrorHandler(

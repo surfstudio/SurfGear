@@ -85,7 +85,7 @@ class _RepositoriesScreenState extends WidgetState<RepositoriesWm> {
 
   Widget _buildBody() => EntityStateBuilder<List<Repository>>(
         streamedState: wm.repositoriesState,
-        errorBuilder: (ctx, _) => Center(
+        errorBuilder: (ctx, _, __) => Center(
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
