@@ -39,7 +39,7 @@ class SplashScreenWidgetModel extends WidgetModel {
     subscribeHandleError<bool>(
       initApp(),
       (isAuth) {
-        _openScreen(Router.root);
+        _openScreen(AppRouter.root);
       },
     );
     subscribe<bool>(
