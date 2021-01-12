@@ -62,8 +62,8 @@ class DefaultDialogController implements DialogController {
         alertTitle: title,
         alertContent: message,
         widgetMessage: widgetMessage,
-        okButtonText: agreeText,
-        cancelButtonText: cancelText,
+        okButtonText: agreeText ?? 'OK',
+        cancelButtonText: cancelText ?? 'Cancel',
         onAgreeClicked:
             onAgreeClicked != null ? () => onAgreeClicked(ctx) : null,
         onDisagreeClicked:
