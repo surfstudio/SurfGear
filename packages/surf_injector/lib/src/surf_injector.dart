@@ -22,28 +22,21 @@ Type _typeOf<T>() => T;
 /// Children can get component dependency by 'of' and 'Component.get(Type)'
 ///
 class Injector<C extends Component> extends StatefulWidget {
-  // const - кеширование?
-  const Injector({this.component, Key key, this.builder}) : super(key: key);
+  // const - caching?
+  const Injector({
+    Key key,
+    this.component,
+    this.builder,
+  }) : super(key: key);
 
   final C component;
   final WidgetBuilder builder;
 
   static _Injector<C> of<C extends Component>(BuildContext context) {
-    final Type type = _typeOf<_Injector<C>>();
-    InheritedWidget injector;
-    try {
-      injector =
-          // ignore: deprecated_member_use
-          context.ancestorInheritedElementForWidgetOfExactType(type)?.widget;
-      if (injector == null) {
-        throw Exception(
-            'Can not find nearest Injector of type $type. Do you define it?');
-      }
-    } on Exception {
-      injector =
-          context.getElementForInheritedWidgetOfExactType<_Injector>()?.widget;
+    final injector = context.getElementForInheritedWidgetOfExactType<_Injector<C>>()?.widget;
+    if (injector == null) {
+      throw Exception('Can not find nearest Injector of type $C. Do you define it?');
     }
-
     return injector as _Injector<C>;
   }
 
@@ -80,16 +73,22 @@ class _InjectorProxy extends StatelessWidget {
 /// Making this class extend [InheritedWidget] able to provide dependencies
 /// and define "scopes"
 class _Injector<C extends Component> extends InheritedWidget {
-  //конст - кеширование?
-  const _Injector({this.component, Key key, Widget child})
-      : super(key: key, child: child);
+  //конст - caching?
+  const _Injector({
+    this.component,
+    Key key,
+    Widget child,
+  }) : super(
+          key: key,
+          child: child,
+        );
 
   final C component;
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) {
-    //не имеет своего стейта, не реагирует на изменение зависимостей,
-    //это лишь провайдер
+    // does not have its own state, does not react to changing dependencies,
+    // this is only a provider
     return false;
   }
 }
