@@ -57,7 +57,7 @@ class _CounterScreenState extends State<CounterScreen> {
           wm.incrementAction.add(true);
         },
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

@@ -2,16 +2,9 @@
 
 # video_subtitle
 
-A new Flutter plugin.
+The package allows you to show subtitles over video that is displayed using
+the [video_player](https://pub.dev/packages/video_player) package
 
-## Getting Started
+### screenshot
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
-
+![](media/screenshot1.PNG)

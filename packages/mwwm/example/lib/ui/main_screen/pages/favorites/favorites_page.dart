@@ -85,7 +85,7 @@ class _FavoritesScreenState extends WidgetState<FavoritesWm> {
     );
   }
 
-  Widget _buildError(BuildContext context, _, __) {
+  Widget _buildError(BuildContext context, _) {
     return const Center(child: Text('Error'));
   }
 }

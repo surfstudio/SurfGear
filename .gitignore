@@ -89,3 +89,4 @@ ios/Runner/GeneratedPluginRegistrant.*
 # Support file for ci
 ~changed_list_file
 packages/template/ios/Flutter/flutter_export_environment.sh
+.last_build_id

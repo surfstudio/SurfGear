@@ -235,6 +235,7 @@ class SwipeRefresh extends StatelessWidget {
           backgroundColor: backgroundColor,
           indicatorColor: indicatorColor,
           shrinkWrap: shrinkWrap,
+          padding: padding,
           keyboardDismissBehavior: keyboardDismissBehavior,
           physics: physics,
           children: children,
@@ -251,6 +252,7 @@ class SwipeRefresh extends StatelessWidget {
           refreshTriggerPullDistance: refreshTriggerPullDistance,
           indicatorBuilder: indicatorBuilder,
           shrinkWrap: shrinkWrap,
+          padding: padding,
           physics: physics,
           children: children,
         );
