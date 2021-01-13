@@ -17,7 +17,7 @@ import 'package:flutter/widgets.dart';
 import 'package:relation/relation.dart' as r;
 
 class DemoRelations extends StatefulWidget {
-  const DemoRelations({Key key}) : super(key: key);
+  const DemoRelations({Key? key}) : super(key: key);
 
   @override
   _DemoRelationsState createState() => _DemoRelationsState();
@@ -34,7 +34,7 @@ class _DemoRelationsState extends State<DemoRelations> {
   void initState() {
     super.initState();
     incrementAction.stream.listen(
-      (_) => incrementState.accept(incrementState.value + 1),
+      (_) => incrementState.accept(incrementState.value! + 1),
     );
 
     reloadAction.stream.listen((_) => _load());
