@@ -23,7 +23,7 @@ import 'package:surf_injector/surf_injector.dart';
 
 /// Widget приложения
 class App extends MwwmWidget<AppComponent> {
-  App({Key? key})
+  App({Key key})
       : super(
           key: key,
           dependenciesBuilder: (context) => AppComponent(),
@@ -33,7 +33,7 @@ class App extends MwwmWidget<AppComponent> {
 }
 
 class _AppState extends WidgetState<AppWidgetModel> {
-  GlobalKey<NavigatorState>? _navKey;
+  GlobalKey<NavigatorState> _navKey;
 
   @override
   void initState() {

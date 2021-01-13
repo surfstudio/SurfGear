@@ -45,12 +45,12 @@ class CounterWidgetModel extends WidgetModel {
   void _listenToActions() {
     subscribe<void>(
       incrementAction.stream,
-      (_) => counterState.accept(counterState.value! + 1),
+      (_) => counterState.accept(counterState.value + 1),
     );
 
     subscribe<void>(
       showInit.stream,
-      (_) => _key.currentState?.showSnackBar(
+      (_) => _key.currentState.showSnackBar(
         const SnackBar(
           content: Text('init'),
         ),
@@ -58,7 +58,7 @@ class CounterWidgetModel extends WidgetModel {
     );
 
     subscribe(
-      counterState.stream.where((c) => c!.isEven).skip(1),
+      counterState.stream.where((c) => c.isEven).skip(1),
       (c) {
         navigator.push(
           MaterialPageRoute<void>(
