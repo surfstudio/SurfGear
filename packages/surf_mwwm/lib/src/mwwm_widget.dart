@@ -13,8 +13,8 @@
 // limitations under the License.
 
 import 'package:flutter/widgets.dart';
-import 'package:surf_injector/surf_injector.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:surf_injector/surf_injector.dart';
 
 typedef DependenciesBuilder<C> = C Function(BuildContext);
 typedef WidgetStateBuilder = State Function();
@@ -34,10 +34,10 @@ abstract class MwwmWidget<C extends Component> extends StatefulWidget {
   final WidgetModelBuilder widgetModelBuilder;
 
   MwwmWidget({
-    Key key,
-    @required this.dependenciesBuilder,
-    @required this.widgetStateBuilder,
-    this.widgetModelBuilder,
+    required this.dependenciesBuilder,
+    required this.widgetStateBuilder,
+    required this.widgetModelBuilder,
+    Key? key,
   }) : super(
           key: key,
         );
@@ -52,9 +52,9 @@ class _ProxyMwwmWidget extends CoreMwwmWidget {
   final WidgetStateBuilder _wsBuilder;
 
   const _ProxyMwwmWidget({
-    Key key,
-    WidgetStateBuilder widgetStateBuilder,
-    WidgetModelBuilder widgetModelBuilder,
+    required WidgetStateBuilder widgetStateBuilder,
+    required WidgetModelBuilder widgetModelBuilder,
+    Key? key,
   })  : _wsBuilder = widgetStateBuilder,
         super(
           key: key,
@@ -67,14 +67,14 @@ class _ProxyMwwmWidget extends CoreMwwmWidget {
 
 /// Hold child widget
 class _MwwmWidgetState<C extends Component> extends State<MwwmWidget> {
-  Widget child;
+  Widget? child;
 
   @override
   void initState() {
     super.initState();
 
     child = Injector<C>(
-      component: widget.dependenciesBuilder(context),
+      component: widget.dependenciesBuilder(context) as C,
       builder: (ctx) => _ProxyMwwmWidget(
         widgetStateBuilder: widget.widgetStateBuilder,
         widgetModelBuilder: widget.widgetModelBuilder,
@@ -84,18 +84,17 @@ class _MwwmWidgetState<C extends Component> extends State<MwwmWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return child;
+    return child ?? SizedBox();
   }
 }
 
 /// Implementation of MwwmWidget based on [InheritedWidget]
 /// todo test perfomance
-abstract class MwwmInheritedWidget<C extends Component>
-    extends InheritedWidget {
+abstract class MwwmInheritedWidget<C extends Component> extends InheritedWidget {
   MwwmInheritedWidget({
-    @required DependenciesBuilder<C> dependenciesBuilder,
-    @required WidgetStateBuilder widgetStateBuilder,
-    WidgetModelBuilder widgetModelBuilder,
+    required DependenciesBuilder<C> dependenciesBuilder,
+    required WidgetStateBuilder widgetStateBuilder,
+    required WidgetModelBuilder widgetModelBuilder,
   }) : super(
           child: Builder(
             builder: (context) => Injector<C>(

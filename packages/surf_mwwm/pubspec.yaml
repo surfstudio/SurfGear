@@ -2,24 +2,39 @@ name: surf_mwwm
 version: "0.0.1-dev.12"
 description: |
   Reflection of widget in a single entity. Includes: surf_injector, relation, mwwm, rxdart.
-  
+
 repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/surf_mwwm"
 
 dependencies:
   flutter:
     sdk: flutter
-  surf_injector: "^0.0.1-dev.3"
-  relation: "^0.0.4-dev.2"
-  mwwm: "^0.1.2-dev.2"
-  rxdart: ^0.24.0
+  surf_injector:
+    git:
+      url: https://github.com/surfstudio/SurfGear
+      path: packages/surf_injector
+      ref: feature/surf_injector_null_safety
+
+  relation:
+    git:
+      url: https://github.com/surfstudio/SurfGear
+      path: packages/relation
+      ref: feature/relation_null_safety
+
+  mwwm:
+    git:
+      url: https://github.com/surfstudio/SurfGear
+      path: packages/mwwm
+      ref: feature/mwwm_null_safety
+
+  rxdart: ^0.26.0-nullsafety.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  pedantic: ^1.7.0
+  pedantic: ^1.10.0-nullsafety.3
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: ">=2.12.0-0 <3.0.0"
 
 flutter:
 

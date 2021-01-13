@@ -26,7 +26,7 @@ extension SurfMwwmExtension on WidgetModel {
   void bind<T>(
     Event<T> event,
     void Function(T t) onValue, {
-    void Function(dynamic e) onError,
+    void Function(dynamic e)? onError,
   }) =>
       subscribe<T>(event.stream, onValue, onError: onError);
 }
