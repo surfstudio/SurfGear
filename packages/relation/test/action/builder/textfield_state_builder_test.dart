@@ -51,7 +51,7 @@ void main() {
       final textFieldStateBuilder = TextFieldStateBuilder(
           state: testData,
           stateBuilder: (context, data) {
-            if (data.hasError) {
+            if (data?.hasError ?? false) {
               return const Text('error');
             }
             return const Text('test');
@@ -80,7 +80,7 @@ void main() {
       final textFieldStateBuilder = TextFieldStateBuilder(
           state: testData,
           stateBuilder: (context, data) {
-            if (data.isLoading) {
+            if (data?.isLoading ?? false) {
               return const Text('loading');
             }
             return const Text('test');

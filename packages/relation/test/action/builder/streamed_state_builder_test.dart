@@ -25,7 +25,7 @@ void main() {
       final streamedStateBuilder = StreamedStateBuilder<String>(
           streamedState: testData,
           builder: (context, data) {
-            return Text(data);
+            return Text(data ?? '');
           });
       await tester.pumpWidget(
         MaterialApp(

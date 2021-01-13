@@ -27,8 +27,8 @@ import 'package:rxdart/rxdart.dart';
 ///     builder: (ctx, T data) => Text(data.toString()),
 ///   )
 /// ```
-class StreamedState<T> implements Event<T> {
-  StreamedState([T initialData]) {
+class StreamedState<T> implements Event<T?> {
+  StreamedState([T? initialData]) {
     if (initialData != null) {
       accept(initialData);
     }
@@ -39,16 +39,16 @@ class StreamedState<T> implements Event<T> {
   }
 
   /// Behavior state for updating events
-  final BehaviorSubject<T> stateSubject = BehaviorSubject();
+  final BehaviorSubject<T?> stateSubject = BehaviorSubject();
 
   /// current value in stream
-  T get value => stateSubject.value;
+  T? get value => stateSubject.value;
 
   @override
-  Stream<T> get stream => stateSubject.stream;
+  Stream<T?> get stream => stateSubject.stream;
 
   @override
-  Future<void> accept([T data]) {
+  Future<void> accept([T? data]) {
     stateSubject.add(data);
     return stateSubject.stream.first;
   }

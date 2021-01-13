@@ -27,7 +27,7 @@ void main() {
       final streamedStateBuilder = EntityStateBuilder<String>(
         streamedState: testData,
         child: (context, data) {
-          return Text(data);
+          return Text(data ?? '');
         },
       );
 
@@ -39,7 +39,7 @@ void main() {
           ),
         ),
       );
-      expect(streamedStateBuilder.streamedState.value.data, 'test');
+      expect(streamedStateBuilder.streamedState.value?.data, 'test');
       final testFinder = find.text('test');
       expect(testFinder, findsOneWidget);
 

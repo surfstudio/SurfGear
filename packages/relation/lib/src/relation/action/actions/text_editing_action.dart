@@ -18,7 +18,7 @@ import 'package:relation/src/relation/action/action.dart';
 /// Action for text editing
 class TextEditingAction extends Action<String> {
   TextEditingAction([
-    void Function(String data) onChanged,
+    void Function(String? data)? onChanged,
   ]) : super(onChanged) {
     controller.addListener(() {
       accept(controller.value.text);
@@ -26,8 +26,7 @@ class TextEditingAction extends Action<String> {
   }
 
   /// TextEditing controller of text field
-  final widgets.TextEditingController controller =
-      ExtendedTextEditingController();
+  final widgets.TextEditingController controller = ExtendedTextEditingController();
 
   @override
   void dispose() {
@@ -39,7 +38,7 @@ class TextEditingAction extends Action<String> {
 /// When updating text through the setter, moves the cursor to the end of the
 /// line
 class ExtendedTextEditingController extends widgets.TextEditingController {
-  ExtendedTextEditingController({String text}) : super(text: text);
+  ExtendedTextEditingController({String? text}) : super(text: text);
 
   @override
   set text(String newText) {

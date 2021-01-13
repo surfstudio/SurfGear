@@ -21,16 +21,16 @@ import 'package:relation/src/relation/state/streamed_state.dart';
 /// Stream builder for text fields
 class TextFieldStateBuilder extends StatelessWidget {
   const TextFieldStateBuilder({
-    Key key,
-    this.state,
-    this.stateBuilder,
+    required this.state,
+    required this.stateBuilder,
+    Key? key,
   }) : super(key: key);
 
   /// State of text field
   final TextFieldStreamedState state;
 
   /// Builder of state
-  final Widget Function(BuildContext, TextFieldState) stateBuilder;
+  final Widget Function(BuildContext, TextFieldState?) stateBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class TextFieldState extends EntityState<String> {
         super.content(data);
 
   /// Error constructor
-  TextFieldState.error(this.data, [Exception e])
+  TextFieldState.error(this.data, [Exception? e])
       : isEnabled = true,
         super.error(e);
 
@@ -75,14 +75,13 @@ class TextFieldState extends EntityState<String> {
 
   @override
   // ignore: overridden_fields
-  final String data;
+  final String? data;
 }
 
 /// Stream view of text field state
 /// For validations, it is possible to set restrictions such as [validator],
 /// [mandatory], [canEdit]
-class TextFieldStreamedState extends StreamedState<TextFieldState>
-    implements EntityEvent<String> {
+class TextFieldStreamedState extends StreamedState<TextFieldState> implements EntityEvent<String> {
   TextFieldStreamedState(
     String initialData, {
     String validator = '',
@@ -105,7 +104,7 @@ class TextFieldStreamedState extends StreamedState<TextFieldState>
   final String incorrectTextMsg;
 
   @override
-  Future<void> content([String data]) {
+  Future<void> content([String data = '']) {
     if (!validator.hasMatch(data) || (data.isEmpty && mandatory)) {
       return super.accept(
         TextFieldState.error(
@@ -114,15 +113,15 @@ class TextFieldStreamedState extends StreamedState<TextFieldState>
         ),
       );
     } else if (!canEdit) {
-      return accept(TextFieldState.enabled(value.data, enabled: canEdit));
+      return accept(TextFieldState.enabled(value?.data, enabled: canEdit));
     } else {
       return super.accept(TextFieldState.content(data));
     }
   }
 
   @override
-  Future<void> error([Exception error]) {
-    final state = TextFieldState.error(value.data, error);
+  Future<void> error([Exception? error]) {
+    final state = TextFieldState.error(value?.data, error);
     return super.accept(state);
   }
 

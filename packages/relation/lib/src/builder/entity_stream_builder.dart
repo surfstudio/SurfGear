@@ -15,11 +15,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:relation/src/relation/state/entity_state.dart';
 
-typedef DataWidgetBuilder<T> = Widget Function(BuildContext, T data);
+typedef DataWidgetBuilder<T> = Widget Function(BuildContext, T? data);
 typedef ErrorWidgetBuilder = Widget Function(BuildContext, Exception);
 typedef DataWidgetErrorBuilder<T> = Widget Function(
   BuildContext,
-  T data,
+  T? data,
   Exception,
 );
 
@@ -42,17 +42,15 @@ typedef DataWidgetErrorBuilder<T> = Widget Function(
 ///  ```
 class EntityStateBuilder<T> extends StatelessWidget {
   const EntityStateBuilder({
-    @required this.streamedState,
-    @required this.child,
-    Key key,
+    required this.streamedState,
+    required this.child,
+    Key? key,
     this.loadingBuilder,
     this.errorBuilder,
-    Widget loadingChild,
-    Widget errorChild,
+    Widget? loadingChild,
+    Widget? errorChild,
   })  : loadingChild = loadingChild ?? const SizedBox(),
         errorChild = errorChild ?? const SizedBox(),
-        assert(streamedState != null),
-        assert(child != null),
         super(key: key);
 
   /// StreamedState of entity
@@ -62,10 +60,10 @@ class EntityStateBuilder<T> extends StatelessWidget {
   final DataWidgetBuilder<T> child;
 
   /// Loading child of builder
-  final DataWidgetBuilder<T> loadingBuilder;
+  final DataWidgetBuilder<T>? loadingBuilder;
 
   /// Error child of builder
-  final DataWidgetErrorBuilder<T> errorBuilder;
+  final DataWidgetErrorBuilder<T>? errorBuilder;
 
   /// Loading child widget
   final Widget loadingChild;
@@ -75,23 +73,23 @@ class EntityStateBuilder<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<EntityState<T>>(
+    return StreamBuilder<EntityState<T>?>(
       stream: streamedState.stream,
       initialData: streamedState.value,
       builder: (context, snapshot) {
         final streamData = snapshot.data;
         if (streamData == null || streamData.isLoading) {
           if (streamData?.data != null && loadingBuilder != null) {
-            return loadingBuilder(context, streamData.data);
+            return loadingBuilder!(context, streamData!.data);
           } else {
             return loadingChild;
           }
         } else if (streamData.hasError) {
           if (streamData.data != null && errorBuilder != null) {
-            return errorBuilder(
+            return errorBuilder!(
               context,
               streamData.data,
-              streamData.error.e as Exception,
+              streamData.error != null ? streamData.error!.e as Exception : Exception(),
             );
           } else {
             return errorChild;
