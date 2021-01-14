@@ -22,7 +22,7 @@ const minRemotePriority = priorityLogWarn;
 /// * logs are sent starting from [minRemotePriority]
 class RemoteLogStrategy extends LogStrategy {
   @override
-  void log(String message, int priority, [Exception error]) {
+  void log(String message, int priority, [Exception? error]) {
     if (priority < minRemotePriority) return;
 
     RemoteLogger.log(message);

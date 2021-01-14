@@ -20,21 +20,21 @@ class Logger {
   static final _strategies = <Type, LogStrategy>{};
 
   ///debug
-  static void d(String msg, [Exception error]) {
+  static void d(String msg, [Exception? error]) {
     _forAllStrategies(
       (strategy) => strategy.log(msg, priorityLogDebug, error),
     );
   }
 
   ///warn (for expected errors)
-  static void w(String msg, [Exception error]) {
+  static void w(String msg, [Exception? error]) {
     _forAllStrategies(
       (strategy) => strategy.log(msg, priorityLogWarn, error),
     );
   }
 
   ///error (for errors)
-  static void e(String msg, [Exception error]) {
+  static void e(String msg, [Exception? error]) {
     _forAllStrategies(
       (strategy) => strategy.log(msg, priorityLogError, error),
     );
