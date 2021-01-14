@@ -46,15 +46,13 @@ abstract class CoreMwwmWidget extends StatefulWidget {
 abstract class WidgetState<WM extends WidgetModel> extends State<CoreMwwmWidget> {
   /// [WidgetModel] for widget.
   @protected
-  WM? _wm;
-
-  WM get wm => _wm!;
+  late WM wm;
 
   /// Descendants must call super firstly
   @mustCallSuper
   @override
   void initState() {
-    _wm = widget.widgetModelBuilder(context) as WM;
+    wm = widget.widgetModelBuilder(context) as WM;
 
     super.initState();
 
