@@ -21,15 +21,15 @@ import 'dart:convert';
 import 'package:name_generator/domain/user.dart';
 
 class NameGeneratorResponse {
-  String name;
-  String address;
-  int height;
-  double weight;
-  String blood;
-  String eye;
-  String hair;
-  String username;
-  String password;
+  String? name;
+  String? address;
+  int? height;
+  double? weight;
+  String? blood;
+  String? eye;
+  String? hair;
+  String? username;
+  String? password;
 
   NameGeneratorResponse({
     this.name,
@@ -48,20 +48,19 @@ class NameGeneratorResponse {
 
   String toRawJson() => json.encode(toJson());
 
-  factory NameGeneratorResponse.fromJson(Map<String, Object> json) =>
-      new NameGeneratorResponse(
-        name: json["name"],
+  factory NameGeneratorResponse.fromJson(Map<String, Object> json) => new NameGeneratorResponse(
+        name: json["name"] as String,
         height: json["height"] == null ? null : json["height"] as int,
-        address: json["address"],
-        blood: json["blood"],
-        eye: json["eye"],
-        hair: json["hair"],
+        address: json["address"] as String,
+        blood: json["blood"] as String,
+        eye: json["eye"] as String,
+        hair: json["hair"] as String,
         weight: json["weight"] == null ? null : json["weight"] as double,
-        password: json["password"],
-        username: json["username"],
+        password: json["password"] as String,
+        username: json["username"] as String,
       );
 
-  Map<String, Object> toJson() => {
+  Map<String, Object?> toJson() => {
         "name": name,
         "height": height,
         "address": address,

@@ -14,14 +14,14 @@
 
 import 'dart:io';
 
-import 'package:surf_network/surf_network.dart';
 import 'package:surf_network/src/base/response.dart';
 import 'package:surf_network/src/rx/rx_call_adapter.dart';
 import 'package:surf_network/src/rx/rx_http.dart';
+import 'package:surf_network/surf_network.dart';
 
 ///Http делагат, который адаптирует [Http] к [RxHttp]
 class RxHttpDelegate implements RxHttp {
-  final RxCallAdapter _callAdapter = RxCallAdapter<Response>();
+  final _callAdapter = RxCallAdapter<Response>();
 
   final Http http;
 
@@ -30,19 +30,19 @@ class RxHttpDelegate implements RxHttp {
   @override
   Stream<Response> get<T>(
     String url, {
-    Map<String, Object> query,
-    Map<String, String> headers,
+    Map<String, Object>? query,
+    Map<String, String>? headers,
   }) {
-    final request = http.get(url, headers: headers, query: query);
+    final request = http.get(url, headers: headers ?? {}, query: query ?? {});
     return _adapt(request);
   }
 
   @override
   Stream<Response> post<T>(
     String url, {
-    Map<String, Object> query,
-    Map<String, String> headers,
-    Map<String, Object> body,
+    Map<String, Object>? query,
+    Map<String, String>? headers,
+    Map<String, Object>? body,
   }) {
     final request = http.post(url, headers: headers, body: body, query: query);
     return _adapt(request);
@@ -51,9 +51,9 @@ class RxHttpDelegate implements RxHttp {
   @override
   Stream<Response> put<T>(
     String url, {
-    Map<String, Object> query,
-    Map<String, String> headers,
-    Map<String, Object> body,
+    Map<String, Object>? query,
+    Map<String, String>? headers,
+    Map<String, Object>? body,
   }) {
     final request = http.put(url, headers: headers, body: body, query: query);
     return _adapt(request);
@@ -62,8 +62,8 @@ class RxHttpDelegate implements RxHttp {
   @override
   Stream<Response> delete<T>(
     String url, {
-    Map<String, Object> query,
-    Map<String, String> headers,
+    Map<String, Object>? query,
+    Map<String, String>? headers,
   }) {
     final request = http.delete(url, headers: headers, query: query);
     return _adapt(request);
@@ -82,9 +82,9 @@ class RxHttpDelegate implements RxHttp {
   @override
   Stream<Response> patch<T>(
     String url, {
-    Map<String, Object> query,
-    Map<String, String> headers,
-    Map<String, Object> body,
+    Map<String, Object>? query,
+    Map<String, String>? headers,
+    Map<String, Object>? body,
   }) {
     final request = http.patch(url, headers: headers, body: body, query: query);
     return _adapt(request);
@@ -93,13 +93,12 @@ class RxHttpDelegate implements RxHttp {
   @override
   Stream<Response> multipart<T>(
     String url, {
-    Map<String, String> headers,
-    File body,
+    Map<String, String>? headers,
+    File? body,
   }) {
     final request = http.multipart(url, headers: headers, body: body);
     return _adapt(request);
   }
 
-  Stream _adapt(Future<Response> deleteRequest) =>
-      _callAdapter.adapt(deleteRequest);
+  Stream<Response> _adapt(Future<Response> deleteRequest) => _callAdapter.adapt(deleteRequest);
 }

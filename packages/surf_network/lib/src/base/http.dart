@@ -21,45 +21,45 @@ abstract class Http {
   ///GET- request
   Future<Response<T>> get<T>(
     String url, {
-    Map<String, Object> query,
-    Map<String, String> headers,
-    String contentType,
+    Map<String, Object>? query,
+    Map<String, String>? headers,
+    String? contentType,
   });
 
   ///POST-request
   Future<Response<T>> post<T>(
     String url, {
-    Map<String, Object> query,
-    Map<String, String> headers,
-    Map<String, Object> body,
-    String contentType,
+    Map<String, Object>? query,
+    Map<String, String>? headers,
+    Map<String, Object>? body,
+    String? contentType,
   });
 
   ///PUT -request
   Future<Response<T>> put<T>(
     String url, {
-    Map<String, Object> query,
-    Map<String, String> headers,
-    Map<String, Object> body,
-    String contentType,
+    Map<String, Object>? query,
+    Map<String, String>? headers,
+    Map<String, Object>? body,
+    String? contentType,
   });
 
   ///DELETE -request
   Future<Response<T>> delete<T>(
     String url, {
-    Map<String, Object> query,
-    Map<String, String> headers,
-    Map<String, Object> body,
-    String contentType,
+    Map<String, Object>? query,
+    Map<String, String>? headers,
+    Map<String, Object>? body,
+    String? contentType,
   });
 
   ///PATCH -request
   Future<Response<T>> patch<T>(
     String url, {
-    Map<String, Object> query,
-    Map<String, String> headers,
-    Map<String, Object> body,
-    String contentType,
+    Map<String, Object>? query,
+    Map<String, String>? headers,
+    Map<String, Object>? body,
+    String? contentType,
   });
 
   ///HEAD - request
@@ -67,14 +67,14 @@ abstract class Http {
     String url,
     Map<String, Object> query,
     Map<String, String> headers, {
-    String contentType,
+    String? contentType,
   });
 
   /// Multipart request
   Future<Response<T>> multipart<T>(
     String url, {
-    Map<String, String> headers,
-    File body,
-    String contentType,
+    Map<String, String>? headers,
+    File? body,
+    String? contentType,
   });
 }

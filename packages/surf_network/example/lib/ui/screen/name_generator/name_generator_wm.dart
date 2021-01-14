@@ -36,7 +36,7 @@ class NameGeneratorWidgetModel {
 
     getUserAction.listen((_) {
       _interactor.getCard().listen((user) {
-        _userList = listState.value;
+        _userList = listState.value ?? [];
         _userList.add(user);
         listState.add(_userList);
       });

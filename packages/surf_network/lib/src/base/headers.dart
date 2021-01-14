@@ -23,7 +23,7 @@ abstract class HeadersBuilder {
 
   Future<Map<String, String>> buildHeadersForUrl(
     String url,
-    Map<String, String> headers,
+    Map<String, String>? headers,
   ) async {
     Map<String, String> headersMap = Map()..addAll(headers ?? {});
     final defaultHeaders = _headersInfo[_DEFAULT_HEADERS_KEY];
@@ -68,6 +68,6 @@ abstract class HeadersBuilder {
         _exceptedUrls[key] = exceptedUrls;
       },
     );
-    _headersInfo[_DEFAULT_HEADERS_KEY].addAll(headers);
+    (_headersInfo[_DEFAULT_HEADERS_KEY] ?? {}).addAll(headers);
   }
 }

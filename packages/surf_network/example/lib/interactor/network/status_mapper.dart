@@ -42,18 +42,18 @@ class DefaultStatusMapper extends StandardStatusMapper {
 
 /// Респонс с ошибкой
 class ErrorResponse {
-  int errorCode;
-  String message;
+  int? errorCode;
+  String? message;
 
   ErrorResponse({this.errorCode, this.message});
 
   ErrorResponse.fromJson(Map<String, Object> json) {
-    errorCode = json['errorCode'];
-    message = json['message'];
+    errorCode = json['errorCode'] as int;
+    message = json['message'] as String;
   }
 
-  Map<String, Object> toJson() {
-    final Map<String, Object> data = new Map<String, Object>();
+  Map<String, Object?> toJson() {
+    final Map<String, Object?> data = new Map<String, Object>();
     data['errorCode'] = this.errorCode;
     data['message'] = this.message;
     return data;

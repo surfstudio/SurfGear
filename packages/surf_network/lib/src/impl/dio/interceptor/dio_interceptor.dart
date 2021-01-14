@@ -21,9 +21,9 @@ abstract class DioInterceptor
 
 /// Wrapper over [DioInterceptor]
 class DioInterceptorWrapper extends DioInterceptor {
-  final dio.InterceptorSendCallback requestCallback;
-  final dio.InterceptorSuccessCallback responseCallback;
-  final dio.InterceptorErrorCallback errorCallback;
+  final dio.InterceptorSendCallback? requestCallback;
+  final dio.InterceptorSuccessCallback? responseCallback;
+  final dio.InterceptorErrorCallback? errorCallback;
 
   DioInterceptorWrapper({
     this.requestCallback,
@@ -32,13 +32,13 @@ class DioInterceptorWrapper extends DioInterceptor {
   });
 
   @override
-  Object onRequest(dio.RequestOptions options) => requestCallback?.call(options);
+  Future onRequest(dio.RequestOptions options) => requestCallback?.call(options);
 
   @override
-  Object onResponse(dio.Response response) => responseCallback?.call(response);
+  Future onResponse(dio.Response response) => responseCallback?.call(response);
 
   @override
-  Object onError(dio.DioError err) => errorCallback?.call(err);
+  Future onError(dio.DioError err) => errorCallback?.call(err);
 }
 
 /// decorator for [dio.Interceptor]

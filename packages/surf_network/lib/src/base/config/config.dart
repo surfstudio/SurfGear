@@ -18,12 +18,12 @@ import 'package:surf_network/src/base/config/log_config.dart';
 class HttpConfig {
   final String baseUrl;
   final Duration timeout;
-  final String proxyUrl;
+  final String? proxyUrl;
 
   ///config for logging requests
   ///
   ///if null - requests will not logging
-  final LogConfig logConfig;
+  final LogConfig? logConfig;
 
   HttpConfig(
     this.baseUrl,

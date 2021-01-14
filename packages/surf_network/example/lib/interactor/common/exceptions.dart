@@ -13,7 +13,7 @@
 // limitations under the License.
 
 class MessagedException implements Exception {
-  final String message;
+  final String? message;
 
   MessagedException(this.message);
 
@@ -31,5 +31,5 @@ class UserNotFoundException implements Exception {}
 
 /// Ошибка: ответ не найден
 class NotFoundException extends MessagedException {
-  NotFoundException(String message) : super(message);
+  NotFoundException(String? message) : super(message);
 }

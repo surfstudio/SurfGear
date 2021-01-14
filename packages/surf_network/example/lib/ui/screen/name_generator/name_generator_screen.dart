@@ -33,7 +33,7 @@ class NameGeneratorScreen extends StatefulWidget {
 class _NameGeneratorScreenState extends State<NameGeneratorScreen> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
-  NameGeneratorWidgetModel wm;
+  late NameGeneratorWidgetModel wm;
 
   @override
   void initState() {
@@ -73,8 +73,7 @@ class _NameGeneratorScreenState extends State<NameGeneratorScreen> {
     );
   }
 
-  Widget _buildListWidget(
-      BuildContext context, AsyncSnapshot<List<User>> snapshot) {
+  Widget _buildListWidget(BuildContext context, AsyncSnapshot<List<User>> snapshot) {
     return ListView.builder(
       itemCount: snapshot.data.length,
       itemBuilder: (context, index) {

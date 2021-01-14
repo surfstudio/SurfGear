@@ -30,19 +30,23 @@ import 'package:surf_network/src/utils/logger.dart';
 /// todo по необходимости реализовать логику query - в текущей реализации не работает
 @Deprecated('Use `DioHttp` instead.')
 class DefaultHttp extends Http {
-  final HeadersBuilder headersBuilder;
+  final HeadersBuilder? headersBuilder;
   final HttpConfig config;
-  final StatusCodeMapper errorMapper;
+  final StatusCodeMapper? errorMapper;
 
-  DefaultHttp({this.headersBuilder, this.config, this.errorMapper});
+  DefaultHttp({
+    required this.config,
+    this.headersBuilder,
+    this.errorMapper,
+  });
 
   ///GET- request
   @override
   Future<Response<T>> get<T>(
     String url, {
-    Map<String, Object> query,
-    Map<String, String> headers,
-    String contentType,
+    Map<String, Object>? query,
+    Map<String, String>? headers,
+    String? contentType,
   }) async {
     print("DEV_WEB request : $url");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
@@ -51,7 +55,7 @@ class DefaultHttp extends Http {
           url,
           headers: headersMap,
         )
-        .timeout(config?.timeout)
+        .timeout(config.timeout)
         .then(_toResponse);
   }
 
@@ -59,10 +63,10 @@ class DefaultHttp extends Http {
   @override
   Future<Response<T>> post<T>(
     String url, {
-    Map<String, Object> query,
-    Map<String, String> headers,
-    Map<String, Object> body,
-    String contentType,
+    Map<String, Object>? query,
+    Map<String, String>? headers,
+    Map<String, Object>? body,
+    String? contentType,
   }) async {
     print("DEV_WEB request : $url, $body | $headers");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
@@ -79,10 +83,10 @@ class DefaultHttp extends Http {
   @override
   Future<Response<T>> put<T>(
     String url, {
-    Map<String, Object> query,
-    Map<String, String> headers,
-    Map<String, Object> body,
-    String contentType,
+    Map<String, Object>? query,
+    Map<String, String>? headers,
+    Map<String, Object>? body,
+    String? contentType,
   }) async {
     print("DEV_WEB request : $url, $body");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
@@ -101,10 +105,10 @@ class DefaultHttp extends Http {
   @override
   Future<Response<T>> delete<T>(
     String url, {
-    Map<String, Object> query,
-    Map<String, String> headers,
-    Map<String, Object> body,
-    String contentType,
+    Map<String, Object>? query,
+    Map<String, String>? headers,
+    Map<String, Object>? body,
+    String? contentType,
   }) async {
     print("DEV_WEB request : $url");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
@@ -120,10 +124,10 @@ class DefaultHttp extends Http {
   @override
   Future<Response<T>> patch<T>(
     String url, {
-    Map<String, Object> query,
-    Map<String, String> headers,
-    Map<String, Object> body,
-    String contentType,
+    Map<String, Object>? query,
+    Map<String, String>? headers,
+    Map<String, Object>? body,
+    String? contentType,
   }) async {
     print("DEV_WEB request : $url, $body");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
@@ -142,7 +146,7 @@ class DefaultHttp extends Http {
     String url,
     Map<String, Object> query,
     Map<String, String> headers, {
-    String contentType,
+    String? contentType,
   }) async {
     print("DEV_WEB request : $url");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
@@ -157,15 +161,15 @@ class DefaultHttp extends Http {
   @override
   Future<Response<T>> multipart<T>(
     String url, {
-    Map<String, String> headers,
-    File body,
-    String contentType,
+    Map<String, String>? headers,
+    File? body,
+    String? contentType,
   }) async {
     print("DEV_WEB request : $url");
     Map<String, String> headersMap = await _buildHeaders(url, headers);
 
     final request = http.MultipartRequest("POST", Uri.parse(url));
-    final bytes = await body.readAsBytes();
+    final bytes = (await body?.readAsBytes()) ?? <int>[];
     final file = http.MultipartFile.fromBytes(
       "image",
       bytes,
@@ -173,17 +177,15 @@ class DefaultHttp extends Http {
     );
 
     request.files.add(file);
-    headersMap.entries
-        .forEach((entry) => request.headers[entry.key] = entry.value);
+    headersMap.entries.forEach((entry) => request.headers[entry.key] = entry.value);
 
     return request.send().then(http.Response.fromStream).then(_toResponse);
   }
 
-  Future<Map<String, String>> _buildHeaders(
-      String url, Map<String, String> headers) async {
+  Future<Map<String, String>> _buildHeaders(String url, Map<String, String>? headers) async {
     Map<String, String> headersMap = Map();
     if (headersBuilder != null) {
-      headersMap.addAll(await headersBuilder.buildHeadersForUrl(url, headers));
+      headersMap.addAll(await headersBuilder!.buildHeadersForUrl(url, headers));
     }
 
     logger.d("request  headers: $url, | $headersMap");
@@ -192,14 +194,14 @@ class DefaultHttp extends Http {
 
   Response<T> _toResponse<T>(http.Response r) {
     logger.d("${r.statusCode} | ${r.body}");
-    final response = Response<T>(r.body as Object, r.statusCode);
+    final response = Response<T>(r.body as T, r.statusCode);
     if (response.statusCode == 400) {
       mapError(response);
     }
     return response;
   }
 
-  Object mapError(Response e) {
+  void mapError(Response e) {
     errorMapper?.checkStatus(e);
   }
 }
