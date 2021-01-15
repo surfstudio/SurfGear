@@ -23,8 +23,6 @@ abstract class TabType extends Enum<int> {
 
   static List<TabType> values = [];
 
-  static TabType defaultType;
-
   static void create(TabType newTab) {
     values.add(newTab);
   }
