@@ -18,6 +18,6 @@
 class CoordsMetrics {
   CoordsMetrics({this.y, this.x});
 
-  final double y;
-  final double x;
+  final double? y;
+  final double? x;
 }

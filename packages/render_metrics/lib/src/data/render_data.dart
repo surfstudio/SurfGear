@@ -45,14 +45,14 @@ class RenderData {
     this.height,
   });
 
-  final double yTop;
-  final double yBottom;
-  final double yCenter;
-  final double xLeft;
-  final double xRight;
-  final double xCenter;
-  final double width;
-  final double height;
+  final double? yTop;
+  final double? yBottom;
+  final double? yCenter;
+  final double? xLeft;
+  final double? xRight;
+  final double? xCenter;
+  final double? width;
+  final double? height;
 
   CoordsMetrics get topLeft => CoordsMetrics(y: yTop, x: xLeft);
 
@@ -75,24 +75,30 @@ class RenderData {
   /// Returns the difference between
   /// the external and the current instance ofRenderData,
   /// as an instance of the ComparisonDiff class
-  ComparisonDiff operator -(RenderData other) {
+  ComparisonDiff? operator -(RenderData? other) {
     if (other == null) return null;
     return ComparisonDiff(
       firstData: this,
       secondData: other,
-      yTop: yTop - other.yTop,
-      yBottom: yBottom - other.yBottom,
-      yCenter: yCenter - other.yCenter,
-      xLeft: xLeft - other.xLeft,
-      xRight: xRight - other.xRight,
-      xCenter: xCenter - other.xCenter,
-      diffTopToBottom: yTop - other.yBottom,
-      diffBottomToTop: yBottom - other.yTop,
-      diffLeftToRight: xLeft - other.xRight,
-      diffRightToLeft: xRight - other.xLeft,
-      width: width - other.width,
-      height: height - other.height,
+      yTop: _nnSubtract(yTop, other.yTop),
+      yBottom: _nnSubtract(yBottom, other.yBottom),
+      yCenter: _nnSubtract(yCenter, other.yCenter),
+      xLeft: _nnSubtract(xLeft, other.xLeft),
+      xRight: _nnSubtract(xRight, other.xRight),
+      xCenter: _nnSubtract(xCenter, other.xCenter),
+      diffTopToBottom: _nnSubtract(yTop, other.yBottom),
+      diffBottomToTop: _nnSubtract(yBottom, other.yTop),
+      diffLeftToRight: _nnSubtract(xLeft, other.xRight),
+      diffRightToLeft: _nnSubtract(xRight, other.xLeft),
+      width: _nnSubtract(width, other.width),
+      height: _nnSubtract(height, other.height),
     );
+  }
+
+  double? _nnSubtract(double? minuend, double? subtrahend) {
+    // ignore: avoid_returning_null
+    if (minuend == null || subtrahend == null) return null;
+    return minuend - subtrahend;
   }
 
   @override

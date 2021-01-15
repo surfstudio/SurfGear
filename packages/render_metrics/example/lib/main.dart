@@ -18,7 +18,8 @@ import 'package:render_metrics/render_metrics.dart';
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,7 +33,10 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({
+    required this.title,
+    Key? key,
+  }) : super(key: key);
 
   final String title;
 
@@ -66,10 +70,11 @@ class _MyHomePageState extends State<MyHomePage> {
       _text0 = _getRenderDataText(_text0Id);
     });
 
-    final ComparisonDiff diff =
-        renderManager.getDiffById(_containerPositionedId, _textBlockId);
+    final ComparisonDiff? diff = renderManager.getDiffById(_containerPositionedId, _textBlockId);
 
-    _changeBlockUi(diff.diffBottomToTop > 0);
+    if (diff != null) {
+      _changeBlockUi((diff.diffBottomToTop ?? 0) > 0);
+    }
   }
 
   void _changeBlockUi(bool isChange) {

@@ -63,20 +63,20 @@ class ComparisonDiff {
     this.height,
   });
 
-  final RenderData firstData;
-  final RenderData secondData;
-  final double yTop;
-  final double yBottom;
-  final double yCenter;
-  final double xLeft;
-  final double xRight;
-  final double xCenter;
-  final double diffTopToBottom;
-  final double diffBottomToTop;
-  final double diffLeftToRight;
-  final double diffRightToLeft;
-  final double width;
-  final double height;
+  final RenderData? firstData;
+  final RenderData? secondData;
+  final double? yTop;
+  final double? yBottom;
+  final double? yCenter;
+  final double? xLeft;
+  final double? xRight;
+  final double? xCenter;
+  final double? diffTopToBottom;
+  final double? diffBottomToTop;
+  final double? diffLeftToRight;
+  final double? diffRightToLeft;
+  final double? width;
+  final double? height;
 
   CoordsMetrics get topLeft => CoordsMetrics(y: yTop, x: xLeft);
 
