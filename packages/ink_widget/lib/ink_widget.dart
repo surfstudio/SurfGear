@@ -12,6 +12,4 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library ink_widget;
-
 export 'package:ink_widget/src/ink_widget.dart';
