@@ -36,21 +36,21 @@ class OTPTextEditController extends TextEditingController {
   final _otpInteractor = OTPInteractor();
 
   /// OTP code length - trigger for callback
-  final int codeLength;
+  final int? codeLength;
 
   /// OTPTextEditController receive OTP code
-  final StringCallback onCodeReceive;
+  final StringCallback? onCodeReceive;
 
   /// Receiver get TimeoutError after 5 minutes without sms
-  final VoidCallback onTimeOutException;
+  final VoidCallback? onTimeOutException;
 
   /// Start listen for OTP code with User Consent API
   /// sms by default
   /// could be added another input as OTPStrategy
   void startListenUserConsent(
     ExtractStringCallback codeExtractor, {
-    List<OTPStrategy> strategies,
-    String senderNumber,
+    List<OTPStrategy>? strategies,
+    String? senderNumber,
   }) {
     final smsListen = _otpInteractor.startListenUserConsent(senderNumber);
     final strategiesListen = strategies?.map((e) => e.listenForCode());
@@ -73,7 +73,7 @@ class OTPTextEditController extends TextEditingController {
   /// could be added another input as OTPStrategy
   void startListenRetriever(
     ExtractStringCallback codeExtractor, {
-    List<OTPStrategy> additionalStrategies,
+    List<OTPStrategy>? additionalStrategies,
   }) {
     final smsListen = _otpInteractor.startListenRetriever();
     final strategiesListen = additionalStrategies?.map(
@@ -96,7 +96,7 @@ class OTPTextEditController extends TextEditingController {
   /// Get OTP code from another input
   /// don't registry BroadcastReceivers
   void startListenOnlyStrategies(
-    List<OTPStrategy> strategies,
+    List<OTPStrategy>? strategies,
     ExtractStringCallback codeExtractor,
   ) {
     final strategiesListen = strategies?.map((e) => e.listenForCode());
@@ -108,12 +108,12 @@ class OTPTextEditController extends TextEditingController {
   }
 
   /// Broadcast receiver stop listen for OTP code, use in dispose
-  Future<Object> stopListen() {
+  Future<Object?> stopListen() {
     return _otpInteractor.stopListenForCode();
   }
 
   /// call onComplete callback if code entered
   void checkForComplete() {
-    if (text.length == codeLength) onCodeReceive.call(text);
+    if (text.length == codeLength) onCodeReceive?.call(text);
   }
 }

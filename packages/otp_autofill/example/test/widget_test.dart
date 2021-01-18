@@ -17,8 +17,11 @@ void main() {
     // Verify that platform version is retrieved.
     expect(
       find.byWidgetPredicate(
-        (widget) => widget is Text &&
-                           widget.data.startsWith('Running on:'),
+        (widget) {
+          if (widget is! Text) return false;
+          if (widget.data == null) return false;
+          return widget.data!.startsWith('Running on:');
+        },
       ),
       findsOneWidget,
     );

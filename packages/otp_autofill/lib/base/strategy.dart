@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-typedef ExtractStringCallback = String Function(String);
+typedef ExtractStringCallback = String Function(String?);
 
 /// Strategy interface, another variant of code input
 /// e.g. from push notification or for testing

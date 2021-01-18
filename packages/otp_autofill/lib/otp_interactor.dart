@@ -37,34 +37,34 @@ class OTPInteractor {
   static const MethodChannel _channel = MethodChannel(channelName);
 
   /// Show user telephone picker and get chosen number
-  static Future<String> get hint {
+  static Future<String?> get hint {
     if (Platform.isAndroid) {
-      return _channel.invokeMethod(getTelephoneHint);
+      return _channel.invokeMethod<String>(getTelephoneHint);
     } else {
       return throw UnsupportedPlatform();
     }
   }
 
   /// Get app signature, that used in Retriever API
-  static Future<String> getAppSignature() async {
+  static Future<String?> getAppSignature() async {
     if (Platform.isAndroid) {
-      return _channel.invokeMethod(getAppSignatureMethod);
+      return _channel.invokeMethod<String>(getAppSignatureMethod);
     } else {
       return throw UnsupportedPlatform();
     }
   }
 
   /// Broadcast receiver stop listen for OTP code, use in dispose
-  Future<Object> stopListenForCode() {
+  Future<Object?> stopListenForCode() {
     return _channel.invokeMethod<Object>(stopListenForCodeMethod);
   }
 
   /// Broadcast receiver start listen for OTP code with User Consent API
-  Future<String> startListenUserConsent([String senderPhone]) async {
+  Future<String?> startListenUserConsent([String? senderPhone]) async {
     if (Platform.isAndroid) {
       return _channel.invokeMethod<String>(
         startListenUserConsentMethod,
-        <String, String>{
+        <String, String?>{
           senderTelephoneNumber: senderPhone,
         },
       );
@@ -74,7 +74,7 @@ class OTPInteractor {
   }
 
   /// Broadcast receiver start listen for OTP code with Retriever API
-  Future<String> startListenRetriever() async {
+  Future<String?> startListenRetriever() async {
     if (Platform.isAndroid) {
       return _channel.invokeMethod<String>(startListenRetrieverMethod);
     } else {
