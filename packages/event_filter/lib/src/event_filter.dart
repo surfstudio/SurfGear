@@ -25,9 +25,10 @@ abstract class EventFilter {
 
   /// Filter event.
   /// If event has been pass by filter, it must be return, else return null.
-  Event filter(Event event) {
+  Event? filter(Event event) {
     final filterStrategy = factory.findStrategy(event);
 
+    if (filterStrategy == null) return null;
     return filterStrategy.filter(event);
   }
 }

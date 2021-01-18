@@ -13,26 +13,25 @@
 // limitations under the License.
 
 import 'package:event_filter/event_filter.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:mwwm/mwwm.dart';
 
 /// Standard error handler.
 class StandardErrorHandler extends ErrorHandler {
   StandardErrorHandler({
-    @required this.strategyProvider,
+    required this.strategyProvider,
     this.filter,
   });
 
-  final EventFilter filter;
+  final EventFilter? filter;
   final EventStrategyProvider strategyProvider;
 
   @override
-  void handleError(Object e) {
-    ErrorEvent event = ErrorEvent(e as Exception);
+  void handleError(Object? e) {
+    ErrorEvent? event = e != null ? ErrorEvent(e as Exception) : null;
 
     /// filtering if filter was set
     if (filter != null) {
-      event = filter.filter(event) as ErrorEvent;
+      event = filter!.filter(event as Event) as ErrorEvent;
     }
 
     if (event != null) {

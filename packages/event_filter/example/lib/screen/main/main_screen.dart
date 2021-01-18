@@ -21,7 +21,7 @@ import 'package:surf_mwwm/surf_mwwm.dart';
 /// Main screen
 class MainScreen extends MwwmWidget<MainScreenComponent> {
   MainScreen({
-    Key key,
+    Key? key,
     WidgetModelBuilder widgetModelBuilder = createMainScreenWidgetModel,
   }) : super(
           key: key,

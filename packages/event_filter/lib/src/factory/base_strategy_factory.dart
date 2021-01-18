@@ -30,7 +30,7 @@ abstract class BaseStrategyFactory<T extends BaseEventStrategy> {
   @protected
   final T defaultStrategy;
 
-  T findStrategy(Event event) {
+  T? findStrategy(Event event) {
     final eventType = event.runtimeType;
 
     if (strategies.containsKey(eventType)) {

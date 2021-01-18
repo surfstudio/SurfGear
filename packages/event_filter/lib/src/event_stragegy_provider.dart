@@ -25,14 +25,14 @@ abstract class EventStrategyProvider {
 
   /// Resolve strategy for event.
   void resolve(Event event) {
-    factory.findStrategy(event).resolve(event);
+    factory.findStrategy(event)?.resolve(event);
   }
 
   /// Resolve strategy for event with transmitted filter.
   void resolveWithCurrentFilter(
     Event event, {
-    EventFilterStrategy filter,
+    EventFilterStrategy? filter,
   }) {
-    factory.findStrategy(event).resolveWithCurrentFilter(event, filter: filter);
+    factory.findStrategy(event)?.resolveWithCurrentFilter(event, filter: filter);
   }
 }

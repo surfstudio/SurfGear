@@ -22,7 +22,7 @@ abstract class EventStrategy<E extends Event<dynamic>>
     extends BaseEventStrategy<E> {
   EventStrategy({this.filterStrategy});
 
-  final EventFilterStrategy<E> filterStrategy;
+  final EventFilterStrategy<E>? filterStrategy;
 
   /// Resolve event by selected strategy.
   void resolve(E event) {
@@ -33,7 +33,7 @@ abstract class EventStrategy<E extends Event<dynamic>>
   /// filter.
   void resolveWithCurrentFilter(
     E event, {
-    EventFilterStrategy<E> filter,
+    EventFilterStrategy<E>? filter,
   }) {
     _resolve(event, filter);
   }
@@ -41,7 +41,7 @@ abstract class EventStrategy<E extends Event<dynamic>>
   @protected
   void doResolve(E event);
 
-  void _resolve(E event, EventFilterStrategy<E> filter) {
+  void _resolve(E? event, EventFilterStrategy<E>? filter) {
     if (filter != null) {
       // ignore: parameter_assignments
       event = filter.filter(event);

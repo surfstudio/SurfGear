@@ -17,29 +17,34 @@ import 'package:event_filter/src/impl/error/error_event.dart';
 
 /// Default strategy of filtering error event
 class DefaultErrorFilterStrategy extends EventFilterStrategy<ErrorEvent> {
-  ErrorEvent _currentEvent;
+  ErrorEvent? _currentEvent;
 
   @override
-  ErrorEvent filter(ErrorEvent event) {
+  ErrorEvent? filter(ErrorEvent? event) {
     if (_currentEvent == null) {
       _updateCurrent(event);
 
       return event;
     } else {
-      final currentError = _currentEvent.data;
-      final newError = event.data;
+      final currentError = _currentEvent!.data;
+      if (event != null) {
+        final newError = event.data;
 
-      if (currentError.runtimeType != newError.runtimeType) {
-        _updateCurrent(event);
+        if (currentError.runtimeType != newError.runtimeType) {
+          _updateCurrent(event);
 
-        return event;
+          return event;
+        } else {
+          return null;
+        }
       } else {
-        return null;
+        _updateCurrent(event);
+        return event;
       }
     }
   }
 
-  void _updateCurrent(ErrorEvent event) {
+  void _updateCurrent(ErrorEvent? event) {
     _currentEvent = event;
 
     Future<void>.delayed(const Duration(seconds: 4)).then((_) {

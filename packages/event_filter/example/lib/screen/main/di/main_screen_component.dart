@@ -15,8 +15,8 @@
 import 'package:event_filter/event_filter.dart';
 import 'package:example/error/standard_error_handler.dart';
 import 'package:flutter/material.dart';
-import 'package:surf_injector/surf_injector.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:surf_injector/surf_injector.dart';
 
 /// [Component] for screen MainScreen
 class MainScreenComponent implements Component {
@@ -41,7 +41,7 @@ class MainScreenComponent implements Component {
   }
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  NavigatorState navigator;
+  late NavigatorState navigator;
 
-  WidgetModelDependencies widgetModelDependencies;
+  late WidgetModelDependencies widgetModelDependencies;
 }

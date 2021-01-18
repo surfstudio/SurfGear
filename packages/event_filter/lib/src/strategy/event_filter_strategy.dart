@@ -20,5 +20,5 @@ abstract class EventFilterStrategy<E extends Event<dynamic>>
     extends BaseEventStrategy<E> {
   /// Filter for event.
   /// If event has been pass by filter, it must be return, else return null.
-  E filter(E event);
+  E? filter(E? event);
 }
