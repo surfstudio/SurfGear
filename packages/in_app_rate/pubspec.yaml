@@ -1,5 +1,5 @@
 name: in_app_rate
-version: "0.0.1-dev.1"
+version: "1.0.0"
 description: "Plugin use in-app review and App Store Review"
 publish_to: none
 
@@ -10,14 +10,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  surf_lint_rules:
-    git:
-      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-      path: packages/surf_lint_rules
+  surf_lint_rules: ^1.0.0
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.10.0"
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=2.0.0"
 
 flutter:
   plugin:

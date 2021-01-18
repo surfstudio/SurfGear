@@ -3,12 +3,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:in_app_rate/in_app_rate.dart';
 
 void main() {
-  const MethodChannel channel = MethodChannel(channelName);
+  const channel = MethodChannel(channelName);
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUp(() {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    channel.setMockMethodCallHandler((methodCall) async {
       switch (methodCall.method) {
         case openRatingDialogMethod:
           return true;

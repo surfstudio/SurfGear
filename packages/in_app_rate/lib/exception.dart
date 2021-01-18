@@ -16,4 +16,4 @@
 class PlayServiceNotEnabled implements Exception {}
 
 /// iOS version is lower then 10.3
-class IOVersionIsLow implements Exception {}
+class IOSVersionIsLow implements Exception {}

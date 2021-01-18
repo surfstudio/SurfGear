@@ -20,43 +20,39 @@ import 'package:flutter/services.dart';
 import 'package:in_app_rate/exception.dart';
 
 /// Channel
-const channelName = 'in_app_rate';
+const String channelName = 'in_app_rate';
 
 /// Methods
-const openRatingDialogMethod = 'openRatingDialog';
+const String openRatingDialogMethod = 'openRatingDialog';
 
 /// Arguments
-const isTestEnvironment = 'isTestEnvironment';
+const _isTestEnvironment = 'isTestEnvironment';
 
 class InAppRate {
-  static const MethodChannel _channel = MethodChannel(channelName);
+  static const _channel = MethodChannel(channelName);
 
   /// Show rating dialog to user
   ///
-  /// @param isTest Replace manager with fake manager, only Android
-  /// @param onError Callback on nativeError,
+  /// [isTest] Replace manager with fake manager, only Android
+  /// [onError] Callback on nativeError,
   /// you could open link to application store
-  ///
-  /// @return true if can open dialog
-  static Future<bool> openRatingDialog({
-    bool isTest,
-    VoidCallback onError,
+  static Future<bool?> openRatingDialog({
+    bool isTest = false,
+    VoidCallback? onError,
   }) {
     return _channel.invokeMethod<bool>(
       openRatingDialogMethod,
-      <String, bool>{
-        isTestEnvironment: isTest,
-      },
+      {_isTestEnvironment: isTest},
     ).catchError(
-      (dynamic error) {
+      // ignore: avoid_types_on_closure_parameters
+      (Object? error) {
         if (onError != null) {
           onError();
           return false;
-        } else {
-          Platform.isAndroid
-              ? throw PlayServiceNotEnabled()
-              : throw IOVersionIsLow();
         }
+        Platform.isAndroid
+            ? throw PlayServiceNotEnabled()
+            : throw IOSVersionIsLow();
       },
     );
   }
