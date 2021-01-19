@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,10 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({
+    required this.title,
+    Key? key,
+  }) : super(key: key);
 
   final String title;
 
@@ -130,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  List<Widget> _getChildren(double bottomSheetOffset, {bool isShowPosition}) => <Widget>[
+  List<Widget> _getChildren(double bottomSheetOffset, {required bool isShowPosition}) => <Widget>[
         if (isShowPosition)
           Text(
             'position $bottomSheetOffset',

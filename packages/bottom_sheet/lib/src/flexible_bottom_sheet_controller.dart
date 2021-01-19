@@ -20,7 +20,7 @@ import 'package:flutter/material.dart';
 class FlexibleBottomSheetController {
   FlexibleBottomSheetController(
     this._context, {
-    this.owner,
+    required this.owner,
   });
 
   final BuildContext _context;
@@ -29,11 +29,17 @@ class FlexibleBottomSheetController {
   /// Show registered bottom sheet.
   Future<T> show<T>(
     Object type, {
-    BottomSheetData data,
+    BottomSheetData? data,
   }) {
-    return owner.registeredBottomSheetShowers[type](
-      _context,
-      data: data,
-    ) as Future<T>;
+    final showers = owner.registeredBottomSheetShowers[type];
+
+    if (showers != null) {
+      return showers(
+        _context,
+        data: data,
+      ) as Future<T>;
+    } else {
+      throw Exception('BottomSheetShowers not registered for type: $type');
+    }
   }
 }

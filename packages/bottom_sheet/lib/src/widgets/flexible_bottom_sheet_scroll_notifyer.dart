@@ -27,11 +27,11 @@ typedef ScrollEndCallback = bool Function(ScrollEndNotification);
 /// Listen drag-notifications
 class FlexibleScrollNotifyer extends StatelessWidget {
   const FlexibleScrollNotifyer({
-    Key key,
-    this.child,
-    this.scrollStartCallback,
-    this.scrollingCallback,
-    this.scrollEndCallback,
+    required this.child,
+    required this.scrollStartCallback,
+    required this.scrollingCallback,
+    required this.scrollEndCallback,
+    Key? key,
   }) : super(key: key);
 
   final Widget child;
