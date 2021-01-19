@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library bottom_navigation_bar;
-
 export 'package:bottom_navigation_bar/src/bottom_navigator.dart';
 export 'package:bottom_navigation_bar/src/bottom_nav_bar.dart';
 export 'package:bottom_navigation_bar/src/bottom_nav_tab_type.dart';

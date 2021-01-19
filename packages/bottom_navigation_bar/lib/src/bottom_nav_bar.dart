@@ -22,10 +22,10 @@ typedef NavElementBuilder = Widget Function(bool isSelected);
 /// Bottom navigation bar widget.
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({
-    @required this.selectedController,
-    @required this.initType,
-    @required this.elements,
-    Key key,
+    required this.selectedController,
+    required this.initType,
+    required this.elements,
+    Key? key,
   }) : super(key: key);
 
   final BottomNavTabType initType;
@@ -37,43 +37,29 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  StreamSubscription _outerSubscription;
-  BottomNavTabType _currentType;
+  late BottomNavTabType _currentType;
+  late StreamSubscription _outerSubscription;
 
   @override
   void initState() {
     super.initState();
 
     _currentType = widget.initType;
-
     _outerSubscription =
         widget.selectedController.stream.listen(_onSelectedChanged);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: _buildElements(),
-    );
-  }
-
-  List<Widget> _buildElements() {
-    final List<Widget> widgets = [];
-
-    widget.elements.forEach(
-      (tabType, builder) => widgets.add(
-        Expanded(child: _buildElement(builder, tabType)),
-      ),
-    );
-
-    return widgets;
-  }
-
-  Widget _buildElement(NavElementBuilder builder, BottomNavTabType tabType) {
-    return InkWell(
-      onTap: () => _updateSelected(tabType),
-      child: builder(tabType == _currentType),
-    );
+    return Row(children: [
+      for (final entry in widget.elements.entries)
+        Expanded(
+          child: InkWell(
+            onTap: () => _updateSelected(entry.key),
+            child: entry.value(entry.key == _currentType),
+          ),
+        ),
+    ]);
   }
 
   void _onSelectedChanged(BottomNavTabType event) {
@@ -95,7 +81,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   void dispose() {
-    _outerSubscription?.cancel();
+    _outerSubscription.cancel();
 
     super.dispose();
   }

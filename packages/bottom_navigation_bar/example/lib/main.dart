@@ -13,13 +13,15 @@
 // limitations under the License.
 
 import 'dart:async';
+
 import 'package:bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,7 +34,10 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({
+    required this.title,
+    Key? key,
+  }) : super(key: key);
   final String title;
 
   @override
@@ -40,20 +45,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final StreamController<BottomNavTabType> _selectorController =
-      StreamController<BottomNavTabType>.broadcast();
+  final _selectorController = StreamController<BottomNavTabType>.broadcast();
 
-  List<BottomNavTabType> _types;
+  late List<BottomNavTabType> _types;
+  late Map<BottomNavTabType, BottomNavigationRelationship> _map;
 
-  Map<BottomNavTabType, BottomNavigationRelationship> _map;
-
-  bool _isCustom = true;
+  var _isCustom = true;
 
   @override
   void initState() {
     super.initState();
 
-    _types = [
+    _types = const [
       BottomNavTabType(0),
       BottomNavTabType(1),
       BottomNavTabType(2),
@@ -97,15 +100,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildWithCommon() {
-    return Container(
-      child: _buildBottomNavigator(),
-    );
+    return Container(child: _buildBottomNavigator());
   }
 
   Widget _buildWithCustom() {
-    return Container(
-      child: _buildCustomBottomNavigator(),
-    );
+    return Container(child: _buildCustomBottomNavigator());
   }
 
   BottomNavigator _buildBottomNavigator() {
@@ -132,8 +131,8 @@ class _MyHomePageState extends State<MyHomePage> {
       color: color,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          FlatButton(
+        children: [
+          TextButton(
             onPressed: () {
               setState(
                 () {
@@ -141,12 +140,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               );
             },
-            color: const Color(0xFFFFFFFF),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            ),
             child: const Text('Change mode'),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
+            children: [
               _buildChangeButton(0),
               _buildChangeButton(1),
               _buildChangeButton(2),
@@ -158,11 +159,13 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildChangeButton(int value) {
-    return FlatButton(
+    return TextButton(
       onPressed: () {
         _selectorController.sink.add(_types[value]);
       },
-      color: const Color(0xFFFFFFFF),
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+      ),
       child: Text(value.toString()),
     );
   }
@@ -171,11 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Container(
       height: 100,
       color: color,
-      child: isSelected
-          ? const Center(
-              child: Icon(Icons.check),
-            )
-          : Container(),
+      child: isSelected ? const Center(child: Icon(Icons.check)) : Container(),
     );
   }
 
@@ -183,16 +182,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return Container(
       decoration: BoxDecoration(
         color: color,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(50),
-        ),
+        borderRadius: const BorderRadius.all(Radius.circular(50)),
       ),
       height: 100,
-      child: isSelected
-          ? const Center(
-              child: Icon(Icons.check),
-            )
-          : Container(),
+      child: isSelected ? const Center(child: Icon(Icons.check)) : Container(),
     );
   }
 
