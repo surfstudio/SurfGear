@@ -218,19 +218,9 @@ This means you can work with the `ClipboardStatusNotifier`, `TextEditingControll
 
 Most screens in mobile applications are quite simple and usually have several typical states:
 
-<<<<<<< HEAD
 - data;
 - loading;
 - error.
-=======
-We have noticed that most screens in mobile applications are quite simple and have several typical states:
-
-- data;
-- loading;
-- error.
-
-`EntityStreamedState` provides you a handy interface for the data stream to handle these states properly.
->>>>>>> d0f966f6 (Extra states description in Relation readme)
 
 `EntityStreamedState` provides you with a convenient interface for the data stream to handle these states properly.
 
@@ -254,11 +244,7 @@ try {
 
 But what do all these functions actually do? The answer is on the other side. By using `EntityStateBuilder` instead of just `StreamedStateBuilder` you can set widgets for all three states and switch between them easily.
 
-<<<<<<< HEAD
 Pass `EntityStreamedState` instance to the `streamedState` argument first. After that, you can specify a set of widgets for displaying data (`child`), load state (`loadingChild`), and error state (`errorChild`).
-=======
-Pass `EntityStreamedState` instance to the `streamedState` argument first. Right after that you can specify a set of widgets for displaying data (`child`), load state (`loadingChild`) and error state (`errorChild`).
->>>>>>> d0f966f6 (Extra states description in Relation readme)
 
 ```dart
 EntityStateBuilder<UserProfile>(
@@ -288,15 +274,9 @@ To summarize, every time someone calls an `EntityStateBuilder`'s functions (`loa
 
 #### TextFieldStreamedState + TextFieldStateBuilder
 
-<<<<<<< HEAD
 The idea behind `TextFieldStreamedState` and `TextFieldStateBuilder` is technically the same. The only difference is that `TextFieldStreamedState` is designed to work with text widgets (`Text`, `TextField`, etc.).
 
 `TextFieldStreamedState` allows you to set up your text field validation rules and some other settings, such as making the text field mandatory for the user to fill out.
-=======
-The idea of `TextFieldStreamedState` and `TextFieldStateBuilder` technically the same with the difference that `TextFieldStreamedState` is designed to work with text widgets (`Text`, `TextField`, etc.).
-
-`TextFieldStreamedState` allows you to setup your text field validation rules and some other settings like is the text field enabled or mandatory to be filled.
->>>>>>> d0f966f6 (Extra states description in Relation readme)
 
 ```dart
 final textState = TextFieldStreamedState(
