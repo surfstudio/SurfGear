@@ -1,5 +1,5 @@
 name: surf_network
-version: "0.0.1-dev.10"
+version: "0.1.0-dev.0"
 description: Network implementation for Flutter
 repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/surf_network"
 
