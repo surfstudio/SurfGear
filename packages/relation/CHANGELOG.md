@@ -1,3 +1,7 @@
+## 0.1.0
+
+* Migrate this package to null safety.
+
 ## 0.0.3-dev.4
   
 * add 'from' constructors to StreamedStates
