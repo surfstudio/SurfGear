@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 ## 1.0.1-dev.9
 
 * Added update method
 * update Readme
+=======
+## 1.1.0
+
+* Migrate this package to null safety.
+>>>>>>> version and changelog
 
 ## 1.0.1-dev.4
 
