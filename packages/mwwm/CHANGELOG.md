@@ -1,3 +1,7 @@
+## 0.2.0
+
+* Migrate this package to null safety.
+
 ## 0.1.0-dev.4
 
 * Replace dynamic type in WidgetModel's errorCallbacks
