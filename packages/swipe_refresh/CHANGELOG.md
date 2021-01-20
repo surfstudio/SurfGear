@@ -1,6 +1,6 @@
-## 0.0.1-dev.12
+## 0.1.0
 
-* Fix unnecessary onRefresh call on CupertinoSwipeRefresh
+* Migrate this package to null safety.
 
 ## 0.0.1-dev.9
 
