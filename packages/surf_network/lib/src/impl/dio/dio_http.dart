@@ -59,7 +59,7 @@ class DioHttp extends Http {
         request: logConfig.options,
         requestHeader: logConfig.requestHeader,
         requestBody: logConfig.requestBody,
-        responseHeader: logConfig.requestHeader,
+        responseHeader: logConfig.responseHeader,
         responseBody: logConfig.responseBody,
         error: logConfig.error,
       ));
