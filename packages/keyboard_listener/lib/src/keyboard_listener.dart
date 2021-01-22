@@ -108,12 +108,12 @@ class KeyboardListener with WidgetsBindingObserver {
 
   /// Delete onShow listener by id
   void removeAtShowListener(String id) {
-    _removeAtListener(_changeListeners, id);
+    _removeAtListener(_showListeners, id);
   }
 
   /// Delete onHide listener by id
   void removeAtHideListener(String id) {
-    _removeAtListener(_changeListeners, id);
+    _removeAtListener(_hideListeners, id);
   }
 
   /// Delete listener by id
