@@ -46,7 +46,7 @@ Future<T> showFlexibleBottomSheet<T>({
 
   return Navigator.of(context, rootNavigator: useRootNavigator).push(
     _FlexibleBottomSheetRoute<T>(
-      theme: Theme.of(context, shadowThemeOnly: true),
+      theme: Theme.of(context),
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
       minHeight: minHeight ?? 0,
       initHeight: initHeight ?? 0.5,
@@ -102,7 +102,7 @@ Future<T> showStickyFlexibleBottomSheet<T>({
 
   return Navigator.of(context, rootNavigator: useRootNavigator).push(
     _FlexibleBottomSheetRoute<T>(
-      theme: Theme.of(context, shadowThemeOnly: true),
+      theme: Theme.of(context),
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
       minHeight: minHeight ?? 0,
       initHeight: initHeight ?? 0.5,
