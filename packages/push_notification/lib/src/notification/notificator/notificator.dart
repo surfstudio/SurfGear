@@ -85,8 +85,8 @@ class Notificator {
 
   /// Request notification permissions (iOS only)
   Future<bool> requestPermissions({
-    bool requestSoundPermission = false,
-    bool requestAlertPermission = false,
+    bool requestSoundPermission,
+    bool requestAlertPermission,
   }) async {
     if (Platform.isAndroid) return true;
     return _iosNotification.requestPermissions(
