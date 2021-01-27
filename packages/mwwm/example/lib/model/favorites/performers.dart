@@ -56,7 +56,7 @@ class DefineFavoritesFromRepositoryPerformer
 
   @override
   Future<List<Repository>> perform(DefineFavoritesFromRepository change) async {
-    final List<Repository> repositories = List.from(change.repositories);
+    final List<Repository> repositories = List.from(change?.repositories ?? []);
     final List<Repository> favorites =
         await _favoritesRepository.getRepositories();
 
@@ -65,10 +65,9 @@ class DefineFavoritesFromRepositoryPerformer
     }
 
     for (Repository fav in favorites) {
-      final Repository repo = repositories.firstWhere(
-        (repo) => repo.id == fav.id,
-      );
-      repo.isFavorite = true;
+      final Repository repo = repositories
+          .firstWhere((repo) => repo.id == fav.id, orElse: () => null);
+      repo?.isFavorite = true;
     }
 
     return repositories;
