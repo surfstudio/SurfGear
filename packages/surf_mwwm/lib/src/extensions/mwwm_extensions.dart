@@ -118,7 +118,7 @@ extension EventExt<T> on Event<T> {
     void Function(T) onValue,
     void Function(Exception) onError,
   }) {
-    this.stream.listenCathError(listener, onValue: onValue, onError: onError);
+    this.stream.listenCatchError(listener, onValue: onValue, onError: onError);
   }
 }
 
@@ -133,7 +133,7 @@ extension StreamX<T> on Stream<T> {
   }
 
   /// Listen on WM with error catching
-  void listenCathError(
+  void listenCatchError(
     WidgetModel listener, {
     void Function(T) onValue,
     void Function(Exception) onError,

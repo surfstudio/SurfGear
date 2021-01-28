@@ -33,7 +33,7 @@ class AppWidgetModel extends WidgetModel {
   }
 
   Future<void> _loadApp() async {
-    initApp().listenCathError(this, onValue: (isAuth) {
+    initApp().listenCatchError(this, onValue: (isAuth) {
       _openScreen(CounterScreenRoute());
     });
   }
