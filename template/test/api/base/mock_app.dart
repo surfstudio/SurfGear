@@ -1,8 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_template/interactor/common/urls.dart';
 import 'package:flutter_template/interactor/network/status_mapper.dart';
 import 'package:flutter_template/interactor/token/token_storage.dart';
+import 'package:flutter_template/ui/base/default_dio.dart';
 import 'package:flutter_template/util/sp_helper.dart';
-import 'package:surf_network/surf_network.dart';
 
 /// Моковый компонент для тестирования сервисного слоя
 class MockAppComponent {
@@ -10,22 +11,20 @@ class MockAppComponent {
     authStorage = AuthInfoStorage(preferencesHelper);
     preferencesHelper = PreferencesHelper();
 
-    http = _initHttp(authStorage);
+    dio = _initDio(authStorage);
   }
-
-  RxHttp http;
 
   AuthInfoStorage authStorage;
   PreferencesHelper preferencesHelper;
 
-  RxHttp _initHttp(AuthInfoStorage authStorage) {
-    final dioHttp = DioHttp(
-      config: HttpConfig(
-        Url.testUrl,
-        const Duration(seconds: 30),
-      ),
+  Dio dio;
+
+  Dio _initDio(AuthInfoStorage authStorage) {
+    final dio = DefaultDio(
+      timeout: const Duration(seconds: 30),
       errorMapper: DefaultStatusMapper(),
+      baseUrl: Url.testUrl,
     );
-    return RxHttpDelegate(dioHttp);
+    return dio;
   }
 }

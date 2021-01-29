@@ -1,30 +1,35 @@
 name: flutter_template
 version: "0.0.1-dev.0"
 description: a Flutter template project for development.
-repository: https://github.com/surfstudio/SurfGear/tree/dev/packages/template
+repository: https://github.com/surfstudio/SurfGear/tree/dev/packa..
 
 dependencies:
   flutter:
     sdk: flutter
-  surf_network: ^0.0.1-dev.0
+  dio: ^3.0.10
+  logger: ^0.9.4
   surf_logger: ^0.0.1-dev.1
   surf_injector: ^0.0.1-dev.0
   surf_mwwm: ^0.0.1-dev.0
   geolocation:
     path: ../packages/geolocation
-#    git:
-#      url: "https://gitlab.com/surfstudio/public/flutter-standard.git"
-#      path: packages/geolocation
   analytics: ^0.0.1-dev.0
-  bottom_sheet: ^0.0.1-dev.0
-  push_notification: ^0.0.1-dev.0
+  bottom_sheet:
+    git:
+      url: https://github.com/surfstudio/SurfGear.git
+      ref: FLT-1218-Исправить-работу-bottom_sheet-с-новым-апи
+      path: packages/bottom_sheet
+  push_notification:
+    git:
+      url: https://github.com/surfstudio/SurfGear.git
+      ref: FLT-1219-Исправить-работу-push_notification
+      path: packages/push_notification
   surf_util: ^0.0.1-dev.0
   surf_lint_rules: ^0.0.1-dev.0
   intl: ^0.16.1
   flutter_svg: ^0.15.0
-  http: ^0.12.0+4
-  dio: ^3.0.8
-  shared_preferences: 0.5.6+3
+  http: ^0.12.2
+  shared_preferences: 0.5.12+4
   path_provider: ^1.5.1
   rxdart: ^0.24.0
   firebase_crashlytics: ^0.1.2+4
@@ -38,7 +43,7 @@ dev_dependencies:
     sdk: flutter
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.7.0 <=3.0.0"
 
 flutter:
   uses-material-design: true
