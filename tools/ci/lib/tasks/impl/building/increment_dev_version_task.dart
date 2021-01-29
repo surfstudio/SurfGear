@@ -12,25 +12,33 @@ class IncrementDevVersionTask extends Action {
     if (!element.isStable && element.changed)
       return Element.byTemplate(
         element,
-        version: _getIncrementVersion(),
+        version: _getIncrementVersion(element),
       );
 
     return element;
   }
 
   ///todo сделать сброс счетчика
-  String _getIncrementVersion() {
-    var elementVersionRegex = RegExp('dev\.([0-9]+)');
-    var elementVersionNum = int.parse(
-        elementVersionRegex.firstMatch(element.version).group(0).split('.')[1]);
+  String _getIncrementVersion(Element element) {
+    final elementVersionRegex = RegExp('dev\.([0-9]+)');
 
-    elementVersionNum++;
+    final resRegex = elementVersionRegex.allMatches(element.version).toList();
 
-    var versionString = element.version.replaceFirst(
-      elementVersionRegex,
-      'dev.$elementVersionNum',
-    );
+    if (resRegex.isNotEmpty) {
+      final resSplit = resRegex.last?.group(0)?.split('.');
 
-    return versionString;
+      if (resSplit != null && resSplit.length > 1) {
+        int elementVersionNum = int.tryParse(resSplit[1]);
+        if (elementVersionNum != null) {
+          elementVersionNum++;
+          final versionString = element.version.replaceFirst(
+            elementVersionRegex,
+            'dev.$elementVersionNum',
+          );
+          return versionString;
+        }
+      }
+    }
+    return element.version + '-dev.0';
   }
 }
