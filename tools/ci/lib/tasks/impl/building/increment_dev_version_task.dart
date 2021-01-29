@@ -48,13 +48,13 @@ class IncrementDevVersionTask extends Action {
     RegExp elementVersionRegex,
   }) {
     int elementVersionNum = int.tryParse(resSplit[1]);
-    if (elementVersionNum != null) {
-      elementVersionNum++;
-      return element.version.replaceFirst(
-        elementVersionRegex,
-        'dev.$elementVersionNum',
-      );
+    if (elementVersionNum == null) {
+      return null;
     }
-    return null;
+    elementVersionNum++;
+    return element.version.replaceFirst(
+      elementVersionRegex,
+      'dev.$elementVersionNum',
+    );
   }
 }
