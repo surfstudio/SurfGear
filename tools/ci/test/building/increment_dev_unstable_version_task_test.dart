@@ -8,8 +8,8 @@ import '../core/test_helper.dart';
 const _testDevVersion = '0.0.1-dev.0';
 const _testDevVersionIncremented = '0.0.1-dev.1';
 
-const testWithoutPostfixDevVersion = '0.0.1';
-const testWithoutPostfixDevVersionIncremented = '0.0.1-dev.0';
+const _testWithoutPostfixDevVersion = '0.0.1';
+const _testWithoutPostfixDevVersionIncremented = '0.0.1-dev.0';
 
 void main() {
   group(
@@ -58,9 +58,9 @@ void main() {
           final res = await _prepareTestTask(
             isStable: false,
             isChanged: true,
-            version: testWithoutPostfixDevVersion,
+            version: _testWithoutPostfixDevVersion,
           ).run();
-          expect(res.version, testWithoutPostfixDevVersionIncremented);
+          expect(res.version, _testWithoutPostfixDevVersionIncremented);
         },
       );
     },
