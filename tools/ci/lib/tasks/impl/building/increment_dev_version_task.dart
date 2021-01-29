@@ -28,17 +28,33 @@ class IncrementDevVersionTask extends Action {
       final resSplit = resRegex.last?.group(0)?.split('.');
 
       if (resSplit != null && resSplit.length > 1) {
-        int elementVersionNum = int.tryParse(resSplit[1]);
-        if (elementVersionNum != null) {
-          elementVersionNum++;
-          final versionString = element.version.replaceFirst(
-            elementVersionRegex,
-            'dev.$elementVersionNum',
-          );
-          return versionString;
+        final increment = _incrementVersion(
+          element: element,
+          resSplit: resSplit,
+          elementVersionRegex: elementVersionRegex,
+        );
+
+        if (increment != null) {
+          return increment;
         }
       }
     }
     return element.version + '-dev.0';
+  }
+
+  String _incrementVersion({
+    List<String> resSplit,
+    Element element,
+    RegExp elementVersionRegex,
+  }) {
+    int elementVersionNum = int.tryParse(resSplit[1]);
+    if (elementVersionNum != null) {
+      elementVersionNum++;
+      return element.version.replaceFirst(
+        elementVersionRegex,
+        'dev.$elementVersionNum',
+      );
+    }
+    return null;
   }
 }
