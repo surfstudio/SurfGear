@@ -1,11 +1,12 @@
 import 'dart:io';
+
 import 'package:dio/adapter.dart';
-import 'package:flutter_template/util/const.dart';
-import 'package:http_parser/http_parser.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_template/ui/base/headers.dart';
 import 'package:flutter_template/ui/base/standard_status_mapper.dart';
+import 'package:flutter_template/util/const.dart';
 import 'package:flutter_template/util/logger.dart';
+import 'package:http_parser/http_parser.dart';
 
 // ignore: prefer_mixin
 class DefaultDio with DioMixin implements Dio {
@@ -17,7 +18,7 @@ class DefaultDio with DioMixin implements Dio {
     String proxyUrl,
     HttpClientAdapter adapter,
   }) {
-    options
+    options = BaseOptions()
       ..baseUrl = baseUrl ?? emptyString
       ..connectTimeout = timeout?.inMilliseconds
       ..sendTimeout = timeout?.inMilliseconds
