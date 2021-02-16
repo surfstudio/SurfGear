@@ -149,27 +149,30 @@ class TabNavigatorState extends State<TabNavigator> {
           child: Offstage(
             key: ValueKey(tabType.value),
             offstage: tabType != selectedTab,
-            child: Navigator(
-              key: mappedNavKeys[tabType],
-              observers: widget.observersBuilder != null
-                  ? widget.observersBuilder(tabType)
-                  : [],
-              onGenerateRoute: (rs) => rs.name == Navigator.defaultRouteName
-                  ? PageRouteBuilder<Object>(
-                      settings: const RouteSettings(
-                        name: Navigator.defaultRouteName,
-                      ),
-                      transitionsBuilder: widget.transitionsBuilder,
-                      transitionDuration: widget.transitionDuration,
-                      pageBuilder: (
-                        context,
-                        animation,
-                        secondaryAnimation,
-                      ) {
-                        return widget.mappedTabs[tabType]();
-                      },
-                    )
-                  : widget.onGenerateRoute?.call(rs),
+            child: HeroControllerScope(
+              controller: MaterialApp.createMaterialHeroController(),
+              child: Navigator(
+                key: mappedNavKeys[tabType],
+                observers: widget.observersBuilder != null
+                    ? widget.observersBuilder(tabType)
+                    : [],
+                onGenerateRoute: (rs) => rs.name == Navigator.defaultRouteName
+                    ? PageRouteBuilder<Object>(
+                        settings: const RouteSettings(
+                          name: Navigator.defaultRouteName,
+                        ),
+                        transitionsBuilder: widget.transitionsBuilder,
+                        transitionDuration: widget.transitionDuration,
+                        pageBuilder: (
+                          context,
+                          animation,
+                          secondaryAnimation,
+                        ) {
+                          return widget.mappedTabs[tabType]();
+                        },
+                      )
+                    : widget.onGenerateRoute?.call(rs),
+              ),
             ),
           ),
         ),
