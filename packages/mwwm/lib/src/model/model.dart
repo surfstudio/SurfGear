@@ -33,9 +33,10 @@ class Model {
   R perform<R>(Change<R> change) {
     for (var p in _performers) {
       try {
-        return p.perform(change);
-      } on TypeError {
-        continue;
+        debugPrint('[PERFORM] $p try to perform $change');
+        if (p.canPerform(change)) {
+          return p.perform(change);
+        } 
       } catch (e) {
         rethrow;
       }
@@ -49,7 +50,6 @@ class Model {
     for (var p in _performers) {
       try {
         if (p is Broadcast<R, C>) {
-          //todo need resolver ?
           return p.broadcast;
         } else {
           continue;

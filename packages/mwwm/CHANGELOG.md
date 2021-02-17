@@ -1,3 +1,8 @@
+## 0.1.3-dev.0
+
+* Change Model resolve performer funcionality
+* Add to Performer method canPerform
+* 
 ## 0.1.0-dev.4
 
 * Replace dynamic type in WidgetModel's errorCallbacks
