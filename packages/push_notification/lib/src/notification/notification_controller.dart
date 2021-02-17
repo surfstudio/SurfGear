@@ -38,10 +38,13 @@ class NotificationController {
       HashMap<int, NotificationCallback>();
 
   /// Request notification permissions (iOS only)
-  Future<bool> requestPermissions() {
+  Future<bool> requestPermissions({
+    bool requestSoundPermission,
+    bool requestAlertPermission,
+  }) {
     return _notificator.requestPermissions(
-      requestSoundPermission: true,
-      requestAlertPermission: true,
+      requestSoundPermission: requestSoundPermission,
+      requestAlertPermission: requestAlertPermission,
     );
   }
 

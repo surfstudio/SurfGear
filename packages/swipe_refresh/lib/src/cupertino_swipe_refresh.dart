@@ -64,8 +64,7 @@ class CupertinoSwipeRefresh extends SwipeRefreshBase {
       );
 }
 
-class _CupertinoSwipeRefreshState
-    extends SwipeRefreshBaseState<CupertinoSwipeRefresh> {
+class _CupertinoSwipeRefreshState extends SwipeRefreshBaseState<CupertinoSwipeRefresh> {
   _CupertinoSwipeRefreshState(
     ScrollController scrollController,
   ) : _scrollController = scrollController ?? ScrollController();
@@ -91,6 +90,10 @@ class _CupertinoSwipeRefreshState
           builder: widget.indicatorBuilder,
         ),
         SliverSafeArea(
+          bottom: widget.padding == null,
+          left: widget.padding == null,
+          right: widget.padding == null,
+          top: widget.padding == null,
           sliver: _buildList(children),
         ),
       ],

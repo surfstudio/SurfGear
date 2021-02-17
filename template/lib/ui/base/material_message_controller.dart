@@ -6,6 +6,11 @@ import 'package:surf_logger/surf_logger.dart';
 import 'package:mwwm/mwwm.dart';
 
 ///Стандартная реализация [MessageController]
+@Deprecated(
+  'This version of the controller is deprecated.'
+  ' Use MaterialAppMessageController to get snackbar context'
+  ' throughout your app',
+)
 class MaterialMessageController extends MessageController {
   MaterialMessageController(this._scaffoldState, {this.snackOwner})
       : _context = null;

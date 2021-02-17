@@ -26,6 +26,9 @@ There are 2 type of BottomSheet:
 2. StickyBottomSheet
 
 #### Simple BottomSheet
+
+![](media/bs1.gif)
+
 To show bottomSheet, use :
 ```
 showFlexibleBottomSheet(
@@ -54,6 +57,9 @@ Widget _buildBottomSheet(
   }
 ```
 #### Sticky BottomSheet
+
+![](media/bs2.gif)
+
 To show sticky BottomSheet, use:  
 **You should return SliverChildListDelegate from builder !!!**
 ```

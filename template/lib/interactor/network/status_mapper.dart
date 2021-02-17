@@ -15,7 +15,7 @@ class DefaultStatusMapper extends StandardStatusMapper {
         case 105:
           throw NotFoundException(er.message);
         default:
-          throw Exception('Another exception');
+          super.checkClientStatus(response);
       }
     } on Exception {
       rethrow;

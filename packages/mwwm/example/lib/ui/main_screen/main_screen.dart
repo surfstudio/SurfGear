@@ -52,15 +52,15 @@ class _MainScreenState extends WidgetState<MainWm> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text('Repositories'),
+            label: 'Repositories',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.grade),
-            title: Text('Favorites'),
+            label: 'Favorites',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            title: Text('Users'),
+            label: 'Users',
           ),
         ],
         currentIndex: pageIndex,

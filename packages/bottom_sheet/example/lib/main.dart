@@ -102,25 +102,40 @@ class _MyHomePageState extends State<MyHomePage> {
               topRight: Radius.circular(offset == 0.8 ? 0 : 40),
             ),
           ),
-          child: const Text(
-            'Заголовок',
-            style: TextStyle(
-              color: Colors.black,
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Center(
+                  child: Text(
+                    'Header',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                ),
+              ),
+              Text(
+                'position $offset',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            ],
           ),
         );
       },
       builder: (context, offset) {
         return SliverChildListDelegate(
-          _getChildren(offset),
+          _getChildren(offset, isShowPosition: false),
         );
       },
       anchors: [.2, 0.5, .8],
     );
   }
 
-  List<Widget> _getChildren(double bottomSheetOffset) => <Widget>[
-        Text('$bottomSheetOffset'),
+  List<Widget> _getChildren(double bottomSheetOffset, {bool isShowPosition}) => <Widget>[
+        if (isShowPosition)
+          Text(
+            'position $bottomSheetOffset',
+            style: Theme.of(context).textTheme.headline6,
+          ),
         _buildTextField(),
         _testContainer(const Color(0xEEFFFF00)),
         _buildTextField(),
@@ -168,7 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: ListView(
               padding: const EdgeInsets.all(0),
               controller: scrollController,
-              children: _getChildren(bottomSheetOffset)),
+              children: _getChildren(bottomSheetOffset, isShowPosition: true)),
         ),
       ),
     );

@@ -1,3 +1,7 @@
+## 0.0.1-dev.8
+
+* add HeroControllerScope to local Navigators
+
 ## 0.0.1-dev.6
 
 * fix emptyValue

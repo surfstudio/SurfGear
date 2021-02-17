@@ -29,7 +29,11 @@ class AuthNetworkClient implements NetworkClient {
   AuthNetworkClient() {
     _authClient = GitHubOAuth2Client(
       redirectUri: 'my.app://oauth2redirect',
-      customUriScheme: 'ru.surf.app',
+
+      // This is not a Bundle identifier.
+      // this is a custom scheme for redirecting
+      // from the browser to this application
+      customUriScheme: 'my.app',
     );
 
     _oauth2Helper = OAuth2Helper(

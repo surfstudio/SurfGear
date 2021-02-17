@@ -39,7 +39,7 @@ class IOSNotification {
         switch (call.method) {
           case openCallback:
             if (onNotificationTap != null) {
-              final notificationData = call.arguments;
+              final notificationData = call.arguments as Map;
               onNotificationTap(notificationData);
             }
             break;
@@ -56,14 +56,14 @@ class IOSNotification {
   /// requestSoundPermission - is play sound
   /// requestSoundPermission - is show alert
   Future<bool> requestPermissions({
-    bool requestSoundPermission = false,
-    bool requestAlertPermission = false,
+    bool requestSoundPermission,
+    bool requestAlertPermission,
   }) async {
     return channel.invokeMethod<bool>(
       callRequest,
       <String, dynamic>{
-        'requestAlertPermission': requestAlertPermission,
-        'requestSoundPermission': requestSoundPermission,
+        'requestAlertPermission': requestAlertPermission ?? false,
+        'requestSoundPermission': requestSoundPermission ?? false,
       },
     );
   }

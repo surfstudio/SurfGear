@@ -131,7 +131,7 @@ linter:
     use_string_buffers: true
     use_to_and_as_if_applicable: true
     void_checks: true
-    lines_longer_than_80_chars: true
+    lines_longer_than_80_chars: false
 
     # Error rules.
     always_use_package_imports: true
