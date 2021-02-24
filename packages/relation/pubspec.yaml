@@ -1,12 +1,12 @@
 name: relation
-version: "0.0.3-dev.4"
+version: "0.0.4-dev.0"
 description: the stream representation of the relations of the entities and widget utilities
 homepage: "https://github.com/surfstudio/relation"
 
 dependencies:
   flutter:
     sdk: flutter
-  rxdart: ^0.24.0
+  rxdart: ^0.25.0
   surf_lint_rules: "^0.0.1-dev.0"
   pedantic: ^1.9.0
 
