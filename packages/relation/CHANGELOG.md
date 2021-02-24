@@ -1,3 +1,6 @@
+## 0.0.4-dev.1
+
+* Up rxdart dependency
 ## 0.0.3-dev.4
   
 * add 'from' constructors to StreamedStates
