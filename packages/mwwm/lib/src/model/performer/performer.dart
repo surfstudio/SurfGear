@@ -27,7 +27,21 @@ abstract class Performer<R, C extends Change<R>> {
   factory Performer.from(FunctionalPerformer<R, C> _performerFunc) =>
       _Performer(_performerFunc);
 
+  /// Main method to perform a Change
+  /// 
+  /// Here placed a logic to react to change. There can be 
+  /// request to a server or something else.
+  /// 
+  /// This method use Model when perform change.
+  /// 
+  /// Typically don't use directly
   R perform(C change);
+
+  /// Method to check ability to perform a object
+  /// c - can be anything
+  /// 
+  /// Typically used only in Model
+  bool canPerform(Object c) => c is C;
 }
 
 typedef FunctionalPerformer<R, C> = R Function(C);
