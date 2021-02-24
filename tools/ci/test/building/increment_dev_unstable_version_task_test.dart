@@ -1,11 +1,15 @@
 import 'package:ci/tasks/impl/building/increment_dev_version_task.dart';
+import 'package:ci/tasks/impl/building/increment_unstable_version_task.dart';
 import 'package:test/test.dart';
 
 import '../core/test_helper.dart';
 
 /// Тест для [IncrementUnstableVersionTask]
-var testDevVersion = '0.0.1-dev.0';
-var testDevVersionIncremented = '0.0.1-dev.1';
+const _testDevVersion = '0.0.1-dev.0';
+const _testDevVersionIncremented = '0.0.1-dev.1';
+
+const _testWithoutPostfixDevVersion = '0.0.1';
+const _testWithoutPostfixDevVersionIncremented = '0.0.1-dev.0';
 
 void main() {
   group(
@@ -14,29 +18,49 @@ void main() {
       test(
         'If the element is stable and has not been changed, it returns same version.',
         () async {
-          var res = await _prepareTestTask(
+          final res = await _prepareTestTask(
             isStable: true,
             isChanged: false,
+            version: _testDevVersion,
           ).run();
-          expect(res.version, testDevVersion);
+          expect(res.version, _testDevVersion);
         },
       );
 
       test(
         'If the element is stable but has been changed, it returns same version.',
         () async {
-          var res =
-              await _prepareTestTask(isStable: true, isChanged: true).run();
-          expect(res.version, testDevVersion);
+          final res = await _prepareTestTask(
+            isStable: true,
+            isChanged: true,
+            version: _testDevVersion,
+          ).run();
+          expect(res.version, _testDevVersion);
         },
       );
 
       test(
         'The element is not stable and has been changed.',
         () async {
-          var res =
-              await _prepareTestTask(isStable: false, isChanged: true).run();
-          expect(res.version, testDevVersionIncremented);
+          final res = await _prepareTestTask(
+            isStable: false,
+            isChanged: true,
+            version: _testDevVersion,
+          ).run();
+          expect(res.version, _testDevVersionIncremented);
+        },
+      );
+
+      test(
+        'The element is not stable, has been changed and version without "dev".',
+        () async {
+
+          final res = await _prepareTestTask(
+            isStable: false,
+            isChanged: true,
+            version: _testWithoutPostfixDevVersion,
+          ).run();
+          expect(res.version, _testWithoutPostfixDevVersionIncremented);
         },
       );
     },
@@ -48,10 +72,10 @@ IncrementDevVersionTask _prepareTestTask({
   bool isStable,
   String version,
 }) {
-  var element = createTestElement(
+  final element = createTestElement(
     isChanged: isChanged,
     isStable: isStable,
-    version: testDevVersion,
+    version: version ?? _testDevVersion,
   );
   return IncrementDevVersionTask(element);
 }
