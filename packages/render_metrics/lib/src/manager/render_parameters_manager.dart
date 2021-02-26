@@ -37,6 +37,12 @@ class RenderParametersManager<T> extends RenderManager<T> {
     _renderObjects[id] = renderObject as RenderMetricsBox;
   }
 
+  /// Update Instance of _renderObjects Collection
+  @override
+  void updateRenderObject(T id, RenderObject renderObject) {
+    _renderObjects[id] = renderObject as RenderMetricsBox;
+  }
+
   /// Get an instance of [RenderObject] by [id]
   RenderMetricsBox getRenderObject(T id) {
     return _renderObjects[id];
