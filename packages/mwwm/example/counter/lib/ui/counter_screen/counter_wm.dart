@@ -1,11 +1,12 @@
 import 'dart:async';
 
 import 'package:counter/data/counter/repository/counter_repository.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:rxdart/rxdart.dart';
 
 /// Counter screen's widget model
-class CounterWidgetModel extends WidgetModel {
+// ignore: prefer_mixin
+class CounterWidgetModel extends WidgetModel with ChangeNotifier {
   CounterWidgetModel(
     WidgetModelDependencies baseDependencies,
     this._counterRepository,
@@ -13,7 +14,7 @@ class CounterWidgetModel extends WidgetModel {
 
   final CounterRepository _counterRepository;
 
-  final counterState = BehaviorSubject<int>();
+  int counter;
 
   @override
   void onLoad() {
@@ -22,17 +23,13 @@ class CounterWidgetModel extends WidgetModel {
   }
 
   Future<void> _initCounter() async {
-    counterState.add(await _counterRepository.getCounter());
+    counter = await _counterRepository.getCounter();
+    notifyListeners();
   }
 
   void increment() {
-    counterState.add(counterState.value + 1);
-    _counterRepository.changeCounter(counterState.value);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    counterState.close();
+    counter++;
+    _counterRepository.changeCounter(counter);
+    notifyListeners();
   }
 }

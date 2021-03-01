@@ -1,6 +1,7 @@
 import 'package:counter/ui/counter_screen/counter_wm.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:provider/provider.dart';
 
 /// Counter's screen
 class CounterScreen extends CoreMwwmWidget {
@@ -18,14 +19,12 @@ class _CounterScreenState extends WidgetState<CounterWidgetModel> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: StreamBuilder<int>(
-          stream: wm.counterState,
-          builder: (_, counter) => Text(
-            '${counter.data}',
-            style: const TextStyle(
-              fontSize: 20,
-            ),
-          ),
+        child: Consumer<CounterWidgetModel>(
+          builder: (_, widgetModel, __) {
+            return Text(
+              '${widgetModel.counter}',
+            );
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(
