@@ -103,7 +103,7 @@ class _CupertinoSwipeRefreshState extends SwipeRefreshBaseState<CupertinoSwipeRe
   @override
   void onUpdateState(SwipeRefreshState state) {
     if (state == SwipeRefreshState.loading) {
-      _scrollController.jumpTo(-(widget.refreshTriggerPullDistance + 5));
+      _scrollController.jumpTo(-(widget.refreshIndicatorExtent + 5));
     }
 
     if (state == SwipeRefreshState.hidden) {
