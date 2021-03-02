@@ -3,7 +3,7 @@ version: "0.1.3-dev.1"
 description: |
   Software architecture pattern for teams with different sizes. Add possibility to work separately. Separate UI, presentation logic and business logic.
   
-homepage: "https://github.com/surfstudio/mwwm"
+homepage: "https://github.com/surfstudio/SurfGear/tree/dev/packages/mwwm"
 
 dependencies:
   flutter:
@@ -24,5 +24,5 @@ custom:
   unstable_version:
   is_plugin: false
   path: mwwm
-  separate_repo_url: "https://github.com/surfstudio/mwwm"
+  separate_repo_url: "https://github.com/surfstudio/SurfGear/tree/dev/packages/mwwm"
   hostUrl:
