@@ -9,12 +9,12 @@ class CounterScreenRoute extends MaterialPageRoute {
   CounterScreenRoute()
       : super(
           builder: (context) => CounterScreen(
-            widgetModelBuilder: _widgetModelDependencies,
+            widgetModelBuilder: _createCounterWm,
           ),
         );
 }
 
 /// Dependencies for [CounterWidgetModel]
-WidgetModel _widgetModelDependencies(BuildContext context) {
+WidgetModel _createCounterWm(BuildContext context) {
   return context.read<CounterWidgetModel>();
 }
