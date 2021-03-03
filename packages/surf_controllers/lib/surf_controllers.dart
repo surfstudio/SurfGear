@@ -14,8 +14,5 @@
 
 library surf_controllers;
 
-import 'package:flutter/widgets.dart';
-
-part 'src/dialog_controller.dart';
-
-part 'src/message_controller.dart';
+export 'src/message_controller.dart';
+export 'src/dialog_controller.dart';

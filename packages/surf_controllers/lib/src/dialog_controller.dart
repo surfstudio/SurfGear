@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-part of surf_controllers;
+import 'package:flutter/widgets.dart';
 
 /// Controller for call dialogs
 abstract class DialogController {
