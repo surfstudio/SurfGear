@@ -1,6 +1,8 @@
-# Стиль кода
+<!-- markdownlint-disable MD041 -->
+[<- Главная](../main.md)
+<!-- markdownlint-enable MD041 -->
 
-## [<- Главная](../main.md)
+# Стиль кода
 
 ## Основные положения
 
