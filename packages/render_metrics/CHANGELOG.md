@@ -1,3 +1,8 @@
+## 1.0.1-dev.9
+
+* Added update method
+* update Readme
+
 ## 1.0.1-dev.4
 
 * Fix lint hints

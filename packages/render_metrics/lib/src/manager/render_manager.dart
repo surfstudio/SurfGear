@@ -19,6 +19,9 @@ abstract class RenderManager<T> {
   /// Handling the RenderObject Add Call
   void addRenderObject(T id, RenderObject object);
 
+  /// Handling the RenderObject Update Call
+  void updateRenderObject(T id, RenderObject object);
+
   /// Handling the RenderObject Delete Call
   void removeRenderObject(T id);
 }
