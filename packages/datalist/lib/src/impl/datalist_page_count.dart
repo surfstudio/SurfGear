@@ -40,7 +40,9 @@ class PageCountDataList<T> extends DataList<T> {
   /// @param totalPagesCount max count of pages
   /// @return empty DataList
   factory PageCountDataList.emptyWithTotalCount(
-          int totalItemsCount, int totalPagesCount) =>
+    int totalItemsCount,
+    int totalPagesCount,
+  ) =>
       PageCountDataList(
         data: [],
         startPage: unspecifiedPage,

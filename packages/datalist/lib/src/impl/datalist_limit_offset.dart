@@ -178,7 +178,7 @@ class OffsetDataList<T> extends DataList<T> {
   List<T> _mergeLists(List<T> to, List<T> from, int start) {
     final List<T> result = [
       ...start < to.length ? to.sublist(0, start) : to,
-      ...from
+      ...from,
     ];
     return result;
   }

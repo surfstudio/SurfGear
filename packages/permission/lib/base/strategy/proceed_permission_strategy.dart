@@ -30,5 +30,5 @@ enum PermissionStrategyStatus {
   deny,
 
   /// User deny this permission with "Don't ask me" or deny on iOs
-  permanentDeny
+  permanentDeny,
 }
