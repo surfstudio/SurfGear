@@ -18,7 +18,8 @@ import 'package:push_notification/src/base/push_handle_strategy.dart';
 
 /// strategy builder function
 typedef StrategyBuilder = PushHandleStrategy Function(
-    Map<String, dynamic> payload);
+  Map<String, dynamic> payload,
+);
 
 /// Abstract factory for push notification strategies
 abstract class PushHandleStrategyFactory {

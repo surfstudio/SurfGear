@@ -190,36 +190,37 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     Animation<double> secondaryAnimation,
   ) {
     Widget bottomSheet = MediaQuery.removePadding(
-        context: context,
-        removeTop: true,
-        child: isCollapsible
-            ? FlexibleBottomSheet.collapsible(
-                initHeight: initHeight,
-                maxHeight: maxHeight,
-                builder: builder,
-                headerBuilder: headerBuilder,
-                bodyBuilder: bodyBuilder,
-                isExpand: isExpand,
-                animationController: _animationController,
-                anchors: anchors,
-                minHeaderHeight: minHeaderHeight,
-                maxHeaderHeight: maxHeaderHeight,
-                decoration: decoration,
-              )
-            : FlexibleBottomSheet(
-                minHeight: minHeight,
-                initHeight: initHeight,
-                maxHeight: maxHeight,
-                builder: builder,
-                headerBuilder: headerBuilder,
-                bodyBuilder: bodyBuilder,
-                isExpand: isExpand,
-                animationController: _animationController,
-                anchors: anchors,
-                minHeaderHeight: minHeaderHeight,
-                maxHeaderHeight: maxHeaderHeight,
-                decoration: decoration,
-              ));
+      context: context,
+      removeTop: true,
+      child: isCollapsible
+          ? FlexibleBottomSheet.collapsible(
+              initHeight: initHeight,
+              maxHeight: maxHeight,
+              builder: builder,
+              headerBuilder: headerBuilder,
+              bodyBuilder: bodyBuilder,
+              isExpand: isExpand,
+              animationController: _animationController,
+              anchors: anchors,
+              minHeaderHeight: minHeaderHeight,
+              maxHeaderHeight: maxHeaderHeight,
+              decoration: decoration,
+            )
+          : FlexibleBottomSheet(
+              minHeight: minHeight,
+              initHeight: initHeight,
+              maxHeight: maxHeight,
+              builder: builder,
+              headerBuilder: headerBuilder,
+              bodyBuilder: bodyBuilder,
+              isExpand: isExpand,
+              animationController: _animationController,
+              anchors: anchors,
+              minHeaderHeight: minHeaderHeight,
+              maxHeaderHeight: maxHeaderHeight,
+              decoration: decoration,
+            ),
+    );
 
     if (theme != null) {
       bottomSheet = Theme(data: theme, child: bottomSheet);

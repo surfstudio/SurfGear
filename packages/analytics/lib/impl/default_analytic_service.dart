@@ -30,7 +30,8 @@ class DefaultAnalyticService implements AnalyticService<AnalyticAction> {
   }
 
   List<AnalyticActionPerformer<AnalyticAction>> _getPerformersByAction(
-      AnalyticAction event) {
+    AnalyticAction event,
+  ) {
     final properPerformers =
         _performers.where((performer) => performer.canHandle(event)).toList();
     if (properPerformers.isEmpty) {

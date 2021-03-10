@@ -20,7 +20,9 @@ import 'package:push_notification/src/push_navigator_holder.dart';
 import 'package:rxdart/subjects.dart';
 
 typedef HandleMessageFunction = void Function(
-    Map<String, dynamic> message, MessageHandlerType handlerType);
+  Map<String, dynamic> message,
+  MessageHandlerType handlerType,
+);
 
 /// Notification handling
 class PushHandler {

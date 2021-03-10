@@ -45,10 +45,11 @@ class DefaultPermissionManager implements PermissionManager {
       final showRationale = await permissionGroup.shouldShowRequestRationale;
 
       await strategy?.proceed(
-          permission,
-          showRationale
-              ? PermissionStrategyStatus.deny
-              : PermissionStrategyStatus.permanentDeny);
+        permission,
+        showRationale
+            ? PermissionStrategyStatus.deny
+            : PermissionStrategyStatus.permanentDeny,
+      );
 
       if (showRationale) {
         return false;

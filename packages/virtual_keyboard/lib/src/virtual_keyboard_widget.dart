@@ -72,7 +72,7 @@ class _VirtualKeyboardWidgetState extends State<VirtualKeyboardWidget> {
       type: MaterialType.transparency,
       child: Table(
         children: [
-          for (List<VirtualKeyboardKey> line in _keyboardKeys) _buildLine(line)
+          for (List<VirtualKeyboardKey> line in _keyboardKeys) _buildLine(line),
         ],
       ),
     );
@@ -81,7 +81,7 @@ class _VirtualKeyboardWidgetState extends State<VirtualKeyboardWidget> {
   TableRow _buildLine(List<VirtualKeyboardKey> line) {
     return TableRow(
       children: [
-        for (VirtualKeyboardKey keyboardKey in line) _buildKey(keyboardKey)
+        for (VirtualKeyboardKey keyboardKey in line) _buildKey(keyboardKey),
       ],
     );
   }

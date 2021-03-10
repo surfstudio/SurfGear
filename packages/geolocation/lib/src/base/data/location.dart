@@ -96,5 +96,5 @@ enum LocationAccuracy {
   high,
 
   /// To request location for navigation usage
-  navigator
+  navigator,
 }

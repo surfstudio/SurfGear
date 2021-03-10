@@ -42,10 +42,11 @@ class DataListPageCountTest {
         pageSize: 5,
       );
       final PageCountDataList<int> list3 = PageCountDataList<int>(
-          data: [1, 2, 3, 4, 5, 6, 7, 8, 8, 10],
-          startPage: 0,
-          pageSize: 5,
-          numPages: 2);
+        data: [1, 2, 3, 4, 5, 6, 7, 8, 8, 10],
+        startPage: 0,
+        pageSize: 5,
+        numPages: 2,
+      );
 
       list1.merge(list2);
 
@@ -67,7 +68,10 @@ class DataListPageCountTest {
       );
 
       final PageCountDataList<int> list3 = PageCountDataList<int>(
-          data: [1, 2, 3, 4, 5], startPage: 0, pageSize: 5);
+        data: [1, 2, 3, 4, 5],
+        startPage: 0,
+        pageSize: 5,
+      );
 
       try {
         list1.merge(list2);
@@ -189,10 +193,11 @@ class DataListPageCountTest {
         pageSize: 5,
       );
       final PageCountDataList<int> list3 = PageCountDataList<int>(
-          data: [6, 7, 8, 8, 10, 1, 2, 3, 4, 5],
-          startPage: 1,
-          pageSize: 5,
-          numPages: 2);
+        data: [6, 7, 8, 8, 10, 1, 2, 3, 4, 5],
+        startPage: 1,
+        pageSize: 5,
+        numPages: 2,
+      );
 
       list1.merge(list2);
 
@@ -215,7 +220,11 @@ class DataListPageCountTest {
         pageSize: 1,
       );
       final PageCountDataList<int> list3 = PageCountDataList<int>(
-          data: [1, 6, 7, 8, 9, 10], startPage: 0, pageSize: 1, numPages: 6);
+        data: [1, 6, 7, 8, 9, 10],
+        startPage: 0,
+        pageSize: 1,
+        numPages: 6,
+      );
 
       list1.merge(list2);
 
