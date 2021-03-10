@@ -1,5 +1,5 @@
 name: permission
-version: "0.0.1-dev.5"
+version: "0.0.1-dev.6"
 description: Library for requesting and checking permissions
 repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/permission"
 publish_to: none
