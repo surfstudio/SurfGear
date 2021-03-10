@@ -1,13 +1,7 @@
 name: surf_controllers
-version: "0.0.1-dev.0"
-description: |
-
-
+version: "0.0.1-dev.1"
+description: 
 homepage: "https://github.com/surfstudio/SurfGear/tree/dev/surf_controllers"
-
-environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.17.0"
 
 dependencies:
   flutter:
@@ -16,6 +10,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0"
 
 flutter:
 
