@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/config/config.dart';
 import 'package:flutter_template/config/env/env.dart';
@@ -12,13 +13,12 @@ import 'package:flutter_template/interactor/token/token_storage.dart';
 import 'package:flutter_template/ui/base/default_dialog_controller.dart';
 import 'package:flutter_template/ui/base/error/standard_error_handler.dart';
 import 'package:flutter_template/ui/base/material_message_controller.dart';
-import 'package:flutter_template/util/const.dart';
+import 'package:flutter_template/ui/base/default_dio.dart';
 import 'package:flutter_template/util/sp_helper.dart';
+import 'package:mwwm/mwwm.dart';
+import 'package:push_notification/push_notification.dart';
 import 'package:surf_injector/surf_injector.dart';
 import 'package:surf_logger/surf_logger.dart';
-import 'package:mwwm/mwwm.dart';
-import 'package:surf_network/surf_network.dart';
-import 'package:push_notification/push_notification.dart';
 
 /// Component per app
 class AppComponent implements Component {
@@ -35,7 +35,7 @@ class AppComponent implements Component {
   DefaultDialogController dialogController;
   PreferencesHelper preferencesHelper = PreferencesHelper();
   AuthInfoStorage authStorage;
-  RxHttp http;
+  Dio dio;
   SessionChangedInteractor scInteractor;
   CounterInteractor counterInteractor;
   DebugScreenInteractor debugScreenInteractor;
@@ -54,7 +54,7 @@ class AppComponent implements Component {
     messageController = MaterialMessageController(scaffoldKey);
     dialogController = DefaultDialogController(scaffoldKey);
     authStorage = AuthInfoStorage(preferencesHelper);
-    http = _initHttp(authStorage);
+    dio = _initDio(authStorage);
     scInteractor = SessionChangedInteractor(authStorage);
     pushHandler = PushHandler(
         PushStrategyFactory(),
@@ -77,17 +77,14 @@ class AppComponent implements Component {
     );
   }
 
-  RxHttp _initHttp(AuthInfoStorage authStorage) {
+  Dio _initDio(AuthInfoStorage authStorage) {
     final proxyUrl = Environment<Config>.instance().config.proxyUrl;
-    final dioHttp = DioHttp(
-      config: HttpConfig(
-        emptyString,
-        const Duration(seconds: 30),
-        proxyUrl: proxyUrl,
-      ),
+    final dio = DefaultDio(
+      timeout: const Duration(seconds: 30),
+      proxyUrl: proxyUrl,
       errorMapper: DefaultStatusMapper(),
       headersBuilder: DefaultHeaderBuilder(authStorage),
     );
-    return RxHttpDelegate(dioHttp);
+    return dio;
   }
 }
