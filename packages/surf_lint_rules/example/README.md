@@ -4,7 +4,7 @@ Add `surf_lint_rules` as dependency to your pubspec.yaml
 
 ```yaml
 dev_dependencies:
-  surf_lint_rules: any
+  surf_lint_rules: ^1.0.0
 ```
 
 Then, add an include in your analysis_options.yaml
