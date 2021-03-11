@@ -1,4 +1,6 @@
+<!-- markdownlint-disable MD041 -->
 #### [SurfGear](https://github.com/surfstudio/SurfGear)
+<!-- markdownlint-enable MD041 -->
 
 # surf_lint_rules
 
@@ -14,9 +16,9 @@ dev_dependencies:
 ```
 
 Create `analysis_options.yaml` file
+
 ```yaml
 include: package:surf_lint_rules/analysis_options.yaml
 ```
-
 
 See the `dartanalyzer` executing the lint checks in you favorite editor.
