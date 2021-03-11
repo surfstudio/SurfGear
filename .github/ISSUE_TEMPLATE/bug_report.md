@@ -36,7 +36,7 @@ A clear and concise description of what you expected to happen.
 
 ## Additional context
 
-* Which versions of Surf Gear, and OS are affected by this issue? Did this work in previous versions of Surf Gear?
+* What package and OS are affected by this issue? Did this work in previous versions of a package?
   
 * If applicable, add screenshots to help explain your problem.
 

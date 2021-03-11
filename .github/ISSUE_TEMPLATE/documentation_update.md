@@ -1,9 +1,14 @@
 ---
 name: Documentation update
-about: Fixing a problem or improve in an existing docs page
+about: Fixing a problem or improve in an existing docs page.
 labels: documentation
 assignees: artem-zaitsev, saturov
 ---
+
+<!--
+    Thank you for contributing to our project!
+    This template is only for documentation update reports, otherwise please use another template.
+-->
 
 ## Describe what scenario you think is uncovered by the existing examples / articles
 

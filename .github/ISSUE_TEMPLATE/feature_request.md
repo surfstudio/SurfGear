@@ -1,6 +1,7 @@
 ---
 name: Feature Request
 about: I'd like Surf Gear to do something new.
+labels: enhancement
 assignees: artem-zaitsev
 ---
 
