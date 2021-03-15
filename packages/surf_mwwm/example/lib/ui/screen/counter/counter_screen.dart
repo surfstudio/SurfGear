@@ -35,7 +35,7 @@ class _CounterScreenState extends WidgetState<CounterWidgetModel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: Injector.of<CounterComponent>(context).component.scaffoldKey,
+      key: context.getComponent<CounterComponent>().scaffoldKey,
       appBar: AppBar(
         title: const Text('Counter Demo'),
       ),

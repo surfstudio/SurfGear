@@ -33,12 +33,9 @@ class AppWidgetModel extends WidgetModel {
   }
 
   Future<void> _loadApp() async {
-    subscribeHandleError(
-      initApp(),
-      (isAuth) {
-        _openScreen(CounterScreenRoute());
-      },
-    );
+    initApp().listenCatchError(this, onValue: (isAuth) {
+      _openScreen(CounterScreenRoute());
+    });
   }
 
   Stream<bool> initApp() {
