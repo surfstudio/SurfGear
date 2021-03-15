@@ -25,7 +25,7 @@ const _defaultDuration = Duration(minutes: 5);
 /// * override [autoReload]
 /// * call [startAutoReload] and [cancelAutoReload]
 mixin AutoReloadMixin on AutoReloader {
-  Timer _autoReloadTimer;
+  Timer? _autoReloadTimer;
 
   Duration get autoReloadDuration => _defaultDuration;
 

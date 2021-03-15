@@ -4,16 +4,19 @@ version: 1.0.0+1
 publish_to: none
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   auto_reload:
-    path: ..
+    path: ../
 
   flutter:
     sdk: flutter
 
-  http: 0.12.0+2
+  http: ^0.13.0
+
+dev_dependencies:
+  surf_lint_rules: ^1.0.0
 
 flutter:
   uses-material-design: true

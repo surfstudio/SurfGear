@@ -19,10 +19,8 @@ import 'package:counter/auto_request/domain/post.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
-
-
 class DemoAutoRequestManager extends StatefulWidget {
-  const DemoAutoRequestManager({Key key}) : super(key: key);
+  const DemoAutoRequestManager({Key? key}) : super(key: key);
 
   @override
   _DemoAutoRequestManagerState createState() => _DemoAutoRequestManagerState();
@@ -31,7 +29,7 @@ class DemoAutoRequestManager extends StatefulWidget {
 class _DemoAutoRequestManagerState extends State<DemoAutoRequestManager> {
   final _autoRequestManager = AutoRequestManager(minReloadDurationSeconds: 3);
 
-  List<RequestStatus> _requestStatuses;
+  late List<RequestStatus> _requestStatuses;
 
   @override
   void initState() {
@@ -73,8 +71,8 @@ class _DemoAutoRequestManagerState extends State<DemoAutoRequestManager> {
   }
 
   Future<Post> fetchPost() async {
-    final response =
-        await http.get('https://jsonplaceholder.typicode.com/posts/1');
+    final response = await http
+        .get(Uri.parse('https://jsonplaceholder.typicode.com/posts/1'));
 
     if (response.statusCode == 200) {
       // If server returns an OK response, parse the JSON.
