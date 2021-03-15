@@ -37,7 +37,7 @@ void main() {
     });
 
     group('startAutoReload', () {
-      TestAutoReloader reloader;
+      late TestAutoReloader reloader;
 
       setUp(() {
         reloader = TestAutoReloader();

@@ -18,7 +18,7 @@ import 'package:flutter/widgets.dart';
 
 /// Demo widget for [AutoReloadMixin]
 class DemoAutoReloadWidget extends StatefulWidget {
-  const DemoAutoReloadWidget({Key key}) : super(key: key);
+  const DemoAutoReloadWidget({Key? key}) : super(key: key);
   @override
   _DemoAutoReloadWidgetState createState() => _DemoAutoReloadWidgetState();
 }
