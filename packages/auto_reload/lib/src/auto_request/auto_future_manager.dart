@@ -12,8 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:flutter/foundation.dart';
+
 /// return id of success future in queue
-typedef AutoFutureCallback = Function(String id);
+typedef AutoFutureCallback = void Function(String id);
 
 /// Manager for endless replay [Future], until will not be performed
 // ignore: one_member_abstracts
@@ -24,8 +26,8 @@ abstract class AutoFutureManager {
   /// [toReload] - himself future on reboot
   /// [onComplete] - callback of success future, that returns id in queue
   Future<void> autoReload({
-    String id,
-    Future Function() toReload,
+    @required String id,
+    @required Future<void> Function() toReload,
     AutoFutureCallback onComplete,
   });
 }

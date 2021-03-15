@@ -13,11 +13,11 @@
 // limitations under the License.
 
 import 'dart:async';
-import 'dart:collection';
 import 'dart:math';
 
-import 'package:auto_reload/src/auto_request/base/auto_future_manager.dart';
+import 'package:auto_reload/src/auto_request/auto_future_manager.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:flutter/foundation.dart';
 
 const int _defaultMinReloadDurationSeconds = 1;
 const int _defaultMaxReloadDurationSeconds = 1800;
@@ -31,30 +31,32 @@ class AutoRequestManager implements AutoFutureManager {
   AutoRequestManager({
     int minReloadDurationSeconds,
     int maxReloadDurationSeconds,
+    Connectivity connectivity,
   })  : _minReloadDurationSeconds =
             minReloadDurationSeconds ?? _defaultMinReloadDurationSeconds,
         _maxReloadDurationSeconds =
-            maxReloadDurationSeconds ?? _defaultMaxReloadDurationSeconds {
-    _currentReloadDuration = minReloadDurationSeconds;
+            maxReloadDurationSeconds ?? _defaultMaxReloadDurationSeconds,
+        _connectivity = connectivity ?? Connectivity() {
+    _currentReloadDuration = _minReloadDurationSeconds;
   }
 
   final int _minReloadDurationSeconds;
   final int _maxReloadDurationSeconds;
   int _currentReloadDuration;
 
-  final Connectivity _connectivity = Connectivity();
+  final Connectivity _connectivity;
   StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
-  var _queue = HashMap<String, Future Function()>();
-  HashMap _callbacks = HashMap<String, AutoFutureCallback>();
+  var _queue = <String, Future<void> Function()>{};
+  var _callbacks = <String, AutoFutureCallback>{};
 
   Timer _requestTimer;
 
   /// register request for auto reload
   @override
   Future<void> autoReload({
-    String id,
-    Future Function() toReload,
+    @required String id,
+    @required Future<void> Function() toReload,
     AutoFutureCallback onComplete,
   }) async {
     _queue.putIfAbsent(id, () {
@@ -83,8 +85,12 @@ class AutoRequestManager implements AutoFutureManager {
   }
 
   void _reloadRequest(ConnectivityResult connection) {
-    if (!_needToReload(connection)) return;
-    if (_requestTimer != null) return;
+    if (!_needToReload(connection)) {
+      return;
+    }
+    if (_requestTimer != null) {
+      return;
+    }
 
     _currentReloadDuration = _minReloadDurationSeconds;
 
@@ -134,9 +140,8 @@ class AutoRequestManager implements AutoFutureManager {
     _callbacks.remove(key);
   }
 
-  bool _needToReload(ConnectivityResult connection) {
-    return _haveConnection(connection);
-  }
+  bool _needToReload(ConnectivityResult connection) =>
+      _haveConnection(connection);
 
   bool _haveConnection(ConnectivityResult connection) {
     switch (connection) {
