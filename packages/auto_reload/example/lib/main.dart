@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:counter/auto_reload/auto_reload_widget.dart';
+import 'package:counter/auto_request/auto_request_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'auto_reload/auto_reload_widget.dart';
-import 'auto_request/auto_request_widget.dart';
 
 void main() => runApp(const MyApp());
 

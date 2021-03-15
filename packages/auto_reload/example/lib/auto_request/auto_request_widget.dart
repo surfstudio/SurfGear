@@ -15,10 +15,11 @@
 import 'dart:convert';
 
 import 'package:auto_reload/auto_reload.dart';
+import 'package:counter/auto_request/domain/post.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
-import 'domain/post.dart';
+
 
 class DemoAutoRequestManager extends StatefulWidget {
   const DemoAutoRequestManager({Key key}) : super(key: key);
