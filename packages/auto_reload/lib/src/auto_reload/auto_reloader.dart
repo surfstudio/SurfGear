@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'auto_reload_mixin.dart';
+import 'package:auto_reload/src/auto_reload/auto_reload_mixin.dart';
 
 /// Class providing an opportunity to participate
 /// in autoload managed by [AutoReloadMixin]
