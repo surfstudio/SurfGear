@@ -26,7 +26,7 @@ void main() {
 
   test('TextEditingAction dispose test', () {
     final action = TextEditingAction()..dispose();
-    expect(action.subject.isClosed, true);
+    expect(action.process.isClosed, true);
   });
 
   test('ExtendedTextEditingController setText({String text}) test', () {

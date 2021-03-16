@@ -15,7 +15,7 @@
 import 'dart:async';
 
 import 'package:relation/src/relation/event.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:relation/src/rx/rx.dart';
 
 /// Action
 /// It's wrapper over an action on screen.
@@ -35,7 +35,7 @@ class Action<T> implements Event<T> {
   Action([void Function(T data) onChanged]) : onChanged = onChanged ?? ((a) {});
 
   /// Publish subject for updating actions
-  final PublishSubject<T> _actionSubject = PublishSubject();
+  final AnnounceProcess<T> _actionProcess = AnnounceProcess();
 
   /// Callback for handling a new action
   final void Function(T data) onChanged;
@@ -44,16 +44,16 @@ class Action<T> implements Event<T> {
   T value;
 
   @override
-  Stream<T> get stream => _actionSubject.stream;
+  Stream<T> get stream => _actionProcess.stream;
 
-  Subject<T> get subject => _actionSubject;
+  Process<T> get process => _actionProcess;
 
   @override
   Future<void> accept([T data]) async {
     value = data;
-    _actionSubject.add(data);
+    _actionProcess.add(data);
     onChanged(value);
-    return _actionSubject.stream.first;
+    return _actionProcess.stream.first;
   }
 
   /// Call action
@@ -61,6 +61,6 @@ class Action<T> implements Event<T> {
 
   /// Close stream
   void dispose() {
-    _actionSubject.close();
+    _actionProcess.close();
   }
 }

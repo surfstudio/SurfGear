@@ -69,7 +69,7 @@ void main() {
       ));
 
       action.dispose();
-      expect(action.subject.isClosed, true);
+      expect(action.process.isClosed, true);
     },
   );
 }

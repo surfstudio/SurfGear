@@ -46,6 +46,6 @@ void main() {
       textEditingController,
       (controller, action) {},
     )..dispose();
-    expect(action.subject.isClosed, true);
+    expect(action.process.isClosed, true);
   });
 }

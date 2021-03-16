@@ -26,6 +26,6 @@ void main() {
 
   test('StreamedState dispose() test', () {
     final streamedState = StreamedState<String>()..dispose();
-    expect(streamedState.stateSubject.isClosed, true);
+    expect(streamedState.stateProcess.isClosed, true);
   });
 }

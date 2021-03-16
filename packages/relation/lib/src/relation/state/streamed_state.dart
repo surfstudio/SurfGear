@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:relation/src/relation/event.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:relation/src/rx/rx.dart';
 
 /// A state of some type wrapped in a stream
 /// dictates the widget's state
@@ -35,25 +35,25 @@ class StreamedState<T> implements Event<T> {
   }
 
   StreamedState.from(Stream<T> stream) {
-    stateSubject.addStream(stream);
+    stateProcess.addStream(stream);
   }
 
   /// Behavior state for updating events
-  final BehaviorSubject<T> stateSubject = BehaviorSubject();
+  final RestorationProcess<T> stateProcess = RestorationProcess();
 
   /// current value in stream
-  T get value => stateSubject.value;
+  T get value => stateProcess.value;
 
   @override
-  Stream<T> get stream => stateSubject.stream;
+  Stream<T> get stream => stateProcess.stream;
 
   @override
   Future<void> accept([T data]) {
-    stateSubject.add(data);
-    return stateSubject.stream.first;
+    stateProcess.add(data);
+    return stateProcess.stream.first;
   }
 
   void dispose() {
-    stateSubject.close();
+    stateProcess.close();
   }
 }

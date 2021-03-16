@@ -38,6 +38,6 @@ void main() {
 
   test('Action dispose() test', () {
     final action = Action<String>()..dispose();
-    expect(true, action.subject.isClosed);
+    expect(true, action.process.isClosed);
   });
 }
