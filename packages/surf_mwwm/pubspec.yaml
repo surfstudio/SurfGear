@@ -9,7 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   surf_injector: "^0.0.1-dev.3"
-  relation: "^0.0.3-dev.2"
+  relation: "^0.0.4-dev.2"
   mwwm: "^0.1.2-dev.2"
   rxdart: ^0.24.0
 
