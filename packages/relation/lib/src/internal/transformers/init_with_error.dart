@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:relation/src/rx/utils/transmission_sink.dart';
-import 'package:relation/src/rx/utils/transmission_stream.dart';
+import 'package:relation/src/internal/utils/transmission_sink.dart';
+import 'package:relation/src/internal/utils/transmission_stream.dart';
 
 class _InitWithErrorStreamSink<T> implements TransmissionSink<T, T> {
   _InitWithErrorStreamSink(this._error, this._stackTrace);

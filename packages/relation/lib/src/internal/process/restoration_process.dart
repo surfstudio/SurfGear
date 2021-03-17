@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:relation/src/rx/process/process.dart';
-import 'package:relation/src/rx/streams/delay_stream.dart';
-import 'package:relation/src/rx/streams/restoration_stream.dart';
-import 'package:relation/src/rx/transformers/init_with.dart';
-import 'package:relation/src/rx/transformers/init_with_error.dart';
-import 'package:relation/src/rx/utils/error_holder.dart';
-import 'package:relation/src/rx/utils/restoration_holder.dart';
-import 'package:relation/src/rx/utils/value_holder.dart';
+import 'package:relation/src/internal/process/process.dart';
+import 'package:relation/src/internal/streams/delay_stream.dart';
+import 'package:relation/src/internal/streams/restoration_stream.dart';
+import 'package:relation/src/internal/transformers/init_with.dart';
+import 'package:relation/src/internal/transformers/init_with_error.dart';
+import 'package:relation/src/internal/utils/error_holder.dart';
+import 'package:relation/src/internal/utils/restoration_holder.dart';
+import 'package:relation/src/internal/utils/value_holder.dart';
 
 /// Stream controller, that captures last emitted item
 class RestorationProcess<T> extends Process<T> implements RestorationStream<T> {

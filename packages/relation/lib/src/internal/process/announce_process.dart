@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:relation/src/rx/process/process.dart';
+import 'package:relation/src/internal/process/process.dart';
 
 /// Simple broadcast StreamController
 class AnnounceProcess<T> extends Process<T> {

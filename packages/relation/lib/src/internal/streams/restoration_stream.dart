@@ -1,5 +1,5 @@
-import 'package:relation/src/rx/utils/error_holder.dart';
-import 'package:relation/src/rx/utils/value_holder.dart';
+import 'package:relation/src/internal/utils/error_holder.dart';
+import 'package:relation/src/internal/utils/value_holder.dart';
 
 /// [Stream] that provides sync access to the last item
 abstract class RestorationStream<T> implements Stream<T> {

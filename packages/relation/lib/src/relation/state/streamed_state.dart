@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:relation/src/relation/event.dart';
-import 'package:relation/src/rx/rx.dart';
+import 'package:relation/src/internal/internal.dart';
 
 /// A state of some type wrapped in a stream
 /// dictates the widget's state

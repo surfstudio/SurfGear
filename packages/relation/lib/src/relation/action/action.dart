@@ -15,7 +15,7 @@
 import 'dart:async';
 
 import 'package:relation/src/relation/event.dart';
-import 'package:relation/src/rx/rx.dart';
+import 'package:relation/src/internal/internal.dart';
 
 /// Action
 /// It's wrapper over an action on screen.

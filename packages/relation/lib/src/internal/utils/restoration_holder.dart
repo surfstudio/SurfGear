@@ -1,5 +1,5 @@
-import 'package:relation/src/rx/utils/error_holder.dart';
-import 'package:relation/src/rx/utils/value_holder.dart';
+import 'package:relation/src/internal/utils/error_holder.dart';
+import 'package:relation/src/internal/utils/value_holder.dart';
 
 /// Holds last value or error for <RestorationProcess>
 class RestorationHolder<T> {

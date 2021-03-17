@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:relation/src/rx/process/process.dart';
-import 'package:relation/src/rx/utils/transmission_sink.dart';
+import 'package:relation/src/internal/process/process.dart';
+import 'package:relation/src/internal/utils/transmission_sink.dart';
 
 /// Forwards events from incoming [Stream] to a new [StreamController]
 Stream<R> forwardStream<T, R>(

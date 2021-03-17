@@ -1,4 +1,4 @@
-library rx;
+library internal;
 
 export 'processes.dart';
 export 'streams.dart';
