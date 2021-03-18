@@ -18,23 +18,32 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "mwwm-generator.create-widget",
-				"title": "Create Mwwm-widget"
+				"command": "mwwm-generator.create-mwwm-widget",
+				"title": "Create Mwwm Widget"
 			},
 			{
-				"command": "mwwm-generator.create-screen",
-				"title": "Create Mwwm-screen"
+				"command": "mwwm-generator.create-surf-mwwm-widget",
+				"title": "Create Surf-Mwwm Widget"
+			},
+			{
+				"command": "mwwm-generator.create-surf-mwwm-screen",
+				"title": "Create Surf-Mwwm Screen"
 			}
 		],
 		"menus": {
 			"explorer/context": [
 				{
-					"command": "mwwm-generator.create-widget",
+					"command": "mwwm-generator.create-mwwm-widget",
 					"group": "creating",
 					"when": "true"
 				},
 				{
-					"command": "mwwm-generator.create-screen",
+					"command": "mwwm-generator.create-surf-mwwm-widget",
+					"group": "creating",
+					"when": "true"
+				},
+				{
+					"command": "mwwm-generator.create-surf-mwwm-screen",
 					"group": "creating",
 					"when": "true"
 				}
