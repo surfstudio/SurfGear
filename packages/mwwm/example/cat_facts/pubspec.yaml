@@ -14,6 +14,7 @@ dependencies:
     path: ../..
   relation: ^0.0.2
   provider: ^5.0.0
+  http: ^0.13.1
 
   cupertino_icons: ^1.0.2
 
