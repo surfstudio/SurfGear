@@ -1,6 +1,6 @@
-import 'package:cat_facts/data/theme/app_theme.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
+import 'package:cat_facts/data/theme/app_theme.dart';
 
 class AppModel extends Model {
   AppModel({
