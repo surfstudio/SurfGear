@@ -15,11 +15,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:mwwm/mwwm.dart';
 
-typedef WidgetModelBuilder = WidgetModel Function(BuildContext);
+typedef WidgetModelBuilder<WM extends WidgetModel> = WM Function(BuildContext);
 
 /// Class for widgets that has [WidgetModel]
 /// You must provide [WidgetModel] in constructor or by [WidgetModelFactory]
-abstract class CoreMwwmWidget extends StatefulWidget {
+abstract class CoreMwwmWidget<WM extends WidgetModel> extends StatefulWidget {
   /// Builder for `WidgetModel`
   /// There are two possibilities to provide `WidgetModel` :
   ///  1. Here by [widgetModelBuilder] (prefer)
@@ -33,7 +33,7 @@ abstract class CoreMwwmWidget extends StatefulWidget {
   ///   widgetModelBuilder: wmBuilder ?? myBuilderFn
   /// );
   /// ```
-  final WidgetModelBuilder widgetModelBuilder;
+  final WidgetModelBuilder<WM> widgetModelBuilder;
 
   const CoreMwwmWidget({
     Key key,
@@ -44,8 +44,8 @@ abstract class CoreMwwmWidget extends StatefulWidget {
 
 /// Base class for state of [CoreMwwmWidget].
 /// Has [WidgetModel] from [initState].
-abstract class WidgetState<WM extends WidgetModel>
-    extends State<CoreMwwmWidget> {
+abstract class WidgetState<WM extends WidgetModel, W extends CoreMwwmWidget<WM>>
+    extends State<W> {
   /// [WidgetModel] for widget.
   @protected
   WM wm;
