@@ -8,9 +8,7 @@ class AppWidgetModel extends WidgetModel<AppModel> {
     AppModel model,
   ) : super(baseDependencies, model: model);
 
-  void switchTheme() {
-    model.changeTheme();
-  }
+  void changeTheme() => model.changeTheme();
 }
 
 AppWidgetModel createAppWidgetModel(BuildContext context) {
