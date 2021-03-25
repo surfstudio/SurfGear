@@ -18,6 +18,8 @@
 /// `R` is a type of result which is returned after
 /// performing the action.
 abstract class Change<R> {
+  const Change();
+
   @override
   String toString() {
     return '$runtimeType';
@@ -26,8 +28,12 @@ abstract class Change<R> {
 
 /// A Change that return Future as result
 /// `R` - type of result inside Future
-abstract class FutureChange<R> extends Change<Future<R>> {}
+abstract class FutureChange<R> extends Change<Future<R>> {
+  const FutureChange();
+}
 
 /// A Change thate return Stream as result
 /// `R` - type of result inside Stream
-abstract class StreamChange<R> extends Change<Stream<R>> {}
+abstract class StreamChange<R> extends Change<Stream<R>> {
+  const StreamChange();
+}

@@ -22,7 +22,7 @@ import 'package:mwwm/mwwm.dart';
 /// R - type of result
 /// C - type of change on which performer triggers
 abstract class Performer<R, C extends Change<R>> {
-  Performer();
+  const Performer();
 
   factory Performer.from(FunctionalPerformer<R, C> _performerFunc) =>
       _Performer(_performerFunc);

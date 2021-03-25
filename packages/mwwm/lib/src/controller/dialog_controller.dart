@@ -17,6 +17,8 @@ import 'package:flutter/widgets.dart';
 /// Controller for call dialogs
 /// should be used in [WidgetModel]
 abstract class DialogController {
+  const DialogController();
+
   Future<R> showAlertDialog<R>({
     String title,
     String message,
