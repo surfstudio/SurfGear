@@ -15,5 +15,7 @@
 /// Interface for handle error in WidgetModel Layer
 /// Typically here describes how handle an error on Prestation Layer.
 abstract class ErrorHandler {
+  const ErrorHandler();
+
   void handleError(Object e);
 }
