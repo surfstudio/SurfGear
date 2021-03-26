@@ -1,5 +1,7 @@
+import 'package:cat_facts/storage/app/app_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:provider/provider.dart';
 import 'package:relation/relation.dart';
 
 import 'package:cat_facts/data/facts/fact.dart';
@@ -8,7 +10,11 @@ import 'package:cat_facts/repository/facts_repository.dart';
 class FactsScreenWidgetModel extends WidgetModel {
   FactsScreenWidgetModel(
     WidgetModelDependencies baseDependencies,
+    this._appStorage,
+    this._factsRepository,
   ) : super(baseDependencies);
+  final AppStorage _appStorage;
+  final FactsRepository _factsRepository;
 
   final facts = StreamedState<Iterable<Fact>>([]);
 
@@ -18,12 +24,18 @@ class FactsScreenWidgetModel extends WidgetModel {
     _fetchFacts();
   }
 
-  void _fetchFacts() async {
-    await facts.accept(await FactsRepository.getFacts());
-  }
+  Future<void> _fetchFacts() async =>
+      facts.accept(await _factsRepository.getFacts());
+
+  void switchTheme() => _appStorage.changeTheme();
 }
 
-FactsScreenWidgetModel createFactsScreenWidgetModel(BuildContext context) =>
-    FactsScreenWidgetModel(
-      WidgetModelDependencies(),
-    );
+FactsScreenWidgetModel createFactsScreenWidgetModel(BuildContext context) {
+  final appStorage = Provider.of<AppStorage>(context, listen: false);
+
+  return FactsScreenWidgetModel(
+    WidgetModelDependencies(),
+    appStorage,
+    FactsRepository(appStorage.apiClient),
+  );
+}
