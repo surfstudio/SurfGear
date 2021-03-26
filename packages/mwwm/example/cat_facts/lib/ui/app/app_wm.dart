@@ -19,6 +19,6 @@ class AppWidgetModel extends WidgetModel {
 AppWidgetModel createAppWidgetModel(BuildContext context) {
   return AppWidgetModel(
     WidgetModelDependencies(),
-    Provider.of<AppStorage>(context, listen: false),
+    context.read<AppStorage>(),
   );
 }

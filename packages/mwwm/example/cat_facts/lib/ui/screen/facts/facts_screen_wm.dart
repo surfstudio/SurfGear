@@ -31,7 +31,7 @@ class FactsScreenWidgetModel extends WidgetModel {
 }
 
 FactsScreenWidgetModel createFactsScreenWidgetModel(BuildContext context) {
-  final appStorage = Provider.of<AppStorage>(context, listen: false);
+  final appStorage = context.read<AppStorage>();
 
   return FactsScreenWidgetModel(
     WidgetModelDependencies(),
