@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:provider/provider.dart';
 import 'package:relation/relation.dart';
 import 'package:cat_facts/data/theme/app_theme.dart';
 import 'package:cat_facts/ui/app/app_wm.dart';
@@ -20,17 +19,14 @@ class App extends CoreMwwmWidget {
 class _AppState extends WidgetState<AppWidgetModel> {
   @override
   Widget build(BuildContext context) {
-    return Provider(
-      create: (_) => wm.appStorage,
-      child: StreamedStateBuilder<AppTheme>(
-        streamedState: wm.theme,
-        builder: (context, theme) => MaterialApp(
-          title: 'Cat Facts',
-          theme: ThemeData(primaryColor: Colors.blue),
-          darkTheme: ThemeData.dark(),
-          themeMode: theme == AppTheme.dark ? ThemeMode.dark : ThemeMode.light,
-          home: FactsScreen(),
-        ),
+    return StreamedStateBuilder<AppTheme>(
+      streamedState: wm.theme,
+      builder: (context, theme) => MaterialApp(
+        title: 'Cat Facts',
+        theme: ThemeData(primaryColor: Colors.blue),
+        darkTheme: ThemeData.dark(),
+        themeMode: theme == AppTheme.dark ? ThemeMode.dark : ThemeMode.light,
+        home: FactsScreen(),
       ),
     );
   }
