@@ -24,16 +24,17 @@ import 'package:mwwm/src/utils/composite_subscription.dart';
 /// WM is logical representation of widget and his state.
 /// `WidgetModelDependencies` - is pack of dependencies for WidgetModel. Offtenly, it is `ErrorHandler`.
 /// `Model` - optionally, but recommended, manager for connection with bussines layer
-abstract class WidgetModel<T extends Model> {
+abstract class WidgetModel {
   final ErrorHandler _errorHandler;
 
-  final T model;
+  @protected
+  final Model model;
 
   final _compositeSubscription = CompositeSubscription();
 
   WidgetModel(
     WidgetModelDependencies baseDependencies, {
-    T model,
+    Model model,
   })  : _errorHandler = baseDependencies.errorHandler,
         model = model ?? Model([]);
 
@@ -65,6 +66,7 @@ abstract class WidgetModel<T extends Model> {
     void Function(T t) onValue, {
     void Function(Object e) onError,
   }) {
+
     StreamSubscription subscription = stream.listen(onValue, onError: (e) {
       handleError(e);
       onError?.call(e);
@@ -90,7 +92,7 @@ abstract class WidgetModel<T extends Model> {
   void doFutureHandleError<T>(
     Future<T> future,
     Function(T t) onValue, {
-    void Function(Object) onError,
+        void Function(Object) onError,
   }) {
     future.then(onValue).catchError((e) {
       handleError(e);
