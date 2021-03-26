@@ -40,4 +40,6 @@ abstract class DialogController {
 }
 
 /// Dialog parameters
-abstract class DialogData {}
+abstract class DialogData {
+  const DialogData();
+}

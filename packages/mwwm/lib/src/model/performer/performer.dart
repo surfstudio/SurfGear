@@ -28,18 +28,18 @@ abstract class Performer<R, C extends Change<R>> {
       _Performer(_performerFunc);
 
   /// Main method to perform a Change
-  /// 
-  /// Here placed a logic to react to change. There can be 
+  ///
+  /// Here placed a logic to react to change. There can be
   /// request to a server or something else.
-  /// 
+  ///
   /// This method use Model when perform change.
-  /// 
+  ///
   /// Typically don't use directly
   R perform(C change);
 
   /// Method to check ability to perform a object
   /// c - can be anything
-  /// 
+  ///
   /// Typically used only in Model
   bool canPerform(Object c) => c is C;
 }
@@ -49,7 +49,7 @@ typedef FunctionalPerformer<R, C> = R Function(C);
 class _Performer<R, C extends Change<R>> extends Performer<R, C> {
   final FunctionalPerformer<R, C> _performerFunc;
 
-  _Performer(this._performerFunc);
+  const _Performer(this._performerFunc);
 
   @override
   R perform(C change) {
@@ -61,14 +61,14 @@ class _Performer<R, C extends Change<R>> extends Performer<R, C> {
 /// This operations do only once
 abstract class FuturePerformer<R, C extends FutureChange<R>>
     extends Performer<Future<R>, C> {
-  FuturePerformer();
+  const FuturePerformer();
 }
 
 /// Alias for performers that return Stream of data
 /// Recommended for observabling data
 abstract class StreamPerformer<R, C extends StreamChange<R>>
     extends Performer<Stream<R>, C> {
-  StreamPerformer();
+  const StreamPerformer();
 }
 
 /// Broadcast is a [Performer] that allows listening to
