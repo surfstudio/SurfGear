@@ -90,3 +90,7 @@ ios/Runner/GeneratedPluginRegistrant.*
 ~changed_list_file
 packages/template/ios/Flutter/flutter_export_environment.sh
 .last_build_id
+
+# Unit test runner related
+**/coverage/**.info
+fake_test.dart
