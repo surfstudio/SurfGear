@@ -26,7 +26,7 @@ Add `surf_utils` to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  surf_utils: ^0.1.0-dev.0
+  surf_utils: ^1.0.0
 ```
 
 You can use both `stable` and `dev` versions of the package listed above in the badges bar.
