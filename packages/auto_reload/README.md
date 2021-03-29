@@ -44,6 +44,17 @@ usage:
 1. Add your request in [autoReload]
 2. Wait callback about successful completion
 
+## Installation
+
+Add `auto_reload` to your `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  auto_reload: ^0.0.1-dev.5
+```
+
+You can use both `stable` and `dev` versions of the package listed above in the badges bar.
+
 ## Changelog
 
 All notable changes to this project will be documented in [this file](./CHANGELOG.md).
