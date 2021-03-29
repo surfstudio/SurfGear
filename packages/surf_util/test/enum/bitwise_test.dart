@@ -13,9 +13,29 @@
 // limitations under the License.
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:surf_util/src/enum/bitmask.dart';
+
+class TestBitmask extends Bitmask {
+  const TestBitmask(int value) : super(value);
+}
 
 void main() {
-  test('test', () {
-    expect(true, isTrue);
+  group('Bitmask', () {
+    test('getMask returns aggregated mask for provided values', () {
+      expect(
+        Bitmask.getMask(const [
+          TestBitmask(0x0001),
+          TestBitmask(0x0002),
+          TestBitmask(0x0008),
+          TestBitmask(0x0200),
+        ]),
+        equals(0x020b),
+      );
+    });
+
+    test('isOn returns true if checked value contains provided mask', () {
+      expect(const TestBitmask(0x0001).isOn(0xFFFFFF), isTrue);
+      expect(const TestBitmask(0x1000).isOn(0xFFEFFF), isFalse);
+    });
   });
 }

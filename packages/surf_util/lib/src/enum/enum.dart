@@ -13,10 +13,11 @@
 // limitations under the License.
 
 /// Java-like enum
-/// При реализации стоит также создать статический метод byValue,
-/// возвращающий один из объектов класса.
+/// While extending this class you can create
+/// a static method `byValue` returning
+/// a class field.
 ///
-/// Пример использования:
+/// Example:
 /// ```dart
 /// class TransactionType extends Enum<String> {
 ///   const TransactionType(String val) : super(val);
