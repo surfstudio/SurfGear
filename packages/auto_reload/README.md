@@ -50,7 +50,7 @@ Add `auto_reload` to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  auto_reload: ^0.0.1-dev.5
+  auto_reload: ^1.0.0
 ```
 
 You can use both `stable` and `dev` versions of the package listed above in the badges bar.
