@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 
 class HomeScreenWidgetModel extends WidgetModel
-    with SingleTickerProviderWidgetModelMixin {
+    with TickerProviderWidgetModelMixin {
   HomeScreenWidgetModel(
     WidgetModelDependencies baseDependencies,
   ) : super(baseDependencies);
