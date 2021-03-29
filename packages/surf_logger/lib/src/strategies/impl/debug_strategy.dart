@@ -20,7 +20,7 @@ import 'package:surf_logger/src/strategies/log_strategy.dart';
 /// * used for local debugging
 class DebugLogStrategy extends LogStrategy {
   DebugLogStrategy([this._logger]) {
-    _logger ??= Logger();
+    _logger ??= Logger(printer: PrettyPrinter(methodCount: 0));
   }
 
   Logger _logger;
