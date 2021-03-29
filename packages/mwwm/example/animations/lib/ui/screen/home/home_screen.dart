@@ -34,15 +34,12 @@ class _HomeScreenState extends WidgetState<HomeScreenWidgetModel> {
       floatingActionButton: StreamBuilder<AnimationStatus>(
         stream: wm.status,
         builder: (context, snapshot) {
-          final bool shouldPlay = (!snapshot.hasData ||
-              snapshot?.data == AnimationStatus.completed ||
-              snapshot?.data == AnimationStatus.dismissed);
           return FloatingActionButton(
             child: Icon(
-              shouldPlay ? Icons.play_arrow : Icons.stop,
+              wm.shouldPlayAnimation ? Icons.play_arrow : Icons.stop,
             ),
             onPressed: () {
-              (shouldPlay) ? wm.startAnimation() : wm.stopAnimation();
+              wm.shouldPlayAnimation ? wm.startAnimation() : wm.stopAnimation();
             },
           );
         },

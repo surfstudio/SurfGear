@@ -21,6 +21,11 @@ class HomeScreenWidgetModel extends WidgetModel
 
   void stopAnimation() => animationController.reset();
 
+  bool get shouldPlayAnimation =>
+      animationController.status == null ||
+      animationController.status == AnimationStatus.completed ||
+      animationController.status == AnimationStatus.dismissed;
+
   @override
   void onLoad() {
     animationController = AnimationController(
