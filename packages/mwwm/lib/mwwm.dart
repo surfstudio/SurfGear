@@ -24,6 +24,7 @@ export 'package:mwwm/src/error/error_handler.dart';
 //main
 export 'package:mwwm/src/widget_state.dart';
 export 'package:mwwm/src/widget_model.dart';
+export 'package:mwwm/src/single_ticker_provider_widget_model_mixin.dart';
 export 'package:mwwm/src/dependencies/wm_dependencies.dart';
 
 export 'package:mwwm/src/model/model.dart';
