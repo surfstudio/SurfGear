@@ -10,7 +10,7 @@ void main(List<String> args) {
   final uncoveredFiles =
       _findSourceFiles(Directory(_folderWithSources)).map((f) => f.path);
 
-  final dartPackage = args.last == 'dart';
+  final dartPackage = args.isNotEmpty && args.last == 'dart';
 
   File(_fakeTestPath).writeAsStringSync(_fakeTest(uncoveredFiles, dartPackage),
       mode: FileMode.writeOnly);
