@@ -80,14 +80,14 @@ class EntityStateBuilder<T> extends StatelessWidget {
       initialData: streamedState.value,
       builder: (context, snapshot) {
         final streamData = snapshot.data;
-        if (streamData == null || streamData.isLoading) {
-          if (streamData?.data != null && loadingBuilder != null) {
+        if (streamData?.isLoading ?? true) {
+          if (loadingBuilder != null) {
             return loadingBuilder(context, streamData.data);
           } else {
             return loadingChild;
           }
         } else if (streamData.hasError) {
-          if (streamData.data != null && errorBuilder != null) {
+          if (errorBuilder != null) {
             return errorBuilder(
               context,
               streamData.data,
