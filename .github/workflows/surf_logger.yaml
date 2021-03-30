@@ -42,7 +42,9 @@ jobs:
           dart pub global run dependency_validator:dependency_validator
 
       - name: Run analyzer
-        run: dart analyze --fatal-warnings --fatal-infos .
+        run: |
+          dart analyze --fatal-warnings --fatal-infos lib
+          dart analyze --fatal-warnings --fatal-infos test
 
       - name: Run formatter
         run: dart format --set-exit-if-changed .
