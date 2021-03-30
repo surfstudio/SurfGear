@@ -12,24 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import '../../surf_util.dart';
+import 'package:surf_util/src/enum/enum.dart';
 
-/// Реализация Enum в виде битовой маски.
-/// Каждое значение перечисления должно быть степенью двойки.
+/// A generic implementation of the Bitmask type.
+///
+/// Each value must be a power of two.
 abstract class Bitmask extends Enum<int> {
   const Bitmask(int value)
       : assert(value > 0 && (value & (value - 1) == 0)),
         super(value);
 
   /// Возвращает значение маски по списку значений
-  static int getMask(Iterable<Bitmask> list) {
-    var res = 0;
-    for (final item in list) {
-      res = res | item.value;
-    }
-
-    return res;
-  }
+  static int getMask(Iterable<Bitmask> list) =>
+      list.fold(0, (value, element) => value | element.value);
 
   /// Выполняет проверку на активность флага.
   bool isOn(int mask) {

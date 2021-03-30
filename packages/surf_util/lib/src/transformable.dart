@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Interface for mapping
+/// Interface for transform a data object from one format to another
 // ignore: one_member_abstracts
 abstract class Transformable<T> {
   T transform();
