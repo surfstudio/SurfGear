@@ -6,15 +6,17 @@ import 'package:path/path.dart' as p;
 const _fakeTestPath = 'test/fake_test.dart';
 const _folderWithSources = 'lib';
 
-void main() {
+void main(List<String> args) {
   final uncoveredFiles =
       _findSourceFiles(Directory(_folderWithSources)).map((f) => f.path);
 
-  File(_fakeTestPath)
-      .writeAsStringSync(_fakeTest(uncoveredFiles), mode: FileMode.writeOnly);
+  final dartPackage = args.last == 'dart';
+
+  File(_fakeTestPath).writeAsStringSync(_fakeTest(uncoveredFiles, dartPackage),
+      mode: FileMode.writeOnly);
 }
 
-String _fakeTest(Iterable<String> uncoveredFiles) {
+String _fakeTest(Iterable<String> uncoveredFiles, bool dartPackage) {
   final buffer = StringBuffer()
     ..writeln("import 'package:flutter_test/flutter_test.dart';")
     ..writeln();
@@ -61,6 +63,6 @@ String _getRandomString(int length) {
 
   return String.fromCharCodes(Iterable.generate(
     length,
-        (_) => _chars.codeUnitAt(rnd.nextInt(_chars.length)),
+    (_) => _chars.codeUnitAt(rnd.nextInt(_chars.length)),
   ));
 }

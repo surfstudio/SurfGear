@@ -54,7 +54,7 @@ jobs:
           CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
         if: success()
         run: |
-          dart pub run ../../tools/coverage/fake_test_generator.dart
+          dart pub run ../../tools/coverage/fake_test_generator.dart dart
           dart test --coverage=coverage
           dart pub run coverage:format_coverage --packages=.packages -i coverage -o coverage/lcov.info --lcov --report-on=lib
           flutter pub run ../../tools/coverage/patch_lcov.dart
