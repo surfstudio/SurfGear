@@ -22,5 +22,5 @@ abstract class RemoteUserLogStrategy {
 
   void logError(Exception error);
 
-  void logInfo(String key, Object info);
+  void logInfo(String key, Object? info);
 }
