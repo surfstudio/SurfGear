@@ -1,8 +1,8 @@
 # Changelog
 
-## 0.1.0
+## 1.0.0
 
-* Migrate this package to null safety.
+* Migrated to null safety, min SDK is `2.12.0`.
 
 ## 0.0.1-dev.8
 

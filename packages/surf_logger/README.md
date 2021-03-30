@@ -39,7 +39,7 @@ Add `surf_logger` to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  surf_logger: ^0.0.1-dev.8
+  surf_logger: ^1.0.0
 ```
 
 You can use both `stable` and `dev` versions of the package listed above in the badges bar.
