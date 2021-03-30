@@ -18,7 +18,9 @@ void main(List<String> args) {
 
 String _fakeTest(Iterable<String> uncoveredFiles, bool dartPackage) {
   final buffer = StringBuffer()
-    ..writeln("import 'package:flutter_test/flutter_test.dart';")
+    ..writeln(dartPackage
+        ? "import 'package:test/test.dart';"
+        : "import 'package:flutter_test/flutter_test.dart';")
     ..writeln();
 
   for (final file in uncoveredFiles) {
