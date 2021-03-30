@@ -7,22 +7,22 @@ The stream representation of the relations of the entities and widget utilities
 
 ## Usage
 
-main classes:
+Main classes:
 
-1. [Action](/lib/src/relation/action/action.dart)
-    1.1 [ControllerAction](/lib/src/relation/action/actions/controller_action.dart)
-    1.2 [ScrollAction](/lib/src/relation/action/actions/scroll_action.dart)
-    1.2 [TextEdititingAction](/lib/src/relation/action/actions/text_editing_action.dart)
-2. [Builder](/lib/src/builder)
-    2.1 [EntityStreamBuilder](/lib/src/builder/entity_stream_builder.dart)
-    2.2 [StreamedStateBuilder](/lib/src/builder/streamed_state_builder.dart)
-    2.3 [TextfieldStateBuilder](/lib/src/builder/textfield_state_builder.dart)
-3. [StreamedState](/lib/src/relation/state/streamed_state.dart)
-4. [EntityStreamedState](/lib/src/relation/state/entity_state.dart)
+1. [Action](./lib/src/relation/action/action.dart)  
+    1.1 [ControllerAction](./lib/src/relation/action/actions/controller_action.dart)  
+    1.2 [ScrollAction](./lib/src/relation/action/actions/scroll_action.dart)  
+    1.2 [TextEdititingAction](./lib/src/relation/action/actions/text_editing_action.dart)
+2. [Builder](./lib/src/builder)  
+    2.1 [EntityStreamBuilder](./lib/src/builder/entity_stream_builder.dart)  
+    2.2 [StreamedStateBuilder](./lib/src/builder/streamed_state_builder.dart)  
+    2.3 [TextfieldStateBuilder](./lib/src/builder/textfield_state_builder.dart)
+3. [StreamedState](./lib/src/relation/state/streamed_state.dart)
+4. [EntityStreamedState](./lib/src/relation/state/entity_state.dart)
 
-# Action
+## Action
 
-#### Action
+### Action
 
 It's wrapper over an action on screen.
 It may be a tap on button, text changes, focus changes and so on.
@@ -37,8 +37,9 @@ It may be a tap on button, text changes, focus changes and so on.
    someAction.action.listen(doSomething);
 ```
 
-#### ControllerAction
-**Currently experimental.**
+### ControllerAction
+
+**Currently experimental.**  
 The action that fires when the value in the controller changes.
 
 ```dart
@@ -53,7 +54,8 @@ The action that fires when the value in the controller changes.
     textEditingController.text = 'test';
 ```
  
-#### ScrollAction
+### ScrollAction
+
 The action that fires when the value changes when scrolling.
 
 ```dart
@@ -87,8 +89,9 @@ The action that fires when the value changes when scrolling.
   );
 ```
 
-#### TextEditingAction
-**Currently experimental.** 
+### TextEditingAction
+
+**Currently experimental.**  
 An action that fires when a text field receives new characters
 
 ```dart
@@ -100,10 +103,12 @@ An action that fires when a text field receives new characters
   });
 ```
 
-# Builder
+## Builder
+
 Builders are widgets that listen to a change in a stream and provide new data to child widgets
 
-#### StreamedStateBuilder
+### StreamedStateBuilder
+
 Updates child widget when an answer arrives
 
 ```dart
@@ -129,7 +134,9 @@ Updates child widget when an answer arrives
     },
   );
 ```
-#### EntityStreamBuilder
+
+### EntityStreamBuilder
+
 This builder has three states onResponse, onError, onLoading
 
 ```dart
@@ -215,9 +222,12 @@ This builder has three states onResponse, onError, onLoading
     },
   );
 ```
-#### TextFieldStateBuilder
-Wrapper over TextFieldStreamedState. 
-StateBuilder callback is triggered every time new data appears in the stream
+
+### TextFieldStateBuilder
+
+Wrapper over TextFieldStreamedState.  
+StateBuilder callback is triggered every time new data appears in the stream.
+
 ```dart
   testWidgets(
     'TextfieldStreamBuilder content test',
@@ -244,9 +254,9 @@ StateBuilder callback is triggered every time new data appears in the stream
   );
 ```
 
-# State
+## State
 
-#### StreamedState
+### StreamedState
 
 A state of some type wrapped in a stream
 dictates the widget's state
@@ -261,8 +271,8 @@ dictates the widget's state
      builder: (ctx, T data) => Text(data.toString()),
    );
 ```
- 
-#### EntityStreamedState
+
+### EntityStreamedState
 
 A state that have download/error/content status
 
@@ -284,4 +294,3 @@ A state that have download/error/content status
       errorChild: ErrorPlaceholder(),
     );
 ```
-
