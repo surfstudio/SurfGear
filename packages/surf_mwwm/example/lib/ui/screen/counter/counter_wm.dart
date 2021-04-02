@@ -33,7 +33,7 @@ class CounterWidgetModel extends WidgetModel {
 
   StreamedState<int> counterState = StreamedState(0);
 
-  Action incrementAction = Action<void>();
+  final incrementAction = Action<void>();
   final showInit = Action<int>();
 
   @override
@@ -43,23 +43,21 @@ class CounterWidgetModel extends WidgetModel {
   }
 
   void _listenToActions() {
-    subscribe<void>(
-      incrementAction.stream,
-      (_) => counterState.accept(counterState.value + 1),
-    );
+    incrementAction.bind((_) {
+      counterState.accept(counterState.value + 1);
+    }).listenOn(this);
 
-    subscribe<void>(
-      showInit.stream,
-      (_) => _key.currentState.showSnackBar(
+    showInit.bind((_) {
+      _key.currentState.showSnackBar(
         const SnackBar(
           content: Text('init'),
         ),
-      ),
-    );
+      );
+    }).listenOn(this);
 
-    subscribe(
-      counterState.stream.where((c) => c.isEven).skip(1),
-      (c) {
+    counterState.stream.where((c) => c.isEven).skip(1).listenOn(
+      this,
+      onValue: (c) {
         navigator.push(
           MaterialPageRoute<void>(
             builder: (ctx) => Scaffold(

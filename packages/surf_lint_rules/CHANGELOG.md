@@ -1,3 +1,9 @@
+# Changelog
+
+## 1.0.0
+
+- Migrated to null safety, min SDK is `2.12.0`.
+
 ## 0.0.2-dev.6
 
 * Add new error-rule : no_runtimeType_toString.

@@ -15,6 +15,8 @@
 /// Controller for call messages
 /// should be used in [WidgetModel]
 abstract class MessageController {
+  const MessageController();
+
   /// Show msg according to msgType
   /// msgType is defined on concrete widget(UI Layer)
   dynamic show({String msg, Object msgType});

@@ -12,10 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
+import 'package:flutter/widgets.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
+import 'package:surf_injector/surf_injector.dart';
+import 'package:rxdart/rxdart.dart';
 
-/// утилиты-расширения для [WidgetModel]
+/// Extensions for [WidgetModel]
 extension SurfMwwmExtension on WidgetModel {
   /// bind ui [Event]'s
   void bind<T>(
@@ -24,4 +29,122 @@ extension SurfMwwmExtension on WidgetModel {
     void Function(dynamic e) onError,
   }) =>
       subscribe<T>(event.stream, onValue, onError: onError);
+}
+
+extension FutureExt<T> on Future<T> {
+  /// Do future on specified listener
+  Future<T> on(WidgetModel listener, {void Function(dynamic) onError}) {
+    Completer<T> _c = Completer();
+    listener.doFuture(
+      this,
+      (data) {
+        _c.complete(data);
+      },
+      onError: onError,
+    );
+
+    return _c.future;
+  }
+
+  /// Do future with error catching on specified listener
+  Future<T> withErrorHandling(WidgetModel listener) {
+    Completer<T> _c = Completer();
+    listener.doFutureHandleError(this, (data) {
+      _c.complete(data);
+    }, onError: (e) {
+      _c.completeError(e);
+    });
+
+    return _c.future;
+  }
+}
+
+extension EntityExt<T> on EntityStreamedState<T> {
+  /// Map streamed state by specified function
+  EntityStreamedState<R> map<R>(R Function(T) mapper) =>
+      EntityStreamedState<R>.from(
+        this.stream.map(
+          (es) {
+            if (es.isLoading) {
+              return EntityState<R>.loading();
+            } else if (es.hasError) {
+              return EntityState<R>.error(es.error);
+            } else {
+              return EntityState.content(mapper(es.data));
+            }
+          },
+        ),
+      );
+}
+
+extension EventExt<T> on Event<T> {
+  /// Transform streamed event with soecified function
+  Event<R> map<R>(R Function(T) mapper) =>
+      StreamedState<R>.from(this.stream.map(mapper));
+
+  /// Do function on action triggered
+  Event<T> doOnData(void Function(T) action) {
+    return this..stream.doOnData(action);
+  }
+
+  /// Do something on each event on stream
+  Event<T> doEventOnData(Event<T> event) {
+    return this..stream.doOnData(event.accept);
+  }
+
+  /// Bind one event to another
+  Event<T> bind(void Function(T) onData) {
+    stream.doOnData(
+      (t) {
+        onData(t);
+      },
+    ).listen(null);
+
+    return this;
+  }
+
+  /// Listen on specifited listener with possibility to add callbacks
+  void listenOn(
+    WidgetModel listener, {
+    void Function(T) onValue,
+    void Function(Exception) onError,
+  }) {
+    listener.subscribe<T>(this.stream, onValue, onError: onError);
+  }
+
+  /// Listen on WM with error catching
+  void listenCathError(
+    WidgetModel listener, {
+    void Function(T) onValue,
+    void Function(Exception) onError,
+  }) {
+    this.stream.listenCatchError(listener, onValue: onValue, onError: onError);
+  }
+}
+
+extension StreamX<T> on Stream<T> {
+  /// Listen on specifited listener with possibility to add callbacks
+  void listenOn(
+    WidgetModel listener, {
+    void Function(T) onValue,
+    void Function(Exception) onError,
+  }) {
+    listener.subscribe<T>(this, onValue, onError: onError);
+  }
+
+  /// Listen on WM with error catching
+  void listenCatchError(
+    WidgetModel listener, {
+    void Function(T) onValue,
+    void Function(Exception) onError,
+  }) {
+    listener.subscribeHandleError<T>(this, onValue, onError: onError);
+  }
+}
+
+extension InjectorExt on BuildContext {
+  /// Getter for component by type
+  T getComponent<T extends Component>() {
+    return Injector.of<T>(this).component;
+  }
 }

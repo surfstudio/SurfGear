@@ -66,7 +66,6 @@ abstract class WidgetModel {
     void Function(T t) onValue, {
     void Function(Object e) onError,
   }) {
-
     StreamSubscription subscription = stream.listen(onValue, onError: (e) {
       handleError(e);
       onError?.call(e);
@@ -92,7 +91,7 @@ abstract class WidgetModel {
   void doFutureHandleError<T>(
     Future<T> future,
     Function(T t) onValue, {
-        void Function(Object) onError,
+    void Function(Object) onError,
   }) {
     future.then(onValue).catchError((e) {
       handleError(e);

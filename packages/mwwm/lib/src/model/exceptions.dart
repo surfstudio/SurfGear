@@ -18,7 +18,7 @@ import 'package:mwwm/src/model/changes/changes.dart';
 class NoPerformerException implements Exception {
   final Change change;
 
-  NoPerformerException(this.change);
+  const NoPerformerException(this.change);
 
   @override
   String toString() {
@@ -30,7 +30,7 @@ class NoPerformerException implements Exception {
 class NoBroadcastPerformerException implements Exception {
   final Type change;
 
-  NoBroadcastPerformerException(this.change);
+  const NoBroadcastPerformerException(this.change);
 
   @override
   String toString() {

@@ -1,20 +1,29 @@
 name: auto_reload
-version: "0.0.1-dev.3"
-description: a library that helps to perform actions with some periodicity
+version: "1.0.0-dev.1"
+description: A library that helps to perform actions with some periodicity
 repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/auto_reload"
+issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 
 dependencies:
+  connectivity: ^3.0.0
   flutter:
     sdk: flutter
-  connectivity: ^0.4.6+2
-  surf_lint_rules: "^0.0.1-dev.0"
 
 dev_dependencies:
+  fake_async: ^1.2.0
   flutter_test:
     sdk: flutter
+  mockito: ^5.0.0
+  surf_lint_rules: ^1.0.0
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
+
+dependency_validator:
+  exclude:
+    - "example/**"
+  ignore:
+    - flutter
 
 custom:
   is_stable: false

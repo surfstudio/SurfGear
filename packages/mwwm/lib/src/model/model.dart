@@ -27,7 +27,7 @@ import 'package:mwwm/src/model/performer/performer.dart';
 class Model {
   final List<Performer> _performers;
 
-  Model(this._performers);
+  const Model(this._performers);
 
   /// Perform some change inside business logic once
   R perform<R>(Change<R> change) {
@@ -36,7 +36,7 @@ class Model {
         debugPrint('[PERFORM] $p try to perform $change');
         if (p.canPerform(change)) {
           return p.perform(change);
-        } 
+        }
       } catch (e) {
         rethrow;
       }
