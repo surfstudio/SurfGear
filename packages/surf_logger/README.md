@@ -14,24 +14,24 @@ Logger for Dart & Flutter
 
 ## Usage
 
-main classes:
+Main classes:
 
-* [Logger](lib/src/logger.dart)
-* [RemoteLogger](lib/src/remote_logger.dart)
+* [Logger](./lib/src/logger.dart)
+* [RemoteLogger](./lib/src/remote_logger.dart)
 
 ## Logger
 
-Logger is used as a singleton. The main methods:
+[Logger](./lib/src/logger.dart) is used as a singleton. The main methods:
 
 * .`d` - debug
 * .`w` - warn, for expected error
 * .`e` - error
 
-Logging strategies can be supplemented by implementing the `LogStrategy` heir
+You can use either [DebugLogStrategy](./lib/src/strategies/impl/debug_strategy.dart) as strategy for [Logger](./lib/src/logger.dart) or [RemoteLogStrategy](./lib/src/strategies/impl/remote_strategy.dart) for [RemoteLogger](./lib/src/remote_logger.dart). Or create your own strategy by implementing [LogStrategy](./lib/src/strategies/log_strategy.dart).
 
-When adding `RemoteLogStrategy` to the remote server, all logs are sent above the WARN level
+When adding [RemoteLogStrategy](lib/src/strategies/impl/remote_strategy.dart) to the remote server, all logs are sent above the WARN level.
 
-In order not to pollute Crashlytics we use `Logger # w ()` for the expected errors
+In order not to pollute Crashlytics we use `Logger # w ()` for the expected errors.
 
 ## Installation
 
