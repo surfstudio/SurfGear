@@ -48,16 +48,22 @@ class GeolocatorService implements LocationService {
     double endLongitude,
   ) {
     return lib.Geolocator().distanceBetween(
-        startLatitude, startLongitude, endLatitude, endLongitude);
+      startLatitude,
+      startLongitude,
+      endLatitude,
+      endLongitude,
+    );
   }
 
   @override
   Future<Location> getLocation() {
     return _geolocator
         .getCurrentPosition(desiredAccuracy: accuracy)
-        .then(_positionToLocation,
-            // ignore: avoid_types_on_closure_parameters
-            onError: (Exception e) => getLastKnownLocation())
+        .then(
+          _positionToLocation,
+          // ignore: avoid_types_on_closure_parameters
+          onError: (Exception e) => getLastKnownLocation(),
+        )
         .catchError(_handleError);
   }
 

@@ -58,8 +58,7 @@ class CompositeSubscription {
   ///
   /// This composite can be reused after calling this method.
   void clear() {
-    _subscriptionsList.forEach(
-        (StreamSubscription<dynamic> subscription) => subscription.cancel());
+    _subscriptionsList.forEach((subscription) => subscription.cancel());
     _subscriptionsList.clear();
   }
 

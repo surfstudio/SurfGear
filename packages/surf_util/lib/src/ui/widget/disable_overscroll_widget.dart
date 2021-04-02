@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 /// Place the [SingleChildScrollView] inside the [DisableOverscroll] widget
 /// to prevent glowing when scrolling over the edge.
 class DisableOverscroll extends StatelessWidget {
   const DisableOverscroll({
-    @required this.child,
-    Key key,
+    required this.child,
+    Key? key,
   }) : super(key: key);
 
   final Widget child;

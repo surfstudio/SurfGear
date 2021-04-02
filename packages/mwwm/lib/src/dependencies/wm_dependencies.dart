@@ -19,5 +19,5 @@ import 'package:mwwm/src/error/error_handler.dart';
 class WidgetModelDependencies {
   final ErrorHandler errorHandler;
 
-  WidgetModelDependencies({this.errorHandler});
+  const WidgetModelDependencies({this.errorHandler});
 }

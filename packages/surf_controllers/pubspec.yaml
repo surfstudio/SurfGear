@@ -1,0 +1,26 @@
+name: surf_controllers
+version: "0.0.1-dev.1"
+description: 
+homepage: "https://github.com/surfstudio/SurfGear/tree/dev/surf_controllers"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+flutter:
+
+custom:
+  is_stable: false
+  unstable_version:
+  is_plugin: false
+  path: surf_controllers
+  separate_repo_url: "https://github.com/surfstudio/SurfGear/tree/dev/surf_controllers"
+  hostUrl:

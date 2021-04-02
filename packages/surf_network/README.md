@@ -1,5 +1,9 @@
 #### [SurfGear](https://github.com/surfstudio/SurfGear)
 
+# Attention
+
+This package is currently deprecated.
+
 # surf_network
 
 Network implementation for Flutter

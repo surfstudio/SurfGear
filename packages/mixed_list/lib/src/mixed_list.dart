@@ -72,30 +72,34 @@ class MixedListState<W extends MixedList> extends State<W> {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
-        physics: widget.scrollPhysics,
-        controller: widget.scrollController,
-        slivers: <Widget>[
-          SliverPadding(
-            padding: widget.sliverPadding,
-            sliver: widget.listMode == ListMode.list
-                ? SliverList(delegate: getItemDelegate())
-                : SliverGrid(
-                    delegate: getItemDelegate(),
-                    gridDelegate: widget.gridDelegate,
-                  ),
-          )
-        ]);
+      physics: widget.scrollPhysics,
+      controller: widget.scrollController,
+      slivers: [
+        SliverPadding(
+          padding: widget.sliverPadding,
+          sliver: widget.listMode == ListMode.list
+              ? SliverList(delegate: getItemDelegate())
+              : SliverGrid(
+                  delegate: getItemDelegate(),
+                  gridDelegate: widget.gridDelegate,
+                ),
+        ),
+      ],
+    );
   }
 
   @protected
   SliverChildBuilderDelegate getItemDelegate() {
     return widget.itemsDelegate ??
-        SliverChildBuilderDelegate((ctx, position) {
-          return buildItemWidget(
-            context,
-            position,
-          );
-        }, childCount: widget.items.length);
+        SliverChildBuilderDelegate(
+          (ctx, position) {
+            return buildItemWidget(
+              context,
+              position,
+            );
+          },
+          childCount: widget.items.length,
+        );
   }
 
   @protected

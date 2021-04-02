@@ -34,7 +34,8 @@ abstract class VirtualKeyboardKey {
 
   /// Is [instance] a subtype of [T]
   static bool checkType<T extends VirtualKeyboardKey>(
-      VirtualKeyboardKey instance) {
+    VirtualKeyboardKey instance,
+  ) {
     return instance is T;
   }
 

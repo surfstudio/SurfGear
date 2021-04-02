@@ -2,7 +2,7 @@
 
 # Организация  Flavors в  Flutter
 
-Все шаги ниже уже настроены в template.
+Все шаги ниже уже настроены в [template](../../../../template).
 
 Если Вам необходимо изменить идентификатор под ios - меняйте в файле common.xcconfig.
 
@@ -88,7 +88,7 @@ IDENTIFIER=$(identifier)$(bundle_suffix)
 
 Выглядить это будет примерно так:
 
-![configs](../../../img/best_practice/best_practice/configs.png)
+![configs](../../../img/best_practice/configs.png)
 
 К сожалению дублировать конфигурации пока необходимо, так как скрипт ответственный за сборку ios очень чувствителен к неймингу.
 

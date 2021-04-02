@@ -66,7 +66,7 @@ class DefaultLocationPermissionService implements LocationPermissionService {
     }
   }
 
-  Future<PermissionStatus> _handleError(Exception error, String stacktrace) {
+  Future<PermissionStatus> _handleError(Object error, Object stacktrace) {
     if (error is PlatformException) {
       throw error;
     }

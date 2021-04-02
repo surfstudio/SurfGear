@@ -100,4 +100,52 @@ void main() {
       expect(loadingFinder, findsOneWidget);
     },
   );
+
+  testWidgets('EntityStateBuilder with loadingBuilder', (tester) async {
+    final testData = EntityStreamedState<String>();
+    final streamedStateBuilder = EntityStateBuilder<String>(
+      streamedState: testData,
+      child: (context, data) {
+        return const Text('test');
+      },
+      loadingBuilder: (context, data) => const Text('loadingBuilder'),
+    );
+
+    unawaited(testData.loading());
+    await tester.pumpWidget(
+      MaterialApp(
+        title: 'Flutter Demo',
+        home: Scaffold(
+          body: streamedStateBuilder,
+        ),
+      ),
+    );
+
+    final loadingBuilderFinder = find.text('loadingBuilder');
+    expect(loadingBuilderFinder, findsOneWidget);
+  });
+
+  testWidgets('EntityStateBuilder with errorBuilder', (tester) async {
+    final testData = EntityStreamedState<String>();
+    final streamedStateBuilder = EntityStateBuilder<String>(
+      streamedState: testData,
+      child: (context, data) {
+        return const Text('test');
+      },
+      errorBuilder: (context, data, e) => const Text('errorBuilder'),
+    );
+
+    unawaited(testData.error());
+    await tester.pumpWidget(
+      MaterialApp(
+        title: 'Flutter Demo',
+        home: Scaffold(
+          body: streamedStateBuilder,
+        ),
+      ),
+    );
+
+    final loadingBuilderFinder = find.text('errorBuilder');
+    expect(loadingBuilderFinder, findsOneWidget);
+  });
 }

@@ -39,6 +39,7 @@ class RenderMetricsObject<T> extends SingleChildRenderObjectWidget {
     this.id,
     this.manager,
     this.onMount,
+    this.onUpdate,
     this.onUnMount,
   })  : assert(manager == null || id != null && manager != null),
         super(key: key, child: child);
@@ -46,6 +47,7 @@ class RenderMetricsObject<T> extends SingleChildRenderObjectWidget {
   final T id;
   final RenderManager manager;
   final MountCallback<T> onMount;
+  final MountCallback<T> onUpdate;
   final UnMountCallback<T> onUnMount;
 
   @override
@@ -54,6 +56,14 @@ class RenderMetricsObject<T> extends SingleChildRenderObjectWidget {
     onMount?.call(id, r);
     manager?.addRenderObject(id, r);
     return r;
+  }
+
+  @override
+  void updateRenderObject(BuildContext context, covariant RenderObject renderObject) {
+    if (renderObject is RenderMetricsBox) {
+      onUpdate?.call(id, renderObject);
+      manager?.updateRenderObject(id, renderObject);
+    }
   }
 
   @override

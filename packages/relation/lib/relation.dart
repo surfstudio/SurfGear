@@ -24,6 +24,6 @@ export 'package:relation/src/relation/state/entity_state.dart';
 export 'package:relation/src/relation/state/streamed_state.dart';
 
 //builders
-export 'package:relation/src/builder/entity_stream_builder.dart';
+export 'package:relation/src/builder/entity_state_builder.dart';
 export 'package:relation/src/builder/streamed_state_builder.dart';
 export 'package:relation/src/builder/textfield_state_builder.dart';

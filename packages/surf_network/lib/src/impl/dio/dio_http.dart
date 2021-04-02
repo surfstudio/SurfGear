@@ -248,7 +248,9 @@ class DioHttp extends Http {
   }
 
   Future<Map<String, String>> _buildHeaders(
-      String url, Map<String, String> headers) async {
+    String url,
+    Map<String, String> headers,
+  ) async {
     Map<String, String> headersMap = Map();
     if (headersBuilder != null) {
       headersMap.addAll(await headersBuilder.buildHeadersForUrl(url, headers));

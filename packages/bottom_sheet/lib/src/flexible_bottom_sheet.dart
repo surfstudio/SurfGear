@@ -42,23 +42,23 @@ import 'package:flutter/material.dart';
 ///
 /// [initHeight] - relevant height for init bottom sheet
 class FlexibleBottomSheet extends StatefulWidget {
-  const FlexibleBottomSheet(
-      {Key key,
-      this.minHeight = 0,
-      this.initHeight = 0.5,
-      this.maxHeight = 1,
-      this.builder,
-      this.headerBuilder,
-      this.bodyBuilder,
-      this.isCollapsible = false,
-      this.isExpand = true,
-      this.animationController,
-      this.anchors,
-      this.minHeaderHeight,
-      this.maxHeaderHeight,
-      this.decoration,
-      this.onDismiss})
-      : assert(minHeight == null || minHeight >= 0 && minHeight <= 1),
+  const FlexibleBottomSheet({
+    Key key,
+    this.minHeight = 0,
+    this.initHeight = 0.5,
+    this.maxHeight = 1,
+    this.builder,
+    this.headerBuilder,
+    this.bodyBuilder,
+    this.isCollapsible = false,
+    this.isExpand = true,
+    this.animationController,
+    this.anchors,
+    this.minHeaderHeight,
+    this.maxHeaderHeight,
+    this.decoration,
+    this.onDismiss,
+  })  : assert(minHeight == null || minHeight >= 0 && minHeight <= 1),
         assert(maxHeight == null || maxHeight > 0 && maxHeight <= 1),
         assert(
             !(maxHeight != null && minHeight != null) || maxHeight > minHeight),
@@ -223,7 +223,7 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
                 context,
                 _currentExtent,
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -137,23 +137,24 @@ class _PaginationState extends MixedListState<PaginationMixedList> {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
-        physics: widget.scrollPhysics,
-        controller: widget.scrollController,
-        slivers: <Widget>[
-          ...widget.headerSlivers,
-          SliverPadding(
-            padding: widget.sliverPadding,
-            sliver: widget.listMode == ListMode.list
-                ? SliverList(delegate: getItemDelegate())
-                : SliverGrid(
-                    delegate: getItemDelegate(),
-                    gridDelegate: widget.gridDelegate,
-                  ),
-          ),
-          SliverToBoxAdapter(
-            child: _paginationFooter(context),
-          )
-        ]);
+      physics: widget.scrollPhysics,
+      controller: widget.scrollController,
+      slivers: [
+        ...widget.headerSlivers,
+        SliverPadding(
+          padding: widget.sliverPadding,
+          sliver: widget.listMode == ListMode.list
+              ? SliverList(delegate: getItemDelegate())
+              : SliverGrid(
+                  delegate: getItemDelegate(),
+                  gridDelegate: widget.gridDelegate,
+                ),
+        ),
+        SliverToBoxAdapter(
+          child: _paginationFooter(context),
+        ),
+      ],
+    );
   }
 
   Widget _paginationFooter(BuildContext context) {

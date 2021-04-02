@@ -38,7 +38,7 @@ class _AppState extends WidgetState<AppWidgetModel> {
   @override
   void initState() {
     super.initState();
-    _navKey = Injector.of<AppComponent>(context).component.navigatorKey;
+    _navKey = context.getComponent<AppComponent>().navigatorKey;
   }
 
   @override

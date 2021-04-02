@@ -1,4 +1,8 @@
-##0.0.1-dev.9
+## 0.0.1-dev.12
+
+* Fix unnecessary onRefresh call on CupertinoSwipeRefresh
+
+## 0.0.1-dev.9
 
 * Added keyboardDismissBehavior (Material) and scroll physics
 

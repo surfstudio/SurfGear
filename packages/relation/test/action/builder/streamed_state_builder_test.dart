@@ -23,10 +23,11 @@ void main() {
     (tester) async {
       final testData = StreamedState<String>('test');
       final streamedStateBuilder = StreamedStateBuilder<String>(
-          streamedState: testData,
-          builder: (context, data) {
-            return Text(data);
-          });
+        streamedState: testData,
+        builder: (context, data) {
+          return Text(data);
+        },
+      );
       await tester.pumpWidget(
         MaterialApp(
           title: 'Flutter Demo',

@@ -24,10 +24,11 @@ void main() {
     (tester) async {
       final testData = TextFieldStreamedState('test');
       final textFieldStateBuilder = TextFieldStateBuilder(
-          state: testData,
-          stateBuilder: (context, data) {
-            return const Text('test');
-          });
+        state: testData,
+        stateBuilder: (context, data) {
+          return const Text('test');
+        },
+      );
 
       await tester.pumpWidget(
         MaterialApp(
@@ -49,13 +50,14 @@ void main() {
       final testData = TextFieldStreamedState('test');
 
       final textFieldStateBuilder = TextFieldStateBuilder(
-          state: testData,
-          stateBuilder: (context, data) {
-            if (data.hasError) {
-              return const Text('error');
-            }
-            return const Text('test');
-          });
+        state: testData,
+        stateBuilder: (context, data) {
+          if (data.hasError) {
+            return const Text('error');
+          }
+          return const Text('test');
+        },
+      );
 
       unawaited(testData.error());
       await tester.pumpWidget(
@@ -78,13 +80,14 @@ void main() {
       final testData = TextFieldStreamedState('test');
 
       final textFieldStateBuilder = TextFieldStateBuilder(
-          state: testData,
-          stateBuilder: (context, data) {
-            if (data.isLoading) {
-              return const Text('loading');
-            }
-            return const Text('test');
-          });
+        state: testData,
+        stateBuilder: (context, data) {
+          if (data.isLoading) {
+            return const Text('loading');
+          }
+          return const Text('test');
+        },
+      );
 
       unawaited(testData.loading());
       await tester.pumpWidget(
