@@ -7,7 +7,6 @@ import { MwwmWidgetCreator, SurfMwwmScreenCreator, SurfMwwmWidgetCreator } from 
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 	let mwwmWidgetDisposable = vscode.commands.registerCommand('mwwm-generator.create-mwwm-widget', async (...args: any[]) => {
-		console.log('0');
 		try {
 			const creator = new MwwmWidgetCreator();
 			creator.create(context, args);

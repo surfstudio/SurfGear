@@ -5,42 +5,22 @@ import * as path from 'path';
 /// Creator for Mwwm Widget
 export class MwwmWidgetCreator {
     async create(context: vscode.ExtensionContext, args: any[]) {
-        console.log('1');
         const pathFolderToCreateFiles = getPathFolderToCreateFiles(args);
-        if (pathFolderToCreateFiles === "") { 
-            return; 
+        if (pathFolderToCreateFiles === "") {
+            return;
         }
-        console.log('2');
 
-        const widgetName = await this.getWidgetName();
+        const widgetName = await getWidgetName();
         if (!checkName(widgetName)) { return; }
-        console.log('3');
 
         const filePrefix = getFilePrefix(widgetName);
-        console.log('4');
         const filesFolderPath = createFolder(pathFolderToCreateFiles, filePrefix);
-        console.log('5');
 
         const sourceCodeFolderPath = getSourceCodeFolderPath(context, 'mwwm_widget');
         createTemplate(sourceCodeFolderPath, widgetName, filesFolderPath, filePrefix, false);
         createWm(sourceCodeFolderPath, widgetName, filesFolderPath, filePrefix);
         createDi(sourceCodeFolderPath, widgetName, filesFolderPath, filePrefix);
-        console.log('6');
     }
-
-    // Return widget name
-    private async getWidgetName(): Promise<string> {
-        let options: vscode.InputBoxOptions = {
-            prompt: "Widget name: ",
-            placeHolder: "Input widget name (PascalCase)"
-        };
-        let widgetName: string = await vscode.window.showInputBox(options).then(value => {
-            if (!value) { return ''; }
-            return value;
-        });
-        return widgetName;
-    }
-
 }
 
 /// Creator for Surf-Mwwm Widget
@@ -49,7 +29,7 @@ export class SurfMwwmWidgetCreator {
         const pathFolderToCreateFiles = getPathFolderToCreateFiles(args);
         if (pathFolderToCreateFiles === "") { return; }
 
-        const widgetName = await this.getWidgetName();
+        const widgetName = await getWidgetName();
         if (!checkName(widgetName)) { return; }
 
         const filePrefix = getFilePrefix(widgetName);
@@ -59,19 +39,6 @@ export class SurfMwwmWidgetCreator {
         createTemplate(sourceCodeFolderPath, widgetName, filesFolderPath, filePrefix, false);
         createWm(sourceCodeFolderPath, widgetName, filesFolderPath, filePrefix);
         createDi(sourceCodeFolderPath, widgetName, filesFolderPath, filePrefix);
-    }
-
-    // Return widget name
-    private async getWidgetName(): Promise<string> {
-        let options: vscode.InputBoxOptions = {
-            prompt: "Widget name: ",
-            placeHolder: "Input widget name (PascalCase)"
-        };
-        let widgetName: string = await vscode.window.showInputBox(options).then(value => {
-            if (!value) { return ''; }
-            return value;
-        });
-        return widgetName;
     }
 }
 
@@ -222,4 +189,17 @@ function createRoute(sourceCodeFolderPath: string, name: string, folderPath: str
 
     const filePath = vscode.Uri.file(path.join(folderPath, `${filePrefix}_route.dart`)).fsPath;
     fs.writeFileSync(filePath, routeSourceCode);
+}
+
+// Return widget name
+async function getWidgetName(): Promise<string> {
+    let options: vscode.InputBoxOptions = {
+        prompt: "Widget name: ",
+        placeHolder: "Input widget name (PascalCase)"
+    };
+    let widgetName: string = await vscode.window.showInputBox(options).then(value => {
+        if (!value) { return ''; }
+        return value;
+    });
+    return widgetName;
 }
