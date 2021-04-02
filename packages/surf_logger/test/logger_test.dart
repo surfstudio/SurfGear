@@ -1,4 +1,4 @@
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:surf_logger/src/const.dart';
 import 'package:surf_logger/surf_logger.dart';
 import 'package:test/test.dart';
@@ -25,48 +25,48 @@ void main() {
       Logger.addStrategy(debugStrategy);
 
       Logger.d(debug);
-      verify(debugStrategy.log(debug, priorityLogDebug));
+      verify(() => debugStrategy.log(debug, priorityLogDebug));
 
       Logger.w(warning);
-      verify(debugStrategy.log(warning, priorityLogWarn));
+      verify(() => debugStrategy.log(warning, priorityLogWarn));
 
       Logger.e(error);
-      verify(debugStrategy.log(error, priorityLogError));
+      verify(() => debugStrategy.log(error, priorityLogError));
 
       Logger.removeStrategy(debugStrategy);
 
       Logger.d(debug);
-      verifyNever(debugStrategy.log(debug, priorityLogDebug));
+      verifyNever(() => debugStrategy.log(debug, priorityLogDebug));
 
       Logger.w(warning);
-      verifyNever(debugStrategy.log(warning, priorityLogWarn));
+      verifyNever(() => debugStrategy.log(warning, priorityLogWarn));
 
       Logger.e(error);
-      verifyNever(debugStrategy.log(error, priorityLogError));
+      verifyNever(() => debugStrategy.log(error, priorityLogError));
     });
 
     test('works with RemoteLogStrategy', () {
       Logger.addStrategy(remoteStrategy);
 
       Logger.d(debug);
-      verify(remoteStrategy.log(debug, priorityLogDebug));
+      verify(() => remoteStrategy.log(debug, priorityLogDebug));
 
       Logger.w(warning);
-      verify(remoteStrategy.log(warning, priorityLogWarn));
+      verify(() => remoteStrategy.log(warning, priorityLogWarn));
 
       Logger.e(error);
-      verify(remoteStrategy.log(error, priorityLogError));
+      verify(() => remoteStrategy.log(error, priorityLogError));
 
       Logger.removeStrategy(remoteStrategy);
 
       Logger.d(debug);
-      verifyNever(remoteStrategy.log(debug, priorityLogDebug));
+      verifyNever(() => remoteStrategy.log(debug, priorityLogDebug));
 
       Logger.w(warning);
-      verifyNever(remoteStrategy.log(warning, priorityLogWarn));
+      verifyNever(() => remoteStrategy.log(warning, priorityLogWarn));
 
       Logger.e(error);
-      verifyNever(remoteStrategy.log(error, priorityLogError));
+      verifyNever(() => remoteStrategy.log(error, priorityLogError));
     });
 
     test('works both strategies', () {
@@ -74,20 +74,20 @@ void main() {
       Logger.addStrategy(remoteStrategy);
 
       Logger.d(debug);
-      verify(remoteStrategy.log(debug, priorityLogDebug));
-      verify(debugStrategy.log(debug, priorityLogDebug));
+      verify(() => remoteStrategy.log(debug, priorityLogDebug));
+      verify(() => debugStrategy.log(debug, priorityLogDebug));
 
       Logger.removeStrategy(debugStrategy);
 
       Logger.d(debug);
-      verify(remoteStrategy.log(debug, priorityLogDebug));
-      verifyNever(debugStrategy.log(debug, priorityLogDebug));
+      verify(() => remoteStrategy.log(debug, priorityLogDebug));
+      verifyNever(() => debugStrategy.log(debug, priorityLogDebug));
 
       Logger.removeStrategy(remoteStrategy);
 
       Logger.d(debug);
-      verifyNever(remoteStrategy.log(debug, priorityLogDebug));
-      verifyNever(debugStrategy.log(debug, priorityLogDebug));
+      verifyNever(() => remoteStrategy.log(debug, priorityLogDebug));
+      verifyNever(() => debugStrategy.log(debug, priorityLogDebug));
     });
 
     test('works with exceptions', () {
@@ -97,8 +97,8 @@ void main() {
       final e = Exception('eception');
 
       Logger.d(debug, e);
-      verify(debugStrategy.log(debug, priorityLogDebug, e));
-      verify(remoteStrategy.log(debug, priorityLogDebug, e));
+      verify(() => debugStrategy.log(debug, priorityLogDebug, e));
+      verify(() => remoteStrategy.log(debug, priorityLogDebug, e));
     });
   });
 }

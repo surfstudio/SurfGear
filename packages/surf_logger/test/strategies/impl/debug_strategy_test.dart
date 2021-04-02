@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:logger/logger.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:surf_logger/src/const.dart';
 import 'package:surf_logger/src/strategies/impl/debug_strategy.dart';
 import 'package:test/test.dart';
@@ -34,16 +34,16 @@ void main() {
       const message = 'simple message';
 
       strategy.log(message, priorityLogDebug);
-      verify(logger.d(message));
+      verify(() => logger.d(message));
 
       strategy.log(message, priorityLogWarn);
-      verify(logger.w(message));
+      verify(() => logger.w(message));
 
       strategy.log(message, priorityLogError);
-      verify(logger.e(message));
+      verify(() => logger.e(message));
 
       strategy.log(message, 100500);
-      verify(logger.d(message));
+      verify(() => logger.d(message));
     });
 
     test('log with Exception always calls error logger method', () {
@@ -51,16 +51,16 @@ void main() {
       final exception = Exception('simple exception message');
 
       strategy.log(message, priorityLogDebug, exception);
-      verify(logger.e(message, exception));
+      verify(() => logger.e(message, exception));
 
       strategy.log(message, priorityLogWarn, exception);
-      verify(logger.e(message, exception));
+      verify(() => logger.e(message, exception));
 
       strategy.log(message, priorityLogError, exception);
-      verify(logger.e(message, exception));
+      verify(() => logger.e(message, exception));
 
       strategy.log(message, 100500, exception);
-      verify(logger.e(message, exception));
+      verify(() => logger.e(message, exception));
     });
   });
 }
