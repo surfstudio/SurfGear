@@ -171,7 +171,7 @@ public class OTPPlugin : FlutterPlugin, MethodCallHandler, PluginRegistry.Activi
         }
 
         val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
-        this.activity?.registerReceiver(smsUserConsentBroadcastReceiver, intentFilter)
+        this.activity?.registerReceiver(smsUserConsentBroadcastReceiver, intentFilter, SmsRetriever.SEND_PERMISSION, null)
     }
 
     private fun registerSmsRetrieverBroadcastReceiver() {
