@@ -14,10 +14,6 @@
 
 library mwwm;
 
-//controllers
-export 'package:mwwm/src/controller/dialog_controller.dart';
-export 'package:mwwm/src/controller/message_controller.dart';
-
 //errors
 export 'package:mwwm/src/error/error_handler.dart';
 
