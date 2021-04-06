@@ -45,8 +45,8 @@ def STAGE_DOCKER = "Docker Flutter"
 // def pipeline = new PrPipelineFlutter(this)
 // pipeline.dockerImageName = "cirrusci/flutter:dev"
 //
-def dockerImageName = "grayhunter/flutter:1.22.2-6"
-def dockerArguments = "-v /home/jenkins/.gitconfig:/etc/gitconfig:rw,z"
+def dockerImageName = "cirrusci/flutter:1.22.6"
+//def dockerArguments = "-v /home/jenkins/.gitconfig:/etc/gitconfig:rw,z"
 
 
 def sourceBranch = ""
@@ -109,7 +109,7 @@ def script = this
 def pipeline = new EmptyScmPipeline(script)
 
 pipeline.init()
-pipeline.node = "android-1"
+pipeline.node = NodeProvider.getAndroidFlutterNode()
 // /* NodeProvider.getAndroidFlutterNode() */
 
 //configuration
