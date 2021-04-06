@@ -35,8 +35,7 @@ class RemoteLogger {
     _forAllStrategies((strategy) => strategy.logError(error));
   }
 
-  // ignore: avoid_annotating_with_dynamic
-  static void logInfo(String key, dynamic info) {
+  static void logInfo(String key, Object info) {
     _forAllStrategies((strategy) => strategy.logInfo(key, info));
   }
 
@@ -48,9 +47,7 @@ class RemoteLogger {
     _strategies.remove(strategy.runtimeType);
   }
 
-  static void _forAllStrategies(
-    Function(RemoteUserLogStrategy strategy) action,
-  ) {
+  static void _forAllStrategies(Function(RemoteUserLogStrategy) action) {
     _strategies.values.forEach(action);
   }
 }

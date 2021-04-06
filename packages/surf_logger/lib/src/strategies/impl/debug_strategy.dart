@@ -19,14 +19,13 @@ import 'package:surf_logger/src/strategies/log_strategy.dart';
 /// Strategy for log output to console
 /// * used for local debugging
 class DebugLogStrategy extends LogStrategy {
-  DebugLogStrategy([this._logger]) {
-    _logger ??= Logger(printer: PrettyPrinter(methodCount: 0));
-  }
+  DebugLogStrategy([Logger? logger])
+      : _logger = logger ??= Logger(printer: PrettyPrinter(methodCount: 0));
 
-  Logger _logger;
+  final Logger _logger;
 
   @override
-  void log(String message, int priority, [Exception error]) {
+  void log(String message, int priority, [Exception? error]) {
     if (error != null) {
       _logger.e(message, error);
     } else {

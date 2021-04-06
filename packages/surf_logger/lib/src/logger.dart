@@ -19,22 +19,22 @@ import 'package:surf_logger/src/strategies/log_strategy.dart';
 class Logger {
   static final _strategies = <Type, LogStrategy>{};
 
-  ///debug
-  static void d(String msg, [Exception error]) {
+  /// debug
+  static void d(String msg, [Exception? error]) {
     _forAllStrategies(
       (strategy) => strategy.log(msg, priorityLogDebug, error),
     );
   }
 
-  ///warn (for expected errors)
-  static void w(String msg, [Exception error]) {
+  /// warn (for expected errors)
+  static void w(String msg, [Exception? error]) {
     _forAllStrategies(
       (strategy) => strategy.log(msg, priorityLogWarn, error),
     );
   }
 
-  ///error (for errors)
-  static void e(String msg, [Exception error]) {
+  /// error (for errors)
+  static void e(String msg, [Exception? error]) {
     _forAllStrategies(
       (strategy) => strategy.log(msg, priorityLogError, error),
     );
@@ -48,7 +48,7 @@ class Logger {
     _strategies.remove(strategy.runtimeType);
   }
 
-  static void _forAllStrategies(Function(LogStrategy strategy) action) {
+  static void _forAllStrategies(Function(LogStrategy) action) {
     _strategies.values.forEach(action);
   }
 }
