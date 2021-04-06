@@ -45,7 +45,7 @@ def STAGE_DOCKER = "Docker Flutter"
 // def pipeline = new PrPipelineFlutter(this)
 // pipeline.dockerImageName = "cirrusci/flutter:dev"
 //
-def dockerImageName = "cirrusci/flutter:1.22.6"
+def dockerImageName = "surfstudio/flutter:latest"
 def dockerArguments = "-v /home/jenkins/.gitconfig:/etc/gitconfig:rw,z"
 
 
