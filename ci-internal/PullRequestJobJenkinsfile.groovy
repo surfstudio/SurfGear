@@ -46,7 +46,7 @@ def STAGE_DOCKER = "Docker Flutter"
 // pipeline.dockerImageName = "cirrusci/flutter:dev"
 //
 def dockerImageName = "cirrusci/flutter:1.22.6"
-//def dockerArguments = "-v /home/jenkins/.gitconfig:/etc/gitconfig:rw,z"
+def dockerArguments = "-v /home/jenkins/.gitconfig:/etc/gitconfig:rw,z"
 
 
 def sourceBranch = ""
