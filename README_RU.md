@@ -27,7 +27,6 @@
 | [bottom_sheet](https://pub.dev/packages/bottom_sheet) | Виджет раскрывающейся шторки с возможностью прокрутки | surf |
 | [build_context_holder](https://pub.dev/packages/build_context_holder) | Хранитель контекста последнего созданного виджета | surf |
 | [datalist](https://pub.dev/packages/datalist) | Список, упрощающий работу с пагинацией | surf |
-| [event_filter](https://pub.dev/packages/event_filter) | Интерфейс для филтрации событий | surf |
 | [geolocation](packages/geolocation/) | Библиотека для работы с геопозицией | surf |
 | [ink_widget](https://pub.dev/packages/ink_widget) | Обертка над InkWell | surf |
 | [keyboard_listener](packages/keyboard_listener/) | Виджет для отслеживания состояния клавиатуры | surf |
