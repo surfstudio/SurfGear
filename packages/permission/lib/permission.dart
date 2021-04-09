@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library permission;
-
 export 'package:permission/base/strategy/proceed_permission_strategy.dart';
 export 'package:permission/base/strategy/deny_resolve_strategy_storage.dart';
 export 'package:permission/base/permission_manager.dart';
