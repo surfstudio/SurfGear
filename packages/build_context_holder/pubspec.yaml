@@ -1,5 +1,5 @@
 name: build_context_holder
-version: "0.1.0-dev.0"
+version: "1.0.0"
 description: The BuildContext store received from the last created widget.
 repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/build_context_holder"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
