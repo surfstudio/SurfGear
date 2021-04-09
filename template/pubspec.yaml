@@ -9,10 +9,7 @@ dependencies:
   dio: ^3.0.10
   logger: ^0.9.4
   surf_logger: ^0.0.1-dev.1
-  surf_injector: ^0.0.1-dev.0
   surf_mwwm: ^0.0.1-dev.0
-  geolocation:
-    path: ../packages/geolocation
   analytics: ^0.0.1-dev.0
   bottom_sheet: ^0.0.1-dev.7
   push_notification: ^0.0.1-dev.7
