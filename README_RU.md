@@ -29,7 +29,6 @@
 | [ink_widget](https://pub.dev/packages/ink_widget) | Обертка над InkWell | surf |
 | [keyboard_listener](packages/keyboard_listener/) | Виджет для отслеживания состояния клавиатуры | surf |
 | [mwwm](https://pub.dev/packages/mwwm) | Библиотека с компонентами архитектуры MWWM | beta |
-| [permission](packages/permission/) | Библиотека для запроса доступа к различным функциям устройства (геолокация, список контактов и т.д.) | surf |
 | [push_notification](https://pub.dev/packages/push_notification) | Библиотека для работы с уведомлениями | surf |
 | [relation](https://pub.dev/packages/relation) | Свзяь Widget - Wm , используемая в Surf | alpha |
 | [render_metrics](https://pub.dev/packages/render_metrics) | Библотека для снятия метрик с виджета | release |
