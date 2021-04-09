@@ -30,7 +30,6 @@
 | [geolocation](packages/geolocation/) | Библиотека для работы с геопозицией | surf |
 | [ink_widget](https://pub.dev/packages/ink_widget) | Обертка над InkWell | surf |
 | [keyboard_listener](packages/keyboard_listener/) | Виджет для отслеживания состояния клавиатуры | surf |
-| [mixed_list](https://pub.dev/packages/mixed_list) | Виджет для отображения элементов разного типа в виде списка | surf |
 | [mwwm](https://pub.dev/packages/mwwm) | Библиотека с компонентами архитектуры MWWM | beta |
 | [network_cache](https://pub.dev/packages/network_cache) | Утилита для кеширования ответов от сервера | surf |
 | [permission](packages/permission/) | Библиотека для запроса доступа к различным функциям устройства (геолокация, список контактов и т.д.) | surf |
