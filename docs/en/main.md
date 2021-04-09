@@ -17,24 +17,23 @@
 
 1. Layer [Model](model/model.md)
     1. [Interactor](model/interactor.md)
-    1. [Work with file storage](model/file_storage.md)
-    1. [Work with SharedPrefs](model/shared_preferences.md)
+    2. [Work with SharedPrefs](model/shared_preferences.md)
 
-1. Layer UI
+2. Layer UI
     1. [UI-layer structure](ui/structure.md)
         1. [WidgetModel](ui/widget_model.md)
-        1. [Widget](ui/widget.md)
-    1. [Navigation](common/navigation.md)
-    1. [Screen creation](ui/create_screen.md)
-    1. [Dialogs](ui/dialog.md)
-    1. [Messages](common/message.md)
+        2. [Widget](ui/widget.md)
+    2. [Navigation](common/navigation.md)
+    3. [Screen creation](ui/create_screen.md)
+    4. [Dialogs](ui/dialog.md)
+    5. [Messages](common/message.md)
 
-1. Best practics
+3. Best practics
     1. [CI](https://github.com/surfstudio/jenkins-pipeline-lib)
-    1. [Flutter Flavors](best_practice/flavors/flavors_for_devs.md)
-    1. [Reduce application size](best_practice/reduce_app_size.md)
+    2. [Flutter Flavors](best_practice/flavors/flavors_for_devs.md)
+    3. [Reduce application size](best_practice/reduce_app_size.md)
 
-1. [FAQ](faq/faq.md)
+4. [FAQ](faq/faq.md)
 
 [java_codestyle]:https://github.com/surfstudio/SurfAndroidStandard/blob/snapshot-0.4.0/docs/common/codestyle/java_codestyle.md
 
