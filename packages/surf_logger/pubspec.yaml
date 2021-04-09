@@ -1,5 +1,5 @@
 name: surf_logger
-version: "1.0.0"
+version: "1.0.0-dev.0"
 description: "Logger for Dart & Flutter"
 repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/surf_logger"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
