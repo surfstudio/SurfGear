@@ -37,14 +37,14 @@ class DefaultPermissionManager implements PermissionManager {
     final status = await permissionGroup.request();
 
     if (_isGoodStatus(status)) {
-      await strategy?.proceed(permission, PermissionStrategyStatus.allow);
+      await strategy.proceed(permission, PermissionStrategyStatus.allow);
       return true;
     }
 
     if (checkRationale) {
       final showRationale = await permissionGroup.shouldShowRequestRationale;
 
-      await strategy?.proceed(
+      await strategy.proceed(
         permission,
         showRationale
             ? PermissionStrategyStatus.deny
@@ -58,7 +58,7 @@ class DefaultPermissionManager implements PermissionManager {
       }
     }
 
-    await strategy?.proceed(permission, PermissionStrategyStatus.deny);
+    await strategy.proceed(permission, PermissionStrategyStatus.deny);
     return false;
   }
 

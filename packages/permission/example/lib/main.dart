@@ -21,7 +21,7 @@ import 'package:permission/permission.dart';
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({required this.title, Key? key}) : super(key: key);
 
   final String title;
 
@@ -44,8 +44,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  ProceedPermissionStrategyStorage _strategyStorage;
-  PermissionManager _permissionManager;
+  late ProceedPermissionStrategyStorage _strategyStorage;
+  late PermissionManager _permissionManager;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -66,13 +66,13 @@ class _MyHomePageState extends State<MyHomePage> {
         checkRationale: true,
       );
 
-      _scaffoldKey.currentState.showSnackBar(
+      _scaffoldKey.currentState?.showSnackBar(
         SnackBar(
           content: Text(granted ? 'Permission granted' : 'Permission denied'),
         ),
       );
     } on FeatureProhibitedException catch (_) {
-      _scaffoldKey.currentState.showSnackBar(
+      _scaffoldKey.currentState?.showSnackBar(
         SnackBar(
           content: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
