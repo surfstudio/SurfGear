@@ -17,24 +17,23 @@
 
 1. Слой [Model](model/model.md)
     1. [Interactor](model/interactor.md)
-    1. [Работа с файловым хранилищем](model/file_storage.md)
-    1. [Работа с SharedPrefs](model/shared_preferences.md)
+    2. [Работа с SharedPrefs](model/shared_preferences.md)
 
-1. Cлой UI
+2. Cлой UI
     1. [Структура UI-слоя](ui/structure.md)
         1. [WidgetModel](ui/widget_model.md)
-        1. [Widget](ui/widget.md)
-    1. [Навигация](common/navigation.md)
-    1. [Создание экрана](ui/create_screen.md)
-    1. [Диалоги](ui/dialog.md)
-    1. [Сообщения](common/message.md)
+        2. [Widget](ui/widget.md)
+    2. [Навигация](common/navigation.md)
+    3. [Создание экрана](ui/create_screen.md)
+    4. [Диалоги](ui/dialog.md)
+    5. [Сообщения](common/message.md)
 
-1. Лучшие практики
+3. Лучшие практики
     1. [CI](https://github.com/surfstudio/jenkins-pipeline-lib)
-    1. [Flutter Flavors](best_practice/flavors/flavors_for_devs.md)
-    1. [Уменьшение размеров сборки](best_practice/reduce_app_size.md)
+    2. [Flutter Flavors](best_practice/flavors/flavors_for_devs.md)
+    3. [Уменьшение размеров сборки](best_practice/reduce_app_size.md)
 
-1. [FAQ](faq/faq.md)
+4. [FAQ](faq/faq.md)
 
 [java_codestyle]:https://github.com/surfstudio/SurfAndroidStandard/blob/snapshot-0.4.0/docs/common/codestyle/java_codestyle.md
 
