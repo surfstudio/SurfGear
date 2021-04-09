@@ -20,7 +20,7 @@ class BuildContextHolder {
 
   BuildContextHolder._internal();
 
-  BuildContext context;
+  BuildContext? context;
 
   static final BuildContextHolder _instance = BuildContextHolder._internal();
 
