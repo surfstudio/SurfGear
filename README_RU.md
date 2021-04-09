@@ -35,7 +35,6 @@
 | [push_notification](https://pub.dev/packages/push_notification) | Библиотека для работы с уведомлениями | surf |
 | [relation](https://pub.dev/packages/relation) | Свзяь Widget - Wm , используемая в Surf | alpha |
 | [render_metrics](https://pub.dev/packages/render_metrics) | Библотека для снятия метрик с виджета | release |
-| [surf_injector](https://pub.dev/packages/surf_injector) | Dependency Injection Tool | surf |
 | [surf_logger](https://pub.dev/packages/surf_logger) | Библиотека для логирования | surf |
 | [surf_mwwm](https://pub.dev/packages/surf_mwwm) | Пакет, объединяющий в себе mwwm, injector, relation и различные методы расширения | surf |
 | [surf_network](https://pub.dev/packages/surf_network) | Библиотека для работы с запросами к серверу | surf |
