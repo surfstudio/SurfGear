@@ -25,7 +25,6 @@
 | [background_worker](https://pub.dev/packages/background_worker) | Хелпер для работы с изолятами | surf |
 | [bottom_navigation_bar](https://pub.dev/packages/bottom_navigation_bar) | Виджет с кнопками навигации между экранами | surf |
 | [bottom_sheet](https://pub.dev/packages/bottom_sheet) | Виджет раскрывающейся шторки с возможностью прокрутки | surf |
-| [build_context_holder](https://pub.dev/packages/build_context_holder) | Хранитель контекста последнего созданного виджета | surf |
 | [datalist](https://pub.dev/packages/datalist) | Список, упрощающий работу с пагинацией | surf |
 | [geolocation](packages/geolocation/) | Библиотека для работы с геопозицией | surf |
 | [ink_widget](https://pub.dev/packages/ink_widget) | Обертка над InkWell | surf |
