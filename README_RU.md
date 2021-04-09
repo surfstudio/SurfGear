@@ -26,7 +26,6 @@
 | [bottom_navigation_bar](https://pub.dev/packages/bottom_navigation_bar) | Виджет с кнопками навигации между экранами | surf |
 | [bottom_sheet](https://pub.dev/packages/bottom_sheet) | Виджет раскрывающейся шторки с возможностью прокрутки | surf |
 | [datalist](https://pub.dev/packages/datalist) | Список, упрощающий работу с пагинацией | surf |
-| [geolocation](packages/geolocation/) | Библиотека для работы с геопозицией | surf |
 | [ink_widget](https://pub.dev/packages/ink_widget) | Обертка над InkWell | surf |
 | [keyboard_listener](packages/keyboard_listener/) | Виджет для отслеживания состояния клавиатуры | surf |
 | [mwwm](https://pub.dev/packages/mwwm) | Библиотека с компонентами архитектуры MWWM | beta |
