@@ -15,8 +15,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:surf_injector/src/component.dart';
 
-Type _typeOf<T>() => T;
-
 /// Special widget for DI
 /// It provide dependencies to children.
 /// Children can get component dependency by 'of' and 'Component.get(Type)'
@@ -24,18 +22,20 @@ Type _typeOf<T>() => T;
 class Injector<C extends Component> extends StatefulWidget {
   // const - caching?
   const Injector({
-    Key key,
-    this.component,
-    this.builder,
+    required this.component,
+    required this.builder,
+    Key? key,
   }) : super(key: key);
 
   final C component;
   final WidgetBuilder builder;
 
   static _Injector<C> of<C extends Component>(BuildContext context) {
-    final injector = context.getElementForInheritedWidgetOfExactType<_Injector<C>>()?.widget;
+    final injector =
+        context.getElementForInheritedWidgetOfExactType<_Injector<C>>()?.widget;
     if (injector == null) {
-      throw Exception('Can not find nearest Injector of type $C. Do you define it?');
+      throw Exception(
+          "Can't find nearest Injector of type $C. Do you define it?");
     }
     return injector as _Injector<C>;
   }
@@ -58,7 +58,10 @@ class _InjectorState<C extends Component> extends State<Injector> {
 
 //todo remove this
 class _InjectorProxy extends StatelessWidget {
-  const _InjectorProxy({Key key, this.builder}) : super(key: key);
+  const _InjectorProxy({
+    required this.builder,
+    Key? key,
+  }) : super(key: key);
 
   final WidgetBuilder builder;
 
@@ -75,9 +78,9 @@ class _InjectorProxy extends StatelessWidget {
 class _Injector<C extends Component> extends InheritedWidget {
   //конст - caching?
   const _Injector({
-    this.component,
-    Key key,
-    Widget child,
+    required this.component,
+    required Widget child,
+    Key? key,
   }) : super(
           key: key,
           child: child,

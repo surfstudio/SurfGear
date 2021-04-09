@@ -26,16 +26,16 @@ class CounterInteractor {
     });
   }
 
-  Counter _counter;
+  late Counter _counter;
 
   final CounterRepository _counterRepository;
 
-  final BehaviorSubject<Counter> _subject = BehaviorSubject();
+  final _subject = BehaviorSubject<Counter>();
 
   Stream<Counter> get counterObservable => _subject.stream;
 
   void incrementCounter() {
-    final int c = _counter.count + 1;
+    final c = _counter.count + 1;
     _counter = Counter(c);
     _subject.add(_counter);
   }

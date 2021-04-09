@@ -20,7 +20,7 @@ import 'package:surf_injector/surf_injector.dart';
 
 /// Widget of application
 class App extends StatefulWidget {
-  const App({Key key}) : super(key: key);
+  const App({Key? key}) : super(key: key);
 
   @override
   State createState() => _AppState();
@@ -29,7 +29,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
-  AppWidgetModel wm;
+  late AppWidgetModel wm;
 
   @override
   Widget build(BuildContext context) {

@@ -24,7 +24,6 @@ class CounterRepository {
   final PreferencesHelper _preferencesHelper;
 
   void setCounter(Counter c) {
-    if (c == null) return;
     _preferencesHelper.set(keyCounter, c.count);
   }
 
@@ -32,7 +31,7 @@ class CounterRepository {
     return _preferencesHelper
         .get(keyCounter, 0)
         .then(
-          (i) => Counter(i as int ?? 0),
+          (i) => Counter(i as int),
         )
         .catchError(
       // ignore: avoid_types_on_closure_parameters

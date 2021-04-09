@@ -42,7 +42,7 @@ class AppWidgetModel {
     return Stream.value(true).delay(const Duration(seconds: 2));
   }
 
-  void _openScreen(PageRoute route) {
-    _navigator.currentState.pushReplacement<Object, Object>(route);
+  void _openScreen(CounterScreenRoute route) {
+    _navigator.currentState?.pushReplacement(route);
   }
 }

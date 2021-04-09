@@ -25,13 +25,11 @@ class AppComponent implements Component {
   AppComponent(GlobalKey<NavigatorState> navigatorKey) {
     counterInteractor = CounterInteractor(CounterRepository(preferencesHelper));
 
-    wm = AppWidgetModel(
-      navigatorKey,
-    );
+    wm = AppWidgetModel(navigatorKey);
   }
 
-  AppWidgetModel wm;
+  late AppWidgetModel wm;
+  late CounterInteractor counterInteractor;
 
   final preferencesHelper = PreferencesHelper();
-  CounterInteractor counterInteractor;
 }

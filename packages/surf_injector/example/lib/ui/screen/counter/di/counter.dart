@@ -22,12 +22,10 @@ class CounterComponent implements Component {
   CounterComponent(
     AppComponent parentComponent,
     NavigatorState navigator,
-  ) {
-    wm = CounterWidgetModel(
-      navigator,
-      parentComponent.counterInteractor,
-    );
-  }
+  ) : wm = CounterWidgetModel(
+          navigator,
+          parentComponent.counterInteractor,
+        );
 
   CounterWidgetModel wm;
 }

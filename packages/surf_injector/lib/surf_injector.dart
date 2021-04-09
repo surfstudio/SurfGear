@@ -12,7 +12,5 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library injector;
-
 export 'package:surf_injector/src/component.dart';
 export 'package:surf_injector/src/surf_injector.dart';

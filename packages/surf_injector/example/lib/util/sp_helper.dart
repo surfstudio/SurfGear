@@ -21,15 +21,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 class PreferencesHelper {
   Future<Object> get(String key, Object defaultValue) async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    final Object result = await sp?.get(key);
+    final sp = await SharedPreferences.getInstance();
+    final result = sp.get(key);
     // ignore: avoid_print
     print('DEV_INFO get from ${sp.toString()} by key $key | result $result');
     return result ?? defaultValue;
   }
 
   Future set(String key, Object value) async {
-    final SharedPreferences _sp = await SharedPreferences.getInstance();
+    final _sp = await SharedPreferences.getInstance();
     if (value is String) {
       await _sp.setString(key, value);
     } else if (value is int) {

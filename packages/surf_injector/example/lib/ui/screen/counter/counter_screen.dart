@@ -20,7 +20,7 @@ import 'package:surf_injector/surf_injector.dart';
 
 /// Widget для экрана счетчика
 class CounterScreen extends StatefulWidget {
-  const CounterScreen({Key key}) : super(key: key);
+  const CounterScreen({Key? key}) : super(key: key);
 
   @override
   _CounterScreenState createState() => _CounterScreenState();
@@ -29,7 +29,7 @@ class CounterScreen extends StatefulWidget {
 class _CounterScreenState extends State<CounterScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  CounterWidgetModel wm;
+  late CounterWidgetModel wm;
 
   @override
   Widget build(BuildContext context) {
