@@ -13,11 +13,10 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:relation/relation.dart' as r;
 
 class DemoRelations extends StatefulWidget {
-  const DemoRelations({Key key}) : super(key: key);
+  const DemoRelations({Key? key}) : super(key: key);
 
   @override
   _DemoRelationsState createState() => _DemoRelationsState();
@@ -34,7 +33,7 @@ class _DemoRelationsState extends State<DemoRelations> {
   void initState() {
     super.initState();
     incrementAction.stream.listen(
-      (_) => incrementState.accept(incrementState.value + 1),
+      (_) => incrementState.accept(incrementState.value! + 1),
     );
 
     reloadAction.stream.listen((_) => _load());
@@ -93,9 +92,12 @@ class _DemoRelationsState extends State<DemoRelations> {
             const SizedBox(width: 32.0),
 
             /// button for increment
-            FlatButton(
+            TextButton(
               onPressed: incrementAction,
-              color: Colors.red,
+              style: TextButton.styleFrom(
+                primary: Colors.black,
+                backgroundColor: Colors.red,
+              ),
               child: const Text('increment'),
             ),
           ],
@@ -120,10 +122,13 @@ class _DemoRelationsState extends State<DemoRelations> {
           const SizedBox(width: 32.0),
 
           /// button for increment
-          FlatButton(
-            onPressed: reloadAction,
-            color: Colors.red,
-            child: const Text('reload'),
+          TextButton(
+            onPressed: incrementAction,
+            style: TextButton.styleFrom(
+              primary: Colors.black,
+              backgroundColor: Colors.red,
+            ),
+            child: const Text('increment'),
           ),
         ],
       ),

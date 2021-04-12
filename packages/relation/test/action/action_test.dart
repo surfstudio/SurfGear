@@ -14,13 +14,14 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:relation/src/relation/action/action.dart';
+import 'package:rxdart/subjects.dart';
 
 void main() {
   test('Action accept([T data]) test', () {
     final action = Action<String>();
 
     action.stream.listen((event) {
-      expect('test', event);
+      expect(event, equals('test'));
     });
 
     action.accept('test');
@@ -30,7 +31,7 @@ void main() {
     final action = Action<String>();
 
     action.stream.listen((event) {
-      expect('test', event);
+      expect(event, equals('test'));
     });
 
     action.call('test');
@@ -38,6 +39,6 @@ void main() {
 
   test('Action dispose() test', () {
     final action = Action<String>()..dispose();
-    expect(true, action.subject.isClosed);
+    expect((action.stream as Subject).isClosed, isTrue);
   });
 }

@@ -32,35 +32,33 @@ import 'package:rxdart/rxdart.dart';
 ///   someAction.action.listen(doSomething);
 /// ```
 class Action<T> implements Event<T> {
-  Action([void Function(T data) onChanged]) : onChanged = onChanged ?? ((a) {});
+  Action([void Function(T? data)? onChanged])
+      : onChanged = onChanged ?? ((_) {});
 
   /// Publish subject for updating actions
-  final PublishSubject<T> _actionSubject = PublishSubject();
+  final _actionSubject = PublishSubject<T?>();
 
   /// Callback for handling a new action
-  final void Function(T data) onChanged;
+  final void Function(T? data) onChanged;
 
   /// Data of action
-  T value;
+  T? _value;
+  T? get value => _value;
 
   @override
-  Stream<T> get stream => _actionSubject.stream;
-
-  Subject<T> get subject => _actionSubject;
+  Stream<T?> get stream => _actionSubject.stream;
 
   @override
-  Future<void> accept([T data]) async {
-    value = data;
-    _actionSubject.add(data);
-    onChanged(value);
+  Future<T?> accept([T? data]) async {
+    _value = data;
+    _actionSubject.add(_value);
+    onChanged(_value);
     return _actionSubject.stream.first;
   }
 
   /// Call action
-  Future<void> call([T data]) => accept(data);
+  Future<T?> call([T? data]) => accept(data);
 
   /// Close stream
-  void dispose() {
-    _actionSubject.close();
-  }
+  Future<void> dispose() => _actionSubject.close();
 }

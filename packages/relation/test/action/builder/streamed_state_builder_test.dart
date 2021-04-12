@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:relation/relation.dart';
 
@@ -25,7 +24,7 @@ void main() {
       final streamedStateBuilder = StreamedStateBuilder<String>(
         streamedState: testData,
         builder: (context, data) {
-          return Text(data);
+          return Text(data ?? '');
         },
       );
       await tester.pumpWidget(

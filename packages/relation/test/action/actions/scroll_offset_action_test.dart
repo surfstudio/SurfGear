@@ -13,9 +13,9 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:relation/relation.dart';
+import 'package:rxdart/subjects.dart';
 
 void main() {
   testWidgets(
@@ -59,7 +59,7 @@ void main() {
           ),
           body: ListView(
             controller: action.controller,
-            children: const <Widget>[
+            children: const [
               Text('test'),
               Text('test'),
               Text('test'),
@@ -68,8 +68,8 @@ void main() {
         ),
       ));
 
-      action.dispose();
-      expect(action.subject.isClosed, true);
+      await action.dispose();
+      expect((action.stream as Subject).isClosed, isTrue);
     },
   );
 }

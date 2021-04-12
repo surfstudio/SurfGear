@@ -15,6 +15,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:relation/relation.dart';
+import 'package:rxdart/rxdart.dart';
 
 void main() {
   test('TextEditingAction test', () {
@@ -26,7 +27,7 @@ void main() {
 
   test('TextEditingAction dispose test', () {
     final action = TextEditingAction()..dispose();
-    expect(action.subject.isClosed, true);
+    expect((action.stream as Subject).isClosed, isTrue);
   });
 
   test('ExtendedTextEditingController setText({String text}) test', () {

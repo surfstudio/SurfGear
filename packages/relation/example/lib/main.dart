@@ -16,7 +16,5 @@ import 'package:counter/demo_relations.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    home: DemoRelations(),
-  ));
+  runApp(const MaterialApp(home: DemoRelations()));
 }

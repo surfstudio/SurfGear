@@ -18,25 +18,25 @@ import 'package:relation/src/relation/state/streamed_state.dart';
 
 ///[StreamedState] that have download/error/content status
 class EntityStreamedState<T> extends StreamedState<EntityState<T>>
-    implements EntityEvent<T> {
-  EntityStreamedState([EntityState<T> initialData]) : super(initialData);
+    implements EntityEvent<T, EntityState<T>> {
+  EntityStreamedState([EntityState<T>? initialData]) : super(initialData);
 
   EntityStreamedState.from(Stream<EntityState<T>> stream) : super.from(stream);
 
   @override
-  Future<void> content([T data]) {
+  Future<EntityState<T>?> content([T? data]) {
     final newState = EntityState<T>.content(data);
     return super.accept(newState);
   }
 
   @override
-  Future<void> error([Object error]) {
+  Future<EntityState<T>?> error([Object? error]) {
     final newState = EntityState<T>.error(error);
     return super.accept(newState);
   }
 
   @override
-  Future<void> loading([T previousData]) {
+  Future<EntityState<T>?> loading([T? previousData]) {
     final newState = EntityState<T>.loading(previousData);
     return super.accept(newState);
   }
@@ -48,7 +48,7 @@ class EntityState<T> {
     this.data,
     this.isLoading = false,
     this.hasError = false,
-    Exception error,
+    Exception? error,
   }) : error = ExceptionWrapper(error);
 
   /// Loading constructor
@@ -57,7 +57,7 @@ class EntityState<T> {
         hasError = false;
 
   /// Error constructor
-  EntityState.error([Object error, this.data])
+  EntityState.error([Object? error, this.data])
       : isLoading = false,
         hasError = true,
         error = ExceptionWrapper(error);
@@ -68,7 +68,7 @@ class EntityState<T> {
         hasError = false;
 
   /// Data of entity
-  final T data;
+  final T? data;
 
   /// State is loading
   final bool isLoading;
@@ -77,5 +77,5 @@ class EntityState<T> {
   final bool hasError;
 
   /// Error from state
-  ExceptionWrapper error;
+  ExceptionWrapper? error;
 }

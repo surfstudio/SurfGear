@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:relation/relation.dart';
@@ -52,7 +51,7 @@ void main() {
       final textFieldStateBuilder = TextFieldStateBuilder(
         state: testData,
         stateBuilder: (context, data) {
-          if (data.hasError) {
+          if (data != null && data.hasError) {
             return const Text('error');
           }
           return const Text('test');
@@ -82,7 +81,7 @@ void main() {
       final textFieldStateBuilder = TextFieldStateBuilder(
         state: testData,
         stateBuilder: (context, data) {
-          if (data.isLoading) {
+          if (data != null && data.isLoading) {
             return const Text('loading');
           }
           return const Text('test');

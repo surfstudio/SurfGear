@@ -12,12 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library relation;
-
 /// relations
 export 'package:relation/src/relation/event.dart';
 export 'package:relation/src/relation/action/action.dart';
-export 'package:relation/src/relation/action/actions/controller_action.dart';
 export 'package:relation/src/relation/action/actions/scroll_action.dart';
 export 'package:relation/src/relation/action/actions/text_editing_action.dart';
 export 'package:relation/src/relation/state/entity_state.dart';

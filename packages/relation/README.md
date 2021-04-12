@@ -1,7 +1,15 @@
-# relation
+# Relation
 
-#### [SurfGear](https://github.com/surfstudio/SurfGear)
-[![pub package](https://img.shields.io/pub/v/relation?label=relation)](https://pub.dev/packages/relation)
+[![Build Status](https://github.com/surfstudio/SurfGear/workflows/build/badge.svg)](https://github.com/surfstudio/SurfGear)
+[![Coverage Status](https://codecov.io/gh/surfstudio/SurfGear/branch/dev/graph/badge.svg?flag=relation)](https://codecov.io/gh/surfstudio/SurfGear)
+[![Pub Version](https://img.shields.io/pub/v/relation)](https://pub.dev/packages/relation)
+[![Pub Version (including pre-releases)](https://img.shields.io/pub/v/relation?include_prereleases)](https://pub.dev/packages/relation)
+[![Pub Likes](https://badgen.net/pub/likes/relation)](https://pub.dev/packages/relation)
+![Flutter Platform](https://badgen.net/pub/flutter-platform/relation)
+
+This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
+
+## About
 
 The stream representation of the relations of the entities and widget utilities
 
@@ -9,18 +17,17 @@ The stream representation of the relations of the entities and widget utilities
 
 Main classes:
 
-1. [Action](./lib/src/relation/action/action.dart)  
-    1.1 [ControllerAction](./lib/src/relation/action/actions/controller_action.dart)  
-    1.2 [ScrollAction](./lib/src/relation/action/actions/scroll_action.dart)  
+1. [Action](./lib/src/relation/action/action.dart)
+    1.1 [ScrollAction](./lib/src/relation/action/actions/scroll_action.dart)
     1.2 [TextEdititingAction](./lib/src/relation/action/actions/text_editing_action.dart)
-2. [Builder](./lib/src/builder)  
-    2.1 [EntityStreamBuilder](./lib/src/builder/entity_stream_builder.dart)  
-    2.2 [StreamedStateBuilder](./lib/src/builder/streamed_state_builder.dart)  
+2. [Builder](./lib/src/builder)
+    2.1 [EntityStreamBuilder](./lib/src/builder/entity_stream_builder.dart)
+    2.2 [StreamedStateBuilder](./lib/src/builder/streamed_state_builder.dart)
     2.3 [TextfieldStateBuilder](./lib/src/builder/textfield_state_builder.dart)
 3. [StreamedState](./lib/src/relation/state/streamed_state.dart)
 4. [EntityStreamedState](./lib/src/relation/state/entity_state.dart)
 
-## Action
+## Actions
 
 ### Action
 
@@ -37,23 +44,6 @@ It may be a tap on button, text changes, focus changes and so on.
    someAction.action.listen(doSomething);
 ```
 
-### ControllerAction
-
-**Currently experimental.**  
-The action that fires when the value in the controller changes.
-
-```dart
-  final textEditingController = TextEditingController();
-    ControllerAction(
-      textEditingController,
-          (TextEditingController controller, action) {
-        expect(controller.runtimeType, TextEditingController);
-        expect(controller.value.text, 'test');
-      },
-    );
-    textEditingController.text = 'test';
-```
- 
 ### ScrollAction
 
 The action that fires when the value changes when scrolling.
@@ -294,3 +284,38 @@ A state that have download/error/content status
       errorChild: ErrorPlaceholder(),
     );
 ```
+
+## Installation
+
+Add `auto_reload` to your `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  relation: ^1.0.0
+```
+
+You can use both `stable` and `dev` versions of the package listed above in the badges bar.
+
+## Changelog
+
+All notable changes to this project will be documented in [this file](./CHANGELOG.md).
+
+## Issues
+
+For issues, file directly in the [main SurfGear repo](https://github.com/surfstudio/SurfGear).
+
+## Contribute
+
+If you would like to contribute to the package (e.g. by improving the documentation, solving a bug or adding a cool new feature), please review our [contribution guide](../../CONTRIBUTING.md) first and send us your pull request.
+
+You PRs are always welcome.
+
+## How to reach us
+
+Please feel free to ask any questions about this package. Join our community chat on Telegram. We speak English and Russian.
+
+[![Telegram](https://img.shields.io/badge/chat-on%20Telegram-blue.svg)](https://t.me/SurfGear)
+
+## License
+
+[Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
