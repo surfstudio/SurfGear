@@ -34,7 +34,6 @@
 | [render_metrics](https://pub.dev/packages/render_metrics) | Библотека для снятия метрик с виджета | release |
 | [surf_logger](https://pub.dev/packages/surf_logger) | Библиотека для логирования | surf |
 | [surf_mwwm](https://pub.dev/packages/surf_mwwm) | Пакет, объединяющий в себе mwwm, injector, relation и различные методы расширения | surf |
-| [surf_network](https://pub.dev/packages/surf_network) | Библиотека для работы с запросами к серверу | surf |
 | [surf_util](https://pub.dev/packages/surf_util) | Набор утилит | surf |
 | [swipe_refresh](https://pub.dev/packages/swipe_refresh) | Виджет для работы с pull-to-refresh | surf |
 | [tabnavigator](https://pub.dev/packages/tabnavigator) | Библиотека для навигации между табами главного экрана | surf |
