@@ -10,9 +10,15 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.0
+  equatable: ^2.0.0 
+  provider: ^5.0.0
+  relation: ^0.0.2
+
+  mwwm:
+    path: ../..
 
 dev_dependencies:
+  pedantic: ^1.11.0 
   flutter_test:
     sdk: flutter
 
