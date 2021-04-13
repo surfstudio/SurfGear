@@ -34,7 +34,7 @@ class TodosStorage {
     if (todoPlace != -1) {
       _todos[todoPlace] = todoEntity;
     } else {
-      throw ('TODO id no found');
+      throw Exception('TODO id no found');
     }
   }
 }

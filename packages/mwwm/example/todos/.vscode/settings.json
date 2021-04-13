@@ -1,0 +1,112 @@
+{
+    "dart.lineLength": 100,
+    "dart.flutterHotReloadOnSave": "always",
+    "[dart]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.rulers": [
+            100
+        ],
+        "editor.selectionHighlight": false,
+        "editor.suggest.snippetsPreventQuickSuggestions": false,
+        "editor.suggestSelection": "first",
+        "editor.tabCompletion": "onlySnippets",
+        "editor.wordBasedSuggestions": false,
+        "editor.wordWrapColumn": 100
+    },
+    "actionButtons": {
+        "defaultColor": "#ff0034",
+        "loadNpmCommands": false,
+        "reloadButton": "♻️",
+        "commands": [
+            {
+                "name": "📐",
+                "command": "flutter format -l 100 ."
+            },
+            {
+                "name": "🇺🇲",
+                "command": "flutter pub run intl_utils:generate"
+            },
+            {
+                "name": "⬇️",
+                "command": "flutter pub get"
+            },
+            {
+                "name": "🔄",
+                "command": "flutter pub upgrade"
+            },
+            {
+                "name": "🗑️",
+                "command": "flutter clean"
+            },
+            {
+                "name": "🩺",
+                "command": "flutter doctor"
+            }
+        ]
+    },
+    "cSpell.words": [
+        "Favourite",
+        "Interactor",
+        "LTRB",
+        "Roboto",
+        "Scrollable",
+        "Semibold",
+        "Wakelock",
+        "appmetrica",
+        "autocorrect",
+        "crashlytics",
+        "cupertino",
+        "ffmpeg",
+        "fullscreen",
+        "gainsboro",
+        "gmail",
+        "junitreport",
+        "metrica",
+        "mishka",
+        "mockito",
+        "multiline",
+        "mwwm",
+        "overscroll",
+        "qweqwe",
+        "rxdart",
+        "tabnavigator",
+        "testreport",
+        "trushchinskii",
+        "unawaited",
+        "vsync",
+        "wifi",
+        "Билдер",
+        "Загрука",
+        "Интерактор",
+        "Колбэк",
+        "Листенер",
+        "Отрисовывает",
+        "Роут",
+        "Соверщена",
+        "бэке",
+        "дебага",
+        "интеравала",
+        "контролов",
+        "крточку",
+        "лейблами",
+        "либа",
+        "либу",
+        "милисекунды",
+        "натива",
+        "отрисовку",
+        "отрисовывается",
+        "перерисуется",
+        "посылась",
+        "рипл",
+        "рипла",
+        "скрола",
+        "скролится",
+        "снеке",
+        "тизера",
+        "тизерах",
+        "тизере",
+        "токеном",
+        "шаринг"
+    ]
+}
