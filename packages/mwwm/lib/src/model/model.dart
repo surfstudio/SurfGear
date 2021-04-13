@@ -25,20 +25,16 @@ import 'package:mwwm/src/model/performer/performer.dart';
 ///
 /// Model consists of [Change] and [Performer].
 class Model {
-  final List<Performer> _performers;
-
   const Model(this._performers);
+
+  final List<Performer> _performers;
 
   /// Perform some change inside business logic once
   R perform<R>(Change<R> change) {
-    for (var p in _performers) {
-      try {
-        debugPrint('[PERFORM] $p try to perform $change');
-        if (p.canPerform(change)) {
-          return p.perform(change);
-        }
-      } catch (e) {
-        rethrow;
+    for (final p in _performers) {
+      debugPrint('[PERFORM] $p try to perform $change');
+      if (p.canPerform(change)) {
+        return p.perform(change) as R;
       }
     }
 
@@ -47,17 +43,18 @@ class Model {
 
   /// Listen to changes of exact type
   Stream<R> listen<R, C extends FutureChange<R>>() {
-    for (var p in _performers) {
+    for (final p in _performers) {
       try {
         if (p is Broadcast<R, C>) {
           return p.broadcast;
         } else {
           continue;
         }
+        // ignore: avoid_catching_errors
       } on TypeError catch (e) {
         debugPrint(e.toString());
         continue;
-      } catch (e) {
+      } on Exception catch (e) {
         return Stream.error(e);
       }
     }

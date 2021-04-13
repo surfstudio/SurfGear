@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Signal for [Model] to perform some action,
+/// Signal for Model to perform some action,
 /// i.e. download or upload data.
 ///
 /// `R` is a type of result which is returned after

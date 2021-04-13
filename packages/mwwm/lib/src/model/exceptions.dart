@@ -16,9 +16,9 @@ import 'package:mwwm/src/model/changes/changes.dart';
 
 /// Not found any performer for change
 class NoPerformerException implements Exception {
-  final Change change;
-
   const NoPerformerException(this.change);
+
+  final Change change;
 
   @override
   String toString() {
@@ -28,9 +28,9 @@ class NoPerformerException implements Exception {
 
 /// Not found Broadcast for this Change
 class NoBroadcastPerformerException implements Exception {
-  final Type change;
-
   const NoBroadcastPerformerException(this.change);
+
+  final Type change;
 
   @override
   String toString() {

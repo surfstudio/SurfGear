@@ -42,7 +42,9 @@ class CompositeSubscription {
   /// Throws an exception if this composite was disposed
   StreamSubscription<T> add<T>(StreamSubscription<T> subscription) {
     if (isDisposed) {
-      throw ('This composite was disposed, try to use new instance instead');
+      throw Exception(
+        'This composite was disposed, try to use new instance instead',
+      );
     }
     _subscriptionsList.add(subscription);
     return subscription;
@@ -58,8 +60,9 @@ class CompositeSubscription {
   ///
   /// This composite can be reused after calling this method.
   void clear() {
-    _subscriptionsList.forEach((subscription) => subscription.cancel());
-    _subscriptionsList.clear();
+    _subscriptionsList
+      ..forEach((subscription) => subscription.cancel())
+      ..clear();
   }
 
   /// Cancels all subscriptions added to this composite. Disposes this.

@@ -47,9 +47,9 @@ abstract class Performer<R, C extends Change<R>> {
 typedef FunctionalPerformer<R, C> = R Function(C);
 
 class _Performer<R, C extends Change<R>> extends Performer<R, C> {
-  final FunctionalPerformer<R, C> _performerFunc;
-
   const _Performer(this._performerFunc);
+
+  final FunctionalPerformer<R, C> _performerFunc;
 
   @override
   R perform(C change) {
@@ -84,7 +84,7 @@ abstract class Broadcast<R, C extends FutureChange<R>>
 
   @override
   Future<R> perform(C change) {
-    var result = performInternal(change);
+    final result = performInternal(change);
     _addBroadcast(result);
     return result;
   }
