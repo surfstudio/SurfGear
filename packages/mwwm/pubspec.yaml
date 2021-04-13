@@ -1,7 +1,8 @@
 name: mwwm
-version: "1.0.0"
+version: "1.0.0-dev.0"
 description: |
   Software architecture pattern for teams with different sizes. Add possibility to work separately. Separate UI, presentation logic and business logic.
+  
 repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/mwwm"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 
