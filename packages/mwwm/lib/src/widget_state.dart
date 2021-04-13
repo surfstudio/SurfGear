@@ -18,8 +18,13 @@ import 'package:mwwm/mwwm.dart';
 typedef WidgetModelBuilder = WidgetModel Function(BuildContext);
 
 /// Class for widgets that has [WidgetModel]
-/// You must provide [WidgetModel] in constructor or by [WidgetModelFactory]
+/// You must provide [WidgetModel] in constructor or by WidgetModelFactory
 abstract class CoreMwwmWidget extends StatefulWidget {
+  const CoreMwwmWidget({
+    required this.widgetModelBuilder,
+    Key? key,
+  }) : super(key: key);
+
   /// Builder for `WidgetModel`
   /// There are two possibilities to provide `WidgetModel` :
   ///  1. Here by [widgetModelBuilder] (prefer)
@@ -34,12 +39,6 @@ abstract class CoreMwwmWidget extends StatefulWidget {
   /// );
   /// ```
   final WidgetModelBuilder widgetModelBuilder;
-
-  const CoreMwwmWidget({
-    Key key,
-    @required this.widgetModelBuilder,
-  })  : assert(widgetModelBuilder != null),
-        super(key: key);
 }
 
 /// Base class for state of [CoreMwwmWidget].
@@ -47,19 +46,22 @@ abstract class CoreMwwmWidget extends StatefulWidget {
 abstract class WidgetState<WM extends WidgetModel>
     extends State<CoreMwwmWidget> {
   /// [WidgetModel] for widget.
+  late WM _wm;
+
   @protected
-  WM wm;
+  WM get wm => _wm;
 
   /// Descendants must call super firstly
   @mustCallSuper
   @override
   void initState() {
-    wm = widget.widgetModelBuilder(context);
+    _wm = widget.widgetModelBuilder(context) as WM;
 
     super.initState();
 
-    wm.onLoad();
-    wm.onBind();
+    _wm
+      ..onLoad()
+      ..onBind();
   }
 
   /// Descendants must call super in the end
@@ -67,7 +69,7 @@ abstract class WidgetState<WM extends WidgetModel>
   @protected
   @mustCallSuper
   void dispose() {
-    wm.dispose();
+    _wm.dispose();
     super.dispose();
   }
 }

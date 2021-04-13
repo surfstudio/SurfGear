@@ -25,18 +25,18 @@ import 'package:mwwm/src/utils/composite_subscription.dart';
 /// `WidgetModelDependencies` - is pack of dependencies for WidgetModel. Offtenly, it is `ErrorHandler`.
 /// `Model` - optionally, but recommended, manager for connection with bussines layer
 abstract class WidgetModel {
-  final ErrorHandler _errorHandler;
+  WidgetModel(
+    WidgetModelDependencies baseDependencies, {
+    Model? model,
+  })  : _errorHandler = baseDependencies.errorHandler,
+        model = model ?? const Model([]);
+
+  final ErrorHandler? _errorHandler;
 
   @protected
   final Model model;
 
   final _compositeSubscription = CompositeSubscription();
-
-  WidgetModel(
-    WidgetModelDependencies baseDependencies, {
-    Model model,
-  })  : _errorHandler = baseDependencies.errorHandler,
-        model = model ?? Model([]);
 
   /// called when widget ready
   @mustCallSuper
@@ -50,9 +50,10 @@ abstract class WidgetModel {
   StreamSubscription subscribe<T>(
     Stream<T> stream,
     void Function(T t) onValue, {
-    void Function(Object e) onError,
+    void Function(Object e)? onError,
   }) {
-    StreamSubscription subscription = stream.listen(onValue, onError: (e) {
+    // ignore: avoid_types_on_closure_parameters
+    final subscription = stream.listen(onValue, onError: (Object e) {
       onError?.call(e);
     });
 
@@ -64,9 +65,10 @@ abstract class WidgetModel {
   StreamSubscription subscribeHandleError<T>(
     Stream<T> stream,
     void Function(T t) onValue, {
-    void Function(Object e) onError,
+    void Function(Object e)? onError,
   }) {
-    StreamSubscription subscription = stream.listen(onValue, onError: (e) {
+    // ignore: avoid_types_on_closure_parameters
+    final subscription = stream.listen(onValue, onError: (Object e) {
       handleError(e);
       onError?.call(e);
     });
@@ -80,9 +82,10 @@ abstract class WidgetModel {
   void doFuture<T>(
     Future<T> future,
     void Function(T t) onValue, {
-    void Function(Object) onError,
+    void Function(Object)? onError,
   }) {
-    future.then(onValue).catchError((e) {
+    // ignore: avoid_types_on_closure_parameters
+    future.then(onValue).catchError((Object e) {
       onError?.call(e);
     });
   }
@@ -90,10 +93,11 @@ abstract class WidgetModel {
   /// Call a future with default error handling
   void doFutureHandleError<T>(
     Future<T> future,
-    Function(T t) onValue, {
-    void Function(Object) onError,
+    FutureOr<T> Function(T) onValue, {
+    void Function(Object)? onError,
   }) {
-    future.then(onValue).catchError((e) {
+    // ignore: avoid_types_on_closure_parameters
+    future.then<T>(onValue).catchError((Object e) {
       handleError(e);
       onError?.call(e);
     });
@@ -106,7 +110,7 @@ abstract class WidgetModel {
 
   /// standard error handling
   @protected
-  void handleError(dynamic e) {
+  void handleError(Object e) {
     _errorHandler?.handleError(e);
   }
 }

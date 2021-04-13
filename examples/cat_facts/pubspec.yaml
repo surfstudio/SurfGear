@@ -1,0 +1,22 @@
+name: cat_facts
+description: A new Flutter project.
+version: 1.0.0+1
+publish_to: "none"
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.13.1
+  mwwm:
+    path: ../../packages/mwwm/
+  provider: ^5.0.0
+  relation: ^1.0.0
+
+dev_dependencies:
+  surf_lint_rules: ^1.0.0
+
+flutter:
+  uses-material-design: true
