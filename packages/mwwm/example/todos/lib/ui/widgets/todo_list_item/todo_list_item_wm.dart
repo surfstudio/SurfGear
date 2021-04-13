@@ -3,8 +3,8 @@ import 'package:mwwm/mwwm.dart';
 import 'package:provider/provider.dart';
 import 'package:relation/relation.dart';
 import 'package:todos/models/todo_entity.dart';
-import 'package:todos/repositories/todos_repository.dart';
 import 'package:todos/modules/provider.dart';
+import 'package:todos/repositories/todos_repository.dart';
 import 'package:todos/ui/screens/add_edit_screen/add_edit_screen.dart';
 
 class TodoListItemWM extends WidgetModel {

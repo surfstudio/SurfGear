@@ -3,8 +3,8 @@ import 'package:mwwm/mwwm.dart';
 import 'package:provider/provider.dart';
 import 'package:relation/relation.dart';
 import 'package:todos/models/filter_type.dart';
-import 'package:todos/repositories/todos_repository.dart';
 import 'package:todos/modules/provider.dart';
+import 'package:todos/repositories/todos_repository.dart';
 
 class FilterButtonWM extends WidgetModel {
   final TodosRepository _todosRepository;
