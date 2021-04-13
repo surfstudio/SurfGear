@@ -123,12 +123,12 @@ class _DemoRelationsState extends State<DemoRelations> {
 
           /// button for increment
           TextButton(
-            onPressed: incrementAction,
+            onPressed: reloadAction,
             style: TextButton.styleFrom(
               primary: Colors.black,
               backgroundColor: Colors.red,
             ),
-            child: const Text('increment'),
+            child: const Text('reload'),
           ),
         ],
       ),
