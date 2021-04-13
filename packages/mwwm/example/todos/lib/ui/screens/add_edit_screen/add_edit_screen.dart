@@ -5,17 +5,17 @@ import 'package:todos/ui/screens/add_edit_screen/add_edit_i18n.dart';
 import 'package:todos/ui/screens/add_edit_screen/add_edit_screen_wm.dart';
 
 class AddEditScreen extends CoreMwwmWidget {
+  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   AddEditScreen({
     TodoEntity todoEntity,
-  }) : super(widgetModelBuilder: (context) => AddEditScreenWM(context, todoEntity));
+  }) : super(widgetModelBuilder: (context) => AddEditScreenWM(context, todoEntity, _formKey));
 
   @override
   State<StatefulWidget> createState() => _AddEditScreenState();
 }
 
 class _AddEditScreenState extends WidgetState<AddEditScreenWM> {
-  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   String _title;
   String _description;
 
@@ -32,7 +32,7 @@ class _AddEditScreenState extends WidgetState<AddEditScreenWM> {
         ),
       ),
       body: Form(
-        key: _formKey,
+        key: wm.formKey,
         child: Column(
           children: [
             Padding(
@@ -73,10 +73,8 @@ class _AddEditScreenState extends WidgetState<AddEditScreenWM> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (_formKey.currentState.validate()) {
-            _formKey.currentState.save();
-            wm.save(_title, _description);
-          }
+          wm.formKey.currentState.save();
+          wm.save(_title, _description);
         },
         child: Icon(isEditing ? Icons.check : Icons.add),
       ),

@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:relation/relation.dart';
 import 'package:todos/models/todo_entity.dart';
 import 'package:todos/repositories/todos_repository.dart';
-import 'package:todos/storage/app_storage.dart';
+import 'package:todos/modules/provider.dart';
 import 'package:todos/ui/screens/add_edit_screen/add_edit_screen.dart';
 
 class TodoListItemWM extends WidgetModel {
@@ -16,7 +16,7 @@ class TodoListItemWM extends WidgetModel {
   TodoListItemWM(
     this._context,
     this.todoId,
-  )   : _todosRepository = _context.read<AppStorage>().todosRepository,
+  )   : _todosRepository = _context.read<AppProvider>().todosRepository,
         super(WidgetModelDependencies()) {
     todoEntity = StreamedState<TodoEntity>(_todosRepository.getTodo(todoId));
   }
