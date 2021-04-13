@@ -3,23 +3,23 @@ import 'package:flutter/material.dart';
 
 @immutable
 class TodoEntity extends Equatable {
+  const TodoEntity({
+    required this.id,
+    required this.title,
+    required this.isCompleted,
+    this.description,
+  });
+
   final int id;
   final String title;
-  final String description;
+  final String? description;
   final bool isCompleted;
-
-  const TodoEntity(
-    this.id,
-    this.title,
-    this.description,
-    this.isCompleted,
-  );
 
   @override
   List<Object> get props => [
         id,
         title,
-        description,
+        description ?? '',
         isCompleted,
       ];
 }

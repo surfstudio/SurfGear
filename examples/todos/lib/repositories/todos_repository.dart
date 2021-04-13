@@ -4,14 +4,14 @@ import 'package:todos/models/todo_entity.dart';
 import 'package:todos/storage/todos_storage.dart';
 
 class TodosRepository {
+  TodosRepository(this._todosStorage)
+      : _todosState = StreamedState<List<TodoEntity>>(_todosStorage.todos),
+        _currentFilterState = StreamedState<FilterType>(_todosStorage.currentFilter);
+
   final StreamedState<List<TodoEntity>> _todosState;
   final StreamedState<FilterType> _currentFilterState;
 
   final TodosStorage _todosStorage;
-
-  TodosRepository(this._todosStorage)
-      : _todosState = StreamedState<List<TodoEntity>>(_todosStorage.todos),
-        _currentFilterState = StreamedState<FilterType>(_todosStorage.currentFilter);
 
   StreamedState<FilterType> get currentFilterState => _currentFilterState;
   StreamedState<List<TodoEntity>> get todosState => _todosState;
@@ -39,7 +39,7 @@ class TodosRepository {
     _updateTodosState();
   }
 
-  Iterable<TodoEntity> _filtredTodos() {
+  List<TodoEntity> _filtredTodos() {
     switch (_todosStorage.currentFilter) {
       case FilterType.active:
         return _todosStorage.todos.where((element) => !element.isCompleted).toList();

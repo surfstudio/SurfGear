@@ -7,12 +7,12 @@ import 'package:todos/modules/provider.dart';
 import 'package:todos/repositories/todos_repository.dart';
 
 class FilterButtonWM extends WidgetModel {
-  final TodosRepository _todosRepository;
-
   FilterButtonWM(
     BuildContext context,
   )   : _todosRepository = context.read<AppProvider>().todosRepository,
-        super(WidgetModelDependencies());
+        super(const WidgetModelDependencies());
+
+  final TodosRepository _todosRepository;
 
   StreamedState<FilterType> get currentFilterState => _todosRepository.currentFilterState;
 

@@ -8,20 +8,20 @@ import 'package:todos/repositories/todos_repository.dart';
 import 'package:todos/ui/screens/add_edit_screen/add_edit_screen.dart';
 
 class TodoListScreenWM extends WidgetModel {
-  final TodosRepository _todosRepository;
-  final BuildContext _context;
-
   TodoListScreenWM(
     this._context,
   )   : _todosRepository = _context.read<AppProvider>().todosRepository,
-        super(WidgetModelDependencies());
+        super(const WidgetModelDependencies());
+
+  final TodosRepository _todosRepository;
+  final BuildContext _context;
 
   StreamedState<List<TodoEntity>> get todos => _todosRepository.todosState;
 
   void addTodo() {
     Navigator.push(
       _context,
-      MaterialPageRoute(builder: (context) => AddEditScreen()),
+      MaterialPageRoute<AddEditScreen>(builder: (context) => AddEditScreen()),
     );
   }
 

@@ -6,23 +6,23 @@ import 'package:todos/modules/provider.dart';
 import 'package:todos/repositories/todos_repository.dart';
 
 class AddEditScreenWM extends WidgetModel {
-  final GlobalKey<FormState> formKey;
-
-  final TodosRepository _todosRepository;
-  final TodoEntity todoEntity;
-  final BuildContext context;
-
   AddEditScreenWM(
     this.context,
     this.todoEntity,
     this.formKey,
   )   : _todosRepository = context.read<AppProvider>().todosRepository,
-        super(WidgetModelDependencies());
+        super(const WidgetModelDependencies());
+
+  final GlobalKey<FormState> formKey;
+
+  final TodosRepository _todosRepository;
+  final TodoEntity? todoEntity;
+  final BuildContext context;
 
   bool get isEditing => todoEntity != null;
 
   void save(String title, String description) {
-    if (formKey.currentState.validate()) {
+    if (formKey.currentState!.validate()) {
       isEditing ? _editTodo(title, description) : _addTodo(title, description);
       Navigator.pop(context);
     }
@@ -34,10 +34,10 @@ class AddEditScreenWM extends WidgetModel {
 
   void _editTodo(String title, String description) {
     _todosRepository.updateTodo(TodoEntity(
-      todoEntity.id,
-      title,
-      description,
-      todoEntity.isCompleted,
+      id: todoEntity!.id,
+      title: title,
+      description: description,
+      isCompleted: todoEntity!.isCompleted,
     ));
   }
 }

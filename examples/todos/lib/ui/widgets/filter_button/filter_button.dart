@@ -6,7 +6,8 @@ import 'package:todos/ui/widgets/filter_button/filter_button_i18n.dart';
 import 'package:todos/ui/widgets/filter_button/filter_button_wm.dart';
 
 class FilterButton extends CoreMwwmWidget {
-  FilterButton() : super(widgetModelBuilder: (context) => FilterButtonWM(context));
+  FilterButton({Key? key})
+      : super(key: key, widgetModelBuilder: (context) => FilterButtonWM(context));
 
   @override
   State<StatefulWidget> createState() => _FilterButtonState();
@@ -17,23 +18,23 @@ class _FilterButtonState extends WidgetState<FilterButtonWM> {
   Widget build(BuildContext context) => StreamedStateBuilder<FilterType>(
         streamedState: wm.currentFilterState,
         builder: (_, selectedFilter) => PopupMenuButton<FilterType>(
-          icon: Icon(Icons.filter_list),
+          icon: const Icon(Icons.filter_list),
           onSelected: wm.selectFilter,
-          itemBuilder: (BuildContext context) => [
+          itemBuilder: (_) => [
             CheckedPopupMenuItem<FilterType>(
               value: FilterType.all,
               checked: FilterType.all == selectedFilter,
-              child: Text(FilterButtonI18n.showAll),
+              child: const Text(FilterButtonI18n.showAll),
             ),
             CheckedPopupMenuItem<FilterType>(
               value: FilterType.active,
               checked: FilterType.active == selectedFilter,
-              child: Text(FilterButtonI18n.showActive),
+              child: const Text(FilterButtonI18n.showActive),
             ),
             CheckedPopupMenuItem<FilterType>(
               value: FilterType.completed,
               checked: FilterType.completed == selectedFilter,
-              child: Text(FilterButtonI18n.showCompleted),
+              child: const Text(FilterButtonI18n.showCompleted),
             ),
           ],
         ),

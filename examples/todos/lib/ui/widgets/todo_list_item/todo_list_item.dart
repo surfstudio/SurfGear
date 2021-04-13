@@ -6,8 +6,9 @@ import 'package:todos/ui/widgets/todo_list_item/todo_list_item_wm.dart';
 
 class TodoListItem extends CoreMwwmWidget {
   TodoListItem({
-    int todoId,
-  }) : super(widgetModelBuilder: (context) => TodoListItemWM(context, todoId));
+    required int todoId,
+    Key? key,
+  }) : super(key: key, widgetModelBuilder: (context) => TodoListItemWM(context, todoId));
 
   @override
   State<StatefulWidget> createState() => _TodoListItemState();
@@ -16,10 +17,10 @@ class TodoListItem extends CoreMwwmWidget {
 class _TodoListItemState extends WidgetState<TodoListItemWM> {
   @override
   Widget build(BuildContext context) => StreamedStateBuilder<TodoEntity>(
-        streamedState: wm.todoEntity,
+        streamedState: wm.todoEntity!,
         builder: (_, todoEntity) => ListTile(
           leading: Checkbox(
-            value: todoEntity.isCompleted,
+            value: todoEntity!.isCompleted,
             onChanged: (_) {
               wm.changeStatus();
             },
@@ -30,7 +31,7 @@ class _TodoListItemState extends WidgetState<TodoListItemWM> {
           ),
           subtitle: todoEntity.description?.isNotEmpty ?? false
               ? Text(
-                  todoEntity.description,
+                  todoEntity.description!,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.subtitle1,

@@ -7,7 +7,7 @@ void main() {
   runApp(
     Provider(
       create: (_) => AppProvider(),
-      child: App(),
+      child: const App(),
     ),
   );
 }

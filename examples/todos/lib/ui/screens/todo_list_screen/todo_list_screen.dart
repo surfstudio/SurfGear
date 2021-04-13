@@ -8,7 +8,8 @@ import 'package:todos/ui/widgets/filter_button/filter_button.dart';
 import 'package:todos/ui/widgets/todo_list_item/todo_list_item.dart';
 
 class TodoListScreen extends CoreMwwmWidget {
-  TodoListScreen() : super(widgetModelBuilder: (context) => TodoListScreenWM(context));
+  TodoListScreen({Key? key})
+      : super(key: key, widgetModelBuilder: (context) => TodoListScreenWM(context));
 
   @override
   State<StatefulWidget> createState() => _TodoListScreenState();
@@ -18,13 +19,13 @@ class _TodoListScreenState extends WidgetState<TodoListScreenWM> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text(TodoListScreenI18n.todoListTitle),
+          title: const Text(TodoListScreenI18n.todoListTitle),
           actions: [FilterButton()],
         ),
         body: StreamedStateBuilder<List<TodoEntity>>(
           streamedState: wm.todos,
           builder: (_, todos) => ListView.builder(
-            itemCount: todos.length,
+            itemCount: todos!.length,
             itemBuilder: (context, index) {
               final todo = todos[index];
 
@@ -40,7 +41,7 @@ class _TodoListScreenState extends WidgetState<TodoListScreenWM> {
           onPressed: () {
             wm.addTodo();
           },
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
       );
 }
