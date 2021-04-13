@@ -1,5 +1,5 @@
 name: relation
-version: "1.0.0"
+version: "1.0.0-dev.0"
 description: the stream representation of the relations of the entities and widget utilities
 homepage: "https://github.com/surfstudio/relation"
 
