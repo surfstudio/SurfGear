@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/widgets.dart' show ScrollController;
+import 'package:flutter/widgets.dart' as flutter;
 import 'package:relation/src/relation/action/action.dart';
 
 /// Action for scroll
 class ScrollOffsetAction extends Action<double> {
-  ScrollOffsetAction([void Function(double data) onChanged])
+  ScrollOffsetAction([void Function(double? data)? onChanged])
       : super(onChanged) {
     controller.addListener(() {
       accept(controller.offset);
@@ -25,11 +25,12 @@ class ScrollOffsetAction extends Action<double> {
   }
 
   /// Scroll controller of some list
-  final controller = ScrollController();
+  final flutter.ScrollController controller = flutter.ScrollController();
 
   @override
-  void dispose() {
+  Future<void> dispose() {
     controller.dispose();
+
     return super.dispose();
   }
 }

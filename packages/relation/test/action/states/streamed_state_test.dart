@@ -19,7 +19,7 @@ void main() {
   test('StreamedState accept([T data]) test', () {
     final streamedState = StreamedState<String>();
     streamedState.stream.listen((event) {
-      expect(event, 'test');
+      expect(event, equals('test'));
     });
     streamedState.accept('test');
   });

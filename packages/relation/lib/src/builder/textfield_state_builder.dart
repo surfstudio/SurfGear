@@ -21,16 +21,16 @@ import 'package:relation/src/relation/state/streamed_state.dart';
 /// Stream builder for text fields
 class TextFieldStateBuilder extends StatelessWidget {
   const TextFieldStateBuilder({
-    Key key,
-    this.state,
-    this.stateBuilder,
+    required this.state,
+    required this.stateBuilder,
+    Key? key,
   }) : super(key: key);
 
   /// State of text field
   final TextFieldStreamedState state;
 
   /// Builder of state
-  final Widget Function(BuildContext, TextFieldState) stateBuilder;
+  final Widget Function(BuildContext, TextFieldState?) stateBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -50,39 +50,34 @@ class TextFieldStateBuilder extends StatelessWidget {
 /// todo come up with how to combine with the controller
 class TextFieldState extends EntityState<String> {
   /// Content constructor
-  TextFieldState.content(this.data)
+  TextFieldState.content(String data)
       : isEnabled = true,
         super.content(data);
 
   /// Error constructor
-  TextFieldState.error(this.data, [Exception e])
+  TextFieldState.error(String? data, [Exception? e])
       : isEnabled = true,
-        super.error(e);
+        super.error(e, data);
 
   /// Loading constructor
   TextFieldState.loading()
       : isEnabled = false,
-        data = '',
-        super.loading();
+        super.loading('');
 
   /// Enabled constructor
-  TextFieldState.enabled(this.data, {bool enabled = true})
+  TextFieldState.enabled(String? data, {bool enabled = true})
       : isEnabled = enabled,
         super.content(data);
 
   /// Text field is enabled
   final bool isEnabled;
-
-  @override
-  // ignore: overridden_fields
-  final String data;
 }
 
 /// Stream view of text field state
 /// For validations, it is possible to set restrictions such as [validator],
 /// [mandatory], [canEdit]
 class TextFieldStreamedState extends StreamedState<TextFieldState>
-    implements EntityEvent<String> {
+    implements EntityEvent<String, TextFieldState> {
   TextFieldStreamedState(
     String initialData, {
     String validator = '',
@@ -105,7 +100,7 @@ class TextFieldStreamedState extends StreamedState<TextFieldState>
   final String incorrectTextMsg;
 
   @override
-  Future<void> content([String data]) {
+  Future<TextFieldState?> content([String data = '']) {
     if (!validator.hasMatch(data) || (data.isEmpty && mandatory)) {
       return super.accept(
         TextFieldState.error(
@@ -114,20 +109,20 @@ class TextFieldStreamedState extends StreamedState<TextFieldState>
         ),
       );
     } else if (!canEdit) {
-      return accept(TextFieldState.enabled(value.data, enabled: canEdit));
+      return accept(TextFieldState.enabled(value?.data, enabled: canEdit));
     } else {
       return super.accept(TextFieldState.content(data));
     }
   }
 
   @override
-  Future<void> error([Exception error]) {
-    final state = TextFieldState.error(value.data, error);
+  Future<TextFieldState?> error([Exception? error]) {
+    final state = TextFieldState.error(value?.data, error);
     return super.accept(state);
   }
 
   @override
-  Future<void> loading() {
+  Future<TextFieldState?> loading() {
     final state = TextFieldState.loading();
     return super.accept(state);
   }
@@ -135,7 +130,7 @@ class TextFieldStreamedState extends StreamedState<TextFieldState>
 
 /// Exception of incorrect text wrapper
 class IncorrectTextException implements Exception {
-  IncorrectTextException(this.message);
+  const IncorrectTextException(this.message);
 
   final String message;
 }

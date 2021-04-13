@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/widgets.dart' as widgets;
+import 'package:flutter/widgets.dart' as flutter;
 import 'package:relation/src/relation/action/action.dart';
 
 /// Action for text editing
 class TextEditingAction extends Action<String> {
   TextEditingAction([
-    void Function(String data) onChanged,
+    void Function(String? data)? onChanged,
   ]) : super(onChanged) {
     controller.addListener(() {
       accept(controller.value.text);
@@ -26,27 +26,28 @@ class TextEditingAction extends Action<String> {
   }
 
   /// TextEditing controller of text field
-  final widgets.TextEditingController controller =
+  final ExtendedTextEditingController controller =
       ExtendedTextEditingController();
 
   @override
-  void dispose() {
+  Future<void> dispose() {
     controller.dispose();
-    super.dispose();
+
+    return super.dispose();
   }
 }
 
 /// When updating text through the setter, moves the cursor to the end of the
 /// line
-class ExtendedTextEditingController extends widgets.TextEditingController {
-  ExtendedTextEditingController({String text}) : super(text: text);
+class ExtendedTextEditingController extends flutter.TextEditingController {
+  ExtendedTextEditingController({String? text}) : super(text: text);
 
   @override
   set text(String newText) {
     value = value.copyWith(
       text: newText,
-      selection: widgets.TextSelection.collapsed(offset: newText.length),
-      composing: widgets.TextRange.empty,
+      selection: flutter.TextSelection.collapsed(offset: newText.length),
+      composing: flutter.TextRange.empty,
     );
   }
 }

@@ -12,28 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:relation/src/relation/state/streamed_state.dart';
 
 /// Widget for StreamedState.
 /// Wrap Flutter StreamBuilder
 class StreamedStateBuilder<T> extends StatelessWidget {
   const StreamedStateBuilder({
-    @required this.streamedState,
-    @required this.builder,
-    Key key,
-  })  : assert(streamedState != null && builder != null),
-        super(key: key);
+    required this.streamedState,
+    required this.builder,
+    Key? key,
+  }) : super(key: key);
 
   /// Input streamed state
   final StreamedState<T> streamedState;
 
   /// Builder of widget child
-  final Widget Function(BuildContext, T) builder;
+  final Widget Function(BuildContext, T?) builder;
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<T>(
+    return StreamBuilder<T?>(
       builder: (ctx, snapshot) => builder(ctx, snapshot.data),
       stream: streamedState.stream,
       initialData: streamedState.value,

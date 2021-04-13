@@ -1,9 +1,14 @@
 # Changelog
 
+## 1.0.0
+
+* Migrated to null safety, min SDK is `2.12.0`
+* Remove `ControllerAction`
+
 ## 0.0.4-dev.3
 
 * Fixed loading and error builders on empty stream data
-* Update REAMDE.md
+* Update README.md
 
 ## 0.0.4-dev.1
 

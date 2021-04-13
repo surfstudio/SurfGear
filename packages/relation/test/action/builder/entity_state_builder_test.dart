@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:relation/relation.dart';
@@ -27,7 +26,7 @@ void main() {
       final streamedStateBuilder = EntityStateBuilder<String>(
         streamedState: testData,
         child: (context, data) {
-          return Text(data);
+          return Text(data ?? '');
         },
       );
 
@@ -39,7 +38,7 @@ void main() {
           ),
         ),
       );
-      expect(streamedStateBuilder.streamedState.value.data, 'test');
+      expect(streamedStateBuilder.streamedState.value?.data, equals('test'));
       final testFinder = find.text('test');
       expect(testFinder, findsOneWidget);
 
