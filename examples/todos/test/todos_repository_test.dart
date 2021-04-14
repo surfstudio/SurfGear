@@ -17,15 +17,12 @@ void main() {
 
     const todos = [todo];
 
-    TodosStorageMock todosStorageMock = TodosStorageMock();
+    final todosStorageMock = TodosStorageMock();
     when(() => todosStorageMock.todos).thenReturn([]);
     when(() => todosStorageMock.currentFilter).thenReturn(FilterType.all);
     TodosRepository todosRepository = TodosRepository(todosStorageMock);
 
     setUp(() {
-      todosStorageMock = TodosStorageMock();
-      when(() => todosStorageMock.todos).thenReturn([]);
-      when(() => todosStorageMock.currentFilter).thenReturn(FilterType.all);
       todosRepository = TodosRepository(todosStorageMock);
     });
 
@@ -110,7 +107,7 @@ void main() {
         when(() => todosStorageMock.todos).thenReturn(todos);
         when(() => todosStorageMock.currentFilter).thenReturn(FilterType.completed);
 
-        expectLater(todosRepository.todosState.stream, emits(<TodoEntity>[]));
+        expectLater(todosRepository.todosState.stream, mayEmit(<TodoEntity>[]));
 
         todosRepository.updateTodo(todo);
       });
