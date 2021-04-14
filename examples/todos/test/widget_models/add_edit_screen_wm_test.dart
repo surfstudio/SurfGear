@@ -18,11 +18,7 @@ void main() {
     final todosRepositoryMock = TodosRepositoryMock();
     final navigationMock = NavigationMock();
 
-    AddEditScreenWM addEditScreenWM = AddEditScreenWM(
-      navigationMock,
-      todosRepositoryMock,
-      todo,
-    );
+    late AddEditScreenWM addEditScreenWM;
 
     setUp(() {
       addEditScreenWM = AddEditScreenWM(

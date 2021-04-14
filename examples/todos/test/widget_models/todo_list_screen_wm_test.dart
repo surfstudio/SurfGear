@@ -11,7 +11,7 @@ void main() {
     final todosRepositoryMock = TodosRepositoryMock();
     final navigationMock = NavigationMock();
 
-    TodoListScreenWM todoListScreenWM = TodoListScreenWM(navigationMock, todosRepositoryMock);
+    late TodoListScreenWM todoListScreenWM;
 
     setUp(() {
       todoListScreenWM = TodoListScreenWM(

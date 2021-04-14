@@ -20,7 +20,7 @@ void main() {
     );
 
     when(() => todosRepositoryMock.getTodo(todoId)).thenReturn(todo);
-    TodoListItemWM todoListItemWM = TodoListItemWM(navigationMock, todosRepositoryMock, todoId);
+    late TodoListItemWM todoListItemWM;
 
     setUp(() {
       registerFallbackValue<TodoEntity>(todo);

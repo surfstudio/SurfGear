@@ -5,7 +5,7 @@ import 'package:todos/storage/todos_storage.dart';
 
 void main() {
   group('TodosStorage', () {
-    TodosStorage todosStorage = TodosStorage();
+    late TodosStorage todosStorage;
     const todo = TodoEntity(
       id: 0,
       title: 'title',

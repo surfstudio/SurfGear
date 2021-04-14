@@ -20,7 +20,7 @@ void main() {
     final todosStorageMock = TodosStorageMock();
     when(() => todosStorageMock.todos).thenReturn([]);
     when(() => todosStorageMock.currentFilter).thenReturn(FilterType.all);
-    TodosRepository todosRepository = TodosRepository(todosStorageMock);
+    late TodosRepository todosRepository;
 
     setUp(() {
       todosRepository = TodosRepository(todosStorageMock);

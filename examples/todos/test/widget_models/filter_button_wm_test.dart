@@ -9,7 +9,7 @@ void main() {
   group('FilterButtonWM', () {
     final todosRepositoryMock = TodosRepositoryMock();
 
-    FilterButtonWM filterButtonWM = FilterButtonWM(todosRepositoryMock);
+    late FilterButtonWM filterButtonWM;
 
     setUp(() {
       filterButtonWM = FilterButtonWM(todosRepositoryMock);
