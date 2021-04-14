@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
+import 'package:ink_widget/src/disable_widget.dart';
 
 const _defaultOpacity = 0.5;
 
@@ -112,7 +113,14 @@ class InkWidget extends StatelessWidget {
             child: _buildInkWell(),
           ),
         ),
-        if (disable) _buildDisableWidget(),
+        if (disable)
+          disableWidget ??
+              DisableWidget(
+                color: disableColor,
+                opacity: disableOpacity,
+                decoration: shape,
+                defaultDecorationShapeBorder: shapeBorder,
+              ),
       ],
     );
   }
@@ -141,30 +149,6 @@ class InkWidget extends StatelessWidget {
           canRequestFocus: canRequestFocus,
           onFocusChange: onFocusChange,
           autofocus: autofocus,
-        );
-  }
-
-  ShapeDecoration? _shapeDisable() {
-    if (shape == null && shapeBorder == null) return null;
-    return shape ??
-        ShapeDecoration(
-          color: disableColor,
-          shape: shapeBorder!,
-        );
-  }
-
-  Color? get _disableColor => shape == null ? disableColor : null;
-
-  Widget _buildDisableWidget() {
-    return disableWidget ??
-        Positioned.fill(
-          child: Opacity(
-            opacity: disableOpacity,
-            child: Container(
-              color: _disableColor,
-              decoration: _shapeDisable(),
-            ),
-          ),
         );
   }
 }
