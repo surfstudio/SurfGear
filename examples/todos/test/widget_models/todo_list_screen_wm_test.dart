@@ -1,5 +1,5 @@
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
 import 'package:todos/models/todo_entity.dart';
 import 'package:todos/ui/screens/todo_list_screen/todo_list_screen_wm.dart';
 

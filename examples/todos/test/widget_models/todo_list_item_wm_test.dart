@@ -1,5 +1,5 @@
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
 import 'package:todos/models/todo_entity.dart';
 import 'package:todos/ui/widgets/todo_list_item/todo_list_item_wm.dart';
 
@@ -31,7 +31,7 @@ void main() {
       test('call _todosRepository.updateTodo', () {
         todoListItemWM.changeStatus();
 
-        verify(() => todosRepositoryMock.updateTodo(any(that: const TypeMatcher<TodoEntity>())));
+        verify(() => todosRepositoryMock.updateTodo(any(that: isA<TodoEntity>())));
       });
 
       test('emit new todo state', () {
@@ -48,7 +48,7 @@ void main() {
         verify(() => navigationMock.showAddEditScreen(
                 todoEntity: any(
               named: 'todoEntity',
-              that: const TypeMatcher<TodoEntity>(),
+              that: isA<TodoEntity>(),
             )));
       });
     });

@@ -1,5 +1,5 @@
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
 import 'package:todos/models/todo_entity.dart';
 import 'package:todos/ui/screens/add_edit_screen/add_edit_screen_wm.dart';
 
@@ -49,7 +49,7 @@ void main() {
 
       test('if isEditing then call updateTodo and naviagtion back', () {
         addEditScreenWM.save('title', 'description', isValid: true);
-        verify(() => todosRepositoryMock.updateTodo(any(that: const TypeMatcher<TodoEntity>())));
+        verify(() => todosRepositoryMock.updateTodo(any(that: isA<TodoEntity>())));
         verify(navigationMock.back);
       });
 

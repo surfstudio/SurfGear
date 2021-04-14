@@ -1,5 +1,5 @@
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
 import 'package:todos/models/filter_type.dart';
 import 'package:todos/ui/widgets/filter_button/filter_button_wm.dart';
 
