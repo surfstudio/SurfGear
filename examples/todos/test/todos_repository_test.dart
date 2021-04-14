@@ -105,7 +105,8 @@ void main() {
 
       test('send updated todosState when FilterType.completed', () {
         when(() => todosStorageMock.todos).thenReturn(todos);
-        when(() => todosStorageMock.currentFilter).thenReturn(FilterType.completed);
+        when(() => todosStorageMock.currentFilter)
+            .thenReturn(FilterType.completed);
 
         expectLater(todosRepository.todosState.stream, mayEmit(<TodoEntity>[]));
 
@@ -114,7 +115,8 @@ void main() {
 
       test('send updated todosState when FilterType.acive', () {
         when(() => todosStorageMock.todos).thenReturn(todos);
-        when(() => todosStorageMock.currentFilter).thenReturn(FilterType.active);
+        when(() => todosStorageMock.currentFilter)
+            .thenReturn(FilterType.active);
 
         expectLater(todosRepository.todosState.stream, mayEmit(todos));
 

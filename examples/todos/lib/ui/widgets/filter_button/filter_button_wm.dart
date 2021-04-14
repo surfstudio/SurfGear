@@ -10,7 +10,8 @@ class FilterButtonWM extends WidgetModel {
 
   final TodosRepository _todosRepository;
 
-  StreamedState<FilterType> get currentFilterState => _todosRepository.currentFilterState;
+  StreamedState<FilterType> get currentFilterState =>
+      _todosRepository.currentFilterState;
 
   void selectFilter(FilterType filterType) {
     _todosRepository.setFilter(filterType);

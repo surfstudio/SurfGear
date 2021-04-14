@@ -51,7 +51,8 @@ void main() {
 
     group('updateTodo', () {
       test('correct update todoEntity', () {
-        const updatedTodo = TodoEntity(id: 0, title: 'new title', isCompleted: true);
+        const updatedTodo =
+            TodoEntity(id: 0, title: 'new title', isCompleted: true);
 
         todosStorage.addTodo('title', 'description');
         expect(todosStorage.todos.first, todo);

@@ -34,7 +34,8 @@ class TodosStorage {
   }
 
   void updateTodo(TodoEntity todoEntity) {
-    final todoPlace = _todos.indexOf(_todos.firstWhere((e) => e.id == todoEntity.id));
+    final todoPlace =
+        _todos.indexOf(_todos.firstWhere((e) => e.id == todoEntity.id));
     _todos[todoPlace] = todoEntity;
   }
 }

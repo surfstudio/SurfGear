@@ -32,11 +32,17 @@ void main() {
 
     group('isEditing', () {
       test('return true if todoEntity is not null', () {
-        expect(AddEditScreenWM(navigationMock, todosRepositoryMock, todo).isEditing, isTrue);
+        expect(
+            AddEditScreenWM(navigationMock, todosRepositoryMock, todo)
+                .isEditing,
+            isTrue);
       });
 
       test('return false if todoEntity is null', () {
-        expect(AddEditScreenWM(navigationMock, todosRepositoryMock, null).isEditing, isFalse);
+        expect(
+            AddEditScreenWM(navigationMock, todosRepositoryMock, null)
+                .isEditing,
+            isFalse);
       });
     });
 
@@ -49,7 +55,8 @@ void main() {
 
       test('if isEditing then call updateTodo and naviagtion back', () {
         addEditScreenWM.save('title', 'description', isValid: true);
-        verify(() => todosRepositoryMock.updateTodo(any(that: isA<TodoEntity>())));
+        verify(
+            () => todosRepositoryMock.updateTodo(any(that: isA<TodoEntity>())));
         verify(navigationMock.back);
       });
 

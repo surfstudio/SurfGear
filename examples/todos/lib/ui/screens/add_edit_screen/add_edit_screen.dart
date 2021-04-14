@@ -55,7 +55,9 @@ class _AddEditScreenState extends WidgetState<AddEditScreenWM> {
                   labelText: AddEditI18n.todoTitleLabel,
                 ),
                 validator: (val) {
-                  return val!.trim().isEmpty ? AddEditI18n.emptyTitleWarning : null;
+                  return val!.trim().isEmpty
+                      ? AddEditI18n.emptyTitleWarning
+                      : null;
                 },
                 onSaved: (value) => _title = value,
               ),

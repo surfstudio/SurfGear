@@ -5,16 +5,14 @@ import 'package:todos/storage/todos_storage.dart';
 
 class TodosRepository {
   TodosRepository(this._todosStorage)
-      : _todosState = StreamedState<List<TodoEntity>>(_todosStorage.todos),
-        _currentFilterState = StreamedState<FilterType>(_todosStorage.currentFilter);
+      : todosState = StreamedState<List<TodoEntity>>(_todosStorage.todos),
+        currentFilterState =
+            StreamedState<FilterType>(_todosStorage.currentFilter);
 
-  final StreamedState<List<TodoEntity>> _todosState;
-  final StreamedState<FilterType> _currentFilterState;
+  final StreamedState<List<TodoEntity>> todosState;
+  final StreamedState<FilterType> currentFilterState;
 
   final TodosStorage _todosStorage;
-
-  StreamedState<FilterType> get currentFilterState => _currentFilterState;
-  StreamedState<List<TodoEntity>> get todosState => _todosState;
 
   void addTodo(String title, String description) {
     _todosStorage.addTodo(title, description);
@@ -30,7 +28,7 @@ class TodosRepository {
 
   void setFilter(FilterType newFilter) {
     _todosStorage.setFilter(newFilter);
-    _currentFilterState.accept(_todosStorage.currentFilter);
+    currentFilterState.accept(_todosStorage.currentFilter);
     _updateTodosState();
   }
 
@@ -42,9 +40,13 @@ class TodosRepository {
   List<TodoEntity> _filtredTodos() {
     switch (_todosStorage.currentFilter) {
       case FilterType.active:
-        return _todosStorage.todos.where((element) => !element.isCompleted).toList();
+        return _todosStorage.todos
+            .where((element) => !element.isCompleted)
+            .toList();
       case FilterType.completed:
-        return _todosStorage.todos.where((element) => element.isCompleted).toList();
+        return _todosStorage.todos
+            .where((element) => element.isCompleted)
+            .toList();
       case FilterType.all:
       default:
         return _todosStorage.todos;
@@ -52,6 +54,6 @@ class TodosRepository {
   }
 
   void _updateTodosState() {
-    _todosState.accept(_filtredTodos());
+    todosState.accept(_filtredTodos());
   }
 }

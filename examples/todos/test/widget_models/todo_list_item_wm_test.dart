@@ -24,14 +24,16 @@ void main() {
 
     setUp(() {
       registerFallbackValue<TodoEntity>(todo);
-      todoListItemWM = TodoListItemWM(navigationMock, todosRepositoryMock, todoId);
+      todoListItemWM =
+          TodoListItemWM(navigationMock, todosRepositoryMock, todoId);
     });
 
     group('changeStatus()', () {
       test('call _todosRepository.updateTodo', () {
         todoListItemWM.changeStatus();
 
-        verify(() => todosRepositoryMock.updateTodo(any(that: isA<TodoEntity>())));
+        verify(
+            () => todosRepositoryMock.updateTodo(any(that: isA<TodoEntity>())));
       });
 
       test('emit new todo state', () {
