@@ -119,7 +119,7 @@ class InkWidget extends StatelessWidget {
                 color: disableColor,
                 opacity: disableOpacity,
                 decoration: shape,
-                defaultDecorationShapeBorder: shapeBorder,
+                defaultDecorationShape: shapeBorder,
               ),
       ],
     );

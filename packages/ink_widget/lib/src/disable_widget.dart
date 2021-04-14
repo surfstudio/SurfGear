@@ -21,14 +21,14 @@ class DisableWidget extends StatelessWidget {
     required this.opacity,
     Key? key,
     this.decoration,
-    this.defaultDecorationShapeBorder,
+    this.defaultDecorationShape,
   }) : super(key: key);
 
   final Color color;
   final double opacity;
 
   final Decoration? decoration;
-  final ShapeBorder? defaultDecorationShapeBorder;
+  final ShapeBorder? defaultDecorationShape;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,9 @@ class DisableWidget extends StatelessWidget {
       child: Opacity(
         opacity: opacity,
         child: Container(
-          color: decoration == null ? color : null,
+          color: (decoration == null && defaultDecorationShape == null)
+              ? color
+              : null,
           decoration: decoration ?? _defaultDecoration(),
         ),
       ),
@@ -44,11 +46,8 @@ class DisableWidget extends StatelessWidget {
   }
 
   Decoration? _defaultDecoration() {
-    return defaultDecorationShapeBorder != null
-        ? ShapeDecoration(
-            color: color,
-            shape: defaultDecorationShapeBorder!,
-          )
+    return defaultDecorationShape != null
+        ? ShapeDecoration(color: color, shape: defaultDecorationShape!)
         : null;
   }
 }
