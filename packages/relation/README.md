@@ -287,7 +287,7 @@ A state that have download/error/content status
 
 ## Installation
 
-Add `auto_reload` to your `pubspec.yaml` file:
+Add `relation` to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:

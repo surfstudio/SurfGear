@@ -39,7 +39,7 @@ MWWM is the perfect mix of the [Flutter framework architectural concept](https:/
 
 ### Key components
 
-![MWWM Architecture Sheme](https://i.ibb.co/Y778rtM/Key-components.png)
+![MWWM Architecture Scheme](https://i.ibb.co/Y778rtM/Key-components.png)
 
 #### Widget
 
@@ -63,7 +63,7 @@ Unlike other components, the `Model` is optional.
 `Model` is a great way to simplify the business logic layer of your app by breaking it into two sets of abstractions:
 
 - `Change` is an intent to do something without any concrete implementation details, only input parameters;
-- `Performer` is the reaction to the `Сhange` that is associated with it. The Performer contains the implementation of a certain operation that is triggered by the Change.
+- `Performer` is the reaction to the `Change` that is associated with it. The Performer contains the implementation of a certain operation that is triggered by the Change.
 
 Presented by the `Model`, `Change`, and `Performer` classes.
 
@@ -297,7 +297,7 @@ doFutureHandleError<bool>(
 );
 ```
 
-#### Default error handling customisation
+#### Default error handling customization
 
 Error handling is easily customizable.
 
@@ -307,7 +307,7 @@ First, extend the `ErrorHandler` class and override the `handleError()` function
 class CustomErrorHandler extends ErrorHandler {
   @override
   void handleError(Object e) {
-    debugPrint('Custom error handler regretfully informs that $e has occured.');
+    debugPrint('Custom error handler regretfully informs that $e has occurred.');
   }
 }
 ```
@@ -370,7 +370,7 @@ Add mwwm to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  mwwm: any
+  mwwm: ^1.0.0
 ```
 
 You can use both `stable` and `dev` versions of the package listed above in the badges bar.
