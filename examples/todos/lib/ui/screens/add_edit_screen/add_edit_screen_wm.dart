@@ -1,30 +1,30 @@
-import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:provider/provider.dart';
 import 'package:todos/models/todo_entity.dart';
-import 'package:todos/modules/provider.dart';
 import 'package:todos/repositories/todos_repository.dart';
+import 'package:todos/ui/navigation/navigation.dart';
 
 class AddEditScreenWM extends WidgetModel {
   AddEditScreenWM(
-    this.context,
+    this._navigation,
+    this._todosRepository,
     this.todoEntity,
-    this.formKey,
-  )   : _todosRepository = context.read<AppProvider>().todosRepository,
-        super(const WidgetModelDependencies());
-
-  final GlobalKey<FormState> formKey;
+  ) : super(const WidgetModelDependencies());
 
   final TodosRepository _todosRepository;
+  final Navigation _navigation;
+
   final TodoEntity? todoEntity;
-  final BuildContext context;
 
   bool get isEditing => todoEntity != null;
 
-  void save(String title, String description) {
-    if (formKey.currentState!.validate()) {
+  void save(
+    String title,
+    String description, {
+    required bool isValid,
+  }) {
+    if (isValid) {
       isEditing ? _editTodo(title, description) : _addTodo(title, description);
-      Navigator.pop(context);
+      _navigation.back();
     }
   }
 

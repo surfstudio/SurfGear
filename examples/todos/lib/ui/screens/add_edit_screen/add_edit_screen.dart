@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:provider/provider.dart';
 import 'package:todos/models/todo_entity.dart';
+import 'package:todos/modules/provider.dart';
+import 'package:todos/ui/navigation/navigation.dart';
 import 'package:todos/ui/screens/add_edit_screen/add_edit_i18n.dart';
 import 'package:todos/ui/screens/add_edit_screen/add_edit_screen_wm.dart';
 
@@ -10,9 +13,11 @@ class AddEditScreen extends CoreMwwmWidget {
     TodoEntity? todoEntity,
   }) : super(
             key: key,
-            widgetModelBuilder: (context) => AddEditScreenWM(context, todoEntity, _formKey));
-
-  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+            widgetModelBuilder: (context) => AddEditScreenWM(
+                  Navigation(context),
+                  context.read<AppProvider>().todosRepository,
+                  todoEntity,
+                ));
 
   @override
   State<StatefulWidget> createState() => _AddEditScreenState();
@@ -21,6 +26,7 @@ class AddEditScreen extends CoreMwwmWidget {
 class _AddEditScreenState extends WidgetState<AddEditScreenWM> {
   String? _title;
   String? _description;
+  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +41,7 @@ class _AddEditScreenState extends WidgetState<AddEditScreenWM> {
         ),
       ),
       body: Form(
-        key: wm.formKey,
+        key: _formKey,
         child: Column(
           children: [
             Padding(
@@ -72,8 +78,12 @@ class _AddEditScreenState extends WidgetState<AddEditScreenWM> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          wm.formKey.currentState!.save();
-          wm.save(_title!, _description!);
+          _formKey.currentState!.save();
+          wm.save(
+            _title!,
+            _description!,
+            isValid: _formKey.currentState!.validate(),
+          );
         },
         child: Icon(isEditing ? Icons.check : Icons.add),
       ),
