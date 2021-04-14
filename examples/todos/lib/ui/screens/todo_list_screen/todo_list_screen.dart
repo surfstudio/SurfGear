@@ -46,9 +46,7 @@ class _TodoListScreenState extends WidgetState<TodoListScreenWM> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            wm.addTodo();
-          },
+          onPressed: wm.addTodo,
           child: const Icon(Icons.add),
         ),
       );

@@ -46,9 +46,7 @@ class _TodoListItemState extends WidgetState<TodoListItemWM> {
                   style: Theme.of(context).textTheme.subtitle1,
                 )
               : null,
-          onTap: () {
-            wm.editTodo();
-          },
+          onTap: wm.editTodo,
         ),
       );
 }
