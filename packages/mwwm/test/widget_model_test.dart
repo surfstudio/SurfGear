@@ -79,5 +79,14 @@ void main() {
       });
     });
 
+    group('doFuture', () {
+      test('call onValue after complete Future', () {
+        int futureFunc() => 123;
+        // TODO no work
+        final future = Future<int>(futureFunc);
+        widgetModel.doFuture(future, func);
+        futureFunc();
+      });
+    });
   });
 }
