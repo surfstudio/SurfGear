@@ -51,15 +51,9 @@ abstract class WidgetModel {
     Stream<T> stream,
     void Function(T t) onValue, {
     void Function(Object e)? onError,
-  }) {
-    // ignore: avoid_types_on_closure_parameters
-    final subscription = stream.listen(onValue, onError: (Object e) {
-      onError?.call(e);
-    });
-
-    _compositeSubscription.add(subscription);
-    return subscription;
-  }
+  }) =>
+      _compositeSubscription
+          .add<T>(stream.listen(onValue, onError: onError?.call));
 
   /// subscribe for interactors with default handle error
   StreamSubscription subscribeHandleError<T>(
@@ -73,8 +67,7 @@ abstract class WidgetModel {
       onError?.call(e);
     });
 
-    _compositeSubscription.add(subscription);
-    return subscription;
+    return _compositeSubscription.add<T>(subscription);
   }
 
   /// Call a future.
