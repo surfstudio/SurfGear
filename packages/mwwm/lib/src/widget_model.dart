@@ -74,7 +74,7 @@ abstract class WidgetModel {
   /// Using Rx wrappers with [subscribe] method is preferable.
   void doFuture<T>(
     Future<T> future,
-    void Function(T t) onValue, {
+    void Function(T) onValue, {
     void Function(Object)? onError,
   }) {
     // ignore: avoid_types_on_closure_parameters
@@ -86,11 +86,11 @@ abstract class WidgetModel {
   /// Call a future with default error handling
   void doFutureHandleError<T>(
     Future<T> future,
-    FutureOr<T> Function(T) onValue, {
+    void Function(T) onValue, {
     void Function(Object)? onError,
   }) {
     // ignore: avoid_types_on_closure_parameters
-    future.then<T>(onValue).catchError((Object e) {
+    future.then(onValue).catchError((Object e) {
       handleError(e);
       onError?.call(e);
     });
