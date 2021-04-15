@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.2
+
+* Fix changelog
 ## 1.0.1
 
 * Add unit tests
