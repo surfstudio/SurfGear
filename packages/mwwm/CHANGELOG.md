@@ -23,7 +23,7 @@
 * Add special performers for useful cases: FuturePerformer and StreamPerformer
 * Add FutureChange<R> and StreamChange<R> which result is Future<R> or Stream<R>, Change<R> can have any object as result
   
-## 0.1.0 - beta release
+## 0.1.0
 
 * Update CoreMwwmWidget. Change API
 * Update docs
@@ -32,10 +32,10 @@
 
 * Add logo
 
-## 0.0.3 - Update docs
+## 0.0.3
 * README update
 * fix some class docs
 
-## 0.0.2 - Released
+## 0.0.2
 
 * Software architectural pattern for flutter apps.
