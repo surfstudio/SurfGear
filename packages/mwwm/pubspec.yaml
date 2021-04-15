@@ -1,5 +1,5 @@
 name: mwwm
-version: "1.0.0-dev.0"
+version: "1.0.1"
 description: |
   Software architecture pattern for teams with different sizes. Add possibility to work separately. Separate UI, presentation logic and business logic.
   
@@ -13,6 +13,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mocktail: ^0.1.1 
   surf_lint_rules: ^1.0.0
 
 environment:
