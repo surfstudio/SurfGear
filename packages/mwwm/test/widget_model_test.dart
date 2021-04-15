@@ -25,7 +25,7 @@ void main() {
     });
 
     group('subscribe', () {
-      test('return StreamSubscription', () {
+      test('returns StreamSubscription', () {
         expect(widgetModel.subscribe(streamController.stream, (t) {}),
             isA<StreamSubscription<int>>());
       });
@@ -52,13 +52,13 @@ void main() {
     });
 
     group('subscribeHandleError', () {
-      test('return StreamSubscription', () {
+      test('returns StreamSubscription', () {
         expect(
             widgetModel.subscribeHandleError(streamController.stream, (t) {}),
             isA<StreamSubscription<int>>());
       });
 
-      test('subscribe onValue handle on stream', () {
+      test('subscribes onValue handle on stream', () {
         widgetModel.subscribeHandleError(streamController.stream, (v) {
           expect(v, equals(value));
         });
@@ -68,7 +68,7 @@ void main() {
           ..close();
       });
 
-      test('subscribe onError handle on stream', () {
+      test('subscribes onError handle on stream', () {
         void verifyFunc(Object v) {
           verify(() => errorHandlerMock.handleError(value));
           expect(v, equals(value));

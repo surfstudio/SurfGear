@@ -17,7 +17,7 @@ void main() {
           .thenAnswer((_) => Future<void>.value());
     });
 
-    test('isDisposed returns false if  no called dispose()', () {
+    test('isDisposed returns false if no called dispose()', () {
       expect(compositeSubscription.isDisposed, isFalse);
     });
 
