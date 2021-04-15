@@ -17,22 +17,22 @@ void main() {
           .thenAnswer((_) => Future<void>.value());
     });
 
-    test('isDisposed return false if  no called dispose()', () {
+    test('isDisposed returns false if  no called dispose()', () {
       expect(compositeSubscription.isDisposed, isFalse);
     });
 
     group('add()', () {
-      test('return subscription', () {
+      test('returns subscription', () {
         expect(compositeSubscription.add<Object>(streamSubscriptionMock),
             streamSubscriptionMock);
       });
 
-      test('no emit throw if isDisposed is false', () {
+      test('no emits throw if isDisposed is false', () {
         expect(() => compositeSubscription.add<Object>(streamSubscriptionMock),
             returnsNormally);
       });
 
-      test('emit throw if isDisposed is true', () {
+      test('emits throw if isDisposed is true', () {
         compositeSubscription.dispose();
 
         expect(() => compositeSubscription.add<Object>(streamSubscriptionMock),

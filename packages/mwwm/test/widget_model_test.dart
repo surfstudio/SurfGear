@@ -30,7 +30,7 @@ void main() {
             isA<StreamSubscription<int>>());
       });
 
-      test('subscribe onValue handle on stream', () {
+      test('uses onValue handle on stream', () {
         widgetModel.subscribe(streamController.stream, (v) {
           expect(v, equals(value));
         });
@@ -40,7 +40,7 @@ void main() {
           ..close();
       });
 
-      test('subscribe onError handle on stream', () {
+      test('uses onError handle on stream', () {
         widgetModel.subscribe(streamController.stream, (t) {}, onError: (v) {
           expect(v, equals(value));
         });
@@ -84,7 +84,7 @@ void main() {
     });
 
     group('doFuture', () {
-      test('call onValue after complete Future', () {
+      test('calls onValue after complete Future', () {
         late int res;
         widgetModel.doFuture<int>(completer.future, (value) {
           res = value;
@@ -93,7 +93,7 @@ void main() {
         expect(res, equals(value));
       });
 
-      test('call onError after throw Error', () {
+      test('calls onError after throw Error', () {
         widgetModel.doFuture<int>(
           completer.future,
           (value) {
@@ -108,7 +108,7 @@ void main() {
     });
 
     group('doFutureHandleError', () {
-      test('call onValue after complete Future', () {
+      test('calls onValue after complete Future', () {
         late int res;
         widgetModel.doFutureHandleError<int>(completer.future, (newValue) {
           res = newValue;
@@ -117,7 +117,7 @@ void main() {
         expect(res, equals(value));
       });
 
-      test('call onError after throw Error', () {
+      test('calls onError after throw Error', () {
         FutureOr<int> onValue(int c) {
           throw Exception();
         }
