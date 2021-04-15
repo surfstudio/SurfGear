@@ -1,3 +1,9 @@
+# Changelog
+
+## 1.0.1
+
+* Add unit tests
+
 ## 1.0.0
 
 * Migrate this package to null safety.
