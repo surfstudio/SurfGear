@@ -40,7 +40,7 @@ void main() {
       });
 
       group('remove', () {
-        test('call subscription.cancel()', () {
+        test('calls subscription.cancel()', () {
           compositeSubscription
             ..add<Object>(streamSubscriptionMock)
             ..remove(streamSubscriptionMock);
