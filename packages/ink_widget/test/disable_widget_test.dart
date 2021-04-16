@@ -26,9 +26,8 @@ void main() {
         ),
       );
 
-      final typeFinder = find.byWidgetPredicate((widget) {
-        return widget is Container && widget.color == Colors.white;
-      });
+      final typeFinder = find.byWidgetPredicate(
+          (widget) => widget is Container && widget.color == Colors.white);
 
       expect(typeFinder, findsOneWidget);
     });
@@ -44,9 +43,8 @@ void main() {
         ),
       );
 
-      final typeFinder = find.byWidgetPredicate((widget) {
-        return widget is Container && widget.color == null;
-      });
+      final typeFinder = find.byWidgetPredicate(
+          (widget) => widget is Container && widget.color == null);
 
       expect(typeFinder, findsOneWidget);
     });
@@ -63,9 +61,8 @@ void main() {
           ),
         );
 
-        final typeFinder = find.byWidgetPredicate((widget) {
-          return widget is Container && widget.decoration == null;
-        });
+        final typeFinder = find.byWidgetPredicate(
+            (widget) => widget is Container && widget.decoration == null);
 
         expect(typeFinder, findsOneWidget);
       },
@@ -84,9 +81,8 @@ void main() {
         ),
       );
 
-      final typeFinder = find.byWidgetPredicate((widget) {
-        return widget is Container && widget.decoration == decoration;
-      });
+      final typeFinder = find.byWidgetPredicate(
+          (widget) => widget is Container && widget.decoration == decoration);
 
       expect(typeFinder, findsOneWidget);
     });
@@ -106,11 +102,10 @@ void main() {
         ),
       );
 
-      final typeFinder = find.byWidgetPredicate((widget) {
-        return widget is Container &&
-            widget.decoration is ShapeDecoration &&
-            (widget.decoration as ShapeDecoration).shape == shape;
-      });
+      final typeFinder = find.byWidgetPredicate((widget) =>
+          widget is Container &&
+          widget.decoration is ShapeDecoration &&
+          (widget.decoration as ShapeDecoration).shape == shape);
 
       expect(typeFinder, findsOneWidget);
     });
