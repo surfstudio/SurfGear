@@ -20,8 +20,8 @@ import 'package:ink_widget/src/disable_widget.dart';
 void main() {
   const defaultOpacity = 0.5;
   group('InkWidget builds', () {
-    group('with disable flag is true', () {
-      testWidgets('and correct params for DisableWidget', (tester) async {
+    group('in disable state if passed active disable argument', () {
+      testWidgets('with custom disable state arguments', (tester) async {
         const text = 'default InkWidget';
         const disableColor = Colors.green;
         const disableOpacity = 1.0;
@@ -49,7 +49,7 @@ void main() {
         expect(typeFinder, findsOneWidget);
       });
 
-      testWidgets('and without disableColor', (tester) async {
+      testWidgets('without any disable state arguments', (tester) async {
         await tester.pumpWidget(_wrapMyWidget(InkWidget(
           disable: true,
           child: const Text('ink'),
@@ -62,7 +62,7 @@ void main() {
         expect(typeFinder, findsOneWidget);
       });
 
-      testWidgets('and DisabelWidget', (tester) async {
+      testWidgets('with custom disabel widget', (tester) async {
         const color = Colors.white;
         const disableWidget =
             DisableWidget(color: color, opacity: defaultOpacity);
@@ -82,9 +82,8 @@ void main() {
       });
     });
 
-    group('InkWell which sets', () {
-      testWidgets('shapeBorder from constructor if customBorder is null',
-          (tester) async {
+    group('with passed', () {
+      testWidgets('only shapeBorder', (tester) async {
         final shapeBorder =
             Border.all(width: 2.0, color: const Color(0xFFFFFFFF));
 
@@ -99,7 +98,7 @@ void main() {
         expect(typeFinder, findsOneWidget);
       });
 
-      testWidgets('customBorder from constructor', (tester) async {
+      testWidgets('only customBorder', (tester) async {
         final customBorder =
             Border.all(width: 2.0, color: const Color(0xFFFFFFFF));
 
@@ -115,14 +114,14 @@ void main() {
       });
     });
 
-    testWidgets('correct child widget from constructor', (tester) async {
+    testWidgets('with passed child', (tester) async {
       await tester.pumpWidget(_wrapMyWidget(InkWidget(
         child: const Text('ink'),
       )));
       expect(find.text('ink'), findsOneWidget);
     });
 
-    testWidgets('InkWell from constructor ', (tester) async {
+    testWidgets('with custom inkwell', (tester) async {
       const inkWell = InkWell();
 
       await tester.pumpWidget(_wrapMyWidget(InkWidget(
@@ -135,7 +134,7 @@ void main() {
 
       expect(typeFinder, findsOneWidget);
     });
-    testWidgets('InkWell with correct params from constructor', (tester) async {
+    testWidgets('with default inkWell with custom arguments', (tester) async {
       final customBorder =
           Border.all(width: 2.0, color: const Color(0xFFFFFFFF));
       const color = Colors.black;
