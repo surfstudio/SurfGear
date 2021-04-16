@@ -125,29 +125,27 @@ class InkWidget extends StatelessWidget {
     );
   }
 
-  InkWell _buildDefaultInkWell() {
-    return InkWell(
-      customBorder: customBorder ?? shapeBorder,
-      onTap: onTap,
-      onDoubleTap: onDoubleTap,
-      onLongPress: onLongPress,
-      onTapDown: onTapDown,
-      onTapCancel: onTapCancel,
-      onHighlightChanged: onHighlightChanged,
-      onHover: onHover,
-      focusColor: focusColor,
-      hoverColor: hoverColor,
-      highlightColor: highlightColor,
-      splashColor: splashColor,
-      splashFactory: splashFactory,
-      radius: radius,
-      borderRadius: borderRadius,
-      enableFeedback: enableFeedback,
-      excludeFromSemantics: excludeFromSemantics,
-      focusNode: focusNode,
-      canRequestFocus: canRequestFocus,
-      onFocusChange: onFocusChange,
-      autofocus: autofocus,
-    );
-  }
+  InkWell _buildDefaultInkWell() => InkWell(
+        customBorder: customBorder ?? shapeBorder,
+        onTap: onTap,
+        onDoubleTap: onDoubleTap,
+        onLongPress: onLongPress,
+        onTapDown: onTapDown,
+        onTapCancel: onTapCancel,
+        onHighlightChanged: onHighlightChanged,
+        onHover: onHover,
+        focusColor: focusColor,
+        hoverColor: hoverColor,
+        highlightColor: highlightColor,
+        splashColor: splashColor,
+        splashFactory: splashFactory,
+        radius: radius,
+        borderRadius: borderRadius,
+        enableFeedback: enableFeedback,
+        excludeFromSemantics: excludeFromSemantics,
+        focusNode: focusNode,
+        canRequestFocus: canRequestFocus,
+        onFocusChange: onFocusChange,
+        autofocus: autofocus,
+      );
 }
