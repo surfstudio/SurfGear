@@ -17,7 +17,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ink_widget/src/disable_widget.dart';
 
 void main() {
-  group('DisableWidget build', () {
+  group('DisableWidget builds', () {
     testWidgets("with passed color if we don't pass decoration",
         (tester) async {
       await tester.pumpWidget(

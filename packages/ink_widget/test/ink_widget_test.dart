@@ -19,110 +19,110 @@ import 'package:ink_widget/src/disable_widget.dart';
 
 void main() {
   const defaultOpacity = 0.5;
-  group('InkWidget build', () {
-    testWidgets('if disabled then contains DisableWidget with correct params',
-        (tester) async {
-      const text = 'default InkWidget';
-      const disableColor = Colors.green;
-      const disableOpacity = 1.0;
-      const shapeDecoration =
-          ShapeDecoration(shape: Border(), color: Colors.yellow);
-      const defaultDecorationShape = Border();
+  group('InkWidget builds', () {
+    group('with disable flag is true', () {
+      testWidgets('and correct params for DisableWidget', (tester) async {
+        const text = 'default InkWidget';
+        const disableColor = Colors.green;
+        const disableOpacity = 1.0;
+        const shapeDecoration =
+            ShapeDecoration(shape: Border(), color: Colors.yellow);
+        const defaultDecorationShape = Border();
 
-      await tester.pumpWidget(_wrapMyWidget(InkWidget(
-        onTap: () {},
-        disable: true,
-        disableColor: disableColor,
-        disableOpacity: disableOpacity,
-        shape: shapeDecoration,
-        shapeBorder: defaultDecorationShape,
-        child: const Text(text),
-      )));
+        await tester.pumpWidget(_wrapMyWidget(InkWidget(
+          onTap: () {},
+          disable: true,
+          disableColor: disableColor,
+          disableOpacity: disableOpacity,
+          shape: shapeDecoration,
+          shapeBorder: defaultDecorationShape,
+          child: const Text(text),
+        )));
 
-      final typeFinder = find.byWidgetPredicate((widget) =>
-          widget is DisableWidget &&
-          widget.color == disableColor &&
-          widget.opacity == disableOpacity &&
-          widget.decoration == shapeDecoration &&
-          widget.defaultDecorationShape == defaultDecorationShape);
+        final typeFinder = find.byWidgetPredicate((widget) =>
+            widget is DisableWidget &&
+            widget.color == disableColor &&
+            widget.opacity == disableOpacity &&
+            widget.decoration == shapeDecoration &&
+            widget.defaultDecorationShape == defaultDecorationShape);
 
-      expect(typeFinder, findsOneWidget);
+        expect(typeFinder, findsOneWidget);
+      });
+
+      testWidgets('and without disableColor', (tester) async {
+        await tester.pumpWidget(_wrapMyWidget(InkWidget(
+          disable: true,
+          child: const Text('ink'),
+        )));
+
+        final typeFinder = find.byWidgetPredicate((widget) =>
+            widget is DisableWidget &&
+            widget.color == Colors.black.withOpacity(defaultOpacity));
+
+        expect(typeFinder, findsOneWidget);
+      });
+
+      testWidgets('and DisabelWidget', (tester) async {
+        const color = Colors.white;
+        const disableWidget =
+            DisableWidget(color: color, opacity: defaultOpacity);
+
+        await tester.pumpWidget(_wrapMyWidget(InkWidget(
+          disable: true,
+          disableWidget: disableWidget,
+          child: const Text('ink'),
+        )));
+
+        final typeFinder = find.byWidgetPredicate((widget) =>
+            widget is DisableWidget &&
+            widget.color == color &&
+            widget.opacity == defaultOpacity);
+
+        expect(typeFinder, findsOneWidget);
+      });
     });
 
-    testWidgets('inserts child widget', (tester) async {
+    group('InkWell which sets', () {
+      testWidgets('shapeBorder from constructor if customBorder is null',
+          (tester) async {
+        final shapeBorder =
+            Border.all(width: 2.0, color: const Color(0xFFFFFFFF));
+
+        await tester.pumpWidget(_wrapMyWidget(InkWidget(
+          shapeBorder: shapeBorder,
+          child: const Text('ink'),
+        )));
+
+        final typeFinder = find.byWidgetPredicate((widget) =>
+            widget is InkWell && widget.customBorder == shapeBorder);
+
+        expect(typeFinder, findsOneWidget);
+      });
+
+      testWidgets('customBorder from constructor', (tester) async {
+        final customBorder =
+            Border.all(width: 2.0, color: const Color(0xFFFFFFFF));
+
+        await tester.pumpWidget(_wrapMyWidget(InkWidget(
+          customBorder: customBorder,
+          child: const Text('ink'),
+        )));
+
+        final typeFinder = find.byWidgetPredicate((widget) =>
+            widget is InkWell && widget.customBorder == customBorder);
+
+        expect(typeFinder, findsOneWidget);
+      });
+    });
+
+    testWidgets('correct child widget from constructor', (tester) async {
       await tester.pumpWidget(_wrapMyWidget(InkWidget(
         child: const Text('ink'),
       )));
-
-      final typeFinder = find.byWidgetPredicate((widget) => widget is Text);
-
-      expect(typeFinder, findsOneWidget);
+      expect(find.text('ink'), findsOneWidget);
     });
 
-    testWidgets('sets default color for disable widget', (tester) async {
-      await tester.pumpWidget(_wrapMyWidget(InkWidget(
-        disable: true,
-        child: const Text('ink'),
-      )));
-
-      final typeFinder = find.byWidgetPredicate((widget) =>
-          widget is DisableWidget &&
-          widget.color == Colors.black.withOpacity(defaultOpacity));
-
-      expect(typeFinder, findsOneWidget);
-    });
-
-    testWidgets('sets correct DisabelWidget from parameter', (tester) async {
-      const color = Colors.white;
-      const disableWidget =
-          DisableWidget(color: color, opacity: defaultOpacity);
-
-      await tester.pumpWidget(_wrapMyWidget(InkWidget(
-        disable: true,
-        disableWidget: disableWidget,
-        child: const Text('ink'),
-      )));
-
-      final typeFinder = find.byWidgetPredicate((widget) =>
-          widget is DisableWidget &&
-          widget.color == color &&
-          widget.opacity == defaultOpacity);
-
-      expect(typeFinder, findsOneWidget);
-    });
-
-    testWidgets('sets shapeBorder for InkWell if customBorder is null',
-        (tester) async {
-      final shapeBorder =
-          Border.all(width: 2.0, color: const Color(0xFFFFFFFF));
-
-      await tester.pumpWidget(_wrapMyWidget(InkWidget(
-        shapeBorder: shapeBorder,
-        child: const Text('ink'),
-      )));
-
-      final typeFinder = find.byWidgetPredicate(
-          (widget) => widget is InkWell && widget.customBorder == shapeBorder);
-
-      expect(typeFinder, findsOneWidget);
-    });
-
-    testWidgets('sets customBorder for InkWell', (tester) async {
-      final customBorder =
-          Border.all(width: 2.0, color: const Color(0xFFFFFFFF));
-
-      await tester.pumpWidget(_wrapMyWidget(InkWidget(
-        customBorder: customBorder,
-        child: const Text('ink'),
-      )));
-
-      final typeFinder = find.byWidgetPredicate(
-          (widget) => widget is InkWell && widget.customBorder == customBorder);
-
-      expect(typeFinder, findsOneWidget);
-    });
-
-    testWidgets('sets InkWell from parameter ', (tester) async {
+    testWidgets('InkWell from constructor ', (tester) async {
       const inkWell = InkWell();
 
       await tester.pumpWidget(_wrapMyWidget(InkWidget(
@@ -135,8 +135,7 @@ void main() {
 
       expect(typeFinder, findsOneWidget);
     });
-
-    testWidgets('sets correct params for InkWell', (tester) async {
+    testWidgets('InkWell with correct params from constructor', (tester) async {
       final customBorder =
           Border.all(width: 2.0, color: const Color(0xFFFFFFFF));
       const color = Colors.black;
