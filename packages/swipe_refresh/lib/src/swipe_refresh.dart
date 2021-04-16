@@ -18,7 +18,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:swipe_refresh/src/material_swipe_refresh.dart';
 import 'package:swipe_refresh/src/swipe_refresh_state.dart';
 
-import 'cupertino_swipe_refresh.dart';
+import 'package:swipe_refresh/src/cupertino_swipe_refresh.dart';
 
 /// Refresh indicator widget.
 ///
@@ -47,10 +47,12 @@ class SwipeRefresh extends StatelessWidget {
     double? refreshIndicatorExtent,
     RefreshControlIndicatorBuilder? indicatorBuilder,
   })  : backgroundColor = backgroundColor ?? const Color(0xFFFFFFFF),
-        refreshTriggerPullDistance =
-            refreshTriggerPullDistance ?? CupertinoSwipeRefresh.defaultRefreshTriggerPullDistance,
-        refreshIndicatorExtent = refreshIndicatorExtent ?? CupertinoSwipeRefresh.defaultRefreshIndicatorExtent,
-        indicatorBuilder = indicatorBuilder ?? CupertinoSliverRefreshControl.buildRefreshIndicator,
+        refreshTriggerPullDistance = refreshTriggerPullDistance ??
+            CupertinoSwipeRefresh.defaultRefreshTriggerPullDistance,
+        refreshIndicatorExtent = refreshIndicatorExtent ??
+            CupertinoSwipeRefresh.defaultRefreshIndicatorExtent,
+        indicatorBuilder = indicatorBuilder ??
+            CupertinoSliverRefreshControl.buildRefreshIndicator,
         super(key: key);
 
   /// Create refresh indicator adaptive to platform.
