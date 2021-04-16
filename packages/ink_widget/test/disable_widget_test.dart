@@ -16,12 +16,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ink_widget/src/disable_widget.dart';
 
+import 'utils.dart';
+
 void main() {
   group('DisableWidget builds', () {
     testWidgets("with passed color if we don't pass decoration",
         (tester) async {
       await tester.pumpWidget(
-        _wrapMyWidget(
+        wrapMyWidget(
           const DisableWidget(color: Colors.white, opacity: 0.5),
         ),
       );
@@ -34,7 +36,7 @@ void main() {
 
     testWidgets('without passed color if we pass decoration', (tester) async {
       await tester.pumpWidget(
-        _wrapMyWidget(
+        wrapMyWidget(
           const DisableWidget(
             color: Colors.white,
             opacity: 0.5,
@@ -53,7 +55,7 @@ void main() {
       "without decoration if we don't pass decaration and shape border",
       (tester) async {
         await tester.pumpWidget(
-          _wrapMyWidget(
+          wrapMyWidget(
             const DisableWidget(
               color: Colors.white,
               opacity: 0.5,
@@ -72,7 +74,7 @@ void main() {
       const decoration = ShapeDecoration(shape: RoundedRectangleBorder());
 
       await tester.pumpWidget(
-        _wrapMyWidget(
+        wrapMyWidget(
           const DisableWidget(
             color: Colors.white,
             opacity: 0.5,
@@ -92,7 +94,7 @@ void main() {
       const shape = RoundedRectangleBorder();
 
       await tester.pumpWidget(
-        _wrapMyWidget(
+        wrapMyWidget(
           const DisableWidget(
             color: Colors.white,
             opacity: 0.5,
@@ -111,6 +113,3 @@ void main() {
     });
   });
 }
-
-Widget _wrapMyWidget(Widget widgetForWrap) =>
-    MaterialApp(home: Scaffold(body: Stack(children: [widgetForWrap])));

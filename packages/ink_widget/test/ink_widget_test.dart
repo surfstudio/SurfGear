@@ -17,6 +17,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ink_widget/src/ink_widget.dart';
 import 'package:ink_widget/src/disable_widget.dart';
 
+import 'utils.dart';
+
 void main() {
   const defaultOpacity = 0.5;
   group('InkWidget builds', () {
@@ -29,7 +31,7 @@ void main() {
             ShapeDecoration(shape: Border(), color: Colors.yellow);
         const defaultDecorationShape = Border();
 
-        await tester.pumpWidget(_wrapMyWidget(InkWidget(
+        await tester.pumpWidget(wrapMyWidget(InkWidget(
           onTap: () {},
           disable: true,
           disableColor: disableColor,
@@ -50,7 +52,7 @@ void main() {
       });
 
       testWidgets('without any disable state arguments', (tester) async {
-        await tester.pumpWidget(_wrapMyWidget(InkWidget(
+        await tester.pumpWidget(wrapMyWidget(InkWidget(
           disable: true,
           child: const Text('ink'),
         )));
@@ -67,7 +69,7 @@ void main() {
         const disableWidget =
             DisableWidget(color: color, opacity: defaultOpacity);
 
-        await tester.pumpWidget(_wrapMyWidget(InkWidget(
+        await tester.pumpWidget(wrapMyWidget(InkWidget(
           disable: true,
           disableWidget: disableWidget,
           child: const Text('ink'),
@@ -87,7 +89,7 @@ void main() {
         final shapeBorder =
             Border.all(width: 2.0, color: const Color(0xFFFFFFFF));
 
-        await tester.pumpWidget(_wrapMyWidget(InkWidget(
+        await tester.pumpWidget(wrapMyWidget(InkWidget(
           shapeBorder: shapeBorder,
           child: const Text('ink'),
         )));
@@ -102,7 +104,7 @@ void main() {
         final customBorder =
             Border.all(width: 2.0, color: const Color(0xFFFFFFFF));
 
-        await tester.pumpWidget(_wrapMyWidget(InkWidget(
+        await tester.pumpWidget(wrapMyWidget(InkWidget(
           customBorder: customBorder,
           child: const Text('ink'),
         )));
@@ -115,7 +117,7 @@ void main() {
     });
 
     testWidgets('with passed child', (tester) async {
-      await tester.pumpWidget(_wrapMyWidget(InkWidget(
+      await tester.pumpWidget(wrapMyWidget(InkWidget(
         child: const Text('ink'),
       )));
       expect(find.text('ink'), findsOneWidget);
@@ -124,7 +126,7 @@ void main() {
     testWidgets('with custom inkwell', (tester) async {
       const inkWell = InkWell();
 
-      await tester.pumpWidget(_wrapMyWidget(InkWidget(
+      await tester.pumpWidget(wrapMyWidget(InkWidget(
         inkWellWidget: inkWell,
         child: const Text('ink'),
       )));
@@ -182,7 +184,7 @@ void main() {
         child: const Text('ink'),
       );
 
-      await tester.pumpWidget(_wrapMyWidget(inkWidget));
+      await tester.pumpWidget(wrapMyWidget(inkWidget));
 
       final typeFinder = find.byWidgetPredicate((widget) =>
           widget is InkWell &&
@@ -211,6 +213,3 @@ void main() {
     });
   });
 }
-
-Widget _wrapMyWidget(Widget widgetForWrap) =>
-    MaterialApp(home: Scaffold(body: Stack(children: [widgetForWrap])));
