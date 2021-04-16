@@ -60,8 +60,8 @@ class SwipeRefresh extends StatelessWidget {
   const SwipeRefresh.adaptive({
     required Stream<SwipeRefreshState> stateStream,
     required VoidCallback onRefresh,
+    required List<Widget> children,
     Key? key,
-    List<Widget>? children,
     SwipeRefreshState? initState,
     Color? indicatorColor,
     Color? backgroundColor,
@@ -96,8 +96,8 @@ class SwipeRefresh extends StatelessWidget {
   const SwipeRefresh.material({
     required Stream<SwipeRefreshState> stateStream,
     required VoidCallback onRefresh,
+    required List<Widget> children,
     Key? key,
-    List<Widget>? children,
     SwipeRefreshState? initState,
     Color? indicatorColor,
     Color? backgroundColor,
@@ -126,8 +126,8 @@ class SwipeRefresh extends StatelessWidget {
   const SwipeRefresh.cupertino({
     required Stream<SwipeRefreshState> stateStream,
     required VoidCallback onRefresh,
+    required List<Widget> children,
     Key? key,
-    List<Widget>? children,
     SwipeRefreshState? initState,
     double? refreshTriggerPullDistance,
     double? refreshIndicatorExtent,
