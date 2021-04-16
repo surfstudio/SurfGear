@@ -16,26 +16,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ink_widget/src/disable_widget.dart';
 
+import 'utils.dart';
+
 void main() {
-  group('DisableWidget build', () {
+  group('DisableWidget builds', () {
     testWidgets("with passed color if we don't pass decoration",
         (tester) async {
       await tester.pumpWidget(
-        _wrapMyWidget(
+        wrapMyWidget(
           const DisableWidget(color: Colors.white, opacity: 0.5),
         ),
       );
 
-      final typeFinder = find.byWidgetPredicate((widget) {
-        return widget is Container && widget.color == Colors.white;
-      });
+      final typeFinder = find.byWidgetPredicate(
+          (widget) => widget is Container && widget.color == Colors.white);
 
       expect(typeFinder, findsOneWidget);
     });
 
     testWidgets('without passed color if we pass decoration', (tester) async {
       await tester.pumpWidget(
-        _wrapMyWidget(
+        wrapMyWidget(
           const DisableWidget(
             color: Colors.white,
             opacity: 0.5,
@@ -44,9 +45,8 @@ void main() {
         ),
       );
 
-      final typeFinder = find.byWidgetPredicate((widget) {
-        return widget is Container && widget.color == null;
-      });
+      final typeFinder = find.byWidgetPredicate(
+          (widget) => widget is Container && widget.color == null);
 
       expect(typeFinder, findsOneWidget);
     });
@@ -55,7 +55,7 @@ void main() {
       "without decoration if we don't pass decaration and shape border",
       (tester) async {
         await tester.pumpWidget(
-          _wrapMyWidget(
+          wrapMyWidget(
             const DisableWidget(
               color: Colors.white,
               opacity: 0.5,
@@ -63,9 +63,8 @@ void main() {
           ),
         );
 
-        final typeFinder = find.byWidgetPredicate((widget) {
-          return widget is Container && widget.decoration == null;
-        });
+        final typeFinder = find.byWidgetPredicate(
+            (widget) => widget is Container && widget.decoration == null);
 
         expect(typeFinder, findsOneWidget);
       },
@@ -75,7 +74,7 @@ void main() {
       const decoration = ShapeDecoration(shape: RoundedRectangleBorder());
 
       await tester.pumpWidget(
-        _wrapMyWidget(
+        wrapMyWidget(
           const DisableWidget(
             color: Colors.white,
             opacity: 0.5,
@@ -84,9 +83,8 @@ void main() {
         ),
       );
 
-      final typeFinder = find.byWidgetPredicate((widget) {
-        return widget is Container && widget.decoration == decoration;
-      });
+      final typeFinder = find.byWidgetPredicate(
+          (widget) => widget is Container && widget.decoration == decoration);
 
       expect(typeFinder, findsOneWidget);
     });
@@ -96,7 +94,7 @@ void main() {
       const shape = RoundedRectangleBorder();
 
       await tester.pumpWidget(
-        _wrapMyWidget(
+        wrapMyWidget(
           const DisableWidget(
             color: Colors.white,
             opacity: 0.5,
@@ -106,16 +104,12 @@ void main() {
         ),
       );
 
-      final typeFinder = find.byWidgetPredicate((widget) {
-        return widget is Container &&
-            widget.decoration is ShapeDecoration &&
-            (widget.decoration as ShapeDecoration).shape == shape;
-      });
+      final typeFinder = find.byWidgetPredicate((widget) =>
+          widget is Container &&
+          widget.decoration is ShapeDecoration &&
+          (widget.decoration as ShapeDecoration).shape == shape);
 
       expect(typeFinder, findsOneWidget);
     });
   });
 }
-
-Widget _wrapMyWidget(Widget widgetForWrap) =>
-    MaterialApp(home: Scaffold(body: Stack(children: [widgetForWrap])));
