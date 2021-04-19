@@ -78,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     if (diff != null) {
-      _changeBlockUi((diff.diffBottomToTop ?? 0) > 0);
+      _changeBlockUi((diff.diffBottomToTop) > 0);
     }
   }
 

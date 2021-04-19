@@ -17,10 +17,10 @@
 /// [x] -  point coordinate
 class CoordsMetrics {
   const CoordsMetrics({
-    this.y,
-    this.x,
+    required this.x,
+    required this.y,
   });
 
-  final double? y;
-  final double? x;
+  final double x;
+  final double y;
 }
