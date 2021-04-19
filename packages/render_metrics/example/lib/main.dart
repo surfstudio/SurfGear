@@ -62,7 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     _scrollController.addListener(_scrollListener);
-    setState(() {});
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      setState(() {});
+    });
   }
 
   void _scrollListener() {
@@ -70,7 +72,10 @@ class _MyHomePageState extends State<MyHomePage> {
       _text0 = _getRenderDataText(_text0Id);
     });
 
-    final ComparisonDiff? diff = renderManager.getDiffById(_containerPositionedId, _textBlockId);
+    final ComparisonDiff? diff = renderManager.getDiffById(
+      _containerPositionedId,
+      _textBlockId,
+    );
 
     if (diff != null) {
       _changeBlockUi((diff.diffBottomToTop ?? 0) > 0);
