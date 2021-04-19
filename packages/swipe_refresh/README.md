@@ -3,7 +3,6 @@
 [![Build Status](https://github.com/surfstudio/SurfGear/workflows/build/badge.svg)](https://github.com/surfstudio/SurfGear)
 [![Coverage Status](https://codecov.io/gh/surfstudio/SurfGear/branch/dev/graph/badge.svg?flag=swipe_refresh)](https://codecov.io/gh/surfstudio/SurfGear)
 [![Pub Version](https://img.shields.io/pub/v/swipe_refresh)](https://pub.dev/packages/swipe_refresh)
-[![Pub Version (including pre-releases)](https://img.shields.io/pub/v/swipe_refresh?include_prereleases)](https://pub.dev/packages/swipe_refresh)
 [![Pub Likes](https://badgen.net/pub/likes/swipe_refresh)](https://pub.dev/packages/swipe_refresh)
 ![Flutter Platform](https://badgen.net/pub/flutter-platform/swipe_refresh)
 
