@@ -12,9 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Class for x and y coordinate points
-/// [y] - y point coordinate
-/// [x] -  point coordinate
+/// Defines a point representing
+/// a location in (x,y) coordinate space.
 class CoordsMetrics {
   const CoordsMetrics({
     required this.x,
