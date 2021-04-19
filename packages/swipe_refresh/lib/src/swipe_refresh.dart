@@ -18,7 +18,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:swipe_refresh/src/material_swipe_refresh.dart';
 import 'package:swipe_refresh/src/swipe_refresh_state.dart';
 
-import 'cupertino_swipe_refresh.dart';
+import 'package:swipe_refresh/src/cupertino_swipe_refresh.dart';
+import 'package:swipe_refresh/src/swipe_refresh_style.dart';
 
 /// Refresh indicator widget.
 ///
@@ -30,11 +31,11 @@ import 'cupertino_swipe_refresh.dart';
 class SwipeRefresh extends StatelessWidget {
   const SwipeRefresh(
     this.style, {
-    Key key,
+    required this.stateStream,
+    required this.onRefresh,
+    Key? key,
     this.children,
-    this.stateStream,
     this.initState,
-    this.onRefresh,
     this.scrollController,
     this.childrenDelegate,
     this.padding,
@@ -42,10 +43,10 @@ class SwipeRefresh extends StatelessWidget {
     this.shrinkWrap = false,
     this.keyboardDismissBehavior,
     this.physics,
-    Color backgroundColor,
-    double refreshTriggerPullDistance,
-    double refreshIndicatorExtent,
-    RefreshControlIndicatorBuilder indicatorBuilder,
+    Color? backgroundColor,
+    double? refreshTriggerPullDistance,
+    double? refreshIndicatorExtent,
+    RefreshControlIndicatorBuilder? indicatorBuilder,
   })  : backgroundColor = backgroundColor ?? const Color(0xFFFFFFFF),
         refreshTriggerPullDistance = refreshTriggerPullDistance ??
             CupertinoSwipeRefresh.defaultRefreshTriggerPullDistance,
@@ -57,21 +58,21 @@ class SwipeRefresh extends StatelessWidget {
 
   /// Create refresh indicator adaptive to platform.
   const SwipeRefresh.adaptive({
-    Key key,
-    List<Widget> children,
-    Stream<SwipeRefreshState> stateStream,
-    SwipeRefreshState initState,
-    VoidCallback onRefresh,
-    Color indicatorColor,
-    Color backgroundColor,
-    double refreshTriggerPullDistance,
-    double refreshIndicatorExtent,
-    RefreshControlIndicatorBuilder indicatorBuilder,
-    ScrollController scrollController,
-    EdgeInsets padding,
+    required Stream<SwipeRefreshState> stateStream,
+    required VoidCallback onRefresh,
+    required List<Widget> children,
+    Key? key,
+    SwipeRefreshState? initState,
+    Color? indicatorColor,
+    Color? backgroundColor,
+    double? refreshTriggerPullDistance,
+    double? refreshIndicatorExtent,
+    RefreshControlIndicatorBuilder? indicatorBuilder,
+    ScrollController? scrollController,
+    EdgeInsets? padding,
     bool shrinkWrap = false,
-    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior,
-    ScrollPhysics physics,
+    ScrollViewKeyboardDismissBehavior? keyboardDismissBehavior,
+    ScrollPhysics? physics,
   }) : this(
           SwipeRefreshStyle.adaptive,
           key: key,
@@ -93,18 +94,18 @@ class SwipeRefresh extends StatelessWidget {
 
   /// Create refresh indicator with Material Design style.
   const SwipeRefresh.material({
-    Key key,
-    List<Widget> children,
-    Stream<SwipeRefreshState> stateStream,
-    SwipeRefreshState initState,
-    VoidCallback onRefresh,
-    Color indicatorColor,
-    Color backgroundColor,
-    ScrollController scrollController,
-    EdgeInsets padding,
+    required Stream<SwipeRefreshState> stateStream,
+    required VoidCallback onRefresh,
+    required List<Widget> children,
+    Key? key,
+    SwipeRefreshState? initState,
+    Color? indicatorColor,
+    Color? backgroundColor,
+    ScrollController? scrollController,
+    EdgeInsets? padding,
     bool shrinkWrap = false,
-    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior,
-    ScrollPhysics physics,
+    ScrollViewKeyboardDismissBehavior? keyboardDismissBehavior,
+    ScrollPhysics? physics,
   }) : this(
           SwipeRefreshStyle.material,
           key: key,
@@ -123,19 +124,19 @@ class SwipeRefresh extends StatelessWidget {
 
   /// Create refresh indicator with Cupertino style.
   const SwipeRefresh.cupertino({
-    Key key,
-    List<Widget> children,
-    Stream<SwipeRefreshState> stateStream,
-    SwipeRefreshState initState,
-    VoidCallback onRefresh,
-    double refreshTriggerPullDistance,
-    double refreshIndicatorExtent,
-    RefreshControlIndicatorBuilder indicatorBuilder,
-    ScrollController scrollController,
-    EdgeInsets padding,
+    required Stream<SwipeRefreshState> stateStream,
+    required VoidCallback onRefresh,
+    required List<Widget> children,
+    Key? key,
+    SwipeRefreshState? initState,
+    double? refreshTriggerPullDistance,
+    double? refreshIndicatorExtent,
+    RefreshControlIndicatorBuilder? indicatorBuilder,
+    ScrollController? scrollController,
+    EdgeInsets? padding,
     bool shrinkWrap = false,
-    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior,
-    ScrollPhysics physics,
+    ScrollViewKeyboardDismissBehavior? keyboardDismissBehavior,
+    ScrollPhysics? physics,
   }) : this(
           SwipeRefreshStyle.cupertino,
           key: key,
@@ -157,26 +158,23 @@ class SwipeRefresh extends StatelessWidget {
   /// remove some conflicts between ScrollControllers when ListView added into
   /// SwipeRefresh (remove need to add extra ListView)
   factory SwipeRefresh.builder({
-    @required IndexedWidgetBuilder itemBuilder,
-    @required int itemCount,
-    Key key,
-    Stream<SwipeRefreshState> stateStream,
-    SwipeRefreshState initState,
-    VoidCallback onRefresh,
-    Color indicatorColor,
-    Color backgroundColor,
-    double refreshTriggerPullDistance,
-    double refreshIndicatorExtent,
-    RefreshControlIndicatorBuilder indicatorBuilder,
-    ScrollController scrollController,
-    EdgeInsets padding,
+    required IndexedWidgetBuilder itemBuilder,
+    required int itemCount,
+    required Stream<SwipeRefreshState> stateStream,
+    required VoidCallback onRefresh,
+    Key? key,
+    SwipeRefreshState? initState,
+    Color? indicatorColor,
+    Color? backgroundColor,
+    double? refreshTriggerPullDistance,
+    double? refreshIndicatorExtent,
+    RefreshControlIndicatorBuilder? indicatorBuilder,
+    ScrollController? scrollController,
+    EdgeInsets? padding,
     bool shrinkWrap = false,
-    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior,
-    ScrollPhysics physics,
+    ScrollViewKeyboardDismissBehavior? keyboardDismissBehavior,
+    ScrollPhysics? physics,
   }) {
-    assert(itemBuilder != null);
-    assert(itemCount != null);
-
     return SwipeRefresh(
       SwipeRefreshStyle.adaptive,
       key: key,
@@ -200,22 +198,22 @@ class SwipeRefresh extends StatelessWidget {
     );
   }
 
-  final List<Widget> children;
+  final List<Widget>? children;
   final VoidCallback onRefresh;
-  final SwipeRefreshState initState;
+  final SwipeRefreshState? initState;
   final Stream<SwipeRefreshState> stateStream;
-  final Color indicatorColor;
+  final Color? indicatorColor;
   final Color backgroundColor;
   final double refreshTriggerPullDistance;
   final double refreshIndicatorExtent;
   final RefreshControlIndicatorBuilder indicatorBuilder;
   final SwipeRefreshStyle style;
-  final ScrollController scrollController;
-  final SliverChildDelegate childrenDelegate;
-  final EdgeInsets padding;
+  final ScrollController? scrollController;
+  final SliverChildDelegate? childrenDelegate;
+  final EdgeInsets? padding;
   final bool shrinkWrap;
-  final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
-  final ScrollPhysics physics;
+  final ScrollViewKeyboardDismissBehavior? keyboardDismissBehavior;
+  final ScrollPhysics? physics;
 
   @override
   Widget build(BuildContext context) {
@@ -267,19 +265,4 @@ class SwipeRefresh extends StatelessWidget {
 
     return Container();
   }
-}
-
-/// Indicator style.
-enum SwipeRefreshStyle {
-  /// Material Design
-  material,
-
-  /// Cupertino
-  cupertino,
-
-  /// Adaptive
-  adaptive,
-
-  /// Builder
-  builder,
 }

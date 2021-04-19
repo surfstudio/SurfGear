@@ -22,19 +22,19 @@ import 'package:swipe_refresh/src/swipe_refresh_state.dart';
 /// Refresh indicator widget with Material Design style.
 class MaterialSwipeRefresh extends SwipeRefreshBase {
   const MaterialSwipeRefresh({
-    Key key,
+    required Stream<SwipeRefreshState> stateStream,
+    required VoidCallback onRefresh,
+    Key? key,
     this.indicatorColor,
-    List<Widget> children,
-    SliverChildDelegate childrenDelegate,
-    Stream<SwipeRefreshState> stateStream,
-    SwipeRefreshState initState,
-    VoidCallback onRefresh,
-    Color backgroundColor,
-    ScrollController scrollController,
-    EdgeInsets padding,
+    List<Widget>? children,
+    SliverChildDelegate? childrenDelegate,
+    SwipeRefreshState? initState,
+    Color? backgroundColor,
+    ScrollController? scrollController,
+    EdgeInsets? padding,
     bool shrinkWrap = false,
-    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior,
-    ScrollPhysics physics,
+    ScrollViewKeyboardDismissBehavior? keyboardDismissBehavior,
+    ScrollPhysics? physics,
   })  : backgroundColor = backgroundColor ?? const Color(0xFFFFFFFF),
         super(
           key: key,
@@ -50,7 +50,7 @@ class MaterialSwipeRefresh extends SwipeRefreshBase {
           physics: physics,
         );
 
-  final Color indicatorColor;
+  final Color? indicatorColor;
   final Color backgroundColor;
 
   @override
@@ -72,15 +72,17 @@ class _MaterialSwipeRefreshState
               padding: widget.padding,
               controller: widget.scrollController ?? ScrollController(),
               physics: AlwaysScrollableScrollPhysics(parent: widget.physics),
-              keyboardDismissBehavior: widget.keyboardDismissBehavior,
+              keyboardDismissBehavior: widget.keyboardDismissBehavior ??
+                  ScrollViewKeyboardDismissBehavior.manual,
               children: children,
             )
           : ListView.custom(
               shrinkWrap: widget.shrinkWrap,
               padding: widget.padding,
-              childrenDelegate: widget.childrenDelegate,
+              childrenDelegate: widget.childrenDelegate!,
               controller: widget.scrollController ?? ScrollController(),
-              keyboardDismissBehavior: widget.keyboardDismissBehavior,
+              keyboardDismissBehavior: widget.keyboardDismissBehavior ??
+                  ScrollViewKeyboardDismissBehavior.manual,
               physics: AlwaysScrollableScrollPhysics(parent: widget.physics),
             ),
     );
@@ -94,7 +96,7 @@ class _MaterialSwipeRefreshState
 
     if (state == SwipeRefreshState.hidden) {
       if (completer != null) {
-        completer.complete();
+        completer!.complete();
         completer = null;
       }
     }
