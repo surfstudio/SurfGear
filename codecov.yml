@@ -1,0 +1,44 @@
+coverage:
+  precision: 2
+  round: nearest
+  status:
+    project:
+      default: off
+      auto_reload:
+        flags: auto_reload
+      ink_widget:
+        flags: ink_widget
+      mwwm:
+        flags: mwwm
+      relation:
+        flags: relation
+      surf_logger:
+        flags: surf_logger
+      surf_utils:
+        flags: surf_utils
+
+flags:
+  auto_reload:
+    paths:
+      - packages/auto_reload/
+    carryforward: true
+  ink_widget:
+    paths:
+      - packages/ink_widget/
+    carryforward: true
+  mwwm:
+    paths:
+      - packages/mwwm/
+    carryforward: true
+  relation:
+    paths:
+      - packages/relation/
+    carryforward: true
+  surf_logger:
+    paths:
+      - packages/surf_logger/
+    carryforward: true
+  surf_utils:
+    paths:
+      - packages/surf_utils/
+    carryforward: true
