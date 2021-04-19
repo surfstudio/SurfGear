@@ -22,8 +22,17 @@ Widget makeTestableWidget(Widget widget) => MaterialApp(home: widget);
 
 void main() {
   group('SwipeRefresh', () {
-    final _controller = StreamController<SwipeRefreshState>.broadcast();
-    final stream = _controller.stream;
+    late StreamController<SwipeRefreshState> _controller;
+    late Stream<SwipeRefreshState> stream;
+
+    setUp(() {
+      _controller = StreamController<SwipeRefreshState>.broadcast();
+      stream = _controller.stream;
+    });
+
+    tearDown(() async {
+      await _controller.close();
+    });
 
     Future<void> _onRefresh() async {
       await Future<void>.delayed(const Duration(seconds: 3));
@@ -104,9 +113,5 @@ void main() {
 
       expect(events, equals([SwipeRefreshState.hidden]));
     });
-
-    Future<void> _close() async {
-      await _controller.close();
-    }
   });
 }
