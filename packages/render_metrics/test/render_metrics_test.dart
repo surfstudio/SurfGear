@@ -74,7 +74,7 @@ void main() {
       final secondRenderData = renderManager.getRenderData(secondId);
 
       final diffUsingOperatior = firstRenderData! - secondRenderData!;
-    
+
       expect(diffUsingOperatior.height, equals(200));
       expect(diffUsingOperatior.width, equals(400));
     });
