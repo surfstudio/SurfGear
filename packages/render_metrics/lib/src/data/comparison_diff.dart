@@ -46,7 +46,7 @@ import 'package:render_metrics/src/data/render_data.dart';
 /// [centerLeft] - center left coordinate
 /// [centerRight] - center right coordinate
 class ComparisonDiff {
-  ComparisonDiff({
+  const ComparisonDiff({
     this.firstData,
     this.secondData,
     this.yTop,

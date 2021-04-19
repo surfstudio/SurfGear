@@ -34,7 +34,7 @@ import 'package:render_metrics/src/data/coords_metrics.dart';
 /// [centerLeft] - center left coordinate
 /// [centerRight] - center right coordinate
 class RenderData {
-  RenderData({
+  const RenderData({
     this.yTop,
     this.yBottom,
     this.yCenter,
