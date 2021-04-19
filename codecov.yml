@@ -12,6 +12,8 @@ coverage:
         flags: mwwm
       relation:
         flags: relation
+      render_metrics:
+        flags: render_metrics
       surf_logger:
         flags: surf_logger
       surf_utils:
@@ -33,6 +35,10 @@ flags:
   relation:
     paths:
       - packages/relation/
+    carryforward: true
+  render_metrics:
+    paths:
+      - packages/render_metrics/
     carryforward: true
   surf_logger:
     paths:
