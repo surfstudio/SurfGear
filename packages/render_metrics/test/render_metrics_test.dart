@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:render_metrics/render_metrics.dart';
@@ -69,6 +71,14 @@ void main() {
 
       expect(diff?.height, equals(200));
       expect(diff?.width, equals(400));
+
+      final firstRenderData = renderManager.getRenderData(firstId);
+      final secondRenderData = renderManager.getRenderData(secondId);
+
+      final diffUsingOperatior = firstRenderData! - secondRenderData!;
+    
+      expect(diffUsingOperatior.height, equals(200));
+      expect(diffUsingOperatior.width, equals(400));
     });
   });
 }
