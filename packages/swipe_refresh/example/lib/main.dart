@@ -81,7 +81,7 @@ class _MainPageState extends State<MainPage> {
                       stateStream: _stream,
                       onRefresh: _refresh,
                       padding: const EdgeInsets.symmetric(vertical: 10),
-                      itemCount: Colors.primaries.length,
+                      itemCount: 2,
                       itemBuilder: (context, index) {
                         return Container(
                           color: Colors.primaries[index],

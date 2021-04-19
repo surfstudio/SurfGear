@@ -31,7 +31,8 @@ abstract class SwipeRefreshBase extends StatefulWidget {
     this.shrinkWrap = false,
     this.keyboardDismissBehavior,
     this.physics,
-  })  : assert((children == null || childrenDelegate == null) && (children != null || childrenDelegate != null)),
+  })  : assert((children == null || childrenDelegate == null) &&
+            (children != null || childrenDelegate != null)),
         super(key: key);
 
   final List<Widget>? children;
@@ -51,7 +52,8 @@ abstract class SwipeRefreshBase extends StatefulWidget {
   SwipeRefreshBaseState createState();
 }
 
-abstract class SwipeRefreshBaseState<T extends SwipeRefreshBase> extends State<T> {
+abstract class SwipeRefreshBaseState<T extends SwipeRefreshBase>
+    extends State<T> {
   @protected
   Completer<void>? completer;
   @protected

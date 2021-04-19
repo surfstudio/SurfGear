@@ -64,7 +64,8 @@ class CupertinoSwipeRefresh extends SwipeRefreshBase {
       );
 }
 
-class _CupertinoSwipeRefreshState extends SwipeRefreshBaseState<CupertinoSwipeRefresh> {
+class _CupertinoSwipeRefreshState
+    extends SwipeRefreshBaseState<CupertinoSwipeRefresh> {
   _CupertinoSwipeRefreshState(
     ScrollController? scrollController,
   ) : _scrollController = scrollController ?? ScrollController();
