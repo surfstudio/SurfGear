@@ -1,10 +1,12 @@
 # Render Metrics
 
+[![Build Status](https://github.com/surfstudio/SurfGear/workflows/build/badge.svg)](https://github.com/surfstudio/SurfGear)
+[![Coverage Status](https://codecov.io/gh/surfstudio/SurfGear/branch/dev/graph/badge.svg?flag=render_metrics)](https://codecov.io/gh/surfstudio/SurfGear)
 [![Pub Version](https://img.shields.io/pub/v/render_metrics)](https://pub.dev/packages/render_metrics)
-[![Pub Version (including pre-releases)](https://img.shields.io/pub/v/render_metrics?include_prereleases)](https://pub.dev/packages/render_metrics)
 [![Pub Likes](https://badgen.net/pub/likes/render_metrics)](https://pub.dev/packages/render_metrics)
+![Flutter Platform](https://badgen.net/pub/flutter-platform/render_metrics)
 
-This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
+This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolkit made by [Surf](https://surf.ru/).
 
 [![SurfGear](https://i.ibb.co/wpPb5N5/render-metrics-logo.png)](https://github.com/surfstudio/SurfGear)
 
@@ -128,4 +130,4 @@ Please feel free to ask any questions about this package. Join our community cha
 
 ## License
 
-[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+[Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
