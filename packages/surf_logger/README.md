@@ -6,7 +6,7 @@
 [![Pub Likes](https://badgen.net/pub/likes/surf_logger)](https://pub.dev/packages/surf_logger)
 ![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_logger)
 
-This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru).
+This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolkit made by [Surf](https://surf.ru).
 
 ## About
 

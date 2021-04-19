@@ -1,19 +1,19 @@
-name: build relation
+name: build swipe_refresh
 
 on:
   push:
     branches:
       - dev
     paths:
-      - "packages/relation/**"
-      - ".github/workflows/relation.yaml"
+      - "packages/swipe_refresh/**"
+      - ".github/workflows/swipe_refresh.yaml"
 
   pull_request:
     branches:
       - dev
     paths:
-      - "packages/relation/**"
-      - ".github/workflows/relation.yaml"
+      - "packages/swipe_refresh/**"
+      - ".github/workflows/swipe_refresh.yaml"
 
 jobs:
   build:
@@ -25,7 +25,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: packages/relation
+        working-directory: packages/swipe_refresh
 
     steps:
       - name: Checkout
@@ -55,18 +55,18 @@ jobs:
           flutter pub run ../../tools/coverage/fake_test_generator.dart
           flutter test --coverage --merge-coverage test/fake_test.dart
           flutter pub run ../../tools/coverage/patch_lcov.dart
-          bash <(curl -s https://codecov.io/bash) -f coverage/lcov.info -F relation
+          bash <(curl -s https://codecov.io/bash) -f coverage/lcov.info -F swipe_refresh
 
   package-analysis:
     runs-on: ubuntu-latest
 
     defaults:
       run:
-        working-directory: packages/relation
+        working-directory: packages/swipe_refresh
 
     steps:
       - uses: actions/checkout@v2
       - uses: axel-op/dart-package-analyzer@v3
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          relativePath: packages/relation
+          relativePath: packages/swipe_refresh

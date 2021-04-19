@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - dev
-      - stable
     paths:
       - "packages/ink_widget/**"
       - ".github/workflows/ink_widget.yaml"
@@ -12,7 +11,6 @@ on:
   pull_request:
     branches:
       - dev
-      - stable
     paths:
       - "packages/ink_widget/**"
       - ".github/workflows/ink_widget.yaml"
@@ -52,8 +50,10 @@ jobs:
           CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
         if: success()
         run: |
-          flutter pub run ../../tools/coverage/fake_test_generator.dart
           flutter test --coverage
+          mv coverage/lcov.info coverage/lcov.base.info
+          flutter pub run ../../tools/coverage/fake_test_generator.dart
+          flutter test --coverage --merge-coverage test/fake_test.dart
           flutter pub run ../../tools/coverage/patch_lcov.dart
           bash <(curl -s https://codecov.io/bash) -f coverage/lcov.info -F ink_widget
 

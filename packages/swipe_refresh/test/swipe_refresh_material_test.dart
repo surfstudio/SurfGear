@@ -21,7 +21,7 @@ import 'package:swipe_refresh/swipe_refresh.dart';
 import 'test_utils.dart';
 
 void main() {
-  group('SwipeRefresh', () {
+  group('SwipeRefresh.material', () {
     late StreamController<SwipeRefreshState> _controller;
     late Stream<SwipeRefreshState> stream;
 
@@ -43,7 +43,7 @@ void main() {
     group("doesn't break", () {
       testWidgets('with children as argument', (tester) async {
         final testWidget = makeTestableWidget(
-          SwipeRefresh.adaptive(
+          SwipeRefresh.material(
             stateStream: stream,
             onRefresh: _onRefresh,
             children: Colors.primaries
@@ -59,22 +59,43 @@ void main() {
 
         await tester.pumpWidget(testWidget);
       });
+    });
 
-      testWidgets('with itemBuilder as argument', (tester) async {
-        final testWidget = makeTestableWidget(
-          SwipeRefresh.builder(
-            stateStream: stream,
-            onRefresh: _onRefresh,
-            itemCount: Colors.primaries.length,
-            itemBuilder: (_, index) => Container(
-              color: Colors.primaries[index],
-              height: 100,
-            ),
-          ),
-        );
+    testWidgets('emits hidden state on drag after 3 seconds', (tester) async {
+      final events = <SwipeRefreshState>[];
 
-        await tester.pumpWidget(testWidget);
-      });
+      stream.listen(expectAsync1<void, SwipeRefreshState>(events.add));
+
+      final testWidget = makeTestableWidget(
+        SwipeRefresh.material(
+          stateStream: stream,
+          onRefresh: _onRefresh,
+          children: const [
+            SizedBox(height: 100),
+            SizedBox(height: 100),
+          ],
+        ),
+      );
+
+      await tester.pumpWidget(testWidget);
+
+      expect(events, isEmpty);
+
+      /// drag is not enouth to trugger refresh
+      await tester.drag(find.byType(SwipeRefresh), const Offset(0, 100));
+
+      expect(events, isEmpty);
+
+      await tester.drag(find.byType(SwipeRefresh), const Offset(0, 300));
+
+      await tester.pump(const Duration(seconds: 1));
+
+      /// event must reveal after 3 seconds
+      expect(events, isEmpty);
+
+      await tester.pump(const Duration(seconds: 3));
+
+      expect(events, equals([SwipeRefreshState.hidden]));
     });
   });
 }

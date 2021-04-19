@@ -6,7 +6,7 @@
 [![Pub Likes](https://badgen.net/pub/likes/ink_widget)](https://pub.dev/packages/ink_widget)
 ![Flutter Platform](https://badgen.net/pub/flutter-platform/ink_widget)
 
-This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
+This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolkit made by [Surf](https://surf.ru/).
 
 ## About
 

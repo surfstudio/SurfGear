@@ -21,21 +21,21 @@ import 'package:swipe_refresh/src/swipe_refresh_state.dart';
 /// Refresh indicator widget with Cupertino style.
 class CupertinoSwipeRefresh extends SwipeRefreshBase {
   const CupertinoSwipeRefresh({
-    Key key,
-    List<Widget> children,
-    SliverChildDelegate childrenDelegate,
-    Stream<SwipeRefreshState> stateStream,
-    SwipeRefreshState initState,
-    VoidCallback onRefresh,
-    EdgeInsets padding,
-    ScrollController scrollController,
+    required Stream<SwipeRefreshState> stateStream,
+    required VoidCallback onRefresh,
+    Key? key,
+    SliverChildDelegate? childrenDelegate,
+    List<Widget>? children,
+    SwipeRefreshState? initState,
+    EdgeInsets? padding,
+    ScrollController? scrollController,
     bool shrinkWrap = false,
     this.refreshTriggerPullDistance = defaultRefreshTriggerPullDistance,
     this.refreshIndicatorExtent = defaultRefreshIndicatorExtent,
     this.indicatorBuilder = CupertinoSliverRefreshControl.buildRefreshIndicator,
     //FIXME add parameter to CustomScrollView, when fix it in Flutter
-    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior,
-    ScrollPhysics physics,
+    ScrollViewKeyboardDismissBehavior? keyboardDismissBehavior,
+    ScrollPhysics? physics,
   }) : super(
           key: key,
           children: children,
@@ -64,9 +64,10 @@ class CupertinoSwipeRefresh extends SwipeRefreshBase {
       );
 }
 
-class _CupertinoSwipeRefreshState extends SwipeRefreshBaseState<CupertinoSwipeRefresh> {
+class _CupertinoSwipeRefreshState
+    extends SwipeRefreshBaseState<CupertinoSwipeRefresh> {
   _CupertinoSwipeRefreshState(
-    ScrollController scrollController,
+    ScrollController? scrollController,
   ) : _scrollController = scrollController ?? ScrollController();
 
   final ScrollController _scrollController;
@@ -108,7 +109,7 @@ class _CupertinoSwipeRefreshState extends SwipeRefreshBaseState<CupertinoSwipeRe
 
     if (state == SwipeRefreshState.hidden) {
       if (completer != null) {
-        completer.complete();
+        completer!.complete();
         completer = null;
       }
     }
@@ -117,7 +118,7 @@ class _CupertinoSwipeRefreshState extends SwipeRefreshBaseState<CupertinoSwipeRe
   Widget _buildList(List<Widget> children) {
     if (widget.padding != null) {
       return SliverPadding(
-        padding: widget.padding,
+        padding: widget.padding!,
         sliver: SliverList(
           delegate: widget.childrenDelegate ??
               SliverChildListDelegate(
