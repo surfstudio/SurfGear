@@ -12,8 +12,63 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:render_metrics/render_metrics.dart';
+
+import 'test_utils.dart';
 
 void main() {
-  test('adds one to input values', () {});
+  group('RenderParametersManager', () {
+    testWidgets('returns renderData', (tester) async {
+      const box = SizedBox(height: 400, width: 800);
+
+      const firstId = 'box';
+
+      final renderManager = RenderParametersManager<String>();
+
+      final object = RenderMetricsObject(
+        id: firstId,
+        manager: renderManager,
+        child: box,
+      );
+
+      await tester.pumpWidget(makeTestableWidget(object));
+
+      final renderData = renderManager.getRenderData('box');
+
+      expect(renderData?.height, 400);
+      expect(renderData?.width, 800);
+    });
+
+    testWidgets('calculates diff', (tester) async {
+      const firstBox = SizedBox(height: 400, width: 800);
+      const secondBox = SizedBox(height: 200, width: 400);
+
+      const firstId = 'first';
+      const secondId = 'second';
+
+      final renderManager = RenderParametersManager<String>();
+
+      final firstObject = RenderMetricsObject(
+        id: firstId,
+        manager: renderManager,
+        child: firstBox,
+      );
+      final secondObject = RenderMetricsObject(
+        id: secondId,
+        manager: renderManager,
+        child: secondBox,
+      );
+
+      await tester.pumpWidget(
+        makeTestableWidget(Column(children: [firstObject, secondObject])),
+      );
+
+      final diff = renderManager.getDiffById(firstId, secondId);
+
+      expect(diff?.height, equals(200));
+      expect(diff?.width, equals(400));
+    });
+  });
 }
