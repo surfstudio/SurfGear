@@ -20,24 +20,24 @@ import 'package:render_metrics/src/data/render_data.dart';
 import 'package:render_metrics/src/manager/render_manager.dart';
 import 'package:render_metrics/src/render/render_metrics.dart';
 
-/// Manager class extending RenderManager.
-/// Contains a collection of mounted RenderMetricsBox
+/// Manager class extending [RenderManager].
+/// Contains a collection of mounted [RenderMetricsBox]
 /// and provides methods for working with it.
 class RenderParametersManager<T> extends RenderManager<T> {
-  final HashMap<T, RenderMetricsBox> _renderObjects = HashMap();
+  final _renderObjects = HashMap<T, RenderMetricsBox>();
 
   /// Collection with mounted RenderMetricsBox
   RenderMetricsBox? operator [](T id) {
     return _renderObjects[id];
   }
 
-  /// Add Instance to _renderObjects Collection
+  /// Add Instance to [_renderObjects] Collection
   @override
   void addRenderObject(T id, RenderObject renderObject) {
     _renderObjects[id] = renderObject as RenderMetricsBox;
   }
 
-  /// Update Instance of _renderObjects Collection
+  /// Update Instance of [_renderObjects] Collection
   @override
   void updateRenderObject(T id, RenderObject renderObject) {
     _renderObjects[id] = renderObject as RenderMetricsBox;
@@ -48,19 +48,20 @@ class RenderParametersManager<T> extends RenderManager<T> {
     return _renderObjects[id];
   }
 
-  /// Get instance of [RenderData] from [RenderObject] by id
+  /// Get instance of [RenderData] from [RenderObject] by [id]
   RenderData? getRenderData(T id) {
     return getRenderObject(id)?.data;
   }
 
-  /// Delete an instance of [RenderObject] by id
+  /// Delete an instance of [RenderObject] by [id]
   @override
   void removeRenderObject(T id) {
     _renderObjects.remove(id);
   }
 
   /// Get the difference between
-  /// two instances [RenderObject] by id
+  /// two instances [RenderObject]
+  /// by [firstId] and [secondId]
   ComparisonDiff? getDiffById(T firstId, T secondId) {
     final RenderData? first = getRenderData(firstId);
     final RenderData? second = getRenderData(secondId);
