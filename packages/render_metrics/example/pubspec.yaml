@@ -26,7 +26,7 @@ dependencies:
     sdk: flutter
 
   render_metrics:
-    path: ..
+    path: ../
 
 dev_dependencies:
   flutter_test:
