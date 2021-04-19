@@ -2,12 +2,11 @@
 
 [![Build Status](https://github.com/surfstudio/SurfGear/workflows/build/badge.svg)](https://github.com/surfstudio/SurfGear)
 [![Pub Version](https://img.shields.io/pub/v/surf_lint_rules)](https://pub.dev/packages/surf_lint_rules)
-[![Pub Version (including pre-releases)](https://img.shields.io/pub/v/surf_lint_rules?include_prereleases)](https://pub.dev/packages/surf_lint_rules)
 [![Pub Likes](https://badgen.net/pub/likes/surf_lint_rules)](https://pub.dev/packages/surf_lint_rules)
 ![Dart Platform](https://badgen.net/pub/dart-platform/surf_lint_rules)
 ![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_lint_rules)
 
-This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru).
+This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolkit made by [Surf](https://surf.ru).
 
 ## About
 

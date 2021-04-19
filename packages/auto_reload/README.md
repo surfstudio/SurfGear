@@ -3,11 +3,10 @@
 [![Build Status](https://github.com/surfstudio/SurfGear/workflows/build/badge.svg)](https://github.com/surfstudio/SurfGear)
 [![Coverage Status](https://codecov.io/gh/surfstudio/SurfGear/branch/dev/graph/badge.svg?flag=auto_reload)](https://codecov.io/gh/surfstudio/SurfGear)
 [![Pub Version](https://img.shields.io/pub/v/auto_reload)](https://pub.dev/packages/auto_reload)
-[![Pub Version (including pre-releases)](https://img.shields.io/pub/v/auto_reload?include_prereleases)](https://pub.dev/packages/auto_reload)
 [![Pub Likes](https://badgen.net/pub/likes/auto_reload)](https://pub.dev/packages/auto_reload)
 ![Flutter Platform](https://badgen.net/pub/flutter-platform/auto_reload)
 
-This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru).
+This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolkit made by [Surf](https://surf.ru).
 
 ## About
 
