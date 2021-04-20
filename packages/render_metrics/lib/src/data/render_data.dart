@@ -76,8 +76,6 @@ class RenderData {
   /// the external and the current instance ofRenderData,
   /// as an instance of the ComparisonDiff class
   ComparisonDiff operator -(RenderData other) => ComparisonDiff(
-        firstData: this,
-        secondData: other,
         yTop: yTop - other.yTop,
         yBottom: yBottom - other.yBottom,
         yCenter: yCenter - other.yCenter,
