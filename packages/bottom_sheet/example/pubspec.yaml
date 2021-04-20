@@ -1,26 +1,23 @@
 name: example
 description: Example using bottom sheet.
+publish_to: none
 
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0-0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
 
-  #surfstudio
   bottom_sheet:
     path: ..
 
-  #rx
-  rxdart: ^0.26.0-nullsafety.1
+  rxdart: ^0.26.0
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  surf_lint_rules: ^1.0.0
 
 flutter:
   uses-material-design: true

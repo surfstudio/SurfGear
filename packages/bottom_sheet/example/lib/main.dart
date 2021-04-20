@@ -53,12 +53,12 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            RaisedButton(
+            ElevatedButton(
               onPressed: _showSheet,
               child: const Text('Open BottomSheet'),
             ),
             const SizedBox(height: 20),
-            RaisedButton(
+            ElevatedButton(
               onPressed: _showSheetWithoutList,
               child: const Text('Open StickyBottomSheet'),
             ),
