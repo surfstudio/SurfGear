@@ -12,10 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:math';
-
 import 'package:bottom_sheet/src/widgets/flexible_bottom_sheet_scroll_notifyer.dart';
 import 'package:bottom_sheet/src/widgets/flexible_draggable_scrollable_sheet.dart';
+import 'package:bottom_sheet/src/flexible_bottom_sheet_header_delegate.dart';
 import 'package:flutter/material.dart';
 
 /// Flexible and scrollable bottom sheet.
@@ -42,42 +41,41 @@ import 'package:flutter/material.dart';
 ///
 /// [initHeight] - relevant height for init bottom sheet
 class FlexibleBottomSheet extends StatefulWidget {
-  const FlexibleBottomSheet({
-    Key key,
-    this.minHeight = 0,
-    this.initHeight = 0.5,
-    this.maxHeight = 1,
-    this.builder,
-    this.headerBuilder,
-    this.bodyBuilder,
-    this.isCollapsible = false,
-    this.isExpand = true,
-    this.animationController,
-    this.anchors,
-    this.minHeaderHeight,
-    this.maxHeaderHeight,
-    this.decoration,
-    this.onDismiss,
-  })  : assert(minHeight == null || minHeight >= 0 && minHeight <= 1),
-        assert(maxHeight == null || maxHeight > 0 && maxHeight <= 1),
-        assert(
-            !(maxHeight != null && minHeight != null) || maxHeight > minHeight),
+  const FlexibleBottomSheet(
+      {Key? key,
+      this.minHeight = 0,
+      this.initHeight = 0.5,
+      this.maxHeight = 1,
+      this.builder,
+      this.headerBuilder,
+      this.bodyBuilder,
+      this.isCollapsible = false,
+      this.isExpand = true,
+      this.animationController,
+      this.anchors,
+      this.minHeaderHeight,
+      this.maxHeaderHeight,
+      this.decoration,
+      this.onDismiss})
+      : assert(minHeight >= 0 && minHeight <= 1),
+        assert(maxHeight > 0 && maxHeight <= 1),
+        assert(maxHeight > minHeight),
         assert(!isCollapsible || minHeight == 0),
         super(key: key);
 
   const FlexibleBottomSheet.collapsible({
-    Key key,
+    Key? key,
     double initHeight = 0.5,
     double maxHeight = 1,
-    FlexibleDraggableScrollableWidgetBuilder builder,
-    FlexibleDraggableScrollableHeaderWidgetBuilder headerBuilder,
-    FlexibleDraggableScrollableWidgetBodyBuilder bodyBuilder,
-    bool isExpand,
-    AnimationController animationController,
-    List<double> anchors,
-    double minHeaderHeight,
-    double maxHeaderHeight,
-    Decoration decoration,
+    FlexibleDraggableScrollableWidgetBuilder? builder,
+    FlexibleDraggableScrollableHeaderWidgetBuilder? headerBuilder,
+    FlexibleDraggableScrollableWidgetBodyBuilder? bodyBuilder,
+    bool isExpand = true,
+    AnimationController? animationController,
+    List<double>? anchors,
+    double? minHeaderHeight,
+    double? maxHeaderHeight,
+    Decoration? decoration,
   }) : this(
           key: key,
           maxHeight: maxHeight,
@@ -98,17 +96,17 @@ class FlexibleBottomSheet extends StatefulWidget {
   final double minHeight;
   final double initHeight;
   final double maxHeight;
-  final FlexibleDraggableScrollableWidgetBuilder builder;
-  final FlexibleDraggableScrollableHeaderWidgetBuilder headerBuilder;
-  final FlexibleDraggableScrollableWidgetBodyBuilder bodyBuilder;
+  final FlexibleDraggableScrollableWidgetBuilder? builder;
+  final FlexibleDraggableScrollableHeaderWidgetBuilder? headerBuilder;
+  final FlexibleDraggableScrollableWidgetBodyBuilder? bodyBuilder;
   final bool isCollapsible;
   final bool isExpand;
-  final AnimationController animationController;
-  final List<double> anchors;
-  final double minHeaderHeight;
-  final double maxHeaderHeight;
-  final Decoration decoration;
-  final VoidCallback onDismiss;
+  final AnimationController? animationController;
+  final List<double>? anchors;
+  final double? minHeaderHeight;
+  final double? maxHeaderHeight;
+  final Decoration? decoration;
+  final VoidCallback? onDismiss;
 
   @override
   _FlexibleBottomSheetState createState() => _FlexibleBottomSheetState();
@@ -118,19 +116,17 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
     with SingleTickerProviderStateMixin {
   bool _isClosing = false;
 
-  AnimationController _animationController;
+  late AnimationController _animationController;
   final _topOffsetTween = Tween<double>();
 
-  double _currentAnchor;
+  late double _currentAnchor;
 
-  FlexibleDraggableScrollableSheetScrollController _controller;
+  late FlexibleDraggableScrollableSheetScrollController _controller;
 
   bool _isKeyboardOpenedNotified = false;
   bool _isKeyboardClosedNotified = false;
 
   double get _currentExtent => _controller.extent.currentExtent;
-
-  bool get _isDefaultBuilder => widget.builder != null;
 
   @override
   void initState() {
@@ -194,8 +190,8 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
   }
 
   Widget _buildContent(BuildContext context) {
-    if (_isDefaultBuilder) {
-      return widget.builder(
+    if (widget.builder != null) {
+      return widget.builder!(
         context,
         _controller,
         _controller.extent.currentExtent,
@@ -213,17 +209,18 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
               SliverPersistentHeader(
                 pinned: true,
                 delegate: FlexibleBottomSheetHeaderDelegate(
-                  minHeight: widget.minHeaderHeight,
-                  maxHeight: widget.maxHeaderHeight,
-                  child: widget.headerBuilder(context, _currentExtent),
+                  minHeight: widget.minHeaderHeight ?? 0.0,
+                  maxHeight: widget.maxHeaderHeight ?? 1.0,
+                  child: widget.headerBuilder!(context, _currentExtent),
                 ),
               ),
-            SliverList(
-              delegate: widget.bodyBuilder(
-                context,
-                _currentExtent,
-              ),
-            ),
+            if (widget.bodyBuilder != null)
+              SliverList(
+                delegate: widget.bodyBuilder!(
+                  context,
+                  _currentExtent,
+                ),
+              )
           ],
         ),
       ),
@@ -254,8 +251,7 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
   }
 
   void _keyboardOpened() {
-    final double maxBottomSheetHeight =
-        widget.maxHeight ?? _screenAnchors.reduce(max);
+    final double maxBottomSheetHeight = widget.maxHeight;
 
     _currentAnchor = maxBottomSheetHeight;
     _animateToNextAnchor(maxBottomSheetHeight);
@@ -267,13 +263,15 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
   void _keyboardClosed() {}
 
   void _preScroll() {
+    if (FocusManager.instance.primaryFocus == null) return;
+
     final double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
 
     if (_controller.extent.currentExtent == widget.maxHeight &&
         keyboardHeight != 0) {
-      final double widgetOffset = FocusManager.instance.primaryFocus.offset.dy;
+      final double widgetOffset = FocusManager.instance.primaryFocus!.offset.dy;
       final double widgetHeight =
-          FocusManager.instance.primaryFocus.size.height;
+          FocusManager.instance.primaryFocus!.size.height;
       final double screenHeight = MediaQuery.of(context).size.height;
 
       final double valueToScroll =
@@ -314,8 +312,8 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
     }
 
     if (widget.animationController != null) {
-      widget.animationController.value =
-          (1 + (currentVal - initVal) / initVal).clamp(0.0, 1.0) as double;
+      widget.animationController!.value =
+          (1 + (currentVal - initVal) / initVal).clamp(0.0, 1.0);
     }
 
     _checkNeedCloseBottomSheet();
@@ -340,7 +338,7 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
     }
   }
 
-  void _scrollToNearestAnchor(DragEndDetails oldDragDetails) {
+  void _scrollToNearestAnchor(DragEndDetails? oldDragDetails) {
     final List<double> screenAnchors = _screenAnchors;
 
     final double nextAnchor = _calculateNextAnchor(screenAnchors);
@@ -398,56 +396,22 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
       ..begin = _controller.extent.currentExtent
       ..end = nextAnchor;
 
-    _animationController.forward();
+    await _animationController.forward();
 
-    if (widget.minHeight != null &&
-        nextAnchor <= widget.minHeight &&
-        !_isClosing) {
+    if (nextAnchor <= widget.minHeight && !_isClosing) {
       _dismiss();
     }
   }
 
   List<double> get _screenAnchors => {
-        ...widget.anchors,
-        if (widget.maxHeight != null) widget.maxHeight,
-        if (widget.minHeight != null) widget.minHeight,
-        if (widget.initHeight != null) widget.initHeight,
+        if (widget.anchors != null) ...widget.anchors!,
+        widget.maxHeight,
+        widget.minHeight,
+        widget.initHeight,
       }.toList();
 
   void _dismiss() {
-    if (widget.onDismiss != null) widget.onDismiss();
+    if (widget.onDismiss != null) widget.onDismiss!();
     Navigator.pop(context);
-  }
-}
-
-class FlexibleBottomSheetHeaderDelegate extends SliverPersistentHeaderDelegate {
-  FlexibleBottomSheetHeaderDelegate({
-    @required this.maxHeight,
-    @required this.child,
-    this.minHeight = 0,
-  }) : assert(child != null);
-
-  final Widget child;
-
-  final double minHeight;
-
-  final double maxHeight;
-
-  @override
-  double get minExtent => minHeight;
-
-  @override
-  double get maxExtent => maxHeight;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
-
-  @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
-    return child;
   }
 }

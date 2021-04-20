@@ -14,19 +14,34 @@
 
 import 'package:flutter/widgets.dart';
 
-/// Mixin for register Flexible Bottom Sheet
-mixin FlexibleBottomSheetOwner {
-  Map<Object, BottomSheetShower> get registeredBottomSheetShowers;
-}
+class FlexibleBottomSheetHeaderDelegate extends SliverPersistentHeaderDelegate {
+  FlexibleBottomSheetHeaderDelegate({
+    required this.maxHeight,
+    required this.child,
+    this.minHeight = 0,
+  });
 
-/// Class represent data for bottom sheet building
-abstract class BottomSheetData {}
+  final Widget child;
 
-class BottomSheetShower<T extends BottomSheetData, R> {
-  BottomSheetShower(this.builder);
+  final double minHeight;
 
-  final Future<R> Function(BuildContext context, {T? data}) builder;
+  final double maxHeight;
 
-  Future<R> call(BuildContext context, {T? data}) =>
-      builder(context, data: data);
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
+
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    return child;
+  }
 }

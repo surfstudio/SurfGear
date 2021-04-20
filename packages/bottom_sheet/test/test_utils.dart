@@ -12,11 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library bottom_sheet;
+import 'package:flutter/material.dart';
 
-export 'package:bottom_sheet/src/flexible_bottom_sheet.dart';
-export 'package:bottom_sheet/src/flexible_bottom_sheet_controller.dart';
-export 'package:bottom_sheet/src/flexible_bottom_sheet_owner.dart';
-export 'package:bottom_sheet/src/flexible_bottom_sheet_route.dart';
-export 'package:bottom_sheet/src/flexible_bottom_sheet_header_delegate.dart';
-export 'package:bottom_sheet/src/widgets/flexible_draggable_scrollable_sheet.dart';
+Widget makeTestableWidget(Widget widget) => MaterialApp(
+      home: Scaffold(body: SizedBox.expand(child: widget)),
+    );

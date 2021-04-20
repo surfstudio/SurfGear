@@ -6,6 +6,8 @@ coverage:
       default: off
       auto_reload:
         flags: auto_reload
+      bottom_sheet:
+        flags: bottom_sheet
       ink_widget:
         flags: ink_widget
       mwwm:
@@ -23,6 +25,10 @@ flags:
   auto_reload:
     paths:
       - packages/auto_reload/
+    carryforward: true
+  bottom_sheet:
+    paths:
+      - packages/bottom_sheet/
     carryforward: true
   ink_widget:
     paths:
