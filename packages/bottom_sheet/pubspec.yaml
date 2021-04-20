@@ -2,6 +2,7 @@ name: bottom_sheet
 version: "1.0.0"
 description: Flexible bottom sheet with the ability to scroll content even without a list.
 repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/bottom_sheet"
+issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 
 dependencies:
   flutter:

@@ -1,18 +1,17 @@
 name: example
 description: Example using bottom sheet.
-publish_to: none
-
 version: 1.0.0+1
+publish_to: none
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  bottom_sheet:
+    path: ../
+
   flutter:
     sdk: flutter
-
-  bottom_sheet:
-    path: ..
 
   rxdart: ^0.26.0
 
