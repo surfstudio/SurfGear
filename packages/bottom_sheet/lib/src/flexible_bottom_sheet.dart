@@ -403,22 +403,12 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
     }
   }
 
-  List<double> get _screenAnchors {
-    if (widget.anchors != null) {
-      return {
-        ...widget.anchors!,
+  List<double> get _screenAnchors => [
+        if (widget.anchors != null) ...widget.anchors!,
         widget.maxHeight,
         widget.minHeight,
         widget.initHeight,
-      }.toList();
-    } else {
-      return {
-        widget.maxHeight,
-        widget.minHeight,
-        widget.initHeight,
-      }.toList();
-    }
-  }
+      ];
 
   void _dismiss() {
     if (widget.onDismiss != null) widget.onDismiss!();
