@@ -16,8 +16,8 @@ import 'package:render_metrics/src/data/coords_metrics.dart';
 
 /// An object with data on the difference of render metrics between two objects
 /// `RenderData`
-/// 
-/// 
+///
+///
 /// [yTop] - difference of the upper Y position relative to the screen
 /// [yBottom] - difference of the lower Y position relative to the screen
 /// [yCenter] - difference of the central Y position relative to the screen
