@@ -52,7 +52,7 @@ class RenderMetricsObject<T> extends SingleChildRenderObjectWidget {
   @override
   RenderMetricsBox createRenderObject(BuildContext context) {
     final r = RenderMetricsBox();
-    onMount?.call(id!, r);
+    onMount?.call(id, r);
     manager.addRenderObject(id, r);
     return r;
   }
@@ -69,7 +69,7 @@ class RenderMetricsObject<T> extends SingleChildRenderObjectWidget {
   @override
   void didUnmountRenderObject(covariant RenderObject renderObject) {
     manager.removeRenderObject(id);
-    onUnMount?.call(id!);
+    onUnMount?.call(id);
   }
 }
 
