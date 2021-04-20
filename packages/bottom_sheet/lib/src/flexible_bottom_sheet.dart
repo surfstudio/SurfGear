@@ -14,6 +14,7 @@
 
 import 'package:bottom_sheet/src/widgets/flexible_bottom_sheet_scroll_notifyer.dart';
 import 'package:bottom_sheet/src/widgets/flexible_draggable_scrollable_sheet.dart';
+import 'package:bottom_sheet/src/flexible_bottom_sheet_header_delegate.dart';
 import 'package:flutter/material.dart';
 
 /// Flexible and scrollable bottom sheet.
@@ -422,37 +423,5 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
   void _dismiss() {
     if (widget.onDismiss != null) widget.onDismiss!();
     Navigator.pop(context);
-  }
-}
-
-class FlexibleBottomSheetHeaderDelegate extends SliverPersistentHeaderDelegate {
-  FlexibleBottomSheetHeaderDelegate({
-    required this.maxHeight,
-    required this.child,
-    this.minHeight = 0,
-  });
-
-  final Widget child;
-
-  final double minHeight;
-
-  final double maxHeight;
-
-  @override
-  double get minExtent => minHeight;
-
-  @override
-  double get maxExtent => maxHeight;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
-
-  @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
-    return child;
   }
 }
