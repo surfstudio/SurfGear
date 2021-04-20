@@ -22,31 +22,28 @@ import 'package:otp_autofill/otp_interactor.dart';
 /// Custom controller for text views, IOS autofill is built in flutter
 class OTPTextEditController extends TextEditingController {
   OTPTextEditController({
-    this.onCodeReceive,
-    this.codeLength,
+    required this.onCodeReceive,
+    required this.codeLength,
     this.onTimeOutException,
-  }) : assert(onCodeReceive != null && codeLength != null ||
-            onCodeReceive == null && codeLength == null) {
-    if (onCodeReceive != null && codeLength != null) {
-      addListener(checkForComplete);
-    }
+  }) {
+    addListener(checkForComplete);
   }
 
   /// interaction with OTP
   final _otpInteractor = OTPInteractor();
 
   /// OTP code length - trigger for callback
-  final int? codeLength;
+  final int codeLength;
 
   /// OTPTextEditController receive OTP code
-  final StringCallback? onCodeReceive;
+  final StringCallback onCodeReceive;
 
   /// Receiver get TimeoutError after 5 minutes without sms
   final VoidCallback? onTimeOutException;
 
   /// Start listen for OTP code with User Consent API
   /// sms by default
-  /// could be added another input as OTPStrategy
+  /// could be added another input as [OTPStrategy]
   void startListenUserConsent(
     ExtractStringCallback codeExtractor, {
     List<OTPStrategy>? strategies,
@@ -114,6 +111,6 @@ class OTPTextEditController extends TextEditingController {
 
   /// call onComplete callback if code entered
   void checkForComplete() {
-    if (text.length == codeLength) onCodeReceive?.call(text);
+    if (text.length == codeLength) onCodeReceive.call(text);
   }
 }
