@@ -137,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
     double bottomSheetOffset, {
     required bool isShowPosition,
   }) =>
-      <Widget>[
+      [
         if (isShowPosition)
           Text(
             'position $bottomSheetOffset',
