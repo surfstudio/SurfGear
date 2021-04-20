@@ -1,19 +1,20 @@
 name: render_metrics
-version: "1.0.2-dev.9"
-description: "Library for getting widget metrics. Uses RenderObject to get the size and position of widgets relative to the screen window, as well as the difference between widgets."
-homepage: "https://github.com/surfstudio/render_metrics"
+version: "2.0.0"
+description: Library for getting widget metrics. Uses RenderObject to get the size and position of widgets relative to the screen window, as well as the difference between widgets.
+homepage: "https://github.com/surfstudio/SurfGear/tree/dev/packages/render_metrics"
+issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 
 dependencies:
   flutter:
     sdk: flutter
-  surf_lint_rules: "^0.0.1-dev.0"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  surf_lint_rules: ^1.0.0
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 flutter:
 
@@ -22,5 +23,5 @@ custom:
   unstable_version:
   is_plugin: false
   path: render_metrics
-  separate_repo_url: "https://github.com/surfstudio/render_metrics"
+  separate_repo_url: "https://github.com/surfstudio/SurfGear/tree/dev/packages/render_metrics"
   hostUrl:

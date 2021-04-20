@@ -34,15 +34,15 @@ import 'package:render_metrics/src/data/coords_metrics.dart';
 /// [centerLeft] - center left coordinate
 /// [centerRight] - center right coordinate
 class RenderData {
-  RenderData({
-    this.yTop,
-    this.yBottom,
-    this.yCenter,
-    this.xLeft,
-    this.xRight,
-    this.xCenter,
-    this.width,
-    this.height,
+  const RenderData({
+    required this.yTop,
+    required this.yBottom,
+    required this.yCenter,
+    required this.xLeft,
+    required this.xRight,
+    required this.xCenter,
+    required this.width,
+    required this.height,
   });
 
   final double yTop;
@@ -75,25 +75,20 @@ class RenderData {
   /// Returns the difference between
   /// the external and the current instance ofRenderData,
   /// as an instance of the ComparisonDiff class
-  ComparisonDiff operator -(RenderData other) {
-    if (other == null) return null;
-    return ComparisonDiff(
-      firstData: this,
-      secondData: other,
-      yTop: yTop - other.yTop,
-      yBottom: yBottom - other.yBottom,
-      yCenter: yCenter - other.yCenter,
-      xLeft: xLeft - other.xLeft,
-      xRight: xRight - other.xRight,
-      xCenter: xCenter - other.xCenter,
-      diffTopToBottom: yTop - other.yBottom,
-      diffBottomToTop: yBottom - other.yTop,
-      diffLeftToRight: xLeft - other.xRight,
-      diffRightToLeft: xRight - other.xLeft,
-      width: width - other.width,
-      height: height - other.height,
-    );
-  }
+  ComparisonDiff operator -(RenderData other) => ComparisonDiff(
+        yTop: yTop - other.yTop,
+        yBottom: yBottom - other.yBottom,
+        yCenter: yCenter - other.yCenter,
+        xLeft: xLeft - other.xLeft,
+        xRight: xRight - other.xRight,
+        xCenter: xCenter - other.xCenter,
+        diffTopToBottom: yTop - other.yBottom,
+        diffBottomToTop: yBottom - other.yTop,
+        diffLeftToRight: xLeft - other.xRight,
+        diffRightToLeft: xRight - other.xLeft,
+        width: width - other.width,
+        height: height - other.height,
+      );
 
   @override
   String toString() {

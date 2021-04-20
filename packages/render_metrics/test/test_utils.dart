@@ -12,14 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Defines a point representing
-/// a location in (x,y) coordinate space.
-class CoordsMetrics {
-  const CoordsMetrics({
-    required this.x,
-    required this.y,
-  });
+import 'package:flutter/material.dart';
 
-  final double x;
-  final double y;
-}
+Widget makeTestableWidget(Widget widget) =>
+    MaterialApp(home: Scaffold(body: widget));

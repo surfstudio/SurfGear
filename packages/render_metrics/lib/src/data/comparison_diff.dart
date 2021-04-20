@@ -13,27 +13,24 @@
 // limitations under the License.
 
 import 'package:render_metrics/src/data/coords_metrics.dart';
-import 'package:render_metrics/src/data/render_data.dart';
 
 /// An object with data on the difference of render metrics between two objects
-/// [RenderData]
-/// The difference is calculated [firstData] - [secondData]
-/// [firstData] - the first instance of [RenderData]
-/// [secondData] - second instance [RenderData]
+/// `RenderData`
+///
 /// [yTop] - difference of the upper Y position relative to the screen
 /// [yBottom] - difference of the lower Y position relative to the screen
 /// [yCenter] - difference of the central Y position relative to the screen
 /// [xLeft] - difference left X position relative to the screen
 /// [xRight] - difference of the right X position relative to the screen
 /// [xCenter] - difference of the central X position relative to the screen
-/// [diffTopToBottom] - difference of the upper border [firstData] to the lower
-/// border [secondData]
-/// [diffBottomToTop] - difference of the lower border [firstData] to the upper
-/// border [secondData]
-/// [diffLeftToRight] - difference of the left border [firstData] to the right
-/// border [secondData]
-/// [diffRightToLeft] - difference of the right border [firstData] to the left
-/// border [secondData]
+/// [diffTopToBottom] - difference between the upper border of first object and the lower
+/// border of second object
+/// [diffBottomToTop] - difference between the lower border of first object and the upper
+/// border of second object
+/// [diffLeftToRight] - difference between the left border of first object and the right
+/// border of second object
+/// [diffRightToLeft] - difference between the right border of first object and the left
+/// border of second object
 /// [width] - difference in width of elements
 /// [height] - difference in element heights
 /// [topLeft] - upper left coordinate
@@ -46,25 +43,21 @@ import 'package:render_metrics/src/data/render_data.dart';
 /// [centerLeft] - center left coordinate
 /// [centerRight] - center right coordinate
 class ComparisonDiff {
-  ComparisonDiff({
-    this.firstData,
-    this.secondData,
-    this.yTop,
-    this.yBottom,
-    this.yCenter,
-    this.xLeft,
-    this.xRight,
-    this.xCenter,
-    this.diffTopToBottom,
-    this.diffBottomToTop,
-    this.diffLeftToRight,
-    this.diffRightToLeft,
-    this.width,
-    this.height,
+  const ComparisonDiff({
+    required this.yTop,
+    required this.yBottom,
+    required this.yCenter,
+    required this.xLeft,
+    required this.xRight,
+    required this.xCenter,
+    required this.diffTopToBottom,
+    required this.diffBottomToTop,
+    required this.diffLeftToRight,
+    required this.diffRightToLeft,
+    required this.width,
+    required this.height,
   });
 
-  final RenderData firstData;
-  final RenderData secondData;
   final double yTop;
   final double yBottom;
   final double yCenter;

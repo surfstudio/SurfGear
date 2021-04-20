@@ -34,41 +34,41 @@ typedef UnMountCallback<T> = void Function(T id);
 /// It calls onUnMount if passed and the removeRenderObject method
 class RenderMetricsObject<T> extends SingleChildRenderObjectWidget {
   const RenderMetricsObject({
-    Key key,
-    Widget child,
-    this.id,
-    this.manager,
+    required this.id,
+    required this.manager,
     this.onMount,
     this.onUpdate,
     this.onUnMount,
-  })  : assert(manager == null || id != null && manager != null),
-        super(key: key, child: child);
+    Key? key,
+    Widget? child,
+  }) : super(key: key, child: child);
 
   final T id;
   final RenderManager manager;
-  final MountCallback<T> onMount;
-  final MountCallback<T> onUpdate;
-  final UnMountCallback<T> onUnMount;
+  final MountCallback<T>? onMount;
+  final MountCallback<T>? onUpdate;
+  final UnMountCallback<T>? onUnMount;
 
   @override
   RenderMetricsBox createRenderObject(BuildContext context) {
     final r = RenderMetricsBox();
     onMount?.call(id, r);
-    manager?.addRenderObject(id, r);
+    manager.addRenderObject(id, r);
     return r;
   }
 
   @override
-  void updateRenderObject(BuildContext context, covariant RenderObject renderObject) {
+  void updateRenderObject(
+      BuildContext context, covariant RenderObject renderObject) {
     if (renderObject is RenderMetricsBox) {
       onUpdate?.call(id, renderObject);
-      manager?.updateRenderObject(id, renderObject);
+      manager.updateRenderObject(id, renderObject);
     }
   }
 
   @override
   void didUnmountRenderObject(covariant RenderObject renderObject) {
-    manager?.removeRenderObject(id);
+    manager.removeRenderObject(id);
     onUnMount?.call(id);
   }
 }
@@ -78,7 +78,7 @@ class RenderMetricsObject<T> extends SingleChildRenderObjectWidget {
 /// [data] - getter for receiving data in the instance [RenderData]
 class RenderMetricsBox extends RenderProxyBox {
   RenderMetricsBox({
-    RenderBox child,
+    RenderBox? child,
   }) : super(child);
 
   RenderData get data {

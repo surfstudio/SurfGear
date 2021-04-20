@@ -1,18 +1,19 @@
-## 1.0.1-dev.9
+# Changelog
 
-* Added update method
-* update Readme
+## 2.0.0
+
+* Migrate this package to null safety.
 
 ## 1.0.1-dev.4
 
 * Fix lint hints
 
 ## 1.0.0
-### Added
-* `RenderData` class with widget metrics added
-* Added `ComparisonDiff` class with the difference between two `RenderData`
-* Added `CoordsMetrics` class with x and y coordinates
-* Added class `RenderManager`
-* Added class `RenderParametersManager`
-* Added class `RenderMetricsObject`
-* Added class `RenderMetricsBox`
+
+* Add `RenderData` class with widget metrics
+* Add `ComparisonDiff` class with the difference between two `RenderData`
+* Add `CoordsMetrics` class with x and y coordinates
+* Add class `RenderManager`
+* Add class `RenderParametersManager`
+* Add class `RenderMetricsObject`
+* Add class `RenderMetricsBox`
