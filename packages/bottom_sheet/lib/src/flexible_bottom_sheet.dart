@@ -172,7 +172,8 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
           context,
           controller,
         ) {
-          _controller = controller as FlexibleDraggableScrollableSheetScrollController;
+          _controller =
+              controller as FlexibleDraggableScrollableSheetScrollController;
 
           return AnimatedPadding(
             duration: const Duration(milliseconds: 100),
@@ -265,12 +266,15 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
 
     final double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
 
-    if (_controller.extent.currentExtent == widget.maxHeight && keyboardHeight != 0) {
+    if (_controller.extent.currentExtent == widget.maxHeight &&
+        keyboardHeight != 0) {
       final double widgetOffset = FocusManager.instance.primaryFocus!.offset.dy;
-      final double widgetHeight = FocusManager.instance.primaryFocus!.size.height;
+      final double widgetHeight =
+          FocusManager.instance.primaryFocus!.size.height;
       final double screenHeight = MediaQuery.of(context).size.height;
 
-      final double valueToScroll = keyboardHeight - (screenHeight - (widgetOffset + widgetHeight));
+      final double valueToScroll =
+          keyboardHeight - (screenHeight - (widgetOffset + widgetHeight));
       if (valueToScroll > 0) {
         Future<void>.delayed(const Duration(milliseconds: 100)).then((_) {
           _controller.animateTo(
@@ -307,7 +311,8 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
     }
 
     if (widget.animationController != null) {
-      widget.animationController!.value = (1 + (currentVal - initVal) / initVal).clamp(0.0, 1.0);
+      widget.animationController!.value =
+          (1 + (currentVal - initVal) / initVal).clamp(0.0, 1.0);
     }
 
     _checkNeedCloseBottomSheet();
@@ -366,8 +371,10 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
   List<double> _findNearestAnchors(List<double> list, double x) {
     list.sort();
     final Map<double, double> diff = {for (var d in list) d: d - x};
-    final double firstAnchor = diff.entries.where((me) => me.value > 0).first.key;
-    final double secondAnchor = diff.entries.where((me) => me.value < 0).last.key;
+    final double firstAnchor =
+        diff.entries.where((me) => me.value > 0).first.key;
+    final double secondAnchor =
+        diff.entries.where((me) => me.value < 0).last.key;
 
     return [firstAnchor, secondAnchor];
   }

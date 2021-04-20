@@ -133,7 +133,11 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  List<Widget> _getChildren(double bottomSheetOffset, {required bool isShowPosition}) => <Widget>[
+  List<Widget> _getChildren(
+    double bottomSheetOffset, {
+    required bool isShowPosition,
+  }) =>
+      <Widget>[
         if (isShowPosition)
           Text(
             'position $bottomSheetOffset',
