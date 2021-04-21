@@ -12,6 +12,8 @@ coverage:
         flags: ink_widget
       mwwm:
         flags: mwwm
+      otp_autofill:
+        flags: otp_autofill
       relation:
         flags: relation
       render_metrics:
@@ -37,6 +39,10 @@ flags:
   mwwm:
     paths:
       - packages/mwwm/
+    carryforward: true
+  otp_autofill:
+    paths:
+      - packages/otp_autofill/
     carryforward: true
   relation:
     paths:

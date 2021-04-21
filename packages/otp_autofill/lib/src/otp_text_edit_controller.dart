@@ -16,20 +16,17 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:otp_autofill/base/strategy.dart';
-import 'package:otp_autofill/otp_interactor.dart';
+import 'package:otp_autofill/src/base/strategy.dart';
+import 'package:otp_autofill/src/otp_interactor.dart';
 
 /// Custom controller for text views, IOS autofill is built in flutter
 class OTPTextEditController extends TextEditingController {
   OTPTextEditController({
-    this.onCodeReceive,
-    this.codeLength,
+    required this.onCodeReceive,
+    required this.codeLength,
     this.onTimeOutException,
-  }) : assert(onCodeReceive != null && codeLength != null ||
-            onCodeReceive == null && codeLength == null) {
-    if (onCodeReceive != null && codeLength != null) {
-      addListener(checkForComplete);
-    }
+  }) {
+    addListener(checkForComplete);
   }
 
   /// interaction with OTP
@@ -38,19 +35,19 @@ class OTPTextEditController extends TextEditingController {
   /// OTP code length - trigger for callback
   final int codeLength;
 
-  /// OTPTextEditController receive OTP code
+  /// [OTPTextEditController]'s receive OTP code callback
   final StringCallback onCodeReceive;
 
-  /// Receiver get TimeoutError after 5 minutes without sms
-  final VoidCallback onTimeOutException;
+  /// Receiver gets TimeoutError after 5 minutes without sms
+  final VoidCallback? onTimeOutException;
 
   /// Start listen for OTP code with User Consent API
   /// sms by default
-  /// could be added another input as OTPStrategy
+  /// could be added another input as [OTPStrategy]
   void startListenUserConsent(
     ExtractStringCallback codeExtractor, {
-    List<OTPStrategy> strategies,
-    String senderNumber,
+    List<OTPStrategy>? strategies,
+    String? senderNumber,
   }) {
     final smsListen = _otpInteractor.startListenUserConsent(senderNumber);
     final strategiesListen = strategies?.map((e) => e.listenForCode());
@@ -70,10 +67,10 @@ class OTPTextEditController extends TextEditingController {
 
   /// Start listen for OTP code with Retriever API
   /// sms by default
-  /// could be added another input as OTPStrategy
+  /// could be added another input as [OTPStrategy]
   void startListenRetriever(
     ExtractStringCallback codeExtractor, {
-    List<OTPStrategy> additionalStrategies,
+    List<OTPStrategy>? additionalStrategies,
   }) {
     final smsListen = _otpInteractor.startListenRetriever();
     final strategiesListen = additionalStrategies?.map(
@@ -94,9 +91,9 @@ class OTPTextEditController extends TextEditingController {
   }
 
   /// Get OTP code from another input
-  /// don't registry BroadcastReceivers
+  /// don't register any BroadcastReceivers
   void startListenOnlyStrategies(
-    List<OTPStrategy> strategies,
+    List<OTPStrategy>? strategies,
     ExtractStringCallback codeExtractor,
   ) {
     final strategiesListen = strategies?.map((e) => e.listenForCode());
@@ -108,7 +105,7 @@ class OTPTextEditController extends TextEditingController {
   }
 
   /// Broadcast receiver stop listen for OTP code, use in dispose
-  Future<Object> stopListen() {
+  Future<Object?> stopListen() {
     return _otpInteractor.stopListenForCode();
   }
 

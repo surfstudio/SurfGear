@@ -12,14 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:otp_autofill/otp_autofill.dart';
+typedef ExtractStringCallback = String Function(String?);
 
-class SampleStrategy extends OTPStrategy {
-  @override
-  Future<String> listenForCode() {
-    return Future.delayed(
-      const Duration(seconds: 4),
-      () => 'Your code is 54321',
-    );
-  }
+/// Strategy interface, another variant of code input
+/// e.g. from push notification or for testing
+// ignore: one_member_abstracts
+abstract class OTPStrategy {
+  Future<String> listenForCode();
 }
