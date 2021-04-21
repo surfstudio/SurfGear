@@ -24,16 +24,16 @@ class AndroidNotification {
   });
 
   /// MethodChannel for connecting to android native code
-  final MethodChannel channel;
+  final MethodChannel? channel;
 
   /// Callback notification push
-  final OnNotificationTapCallback onNotificationTap;
+  final OnNotificationTapCallback? onNotificationTap;
 
   /// Initialize notification
   ///
   /// Initializes notification parameters and click listener
   Future init() async {
-    channel.setMethodCallHandler(
+    channel!.setMethodCallHandler(
       (call) async {
         switch (call.method) {
           case openCallback:
@@ -46,13 +46,13 @@ class AndroidNotification {
                   value.toString(),
                 ),
               );
-              onNotificationTap(notificationData);
+              onNotificationTap!(notificationData);
             }
             break;
         }
       },
     );
-    return channel.invokeMethod<dynamic>(callInit);
+    return channel!.invokeMethod<dynamic>(callInit);
   }
 
   /// Show notification
@@ -65,11 +65,11 @@ class AndroidNotification {
     int id,
     String title,
     String body,
-    String imageUrl,
-    Map<String, String> data,
+    String? imageUrl,
+    Map<String, String>? data,
     AndroidNotificationSpecifics notificationSpecifics,
   ) async {
-    return channel.invokeMethod<dynamic>(
+    return channel!.invokeMethod<dynamic>(
       callShow,
       <String, dynamic>{
         pushIdArg: id ?? 0,

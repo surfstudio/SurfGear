@@ -6,15 +6,15 @@ repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/push_notif
 dependencies:
   flutter:
     sdk: flutter
-  rxdart: ^0.24.0
-  surf_lint_rules: "^0.0.1-dev.0"
+  rxdart: ^0.26.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  surf_lint_rules: ^1.0.0
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
   flutter: ">=1.10.0"
 
 flutter:

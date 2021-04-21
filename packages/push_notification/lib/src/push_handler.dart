@@ -46,9 +46,9 @@ class PushHandler {
   /// request permission for show notification
   /// soundPemission - is play sound
   /// alertPermission - is show alert
-  Future<bool> requestPermissions({
-    bool soundPemission,
-    bool alertPermission,
+  Future<bool?> requestPermissions({
+    bool? soundPemission,
+    bool? alertPermission,
   }) {
     return _notificationController.requestPermissions(
       requestSoundPermission: soundPemission,

@@ -35,7 +35,7 @@ abstract class PushHandleStrategyFactory {
 
   /// Returns a strategy from push data
   PushHandleStrategy createByData(Map<String, dynamic> messageData) {
-    StrategyBuilder builder;
+    StrategyBuilder? builder;
     try {
       if (Platform.isAndroid) {
         builder = map[messageData['data'][key]];
@@ -43,7 +43,7 @@ abstract class PushHandleStrategyFactory {
         builder = map[messageData[key]];
       }
 
-      return builder(messageData);
+      return builder!(messageData);
     } on Exception catch (e) {
       // ignore: avoid_print
       print('$e - cant found $key');

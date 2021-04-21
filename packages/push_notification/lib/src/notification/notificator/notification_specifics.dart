@@ -22,5 +22,5 @@ class NotificationSpecifics {
   /// Settings for android
   AndroidNotificationSpecifics androidNotificationSpecifics;
 
-  IosNotificationSpecifics iosNotificationSpecifics;
+  IosNotificationSpecifics? iosNotificationSpecifics;
 }

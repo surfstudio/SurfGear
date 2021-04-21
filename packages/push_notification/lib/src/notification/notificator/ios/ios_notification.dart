@@ -25,26 +25,26 @@ class IOSNotification {
   });
 
   /// MethodChannel for connecting to ios native platform
-  final MethodChannel channel;
+  final MethodChannel? channel;
 
   /// Callback notification push
-  final OnNotificationTapCallback onNotificationTap;
+  final OnNotificationTapCallback? onNotificationTap;
 
   /// Callback notification decline
-  final OnPermissionDeclineCallback onPermissionDecline;
+  final OnPermissionDeclineCallback? onPermissionDecline;
 
   Future init() async {
-    channel.setMethodCallHandler(
+    channel!.setMethodCallHandler(
       (call) async {
         switch (call.method) {
           case openCallback:
             if (onNotificationTap != null) {
-              final notificationData = call.arguments as Map;
-              onNotificationTap(notificationData);
+              final notificationData = call.arguments as Map?;
+              onNotificationTap!(notificationData);
             }
             break;
           case permissionDeclineCallback:
-            onPermissionDecline();
+            onPermissionDecline!();
             break;
         }
       },
@@ -55,11 +55,11 @@ class IOSNotification {
   ///
   /// requestSoundPermission - is play sound
   /// requestSoundPermission - is show alert
-  Future<bool> requestPermissions({
-    bool requestSoundPermission,
-    bool requestAlertPermission,
+  Future<bool?> requestPermissions({
+    bool? requestSoundPermission,
+    bool? requestAlertPermission,
   }) async {
-    return channel.invokeMethod<bool>(
+    return channel!.invokeMethod<bool>(
       callRequest,
       <String, dynamic>{
         'requestAlertPermission': requestAlertPermission ?? false,
@@ -76,11 +76,11 @@ class IOSNotification {
     int id,
     String title,
     String body,
-    String imageUrl,
-    Map<String, String> data,
-    IosNotificationSpecifics notificationSpecifics,
+    String? imageUrl,
+    Map<String, String>? data,
+    IosNotificationSpecifics? notificationSpecifics,
   ) async {
-    return channel.invokeMethod<dynamic>(
+    return channel!.invokeMethod<dynamic>(
       callShow,
       <String, dynamic>{
         pushIdArg: id ?? 0,

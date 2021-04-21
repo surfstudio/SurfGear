@@ -32,15 +32,15 @@ class NotificationController {
     );
   }
 
-  Notificator _notificator;
+  late Notificator _notificator;
 
   Map<int, NotificationCallback> callbackMap =
       HashMap<int, NotificationCallback>();
 
   /// Request notification permissions (iOS only)
-  Future<bool> requestPermissions({
-    bool requestSoundPermission,
-    bool requestAlertPermission,
+  Future<bool?> requestPermissions({
+    bool? requestSoundPermission,
+    bool? requestAlertPermission,
   }) {
     return _notificator.requestPermissions(
       requestSoundPermission: requestSoundPermission,
@@ -73,10 +73,10 @@ class NotificationController {
 
     final Map<String, String> tmpPayload = strategy.payload.messageData.map(
       // ignore: avoid_types_on_closure_parameters
-      (key, Object value) => MapEntry(
+      ((key, Object value) => MapEntry(
         key.toString(),
         value.toString(),
-      ),
+      )) as MapEntry<String, String> Function(String, dynamic),
     );
 
     tmpPayload[pushIdParam] = '$pushId';
@@ -97,7 +97,7 @@ class NotificationController {
     print('DEV_INFO onSelectNotification, payload: $payload');
 
     final tmpPayload = payload as Map<String, String>;
-    final int pushId = int.parse(tmpPayload[pushIdParam]);
+    final int pushId = int.parse(tmpPayload[pushIdParam]!);
     final onSelectNotification = callbackMap[pushId];
     callbackMap.remove(pushId);
 

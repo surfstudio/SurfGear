@@ -22,12 +22,12 @@ abstract class PushHandleStrategy<PT extends NotificationPayload> {
   /// Android notification channel id
   ///
   /// "@string/notification_channel_id""
-  String notificationChannelId;
+  String? notificationChannelId;
 
   /// Android notification channel name
   ///
   /// "@string/notification_channel_name"
-  String notificationChannelName;
+  String? notificationChannelName;
 
   /// push id
   int pushId = 0;
@@ -37,11 +37,11 @@ abstract class PushHandleStrategy<PT extends NotificationPayload> {
 
   /// Path to string resource color notification icons
   /// "@color/notificaion_icon_color_name"
-  String color;
+  String? color;
 
   /// Path to string resource notification icons
   /// "@mipmap/notificaion_icon_name"
-  String icon;
+  String? icon;
 
   /// non-removable notification
   /// Android only
@@ -58,7 +58,7 @@ abstract class PushHandleStrategy<PT extends NotificationPayload> {
   final PT payload;
 
   /// function that is called to process notification clicks
-  void onTapNotification(NavigatorState navigator);
+  void onTapNotification(NavigatorState? navigator);
 
   /// function that is called to process notification background
   void onBackgroundProcess(Map<String, dynamic> message);
