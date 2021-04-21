@@ -32,7 +32,8 @@ void main() {
       });
   });
 
-  testWidgets('OTPTextEditController startListenOnlyStrategies', (tester) async {
+  testWidgets('OTPTextEditController startListenOnlyStrategies',
+      (tester) async {
     expect(controller.text, isEmpty);
 
     await tester.pump(const Duration(milliseconds: 500));
