@@ -1,4 +1,4 @@
-import 'package:otp_autofill/base/strategy.dart';
+import 'package:otp_autofill/otp_autofill.dart';
 
 class SampleStrategy extends OTPStrategy {
   @override

@@ -16,8 +16,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:otp_autofill/base/strategy.dart';
-import 'package:otp_autofill/otp_interactor.dart';
+import 'package:otp_autofill/src/base/strategy.dart';
+import 'package:otp_autofill/src/otp_interactor.dart';
 
 /// Custom controller for text views, IOS autofill is built in flutter
 class OTPTextEditController extends TextEditingController {

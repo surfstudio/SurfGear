@@ -15,7 +15,7 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:otp_autofill/base/exceptions.dart';
+import 'package:otp_autofill/src/base/exceptions.dart';
 
 typedef StringCallback = void Function(String);
 

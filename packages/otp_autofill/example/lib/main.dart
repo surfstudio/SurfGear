@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:otp_autofill/otp_interactor.dart';
-import 'package:otp_autofill/otp_text_edit_controller.dart';
+import 'package:otp_autofill/otp_autofill.dart';
 import 'package:otp_autofill_example/sample_strategy.dart';
 
 void main() {
