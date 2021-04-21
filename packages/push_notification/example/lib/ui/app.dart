@@ -18,7 +18,7 @@ import 'package:push_notification/push_notification.dart';
 import 'main_screen.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp(this._pushHandler, {Key key}) : super(key: key);
+  const MyApp(this._pushHandler, {Key? key}) : super(key: key);
 
   final PushHandler _pushHandler;
 

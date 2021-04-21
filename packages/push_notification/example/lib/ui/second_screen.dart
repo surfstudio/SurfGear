@@ -19,7 +19,7 @@ import '../domain/message.dart';
 const String androidMipMapIcon = '@mipmap/ic_launcher';
 
 class SecondScreen extends StatefulWidget {
-  const SecondScreen(this.payload, {Key key}) : super(key: key);
+  const SecondScreen(this.payload, {Key? key}) : super(key: key);
 
   final Message payload;
 

@@ -18,13 +18,13 @@ import 'package:push_notification/push_notification.dart';
 void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  Notificator notification;
+  late Notificator notification;
 
   String _bodyText = 'notification test';
   String notificationKey = 'key';
@@ -45,8 +45,7 @@ class _MyAppState extends State<MyApp> {
           },
         );
       },
-    )
-      ..requestPermissions(
+    )..requestPermissions(
         requestSoundPermission: true,
         requestAlertPermission: true,
       );
