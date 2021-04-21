@@ -41,7 +41,7 @@ class OTPInteractor {
     if (Platform.isAndroid) {
       return _channel.invokeMethod<String>(getTelephoneHint);
     } else {
-      return throw UnsupportedPlatform();
+      throw UnsupportedPlatform();
     }
   }
 
@@ -50,7 +50,7 @@ class OTPInteractor {
     if (Platform.isAndroid) {
       return _channel.invokeMethod<String>(getAppSignatureMethod);
     } else {
-      return throw UnsupportedPlatform();
+      throw UnsupportedPlatform();
     }
   }
 
