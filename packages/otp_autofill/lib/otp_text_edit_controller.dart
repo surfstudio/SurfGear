@@ -35,10 +35,10 @@ class OTPTextEditController extends TextEditingController {
   /// OTP code length - trigger for callback
   final int codeLength;
 
-  /// OTPTextEditController receive OTP code
+  /// [OTPTextEditController]'s receive OTP code callback
   final StringCallback onCodeReceive;
 
-  /// Receiver get TimeoutError after 5 minutes without sms
+  /// Receiver gets TimeoutError after 5 minutes without sms
   final VoidCallback? onTimeOutException;
 
   /// Start listen for OTP code with User Consent API
@@ -67,7 +67,7 @@ class OTPTextEditController extends TextEditingController {
 
   /// Start listen for OTP code with Retriever API
   /// sms by default
-  /// could be added another input as OTPStrategy
+  /// could be added another input as [OTPStrategy]
   void startListenRetriever(
     ExtractStringCallback codeExtractor, {
     List<OTPStrategy>? additionalStrategies,
@@ -91,7 +91,7 @@ class OTPTextEditController extends TextEditingController {
   }
 
   /// Get OTP code from another input
-  /// don't registry BroadcastReceivers
+  /// don't register any BroadcastReceivers
   void startListenOnlyStrategies(
     List<OTPStrategy>? strategies,
     ExtractStringCallback codeExtractor,
