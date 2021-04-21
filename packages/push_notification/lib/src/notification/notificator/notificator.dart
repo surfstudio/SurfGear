@@ -23,7 +23,7 @@ import 'package:push_notification/src/notification/notificator/notification_spec
 /// Callback notification clicks
 ///
 /// notificationData - notification data
-typedef OnNotificationTapCallback = void Function(Map? notificationData);
+typedef OnNotificationTapCallback = void Function(Map notificationData);
 
 /// Callback permission decline
 typedef OnPermissionDeclineCallback = void Function();
@@ -47,7 +47,7 @@ const String notificationSpecificsArg = 'notificationSpecifics';
 /// Util for displaying notifications for android and ios
 class Notificator {
   Notificator({
-    this.onNotificationTapCallback,
+    required this.onNotificationTapCallback,
     this.onPermissionDecline,
   }) {
     _init();
@@ -58,7 +58,7 @@ class Notificator {
   late AndroidNotification _androidNotification;
 
   /// Callback notification clicks
-  OnNotificationTapCallback? onNotificationTapCallback;
+  final OnNotificationTapCallback onNotificationTapCallback;
 
   /// Callback notification decline(ios only)
   final OnPermissionDeclineCallback? onPermissionDecline;
@@ -67,16 +67,13 @@ class Notificator {
     if (Platform.isAndroid) {
       _androidNotification = AndroidNotification(
         channel: _channel,
-        onNotificationTap: (notificationData) =>
-            onNotificationTapCallback!(notificationData),
+        onNotificationTap: onNotificationTapCallback,
       );
       return _androidNotification.init();
     } else if (Platform.isIOS) {
       _iosNotification = IOSNotification(
         channel: _channel,
-        onNotificationTap: (notificationData) {
-          return onNotificationTapCallback!(notificationData);
-        },
+        onNotificationTap: onNotificationTapCallback,
         onPermissionDecline: onPermissionDecline,
       );
       return _iosNotification.init();

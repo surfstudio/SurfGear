@@ -19,13 +19,13 @@ import 'package:push_notification/src/notification/notificator/notificator.dart'
 /// Notifications for the ios platform
 class IOSNotification {
   IOSNotification({
-    this.channel,
+    required this.channel,
     this.onNotificationTap,
     this.onPermissionDecline,
   });
 
   /// MethodChannel for connecting to ios native platform
-  final MethodChannel? channel;
+  final MethodChannel channel;
 
   /// Callback notification push
   final OnNotificationTapCallback? onNotificationTap;
@@ -34,12 +34,12 @@ class IOSNotification {
   final OnPermissionDeclineCallback? onPermissionDecline;
 
   Future init() async {
-    channel!.setMethodCallHandler(
+    channel.setMethodCallHandler(
       (call) async {
         switch (call.method) {
           case openCallback:
             if (onNotificationTap != null) {
-              final notificationData = call.arguments as Map?;
+              final notificationData = call.arguments as Map;
               onNotificationTap!(notificationData);
             }
             break;
@@ -59,7 +59,7 @@ class IOSNotification {
     bool? requestSoundPermission,
     bool? requestAlertPermission,
   }) async {
-    return channel!.invokeMethod<bool>(
+    return channel.invokeMethod<bool>(
       callRequest,
       <String, dynamic>{
         'requestAlertPermission': requestAlertPermission ?? false,
@@ -80,12 +80,12 @@ class IOSNotification {
     Map<String, String>? data,
     IosNotificationSpecifics? notificationSpecifics,
   ) async {
-    return channel!.invokeMethod<dynamic>(
+    return channel.invokeMethod<dynamic>(
       callShow,
       <String, dynamic>{
-        pushIdArg: id ?? 0,
-        titleArg: title ?? '',
-        bodyArg: body ?? '',
+        pushIdArg: id,
+        titleArg: title,
+        bodyArg: body,
         imageUrlArg: imageUrl,
         dataArg: data,
       },

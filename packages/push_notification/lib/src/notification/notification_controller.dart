@@ -27,7 +27,7 @@ const String pushIdParam = 'localPushId';
 class NotificationController {
   NotificationController(OnPermissionDeclineCallback onPermissionDecline) {
     _notificator = Notificator(
-      onNotificationTapCallback:_internalOnSelectNotification,
+      onNotificationTapCallback: _internalOnSelectNotification,
       onPermissionDecline: onPermissionDecline,
     );
   }
@@ -72,11 +72,11 @@ class NotificationController {
     final int pushId = DateTime.now().millisecondsSinceEpoch;
 
     final Map<String, String> tmpPayload = strategy.payload.messageData.map(
-      // ignore: avoid_types_on_closure_parameters
-      ((key, Object value) => MapEntry(
+      // ignore: avoid_annotating_with_dynamic
+      (key, dynamic value) => MapEntry(
         key.toString(),
         value.toString(),
-      )) as MapEntry<String, String> Function(String, dynamic),
+      ),
     );
 
     tmpPayload[pushIdParam] = '$pushId';
@@ -92,7 +92,7 @@ class NotificationController {
     );
   }
 
-  void _internalOnSelectNotification(Map<dynamic, dynamic> payload) {
+  void _internalOnSelectNotification(Map<dynamic, dynamic>? payload) {
     // ignore: avoid_print
     print('DEV_INFO onSelectNotification, payload: $payload');
 

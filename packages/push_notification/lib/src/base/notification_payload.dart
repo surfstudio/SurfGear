@@ -14,7 +14,7 @@
 
 /// notification base payload data
 abstract class NotificationPayload {
-  NotificationPayload(
+  const NotificationPayload(
     this.messageData,
     this.title,
     this.body, {

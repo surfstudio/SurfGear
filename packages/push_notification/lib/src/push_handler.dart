@@ -31,7 +31,7 @@ class PushHandler {
     this._notificationController,
     this._messagingService,
   ) {
-    _messagingService?.initNotification(handleMessage);
+    _messagingService.initNotification(handleMessage);
   }
 
   /// The ability to directly subscribe to receive messages
@@ -70,21 +70,19 @@ class PushHandler {
 
     final strategy = _strategyFactory.createByData(message);
 
-    if (message != null) {
-      if (handlerType == MessageHandlerType.onLaunch ||
-          handlerType == MessageHandlerType.onResume) {
-        strategy.onBackgroundProcess(message);
-      }
+    if (handlerType == MessageHandlerType.onLaunch ||
+        handlerType == MessageHandlerType.onResume) {
+      strategy.onBackgroundProcess(message);
+    }
 
-      if (handlerType == MessageHandlerType.onMessage) {
-        _notificationController.show(
-          strategy,
-          (_) {
-            selectNotificationSubject.add(strategy);
-            strategy.onTapNotification(PushNavigatorHolder().navigator);
-          },
-        );
-      }
+    if (handlerType == MessageHandlerType.onMessage) {
+      _notificationController.show(
+        strategy,
+        (_) {
+          selectNotificationSubject.add(strategy);
+          strategy.onTapNotification(PushNavigatorHolder().navigator);
+        },
+      );
     }
   }
 }

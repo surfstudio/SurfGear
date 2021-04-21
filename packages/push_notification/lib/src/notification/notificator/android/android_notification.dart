@@ -19,12 +19,12 @@ import 'package:push_notification/src/notification/notificator/notificator.dart'
 /// Notifications for the android platform
 class AndroidNotification {
   AndroidNotification({
-    this.channel,
+    required this.channel,
     this.onNotificationTap,
   });
 
   /// MethodChannel for connecting to android native code
-  final MethodChannel? channel;
+  final MethodChannel channel;
 
   /// Callback notification push
   final OnNotificationTapCallback? onNotificationTap;
@@ -33,7 +33,7 @@ class AndroidNotification {
   ///
   /// Initializes notification parameters and click listener
   Future init() async {
-    channel!.setMethodCallHandler(
+    channel.setMethodCallHandler(
       (call) async {
         switch (call.method) {
           case openCallback:
@@ -52,7 +52,7 @@ class AndroidNotification {
         }
       },
     );
-    return channel!.invokeMethod<dynamic>(callInit);
+    return channel.invokeMethod<dynamic>(callInit);
   }
 
   /// Show notification
@@ -69,17 +69,15 @@ class AndroidNotification {
     Map<String, String>? data,
     AndroidNotificationSpecifics notificationSpecifics,
   ) async {
-    return channel!.invokeMethod<dynamic>(
+    return channel.invokeMethod<dynamic>(
       callShow,
-      <String, dynamic>{
-        pushIdArg: id ?? 0,
-        titleArg: title ?? '',
-        bodyArg: body ?? '',
+      {
+        pushIdArg: id,
+        titleArg: title,
+        bodyArg: body,
         imageUrlArg: imageUrl,
         dataArg: data,
-        notificationSpecificsArg: notificationSpecifics != null
-            ? notificationSpecifics.toMap()
-            : <String, Object>{},
+        notificationSpecificsArg: notificationSpecifics.toMap(),
       },
     );
   }
