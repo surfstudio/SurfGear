@@ -23,13 +23,13 @@ import 'package:surf_injector/surf_injector.dart';
 import 'package:mwwm/mwwm.dart';
 
 AppWidgetModel createAppModel(BuildContext context) => AppWidgetModel(
-      WidgetModelDependencies(),
+      const WidgetModelDependencies(),
       Injector.of<AppComponent>(context).component.navigatorKey,
     );
 
 CounterWidgetModel createCounterModel(BuildContext context) =>
     CounterWidgetModel(
-      WidgetModelDependencies(),
+      const WidgetModelDependencies(),
       Injector.of<CounterComponent>(context).component.navigator,
       Injector.of<CounterComponent>(context).component.scaffoldKey,
     );
