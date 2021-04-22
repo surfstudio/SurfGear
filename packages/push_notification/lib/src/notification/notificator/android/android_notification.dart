@@ -20,14 +20,14 @@ import 'package:push_notification/src/notification/notificator/notificator.dart'
 class AndroidNotification {
   AndroidNotification({
     required this.channel,
-    this.onNotificationTap,
+    required this.onNotificationTap,
   });
 
   /// MethodChannel for connecting to android native code
   final MethodChannel channel;
 
   /// Callback notification push
-  final OnNotificationTapCallback? onNotificationTap;
+  final OnNotificationTapCallback onNotificationTap;
 
   /// Initialize notification
   ///
@@ -37,17 +37,8 @@ class AndroidNotification {
       (call) async {
         switch (call.method) {
           case openCallback:
-            if (onNotificationTap != null) {
-              final Map<String, String> notificationData = Map.of(
-                call.arguments as Map<Object, Object>,
-              ).map(
-                (key, value) => MapEntry(
-                  key.toString(),
-                  value.toString(),
-                ),
-              );
-              onNotificationTap!(notificationData);
-            }
+            final notificationData = call.arguments as Map;
+            onNotificationTap(notificationData);
             break;
         }
       },

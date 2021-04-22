@@ -20,7 +20,7 @@ import 'package:push_notification/src/notification/notificator/notificator.dart'
 class IOSNotification {
   IOSNotification({
     required this.channel,
-    this.onNotificationTap,
+    required this.onNotificationTap,
     this.onPermissionDecline,
   });
 
@@ -28,7 +28,7 @@ class IOSNotification {
   final MethodChannel channel;
 
   /// Callback notification push
-  final OnNotificationTapCallback? onNotificationTap;
+  final OnNotificationTapCallback onNotificationTap;
 
   /// Callback notification decline
   final OnPermissionDeclineCallback? onPermissionDecline;
@@ -38,10 +38,8 @@ class IOSNotification {
       (call) async {
         switch (call.method) {
           case openCallback:
-            if (onNotificationTap != null) {
-              final notificationData = call.arguments as Map;
-              onNotificationTap!(notificationData);
-            }
+            final notificationData = call.arguments as Map;
+            onNotificationTap(notificationData);
             break;
           case permissionDeclineCallback:
             onPermissionDecline!();
