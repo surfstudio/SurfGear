@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.3
+## 1.1.0
 
 * Made subscribe's stream's values nullable.
 
