@@ -33,7 +33,7 @@ abstract class MwwmWidget<C extends Component> extends StatefulWidget {
   /// WidgetModelBuilders set in the [WidgetModelFactory]
   final WidgetModelBuilder widgetModelBuilder;
 
-  MwwmWidget({
+  const MwwmWidget({
     required this.dependenciesBuilder,
     required this.widgetStateBuilder,
     required this.widgetModelBuilder,
@@ -67,7 +67,7 @@ class _ProxyMwwmWidget extends CoreMwwmWidget {
 
 /// Hold child widget
 class _MwwmWidgetState<C extends Component> extends State<MwwmWidget> {
-  Widget? child;
+  late final Widget child;
 
   @override
   void initState() {
@@ -83,14 +83,13 @@ class _MwwmWidgetState<C extends Component> extends State<MwwmWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return child ?? SizedBox();
-  }
+  Widget build(BuildContext context) => child;
 }
 
 /// Implementation of MwwmWidget based on [InheritedWidget]
 /// todo test perfomance
-abstract class MwwmInheritedWidget<C extends Component> extends InheritedWidget {
+abstract class MwwmInheritedWidget<C extends Component>
+    extends InheritedWidget {
   MwwmInheritedWidget({
     required DependenciesBuilder<C> dependenciesBuilder,
     required WidgetStateBuilder widgetStateBuilder,
