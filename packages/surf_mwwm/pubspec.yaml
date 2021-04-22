@@ -12,10 +12,7 @@ dependencies:
 
   relation: ^1.0.0
 
-  # mwwm: ^1.0.3
-  mwwm:
-    path:
-      ../mwwm
+  mwwm: ^1.1.0
 
   rxdart: ^0.26.0
 
