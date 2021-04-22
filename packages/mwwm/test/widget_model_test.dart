@@ -6,6 +6,8 @@ import 'package:mwwm/src/widget_model.dart';
 import 'package:mwwm/src/dependencies/wm_dependencies.dart';
 
 import 'mocks/error_handler_mock.dart';
+import 'mocks/steam_subscription_mock.dart';
+import 'mocks/stream_mock.dart';
 import 'mocks/widget_model_mock.dart';
 
 void main() {
@@ -132,6 +134,22 @@ void main() {
 
         completer.complete(value);
         verify(() => errorHandlerMock.handleError(any()));
+      });
+    });
+
+    group('dispose', () {
+      test('call cancel for stream', () {
+        final streamMock = StreamMock<Object>();
+
+        final streamSubscription = StreamSubscriptionMock<Object>();
+        when(streamSubscription.cancel).thenAnswer((_) => Future.value());
+        when(() => streamMock.listen(any())).thenReturn(streamSubscription);
+
+        widgetModel
+          ..subscribe(streamMock, (t) {})
+          ..dispose();
+
+        verify(streamSubscription.cancel);
       });
     });
   });
