@@ -47,13 +47,13 @@ abstract class WidgetModel {
   void onBind() {}
 
   /// subscribe for interactors
-  StreamSubscription subscribe<T>(
-    Stream<T> stream,
-    void Function(T t) onValue, {
+  StreamSubscription<T?> subscribe<T>(
+    Stream<T?> stream,
+    void Function(T? t) onValue, {
     void Function(Object e)? onError,
   }) =>
       _compositeSubscription
-          .add<T>(stream.listen(onValue, onError: onError?.call));
+          .add(stream.listen(onValue, onError: onError?.call));
 
   /// subscribe for interactors with default handle error
   StreamSubscription subscribeHandleError<T>(

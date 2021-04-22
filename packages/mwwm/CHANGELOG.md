@@ -1,8 +1,13 @@
 # Changelog
 
+## 1.0.3
+
+* Made subscribe's stream's values nullable.
+
 ## 1.0.2
 
 * Fix changelog
+
 ## 1.0.1
 
 * Add unit tests
