@@ -25,7 +25,7 @@ extension SurfMwwmExtension on WidgetModel {
   /// bind ui [Event]'s
   void bind<T>(
     Event<T> event,
-    void Function(T t) onValue, {
+    void Function(T? t) onValue, {
     void Function(dynamic e)? onError,
   }) =>
       subscribe<T>(event.stream, onValue, onError: onError);
@@ -33,23 +33,23 @@ extension SurfMwwmExtension on WidgetModel {
 
 extension FutureExt<T> on Future<T> {
   /// Do future on specified listener
-  Future<T> on(WidgetModel listener, {void Function(dynamic) onError}) {
-    Completer<T> _c = Completer();
-    listener.doFuture(
+  Future<T> on(WidgetModel listener, {void Function(dynamic)? onError}) {
+    Completer<T> completer = Completer();
+    listener.doFuture<T>(
       this,
       (data) {
-        _c.complete(data);
+        completer.complete(data);
       },
       onError: onError,
     );
 
-    return _c.future;
+    return completer.future;
   }
 
   /// Do future with error catching on specified listener
   Future<T> withErrorHandling(WidgetModel listener) {
     Completer<T> _c = Completer();
-    listener.doFutureHandleError(this, (data) {
+    listener.doFutureHandleError<T>(this, (data) {
       _c.complete(data);
     }, onError: (e) {
       _c.completeError(e);
@@ -65,12 +65,12 @@ extension EntityExt<T> on EntityStreamedState<T> {
       EntityStreamedState<R>.from(
         this.stream.map(
           (es) {
-            if (es.isLoading) {
+            if (es!.isLoading) {
               return EntityState<R>.loading();
             } else if (es.hasError) {
               return EntityState<R>.error(es.error);
             } else {
-              return EntityState.content(mapper(es.data));
+              return EntityState<R>.content(mapper(es.data!));
             }
           },
         ),
@@ -79,21 +79,21 @@ extension EntityExt<T> on EntityStreamedState<T> {
 
 extension EventExt<T> on Event<T> {
   /// Transform streamed event with soecified function
-  Event<R> map<R>(R Function(T) mapper) =>
+  Event<R> map<R>(R Function(T?) mapper) =>
       StreamedState<R>.from(this.stream.map(mapper));
 
   /// Do function on action triggered
-  Event<T> doOnData(void Function(T) action) {
+  Event<T> doOnData(void Function(T?) action) {
     return this..stream.doOnData(action);
   }
 
   /// Do something on each event on stream
-  Event<T> doEventOnData(Event<T> event) {
+  Event<T> doEventOnData(Event<T?> event) {
     return this..stream.doOnData(event.accept);
   }
 
   /// Bind one event to another
-  Event<T> bind(void Function(T) onData) {
+  Event<T> bind(void Function(T?) onData) {
     stream.doOnData(
       (t) {
         onData(t);
@@ -106,8 +106,8 @@ extension EventExt<T> on Event<T> {
   /// Listen on specifited listener with possibility to add callbacks
   void listenOn(
     WidgetModel listener, {
-    void Function(T) onValue,
-    void Function(Exception) onError,
+    required void Function(T?) onValue,
+    void Function(dynamic e)? onError,
   }) {
     listener.subscribe<T>(this.stream, onValue, onError: onError);
   }
@@ -115,8 +115,8 @@ extension EventExt<T> on Event<T> {
   /// Listen on WM with error catching
   void listenCathError(
     WidgetModel listener, {
-    void Function(T) onValue,
-    void Function(Exception) onError,
+    required void Function(T?) onValue,
+    required void Function(dynamic e) onError,
   }) {
     this.stream.listenCatchError(listener, onValue: onValue, onError: onError);
   }
@@ -126,8 +126,8 @@ extension StreamX<T> on Stream<T> {
   /// Listen on specifited listener with possibility to add callbacks
   void listenOn(
     WidgetModel listener, {
-    void Function(T) onValue,
-    void Function(Exception) onError,
+    required void Function(T?) onValue,
+    void Function(dynamic e)? onError,
   }) {
     listener.subscribe<T>(this, onValue, onError: onError);
   }
@@ -135,8 +135,8 @@ extension StreamX<T> on Stream<T> {
   /// Listen on WM with error catching
   void listenCatchError(
     WidgetModel listener, {
-    void Function(T) onValue,
-    void Function(Exception) onError,
+    required void Function(T?) onValue,
+    void Function(dynamic e)? onError,
   }) {
     listener.subscribeHandleError<T>(this, onValue, onError: onError);
   }

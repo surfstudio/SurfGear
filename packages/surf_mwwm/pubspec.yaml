@@ -8,30 +8,21 @@ repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/surf_mwwm"
 dependencies:
   flutter:
     sdk: flutter
-  surf_injector:
-    git:
-      url: https://github.com/surfstudio/SurfGear
-      path: packages/surf_injector
-      ref: feature/surf_injector_null_safety
+  surf_injector: ^1.0.0
 
-  relation:
-    git:
-      url: https://github.com/surfstudio/SurfGear
-      path: packages/relation
-      ref: feature/relation_null_safety
+  relation: ^1.0.0
 
+  # mwwm: ^1.0.3
   mwwm:
-    git:
-      url: https://github.com/surfstudio/SurfGear
-      path: packages/mwwm
-      ref: feature/mwwm_null_safety
+    path:
+      ../mwwm
 
-  rxdart: ^0.26.0-nullsafety.1
+  rxdart: ^0.26.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  pedantic: ^1.10.0-nullsafety.3
+  surf_lint_rules: ^1.0.0
 
 environment:
   sdk: ">=2.12.0-0 <3.0.0"
