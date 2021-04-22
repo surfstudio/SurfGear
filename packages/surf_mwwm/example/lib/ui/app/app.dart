@@ -32,7 +32,7 @@ class App extends MwwmWidget<AppComponent> {
 }
 
 class _AppState extends WidgetState<AppWidgetModel> {
-  GlobalKey<NavigatorState>? _navKey;
+  late GlobalKey<NavigatorState> _navKey;
 
   @override
   void initState() {
