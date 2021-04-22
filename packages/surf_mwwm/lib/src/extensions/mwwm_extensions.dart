@@ -116,7 +116,7 @@ extension EventExt<T> on Event<T> {
   void listenCathError(
     WidgetModel listener, {
     required void Function(T?) onValue,
-    required void Function(dynamic e) onError,
+    void Function(dynamic e)? onError,
   }) {
     this.stream.listenCatchError(listener, onValue: onValue, onError: onError);
   }
