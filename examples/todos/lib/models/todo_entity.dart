@@ -7,19 +7,19 @@ class TodoEntity extends Equatable {
     required this.id,
     required this.title,
     required this.isCompleted,
-    this.description,
+    required this.description,
   });
 
   final int id;
   final String title;
-  final String? description;
+  final String description;
   final bool isCompleted;
 
   @override
   List<Object> get props => [
         id,
         title,
-        description ?? '',
+        description,
         isCompleted,
       ];
 }
