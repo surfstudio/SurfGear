@@ -32,17 +32,54 @@ void main() {
     expect(result, equals(['wow', 'rly']));
   });
 
-  testWidgets('FutureExt on', (tester) async {
-    final wm = TestWM();
-    final event = StringEvent();
+  group('FutureExt', () {
+    testWidgets('on', (tester) async {
+      final wm = TestWM();
+      final event = StringEvent();
 
-    final result = <String?>[];
+      final result = <String?>[];
 
-    await event.accept("wow").on(wm).then((value) => result.add(value));
-    await event.accept("rly").on(wm).then((value) => result.add(value));
-    
-    expect(result, equals(['wow', 'rly']));
+      await event.accept("wow").on(wm).then((value) => result.add(value));
+      await event.accept("rly").on(wm).then((value) => result.add(value));
+
+      expect(result, equals(['wow', 'rly']));
+    });
+
+    testWidgets('withErrorHandling', (tester) async {
+      final errors = <Object>[];
+
+      final expectedException = Exception('error');
+
+      final fetchSomething = () async {
+        throw expectedException;
+      };
+
+      final onError = (error) {
+        errors.add(error);
+      };
+
+      final wm = TestWM(
+        baseDependencies: WidgetModelDependencies(
+          errorHandler: TestErrorHandler(onError),
+        ),
+      );
+
+      try {
+        await fetchSomething().withErrorHandling(wm);
+      } on Exception {
+        expect(errors, equals([expectedException]));
+      }
+    });
   });
+}
+
+class TestErrorHandler extends ErrorHandler {
+  final void Function(Object e) onError;
+
+  TestErrorHandler(this.onError);
+
+  @override
+  void handleError(Object e) => onError(e);
 }
 
 class TestWM extends WidgetModel {
