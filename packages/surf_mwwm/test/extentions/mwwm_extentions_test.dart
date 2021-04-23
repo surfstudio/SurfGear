@@ -24,7 +24,7 @@ void main() {
 
     final result = <String?>[];
 
-    wm.bind<String?>(event, (value) => result.add(value));
+    wm.bind<String?>(event, result.add);
 
     await event.accept("wow");
     await event.accept("rly");
@@ -39,8 +39,8 @@ void main() {
 
       final result = <String?>[];
 
-      await event.accept("wow").on(wm).then((value) => result.add(value));
-      await event.accept("rly").on(wm).then((value) => result.add(value));
+      await event.accept("wow").on(wm).then(result.add);
+      await event.accept("rly").on(wm).then(result.add);
 
       expect(result, equals(['wow', 'rly']));
     });
