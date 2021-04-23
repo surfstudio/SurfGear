@@ -24,8 +24,6 @@ class AddEditScreen extends CoreMwwmWidget {
 }
 
 class _AddEditScreenState extends WidgetState<AddEditScreenWM> {
-  String? _title;
-  String? _description;
   static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -59,7 +57,7 @@ class _AddEditScreenState extends WidgetState<AddEditScreenWM> {
                       ? AddEditI18n.emptyTitleWarning
                       : null;
                 },
-                onSaved: (value) => _title = value,
+                onSaved: (value) => wm.title = value ?? '',
               ),
             ),
             Padding(
@@ -72,7 +70,7 @@ class _AddEditScreenState extends WidgetState<AddEditScreenWM> {
                   labelText: AddEditI18n.todoDescriptionLabel,
                 ),
                 style: textTheme.bodyText2,
-                onSaved: (value) => _description = value,
+                onSaved: (value) => wm.description = value ?? '',
               ),
             ),
           ],
@@ -81,11 +79,7 @@ class _AddEditScreenState extends WidgetState<AddEditScreenWM> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           _formKey.currentState!.save();
-          wm.save(
-            _title!,
-            _description!,
-            isValid: _formKey.currentState!.validate(),
-          );
+          wm.save(isValid: _formKey.currentState!.validate());
         },
         child: Icon(isEditing ? Icons.check : Icons.add),
       ),

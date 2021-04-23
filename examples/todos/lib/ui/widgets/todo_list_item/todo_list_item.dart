@@ -38,9 +38,9 @@ class _TodoListItemState extends WidgetState<TodoListItemWM> {
             todoEntity.title,
             style: Theme.of(context).textTheme.headline6,
           ),
-          subtitle: todoEntity.description?.isNotEmpty ?? false
+          subtitle: todoEntity.description.isNotEmpty
               ? Text(
-                  todoEntity.description!,
+                  todoEntity.description,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.subtitle1,

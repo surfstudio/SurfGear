@@ -48,13 +48,13 @@ void main() {
 
     group('save', () {
       test('never call _todosRepository if is not valid', () {
-        addEditScreenWM.save('title', 'description', isValid: false);
+        addEditScreenWM.save(isValid: false);
         verifyNever(() => todosRepositoryMock.addTodo(any(), any()));
         verifyNever(() => todosRepositoryMock.updateTodo(any()));
       });
 
       test('if isEditing then call updateTodo and naviagtion back', () {
-        addEditScreenWM.save('title', 'description', isValid: true);
+        addEditScreenWM.save(isValid: true);
         verify(
             () => todosRepositoryMock.updateTodo(any(that: isA<TodoEntity>())));
         verify(navigationMock.back);
@@ -62,9 +62,9 @@ void main() {
 
       test('if no isEditing then call addTodo and naviagtion back', () {
         AddEditScreenWM(navigationMock, todosRepositoryMock, null)
-            .save('title', 'description', isValid: true);
+            .save(isValid: true);
 
-        verify(() => todosRepositoryMock.addTodo('title', 'description'));
+        verify(() => todosRepositoryMock.addTodo('', ''));
         verify(navigationMock.back);
       });
     });
