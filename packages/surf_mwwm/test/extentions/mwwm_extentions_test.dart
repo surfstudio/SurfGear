@@ -33,19 +33,37 @@ void main() {
   });
 
   group('FutureExt', () {
-    testWidgets('on', (tester) async {
+    test('on', () async {
       final wm = TestWM();
-      final event = StringEvent();
 
       final result = <String?>[];
 
-      await event.accept("wow").on(wm).then(result.add);
-      await event.accept("rly").on(wm).then(result.add);
+      await Future.value("wow").on(wm).then(result.add);
+      await Future.value("rly").on(wm).then(result.add);
 
       expect(result, equals(['wow', 'rly']));
     });
 
-    testWidgets('withErrorHandling', (tester) async {
+    test('on with error', () async {
+      final wm = TestWM();
+
+      final result = <String?>[];
+
+      await Future.value("wow").on(wm).then(result.add);
+
+      try {
+        await Future.error(Exception()).on(
+          wm,
+          onError: (e) {
+            result.add('rly');
+          },
+        );
+      } catch (e) {
+        expect(result, equals(['wow', 'rly']));
+      }
+    });
+
+    test('withErrorHandling', () async {
       final errors = <Object>[];
 
       final expectedException = Exception('error');
@@ -71,6 +89,33 @@ void main() {
       }
     });
   });
+
+  test(
+    'EntityExt map',
+    () async {
+      final state = EntityStreamedState<String>();
+
+      final result = state.map((element) => element.toUpperCase());
+      await state.accept(EntityState(data: 'initial'));
+
+      expect(result.value!.data, equals("initial".toUpperCase()));
+    },
+  );
+
+  test(
+    'EntityExt map should fail',
+
+    /// because of [StreamedState.from]
+    () async {
+      final state = EntityStreamedState<String>();
+
+      final result = state.map((element) => element.toUpperCase());
+      await result.accept(EntityState(data: 'initial'));
+
+      expect(result.value!.data, equals("initial".toUpperCase()));
+    },
+    skip: true,
+  );
 }
 
 class TestErrorHandler extends ErrorHandler {
