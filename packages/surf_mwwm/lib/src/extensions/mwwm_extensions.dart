@@ -33,14 +33,22 @@ extension SurfMwwmExtension on WidgetModel {
 
 extension FutureExt<T> on Future<T> {
   /// Do future on specified listener
-  Future<T> on(WidgetModel listener, {void Function(dynamic)? onError}) {
+  ///
+  /// ```dart
+  /// await Future.value("wow").on(wm).then(result.add);
+  /// await Future.value("rly").on(wm).then(result.add);
+  /// ```
+  Future<T> on(WidgetModel listener, {void Function(Object e)? onError}) {
     Completer<T> completer = Completer();
     listener.doFuture<T>(
       this,
       (data) {
         completer.complete(data);
       },
-      onError: onError,
+      onError: (e) {
+        onError?.call(e);
+        completer.completeError(e);
+      },
     );
 
     return completer.future;
