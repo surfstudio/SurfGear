@@ -14,7 +14,9 @@
 
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:surf_injector/surf_injector.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
 void main() {
@@ -247,6 +249,35 @@ void main() {
       expect(result, equals(['wow', 'rly']));
     });
   });
+
+  testWidgets(
+    'context.getComponent',
+    (tester) async {
+      final component = TestComponent('home');
+
+      late final BuildContext context;
+
+      final widget = MaterialApp(
+        home: Injector(
+          builder: (_context) {
+            context = _context;
+            return Container();
+          },
+          component: component,
+        ),
+      );
+
+      await tester.pumpWidget(widget);
+
+      expect(context.getComponent<TestComponent>(), equals(component));
+    },
+  );
+}
+
+class TestComponent extends Component {
+  final String data;
+
+  TestComponent(this.data);
 }
 
 class TestErrorHandler extends ErrorHandler {
