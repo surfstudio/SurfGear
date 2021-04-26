@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:core';
-
 import 'package:collection/collection.dart';
 
 /// Родительский List для работы с пагинацией
@@ -26,7 +24,7 @@ import 'package:collection/collection.dart';
 abstract class DataList<T> extends DelegatingList<T> {
   DataList(this.data) : super(data);
 
-  ///Download List
+  /// Download List
   List<T> data;
 
   /// Проверка возможности дозагрузки данных
@@ -36,15 +34,12 @@ abstract class DataList<T> extends DelegatingList<T> {
   /// Слияние двух DataList
   /// Merge two DataList
   ///
-  /// @param inputDataList DataList for merge with current instance
-  /// @return current instance
+  /// [data] data list for merge with current instance
   DataList<T> merge(DataList<T> data);
 
   /// Преобразует DataList одного типа в DataList другого типа
   /// Converts a DataList of one type to a DataList of another type
   ///
-  /// @param mapFunc mapping function
-  /// @param <R>     type of new list
-  /// @return DataList<R>
+  /// [mapFunc] mapping function
   DataList<R> transform<R>(R Function(T item) mapFunc);
 }
