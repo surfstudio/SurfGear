@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'dart:collection';
-import 'dart:core';
 
 import 'package:datalist/src/datalist.dart';
 import 'package:datalist/src/exceptions.dart';
@@ -21,13 +20,11 @@ import 'package:datalist/src/exceptions.dart';
 /// Pagination List
 /// Page-count mechanism
 /// May merge with another DataList
-///
-/// @param <T> Item
 class PageCountDataList<T> extends DataList<T> {
   PageCountDataList({
-    this.data,
-    this.pageSize,
-    this.startPage,
+    required this.data,
+    required this.pageSize,
+    required this.startPage,
     this.numPages = 1,
     this.totalItemsCount = unspecifiedTotalItemsCount,
     this.totalPagesCount = unspecifiedTotalPagesCount,
@@ -35,10 +32,8 @@ class PageCountDataList<T> extends DataList<T> {
 
   /// Creating an empty DataList with a limit on the maximum number of elements
   ///
-  /// @param <T>             data type in List
-  /// @param totalItemsCount max count of items
-  /// @param totalPagesCount max count of pages
-  /// @return empty DataList
+  /// [totalItemsCount] max count of items
+  /// [totalPagesCount] max count of pages
   factory PageCountDataList.emptyWithTotalCount(
     int totalItemsCount,
     int totalPagesCount,
@@ -52,17 +47,11 @@ class PageCountDataList<T> extends DataList<T> {
         totalItemsCount: totalItemsCount,
       );
 
-  ///Create empty DataList
-  ///
-  /// @param <T> тип данных в листе
-  /// @return пустой дата-лист
+  /// Create empty DataList
   factory PageCountDataList.empty() =>
       PageCountDataList.emptyWithTotalCount(0, 0);
 
   /// Create empty DataList
-  ///
-  /// @param <T> data type in list
-  /// @return empty data list
   factory PageCountDataList.emptyUnspecifiedTotal() =>
       PageCountDataList.emptyWithTotalCount(
         unspecifiedTotalItemsCount,
@@ -96,11 +85,10 @@ class PageCountDataList<T> extends DataList<T> {
 
   /// Merge two DataList
   ///
-  /// @param inputDataList DataList for merge with current instance
-  /// @return current instance
+  /// [_inputDataList] DataList for merge with current instance
   @override
   PageCountDataList<T> merge(DataList<T> _inputDataList) {
-    final PageCountDataList inputDataList = _inputDataList as PageCountDataList;
+    final inputDataList = _inputDataList as PageCountDataList<T>;
 
     if (startPage != unspecifiedPage &&
         inputDataList.startPage != unspecifiedPage &&
@@ -108,16 +96,13 @@ class PageCountDataList<T> extends DataList<T> {
       throw ArgumentError('pageSize for merging DataList must be same');
     }
 
-    final Map<int, List<T>> originalPagesData = _split();
-    final Map<int, List<T>> inputPagesData =
-        inputDataList._split().cast<int, List<T>>();
-    final SplayTreeMap<int, List<T>> resultPagesData = SplayTreeMap()
-      ..addAll(originalPagesData)
-      ..addAll(inputPagesData);
+    final resultPagesData = SplayTreeMap<int, List<T>>()
+      ..addAll(_split())
+      ..addAll(inputDataList._split());
 
-    final List<T> newData = [];
-    int lastPage = unspecifiedPage;
-    int lastPageItemsSize = unspecifiedPageSize;
+    final newData = <T>[];
+    var lastPage = unspecifiedPage;
+    var lastPageItemsSize = unspecifiedPageSize;
 
     resultPagesData.forEach((pageNumber, pageItems) {
       if (lastPage != unspecifiedPage &&
@@ -131,9 +116,11 @@ class PageCountDataList<T> extends DataList<T> {
       lastPageItemsSize = pageItems.length;
       newData.addAll(pageItems);
     });
-    data.clear();
-    // ignore: cascade_invocations
-    data.addAll(newData);
+
+    data
+      ..clear()
+      ..addAll(newData);
+
     startPage = resultPagesData.entries.first.key;
     numPages = lastPage - startPage + 1;
     totalItemsCount =
@@ -144,53 +131,48 @@ class PageCountDataList<T> extends DataList<T> {
         inputDataList.totalPagesCount == unspecifiedTotalPagesCount
             ? totalPagesCount
             : inputDataList.totalPagesCount;
+
     if (inputDataList.pageSize != unspecifiedPageSize) {
       pageSize = inputDataList.pageSize;
     }
+
     return this;
   }
 
   /// Divides data into blocks by pages
-  ///
-  /// @return map of pages
   Map<int, List<T>> _split() {
-    final Map<int, List<T>> result = HashMap();
-    for (int i = startPage; i < startPage + numPages; i++) {
-      final int startItemIndex = (i - startPage) * pageSize;
-      final int itemsRemained = data.length - startItemIndex;
-      final int endItemIndex = startItemIndex +
+    final result = <int, List<T>>{};
+
+    for (var i = startPage; i < startPage + numPages; i++) {
+      final startItemIndex = (i - startPage) * pageSize;
+      final itemsRemained = data.length - startItemIndex;
+      final endItemIndex = startItemIndex +
           (itemsRemained < pageSize ? itemsRemained : pageSize);
-      if (itemsRemained <= 0) break;
+      if (itemsRemained <= 0) {
+        break;
+      }
 
       result.putIfAbsent(i, () => data.sublist(startItemIndex, endItemIndex));
     }
+
     return result;
   }
 
   /// Converts a DataList of one type to a DataList of another type
   ///
-  /// @param mapFunc mapping function
-  /// @param <R>     type of new list
-  /// @return DataList<R>
+  /// [mapFunc] mapping function
   @override
-  PageCountDataList<R> transform<R>(R Function(T item) mapFunc) {
-    final List<R> resultData = <R>[];
-    for (final T item in this) {
-      resultData.add(mapFunc.call(item));
-    }
-    return PageCountDataList(
-      data: resultData,
-      startPage: startPage,
-      numPages: numPages,
-      pageSize: pageSize,
-      totalItemsCount: totalItemsCount,
-      totalPagesCount: totalPagesCount,
-    );
-  }
+  PageCountDataList<R> transform<R>(R Function(T item) mapFunc) =>
+      PageCountDataList(
+        data: map(mapFunc.call).toList(),
+        startPage: startPage,
+        numPages: numPages,
+        pageSize: pageSize,
+        totalItemsCount: totalItemsCount,
+        totalPagesCount: totalPagesCount,
+      );
 
   /// Checking the possibility of reloading data
-  ///
-  /// @return
   @override
   bool get canGetMore =>
       startPage == unspecifiedPage ||
@@ -217,7 +199,7 @@ class PageCountDataList<T> extends DataList<T> {
   }
 
   @override
-  bool remove(Object value) {
+  bool remove(Object? value) {
     throw Exception("Unsupported operation 'remove'");
   }
 

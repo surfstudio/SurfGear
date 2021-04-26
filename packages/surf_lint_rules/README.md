@@ -43,7 +43,7 @@ For issues, file directly in the [main SurfGear repo](https://github.com/surfstu
 
 If you would like to contribute to the package (e.g. by improving the documentation, solving a bug or adding a cool new feature), please review our [contribution guide](../../CONTRIBUTING.md) first and send us your pull request.
 
-You PRs are always welcome.
+Your PRs are always welcome.
 
 ## How to reach us
 
