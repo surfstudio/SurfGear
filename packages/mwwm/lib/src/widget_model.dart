@@ -56,7 +56,7 @@ abstract class WidgetModel {
           .add(stream.listen(onValue, onError: onError?.call));
 
   /// subscribe for interactors with default handle error
-  StreamSubscription subscribeHandleError<T>(
+  StreamSubscription<T?> subscribeHandleError<T>(
     Stream<T> stream,
     void Function(T value) onValue, {
     void Function(Object error)? onError,
