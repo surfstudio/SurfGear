@@ -28,8 +28,8 @@ void main() {
 
     wm.bind<String?>(event, result.add);
 
-    await event.accept("wow");
-    await event.accept("rly");
+    await event.accept('wow');
+    await event.accept('rly');
 
     expect(result, equals(['wow', 'rly']));
   });
@@ -40,8 +40,8 @@ void main() {
 
       final result = <String?>[];
 
-      await Future.value("wow").on(wm).then(result.add);
-      await Future.value("rly").on(wm).then(result.add);
+      await Future.value('wow').on(wm).then(result.add);
+      await Future.value('rly').on(wm).then(result.add);
 
       expect(result, equals(['wow', 'rly']));
     });
@@ -51,16 +51,16 @@ void main() {
 
       final result = <String?>[];
 
-      await Future.value("wow").on(wm).then(result.add);
+      await Future.value('wow').on(wm).then(result.add);
 
       try {
-        await Future.error(Exception()).on(
+        await Future<void>.error(Exception()).on(
           wm,
           onError: (e) {
             result.add('rly');
           },
         );
-      } catch (e) {
+      } on Exception catch (e) {
         expect(result, equals(['wow', 'rly']));
       }
     });
@@ -100,7 +100,7 @@ void main() {
       final result = state.map((element) => element.toUpperCase());
       await state.accept(EntityState(data: 'initial'));
 
-      expect(result.value!.data, equals("initial".toUpperCase()));
+      expect(result.value!.data, equals('initial'.toUpperCase()));
     },
   );
 
@@ -114,7 +114,7 @@ void main() {
       final result = state.map((element) => element.toUpperCase());
       await result.accept(EntityState(data: 'initial'));
 
-      expect(result.value!.data, equals("initial".toUpperCase()));
+      expect(result.value!.data, equals('initial'.toUpperCase()));
     },
     skip: true,
   );
@@ -180,7 +180,7 @@ void main() {
   );
 
   test(
-    "Event listenCathError"
+    'Event listenCathError'
 
     /// fails somehow
     ,
@@ -212,6 +212,7 @@ void main() {
 
   group('StreamX', () {
     test('listenOn', () async {
+      // ignore: close_sinks
       final _controller = StreamController<String?>(sync: true);
       final stream = _controller.stream;
 
@@ -230,6 +231,7 @@ void main() {
     });
 
     test('listenCatchError', () async {
+      // ignore: close_sinks
       final _controller = StreamController<String?>(sync: true);
       final stream = _controller.stream;
 
