@@ -22,17 +22,6 @@ typedef WidgetStateBuilder = State Function();
 /// Base class for widgets that has [WidgetModel]
 /// and has dependencies in [Component]
 abstract class MwwmWidget<C extends Component> extends StatefulWidget {
-  /// A function that build dependencies for WidgetModel and Widget
-  final DependenciesBuilder<C> dependenciesBuilder;
-
-  /// Builder for [WidgetState]
-  final WidgetStateBuilder widgetStateBuilder;
-
-  /// Builder for [WidgetModel].
-  /// Typically is null because
-  /// WidgetModelBuilders set in the [WidgetModelFactory]
-  final WidgetModelBuilder widgetModelBuilder;
-
   const MwwmWidget({
     required this.dependenciesBuilder,
     required this.widgetStateBuilder,
@@ -42,6 +31,17 @@ abstract class MwwmWidget<C extends Component> extends StatefulWidget {
           key: key,
         );
 
+  /// A function that build dependencies for WidgetModel and Widget
+  final DependenciesBuilder<C> dependenciesBuilder;
+
+  /// Builder for [WidgetState]
+  final WidgetStateBuilder widgetStateBuilder;
+
+  /// Builder for [WidgetModel].
+  /// Typically is null because
+  /// WidgetModelBuilders set in the `WidgetModelFactory`
+  final WidgetModelBuilder widgetModelBuilder;
+
   @override
   _MwwmWidgetState createState() => _MwwmWidgetState<C>();
 }
@@ -49,8 +49,6 @@ abstract class MwwmWidget<C extends Component> extends StatefulWidget {
 /// Hidden widget that create [WidgetState]
 /// It's only proxy builder for [State]
 class _ProxyMwwmWidget extends CoreMwwmWidget {
-  final WidgetStateBuilder _wsBuilder;
-
   const _ProxyMwwmWidget({
     required WidgetStateBuilder widgetStateBuilder,
     required WidgetModelBuilder widgetModelBuilder,
@@ -61,7 +59,10 @@ class _ProxyMwwmWidget extends CoreMwwmWidget {
           widgetModelBuilder: widgetModelBuilder,
         );
 
+  final WidgetStateBuilder _wsBuilder;
+
   @override
+  // ignore: no_logic_in_create_state
   State<StatefulWidget> createState() => _wsBuilder();
 }
 
@@ -94,7 +95,9 @@ abstract class MwwmInheritedWidget<C extends Component>
     required DependenciesBuilder<C> dependenciesBuilder,
     required WidgetStateBuilder widgetStateBuilder,
     required WidgetModelBuilder widgetModelBuilder,
+    Key? key,
   }) : super(
+          key: key,
           child: Builder(
             builder: (context) => Injector<C>(
               component: dependenciesBuilder(context),
