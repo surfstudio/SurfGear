@@ -60,7 +60,7 @@ void main() {
             result.add('rly');
           },
         );
-      } on Exception catch (e) {
+      } on Exception catch (_) {
         expect(result, equals(['wow', 'rly']));
       }
     });
@@ -70,13 +70,13 @@ void main() {
 
       final expectedException = Exception('error');
 
-      final fetchSomething = () async {
+      Future fetchSomething() async {
         throw expectedException;
-      };
+      }
 
-      final onError = (error) {
+      Future<void> onError(Object error) async {
         errors.add(error);
-      };
+      }
 
       final wm = TestWM(
         baseDependencies: WidgetModelDependencies(
@@ -123,9 +123,7 @@ void main() {
     final event = StringEvent();
     final result = <String?>[];
 
-    event.bind((data) {
-      result.add(data);
-    });
+    event.bind(result.add);
 
     await event.accept('wow');
     await event.accept('rly');
@@ -139,9 +137,7 @@ void main() {
 
     final result = <String?>[];
 
-    event.listenOn(wm, onValue: (data) {
-      result.add(data);
-    });
+    event.listenOn(wm, onValue: result.add);
 
     await event.accept('wow');
     await event.accept('rly');
@@ -161,9 +157,7 @@ void main() {
 
       event.listenOn(
         wm,
-        onValue: (data) {
-          result.add(data);
-        },
+        onValue: result.add,
         onError: (error) {
           result.add('rly');
         },
@@ -172,7 +166,7 @@ void main() {
 
       try {
         await event.accept(throw Exception('error'));
-      } catch (e) {
+      } on Exception catch (_) {
         expect(result, equals(['wow', 'rly']));
       }
     },
@@ -192,9 +186,7 @@ void main() {
 
       event.listenCathError(
         wm,
-        onValue: (data) {
-          result.add(data);
-        },
+        onValue: result.add,
         onError: (error) {
           result.add('rly');
         },
@@ -203,7 +195,7 @@ void main() {
 
       try {
         await event.accept(throw Exception('error'));
-      } catch (e) {
+      } on Exception catch (_) {
         expect(result, equals(['wow', 'rly']));
       }
     },
@@ -220,12 +212,9 @@ void main() {
 
       final result = <String?>[];
 
-      stream.listenOn(wm, onValue: (value) {
-        result.add(value);
-      });
+      stream.listenOn(wm, onValue: result.add);
 
-      _controller.add('wow');
-      _controller.add('rly');
+      _controller..add('wow')..add('rly');
 
       expect(result, equals(['wow', 'rly']));
     });
@@ -239,14 +228,17 @@ void main() {
 
       final result = <String?>[];
 
-      stream.listenCatchError(wm, onValue: (value) {
-        result.add(value);
-      }, onError: (error) {
-        result.add('rly');
-      });
+      stream.listenCatchError(
+        wm,
+        onValue: result.add,
+        onError: (error) {
+          result.add('rly');
+        },
+      );
 
-      _controller.add('wow');
-      _controller.addError('error');
+      _controller
+        ..add('wow')
+        ..addError('error');
 
       expect(result, equals(['wow', 'rly']));
     });
@@ -277,15 +269,15 @@ void main() {
 }
 
 class TestComponent extends Component {
-  final String data;
-
   TestComponent(this.data);
+
+  final String data;
 }
 
 class TestErrorHandler extends ErrorHandler {
-  final void Function(Object e) onError;
-
   TestErrorHandler(this.onError);
+
+  final void Function(Object e) onError;
 
   @override
   void handleError(Object e) => onError(e);
@@ -309,7 +301,7 @@ class StringEvent extends Event<String> {
   @override
   Stream<String?> get stream => _controller.stream;
 
-  void dispose() async {
+  Future<void> dispose() async {
     await _controller.close();
   }
 }
