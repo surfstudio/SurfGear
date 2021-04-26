@@ -21,17 +21,16 @@ import 'package:flutter/widgets.dart';
 typedef KeyboardChangeListener = Function(bool isVisible);
 
 /// Keyboard display listener
-// ignore: prefer_mixin
-class KeyboardListener with WidgetsBindingObserver {
+class KeyboardListener extends WidgetsBindingObserver {
   KeyboardListener() {
     _init();
   }
 
-  static final Random _random = Random();
+  static final _random = Random();
 
-  final Map<String, KeyboardChangeListener> _changeListeners = {};
-  final Map<String, VoidCallback> _showListeners = {};
-  final Map<String, VoidCallback> _hideListeners = {};
+  final _changeListeners = <String, KeyboardChangeListener>{};
+  final _showListeners = <String, VoidCallback>{};
+  final _hideListeners = <String, VoidCallback>{};
 
   /// Collection of listeners for changing the state of the keyboard
   Map<String, KeyboardChangeListener> get changeListeners => _changeListeners;
@@ -43,11 +42,16 @@ class KeyboardListener with WidgetsBindingObserver {
   Map<String, VoidCallback> get hideListeners => _hideListeners;
 
   /// Getter values whether the keyboard is visible
-  bool get isVisibleKeyboard =>
-      WidgetsBinding.instance.window.viewInsets.bottom > 0;
+  bool get isVisibleKeyboard {
+    if (WidgetsBinding.instance == null) {
+      return false;
+    }
+
+    return WidgetsBinding.instance!.window.viewInsets.bottom > 0;
+  }
 
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance?.removeObserver(this);
     _changeListeners.clear();
     _showListeners.clear();
     _hideListeners.clear();
@@ -72,10 +76,10 @@ class KeyboardListener with WidgetsBindingObserver {
   /// [onHide] - callback to hide the keyboard
   ///
   String addListener({
-    String id,
-    KeyboardChangeListener onChange,
-    VoidCallback onShow,
-    VoidCallback onHide,
+    String? id,
+    KeyboardChangeListener? onChange,
+    VoidCallback? onShow,
+    VoidCallback? onHide,
   }) {
     assert(onChange != null || onShow != null || onHide != null);
     id ??= _generateId();
@@ -83,6 +87,7 @@ class KeyboardListener with WidgetsBindingObserver {
     if (onChange != null) _changeListeners[id] = onChange;
     if (onShow != null) _showListeners[id] = onShow;
     if (onHide != null) _hideListeners[id] = onHide;
+
     return id;
   }
 
@@ -130,7 +135,7 @@ class KeyboardListener with WidgetsBindingObserver {
   }
 
   void _init() {
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance?.addObserver(this);
   }
 
   void _listener() {
@@ -158,19 +163,19 @@ class KeyboardListener with WidgetsBindingObserver {
   }
 
   void _onChange(bool isOpen) {
-    for (final KeyboardChangeListener listener in _changeListeners.values) {
+    for (final listener in _changeListeners.values) {
       listener(isOpen);
     }
   }
 
   void _onShow() {
-    for (final VoidCallback listener in _showListeners.values) {
+    for (final listener in _showListeners.values) {
       listener();
     }
   }
 
   void _onHide() {
-    for (final VoidCallback listener in _hideListeners.values) {
+    for (final listener in _hideListeners.values) {
       listener();
     }
   }
