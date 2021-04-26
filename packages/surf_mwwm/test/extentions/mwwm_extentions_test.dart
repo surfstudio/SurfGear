@@ -20,7 +20,7 @@ import 'package:surf_injector/surf_injector.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
 void main() {
-  testWidgets('SurfMwwmExtension bind', (tester) async {
+  test('SurfMwwmExtension bind', () async {
     final wm = TestWM();
     final event = StringEvent();
 
@@ -92,115 +92,33 @@ void main() {
     });
   });
 
-  test(
-    'EntityExt map',
-    () async {
-      final state = EntityStreamedState<String>();
+  group('Event', () {
+    test('bind', () async {
+      final event = StringEvent();
+      final result = <String?>[];
 
-      final result = state.map((element) => element.toUpperCase());
-      await state.accept(EntityState(data: 'initial'));
+      event.bind(result.add);
 
-      expect(result.value!.data, equals('initial'.toUpperCase()));
-    },
-  );
+      await event.accept('wow');
+      await event.accept('rly');
 
-  test(
-    'EntityExt map should fail',
+      expect(result, equals(['wow', 'rly']));
+    });
 
-    /// because of [StreamedState.from]
-    () async {
-      final state = EntityStreamedState<String>();
-
-      final result = state.map((element) => element.toUpperCase());
-      await result.accept(EntityState(data: 'initial'));
-
-      expect(result.value!.data, equals('initial'.toUpperCase()));
-    },
-    skip: true,
-  );
-
-  test('Event bind', () async {
-    final event = StringEvent();
-    final result = <String?>[];
-
-    event.bind(result.add);
-
-    await event.accept('wow');
-    await event.accept('rly');
-
-    expect(result, equals(['wow', 'rly']));
-  });
-
-  test('Event listenOn', () async {
-    final wm = TestWM();
-    final event = StringEvent();
-
-    final result = <String?>[];
-
-    event.listenOn(wm, onValue: result.add);
-
-    await event.accept('wow');
-    await event.accept('rly');
-
-    expect(result, equals(['wow', 'rly']));
-  });
-
-  test(
-    'Event listenOn with error',
-
-    /// fails somehow
-    () async {
+    test('listenOn', () async {
       final wm = TestWM();
       final event = StringEvent();
 
       final result = <String?>[];
 
-      event.listenOn(
-        wm,
-        onValue: result.add,
-        onError: (error) {
-          result.add('rly');
-        },
-      );
+      event.listenOn(wm, onValue: result.add);
+
       await event.accept('wow');
+      await event.accept('rly');
 
-      try {
-        await event.accept(throw Exception('error'));
-      } on Exception catch (_) {
-        expect(result, equals(['wow', 'rly']));
-      }
-    },
-    skip: true,
-  );
-
-  test(
-    'Event listenCathError'
-
-    /// fails somehow
-    ,
-    () async {
-      final wm = TestWM();
-      final event = StringEvent();
-
-      final result = <String?>[];
-
-      event.listenCathError(
-        wm,
-        onValue: result.add,
-        onError: (error) {
-          result.add('rly');
-        },
-      );
-      await event.accept('wow');
-
-      try {
-        await event.accept(throw Exception('error'));
-      } on Exception catch (_) {
-        expect(result, equals(['wow', 'rly']));
-      }
-    },
-    skip: true,
-  );
+      expect(result, equals(['wow', 'rly']));
+    });
+  });
 
   group('StreamX', () {
     test('listenOn', () async {
