@@ -47,19 +47,19 @@ abstract class WidgetModel {
   void onBind() {}
 
   /// subscribe for interactors
-  StreamSubscription subscribe<T>(
-    Stream<T> stream,
-    void Function(T t) onValue, {
-    void Function(Object e)? onError,
+  StreamSubscription<T?> subscribe<T>(
+    Stream<T?> stream,
+    void Function(T? value) onValue, {
+    void Function(Object error)? onError,
   }) =>
       _compositeSubscription
-          .add<T>(stream.listen(onValue, onError: onError?.call));
+          .add(stream.listen(onValue, onError: onError?.call));
 
   /// subscribe for interactors with default handle error
-  StreamSubscription subscribeHandleError<T>(
+  StreamSubscription<T?> subscribeHandleError<T>(
     Stream<T> stream,
-    void Function(T t) onValue, {
-    void Function(Object e)? onError,
+    void Function(T value) onValue, {
+    void Function(Object error)? onError,
   }) {
     // ignore: avoid_types_on_closure_parameters
     final subscription = stream.listen(onValue, onError: (Object e) {
@@ -74,8 +74,8 @@ abstract class WidgetModel {
   /// Using Rx wrappers with [subscribe] method is preferable.
   void doFuture<T>(
     Future<T> future,
-    void Function(T) onValue, {
-    void Function(Object)? onError,
+    void Function(T value) onValue, {
+    void Function(Object error)? onError,
   }) {
     // ignore: avoid_types_on_closure_parameters
     future.then(onValue).catchError((Object e) {
@@ -86,8 +86,8 @@ abstract class WidgetModel {
   /// Call a future with default error handling
   void doFutureHandleError<T>(
     Future<T> future,
-    void Function(T) onValue, {
-    void Function(Object)? onError,
+    void Function(T value) onValue, {
+    void Function(Object error)? onError,
   }) {
     // ignore: avoid_types_on_closure_parameters
     future.then(onValue).catchError((Object e) {
