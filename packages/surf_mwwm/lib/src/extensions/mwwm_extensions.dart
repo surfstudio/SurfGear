@@ -69,16 +69,6 @@ extension FutureExt<T> on Future<T> {
 }
 
 extension EventExt<T> on Event<T> {
-  /// Do function on action triggered
-  Event<T> doOnData(void Function(T?) action) {
-    return this..stream.doOnData(action);
-  }
-
-  /// Do something on each event on stream
-  Event<T> doEventOnData(Event<T?> event) {
-    return this..stream.doOnData(event.accept);
-  }
-
   /// Bind one event to another
   Event<T> bind(void Function(T?) onData) {
     stream.doOnData(
