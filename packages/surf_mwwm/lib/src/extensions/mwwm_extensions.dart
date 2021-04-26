@@ -132,21 +132,21 @@ extension EventExt<T> on Event<T> {
 
 extension StreamX<T> on Stream<T> {
   /// Listen on specifited listener with possibility to add callbacks
-  void listenOn(
+  StreamSubscription<T?> listenOn(
     WidgetModel listener, {
-    required void Function(T?) onValue,
-    void Function(dynamic e)? onError,
+    required void Function(T? value) onValue,
+    void Function(dynamic error)? onError,
   }) {
-    listener.subscribe<T>(this, onValue, onError: onError);
+    return listener.subscribe<T>(this, onValue, onError: onError);
   }
 
   /// Listen on WM with error catching
-  void listenCatchError(
+  StreamSubscription<T?> listenCatchError(
     WidgetModel listener, {
-    required void Function(T?) onValue,
-    void Function(dynamic e)? onError,
+    required void Function(T? value) onValue,
+    void Function(dynamic error)? onError,
   }) {
-    listener.subscribeHandleError<T>(this, onValue, onError: onError);
+    return listener.subscribeHandleError<T>(this, onValue, onError: onError);
   }
 }
 
