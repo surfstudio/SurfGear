@@ -45,7 +45,7 @@ extension FutureExt<T> on Future<T> {
     final completer = Completer<T>();
     listener.doFuture<T>(
       this,
-      (data) => completer.complete,
+      completer.complete,
       onError: (e) {
         onError?.call(e);
         completer.completeError(e);
@@ -60,8 +60,8 @@ extension FutureExt<T> on Future<T> {
     final completer = Completer<T>();
     listener.doFutureHandleError<T>(
       this,
-      (data) => completer.complete,
-      onError: (e) => completer.completeError,
+      completer.complete,
+      onError: completer.completeError,
     );
 
     return completer.future;
