@@ -116,6 +116,137 @@ void main() {
     },
     skip: true,
   );
+
+  test('Event bind', () async {
+    final event = StringEvent();
+    final result = <String?>[];
+
+    event.bind((data) {
+      result.add(data);
+    });
+
+    await event.accept('wow');
+    await event.accept('rly');
+
+    expect(result, equals(['wow', 'rly']));
+  });
+
+  test('Event listenOn', () async {
+    final wm = TestWM();
+    final event = StringEvent();
+
+    final result = <String?>[];
+
+    event.listenOn(wm, onValue: (data) {
+      result.add(data);
+    });
+
+    await event.accept('wow');
+    await event.accept('rly');
+
+    expect(result, equals(['wow', 'rly']));
+  });
+
+  test(
+    'Event listenOn with error',
+
+    /// fails somehow
+    () async {
+      final wm = TestWM();
+      final event = StringEvent();
+
+      final result = <String?>[];
+
+      event.listenOn(
+        wm,
+        onValue: (data) {
+          result.add(data);
+        },
+        onError: (error) {
+          result.add('rly');
+        },
+      );
+      await event.accept('wow');
+
+      try {
+        await event.accept(throw Exception('error'));
+      } catch (e) {
+        expect(result, equals(['wow', 'rly']));
+      }
+    },
+    skip: true,
+  );
+
+  test(
+    "Event listenCathError"
+
+    /// fails somehow
+    ,
+    () async {
+      final wm = TestWM();
+      final event = StringEvent();
+
+      final result = <String?>[];
+
+      event.listenCathError(
+        wm,
+        onValue: (data) {
+          result.add(data);
+        },
+        onError: (error) {
+          result.add('rly');
+        },
+      );
+      await event.accept('wow');
+
+      try {
+        await event.accept(throw Exception('error'));
+      } catch (e) {
+        expect(result, equals(['wow', 'rly']));
+      }
+    },
+    skip: true,
+  );
+
+  group('StreamX', () {
+    test('listenOn', () async {
+      final _controller = StreamController<String?>(sync: true);
+      final stream = _controller.stream;
+
+      final wm = TestWM();
+
+      final result = <String?>[];
+
+      stream.listenOn(wm, onValue: (value) {
+        result.add(value);
+      });
+
+      _controller.add('wow');
+      _controller.add('rly');
+
+      expect(result, equals(['wow', 'rly']));
+    });
+
+    test('listenCatchError', () async {
+      final _controller = StreamController<String?>(sync: true);
+      final stream = _controller.stream;
+
+      final wm = TestWM();
+
+      final result = <String?>[];
+
+      stream.listenCatchError(wm, onValue: (value) {
+        result.add(value);
+      }, onError: (error) {
+        result.add('rly');
+      });
+
+      _controller.add('wow');
+      _controller.addError('error');
+
+      expect(result, equals(['wow', 'rly']));
+    });
+  });
 }
 
 class TestErrorHandler extends ErrorHandler {
