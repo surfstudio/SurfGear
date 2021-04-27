@@ -1,3 +1,2 @@
-dependency_validator:
-  exclude:
-    - "example/**"
+exclude:
+  - "example/**"
