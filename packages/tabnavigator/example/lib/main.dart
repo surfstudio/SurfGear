@@ -191,8 +191,9 @@ class AppTab extends TabType {
       case 1:
         return colors;
       case 2:
-      default:
         return info;
+      default:
+        throw Exception('no tab for such value');
     }
   }
 }
