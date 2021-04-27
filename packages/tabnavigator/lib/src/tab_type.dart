@@ -21,9 +21,9 @@ abstract class TabType {
 
   static const int emptyValue = -1;
 
-  static const _values = <TabType>[];
+  static final _values = <TabType>[];
 
-  Iterable<TabType> get values => _values;
+  static Iterable<TabType> get values => _values;
 
   static void append(TabType newTab) {
     _values.add(newTab);
