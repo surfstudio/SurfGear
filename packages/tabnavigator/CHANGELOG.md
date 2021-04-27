@@ -3,6 +3,8 @@
 ## 1.0.0
 
 * Migrate this package to null safety.
+* Add example.
+* Add tests.
 
 ## 0.0.1-dev.8
 
