@@ -34,33 +34,29 @@ Widget _defaultTransitionBuilder(
 /// Implementation of tab navigation
 class TabNavigator extends StatefulWidget {
   const TabNavigator({
-    @required this.mappedTabs,
-    @required this.selectedTabStream,
-    @required this.initialTab,
-    Key key,
+    required this.mappedTabs,
+    required this.selectedTabStream,
+    required this.initialTab,
+    Key? key,
     this.onActiveTabReopened,
     this.observersBuilder,
-    RouteTransitionsBuilder transitionsBuilder,
+    this.transitionsBuilder = _defaultTransitionBuilder,
     this.transitionDuration = const Duration(milliseconds: 300),
     this.onGenerateRoute,
-  })  : assert(mappedTabs != null),
-        assert(selectedTabStream != null),
-        assert(initialTab != null),
-        transitionsBuilder = transitionsBuilder ?? _defaultTransitionBuilder,
-        super(key: key);
+  }) : super(key: key);
 
   final Map<TabType, TabBuilder> mappedTabs;
   final Stream<TabType> selectedTabStream;
   final TabType initialTab;
-  final void Function(BuildContext, TabType) onActiveTabReopened;
-  final ObserversBuilder observersBuilder;
+  final void Function(BuildContext, TabType)? onActiveTabReopened;
+  final ObserversBuilder? observersBuilder;
   final RouteTransitionsBuilder transitionsBuilder;
   final Duration transitionDuration;
-  final RouteFactory onGenerateRoute;
+  final RouteFactory? onGenerateRoute;
 
   static TabNavigatorState of(BuildContext context) {
     final Type type = _typeOf<TabNavigatorState>();
-    TabNavigatorState tabNavigator;
+    TabNavigatorState? tabNavigator;
     tabNavigator = context.findAncestorStateOfType<TabNavigatorState>();
     if (tabNavigator == null) {
       throw Exception(
@@ -79,7 +75,7 @@ class TabNavigatorState extends State<TabNavigator> {
   final List<TabType> _initializedTabs = [];
   final Map<TabType, GlobalKey<NavigatorState>> mappedNavKeys = {};
   final TabObserver tabObserver = TabObserver();
-  ValueNotifier<TabType> _activeTab;
+  late ValueNotifier<TabType> _activeTab;
 
   @override
   void initState() {
@@ -110,10 +106,10 @@ class TabNavigatorState extends State<TabNavigator> {
       stream: widget.selectedTabStream,
       initialData: widget.initialTab,
       builder: (context, snapshot) {
-        if (snapshot.connectionState != ConnectionState.active) {
+        if (snapshot.data == null) {
           return const SizedBox();
         }
-        final TabType tabType = snapshot.data;
+        final TabType tabType = snapshot.data!;
         if (tabType.value != TabType.emptyValue &&
             !_initializedTabs.contains(tabType)) {
           _initializedTabs.add(tabType);
@@ -144,8 +140,7 @@ class TabNavigatorState extends State<TabNavigator> {
     return [
       for (TabType tabType in _initializedTabs)
         WillPopScope(
-          onWillPop: () async =>
-              !await mappedNavKeys[tabType].currentState.maybePop(),
+          onWillPop: () => _willPop(tabType),
           child: Offstage(
             key: ValueKey(tabType.value),
             offstage: tabType != selectedTab,
@@ -154,7 +149,7 @@ class TabNavigatorState extends State<TabNavigator> {
               child: Navigator(
                 key: mappedNavKeys[tabType],
                 observers: widget.observersBuilder != null
-                    ? widget.observersBuilder(tabType)
+                    ? widget.observersBuilder!(tabType)
                     : [],
                 onGenerateRoute: (rs) => rs.name == Navigator.defaultRouteName
                     ? PageRouteBuilder<Object>(
@@ -168,7 +163,7 @@ class TabNavigatorState extends State<TabNavigator> {
                           animation,
                           secondaryAnimation,
                         ) {
-                          return widget.mappedTabs[tabType]();
+                          return widget.mappedTabs[tabType]!();
                         },
                       )
                     : widget.onGenerateRoute?.call(rs),
@@ -177,5 +172,11 @@ class TabNavigatorState extends State<TabNavigator> {
           ),
         ),
     ];
+  }
+
+  Future<bool> _willPop(TabType tabType) async {
+    final Future<bool> maybePop =
+        mappedNavKeys[tabType]?.currentState?.maybePop() ?? Future.value(false);
+    return !(await maybePop);
   }
 }

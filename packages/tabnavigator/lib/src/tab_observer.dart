@@ -14,22 +14,23 @@
 
 import 'dart:async';
 
+import 'package:tabnavigator/src/tab_state.dart';
 import 'package:tabnavigator/tabnavigator.dart';
 
 class TabObserver {
-  final Map<TabType, StreamController<TabState>> _tabControllers = {};
+  final _tabControllers = <TabType, StreamController<TabState>>{};
 
-  Stream observeShowTab(TabType type) => _tabControllers[type]
+  Stream? observeShowTab(TabType type) => _tabControllers[type]
       ?.stream
-      ?.where((lifecycleState) => lifecycleState == TabState.show);
+      .where((lifecycleState) => lifecycleState == TabState.show);
 
-  Stream observeHideTab(TabType type) => _tabControllers[type]
+  Stream? observeHideTab(TabType type) => _tabControllers[type]
       ?.stream
-      ?.where((lifecycleState) => lifecycleState == TabState.hidden);
+      .where((lifecycleState) => lifecycleState == TabState.hidden);
 
-  Stream observeDoubleTap(TabType type) => _tabControllers[type]
+  Stream? observeDoubleTap(TabType type) => _tabControllers[type]
       ?.stream
-      ?.where((state) => state == TabState.doubleTapped);
+      .where((state) => state == TabState.doubleTapped);
 
   void toggleActiveTab(TabType activeTab) {
     _tabControllers.forEach((type, controller) {
@@ -54,7 +55,9 @@ class TabObserver {
     _tabControllers[tabType]?.add(TabState.doubleTapped);
   }
 
-  void dispose() {
-    _tabControllers.forEach((_, c) => c.close);
+  Future<void> dispose() async {
+    for (final controller in _tabControllers.values) {
+      await controller.close();
+    }
   }
 }
