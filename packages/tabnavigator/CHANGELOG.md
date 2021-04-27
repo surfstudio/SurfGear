@@ -2,8 +2,6 @@
 
 ## 1.0.0
 
-* Add example.
-* Add tests.
 * Migrated to null safety, min SDK is `2.12.0`.
 
 ## 0.0.1-dev.8
