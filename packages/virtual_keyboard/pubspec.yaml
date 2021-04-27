@@ -1,21 +1,21 @@
 name: virtual_keyboard
-version: "0.0.1-dev.4"
+version: "1.0.0"
 description: Keyboard widget for use in widget tree
 repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/virtual_keyboard"
+issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 publish_to: none
 
 dependencies:
   flutter:
     sdk: flutter
-  ink_widget: "^1.0.0-dev.0"
-  surf_lint_rules: "^0.0.1-dev.0"
+
+  ink_widget: ^2.0.0
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  surf_lint_rules: ^1.0.0
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 flutter:
 
