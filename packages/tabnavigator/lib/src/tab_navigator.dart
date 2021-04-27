@@ -40,11 +40,10 @@ class TabNavigator extends StatefulWidget {
     Key? key,
     this.onActiveTabReopened,
     this.observersBuilder,
-    RouteTransitionsBuilder? transitionsBuilder,
+    this.transitionsBuilder = _defaultTransitionBuilder,
     this.transitionDuration = const Duration(milliseconds: 300),
     this.onGenerateRoute,
-  })  : transitionsBuilder = transitionsBuilder ?? _defaultTransitionBuilder,
-        super(key: key);
+  }) : super(key: key);
 
   final Map<TabType, TabBuilder> mappedTabs;
   final Stream<TabType> selectedTabStream;
@@ -114,7 +113,8 @@ class TabNavigatorState extends State<TabNavigator> {
           return const SizedBox();
         }
         final TabType tabType = snapshot.data!;
-        if (tabType.value != TabType.emptyValue && !_initializedTabs.contains(tabType)) {
+        if (tabType.value != TabType.emptyValue &&
+            !_initializedTabs.contains(tabType)) {
           _initializedTabs.add(tabType);
           tabObserver.addTab(tabType);
         }
@@ -152,7 +152,7 @@ class TabNavigatorState extends State<TabNavigator> {
               child: Navigator(
                 key: mappedNavKeys[tabType],
                 observers: widget.observersBuilder != null
-                    ? widget.observersBuilder(tabType)
+                    ? widget.observersBuilder!(tabType)
                     : [],
                 onGenerateRoute: (rs) => rs.name == Navigator.defaultRouteName
                     ? PageRouteBuilder<Object>(
@@ -166,7 +166,7 @@ class TabNavigatorState extends State<TabNavigator> {
                           animation,
                           secondaryAnimation,
                         ) {
-                          return widget.mappedTabs[tabType]();
+                          return widget.mappedTabs[tabType]!();
                         },
                       )
                     : widget.onGenerateRoute?.call(rs),
