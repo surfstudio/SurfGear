@@ -24,8 +24,8 @@ typedef KeyboardPressCallback = void Function(VirtualKeyboardKey keyboardKey);
 
 class VirtualKeyboardWidget extends StatefulWidget {
   const VirtualKeyboardWidget({
-    @required this.keyboardKeys,
-    Key key,
+    required this.keyboardKeys,
+    Key? key,
     this.buttonWidth,
     this.buttonHeight,
     this.onPressKey,
@@ -37,19 +37,19 @@ class VirtualKeyboardWidget extends StatefulWidget {
   final List<List<VirtualKeyboardKey>> keyboardKeys;
 
   /// Button Width
-  final double buttonWidth;
+  final double? buttonWidth;
 
   /// Button height
-  final double buttonHeight;
+  final double? buttonHeight;
 
   /// Callback button click
-  final KeyboardPressCallback onPressKey;
+  final KeyboardPressCallback? onPressKey;
 
   /// Button text textStyle
-  final TextStyle keyTextStyle;
+  final TextStyle? keyTextStyle;
 
   /// Effect of pressing a button
-  final VirtualKeyboardEffect virtualKeyboardEffect;
+  final VirtualKeyboardEffect? virtualKeyboardEffect;
 
   @override
   State<StatefulWidget> createState() {
@@ -58,12 +58,9 @@ class VirtualKeyboardWidget extends StatefulWidget {
 }
 
 class _VirtualKeyboardWidgetState extends State<VirtualKeyboardWidget> {
-  List<List<VirtualKeyboardKey>> get _keyboardKeys => widget.keyboardKeys;
-
-  final double _buttonSizeDefault = 36;
+  static const double _buttonSizeDefault = 36;
 
   double get _buttonWidth => widget.buttonWidth ?? _buttonSizeDefault;
-
   double get _buttonHeight => widget.buttonHeight ?? _buttonSizeDefault;
 
   @override
@@ -72,22 +69,19 @@ class _VirtualKeyboardWidgetState extends State<VirtualKeyboardWidget> {
       type: MaterialType.transparency,
       child: Table(
         children: [
-          for (List<VirtualKeyboardKey> line in _keyboardKeys) _buildLine(line),
+          for (final line in widget.keyboardKeys)
+            TableRow(
+              children: [
+                for (final keyboardKey in line) _buildKey(keyboardKey),
+              ],
+            ),
         ],
       ),
     );
   }
 
-  TableRow _buildLine(List<VirtualKeyboardKey> line) {
-    return TableRow(
-      children: [
-        for (VirtualKeyboardKey keyboardKey in line) _buildKey(keyboardKey),
-      ],
-    );
-  }
-
   Widget _buildKey(VirtualKeyboardKey keyboardKey) {
-    if (keyboardKey.isInstance<VirtualKeyboardEmptyStubKey>()) {
+    if (keyboardKey is VirtualKeyboardEmptyStubKey) {
       return const SizedBox.shrink();
     }
 
@@ -106,14 +100,13 @@ class _VirtualKeyboardWidgetState extends State<VirtualKeyboardWidget> {
   }
 
   Widget _buildValueKey(VirtualKeyboardKey keyboardKey) {
-    if (keyboardKey.widget != null) return keyboardKey.widget;
+    if (keyboardKey.widget != null) {
+      return keyboardKey.widget!;
+    }
 
-    if (keyboardKey.isInstance<VirtualKeyboardValueKey>()) {
-      return Text(
-        (keyboardKey as VirtualKeyboardValueKey).value,
-        style: widget.keyTextStyle,
-      );
-    } else if (keyboardKey.isInstance<VirtualKeyboardDeleteKey>()) {
+    if (keyboardKey is VirtualKeyboardValueKey) {
+      return Text(keyboardKey.value, style: widget.keyTextStyle);
+    } else if (keyboardKey is VirtualKeyboardDeleteKey) {
       return Text('delete', style: widget.keyTextStyle);
     } else {
       return const SizedBox.shrink();

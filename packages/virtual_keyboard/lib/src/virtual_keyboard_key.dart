@@ -14,48 +14,39 @@
 
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
-import 'package:virtual_keyboard/src/parser.dart';
+import 'package:flutter/widgets.dart';
 
 /// Keyboard key base class
 abstract class VirtualKeyboardKey {
-  VirtualKeyboardKey(
-    String id, {
-    this.widget,
-    bool useAsKey,
+  VirtualKeyboardKey({
+    required this.widget,
+    String? id,
+    bool? useAsKey,
     this.keyDecoration,
     this.inkShapeRipple,
     this.inkShapeBorder,
   })  : id = id ?? _r.nextDouble().toString(),
-        useAsKey = useAsKey ?? false,
-        assert(useAsKey == null || useAsKey != null && widget != null);
+        useAsKey = useAsKey ?? false;
 
-  static final Random _r = Random();
-
-  /// Is [instance] a subtype of [T]
-  static bool checkType<T extends VirtualKeyboardKey>(
-    VirtualKeyboardKey instance,
-  ) {
-    return instance is T;
-  }
+  static final _r = Random();
 
   /// id keys
   final String id;
 
   /// Widget for use in a key
-  final Widget widget;
+  final Widget? widget;
 
   /// Use Widget instead as a key
   final bool useAsKey;
 
   /// Key decoration
-  final BoxDecoration keyDecoration;
+  final BoxDecoration? keyDecoration;
 
   /// [ShapeDecoration] for InkWell Effect
-  final ShapeDecoration inkShapeRipple;
+  final ShapeDecoration? inkShapeRipple;
 
   /// [ShapeBorder] for InkWell
-  final ShapeBorder inkShapeBorder;
+  final ShapeBorder? inkShapeBorder;
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes , avoid_annotating_with_dynamic
@@ -66,25 +57,20 @@ abstract class VirtualKeyboardKey {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   int get hashCode => id.hashCode;
-
-  /// Type check
-  bool isInstance<T extends VirtualKeyboardKey>() {
-    return checkType<T>(this);
-  }
 }
 
 /// Keyboard key with value
 abstract class VirtualKeyboardValueKey extends VirtualKeyboardKey {
   VirtualKeyboardValueKey(
     this._value, {
-    String id,
-    Widget widget,
-    bool useAsKey,
-    BoxDecoration keyDecoration,
-    ShapeDecoration inkShapeRipple,
-    ShapeBorder inkShapeBorder,
+    String? id,
+    Widget? widget,
+    bool? useAsKey,
+    BoxDecoration? keyDecoration,
+    ShapeDecoration? inkShapeRipple,
+    ShapeBorder? inkShapeBorder,
   }) : super(
-          id,
+          id: id,
           widget: widget,
           useAsKey: useAsKey,
           keyDecoration: keyDecoration,
@@ -102,12 +88,12 @@ abstract class VirtualKeyboardValueKey extends VirtualKeyboardKey {
 class VirtualKeyboardNumberKey extends VirtualKeyboardValueKey {
   VirtualKeyboardNumberKey(
     String value, {
-    String id,
-    Widget widget,
-    bool useAsKey,
-    BoxDecoration keyDecoration,
-    ShapeDecoration inkShapeRipple,
-    ShapeBorder inkShapeBorder,
+    String? id,
+    Widget? widget,
+    bool? useAsKey,
+    BoxDecoration? keyDecoration,
+    ShapeDecoration? inkShapeRipple,
+    ShapeBorder? inkShapeBorder,
   }) : super(
           value,
           id: id,
@@ -118,29 +104,29 @@ class VirtualKeyboardNumberKey extends VirtualKeyboardValueKey {
           inkShapeBorder: inkShapeBorder,
         );
 
-  int _parsedVale;
+  int? _parsedVale;
 
   /// Get a numeric representation of the key value
-  int get number => _parsedVale ??= parseInt(value);
+  int? get number => _parsedVale ??= int.tryParse(value);
 }
 
 /// Blank dummy key
 class VirtualKeyboardEmptyStubKey extends VirtualKeyboardKey {
-  VirtualKeyboardEmptyStubKey({String id, Widget widget})
-      : super(id, widget: widget);
+  VirtualKeyboardEmptyStubKey({String? id, Widget? widget})
+      : super(id: id, widget: widget);
 }
 
 /// Delete key
 class VirtualKeyboardDeleteKey extends VirtualKeyboardKey {
   VirtualKeyboardDeleteKey({
-    String id,
-    Widget widget,
-    bool useAsKey,
-    BoxDecoration keyDecoration,
-    ShapeDecoration inkShapeRipple,
-    ShapeBorder inkShapeBorder,
+    String? id,
+    Widget? widget,
+    bool? useAsKey,
+    BoxDecoration? keyDecoration,
+    ShapeDecoration? inkShapeRipple,
+    ShapeBorder? inkShapeBorder,
   }) : super(
-          id ?? _defaultId,
+          id: id ?? _defaultId,
           widget: widget,
           useAsKey: useAsKey,
           keyDecoration: keyDecoration,
@@ -148,5 +134,5 @@ class VirtualKeyboardDeleteKey extends VirtualKeyboardKey {
           inkShapeBorder: inkShapeBorder,
         );
 
-  static const String _defaultId = 'delete';
+  static const _defaultId = 'delete';
 }
