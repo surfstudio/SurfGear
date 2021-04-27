@@ -12,8 +12,5 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter_test/flutter_test.dart';
-
-void main() {
-  test('adds one to input values', () {});
-}
+/// Plugin doesn't support platform
+class UnsupportedPlatform implements Exception {}

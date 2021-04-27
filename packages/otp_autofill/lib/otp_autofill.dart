@@ -12,11 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-typedef ExtractStringCallback = String Function(String);
-
-/// Strategy interface, another variant of code input
-/// e.g. from push notification or for testing
-// ignore: one_member_abstracts
-abstract class OTPStrategy {
-  Future<String> listenForCode();
-}
+export 'package:otp_autofill/src/base/exceptions.dart';
+export 'package:otp_autofill/src/base/strategy.dart';
+export 'package:otp_autofill/src/otp_interactor.dart';
+export 'package:otp_autofill/src/otp_text_edit_controller.dart';

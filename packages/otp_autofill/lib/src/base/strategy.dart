@@ -12,8 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter_test/flutter_test.dart';
+typedef ExtractStringCallback = String Function(String?);
 
-void main() {
-  test('adds one to input values', () {});
+/// Strategy interface, another variant of code input
+/// e.g. from push notification or for testing
+// ignore: one_member_abstracts
+abstract class OTPStrategy {
+  Future<String> listenForCode();
 }

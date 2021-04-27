@@ -23,7 +23,7 @@ main classes:
 
 usage:
 
-1. Create abstract class that should be able to reload data should implements [AutoReloader]
+1. Create abstract class that should be able to reload data should implement [AutoReloader]
 2. Apply mixin on a child (that implements [AutoReloader])
 3. override [autoReload]
 4. call [startAutoReload] for start and [cancelAutoReload] for dispose
@@ -66,7 +66,7 @@ For issues, file directly in the [main SurfGear repo](https://github.com/surfstu
 
 If you would like to contribute to the package (e.g. by improving the documentation, solving a bug or adding a cool new feature), please review our [contribution guide](../../CONTRIBUTING.md) first and send us your pull request.
 
-You PRs are always welcome.
+Your PRs are always welcome.
 
 ## How to reach us
 

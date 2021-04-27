@@ -8,10 +8,14 @@ coverage:
         flags: auto_reload
       bottom_sheet:
         flags: bottom_sheet
+      datalist:
+        flags: datalist
       ink_widget:
         flags: ink_widget
       mwwm:
         flags: mwwm
+      otp_autofill:
+        flags: otp_autofill
       relation:
         flags: relation
       render_metrics:
@@ -32,6 +36,10 @@ flags:
     paths:
       - packages/bottom_sheet/
     carryforward: true
+  datalist:
+    paths:
+      - packages/datalist/
+    carryforward: true
   ink_widget:
     paths:
       - packages/ink_widget/
@@ -39,6 +47,10 @@ flags:
   mwwm:
     paths:
       - packages/mwwm/
+    carryforward: true
+  otp_autofill:
+    paths:
+      - packages/otp_autofill/
     carryforward: true
   relation:
     paths:
