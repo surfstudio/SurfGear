@@ -5,12 +5,10 @@ import 'package:surf_controllers/surf_controllers.dart';
 class DialogBuilder<T extends DialogData> {
   DialogBuilder(this.builder);
 
-  final Widget Function(BuildContext context, {T data}) builder;
+  final Widget Function(BuildContext context, {required T data}) builder;
 
-  Widget call(BuildContext context, {T data}) => builder(
-        context,
-        data: data,
-      );
+  Widget call(BuildContext context, {required T data}) =>
+      builder(context, data: data);
 }
 
 /// Register dialogs

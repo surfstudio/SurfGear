@@ -1,39 +1,37 @@
 import 'package:surf_controllers/surf_controllers.dart';
 import 'package:flutter/material.dart';
 
-typedef SnackBarBuilder = Widget Function(String text, SnackBarAction action);
+typedef SnackBarBuilder = SnackBar Function(String, SnackBarAction?);
 
 class DefaultMessageController implements MessageController {
-  DefaultMessageController(this._scaffoldKey)
-      : assert(_scaffoldKey != null),
-        _context = null;
+  DefaultMessageController(GlobalKey<ScaffoldState> scaffoldKey)
+      : _scaffoldKey = scaffoldKey;
 
-  DefaultMessageController.from(this._context)
-      : assert(_context != null),
-        _scaffoldKey = null;
+  DefaultMessageController.from(BuildContext context) : _context = context;
 
-  final BuildContext _context;
-  final GlobalKey<ScaffoldState> _scaffoldKey;
+  BuildContext? _context;
+  GlobalKey<ScaffoldState>? _scaffoldKey;
 
-  final Map<MsgType, SnackBarBuilder> _defaultSnackBarBuilder = {
+  final _defaultSnackBarBuilder = <MsgType, SnackBarBuilder>{
     MsgType.common: (text, action) => _defaultSnackBar(text, action: action),
-    MsgType.error: (text, action) => _defaultSnackBar(text, hasError: true, action: action),
+    MsgType.error: (text, action) =>
+        _defaultSnackBar(text, hasError: true, action: action),
   };
 
-  ScaffoldState get _scaffoldState => _scaffoldKey?.currentState ?? Scaffold.of(_context);
+  ScaffoldState get _scaffoldState =>
+      _scaffoldKey?.currentState ?? Scaffold.of(_context!);
 
   @override
-  show({
-    String msg,
-    Object msgType = MsgType.common,
-  }) {
-    assert(msg != null && msgType != null);
-
-    _show(msg: msg, type: msgType);
+  void show({String? msg, Object? msgType}) {
+    _show(type: msgType is MsgType ? msgType : MsgType.common, msg: msg ?? '');
   }
 
-  void _show({String msg, MsgType type, SnackBarAction action}) {
-    _showBottomSnack(_defaultSnackBarBuilder[type](msg, action));
+  void _show(
+      {required MsgType type, required String msg, SnackBarAction? action}) {
+    final builder = _defaultSnackBarBuilder[type];
+    if (builder != null) {
+      _showBottomSnack(builder(msg, action));
+    }
   }
 
   void _showBottomSnack(SnackBar snack) {
@@ -42,10 +40,10 @@ class DefaultMessageController implements MessageController {
       ..showSnackBar(snack);
   }
 
-  static Widget _defaultSnackBar(
+  static SnackBar _defaultSnackBar(
     String text, {
     bool hasError = false,
-    SnackBarAction action,
+    SnackBarAction? action,
   }) {
     return SnackBar(
       content: Text(text),

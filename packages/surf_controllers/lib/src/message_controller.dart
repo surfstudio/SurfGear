@@ -13,8 +13,10 @@
 // limitations under the License.
 
 /// Controller for call messages
+// ignore: one_member_abstracts
 abstract class MessageController {
-  /// Show msg according to msgType
-  /// msgType is defined on concrete widget(UI Layer)
-  dynamic show({String msg, Object msgType});
+  /// Show [msg] according to [msgType]
+  ///
+  /// [msgType] is defined on concrete widget(UI Layer)
+  dynamic show({String? msg, Object? msgType});
 }

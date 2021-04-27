@@ -16,7 +16,7 @@ import 'package:flutter/widgets.dart';
 
 /// Controller for call dialogs
 abstract class DialogController {
-  Future<R> showAlertDialog<R>({
+  Future<R?> showAlertDialog<R>({
     String title,
     String message,
     void Function(BuildContext context) onAgreeClicked,
@@ -25,13 +25,13 @@ abstract class DialogController {
 
   Future<R> showSheet<R>(
     Object type, {
+    required DialogData data,
     VoidCallback onDismiss,
-    DialogData data,
   });
 
-  Future<R> showModalSheet<R>(
+  Future<R?> showModalSheet<R>(
     Object type, {
-    DialogData data,
+    required DialogData data,
     bool isScrollControlled,
   });
 }
