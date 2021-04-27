@@ -16,12 +16,11 @@ import 'package:counter/main.dart';
 import 'package:counter/ui/screen/counter/counter_wm.dart';
 import 'package:counter/ui/screen/counter/di/counter.dart';
 import 'package:flutter/material.dart';
-import 'package:surf_injector/surf_injector.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
 /// Widget для экрана счетчика
 class CounterScreen extends MwwmWidget<CounterComponent> {
-  CounterScreen({Key key})
+  CounterScreen({Key? key})
       : super(
           key: key,
           dependenciesBuilder: (context) =>
@@ -49,7 +48,7 @@ class _CounterScreenState extends WidgetState<CounterWidgetModel> {
   }
 
   Widget _buildBody() {
-    return StreamBuilder<int>(
+    return StreamBuilder<int?>(
       stream: wm.counterState.stream,
       initialData: 0,
       builder: (context, snapshot) {

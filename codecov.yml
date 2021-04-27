@@ -22,6 +22,8 @@ coverage:
         flags: render_metrics
       surf_logger:
         flags: surf_logger
+      surf_mwwm:
+        flags: surf_mwwm
       surf_utils:
         flags: surf_utils
 
@@ -61,6 +63,10 @@ flags:
   surf_logger:
     paths:
       - packages/surf_logger/
+    carryforward: true
+  surf_mwwm:
+    paths:
+      - packages/surf_mwwm/
     carryforward: true
   surf_utils:
     paths:

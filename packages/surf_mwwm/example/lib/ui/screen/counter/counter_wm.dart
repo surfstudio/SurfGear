@@ -44,18 +44,21 @@ class CounterWidgetModel extends WidgetModel {
 
   void _listenToActions() {
     incrementAction.bind((_) {
-      counterState.accept(counterState.value + 1);
-    }).listenOn(this);
+      counterState.accept(counterState.value! + 1);
+    }).listenOn(
+      this,
+      onValue: (_) {},
+    );
 
     showInit.bind((_) {
-      _key.currentState.showSnackBar(
+      ScaffoldMessenger.of(_key.currentContext!).showSnackBar(
         const SnackBar(
           content: Text('init'),
         ),
       );
-    }).listenOn(this);
+    }).listenOn(this, onValue: (_) {});
 
-    counterState.stream.where((c) => c.isEven).skip(1).listenOn(
+    counterState.stream.where((c) => c!.isEven).skip(1).listenOn(
       this,
       onValue: (c) {
         navigator.push(

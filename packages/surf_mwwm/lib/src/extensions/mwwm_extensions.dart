@@ -23,77 +23,54 @@ import 'package:rxdart/rxdart.dart';
 /// Extensions for [WidgetModel]
 extension SurfMwwmExtension on WidgetModel {
   /// bind ui [Event]'s
-  void bind<T>(
+  StreamSubscription<T?> bind<T>(
     Event<T> event,
-    void Function(T t) onValue, {
-    void Function(dynamic e) onError,
+    void Function(T? value) onValue, {
+    void Function(Object error)? onError,
   }) =>
       subscribe<T>(event.stream, onValue, onError: onError);
 }
 
 extension FutureExt<T> on Future<T> {
   /// Do future on specified listener
-  Future<T> on(WidgetModel listener, {void Function(dynamic) onError}) {
-    Completer<T> _c = Completer();
-    listener.doFuture(
+  ///
+  /// ```dart
+  /// await Future.value("wow").on(wm).then(result.add);
+  /// await Future.value("rly").on(wm).then(result.add);
+  /// ```
+  Future<T> on(
+    WidgetModel listener, {
+    void Function(Object error)? onError,
+  }) {
+    final completer = Completer<T>();
+    listener.doFuture<T>(
       this,
-      (data) {
-        _c.complete(data);
+      completer.complete,
+      onError: (e) {
+        onError?.call(e);
+        completer.completeError(e);
       },
-      onError: onError,
     );
 
-    return _c.future;
+    return completer.future;
   }
 
   /// Do future with error catching on specified listener
   Future<T> withErrorHandling(WidgetModel listener) {
-    Completer<T> _c = Completer();
-    listener.doFutureHandleError(this, (data) {
-      _c.complete(data);
-    }, onError: (e) {
-      _c.completeError(e);
-    });
+    final completer = Completer<T>();
+    listener.doFutureHandleError<T>(
+      this,
+      completer.complete,
+      onError: completer.completeError,
+    );
 
-    return _c.future;
+    return completer.future;
   }
-}
-
-extension EntityExt<T> on EntityStreamedState<T> {
-  /// Map streamed state by specified function
-  EntityStreamedState<R> map<R>(R Function(T) mapper) =>
-      EntityStreamedState<R>.from(
-        this.stream.map(
-          (es) {
-            if (es.isLoading) {
-              return EntityState<R>.loading();
-            } else if (es.hasError) {
-              return EntityState<R>.error(es.error);
-            } else {
-              return EntityState.content(mapper(es.data));
-            }
-          },
-        ),
-      );
 }
 
 extension EventExt<T> on Event<T> {
-  /// Transform streamed event with soecified function
-  Event<R> map<R>(R Function(T) mapper) =>
-      StreamedState<R>.from(this.stream.map(mapper));
-
-  /// Do function on action triggered
-  Event<T> doOnData(void Function(T) action) {
-    return this..stream.doOnData(action);
-  }
-
-  /// Do something on each event on stream
-  Event<T> doEventOnData(Event<T> event) {
-    return this..stream.doOnData(event.accept);
-  }
-
   /// Bind one event to another
-  Event<T> bind(void Function(T) onData) {
+  Event<T> bind(void Function(T?) onData) {
     stream.doOnData(
       (t) {
         onData(t);
@@ -104,41 +81,35 @@ extension EventExt<T> on Event<T> {
   }
 
   /// Listen on specifited listener with possibility to add callbacks
-  void listenOn(
+  StreamSubscription<T?> listenOn(
     WidgetModel listener, {
-    void Function(T) onValue,
-    void Function(Exception) onError,
+    void Function(T? value)? onValue,
   }) {
-    listener.subscribe<T>(this.stream, onValue, onError: onError);
-  }
-
-  /// Listen on WM with error catching
-  void listenCathError(
-    WidgetModel listener, {
-    void Function(T) onValue,
-    void Function(Exception) onError,
-  }) {
-    this.stream.listenCatchError(listener, onValue: onValue, onError: onError);
+    return listener.subscribe<T>(stream, onValue ?? (_) {});
   }
 }
 
 extension StreamX<T> on Stream<T> {
   /// Listen on specifited listener with possibility to add callbacks
-  void listenOn(
+  StreamSubscription<T?> listenOn(
     WidgetModel listener, {
-    void Function(T) onValue,
-    void Function(Exception) onError,
+    void Function(T? value)? onValue,
+    void Function(Object error)? onError,
   }) {
-    listener.subscribe<T>(this, onValue, onError: onError);
+    return listener.subscribe<T>(this, onValue ?? (_) {}, onError: onError);
   }
 
   /// Listen on WM with error catching
-  void listenCatchError(
+  StreamSubscription<T?> listenCatchError(
     WidgetModel listener, {
-    void Function(T) onValue,
-    void Function(Exception) onError,
+    void Function(T? value)? onValue,
+    void Function(Object error)? onError,
   }) {
-    listener.subscribeHandleError<T>(this, onValue, onError: onError);
+    return listener.subscribeHandleError<T>(
+      this,
+      onValue ?? (_) {},
+      onError: onError,
+    );
   }
 }
 
