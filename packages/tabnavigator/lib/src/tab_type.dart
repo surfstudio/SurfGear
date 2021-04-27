@@ -21,7 +21,7 @@ abstract class TabType extends Enum<int> {
 
   static const emptyValue = -1;
 
-  static List<TabType> values = [];
+  static const values = <TabType>[];
 
   static void create(TabType newTab) {
     values.add(newTab);
