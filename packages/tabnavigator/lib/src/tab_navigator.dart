@@ -140,7 +140,7 @@ class TabNavigatorState extends State<TabNavigator> {
     return [
       for (TabType tabType in _initializedTabs)
         WillPopScope(
-          onWillPop: () => _isCanWillPop(tabType),
+          onWillPop: () => _willPop(tabType),
           child: Offstage(
             key: ValueKey(tabType.value),
             offstage: tabType != selectedTab,
@@ -174,7 +174,7 @@ class TabNavigatorState extends State<TabNavigator> {
     ];
   }
 
-  Future<bool> _isCanWillPop(TabType tabType) async {
+  Future<bool> _willPop(TabType tabType) async {
     final Future<bool> maybePop =
         mappedNavKeys[tabType]?.currentState?.maybePop() ?? Future.value(false);
     return !(await maybePop);
