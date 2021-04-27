@@ -36,8 +36,8 @@ class DefaultMessageController implements MessageController {
 
   void _showBottomSnack(SnackBar snack) {
     _scaffoldState
-      ..removeCurrentSnackBar()
-      ..showSnackBar(snack);
+      ..removeCurrentSnackBar() // ignore: deprecated_member_use
+      ..showSnackBar(snack); // ignore: deprecated_member_use
   }
 
   static SnackBar _defaultSnackBar(
