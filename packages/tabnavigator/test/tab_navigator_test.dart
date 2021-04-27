@@ -124,6 +124,120 @@ void main() {
         findsNothing,
       );
     });
+
+    testWidgets('deep navigation', (tester) async {
+      const _initTab = TestTab.first;
+
+      const _keys = [
+        Key('first'),
+        Key('second'),
+        Key('third'),
+      ];
+
+      final _map = <TestTab, TabBuilder>{
+        TestTab.first: () => Builder(builder: (context) {
+              return InkWell(
+                onTap: () {
+                  Navigator.of(context).push<void>(
+                    MaterialPageRoute(
+                      builder: (context) => Scaffold(
+                        body: Container(
+                          color: Colors.green,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                child: Container(color: Colors.white, key: _keys[0]),
+              );
+            }),
+        TestTab.second: () => Container(color: Colors.blue, key: _keys[1]),
+        TestTab.third: () => Container(color: Colors.red, key: _keys[2]),
+      };
+
+      Stream<TestTab> tabStream() => _tabController.stream;
+
+      final _widget = MaterialApp(
+        home: Scaffold(
+          body: TabNavigator(
+            initialTab: _initTab,
+            selectedTabStream: tabStream(),
+            mappedTabs: _map,
+          ),
+          bottomNavigationBar: StreamBuilder<TestTab>(
+            stream: tabStream(),
+            initialData: _initTab,
+            builder: (context, snapshot) {
+              return BottomNavigationBar(
+                items: const <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.feedback),
+                    label: 'Feed',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.color_lens),
+                    label: 'Colors',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.info),
+                    label: 'Info',
+                  ),
+                ],
+                currentIndex: snapshot.hasData ? snapshot.data!.value : 0,
+                onTap: (value) =>
+                    _tabController.sink.add(TestTab.byValue(value)),
+              );
+            },
+          ),
+        ),
+      );
+
+      await tester.pumpWidget(_widget);
+
+      // current tab is first with white color
+      expect(
+        find.descendant(
+          of: find.byType(TabNavigator),
+          matching: find.byKey(_keys[0]),
+        ),
+        findsWidgets,
+      );
+
+      expect(
+        find.byWidgetPredicate(
+            (widget) => widget is Container && widget.color == Colors.green),
+        findsNothing,
+      );
+
+      await tester.tap(find.byKey(_keys[0]));
+      await tester.pumpAndSettle();
+
+      // this means that we're at second screen of first tab
+      expect(
+        find.byWidgetPredicate(
+            (widget) => widget is Container && widget.color == Colors.green),
+        findsWidgets,
+      );
+
+      await tester.tap(find.byIcon(Icons.color_lens));
+      await tester.pumpAndSettle();
+
+      // current tab is second with blue color
+      expect(
+        find.descendant(
+          of: find.byType(TabNavigator),
+          matching: find.byKey(_keys[0]),
+        ),
+        findsNothing,
+      );
+      expect(
+        find.descendant(
+          of: find.byType(TabNavigator),
+          matching: find.byKey(_keys[1]),
+        ),
+        findsWidgets,
+      );
+    });
   });
 
   tearDown(() async {
@@ -136,9 +250,9 @@ class TestTab extends TabType {
 
   static const first = TestTab._(0);
   static const second = TestTab._(1);
-  static const third = TestTab._(3);
+  static const third = TestTab._(2);
 
-  static TestTab byType(int value) {
+  static TestTab byValue(int value) {
     switch (value) {
       case 0:
         return first;
