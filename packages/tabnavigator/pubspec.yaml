@@ -8,20 +8,15 @@ dependencies:
   flutter:
     sdk: flutter
 
-  surf_lint_rules: ^0.0.2-dev.2
-
-  surf_util:
-    git:
-      url: https://github.com/surfstudio/SurfGear
-      path: packages/surf_util
-      ref: feature/surf_util_null_safety
+  surf_util: ^1.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  surf_lint_rules: ^1.0.0
 
 environment:
-  sdk: ">=2.12.0-0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 flutter:
 
