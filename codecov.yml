@@ -26,6 +26,10 @@ coverage:
         flags: surf_mwwm
       surf_utils:
         flags: surf_utils
+      swipe_refresh:
+        flags: swipe_refresh
+      tabnavigator:
+        flags: tabnavigator
 
 flags:
   auto_reload:
@@ -71,4 +75,12 @@ flags:
   surf_utils:
     paths:
       - packages/surf_utils/
+    carryforward: true
+  swipe_refresh:
+    paths:
+      - packages/swipe_refresh/
+    carryforward: true
+  tabnavigator:
+    paths:
+      - packages/tabnavigator/
     carryforward: true
