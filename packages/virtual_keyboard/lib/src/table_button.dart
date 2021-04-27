@@ -29,7 +29,8 @@ class TableButton extends StatelessWidget {
     this.inkShapeBorder,
     VirtualKeyboardEffect? virtualKeyboardEffect,
     bool? useAsKey,
-  })  : virtualKeyboardEffect = virtualKeyboardEffect ?? VirtualKeyboardEffect.none,
+  })  : virtualKeyboardEffect =
+            virtualKeyboardEffect ?? VirtualKeyboardEffect.none,
         useAsKey = useAsKey ?? false,
         super(key: key);
 
