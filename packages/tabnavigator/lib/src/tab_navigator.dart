@@ -106,9 +106,6 @@ class TabNavigatorState extends State<TabNavigator> {
       stream: widget.selectedTabStream,
       initialData: widget.initialTab,
       builder: (context, snapshot) {
-        if (snapshot.connectionState != ConnectionState.active) {
-          return const SizedBox();
-        }
         if (snapshot.data == null) {
           return const SizedBox();
         }
