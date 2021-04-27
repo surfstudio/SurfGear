@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: google/dart:latest
+      image: surfstudio/flutter:latest
 
     defaults:
       run:
@@ -32,31 +32,29 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: dart pub get
+        run: flutter pub get
 
       - name: Run dependency validator
         run: |
-          dart pub global activate dependency_validator
-          dart pub global run dependency_validator:dependency_validator
+          flutter pub global activate dependency_validator
+          flutter pub global run dependency_validator:dependency_validator
 
       - name: Run analyzer
-        run: |
-          dart analyze --fatal-warnings --fatal-infos lib
-          dart analyze --fatal-warnings --fatal-infos test
+        run: flutter analyze --fatal-warnings --fatal-infos .
 
       - name: Run formatter
-        run: dart format --set-exit-if-changed .
+        run: flutter format --set-exit-if-changed .
 
       - name: Run tests
         env:
           CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
         if: success()
         run: |
-          dart pub run ../../tools/coverage/fake_test_generator.dart dart
-          dart test --coverage=coverage
-          dart pub global activate coverage
-          dart pub global run coverage:format_coverage --packages=.packages -i coverage -o coverage/lcov.info --lcov --report-on=lib
-          dart pub run ../../tools/coverage/patch_lcov.dart
+          flutter test --coverage
+          mv coverage/lcov.info coverage/lcov.base.info
+          flutter pub run ../../tools/coverage/fake_test_generator.dart
+          flutter test --coverage --merge-coverage test/fake_test.dart
+          flutter pub run ../../tools/coverage/patch_lcov.dart
           bash <(curl -s https://codecov.io/bash) -f coverage/lcov.info -F surf_mwwm
 
   package-analysis:
