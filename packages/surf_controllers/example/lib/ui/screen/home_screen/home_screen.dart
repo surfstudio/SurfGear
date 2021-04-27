@@ -6,14 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:surf_controllers/surf_controllers.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  DialogController _dialogController;
-  MessageController _messageController;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  late DialogController _dialogController;
+  late MessageController _messageController;
 
   @override
   void initState() {
@@ -33,17 +35,17 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FlatButton(
+            TextButton(
               onPressed: _showExampleDialog,
-              child: Text('Show example dialog'),
+              child: const Text('Show example dialog'),
             ),
-            FlatButton(
+            TextButton(
               onPressed: _showExampleMessage,
-              child: Text('Show message'),
+              child: const Text('Show message'),
             ),
-            FlatButton(
+            TextButton(
               onPressed: () => _showExampleMessage(MsgType.error),
-              child: Text('Show error message'),
+              child: const Text('Show error message'),
             ),
           ],
         ),
@@ -52,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showExampleDialog() {
-    _dialogController.showModalSheet(
+    _dialogController.showModalSheet<void>(
       ExampleDialogType.text,
       data: ExampleDialogData(
         title: 'Example title',

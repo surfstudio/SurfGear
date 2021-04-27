@@ -12,7 +12,5 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library surf_controllers;
-
-export 'src/message_controller.dart';
-export 'src/dialog_controller.dart';
+export 'package:surf_controllers/src/dialog_controller.dart';
+export 'package:surf_controllers/src/message_controller.dart';
