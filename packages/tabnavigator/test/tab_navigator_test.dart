@@ -18,7 +18,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:tabnavigator/tabnavigator.dart';
 
 void main() {
-  final _tabController = StreamController<TestTab>.broadcast(sync: true);
+  late StreamController<TestTab> _tabController;
+
+  setUp(() {
+    _tabController = StreamController<TestTab>.broadcast(sync: true);
+  });
 
   group('TabNavigator', () {
     testWidgets('smoke test', (tester) async {
