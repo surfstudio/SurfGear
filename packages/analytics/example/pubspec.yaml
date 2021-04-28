@@ -5,7 +5,7 @@ version: 1.0.0+1
 
 dependencies:
   analytics:
-    path: ..
+    path: ../
   firebase_analytics: ^8.0.2
   firebase_core: ^1.1.0
   flutter:
