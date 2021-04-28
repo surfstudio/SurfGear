@@ -13,8 +13,7 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
-
-import '../domain/message.dart';
+import 'package:push_demo/domain/message.dart';
 
 const String androidMipMapIcon = '@mipmap/ic_launcher';
 
