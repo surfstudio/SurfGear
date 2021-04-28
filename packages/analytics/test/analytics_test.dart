@@ -12,10 +12,53 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
+import 'package:analytics/core/analytic_action.dart';
+import 'package:analytics/core/analytic_action_performer.dart';
+import 'package:analytics/impl/default_analytic_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-void main() {
-  test('test', () {
-    expect(true, isTrue);
-  });
+const actionPerformed = 'Action performed';
+
+final log = <String>[];
+
+class TestAction extends AnalyticAction {}
+
+class TestPerformer extends AnalyticActionPerformer<TestAction> {
+  @override
+  void perform(TestAction action) {
+    // ignore: avoid_print
+    print(actionPerformed);
+  }
 }
+
+void main() {
+  test(
+    'DefaultAnalyticService performs action',
+    overridePrint(
+      () {
+        final service = DefaultAnalyticService();
+
+        final performer = TestPerformer();
+
+        service.addActionPerformer(performer);
+
+        final action = TestAction();
+
+        service.performAction(action);
+
+        expect(log, [actionPerformed]);
+      },
+    ),
+  );
+}
+
+void Function() overridePrint(void Function() testFn) => () {
+      final spec = ZoneSpecification(
+        print: (_, __, ___, msg) {
+          log.add(msg);
+        },
+      );
+      return Zone.current.fork(specification: spec).run<void>(testFn);
+    };
