@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library analytics;
-
 export 'package:analytics/core/analytic_action.dart';
 export 'package:analytics/core/analytic_service.dart';
 export 'package:analytics/core/analytic_action_performer.dart';

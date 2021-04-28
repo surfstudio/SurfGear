@@ -20,7 +20,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 
 class FirebaseAnalyticEventSender
     implements AnalyticActionPerformer<FirebaseAnalyticEvent> {
-  FirebaseAnalyticEventSender(this._firebaseAnalytics);
+  const FirebaseAnalyticEventSender(this._firebaseAnalytics);
 
   final FirebaseAnalytics _firebaseAnalytics;
 
@@ -29,7 +29,7 @@ class FirebaseAnalyticEventSender
 
   @override
   void perform(FirebaseAnalyticEvent action) {
-    final params = _cutParamsLength(action.params);
+    final params = _cutParamsLength(action.params as Map<String, Object>);
     _firebaseAnalytics.logEvent(
       name: _cutName(action.key),
       parameters: params,
@@ -38,8 +38,6 @@ class FirebaseAnalyticEventSender
 
   // Shortening of parameters to meet requirements of Firebase Analytics
   Map<String, dynamic> _cutParamsLength(Map<String, Object> params) {
-    if (params == null) return null;
-
     final resultParams = <String, dynamic>{};
     for (final String key in params.keys) {
       final value = params[key];

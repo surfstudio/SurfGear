@@ -4,6 +4,8 @@ coverage:
   status:
     project:
       default: off
+      analytics:
+        flags: analytics
       auto_reload:
         flags: auto_reload
       bottom_navigation_bar:
@@ -34,6 +36,10 @@ coverage:
         flags: tabnavigator
 
 flags:
+  analytics:
+    paths:
+      - packages/analytics/
+    carryforward: true
   auto_reload:
     paths:
       - packages/auto_reload/
