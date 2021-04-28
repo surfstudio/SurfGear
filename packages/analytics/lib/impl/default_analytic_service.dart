@@ -45,11 +45,9 @@ class DefaultAnalyticService implements AnalyticService<AnalyticAction> {
   }
 
   /// Add performer to the service.
-  // ignore: avoid_returning_this
-  DefaultAnalyticService addActionPerformer(
+  void addActionPerformer(
     AnalyticActionPerformer<AnalyticAction> performer,
   ) {
     _performers.add(performer);
-    return this;
   }
 }
