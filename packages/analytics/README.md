@@ -61,12 +61,12 @@ The easiest interaction with the library is as follows:
 
 3. Add performer to the service:
 
-```dart
-    final analyticService = DefaultAnalyticService();
-    analyticService.addActionPerformer(
-        MyAnalyticActionPerformer(SomeAnalyticService()),
-    );
-```
+    ```dart
+        final analyticService = DefaultAnalyticService();
+        analyticService.addActionPerformer(
+            MyAnalyticActionPerformer(SomeAnalyticService()),
+        );
+    ```
 
 Usage:
 
