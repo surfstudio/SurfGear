@@ -18,7 +18,8 @@ import 'package:example/firebase/const.dart';
 import 'package:example/firebase/firebase_analytic_event.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
-class FirebaseAnalyticEventSender implements AnalyticActionPerformer<FirebaseAnalyticEvent> {
+class FirebaseAnalyticEventSender
+    implements AnalyticActionPerformer<FirebaseAnalyticEvent> {
   FirebaseAnalyticEventSender(this._firebaseAnalytics);
 
   final FirebaseAnalytics _firebaseAnalytics;
@@ -46,9 +47,11 @@ class FirebaseAnalyticEventSender implements AnalyticActionPerformer<FirebaseAna
     return resultParams;
   }
 
-  String _cutName(String name) =>
-      name.length <= maxEventKeyLength ? name : name.substring(0, maxEventKeyLength);
+  String _cutName(String name) => name.length <= maxEventKeyLength
+      ? name
+      : name.substring(0, maxEventKeyLength);
 
-  String _cutValue(String value) =>
-      value.length <= maxEventValueLength ? value : value.substring(0, maxEventValueLength);
+  String _cutValue(String value) => value.length <= maxEventValueLength
+      ? value
+      : value.substring(0, maxEventValueLength);
 }
