@@ -1,6 +1,6 @@
 name: bottom_navigation_bar
 version: "1.0.0"
-description: Bottom navigation bar
+description: Widget for simple switch content by selected item in bottom bar
 repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/bottom_navigation_bar"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 
