@@ -74,6 +74,15 @@ Usage:
     analyticService.performAction(ButtonPressedAction());
 ```
 
+## Installation
+
+Add `analytics` to your `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  analytics: ^1.0.0
+```
+
 ## Changelog
 
 All notable changes to this project will be documented in [this file](./CHANGELOG.md).
