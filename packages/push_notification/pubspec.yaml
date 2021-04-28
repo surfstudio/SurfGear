@@ -1,5 +1,5 @@
 name: push_notification
-version: "0.0.1-dev.8"
+version: "1.0.0"
 description: Library for implementing push notifications. The module contains the main work with push notifications.
 repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/push_notification"
 
@@ -14,8 +14,8 @@ dev_dependencies:
   surf_lint_rules: ^1.0.0
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
-  flutter: ">=1.10.0"
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=2.0.0"
 
 flutter:
   plugin:
