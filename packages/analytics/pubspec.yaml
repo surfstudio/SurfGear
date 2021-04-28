@@ -1,22 +1,22 @@
 name: analytics
-version: "0.0.1-dev.4"
+version: "1.0.0"
 description: |
   Interface for working with analytic services. The library is supposed to unify work with various analytic services.
-  
 repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/analytics"
+issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 
 dependencies:
   flutter:
     sdk: flutter
-  logger: ^1.0.0-nullsafety.0
-  surf_lint_rules: ^0.0.2-dev.2
+  logger: ^1.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  surf_lint_rules: ^1.0.0
 
 environment:
-  sdk: ">=2.12.0-0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 flutter:
 
