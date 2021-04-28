@@ -19,6 +19,9 @@ import 'package:analytics/core/analytic_action.dart';
 /// [AnalyticAction] into a required format as well as calling `send()`
 /// of a third-party library.
 abstract class AnalyticActionPerformer<A extends AnalyticAction> {
+  const AnalyticActionPerformer();
+
   bool canHandle(AnalyticAction action);
+
   void perform(A action);
 }
