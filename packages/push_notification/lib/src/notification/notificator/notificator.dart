@@ -53,7 +53,7 @@ class Notificator {
     _init();
   }
 
-  final MethodChannel _channel = const MethodChannel(channelName);
+  static const _channel = MethodChannel(channelName);
   late IOSNotification _iosNotification;
   late AndroidNotification _androidNotification;
 
@@ -69,6 +69,7 @@ class Notificator {
         channel: _channel,
         onNotificationTap: onNotificationTapCallback,
       );
+
       return _androidNotification.init();
     } else if (Platform.isIOS) {
       _iosNotification = IOSNotification(
@@ -76,6 +77,7 @@ class Notificator {
         onNotificationTap: onNotificationTapCallback,
         onPermissionDecline: onPermissionDecline,
       );
+
       return _iosNotification.init();
     }
   }
@@ -84,8 +86,11 @@ class Notificator {
   Future<bool?> requestPermissions({
     bool? requestSoundPermission,
     bool? requestAlertPermission,
-  }) async {
-    if (Platform.isAndroid) return true;
+  }) {
+    if (Platform.isAndroid) {
+      return Future.value(true);
+    }
+
     return _iosNotification.requestPermissions(
       requestSoundPermission: requestSoundPermission,
       requestAlertPermission: requestAlertPermission,
@@ -105,7 +110,7 @@ class Notificator {
     String? imageUrl,
     Map<String, String>? data,
     NotificationSpecifics? notificationSpecifics,
-  }) async {
+  }) {
     if (Platform.isAndroid) {
       return _androidNotification.show(
         id,
@@ -125,5 +130,7 @@ class Notificator {
         notificationSpecifics!.iosNotificationSpecifics,
       );
     }
+
+    return Future<void>.value();
   }
 }

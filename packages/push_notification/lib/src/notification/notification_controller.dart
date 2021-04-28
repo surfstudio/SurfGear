@@ -71,7 +71,7 @@ class NotificationController {
 
     final int pushId = DateTime.now().millisecondsSinceEpoch;
 
-    final Map<String, String> tmpPayload = strategy.payload.messageData.map(
+    final tmpPayload = strategy.payload.messageData.map(
       // ignore: avoid_annotating_with_dynamic
       (key, dynamic value) => MapEntry(
         key.toString(),
@@ -97,7 +97,7 @@ class NotificationController {
     print('DEV_INFO onSelectNotification, payload: $payload');
 
     final tmpPayload = payload as Map<String, String>;
-    final int pushId = int.parse(tmpPayload[pushIdParam]!);
+    final pushId = int.tryParse(tmpPayload[pushIdParam]!);
     final onSelectNotification = callbackMap[pushId];
     callbackMap.remove(pushId);
 

@@ -38,11 +38,12 @@ class IOSNotification {
       (call) async {
         switch (call.method) {
           case openCallback:
-            final notificationData = call.arguments as Map;
-            onNotificationTap(notificationData);
+            onNotificationTap(call.arguments as Map);
             break;
           case permissionDeclineCallback:
-            onPermissionDecline!();
+            if (onPermissionDecline != null) {
+              onPermissionDecline!();
+            }
             break;
         }
       },
@@ -56,15 +57,14 @@ class IOSNotification {
   Future<bool?> requestPermissions({
     bool? requestSoundPermission,
     bool? requestAlertPermission,
-  }) async {
-    return channel.invokeMethod<bool>(
-      callRequest,
-      <String, dynamic>{
-        'requestAlertPermission': requestAlertPermission ?? false,
-        'requestSoundPermission': requestSoundPermission ?? false,
-      },
-    );
-  }
+  }) =>
+      channel.invokeMethod<bool>(
+        callRequest,
+        {
+          'requestAlertPermission': requestAlertPermission ?? false,
+          'requestSoundPermission': requestSoundPermission ?? false,
+        },
+      );
 
   /// Show notification
   /// id - notification identifier
@@ -77,16 +77,15 @@ class IOSNotification {
     String? imageUrl,
     Map<String, String>? data,
     IosNotificationSpecifics? notificationSpecifics,
-  ) async {
-    return channel.invokeMethod<dynamic>(
-      callShow,
-      <String, dynamic>{
-        pushIdArg: id,
-        titleArg: title,
-        bodyArg: body,
-        imageUrlArg: imageUrl,
-        dataArg: data,
-      },
-    );
-  }
+  ) =>
+      channel.invokeMethod<dynamic>(
+        callShow,
+        {
+          pushIdArg: id,
+          titleArg: title,
+          bodyArg: body,
+          imageUrlArg: imageUrl,
+          dataArg: data,
+        },
+      );
 }

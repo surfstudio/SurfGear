@@ -13,6 +13,16 @@
 // limitations under the License.
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:push_notification/src/base/push_handle_strategy.dart';
+import 'package:push_notification/src/base/push_handle_strategy_factory.dart';
+import 'package:mocktail/mocktail.dart';
+
+class PushHandleStrategyMock extends Mock implements PushHandleStrategy {}
+
+class TestPushHandleStrategyFactory extends PushHandleStrategyFactory {
+  @override
+  StrategyBuilder get defaultStrategy => (_) => PushHandleStrategyMock();
+}
 
 void main() {
   test('test', () {

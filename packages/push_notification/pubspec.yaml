@@ -11,6 +11,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mocktail: ^0.1.2
   surf_lint_rules: ^1.0.0
 
 environment:

@@ -45,8 +45,8 @@ class AndroidNotificationSpecifics {
   /// Notification is auto cancel
   final bool? autoCancelable;
 
-  Map<String, dynamic> toMap() {
-    return <String, Object?>{
+  Map<String, Object?> toMap() {
+    return {
       'icon': icon,
       'channelId': channelId,
       'channelName': channelName,
