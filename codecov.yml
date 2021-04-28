@@ -6,6 +6,8 @@ coverage:
       default: off
       auto_reload:
         flags: auto_reload
+      bottom_navigation_bar:
+        flags: bottom_navigation_bar
       bottom_sheet:
         flags: bottom_sheet
       datalist:
@@ -35,6 +37,10 @@ flags:
   auto_reload:
     paths:
       - packages/auto_reload/
+    carryforward: true
+  bottom_navigation_bar:
+    paths:
+      - packages/bottom_navigation_bar/
     carryforward: true
   bottom_sheet:
     paths:

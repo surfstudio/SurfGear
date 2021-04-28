@@ -23,9 +23,9 @@ import 'package:tabnavigator/tabnavigator.dart';
 /// Widget that display element by item currently selected in bottom bar.
 class BottomNavigator extends StatefulWidget {
   const BottomNavigator({
-    @required this.tabsMap,
-    @required this.initialTab,
-    Key key,
+    required this.tabsMap,
+    required this.initialTab,
+    Key? key,
     this.selectController,
   })  : bottomNavBar = null,
         super(key: key);
@@ -35,35 +35,37 @@ class BottomNavigator extends StatefulWidget {
   /// Also outer selector should be given into custom bottom navigation bar
   /// bypass bottom navigator.
   const BottomNavigator.custom({
-    @required this.tabsMap,
-    @required this.initialTab,
-    @required this.bottomNavBar,
-    @required this.selectController,
-    Key key,
+    required this.tabsMap,
+    required this.initialTab,
+    required this.bottomNavBar,
+    required this.selectController,
+    Key? key,
   }) : super(key: key);
 
   final Map<BottomNavTabType, BottomNavigationRelationship> tabsMap;
   final BottomNavTabType initialTab;
-  final StreamController<BottomNavTabType> selectController;
+  final StreamController<BottomNavTabType>? selectController;
 
-  final BottomNavBar bottomNavBar;
+  final BottomNavBar? bottomNavBar;
 
   @override
-  // ignore: no_logic_in_create_state
-  _BaseBottomNavigatorState createState() => bottomNavBar == null
-      ? _BottomNavigatorState()
-      : _CustomBottomNavigatorState();
+  _BaseBottomNavigatorState createState() =>
+      // ignore: no_logic_in_create_state
+      bottomNavBar == null
+          ? _BottomNavigatorState()
+          : _CustomBottomNavigatorState();
 }
 
 class _CustomBottomNavigatorState extends _BaseBottomNavigatorState {
   @override
   BottomNavBar buildBottomBar() {
-    return widget.bottomNavBar;
+    return widget.bottomNavBar!;
   }
 
   @override
   StreamController<BottomNavTabType> initSelectController() {
-    return widget.selectController;
+    return widget.selectController ??
+        StreamController<BottomNavTabType>.broadcast();
   }
 
   @override
@@ -72,9 +74,6 @@ class _CustomBottomNavigatorState extends _BaseBottomNavigatorState {
 
 class _BottomNavigatorState extends _BaseBottomNavigatorState {
   bool _isControllerOwner = false;
-  @override
-  // ignore: overridden_fields
-  StreamController<BottomNavTabType> _selectController;
 
   final _bottomMap = <BottomNavTabType, NavElementBuilder>{};
 
@@ -90,11 +89,11 @@ class _BottomNavigatorState extends _BaseBottomNavigatorState {
 
   @override
   StreamController<BottomNavTabType> initSelectController() {
-    if (widget.selectController == null) {
+    if (widget.selectController != null) {
+      _selectController = widget.selectController!;
+    } else {
       _isControllerOwner = true;
       _selectController = StreamController<BottomNavTabType>.broadcast();
-    } else {
-      _selectController = widget.selectController;
     }
 
     return _selectController;
@@ -118,11 +117,10 @@ class _BottomNavigatorState extends _BaseBottomNavigatorState {
 }
 
 abstract class _BaseBottomNavigatorState extends State<BottomNavigator> {
-  // ignore: close_sinks
-  StreamController<BottomNavTabType> _selectController;
+  @protected
+  late StreamController<BottomNavTabType> _selectController;
 
-  final Map<BottomNavTabType, TabBuilder> _navigatorMap =
-      <BottomNavTabType, TabBuilder>{};
+  final _navigatorMap = <BottomNavTabType, TabBuilder>{};
 
   @override
   void initState() {
@@ -130,15 +128,14 @@ abstract class _BaseBottomNavigatorState extends State<BottomNavigator> {
 
     _selectController = initSelectController()..add(widget.initialTab);
 
-    widget.tabsMap.forEach((tabType, relationship) {
-      _navigatorMap.addEntries([MapEntry(tabType, relationship.tabBuilder)]);
-    });
+    _navigatorMap.addAll(
+        widget.tabsMap.map((key, value) => MapEntry(key, value.tabBuilder)));
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
+      children: [
         Expanded(
           child: TabNavigator(
             initialTab: widget.initialTab,
