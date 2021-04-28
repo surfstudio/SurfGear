@@ -21,7 +21,7 @@ import 'package:analytics/core/analytic_action.dart';
 abstract class AnalyticActionPerformer<A extends AnalyticAction> {
   const AnalyticActionPerformer();
 
-  bool canHandle(AnalyticAction action);
+  bool canHandle(AnalyticAction action) => action is A;
 
   void perform(A action);
 }
