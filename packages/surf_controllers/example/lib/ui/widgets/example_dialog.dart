@@ -7,8 +7,8 @@ enum ExampleDialogType {
 
 class ExampleDialogData extends DialogData {
   ExampleDialogData({
-    this.title,
-    this.subtitle,
+    required this.title,
+    required this.subtitle,
   });
 
   final String title;
@@ -17,8 +17,8 @@ class ExampleDialogData extends DialogData {
 
 class ExampleDialog extends StatelessWidget {
   const ExampleDialog({
-    @required this.data,
-    Key key,
+    required this.data,
+    Key? key,
   }) : super(key: key);
 
   final ExampleDialogData data;
@@ -32,16 +32,12 @@ class ExampleDialog extends StatelessWidget {
         children: [
           Text(
             data.title,
-            style: TextStyle(
-              fontSize: 24,
-            ),
+            style: const TextStyle(fontSize: 24),
           ),
           const SizedBox(height: 20),
           Text(
             data.subtitle,
-            style: TextStyle(
-              fontSize: 16,
-            ),
+            style: const TextStyle(fontSize: 16),
           ),
         ],
       ),

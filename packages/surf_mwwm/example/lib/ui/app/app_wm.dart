@@ -44,6 +44,6 @@ class AppWidgetModel extends WidgetModel {
   }
 
   void _openScreen(PageRoute<void> route) {
-    _navigator.currentState.pushReplacement(route);
+    _navigator.currentState?.pushReplacement(route);
   }
 }

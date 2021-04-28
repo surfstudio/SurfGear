@@ -8,80 +8,81 @@ class DefaultDialogController implements DialogController {
   DefaultDialogController(
     this._scaffoldKey, {
     this.dialogOwner,
-  })  : assert(_scaffoldKey != null),
-        _context = null;
+  });
 
   DefaultDialogController.from(
     this._context, {
     this.dialogOwner,
-  })  : assert(_context != null),
-        _scaffoldKey = null;
+  });
 
-  final BuildContext _context;
-  final GlobalKey<ScaffoldState> _scaffoldKey;
-  final DialogOwner dialogOwner;
+  final DialogOwner? dialogOwner;
 
-  PersistentBottomSheetController _sheetController;
+  BuildContext? _context;
+  PersistentBottomSheetController? _sheetController;
+  GlobalKey<ScaffoldState>? _scaffoldKey;
 
-  BuildContext get context => _context ?? _scaffoldKey.currentContext;
+  BuildContext? get context => _context ?? _scaffoldKey?.currentContext;
 
-  ScaffoldState get _scaffoldState => _scaffoldKey?.currentState ?? Scaffold.of(_context);
+  ScaffoldState get _scaffoldState =>
+      _scaffoldKey?.currentState ?? Scaffold.of(_context!);
 
   @override
-  Future<R> showAlertDialog<R>({
-    String title,
-    String message,
-    ClickedAction onAgreeClicked,
-    ClickedAction onDisagreeClicked,
+  Future<R?> showAlertDialog<R>({
+    String? title,
+    String? message,
+    ClickedAction? onAgreeClicked,
+    ClickedAction? onDisagreeClicked,
     bool useRootNavigator = false,
   }) =>
-      showDialog(
-        context: context,
+      showDialog<R>(
+        context: context!,
         useRootNavigator: useRootNavigator,
         builder: (ctx) => AlertDialog(
           title: title != null ? Text(title) : const SizedBox.shrink(),
           content: message != null ? Text(message) : const SizedBox.shrink(),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               onPressed: () => onDisagreeClicked?.call(ctx),
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
-            FlatButton(
+            TextButton(
               onPressed: () => onAgreeClicked?.call(ctx),
-              child: Text('Yes'),
+              child: const Text('Yes'),
             ),
           ],
         ),
       );
 
   @override
-  Future<R> showModalSheet<R>(
+  Future<R?> showModalSheet<R>(
     Object type, {
-    DialogData data,
+    required DialogData data,
     bool isScrollControlled = false,
     bool useRootNavigator = false,
   }) {
     assert(dialogOwner != null);
-    assert(dialogOwner.registeredDialogs.containsKey(type));
+    assert(dialogOwner!.registeredDialogs.containsKey(type));
 
-    return showModalBottomSheet(
-      context: context,
+    final dialogBuilder = dialogOwner!.registeredDialogs[type]!;
+
+    return showModalBottomSheet<R>(
+      context: context!,
       isScrollControlled: isScrollControlled,
       useRootNavigator: useRootNavigator,
-      builder: (ctx) => dialogOwner.registeredDialogs[type](context, data: data),
+      builder: (ctx) => dialogBuilder(ctx, data: data),
     );
   }
 
   @override
   Future<R> showSheet<R>(
     Object type, {
-    VoidCallback onDismiss,
-    DialogData data,
+    required DialogData data,
+    VoidCallback? onDismiss,
   }) {
     assert(dialogOwner != null);
-    assert(dialogOwner.registeredDialogs.containsKey(type));
+    assert(dialogOwner!.registeredDialogs.containsKey(type));
 
-    final dialogBuilder = dialogOwner.registeredDialogs[type];
+    final dialogBuilder = dialogOwner!.registeredDialogs[type]!;
 
     final sheetController = _scaffoldState.showBottomSheet<R>(
       (ctx) => dialogBuilder(ctx, data: data),
@@ -95,6 +96,6 @@ class DefaultDialogController implements DialogController {
   }
 
   void hideSheet() {
-    _sheetController.close();
+    _sheetController?.close();
   }
 }

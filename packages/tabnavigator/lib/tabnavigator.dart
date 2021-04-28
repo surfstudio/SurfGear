@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library tabnavigator;
-
 export 'package:tabnavigator/src/tab_navigator.dart';
 export 'package:tabnavigator/src/tab_observer.dart';
 export 'package:tabnavigator/src/tab_state.dart';

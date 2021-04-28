@@ -13,25 +13,26 @@
 // limitations under the License.
 
 import 'dart:async';
-import 'dart:ui';
 
-import 'package:bottom_navigation_bar/bottom_navigation_bar.dart';
+import 'package:bottom_navigation_bar/src/bottom_nav_tab_type.dart';
+import 'package:bottom_navigation_bar/src/bottom_navigation_relationship.dart';
+import 'package:bottom_navigation_bar/src/bottom_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-Key _greenKey = const Key('greenButton');
-Key _redKey = const Key('redButton');
-Key _blueKey = const Key('blueButton');
+const _greenKey = Key('greenButton');
+const _redKey = Key('redButton');
+const _blueKey = Key('blueButton');
 
-List<BottomNavTabType> _types = [
+const _types = [
   BottomNavTabType(0),
   BottomNavTabType(1),
   BottomNavTabType(2),
 ];
 
-Map<BottomNavTabType, BottomNavigationRelationship> _map = {
+final _map = {
   _types[0]: BottomNavigationRelationship(
-    tabBuilder: () => _buildPage('Red'),
+    tabBuilder: () => const SizedBox(child: Text('Red')),
     navElementBuilder: (isSelected) => _buildButton(
       _redKey,
       isSelected,
@@ -39,7 +40,7 @@ Map<BottomNavTabType, BottomNavigationRelationship> _map = {
     ),
   ),
   _types[1]: BottomNavigationRelationship(
-    tabBuilder: () => _buildPage('Green'),
+    tabBuilder: () => const SizedBox(child: Text('Green')),
     navElementBuilder: (isSelected) => _buildButton(
       _greenKey,
       isSelected,
@@ -47,7 +48,7 @@ Map<BottomNavTabType, BottomNavigationRelationship> _map = {
     ),
   ),
   _types[2]: BottomNavigationRelationship(
-    tabBuilder: () => _buildPage('Blue'),
+    tabBuilder: () => const SizedBox(child: Text('Blue')),
     navElementBuilder: (isSelected) => _buildButton(
       _blueKey,
       isSelected,
@@ -61,50 +62,23 @@ Widget _buildButton(Key key, bool isSelected, Color color) {
     key: key,
     height: 100,
     color: color,
-    child: isSelected
-        ? const Center(
-            child: Icon(Icons.check),
-          )
-        : Container(),
-  );
-}
-
-Widget _buildPage(String color) {
-  return SizedBox(
-    child: Text(color),
+    child: isSelected ? const Center(child: Icon(Icons.check)) : Container(),
   );
 }
 
 void main() {
-  setUp(() {});
-
-  tearDown(() {});
-
-  redButtonTest();
-  greenButtonTest();
-  blueButtonTest();
-  outerActionTest();
-}
-
-void redButtonTest() {
   testWidgets('Red tap', (tester) async {
     await _buttonTest(_redKey, 'Red', tester);
   });
-}
 
-void greenButtonTest() {
   testWidgets('Green tap', (tester) async {
     await _buttonTest(_greenKey, 'Green', tester);
   });
-}
 
-void blueButtonTest() {
   testWidgets('Blue tap', (tester) async {
     await _buttonTest(_blueKey, 'Blue', tester);
   });
-}
 
-void outerActionTest() {
   testWidgets('Outer action', (tester) async {
     final sc = StreamController<BottomNavTabType>.broadcast();
 

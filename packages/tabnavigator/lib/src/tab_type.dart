@@ -12,25 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:surf_util/surf_util.dart';
-
 /// base type for a list of tabs
-/// adding new types of tabs via the create() method
-abstract class TabType extends Enum<int> {
-  const TabType(int value) : super(value);
+/// adding new types of tabs via the [append] method
+abstract class TabType {
+  const TabType(this.value);
 
-  static const emptyValue = -1;
+  final int value;
 
-  static List<TabType> values = [];
+  static const int emptyValue = -1;
 
-  static TabType defaultType;
+  static final _values = <TabType>[];
 
-  static void create(TabType newTab) {
-    values.add(newTab);
+  static Iterable<TabType> get values => _values;
+
+  static void append(TabType newTab) {
+    _values.add(newTab);
   }
 
   static TabType byValue(int ordinal) {
-    return values.firstWhere(
+    return _values.firstWhere(
       (value) => ordinal == value.value,
       orElse: () => throw Exception('Unknown TabType by ordinal $ordinal'),
     );

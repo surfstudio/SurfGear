@@ -12,21 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:collection';
-import 'dart:core';
-
-import 'package:datalist/datalist.dart';
 import 'package:datalist/src/datalist.dart';
 import 'package:datalist/src/exceptions.dart';
 
 /// Pagination List
 /// Limit-offset mechanism
 /// May merge with another DataList
-///
-/// @param <T> Item
 class OffsetDataList<T> extends DataList<T> {
   OffsetDataList({
-    this.data,
+    required this.data,
     this.limit = 0,
     this.offset = 0,
     this.totalCount = 0,
@@ -58,23 +52,22 @@ class OffsetDataList<T> extends DataList<T> {
 
   /// Merge two DataList
   ///
-  /// @param _data DataList for merge with current
-  /// @return current instance
+  /// [_data] DataList for merge with current
   @override
   DataList<T> merge(DataList<T> _data) {
-    final OffsetDataList data = _data as OffsetDataList;
+    final data = _data as OffsetDataList<T>;
 
-    final bool reverse = data.offset < offset;
-    final List<T> merged = _tryMerge(
-      (reverse ? data : this) as OffsetDataList<T>,
-      (reverse ? this : data) as OffsetDataList<T>,
-    );
+    final reverse = data.offset < offset;
+    final merged = _tryMerge(reverse ? data : this, reverse ? this : data);
     if (merged == null) {
       //Отрезки данных не совпадают, слияние не возможно
       throw IncompatibleRangesException('incorrect data range');
     }
-    this.data.clear();
-    this.data.addAll(merged);
+
+    this.data
+      ..clear()
+      ..addAll(merged);
+
     if (offset < data.offset) {
       limit = data.offset + data.limit - offset;
     } else if (offset == data.offset) {
@@ -91,24 +84,23 @@ class OffsetDataList<T> extends DataList<T> {
   /// Merging two DataList with removing duplicate items
   /// When you delete, the current (last sent by the server) items remain
   ///
-  /// @param data              DataList for merge with current
-  /// @param distinctPredicate predicate by which duplicate elements are deleted
-  /// @return current instance
+  /// [data] data list for merge with current
+  /// [distinctPredicate] predicate by which duplicate elements are deleted
   // ignore: avoid_returning_this
   OffsetDataList<T> mergeWithPredicate<R>(
     OffsetDataList<T> data,
     R Function(T item) distinctPredicate,
   ) {
-    final bool reverse = data.offset < offset;
-    final List<T> merged =
-        _tryMerge(reverse ? data : this, reverse ? this : data);
+    final reverse = data.offset < offset;
+    final merged = _tryMerge(reverse ? data : this, reverse ? this : data);
     if (merged == null) {
       throw IncompatibleRangesException('incorrect data range');
     }
 
-    final List<T> filtered = distinctByLast(merged, distinctPredicate);
-    this.data.clear();
-    this.data.addAll(filtered);
+    this.data
+      ..clear()
+      ..addAll(distinctByLast(merged, distinctPredicate));
+
     if (offset < data.offset) {
       //загрузка вниз, как обычно
       limit = data.offset + data.limit - offset;
@@ -127,47 +119,31 @@ class OffsetDataList<T> extends DataList<T> {
 
   /// Converts a dataList of one type to a dataList of another type
   ///
-  /// @param mapFunc mapping function
-  /// @param <R>     data type of new list
-  /// @return DataList<R>
+  /// [mapFunc] mapping function
   @override
-  OffsetDataList<R> transform<R>(R Function(T item) mapFunc) {
-    final List<R> resultData = [];
-    for (final T item in this) {
-      resultData.add(mapFunc.call(item));
-    }
-
-    return OffsetDataList<R>(
-      data: resultData,
-      limit: limit,
-      offset: offset,
-      totalCount: totalCount,
-    );
-  }
+  OffsetDataList<R> transform<R>(R Function(T item) mapFunc) =>
+      OffsetDataList<R>(
+        data: map(mapFunc.call).toList(),
+        limit: limit,
+        offset: offset,
+        totalCount: totalCount,
+      );
 
   /// Returns the offset value from which you need to start to load the next
   /// data block
   int get nextOffset => limit + offset;
 
-  int getLimit() {
-    return limit;
-  }
+  int getLimit() => limit;
 
-  int getOffset() {
-    return offset;
-  }
+  int getOffset() => offset;
 
-  int getTotalCount() {
-    return totalCount;
-  }
+  int getTotalCount() => totalCount;
 
   /// Checking the possibility of reloading data
-  ///
-  /// @return true/false
   @override
   bool get canGetMore => totalCount > limit + offset;
 
-  List<T> _tryMerge(OffsetDataList<T> to, OffsetDataList<T> from) {
+  List<T>? _tryMerge(OffsetDataList<T> to, OffsetDataList<T> from) {
     if ((to.offset + to.limit) >= from.offset) {
       return _mergeLists(to.data, from.data, from.offset - to.offset);
     }
@@ -175,13 +151,10 @@ class OffsetDataList<T> extends DataList<T> {
     return null;
   }
 
-  List<T> _mergeLists(List<T> to, List<T> from, int start) {
-    final List<T> result = [
-      ...start < to.length ? to.sublist(0, start) : to,
-      ...from,
-    ];
-    return result;
-  }
+  List<T> _mergeLists(List<T> to, List<T> from, int start) => [
+        ...start < to.length ? to.sublist(0, start) : to,
+        ...from,
+      ];
 
   @override
   bool add(T value) {
@@ -189,18 +162,12 @@ class OffsetDataList<T> extends DataList<T> {
   }
 
   @override
-  bool remove(Object value) {
+  bool remove(Object? value) {
     throw Exception("Unsupported operation 'remove'");
   }
 
-  bool containsAll(Iterable<dynamic> another) {
-    bool contains = false;
-    for (final c in another) {
-      contains = data.contains(c);
-    }
-
-    return contains;
-  }
+  bool containsAll(Iterable<Object?> another) =>
+      another.every((item) => data.contains(item));
 
   @override
   void addAll(Iterable<T> iterable) {
@@ -210,12 +177,13 @@ class OffsetDataList<T> extends DataList<T> {
   @override
   void clear() {
     super.clear();
+
     limit = 0;
     offset = 0;
   }
 
   @override
-  List<T> sublist(int start, [int end]) {
+  List<T> sublist(int start, [int? end]) {
     throw Exception("Unsupported operation 'sublist'");
   }
 
@@ -228,18 +196,13 @@ class OffsetDataList<T> extends DataList<T> {
   /// The criterion that the elements are the same is set by the
   /// distinctPredicate parameter
   ///
-  /// @param source            source list
-  /// @param distinctPredicate criterion that the elements are the same
-  /// @return filtered list without identical items
-  List<T> distinctByLast<R>(
-    List<T> source,
-    R Function(T item) distinctPredicate,
-  ) {
-    final LinkedHashMap<R, T> resultSet = LinkedHashMap<R, T>.of({});
+  /// [source] source list
+  /// [distinctPredicate] criterion that the elements are the same
+  List<T> distinctByLast<R>(List<T> source, R Function(T) distinctPredicate) {
+    final resultSet = <R, T>{};
 
     for (final element in source) {
-      final R key = distinctPredicate.call(element);
-      resultSet[key] = element;
+      resultSet[distinctPredicate.call(element)] = element;
     }
 
     return resultSet.values.toList();

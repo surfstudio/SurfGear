@@ -1,8 +1,14 @@
 # Changelog
 
+## 1.1.0
+
+* Made subscribe's stream's values nullable.
+* WM's subscribe method now returns StreamSubscription of generic type.
+
 ## 1.0.2
 
 * Fix changelog
+
 ## 1.0.1
 
 * Add unit tests

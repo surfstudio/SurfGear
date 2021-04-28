@@ -13,38 +13,38 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
-import 'package:virtual_keyboard/src/virtual_keyboard_effect.dart';
 import 'package:ink_widget/ink_widget.dart';
+import 'package:virtual_keyboard/src/virtual_keyboard_effect.dart';
 
 class TableButton extends StatelessWidget {
   const TableButton({
-    Key key,
+    required this.child,
+    Key? key,
     this.width,
     this.height,
-    this.child,
     this.onTap,
     this.padding,
     this.keyDecoration,
     this.inkShapeRipple,
     this.inkShapeBorder,
-    VirtualKeyboardEffect virtualKeyboardEffect,
-    bool useAsKey,
+    VirtualKeyboardEffect? virtualKeyboardEffect,
+    bool? useAsKey,
   })  : virtualKeyboardEffect =
             virtualKeyboardEffect ?? VirtualKeyboardEffect.none,
         useAsKey = useAsKey ?? false,
         super(key: key);
 
   /// Button Width
-  final double width;
+  final double? width;
 
   /// Button Height
-  final double height;
+  final double? height;
 
   final Widget child;
 
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
 
   final VirtualKeyboardEffect virtualKeyboardEffect;
 
@@ -52,25 +52,26 @@ class TableButton extends StatelessWidget {
   final bool useAsKey;
 
   /// Key decoration
-  final BoxDecoration keyDecoration;
+  final BoxDecoration? keyDecoration;
 
   /// [ShapeDecoration] for InkWell Effect
-  final ShapeDecoration inkShapeRipple;
+  final ShapeDecoration? inkShapeRipple;
 
   /// [ShapeBorder] for InkWell
-  final ShapeBorder inkShapeBorder;
+  final ShapeBorder? inkShapeBorder;
 
   @override
   Widget build(BuildContext context) {
     if (useAsKey) {
       return child;
     }
+
     return _buildContainer(
       child: Padding(
-        padding: padding,
+        padding: padding ?? const EdgeInsets.all(0),
         child: ConstrainedBox(
           constraints: BoxConstraints(
-            minHeight: height,
+            minHeight: height ?? 0.0,
           ),
           child: SizedBox(
             width: width,
@@ -81,7 +82,7 @@ class TableButton extends StatelessWidget {
     );
   }
 
-  Widget _buildContainer({Widget child}) {
+  Widget _buildContainer({required Widget child}) {
     switch (virtualKeyboardEffect) {
       case VirtualKeyboardEffect.keyboardRipple:
         return TableRowInkWell(

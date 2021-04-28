@@ -20,7 +20,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,7 +36,10 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({
+    required this.title,
+    Key? key,
+  }) : super(key: key);
 
   final String title;
 
@@ -44,9 +48,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _symbols = '';
+  static const _maxCount = 4;
 
-  final int _maxCount = 4;
+  var _symbols = '';
 
   int get _symbolsCount => _symbols.length;
 
@@ -59,14 +63,14 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+          children: [
             Text(_symbols),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(50),
               child: VirtualKeyboardWidget(
                 virtualKeyboardEffect: VirtualKeyboardEffect.keyRipple,
-                keyboardKeys: _KeyboardUtils.numericKeyboardKeys,
+                keyboardKeys: numericKeyboardKeys,
                 onPressKey: _handleTapKey,
               ),
             )
@@ -83,8 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
         splashColor: Colors.green,
         onTap: () {
           _symbols = '';
-          _KeyboardUtils.numericKeyboardKeys[3][2] =
-              _KeyboardUtils.buildDelete();
+          numericKeyboardKeys[3][2] = buildDelete();
           setState(() {});
         },
         child: const SizedBox(
@@ -97,7 +100,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _handleTapKey(VirtualKeyboardKey key) {
     if (key is VirtualKeyboardDeleteKey) {
-      if (_symbolsCount == 0) return;
+      if (_symbolsCount == 0) {
+        return;
+      }
 
       _symbols = _symbols.substring(0, _symbolsCount - 1);
     } else if (key is VirtualKeyboardNumberKey) {
@@ -105,38 +110,34 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     if (_symbolsCount >= _maxCount) {
-      _KeyboardUtils.numericKeyboardKeys[3][2] = _buildClear();
+      numericKeyboardKeys[3][2] = _buildClear();
     } else {
-      _KeyboardUtils.numericKeyboardKeys[3][2] = _KeyboardUtils.buildDelete();
+      numericKeyboardKeys[3][2] = buildDelete();
     }
+
     setState(() {});
   }
 }
 
-abstract class _KeyboardUtils {
-  /// Клавиши для цифровой экранной клавиатуры
-  static List<List<VirtualKeyboardKey>> numericKeyboardKeys = [
-    for (int i = 1; i < 4; i++)
-      [
-        for (int j = 1; j < 4; j++)
-          VirtualKeyboardNumberKey((i * j).toString()),
-      ],
+/// Клавиши для цифровой экранной клавиатуры
+List<List<VirtualKeyboardKey>> numericKeyboardKeys = [
+  for (var i = 1; i < 4; i++)
     [
-      VirtualKeyboardEmptyStubKey(),
-      VirtualKeyboardNumberKey(
-        '0',
-        widget: const Text('Zero'),
-        keyDecoration: BoxDecoration(
-          color: Colors.red.withOpacity(.1),
-        ),
-      ),
-      buildDelete(),
+      for (var j = 1; j < 4; j++) VirtualKeyboardNumberKey((i * j).toString()),
     ],
-  ];
+  [
+    VirtualKeyboardEmptyStubKey(),
+    VirtualKeyboardNumberKey(
+      '0',
+      widget: const Text('Zero'),
+      keyDecoration: BoxDecoration(
+        color: Colors.red.withOpacity(.1),
+      ),
+    ),
+    buildDelete(),
+  ],
+];
 
-  static VirtualKeyboardKey buildDelete() {
-    return VirtualKeyboardDeleteKey(
-      widget: const Text('delete'),
-    );
-  }
+VirtualKeyboardKey buildDelete() {
+  return VirtualKeyboardDeleteKey(widget: const Text('delete'));
 }
