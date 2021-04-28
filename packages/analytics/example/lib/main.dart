@@ -64,9 +64,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _sendAnalyticAction(AnalyticAction action) {
     _analyticsService.performAction(action);
-    _scaffoldKey.currentState?.showSnackBar(
-      SnackBar(content: Text('action send: $action')),
-    );
+
+    ScaffoldMessenger.of(_scaffoldKey.currentContext!).hideCurrentSnackBar();
+    ScaffoldMessenger.of(_scaffoldKey.currentContext!)
+        .showSnackBar(SnackBar(content: Text('action send: $action')));
   }
 
   @override
@@ -80,22 +81,22 @@ class _MyHomePageState extends State<MyHomePage> {
         width: double.infinity,
         child: Column(
           children: <Widget>[
-            FlatButton(
+            TextButton(
               onPressed: () => _sendAnalyticAction(
-                FantasticButtonTappedEvent(),
+                const FantasticButtonTappedEvent(),
               ),
               child: const Text('Fantastic button'),
             ),
-            FlatButton(
+            TextButton(
               onPressed: () => _sendAnalyticAction(
-                SparklingButtonTappedEvent('some data'),
+                const SparklingButtonTappedEvent('some data'),
               ),
               child: const Text('Sparkling button'),
             ),
-            FlatButton(
-              onPressed: () => _sendAnalyticAction(DelightfulButtonTappedEvent(
-                isDelightful: true,
-              )),
+            TextButton(
+              onPressed: () => _sendAnalyticAction(
+                const DelightfulButtonTappedEvent(isDelightful: true),
+              ),
               child: const Text('Delightful button'),
             ),
           ],

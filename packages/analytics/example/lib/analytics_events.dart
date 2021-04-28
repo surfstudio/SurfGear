@@ -15,6 +15,8 @@
 import 'package:example/firebase/firebase_analytic_event.dart';
 
 class FantasticButtonTappedEvent implements FirebaseAnalyticEvent {
+  const FantasticButtonTappedEvent();
+
   @override
   String get key => 'fantastic_button_tapped';
 
@@ -26,7 +28,7 @@ class FantasticButtonTappedEvent implements FirebaseAnalyticEvent {
 }
 
 class SparklingButtonTappedEvent implements FirebaseAnalyticEvent {
-  SparklingButtonTappedEvent(this.payload);
+  const SparklingButtonTappedEvent(this.payload);
 
   final String payload;
 
@@ -43,15 +45,15 @@ class SparklingButtonTappedEvent implements FirebaseAnalyticEvent {
 }
 
 class DelightfulButtonTappedEvent implements FirebaseAnalyticEvent {
-  DelightfulButtonTappedEvent({this.isDelightful});
+  const DelightfulButtonTappedEvent({required this.isDelightful});
 
-  final bool? isDelightful;
+  final bool isDelightful;
 
   @override
   String get key => 'delightful_button_tapped';
 
   @override
-  Map<String, bool?> get params => {
+  Map<String, bool> get params => {
         'isDelightful': isDelightful,
       };
 
