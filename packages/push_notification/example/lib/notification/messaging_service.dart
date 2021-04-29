@@ -18,33 +18,39 @@ import 'package:push_notification/push_notification.dart';
 
 /// Wrapper over [FirebaseMessaging]
 class MessagingService extends BaseMessagingService {
-  final FirebaseMessaging _messaging = FirebaseMessaging();
+  final FirebaseMessaging _messaging = FirebaseMessaging.instance;
+  late HandleMessageFunction _handleMessage;
 
-  Future<String> get fcmToken => _messaging.getToken();
+  Future<String?> get fcmToken => _messaging.getToken();
 
-  HandleMessageFunction _handleMessage;
   final List<String> _topicsSubscription = [];
 
   /// request notification permissions for ios platform
   void requestNotificationPermissions() {
-    _messaging.requestNotificationPermissions();
+    _messaging.requestPermission();
   }
 
   /// no need to call. initialization is called inside the [PushHandler]
   @override
   void initNotification(HandleMessageFunction handleMessage) {
     _handleMessage = handleMessage;
-    _messaging.configure(
-      onMessage: (message) => _internalMessageInterceptor(
-        message,
+    FirebaseMessaging.onMessage.listen(
+      (message) => _internalMessageInterceptor(
+        message.data,
         MessageHandlerType.onMessage,
       ),
-      onLaunch: (message) => _internalMessageInterceptor(
-        message,
-        MessageHandlerType.onLaunch,
-      ),
-      onResume: (message) => _internalMessageInterceptor(
-        message,
+    );
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (message) {
+        _internalMessageInterceptor(
+          message.data,
+          MessageHandlerType.onLaunch,
+        );
+      },
+    );
+    FirebaseMessaging.onBackgroundMessage(
+      (message) => _internalMessageInterceptor(
+        message.data,
         MessageHandlerType.onResume,
       ),
     );
@@ -82,6 +88,6 @@ class MessagingService extends BaseMessagingService {
     MessageHandlerType handlerType,
   ) async {
     logger.d('FIREBASE MESSAGE: $handlerType - $message');
-    _handleMessage?.call(message, handlerType);
+    _handleMessage.call(message, handlerType);
   }
 }

@@ -12,11 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:push_demo/domain/message.dart';
+import 'package:push_demo/notification/first_strategy.dart';
+import 'package:push_demo/notification/second_strategy.dart';
 import 'package:push_notification/push_notification.dart';
-
-import '../domain/message.dart';
-import 'first_strategy.dart';
-import 'second_strategy.dart';
 
 class ExampleFactory extends PushHandleStrategyFactory {
   @override

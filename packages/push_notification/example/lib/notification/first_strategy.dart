@@ -13,19 +13,18 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
+import 'package:push_demo/domain/message.dart';
+import 'package:push_demo/ui/first_screen.dart';
 import 'package:push_notification/push_notification.dart';
-
-import '../domain/message.dart';
-import '../ui/first_screen.dart';
 
 class FirstStrategy extends PushHandleStrategy<Message> {
   FirstStrategy(Message payload) : super(payload);
 
   @override
-  void onTapNotification(NavigatorState navigator) {
+  void onTapNotification(NavigatorState? navigator) {
     debugPrint('on tap notification');
 
-    navigator.push<void>(
+    navigator?.push<void>(
       MaterialPageRoute(
         builder: (context) => FirstScreen(payload),
       ),

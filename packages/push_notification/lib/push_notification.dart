@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library push_notification;
-
 export 'package:push_notification/src/base/base_messaging_service.dart';
 export 'package:push_notification/src/base/notification_payload.dart';
 export 'package:push_notification/src/base/push_handle_strategy.dart';

@@ -19,8 +19,8 @@ import 'package:push_notification/src/notification/notificator/notificator.dart'
 /// Notifications for the android platform
 class AndroidNotification {
   AndroidNotification({
-    this.channel,
-    this.onNotificationTap,
+    required this.channel,
+    required this.onNotificationTap,
   });
 
   /// MethodChannel for connecting to android native code
@@ -37,17 +37,8 @@ class AndroidNotification {
       (call) async {
         switch (call.method) {
           case openCallback:
-            if (onNotificationTap != null) {
-              final Map<String, String> notificationData = Map.of(
-                call.arguments as Map<Object, Object>,
-              ).map(
-                (key, value) => MapEntry(
-                  key.toString(),
-                  value.toString(),
-                ),
-              );
-              onNotificationTap(notificationData);
-            }
+            final notificationData = call.arguments as Map;
+            onNotificationTap(notificationData);
             break;
         }
       },
@@ -65,21 +56,19 @@ class AndroidNotification {
     int id,
     String title,
     String body,
-    String imageUrl,
-    Map<String, String> data,
+    String? imageUrl,
+    Map<String, String>? data,
     AndroidNotificationSpecifics notificationSpecifics,
   ) async {
     return channel.invokeMethod<dynamic>(
       callShow,
-      <String, dynamic>{
-        pushIdArg: id ?? 0,
-        titleArg: title ?? '',
-        bodyArg: body ?? '',
+      {
+        pushIdArg: id,
+        titleArg: title,
+        bodyArg: body,
         imageUrlArg: imageUrl,
         dataArg: data,
-        notificationSpecificsArg: notificationSpecifics != null
-            ? notificationSpecifics.toMap()
-            : <String, Object>{},
+        notificationSpecificsArg: notificationSpecifics.toMap(),
       },
     );
   }

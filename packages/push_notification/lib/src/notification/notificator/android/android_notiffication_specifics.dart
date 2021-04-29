@@ -25,28 +25,28 @@ class AndroidNotificationSpecifics {
   ///Icon drawable
   ///
   /// @mipmap/ic_launcher
-  final String icon;
+  final String? icon;
 
   /// channelId
   ///
   /// @string/notification_channel_id
-  final String channelId;
+  final String? channelId;
 
   /// Channel name
   ///
   /// @string/notification_channel_name
-  final String channelName;
+  final String? channelName;
 
   /// Icon color
   ///
   /// @color/notification_color
-  final String color;
+  final String? color;
 
   /// Notification is auto cancel
-  final bool autoCancelable;
+  final bool? autoCancelable;
 
-  Map<String, dynamic> toMap() {
-    return <String, Object>{
+  Map<String, Object?> toMap() {
+    return {
       'icon': icon,
       'channelId': channelId,
       'channelName': channelName,

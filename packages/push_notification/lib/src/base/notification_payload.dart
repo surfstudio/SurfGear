@@ -14,7 +14,7 @@
 
 /// notification base payload data
 abstract class NotificationPayload {
-  NotificationPayload(
+  const NotificationPayload(
     this.messageData,
     this.title,
     this.body, {
@@ -27,5 +27,5 @@ abstract class NotificationPayload {
   /// field required to show notification
   final String title;
   final String body;
-  final String imageUrl;
+  final String? imageUrl;
 }

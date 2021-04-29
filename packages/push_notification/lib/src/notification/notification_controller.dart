@@ -27,20 +27,20 @@ const String pushIdParam = 'localPushId';
 class NotificationController {
   NotificationController(OnPermissionDeclineCallback onPermissionDecline) {
     _notificator = Notificator(
-      onNotificationTapCallback:_internalOnSelectNotification,
+      onNotificationTapCallback: _internalOnSelectNotification,
       onPermissionDecline: onPermissionDecline,
     );
   }
 
-  Notificator _notificator;
+  late Notificator _notificator;
 
   Map<int, NotificationCallback> callbackMap =
       HashMap<int, NotificationCallback>();
 
   /// Request notification permissions (iOS only)
-  Future<bool> requestPermissions({
-    bool requestSoundPermission,
-    bool requestAlertPermission,
+  Future<bool?> requestPermissions({
+    bool? requestSoundPermission,
+    bool? requestAlertPermission,
   }) {
     return _notificator.requestPermissions(
       requestSoundPermission: requestSoundPermission,
@@ -71,9 +71,9 @@ class NotificationController {
 
     final int pushId = DateTime.now().millisecondsSinceEpoch;
 
-    final Map<String, String> tmpPayload = strategy.payload.messageData.map(
-      // ignore: avoid_types_on_closure_parameters
-      (key, Object value) => MapEntry(
+    final tmpPayload = strategy.payload.messageData.map(
+      // ignore: avoid_annotating_with_dynamic
+      (key, dynamic value) => MapEntry(
         key.toString(),
         value.toString(),
       ),
@@ -92,12 +92,12 @@ class NotificationController {
     );
   }
 
-  void _internalOnSelectNotification(Map<dynamic, dynamic> payload) {
+  void _internalOnSelectNotification(Map<dynamic, dynamic>? payload) {
     // ignore: avoid_print
     print('DEV_INFO onSelectNotification, payload: $payload');
 
     final tmpPayload = payload as Map<String, String>;
-    final int pushId = int.parse(tmpPayload[pushIdParam]);
+    final pushId = int.tryParse(tmpPayload[pushIdParam]!);
     final onSelectNotification = callbackMap[pushId];
     callbackMap.remove(pushId);
 

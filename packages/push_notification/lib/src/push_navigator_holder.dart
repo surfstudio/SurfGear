@@ -20,9 +20,9 @@ class PushNavigatorHolder {
 
   PushNavigatorHolder._internal();
 
-  NavigatorState navigator;
+  NavigatorState? navigator;
 
-  static final PushNavigatorHolder _instance = PushNavigatorHolder._internal();
+  static final _instance = PushNavigatorHolder._internal();
 
   static PushNavigatorHolder get instance => _instance;
 }
