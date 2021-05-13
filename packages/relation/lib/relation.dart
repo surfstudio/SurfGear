@@ -12,15 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// relations
-export 'package:relation/src/relation/event.dart';
-export 'package:relation/src/relation/action/action.dart';
-export 'package:relation/src/relation/action/actions/scroll_action.dart';
-export 'package:relation/src/relation/action/actions/text_editing_action.dart';
-export 'package:relation/src/relation/state/entity_state.dart';
-export 'package:relation/src/relation/state/streamed_state.dart';
-
-//builders
+/// builders
 export 'package:relation/src/builder/entity_state_builder.dart';
 export 'package:relation/src/builder/streamed_state_builder.dart';
 export 'package:relation/src/builder/textfield_state_builder.dart';
+
+/// relations
+export 'package:relation/src/relation/action/action.dart';
+export 'package:relation/src/relation/action/actions/scroll_action.dart';
+export 'package:relation/src/relation/action/actions/text_editing_action.dart';
+export 'package:relation/src/relation/event.dart';
+export 'package:relation/src/relation/state/entity_state.dart';
+export 'package:relation/src/relation/state/streamed_state.dart';
