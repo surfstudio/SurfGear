@@ -1,5 +1,5 @@
 name: relation
-version: "1.0.0-dev.0"
+version: "1.1.0"
 description: the stream representation of the relations of the entities and widget utilities
 homepage: "https://github.com/surfstudio/SurfGear/tree/dev/packages/relation"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
@@ -7,7 +7,7 @@ issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 dependencies:
   flutter:
     sdk: flutter
-  rxdart: ^0.26.0
+  rxdart: ^0.27.0
 
 dev_dependencies:
   flutter_test:
