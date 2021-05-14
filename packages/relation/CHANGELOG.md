@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0
+
+* Update `rxdart` dependency to `0.27.0`
+
 ## 1.0.0
 
 * Migrated to null safety, min SDK is `2.12.0`
