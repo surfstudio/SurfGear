@@ -10,9 +10,9 @@ This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) t
 
 ## About
 
-This plugin uses [SMS User Consent API](https://developers.google.com/identity/sms-retriever/user-consent/overview) and [SMS Retriever API](https://developers.google.com/identity/sms-retriever/overview) on Android.  
+This plugin uses [SMS User Consent API](https://developers.google.com/identity/sms-retriever/user-consent/overview) and [SMS Retriever API](https://developers.google.com/identity/sms-retriever/overview) on Android.
 
-You could use autofill from another input by using OTPStrategy. (e.g. from push-notification)
+You could use autofill from another input by using OTPStrategy. (e.g. from push-notification).
 
 For testing you could create `TestStrategy`.
 
@@ -84,7 +84,7 @@ You can use both `stable` and `dev` versions of the package listed above in the 
 
 Set `minSdkVersion` at least to 19 in `<project root>/project/android/app/build.gradle`.
 
-```groovy
+``` gradle
 android {
   ...
   defaultConfig {
