@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1
+
+* Update native Android code.
+* Update readme.
+
 ## 1.0.0
 
 * Migrate this package to null safety.
