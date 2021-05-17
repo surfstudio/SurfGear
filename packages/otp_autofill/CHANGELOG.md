@@ -2,7 +2,7 @@
 
 ## 1.0.1
 
-* Update native Android code.
+* Fix android build bug related on null-safety.
 * Update readme.
 
 ## 1.0.0
