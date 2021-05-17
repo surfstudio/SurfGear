@@ -48,7 +48,7 @@ public class OTPPlugin : FlutterPlugin, MethodCallHandler, PluginRegistry.Activi
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         context = flutterPluginBinding.applicationContext
-        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), channelName)
+        channel = MethodChannel(flutterPluginBinding.binaryMessenger, channelName)
         channel.setMethodCallHandler(this);
     }
 
@@ -125,7 +125,7 @@ public class OTPPlugin : FlutterPlugin, MethodCallHandler, PluginRegistry.Activi
                 }
             credentialPickerRequest -> if (resultCode == Activity.RESULT_OK && data != null) {
                 val credential = data.getParcelableExtra<Credential>(Credential.EXTRA_KEY)
-                lastResult?.success(credential.getId())
+                lastResult?.success(credential?.id)
             }
         }
         return true
