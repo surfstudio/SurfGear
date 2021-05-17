@@ -10,16 +10,16 @@ This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) t
 
 ## About
 
-For sms autofill plugin use [SMS User Consent API](user_consent_link) and [SMS Retriever API](retriever_link) on Android. IOS sms autofill built in `TextField` widget.
+This plugin uses [SMS User Consent API](https://developers.google.com/identity/sms-retriever/user-consent/overview) and [SMS Retriever API](https://developers.google.com/identity/sms-retriever/overview) on Android.  
 
 You could use autofill from another input by using OTPStrategy. (e.g. from push-notification)
 
-For testing you could create TestStrategy.
+For testing you could create `TestStrategy`.
 
 ## iOS
 
-in iOS OTP autofill is built in `TextField`.
-Code from sms store for 3 minutes.
+On iOS OTP autofill is built in `TextField`.
+Code from sms stores for 3 minutes.
 
 ### Rules for sms
 
@@ -32,15 +32,15 @@ iOS can receive number from any other number.
 
 ## Android
 
-`OTPInteractor.hint` - show system dialog to select saved phone numbers (recommendation from google)
-`OTPInteractor.getAppSignature` - create hash-code of your application, that used in [SMS Retriever API](retriever_link)
-`OTPInteractor.startListenUserConsent` - BroadcastReceiver start listen for code from Google Services for 5 minutes. Above 5 minutes raise timeout exception. Using [SMS User Consent API](user_consent_link)
-`OTPInteractor.startListenRetriever` - BroadcastReceiver start listen for code from Google Services for 5 minutes. Above 5 minutes raise timeout exception. Using [SMS Retriever API](retriever_link)
-`OTPInteractor.stopListenForCode` - use in dispose
+`OTPInteractor.hint` - show system dialog to select saved phone numbers (recommendation from google).
+`OTPInteractor.getAppSignature` - create hash-code of your application, that used in [SMS Retriever API](https://developers.google.com/identity/sms-retriever/overview).
+`OTPInteractor.startListenUserConsent` - BroadcastReceiver start listen for code from Google Services for 5 minutes. Above 5 minutes raise timeout exception. Using [SMS User Consent API](https://developers.google.com/identity/sms-retriever/user-consent/overview).
+`OTPInteractor.startListenRetriever` - BroadcastReceiver start listen for code from Google Services for 5 minutes. Above 5 minutes raise timeout exception. Using [SMS Retriever API](https://developers.google.com/identity/sms-retriever/overview).
+`OTPInteractor.stopListenForCode` - use in dispose.
 
 Plugin receive full sms text, need parser for sms.
 
-If you use [SMS User Consent API](user_consent_link) then system ask for permission to reed incoming message.
+If you use [SMS User Consent API](https://developers.google.com/identity/sms-retriever/user-consent/overview) then system ask for permission to reed incoming message.
 
 ### Rules for sms. SMS User Consent API
 
@@ -57,9 +57,6 @@ If you use [SMS User Consent API](user_consent_link) then system ask for permiss
 ### Android Testing
 
 `OTPInteractor.startListenForCode` has `senderPhone` argument. Application start receiving code from this number.
-
-[user_consent_link]:https://developers.google.com/identity/sms-retriever/user-consent/overview
-[retriever_link]:https://developers.google.com/identity/sms-retriever/overview
 
 ## Usage
 
@@ -82,6 +79,22 @@ dependencies:
 ```
 
 You can use both `stable` and `dev` versions of the package listed above in the badges bar.
+
+### Android Installation
+
+Set `minSdkVersion` at least to 19 in `<project root>/project/android/app/build.gradle`.
+
+```groovy
+android {
+  ...
+  defaultConfig {
+    ...
+    minSdkVersion 19
+    ...
+  }
+  ...
+}
+```
 
 ## Changelog
 
