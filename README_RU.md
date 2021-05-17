@@ -1,6 +1,4 @@
-<!--![logo](logo.gif)-->
-
-# <img src="logo.gif" title="logo" width="400" height="400" align="middle"/>
+# <img src="docs/img/logo.gif" title="logo" width="400" height="400" align="middle"/>
 
 Набор библиотек, стандартов, инструментов используемых студией Surf при разработке на Flutter.
 
