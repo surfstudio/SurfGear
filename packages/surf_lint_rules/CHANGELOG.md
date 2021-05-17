@@ -1,8 +1,13 @@
 # Changelog
 
+## 1.1.0
+
+* Bump pedantic version.
+* Add [dart-code-metrics](https://pub.dev/packages/dart_code_metrics) dependency.
+
 ## 1.0.0
 
-- Migrated to null safety, min SDK is `2.12.0`.
+* Migrated to null safety, min SDK is `2.12.0`.
 
 ## 0.0.2-dev.6
 
