@@ -76,7 +76,7 @@ linter:
 
     # Style rules.
     always_put_required_named_parameters_first: true
-    always_require_non_null_named_parameters: true
+    always_require_non_null_named_parameters: false
     annotate_overrides: true
     avoid_annotating_with_dynamic: true
     avoid_bool_literals_in_conditional_expressions: true
@@ -160,7 +160,7 @@ linter:
     sized_box_for_whitespace: true
     slash_for_doc_comments: true
     sort_child_properties_last: true
-    sort_constructors_first: true
+    sort_constructors_first: false
     sort_unnamed_constructors_first: true
     type_init_formals: true
     unawaited_futures: true
@@ -188,9 +188,10 @@ linter:
     void_checks: true
     lines_longer_than_80_chars: false
     flutter_style_todos: true
+    positional_after_named_argument: false
 
     # Error rules.
-    always_use_package_imports: true
+    always_use_package_imports: false
     avoid_empty_else: true
     avoid_print: true
     avoid_relative_lib_imports: true
