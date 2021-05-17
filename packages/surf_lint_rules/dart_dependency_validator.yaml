@@ -1,2 +1,3 @@
 ignore:
   - dart_code_metrics
+  - pedantic
