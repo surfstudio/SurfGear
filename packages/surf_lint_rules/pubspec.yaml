@@ -10,15 +10,3 @@ dependencies:
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
-
-dependency_validator:
-  ignore:
-    - pedantic
-
-custom:
-  is_stable: false
-  is_plugin: false
-  path: surf_lint_rules
-  unstable_version:
-  separate_repo_url:
-  hostUrl:
