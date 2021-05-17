@@ -1,16 +1,9 @@
 name: build surf_lint_rules
 
 on:
-  push:
-    branches: 
-      - dev
-    paths:
-      - "packages/surf_lint_rules/**"
-      - ".github/workflows/surf_lint_rules.yaml"
-
   pull_request:
     branches: 
-      - dev
+      - main
     paths:
       - "packages/surf_lint_rules/**"
       - ".github/workflows/surf_lint_rules.yaml"

@@ -1,7 +1,7 @@
 name: keyboard_listener
 version: "2.0.0"
 description: Keyboard listener created only on Flutter
-repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/keyboard_listener"
+repository: "https://github.com/surfstudio/SurfGear/tree/main/packages/keyboard_listener"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 publish_to: none
 

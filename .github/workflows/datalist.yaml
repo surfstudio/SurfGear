@@ -1,16 +1,9 @@
 name: build datalist
 
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - "packages/datalist/**"
-      - ".github/workflows/datalist.yaml"
-
   pull_request:
     branches:
-      - dev
+      - main
     paths:
       - "packages/datalist/**"
       - ".github/workflows/datalist.yaml"

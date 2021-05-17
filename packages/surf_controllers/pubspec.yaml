@@ -1,7 +1,7 @@
 name: surf_controllers
 version: "1.0.0"
 description: Common controller for call dialogs
-repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/surf_controllers"
+repository: "https://github.com/surfstudio/SurfGear/tree/main/packages/surf_controllers"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 
 dependencies:
@@ -21,5 +21,5 @@ custom:
   unstable_version:
   is_plugin: false
   path: surf_controllers
-  separate_repo_url: "https://github.com/surfstudio/SurfGear/tree/dev/surf_controllers"
+  separate_repo_url: "https://github.com/surfstudio/SurfGear/tree/main/surf_controllers"
   hostUrl:

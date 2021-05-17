@@ -1,16 +1,9 @@
 name: build surf_mwwm
 
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - "packages/surf_mwwm/**"
-      - ".github/workflows/surf_mwwm.yaml"
-
   pull_request:
     branches:
-      - dev
+      - main
     paths:
       - "packages/surf_mwwm/**"
       - ".github/workflows/surf_mwwm.yaml"

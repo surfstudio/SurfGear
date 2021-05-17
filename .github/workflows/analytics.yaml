@@ -1,16 +1,9 @@
 name: build analytics
 
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - "packages/analytics/**"
-      - ".github/workflows/analytics.yaml"
-
   pull_request:
     branches:
-      - dev
+      - main
     paths:
       - "packages/analytics/**"
       - ".github/workflows/analytics.yaml"

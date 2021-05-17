@@ -1,16 +1,9 @@
 name: build surf_util
 
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - "packages/surf_util/**"
-      - ".github/workflows/surf_util.yaml"
-
   pull_request:
     branches:
-      - dev
+      - main
     paths:
       - "packages/surf_util/**"
       - ".github/workflows/surf_util.yaml"

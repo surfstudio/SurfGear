@@ -1,16 +1,9 @@
 name: build keyboard_listener
 
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - "packages/keyboard_listener/**"
-      - ".github/workflows/keyboard_listener.yaml"
-
   pull_request:
     branches:
-      - dev
+      - main
     paths:
       - "packages/keyboard_listener/**"
       - ".github/workflows/keyboard_listener.yaml"

@@ -1,16 +1,9 @@
 name: build virtual_keyboard
 
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - "packages/virtual_keyboard/**"
-      - ".github/workflows/virtual_keyboard.yaml"
-
   pull_request:
     branches:
-      - dev
+      - main
     paths:
       - "packages/virtual_keyboard/**"
       - ".github/workflows/virtual_keyboard.yaml"

@@ -1,16 +1,9 @@
 name: build swipe_refresh
 
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - "packages/swipe_refresh/**"
-      - ".github/workflows/swipe_refresh.yaml"
-
   pull_request:
     branches:
-      - dev
+      - main
     paths:
       - "packages/swipe_refresh/**"
       - ".github/workflows/swipe_refresh.yaml"
