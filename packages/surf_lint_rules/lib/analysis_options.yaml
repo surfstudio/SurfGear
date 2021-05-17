@@ -64,6 +64,18 @@ dart_code_metrics:
     - no-object-declaration
     - prefer-conditional-expressions
     - prefer-trailing-comma
+    - member-ordering:
+        alphabetize: true
+        order:
+          - public-fields
+          - public-getters
+          - public-setters
+          - public-methods
+          - constructors
+          - private-fields
+          - private-getters
+          - private-setters
+          - private-methods
 
 linter:
   rules:
