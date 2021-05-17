@@ -1,16 +1,9 @@
 name: build surf_controllers
 
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - "packages/surf_controllers/**"
-      - ".github/workflows/surf_controllers.yaml"
-
   pull_request:
     branches:
-      - dev
+      - main
     paths:
       - "packages/surf_controllers/**"
       - ".github/workflows/surf_controllers.yaml"

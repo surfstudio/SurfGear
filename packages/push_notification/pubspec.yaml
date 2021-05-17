@@ -1,7 +1,7 @@
 name: push_notification
 version: "1.0.0"
 description: Library for implementing push notifications. The module contains the main work with push notifications.
-repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/push_notification"
+repository: "https://github.com/surfstudio/SurfGear/tree/main/packages/push_notification"
 
 dependencies:
   flutter:

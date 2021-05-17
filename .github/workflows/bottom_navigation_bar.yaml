@@ -1,16 +1,9 @@
 name: build bottom_navigation_bar
 
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - "packages/bottom_navigation_bar/**"
-      - ".github/workflows/bottom_navigation_bar.yaml"
-
   pull_request:
     branches:
-      - dev
+      - main
     paths:
       - "packages/bottom_navigation_bar/**"
       - ".github/workflows/bottom_navigation_bar.yaml"

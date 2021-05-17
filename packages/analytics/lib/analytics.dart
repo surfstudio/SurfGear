@@ -13,7 +13,7 @@
 // limitations under the License.
 
 export 'package:analytics/core/analytic_action.dart';
-export 'package:analytics/core/analytic_service.dart';
 export 'package:analytics/core/analytic_action_performer.dart';
+export 'package:analytics/core/analytic_service.dart';
 
 export 'package:analytics/impl/default_analytic_service.dart';

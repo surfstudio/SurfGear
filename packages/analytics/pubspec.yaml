@@ -2,7 +2,7 @@ name: analytics
 version: "1.0.0"
 description: |
   Interface for working with analytic services. The library is supposed to unify work with various analytic services.
-repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/analytics"
+repository: "https://github.com/surfstudio/SurfGear/tree/main/packages/analytics"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 
 dependencies:

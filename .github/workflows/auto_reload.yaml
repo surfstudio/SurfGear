@@ -1,16 +1,9 @@
 name: build auto_reload
 
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - "packages/auto_reload/**"
-      - ".github/workflows/auto_reload.yaml"
-
   pull_request:
     branches:
-      - dev
+      - main
     paths:
       - "packages/auto_reload/**"
       - ".github/workflows/auto_reload.yaml"

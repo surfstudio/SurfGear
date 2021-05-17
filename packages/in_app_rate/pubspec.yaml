@@ -1,7 +1,7 @@
 name: in_app_rate
 version: "1.0.0"
 description: "Plugin use in-app review and App Store Review"
-repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/in_app_rate"
+repository: "https://github.com/surfstudio/SurfGear/tree/main/packages/in_app_rate"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 publish_to: none
 

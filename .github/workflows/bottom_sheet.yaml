@@ -1,16 +1,9 @@
 name: build bottom_sheet
 
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - "packages/bottom_sheet/**"
-      - ".github/workflows/bottom_sheet.yaml"
-
   pull_request:
     branches:
-      - dev
+      - main
     paths:
       - "packages/bottom_sheet/**"
       - ".github/workflows/bottom_sheet.yaml"

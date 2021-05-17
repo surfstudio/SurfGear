@@ -2,8 +2,8 @@ name: mwwm
 version: "1.1.0"
 description: |
   Software architecture pattern for teams with different sizes. Add possibility to work separately. Separate UI, presentation logic and business logic.
-  
-repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/mwwm"
+
+repository: "https://github.com/surfstudio/SurfGear/tree/main/packages/mwwm"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 
 dependencies:
@@ -13,7 +13,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mocktail: ^0.1.1 
+  mocktail: ^0.1.1
   surf_lint_rules: ^1.0.0
 
 environment:
@@ -30,5 +30,5 @@ custom:
   unstable_version:
   is_plugin: false
   path: mwwm
-  separate_repo_url: "https://github.com/surfstudio/SurfGear/tree/dev/packages/mwwm"
+  separate_repo_url: "https://github.com/surfstudio/SurfGear/tree/main/packages/mwwm"
   hostUrl:

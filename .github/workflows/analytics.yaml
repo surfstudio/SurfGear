@@ -1,16 +1,9 @@
 name: build analytics
 
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - "packages/analytics/**"
-      - ".github/workflows/analytics.yaml"
-
   pull_request:
     branches:
-      - dev
+      - main
     paths:
       - "packages/analytics/**"
       - ".github/workflows/analytics.yaml"
@@ -52,7 +45,7 @@ jobs:
           CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
         if: success()
         run: |
-          dart pub run ../../tools/coverage/fake_test_generator.dart dart
+          dart run ../../tools/coverage/fake_test_generator.dart dart
           dart test --coverage=coverage
           dart pub global activate coverage
           dart pub global run coverage:format_coverage --packages=.packages -i coverage -o coverage/lcov.info --lcov --report-on=lib

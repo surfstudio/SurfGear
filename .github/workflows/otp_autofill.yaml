@@ -1,16 +1,9 @@
 name: build otp_autofill
 
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - "packages/otp_autofill/**"
-      - ".github/workflows/otp_autofill.yaml"
-
   pull_request:
     branches:
-      - dev
+      - main
     paths:
       - "packages/otp_autofill/**"
       - ".github/workflows/otp_autofill.yaml"

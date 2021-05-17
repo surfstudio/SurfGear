@@ -1,16 +1,9 @@
 name: build tabnavigator
 
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - "packages/tabnavigator/**"
-      - ".github/workflows/tabnavigator.yaml"
-
   pull_request:
     branches:
-      - dev
+      - main
     paths:
       - "packages/tabnavigator/**"
       - ".github/workflows/tabnavigator.yaml"

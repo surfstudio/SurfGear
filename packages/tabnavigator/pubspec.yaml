@@ -1,7 +1,7 @@
 name: tabnavigator
 version: "1.0.0"
 description: Module can manage the tabs on the screen.
-repository: "https://github.com/surfstudio/SurfGear/tree/dev/packages/tabnavigator"
+repository: "https://github.com/surfstudio/SurfGear/tree/main/packages/tabnavigator"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 
 dependencies:

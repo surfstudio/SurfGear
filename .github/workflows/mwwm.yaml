@@ -1,16 +1,9 @@
 name: build mwwm
 
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - "packages/mwwm/**"
-      - ".github/workflows/mwwm.yaml"
-
   pull_request:
     branches:
-      - dev
+      - main
     paths:
       - "packages/mwwm/**"
       - ".github/workflows/mwwm.yaml"

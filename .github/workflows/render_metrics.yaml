@@ -1,16 +1,9 @@
 name: build render_metrics
 
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - "packages/render_metrics/**"
-      - ".github/workflows/render_metrics.yaml"
-
   pull_request:
     branches:
-      - dev
+      - main
     paths:
       - "packages/render_metrics/**"
       - ".github/workflows/render_metrics.yaml"
