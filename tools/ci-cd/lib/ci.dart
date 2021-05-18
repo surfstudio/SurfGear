@@ -13,6 +13,7 @@
 // limitations under the License.
 
 export 'package:ci_cd/src/changelog.dart';
+export 'package:ci_cd/src/git.dart';
 export 'package:ci_cd/src/importance.dart';
 export 'package:ci_cd/src/pubspec.dart';
 export 'package:ci_cd/src/version.dart';
