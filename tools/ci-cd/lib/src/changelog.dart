@@ -16,6 +16,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ci_cd/src/importance.dart';
+import 'package:pub_semver/pub_semver.dart';
 
 const _changeMark = '* ';
 const _versionMark = '## ';
@@ -97,7 +98,7 @@ Iterable<int> getReleaseLineIndices(Iterable<String> content) {
 
 Iterable<String> patchChangelog(
   Iterable<String> originalContent,
-  String newVersion,
+  Version newVersion,
   ChangesImportance importance,
   DateTime changesDate,
 ) {

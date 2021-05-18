@@ -15,6 +15,7 @@
 @TestOn('vm')
 import 'package:ci_cd/src/changelog.dart';
 import 'package:ci_cd/src/importance.dart';
+import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -221,14 +222,14 @@ void main() {
           '* Fixed loading and error builders on empty stream data',
           '* Update README.md',
         ],
-        'newVersion',
+        Version(1, 0, 0),
         ChangesImportance.major,
         DateTime(2021, 1, 2),
       ),
       equals([
         '# Changelog',
         '',
-        '## newVersion - 2021-01-02',
+        '## 1.0.0 - 2021-01-02',
         '',
         '* changes (major)',
         '',

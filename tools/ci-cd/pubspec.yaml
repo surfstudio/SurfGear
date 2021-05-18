@@ -7,6 +7,7 @@ environment:
 
 dependencies:
   args: ^2.1.0
+  pub_semver: ^2.0.0
 
 dev_dependencies:
   surf_lint_rules: ^1.0.0
