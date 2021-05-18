@@ -22,6 +22,7 @@ void main(List<String> args) {
     ..addCommand(CheckDevBranch())
     ..addCommand(BumpDevVersion())
     ..addCommand(PushNewVersion())
+    ..addCommand(PublishToPub())
     ..run(args);
 }
 
@@ -92,6 +93,19 @@ class PushNewVersion extends Command<void> {
     final version = getPackageVersion(readPubspec());
 
     pushNewVersion(version);
+  }
+}
+
+class PublishToPub extends Command<void> {
+  @override
+  String get name => 'publish';
+
+  @override
+  String get description => 'Publish to pub.dev.';
+
+  @override
+  void run() {
+    publishToPub();
   }
 }
 
