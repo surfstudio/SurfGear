@@ -8,33 +8,39 @@ This repository is intended **for demonstration**.
 
 ## Modules  
 
-**Table of contents:**
+### Architecture
 
-* [Analytics](#analytics)
-* [Auto Reload](#auto-reload)
+* [MWWM](#mwwm)
+* [Relation](#relation)
+* [Surf Controllers](#surf-controllers)
+* [Surf MWWM](#surf-mwwm)
+
+### Widgets
+
 * [Bottom Navigation Bar](#bottom-navigation-bar)
 * [Bottom Sheet](#bottom-sheet)
-* [Data List](#data-list)
 * [In App Rate](#in-app-rate)
 * [Ink Widget](#ink-widget)
-* [Keyboard Listener](#keyboard-listener)
-* [MWWM](#mwwm)
-* [OTP autofill](#otp-autofill)
-* [Push Notification](#push-notification)
-* [Relation](#relation)
-* [Render Metrics](#render-metrics)
-* [Surf Controllers](#surf-controllers)
-* [Surf Lint Rules](#surf-lint-rules)
-* [Surf Logger](#surf-logger)
-* [Surf MWWM](#surf-mwwm)
-* [Surf Util](#suf-util)
 * [Swipe Refresh](#swipe-refresh)
 * [Tab Navigator](#tab-navigator)
 * [Virtual Keyboard](#virtual-keyboard)
 
+### Services
+
+* [Analytics](#analytics)
+* [Auto Reload](#auto-reload)
+* [Data List](#data-list)
+* [Keyboard Listener](#keyboard-listener)
+* [OTP autofill](#otp-autofill)
+* [Push Notification](#push-notification)
+* [Render Metrics](#render-metrics)
+* [Surf Lint Rules](#surf-lint-rules)
+* [Surf Logger](#surf-logger)
+* [Surf Util](#surf-util)
+
 ---
 
-### `Analytics`
+#### `Analytics`
 
 > [![Pub Version](https://img.shields.io/pub/v/analytics?logo=dart&logoColor=white)](https://pub.dev/packages/analytics/)
 [![Pub Likes](https://badgen.net/pub/likes/analytics?label=pub%20likes)](https://pub.dev/packages/analytics/score)
@@ -48,7 +54,7 @@ Interface for working with analytic services. The library is supposed to unify w
 
 ---
 
-### `Auto Reload`
+#### `Auto Reload`
 
 > [![Pub Version](https://img.shields.io/pub/v/auto_reload?logo=dart&logoColor=white)](https://pub.dev/packages/auto_reload/)
 [![Pub Likes](https://badgen.net/pub/likes/auto_reload?label=pub%20likes)](https://pub.dev/packages/auto_reload/score)
@@ -62,7 +68,7 @@ A library that helps to perform actions with some periodicity. [Learn More](http
 
 ---
 
-### `Bottom Navigation Bar`
+#### `Bottom Navigation Bar`
 
 > [![Pub Version](https://img.shields.io/pub/v/bottom_navigation_bar?logo=dart&logoColor=white)](https://pub.dev/packages/bottom_navigation_bar/)
 [![Pub Likes](https://badgen.net/pub/likes/bottom_navigation_bar?label=pub%20likes)](https://pub.dev/packages/bottom_navigation_bar/score)
@@ -76,7 +82,7 @@ Bottom navigation bar. [Learn More](https://github.com/surfstudio/SurfGear/blob/
 
 ---
 
-### `Bottom Sheet`
+#### `Bottom Sheet`
 
 > [![Pub Version](https://img.shields.io/pub/v/bottom_sheet?logo=dart&logoColor=white)](https://pub.dev/packages/bottom_sheet/)
 [![Pub Likes](https://badgen.net/pub/likes/bottom_sheet?label=pub%20likes)](https://pub.dev/packages/bottom_sheet/score)
@@ -90,7 +96,7 @@ Custom bottom sheet widget, that can resize by drag and then scroll. [Learn More
 
 ---
 
-### `Data List`
+#### `Data List`
 
 > [![Pub Version](https://img.shields.io/pub/v/datalist?logo=dart&logoColor=white)](https://pub.dev/packages/datalist/)
 [![Pub Likes](https://badgen.net/pub/likes/datalist?label=pub%20likes)](https://pub.dev/packages/datalist/score)
@@ -104,7 +110,7 @@ Implementation DataList in Flutter. [Learn More](https://github.com/surfstudio/S
 
 ---
 
-### `In App Rate`
+#### `In App Rate`
 
 Plugin open native dialog for application rate/review. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/in_app_rate/README.md)
 
@@ -112,7 +118,7 @@ Plugin open native dialog for application rate/review. [Learn More](https://gith
 
 ---
 
-### `Ink Widget`
+#### `Ink Widget`
 
 > [![Pub Version](https://img.shields.io/pub/v/ink_widget?logo=dart&logoColor=white)](https://pub.dev/packages/ink_widget/)
 [![Pub Likes](https://badgen.net/pub/likes/ink_widget?label=pub%20likes)](https://pub.dev/packages/ink_widget/score)
@@ -126,7 +132,7 @@ Widget library with ink effect without problems with decoration for child. [Lear
 
 ---
 
-### `Keyboard Listener`
+#### `Keyboard Listener`
 
 Keyboard listener created only on Flutter. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/keyboard_listener/README.md)
 
@@ -134,7 +140,7 @@ Keyboard listener created only on Flutter. [Learn More](https://github.com/surfs
 
 ---
 
-### `MWWM`
+#### `MWWM`
 
 > [![Pub Version](https://img.shields.io/pub/v/mwwm?logo=dart&logoColor=white)](https://pub.dev/packages/mwwm/)
 [![Pub Likes](https://badgen.net/pub/likes/mwwm?label=pub%20likes)](https://pub.dev/packages/mwwm/score)
@@ -148,7 +154,7 @@ MVVM-inspired lightweight architectural framework for Flutter apps made with res
 
 ---
 
-### `OTP autofill`
+#### `OTP autofill`
 
 > [![Pub Version](https://img.shields.io/pub/v/otp_autofill?logo=dart&logoColor=white)](https://pub.dev/packages/otp_autofill/)
 [![Pub Likes](https://badgen.net/pub/likes/otp_autofill?label=pub%20likes)](https://pub.dev/packages/otp_autofill/score)
@@ -162,7 +168,7 @@ This plugin uses [SMS User Consent API](https://developers.google.com/identity/s
 
 ---
 
-### `Push Notification`
+#### `Push Notification`
 
 > [![Pub Version](https://img.shields.io/pub/v/push_notification?logo=dart&logoColor=white)](https://pub.dev/packages/push_notification/)
 [![Pub Likes](https://badgen.net/pub/likes/push_notification?label=pub%20likes)](https://pub.dev/packages/push_notification/score)
@@ -176,7 +182,7 @@ Library for implementing push notifications. The module contains the main work w
 
 ---
 
-### `Relation`
+#### `Relation`
 
 > [![Pub Version](https://img.shields.io/pub/v/relation?logo=dart&logoColor=white)](https://pub.dev/packages/relation/)
 [![Pub Likes](https://badgen.net/pub/likes/relation?label=pub%20likes)](https://pub.dev/packages/relation/score)
@@ -190,7 +196,7 @@ The stream representation of the relations of the entities and widget utilities.
 
 ---
 
-### `Render Metrics`
+#### `Render Metrics`
 
 > [![Pub Version](https://img.shields.io/pub/v/render_metrics?logo=dart&logoColor=white)](https://pub.dev/packages/render_metrics/)
 [![Pub Likes](https://badgen.net/pub/likes/render_metrics?label=pub%20likes)](https://pub.dev/packages/render_metrics/score)
@@ -204,7 +210,7 @@ This package helps retrieve the current positioning coordinates of any widget in
 
 ---
 
-### `Surf Controllers`
+#### `Surf Controllers`
 
 > [![Pub Version](https://img.shields.io/pub/v/surf_controllers?logo=dart&logoColor=white)](https://pub.dev/packages/surf_controllers/)
 [![Pub Likes](https://badgen.net/pub/likes/surf_controllers?label=pub%20likes)](https://pub.dev/packages/surf_controllers/score)
@@ -218,7 +224,7 @@ Common controller for call dialogs. [Learn More](https://github.com/surfstudio/S
 
 ---
 
-### `Surf Lint Rules`
+#### `Surf Lint Rules`
 
 > [![Pub Version](https://img.shields.io/pub/v/surf_lint_rules?logo=dart&logoColor=white)](https://pub.dev/packages/surf_lint_rules/)
 [![Pub Likes](https://badgen.net/pub/likes/surf_lint_rules?label=pub%20likes)](https://pub.dev/packages/surf_lint_rules/score)
@@ -232,7 +238,7 @@ Lint rules used in "Surf" company. [Learn More](https://github.com/surfstudio/Su
 
 ---
 
-### `Surf Logger`
+#### `Surf Logger`
 
 > [![Pub Version](https://img.shields.io/pub/v/surf_logger?logo=dart&logoColor=white)](https://pub.dev/packages/surf_logger/)
 [![Pub Likes](https://badgen.net/pub/likes/surf_logger?label=pub%20likes)](https://pub.dev/packages/surf_logger/score)
@@ -246,7 +252,7 @@ Logger for Dart & Flutter. [Learn More](https://github.com/surfstudio/SurfGear/b
 
 ---
 
-### `Surf MWWM`
+#### `Surf MWWM`
 
 > [![Pub Version](https://img.shields.io/pub/v/surf_mwwm?logo=dart&logoColor=white)](https://pub.dev/packages/surf_mwwm/)
 [![Pub Likes](https://badgen.net/pub/likes/surf_mwwm?label=pub%20likes)](https://pub.dev/packages/surf_mwwm/score)
@@ -260,7 +266,7 @@ Reflection of widget in a single entity. [Learn More](https://github.com/surfstu
 
 ---
 
-### `Surf Util`
+#### `Surf Util`
 
 > [![Pub Version](https://img.shields.io/pub/v/surf_util?logo=dart&logoColor=white)](https://pub.dev/packages/surf_util/)
 [![Pub Likes](https://badgen.net/pub/likes/surf_util?label=pub%20likes)](https://pub.dev/packages/surf_util/score)
@@ -274,7 +280,7 @@ A library with set of common classes and utilities used in different modules. [L
 
 ---
 
-### `Swipe Refresh`
+#### `Swipe Refresh`
 
 > [![Pub Version](https://img.shields.io/pub/v/swipe_refresh?logo=dart&logoColor=white)](https://pub.dev/packages/swipe_refresh/)
 [![Pub Likes](https://badgen.net/pub/likes/swipe_refresh?label=pub%20likes)](https://pub.dev/packages/swipe_refresh/score)
@@ -288,7 +294,7 @@ Widget for refresh by swipe. [Learn More](https://github.com/surfstudio/SurfGear
 
 ---
 
-### `Tab Navigator`
+#### `Tab Navigator`
 
 > [![Pub Version](https://img.shields.io/pub/v/tabnavigator?logo=dart&logoColor=white)](https://pub.dev/packages/tabnavigator/)
 [![Pub Likes](https://badgen.net/pub/likes/tabnavigator?label=pub%20likes)](https://pub.dev/packages/tabnavigator/score)
@@ -302,7 +308,7 @@ Possibly the most common style of navigation in mobile apps is tab-based navigat
 
 ---
 
-### `Virtual Keyboard`
+#### `Virtual Keyboard`
 
 Keyboard widget for use in widget tree. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/virtual_keyboard/README.md)
 
