@@ -88,7 +88,7 @@ linter:
 
     # Style rules.
     always_put_required_named_parameters_first: true
-    always_require_non_null_named_parameters: false
+    always_require_non_null_named_parameters: true
     annotate_overrides: true
     avoid_annotating_with_dynamic: true
     avoid_bool_literals_in_conditional_expressions: true
