@@ -20,6 +20,7 @@ import 'package:ci_cd/ci.dart';
 void main(List<String> args) {
   CommandRunner<void>('tools/ci', 'tools for automate some ci/cd cases')
     ..addCommand(CheckDevBranch())
+    ..addCommand(BumpDevVersion())
     ..run(args);
 }
 
@@ -42,6 +43,39 @@ class CheckDevBranch extends Command<void> {
     if (getDevChangesCount(changelogContent) == 0) {
       printErrorMessage("Can't get introduces changes.");
     }
+  }
+}
+
+class BumpDevVersion extends Command<void> {
+  @override
+  String get name => 'bump-dev-version';
+
+  @override
+  String get description => 'Bump package version.';
+
+  @override
+  void run() {
+    final changelogContent = readChangelog();
+    final pubspecContent = readPubspec();
+
+    final importance = getDevChangesImportance(changelogContent);
+    if (importance == ChangesImportance.unknown ||
+        getDevChangesCount(changelogContent) == 0) {
+      printErrorMessage("Please run 'check-branch' command before.");
+    }
+
+    final packageVersion = getPackageVersion(pubspecContent);
+    final updatedPackageVersion = bumpPackageVersion(packageVersion);
+
+    savePubspec(patchPubspec(pubspecContent, updatedPackageVersion));
+    saveChangelog(
+      patchChangelog(
+        changelogContent,
+        updatedPackageVersion,
+        importance,
+        DateTime.now(),
+      ),
+    );
   }
 }
 
