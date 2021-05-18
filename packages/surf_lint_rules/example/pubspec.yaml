@@ -4,4 +4,5 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dev_dependencies:
-  surf_lint_rules: ^1.0.0
+  surf_lint_rules:
+    path: ../
