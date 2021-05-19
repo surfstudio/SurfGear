@@ -12,8 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Тип темы
-enum AppTheme {
-  light,
-  dark,
+import 'package:http/http.dart';
+
+/// Класс для взаимодействия с API слоем.
+class ApiClient {
+  final String _baseUrl;
+  final Client httpClient;
+
+  ApiClient(this._baseUrl, this.httpClient);
+
+  Future<Response> get(String endpoint) =>
+      httpClient.get(Uri.parse(_baseUrl + endpoint));
 }

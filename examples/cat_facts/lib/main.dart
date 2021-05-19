@@ -12,16 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:cat_facts/storage/app/app_storage.dart';
 import 'package:cat_facts/ui/app/app.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:cat_facts/ui/app/app_dependencies.dart';
+import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(
-    Provider(
-      create: (_) => AppStorage(),
-      child: const App(),
+    const AppDependencies(
+      app: App(),
     ),
   );
 }

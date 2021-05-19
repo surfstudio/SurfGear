@@ -15,13 +15,15 @@
 import 'dart:convert';
 
 import 'package:cat_facts/data/facts/fact.dart';
-import 'package:cat_facts/interactor/api_client.dart';
+import 'package:cat_facts/repository/api_client.dart';
 
+/// Репозиторий для работы с фактами
 class FactsRepository {
   const FactsRepository(this.client);
 
   final ApiClient client;
 
+  /// Получить список фактов
   Future<Iterable<Fact>> getFacts() async {
     final response = await client.get('/facts');
 
