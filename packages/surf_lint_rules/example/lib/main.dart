@@ -16,7 +16,7 @@
 import 'package:meta/meta.dart';
 import 'package:surf_lint_rules/surf_lint_rules.dart';
 
-import 'async_function.dart';
+import 'package:example/async_function.dart';
 
 Future<void> main() async {
   await asyncFunction();

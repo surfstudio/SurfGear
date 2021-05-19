@@ -191,7 +191,7 @@ linter:
     positional_after_named_argument: false
 
     # Error rules.
-    always_use_package_imports: false
+    always_use_package_imports: true
     avoid_empty_else: true
     avoid_print: true
     avoid_relative_lib_imports: true
