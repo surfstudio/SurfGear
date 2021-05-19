@@ -9,8 +9,16 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    assignees:
+      - "dkrutskikh"
+    commit-message:
+      prefix: "chore: "
 
   - package-ecosystem: "npm"
     directory: "/tools/ide/vs_code/extensions/mwwm_generator"
     schedule:
       interval: "daily"
+    assignees:
+      - "dkrutskikh"
+    commit-message:
+      prefix: "chore: "
