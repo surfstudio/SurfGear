@@ -131,7 +131,7 @@ void main() {
       child: (context, data) {
         return const Text('test');
       },
-      errorBuilder: (context, data, e) => const Text('errorBuilder'),
+      errorBuilder: (context, e) => const Text('errorBuilder'),
     );
 
     unawaited(testData.error());

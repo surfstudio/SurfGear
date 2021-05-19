@@ -45,6 +45,7 @@ class EntityStateBuilder<T> extends StatelessWidget {
     required this.streamedState,
     required this.child,
     this.loadingBuilder,
+    this.errorDataBuilder,
     this.errorBuilder,
     this.loadingChild = const SizedBox(),
     this.errorChild = const SizedBox(),
@@ -60,8 +61,11 @@ class EntityStateBuilder<T> extends StatelessWidget {
   /// Loading child of builder
   final DataWidgetBuilder<T>? loadingBuilder;
 
+  /// Error child of builder with previous data
+  final DataWidgetErrorBuilder<T>? errorDataBuilder;
+
   /// Error child of builder
-  final DataWidgetErrorBuilder<T>? errorBuilder;
+  final ErrorWidgetBuilder? errorBuilder;
 
   /// Loading child widget
   final Widget loadingChild;
@@ -83,8 +87,8 @@ class EntityStateBuilder<T> extends StatelessWidget {
             return loadingChild;
           }
         } else if (streamData.hasError) {
-          if (errorBuilder != null) {
-            return errorBuilder!(
+          if (errorDataBuilder != null) {
+            return errorDataBuilder!(
               context,
               streamData.data,
               streamData.error?.e != null
@@ -92,6 +96,14 @@ class EntityStateBuilder<T> extends StatelessWidget {
                   : Exception(),
             );
           } else {
+            if (errorBuilder != null) {
+              return errorBuilder!(
+                context,
+                streamData.error?.e != null
+                    ? streamData.error!.e as Exception
+                    : Exception(),
+              );
+            }
             return errorChild;
           }
         } else if (streamData.data != null) {
