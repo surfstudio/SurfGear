@@ -64,30 +64,6 @@ dart_code_metrics:
     - no-object-declaration
     - prefer-conditional-expressions
     - prefer-trailing-comma
-    - member-ordering-extended:
-        alphabetize: true
-        order:
-          - public-static-const-fields
-          - private-static-const-fields
-          - public-static-final-fields
-          - private-static-final-fields
-          - public-static-fields
-          - private-static-fields
-          - public-final-fields
-          - private-final-fields
-          - public-fields
-          - public-getters-setters
-          - private-fields
-          - private-getters-setters
-          - constructors
-          - named-constructors
-          - factory-constructors
-          - overridden-methods
-          - public-static-methods
-          - public-methods
-          - protected-methods
-          - private-static-methods
-          - private-methods
 
 linter:
   rules:

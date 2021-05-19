@@ -35,8 +35,6 @@ class OrderExample {
 
   String get string => publicField.toString();
 
-  // Should be fixed by Dart Code Metrics's developers
-  // ignore: member-ordering-extended
   set string(String newString) => publicField = newString;
 
   // ignore: prefer_final_fields, unused_field
@@ -45,8 +43,7 @@ class OrderExample {
   // ignore: unused_element
   String get _field => _privateField;
 
-  // Should be fixed by Dart Code Metrics's developers
-  // ignore: member-ordering-extended, unused_element
+  // ignore: unused_element
   set _field(String newString) => _privateField = '42';
 
   OrderExample({
@@ -72,17 +69,14 @@ class OrderExample {
     return super.toString().substring(0);
   }
 
-  // ignore: member-ordering-extended
   static void staticFoo() {
     return;
   }
 
-  // ignore: member-ordering-extended
   void foo() {
     return;
   }
 
-  // ignore: member-ordering-extended
   @protected
   void protectedFoo() {
     return;
@@ -93,7 +87,7 @@ class OrderExample {
     return;
   }
 
-  // ignore: member-ordering-extended, unused_element
+  // ignore: unused_element
   void _foo() {
     return;
   }
