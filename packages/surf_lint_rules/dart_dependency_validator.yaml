@@ -1,0 +1,5 @@
+ignore:
+  - dart_code_metrics
+
+exclude:
+  - "example/**"
