@@ -1,3 +1,4 @@
+// ignore_for_file: unused_element, prefer_final_fields, unused_field
 import 'package:meta/meta.dart';
 import 'package:surf_lint_rules/surf_lint_rules.dart';
 
@@ -16,19 +17,16 @@ class OrderExample {
 
   static final staticFinal = staticConst.isEven;
 
-  // ignore: unused_field
   static final _staticFinal = _staticConst.isEven;
 
   static var staticField = 42;
 
-  // ignore: prefer_final_fields, unused_field
   static var _staticField = 42;
 
   final fin = 42;
 
   final String finalField;
 
-  // ignore: unused_field
   final _fin = 42;
 
   String publicField;
@@ -37,13 +35,10 @@ class OrderExample {
 
   set string(String newString) => publicField = newString;
 
-  // ignore: prefer_final_fields, unused_field
   String _privateField = '42';
 
-  // ignore: unused_element
   String get _field => _privateField;
 
-  // ignore: unused_element
   set _field(String newString) => _privateField = '42';
 
   OrderExample({
@@ -82,12 +77,10 @@ class OrderExample {
     return;
   }
 
-  // ignore: unused_element
   static void _staticFoo() {
     return;
   }
 
-  // ignore: unused_element
   void _foo() {
     return;
   }
