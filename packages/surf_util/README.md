@@ -21,11 +21,11 @@ A library with set of common classes and utilities used in different modules
 
 ## Installation
 
-Add `surf_utils` to your `pubspec.yaml` file:
+Add `surf_util` to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  surf_utils: ^1.0.0
+  surf_util: ^1.0.0
 ```
 
 You can use both `stable` and `dev` versions of the package listed above in the badges bar.
