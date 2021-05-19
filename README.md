@@ -1,4 +1,6 @@
-# <img src="docs/img/logo.gif" title="logo" width="400" height="400" align="middle" />  
+# Surf Gear
+
+![SurfGear Cover](https://i.ibb.co/k6d07BK/logo-surf-gear.png)
 
 A set of libraries, standards, tools used by Surf studio when developing on Flutter.  
 
