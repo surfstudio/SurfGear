@@ -9,7 +9,7 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    assignees:
+    reviewers:
       - "dkrutskikh"
     commit-message:
       prefix: "chore: "
@@ -18,7 +18,7 @@ updates:
     directory: "/tools/ide/vs_code/extensions/mwwm_generator"
     schedule:
       interval: "daily"
-    assignees:
+    reviewers:
       - "dkrutskikh"
     commit-message:
       prefix: "chore: "
