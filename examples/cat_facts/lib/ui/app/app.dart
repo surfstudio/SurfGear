@@ -38,7 +38,10 @@ class _AppState extends WidgetState<AppWidgetModel> {
       streamedState: wm.theme,
       builder: (context, theme) => MaterialApp(
         title: 'Cat Facts',
-        theme: ThemeData(primaryColor: Colors.blue),
+        theme: ThemeData(
+          primaryColor: Colors.blue,
+          fontFamily: 'Roboto',
+        ),
         darkTheme: ThemeData.dark(),
         themeMode: theme == AppTheme.dark ? ThemeMode.dark : ThemeMode.light,
         home: const FactsScreen(),

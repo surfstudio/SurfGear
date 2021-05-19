@@ -22,7 +22,7 @@ void main() {
   late MockThemeInteractor themeInteractor;
   late MockFactsInteractor factsInteractor;
 
-  setUp(() {
+  setUp(() async {
     themeStream = StreamedState<AppTheme>(AppTheme.light);
     themeInteractor = MockThemeInteractor();
     factsInteractor = MockFactsInteractor();
@@ -31,6 +31,8 @@ void main() {
       (_) => Future.value(_factList),
     );
     when(() => themeInteractor.appTheme).thenReturn(themeStream);
+
+    await loadAppFonts();
   });
 
   testGoldens(
