@@ -30,8 +30,8 @@ class EntityStreamedState<T> extends StreamedState<EntityState<T>>
   }
 
   @override
-  Future<EntityState<T>?> error([Object? error]) {
-    final newState = EntityState<T>.error(error);
+  Future<EntityState<T>?> error([Object? error, T? data]) {
+    final newState = EntityState<T>.error(error, data);
     return super.accept(newState);
   }
 
