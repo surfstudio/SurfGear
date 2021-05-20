@@ -27,9 +27,9 @@ void main() {
   test('EntityStreamedState error test', () {
     final entityStreamedState = EntityStreamedState<String>();
     entityStreamedState.stream.listen((event) {
-      expect(event?.error?.e.message, 'error test');
+      expect(event?.error?.e, isException);
     });
-    entityStreamedState.error(Exception('error test'));
+    entityStreamedState.error(Exception());
   });
 
   test('EntityStreamedState loading test', () {

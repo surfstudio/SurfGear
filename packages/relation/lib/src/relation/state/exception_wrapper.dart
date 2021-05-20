@@ -17,5 +17,5 @@ class ExceptionWrapper {
   const ExceptionWrapper(this.e);
 
   /// Some exception
-  final dynamic e;
+  final Object? e;
 }
