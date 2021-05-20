@@ -32,7 +32,7 @@ void main() {
       result.add(event!);
     });
 
-    await streamedState.accept('test');
+    await streamedState.acceptUnique('test');
     await streamedState.acceptUnique('test');
 
     expect(result, equals(['test']));
