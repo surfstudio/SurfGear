@@ -198,4 +198,85 @@ void main() {
     final loadingBuilderFinder = find.text('errorDataBuilder data');
     expect(loadingBuilderFinder, findsOneWidget);
   });
+
+  group('EntityStateBuilder order:', () {
+    testWidgets('errorDataBuilder has hightest priority', (tester) async {
+      final testData = EntityStreamedState<String>();
+      final streamedStateBuilder = EntityStateBuilder<String>(
+        streamedState: testData,
+        builder: (context, data) {
+          return const Text('test');
+        },
+        errorChild: const Text('errorChild'),
+        errorBuilder: (context, error) => const Text('errorBuilder'),
+        errorDataBuilder: (
+          context,
+          data,
+          error,
+        ) =>
+            Text('errorDataBuilder $data'),
+      );
+
+      unawaited(testData.error(Exception(), 'data'));
+      await tester.pumpWidget(
+        MaterialApp(
+          title: 'Flutter Demo',
+          home: Scaffold(
+            body: streamedStateBuilder,
+          ),
+        ),
+      );
+
+      final loadingBuilderFinder = find.text('errorDataBuilder data');
+      expect(loadingBuilderFinder, findsOneWidget);
+    });
+    testWidgets('errorBuilder has medium priority', (tester) async {
+      final testData = EntityStreamedState<String>();
+      final streamedStateBuilder = EntityStateBuilder<String>(
+        streamedState: testData,
+        builder: (context, data) {
+          return const Text('test');
+        },
+        errorChild: const Text('errorChild'),
+        errorBuilder: (context, error) => const Text('errorBuilder'),
+      );
+
+      unawaited(testData.error(Exception(), 'data'));
+      await tester.pumpWidget(
+        MaterialApp(
+          title: 'Flutter Demo',
+          home: Scaffold(
+            body: streamedStateBuilder,
+          ),
+        ),
+      );
+
+      final loadingBuilderFinder = find.text('errorBuilder');
+      expect(loadingBuilderFinder, findsOneWidget);
+    });
+
+    testWidgets('errorBuilder has lowest priority', (tester) async {
+      final testData = EntityStreamedState<String>();
+      final streamedStateBuilder = EntityStateBuilder<String>(
+        streamedState: testData,
+        builder: (context, data) {
+          return const Text('test');
+        },
+        errorChild: const Text('errorChild'),
+      );
+
+      unawaited(testData.error(Exception(), 'data'));
+      await tester.pumpWidget(
+        MaterialApp(
+          title: 'Flutter Demo',
+          home: Scaffold(
+            body: streamedStateBuilder,
+          ),
+        ),
+      );
+
+      final loadingBuilderFinder = find.text('errorChild');
+      expect(loadingBuilderFinder, findsOneWidget);
+    });
+  });
 }

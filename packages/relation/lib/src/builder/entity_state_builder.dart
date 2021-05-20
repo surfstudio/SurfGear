@@ -62,16 +62,16 @@ class EntityStateBuilder<T> extends StatelessWidget {
   /// StreamedState of entity
   final EntityStreamedState<T> streamedState;
 
-  /// Returns [Widget] depend on [streamedState]'s data
+  /// WidgetBuilder for [streamedState]'s data
   final DataWidgetBuilder<T> builder;
 
-  /// Loading child of builder
+  /// WidgetBuilder for empty data
   final DataWidgetBuilder<T>? loadingBuilder;
 
-  /// Error child of builder with previous data
+  /// WidgetBuilder for error with previous data
   final DataErrorWidgetBuidler<T>? errorDataBuilder;
 
-  /// Error child of builder
+  /// WidgetBuilder for error
   final ErrorWidgetBuilder? errorBuilder;
 
   /// Loading child widget
@@ -96,12 +96,12 @@ class EntityStateBuilder<T> extends StatelessWidget {
         } else if (streamData.hasError) {
           if (errorDataBuilder != null) {
             return errorDataBuilder!(
-                context, streamData.data, streamData.error);
-          } else {
-            if (errorBuilder != null) {
-              return errorBuilder!(context, streamData.error);
-            }
-            return errorChild;
+              context,
+              streamData.data,
+              streamData.error,
+            );
+          } else if (errorBuilder != null) {
+            return errorBuilder!(context, streamData.error);
           }
         } else if (streamData.data != null) {
           return builder(context, streamData.data);
