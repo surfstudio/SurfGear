@@ -27,7 +27,7 @@ typedef DataWidgetErrorBuilder<T> = Widget Function(
 ///
 /// [streamedState] - external stream that controls the state of the widget
 /// widget has three states:
-///   [child] - content;
+///   [builder] - content;
 ///   [loadingChild] - loading;
 ///   [errorChild] - error.
 ///
@@ -35,7 +35,7 @@ typedef DataWidgetErrorBuilder<T> = Widget Function(
 /// ```dart
 /// EntityStateBuilder<Data>(
 ///      streamedState: wm.dataState,
-///      child: (data) => DataWidget(data),
+///      builder: (data) => DataWidget(data),
 ///      loadingChild: LoadingWidget(),
 ///      errorChild: ErrorPlaceholder(),
 ///    );
@@ -43,7 +43,7 @@ typedef DataWidgetErrorBuilder<T> = Widget Function(
 class EntityStateBuilder<T> extends StatelessWidget {
   const EntityStateBuilder({
     required this.streamedState,
-    required this.child,
+    required this.builder,
     this.loadingBuilder,
     this.errorDataBuilder,
     this.errorBuilder,
@@ -55,8 +55,8 @@ class EntityStateBuilder<T> extends StatelessWidget {
   /// StreamedState of entity
   final EntityStreamedState<T> streamedState;
 
-  /// Child of builder
-  final DataWidgetBuilder<T> child;
+  /// Returns [Widget] depend on [streamedState]'s data
+  final DataWidgetBuilder<T> builder;
 
   /// Loading child of builder
   final DataWidgetBuilder<T>? loadingBuilder;
@@ -92,22 +92,15 @@ class EntityStateBuilder<T> extends StatelessWidget {
               : Exception();
 
           if (errorDataBuilder != null) {
-            return errorDataBuilder!(
-              context,
-              streamData.data,
-              exception,
-            );
+            return errorDataBuilder!(context, streamData.data, exception);
           } else {
             if (errorBuilder != null) {
-              return errorBuilder!(
-                context,
-                exception,
-              );
+              return errorBuilder!(context, exception);
             }
             return errorChild;
           }
         } else if (streamData.data != null) {
-          return child(context, streamData.data);
+          return builder(context, streamData.data);
         }
 
         return errorChild;

@@ -114,7 +114,7 @@ class _DemoRelationsState extends State<DemoRelations> {
           /// build state by StreamedState
           r.EntityStateBuilder<int>(
             streamedState: loadDataState,
-            child: (ctx, data) => Text('success load: $data'),
+            builder: (ctx, data) => Text('success load: $data'),
             loadingChild: const CircularProgressIndicator(),
             errorChild: const Text('sorry - error, try again'),
           ),

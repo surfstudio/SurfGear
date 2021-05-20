@@ -25,7 +25,7 @@ void main() {
 
       final streamedStateBuilder = EntityStateBuilder<String>(
         streamedState: testData,
-        child: (context, data) {
+        builder: (context, data) {
           return Text(data ?? '');
         },
       );
@@ -52,7 +52,7 @@ void main() {
       final testData = EntityStreamedState<String>();
       final streamedStateBuilder = EntityStateBuilder<String>(
         streamedState: testData,
-        child: (context, data) {
+        builder: (context, data) {
           return const Text('test');
         },
         errorChild: const Text('error_text'),
@@ -79,7 +79,7 @@ void main() {
       final testData = EntityStreamedState<String>();
       final streamedStateBuilder = EntityStateBuilder<String>(
         streamedState: testData,
-        child: (context, data) {
+        builder: (context, data) {
           return const Text('test');
         },
         loadingChild: const Text('loading_child'),
@@ -104,7 +104,7 @@ void main() {
     final testData = EntityStreamedState<String>();
     final streamedStateBuilder = EntityStateBuilder<String>(
       streamedState: testData,
-      child: (context, data) {
+      builder: (context, data) {
         return const Text('test');
       },
       loadingBuilder: (context, data) => const Text('loadingBuilder'),
@@ -128,7 +128,7 @@ void main() {
     final testData = EntityStreamedState<String>();
     final streamedStateBuilder = EntityStateBuilder<String>(
       streamedState: testData,
-      child: (context, data) {
+      builder: (context, data) {
         return const Text('test');
       },
       errorChild: const Text('errorChild'),
@@ -152,7 +152,7 @@ void main() {
     final testData = EntityStreamedState<String>();
     final streamedStateBuilder = EntityStateBuilder<String>(
       streamedState: testData,
-      child: (context, data) {
+      builder: (context, data) {
         return const Text('test');
       },
       errorBuilder: (context, e) => const Text('errorBuilder'),
@@ -177,7 +177,7 @@ void main() {
     final testData = EntityStreamedState<String>();
     final streamedStateBuilder = EntityStateBuilder<String>(
       streamedState: testData,
-      child: (context, data) {
+      builder: (context, data) {
         return const Text('test');
       },
       errorDataBuilder: (context, data, error) =>
