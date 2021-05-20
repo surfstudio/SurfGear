@@ -27,7 +27,7 @@ class FactsRepository {
   Future<Iterable<Fact>> getFacts() async {
     final response = await client.get('/facts');
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 && response.body.isNotEmpty) {
       final data =
           (jsonDecode(response.body) as Iterable).cast<Map<String, dynamic>>();
       return data.map<Fact>((e) => Fact.fromJson(e)).toList();
