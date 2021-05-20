@@ -31,6 +31,11 @@ typedef DataWidgetErrorBuilder<T> = Widget Function(
 ///   [loadingChild] - loading;
 ///   [errorChild] - error.
 ///
+/// Error builders priority order:
+/// 1. [errorDataBuilder]
+/// 2. [errorBuilder]
+/// 3. [errorChild]
+///
 /// ### example
 /// ```dart
 /// EntityStateBuilder<Data>(
