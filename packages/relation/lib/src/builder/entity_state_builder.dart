@@ -87,21 +87,21 @@ class EntityStateBuilder<T> extends StatelessWidget {
             return loadingChild;
           }
         } else if (streamData.hasError) {
+          final exception = streamData.error?.e != null
+              ? streamData.error!.e as Exception
+              : Exception();
+
           if (errorDataBuilder != null) {
             return errorDataBuilder!(
               context,
               streamData.data,
-              streamData.error?.e != null
-                  ? streamData.error!.e as Exception
-                  : Exception(),
+              exception,
             );
           } else {
             if (errorBuilder != null) {
               return errorBuilder!(
                 context,
-                streamData.error?.e != null
-                    ? streamData.error!.e as Exception
-                    : Exception(),
+                exception,
               );
             }
             return errorChild;
