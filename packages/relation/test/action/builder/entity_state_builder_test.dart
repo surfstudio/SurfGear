@@ -21,7 +21,8 @@ void main() {
   testWidgets(
     'StreamedStateBuilder accept test',
     (tester) async {
-      final testData = EntityStreamedState<String>(EntityState(data: 'test'));
+      final testData =
+          EntityStreamedState<String>(const EntityState(data: 'test'));
 
       final streamedStateBuilder = EntityStateBuilder<String>(
         streamedState: testData,
