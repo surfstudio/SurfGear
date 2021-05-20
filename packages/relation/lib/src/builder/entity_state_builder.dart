@@ -35,7 +35,7 @@ typedef DataWidgetErrorBuilder<T> = Widget Function(
 /// ```dart
 /// EntityStateBuilder<Data>(
 ///      streamedState: wm.dataState,
-///      builder: (data) => DataWidget(data),
+///      builder: (context, data) => DataWidget(data),
 ///      loadingChild: LoadingWidget(),
 ///      errorChild: ErrorPlaceholder(),
 ///    );
