@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:relation/src/relation/event.dart';
-import 'package:relation/src/relation/state/exception_wrapper.dart';
 import 'package:relation/src/relation/state/streamed_state.dart';
 
 ///[StreamedState] that have download/error/content status
@@ -44,29 +43,6 @@ class EntityStreamedState<T> extends StreamedState<EntityState<T>>
 
 /// State of some logical entity
 class EntityState<T> {
-  EntityState({
-    this.data,
-    this.isLoading = false,
-    this.hasError = false,
-    Exception? error,
-  }) : error = ExceptionWrapper(error);
-
-  /// Loading constructor
-  EntityState.loading([this.data])
-      : isLoading = true,
-        hasError = false;
-
-  /// Error constructor
-  EntityState.error([Object? error, this.data])
-      : isLoading = false,
-        hasError = true,
-        error = ExceptionWrapper(error);
-
-  /// Content constructor
-  EntityState.content([this.data])
-      : isLoading = false,
-        hasError = false;
-
   /// Data of entity
   final T? data;
 
@@ -77,5 +53,29 @@ class EntityState<T> {
   final bool hasError;
 
   /// Error from state
-  ExceptionWrapper? error;
+  final Object? error;
+
+  const EntityState({
+    this.data,
+    this.isLoading = false,
+    this.hasError = false,
+    this.error,
+  });
+
+  /// Loading constructor
+  EntityState.loading([this.data])
+      : isLoading = true,
+        hasError = false,
+        error = null;
+
+  /// Error constructor
+  EntityState.error([this.error, this.data])
+      : isLoading = false,
+        hasError = true;
+
+  /// Content constructor
+  EntityState.content([this.data])
+      : isLoading = false,
+        hasError = false,
+        error = null;
 }
