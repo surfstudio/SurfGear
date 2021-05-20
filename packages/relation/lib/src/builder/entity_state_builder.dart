@@ -15,8 +15,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:relation/src/relation/state/entity_state.dart';
 
-typedef DataWidgetBuilder<T> = Widget Function(BuildContext, T? data);
-typedef ErrorWidgetBuilder = Widget Function(BuildContext, Exception);
+typedef DataWidgetBuilder<T> = Widget Function(BuildContext context, T? data);
+typedef ErrorWidgetBuilder = Widget Function(BuildContext context, Exception e);
 typedef DataWidgetErrorBuilder<T> = Widget Function(
   BuildContext,
   T? data,
