@@ -7,7 +7,6 @@
 If you'd like to get `data` from `error` please use `errorDataBuilder` instead.
 * Add the ability to get an `error` in `EntityStateBuilder` from `errorChild`.
 * Add `data` argument to `EntityStreamedState`.
-* Add `acceptUnique` to `StreamedState`.
 * Update `rxdart` dependency to `0.27.0`.
 
 ## 1.0.0
