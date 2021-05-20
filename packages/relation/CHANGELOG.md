@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.0
+
+* Add the ability to get an error in `EntityStateBuilder` from `errorChild`
+* Add data argument to `EntityStreamedState`
+
 ## 1.1.0
 
 * Update `rxdart` dependency to `0.27.0`
