@@ -18,7 +18,7 @@ import 'package:relation/src/relation/state/entity_state.dart';
 typedef DataWidgetBuilder<T> = Widget Function(BuildContext context, T? data);
 typedef ErrorWidgetBuilder = Widget Function(BuildContext context, Exception e);
 typedef DataWidgetErrorBuilder<T> = Widget Function(
-  BuildContext,
+  BuildContext context,
   T? data,
   Exception,
 );
