@@ -75,6 +75,7 @@ linter:
     unnecessary_const: true
 
     # Style rules.
+    always_declare_return_types: true
     always_put_required_named_parameters_first: true
     always_require_non_null_named_parameters: true
     annotate_overrides: true
@@ -105,6 +106,7 @@ linter:
     avoid_unnecessary_containers: true
     avoid_unused_constructor_parameters: true
     avoid_void_async: true
+    await_only_futures: true
     camel_case_extensions: true
     camel_case_types: true
     cascade_invocations: true
@@ -122,7 +124,7 @@ linter:
     library_prefixes: true
     non_constant_identifier_names: true
     null_closures: true
-    omit_local_variable_types: false
+    omit_local_variable_types: true
     one_member_abstracts: true
     only_throw_errors: true
     overridden_fields: true
@@ -162,6 +164,7 @@ linter:
     sort_child_properties_last: true
     sort_constructors_first: false
     sort_unnamed_constructors_first: true
+    type_annotate_public_apis: true
     type_init_formals: true
     unawaited_futures: true
     unnecessary_await_in_return: true
@@ -187,11 +190,12 @@ linter:
     use_to_and_as_if_applicable: true
     void_checks: true
     lines_longer_than_80_chars: false
+    no_runtimeType_toString: true
     flutter_style_todos: true
-    positional_after_named_argument: false
 
     # Error rules.
     always_use_package_imports: true
+    avoid_dynamic_calls: true
     avoid_empty_else: true
     avoid_print: true
     avoid_relative_lib_imports: true
@@ -217,6 +221,7 @@ linter:
     throw_in_finally: true
     unnecessary_statements: true
     unrelated_type_equality_checks: true
+    unsafe_html: true
     use_key_in_widget_constructors: true
     valid_regexps: true
 
