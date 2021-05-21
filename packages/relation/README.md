@@ -1,11 +1,12 @@
 # Relation
 
+[![Build Status](https://github.com/surfstudio/SurfGear/workflows/build/badge.svg)](https://github.com/surfstudio/SurfGear)
+[![Coverage Status](https://codecov.io/gh/surfstudio/SurfGear/branch/dev/graph/badge.svg?flag=relation)](https://codecov.io/gh/surfstudio/SurfGear)
 [![Pub Version](https://img.shields.io/pub/v/relation)](https://pub.dev/packages/relation)
-[![Pub Version (including pre-releases)](https://img.shields.io/pub/v/relation?include_prereleases)](https://pub.dev/packages/relation)
-[![Supported Platforms](https://badgen.net/pub/flutter-platform/relation)](https://pub.dev/packages/relation)
 [![Pub Likes](https://badgen.net/pub/likes/relation)](https://pub.dev/packages/relation)
+![Flutter Platform](https://badgen.net/pub/flutter-platform/relation)
 
-This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolset made by [Surf](https://surf.ru/).
+This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolkit made by [Surf](https://surf.ru/).
 
 ![Relation Cover](https://i.ibb.co/f1yC8d5/relation-logo.png)
 
@@ -49,7 +50,7 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:flutter/widgets.dart' hide Action;
 ```
 
-This solution enables you to call `Action` class from **Relation** library without any additional preffixes but doesn't let you reffer `Action` class from the SDK.
+This solution enables you to call `Action` class from **Relation** library without any additional preffixes but doesn't let you refer `Action` class from the SDK.
 
 ```dart
 final action = Action();
@@ -249,7 +250,7 @@ Pass `EntityStreamedState` instance to the `streamedState` argument first. After
 ```dart
 EntityStateBuilder<UserProfile>(
   streamedState: userProfileState,
-  child: (ctx, data) => UserProfileWidget(data),
+  builder: (ctx, data) => UserProfileWidget(data),
   loadingChild: CircularProgressIndicator(),
   errorChild: ErrorWidget('Something went wrong. Please, try again'),
 ),
@@ -260,7 +261,7 @@ Another way to deal with `EntityStateBuilder` is to use `loadingBuilder` and `er
 ```dart
 EntityStateBuilder<UserProfile>(
   streamedState: userProfileState,
-  child: (ctx, data) => UserProfileWidget(data),
+  builder: (ctx, data) => UserProfileWidget(data),
   loadingBuilder: (context, data) {
     return LoadingWidget(data);
   },
@@ -305,7 +306,7 @@ Add `relation` to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  relation: any
+  relation: ^2.0.0
 ```
 
 You can use both `stable` and `dev` versions of the package listed above in the badges bar.
@@ -322,7 +323,7 @@ For issues, file directly in the [main SurfGear repo](https://github.com/surfstu
 
 If you would like to contribute to the package (e.g. by improving the documentation, solving a bug or adding a cool new feature), please review our [contribution guide](../../CONTRIBUTING.md) first and send us your pull request.
 
-You PRs are always welcome.
+Your PRs are always welcome.
 
 ## How to reach us
 
@@ -332,4 +333,4 @@ Please feel free to ask any questions about this package. Join our community cha
 
 ## License
 
-[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+[Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
