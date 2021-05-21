@@ -2,7 +2,9 @@
 
 ## 3.0.0
 
-* Add `acceptUnique` to `StreamedState`.
+* **Breaking Change:** `Action`'s `onChanged` callback is named parameter now.
+* Add `acceptUnique` param to `Action`.
+* Add `acceptUnique` method to `StreamedState`.
 
 ## 2.0.0
 
