@@ -14,9 +14,11 @@ jobs:
         shell: bash
         working-directory: packages/surf_lint_rules
     steps:
-      - uses: subosito/flutter-action@v1
+      - name: Install Flutter
+        uses: subosito/flutter-action@v1
         with:
-          channel: 'stable'
+          channel: "stable"
+
       - uses: actions/checkout@v2
       - name: Install dependencies
         run: flutter pub get
