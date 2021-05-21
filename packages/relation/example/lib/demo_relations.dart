@@ -12,8 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/material.dart' hide Action;
-import 'package:flutter/widgets.dart' hide Action;
+import 'package:flutter/material.dart';
 import 'package:relation/relation.dart' as r;
 
 class DemoRelations extends StatefulWidget {
@@ -68,7 +67,9 @@ class _DemoRelationsState extends State<DemoRelations> {
         title: const Text('Demo for relations'),
       ),
       body: SingleChildScrollView(
-        physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+        physics: const AlwaysScrollableScrollPhysics(
+          parent: BouncingScrollPhysics(),
+        ),
         controller: scrollAction.controller,
         child: Center(
           child: Column(
