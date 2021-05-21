@@ -17,9 +17,9 @@ import 'package:relation/src/relation/action/action.dart';
 
 /// Action for text editing
 class TextEditingAction extends Action<String> {
-  TextEditingAction([
+  TextEditingAction({
     void Function(String? data)? onChanged,
-  ]) : super(onChanged) {
+  }) : super(onChanged: onChanged) {
     controller.addListener(() {
       accept(controller.value.text);
     });

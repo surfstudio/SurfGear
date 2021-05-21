@@ -27,6 +27,18 @@ void main() {
     action.accept('test');
   });
 
+  test('Action acceptUnique accept([T data]) test', () async {
+    final action = Action<String>(acceptUnique: true);
+    final result = <String?>[];
+
+    action.stream.listen(expectAsync1(result.add));
+
+    await action.accept('test');
+    await action.accept('test');
+
+    expect(result, equals(['test']));
+  });
+
   test('Action call([T data]) test', () {
     final action = Action<String>();
 

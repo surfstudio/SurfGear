@@ -32,8 +32,12 @@ import 'package:rxdart/rxdart.dart';
 ///   someAction.action.listen(doSomething);
 /// ```
 class Action<T> implements Event<T> {
-  Action([void Function(T? data)? onChanged])
-      : onChanged = onChanged ?? ((_) {});
+  Action({
+    void Function(T? data)? onChanged,
+    this.acceptUnique = false,
+  }) : onChanged = onChanged ?? ((_) {});
+
+  final bool acceptUnique;
 
   /// Publish subject for updating actions
   final _actionSubject = PublishSubject<T?>();
@@ -50,14 +54,18 @@ class Action<T> implements Event<T> {
 
   @override
   Future<T?> accept([T? data]) async {
-    _value = data;
-    _actionSubject.add(_value);
-    onChanged(_value);
-    return _actionSubject.stream.first;
+    if (acceptUnique && _value == data) {
+      return _value;
+    } else {
+      _value = data;
+      _actionSubject.add(_value);
+      onChanged(_value);
+      return _value;
+    }
   }
 
   /// Call action
-  Future<T?> call([T? data]) => accept(data);
+  Future<void> call([T? data]) => accept(data);
 
   /// Close stream
   Future<void> dispose() => _actionSubject.close();
