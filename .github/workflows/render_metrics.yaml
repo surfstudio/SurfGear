@@ -18,18 +18,18 @@ jobs:
         working-directory: packages/render_metrics
 
     steps:
-      - name: Install Flutter
-        uses: subosito/flutter-action@v1
-        with:
-          channel: "stable"
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: Install lcov
         run: |
           sudo apt-get update
           sudo apt-get install -y lcov
 
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Install Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: "stable"
 
       - name: Install dependencies
         run: flutter pub get
