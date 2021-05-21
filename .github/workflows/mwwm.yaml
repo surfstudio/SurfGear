@@ -18,16 +18,18 @@ jobs:
         working-directory: packages/mwwm
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install lcov
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lcov
+
       - name: Install Flutter
         uses: subosito/flutter-action@v1
         with:
           channel: "stable"
-
-      - name: Install lcov
-        run: sudo apt-get -y install lcov
-
-      - name: Checkout
-        uses: actions/checkout@v2
 
       - name: Install dependencies
         run: flutter pub get
