@@ -2,7 +2,7 @@
 
 ## 3.0.0
 
-* **Breaking Change:** `Action`'s `onChanged` callback is named parameter now.
+* **Breaking Change:** `Action`'s, `ScrollOffsetAction`'s and `TextEditingAction`'s `onChanged` callback is named parameter now.
 * Add `acceptUnique` param to `Action`.
 * Add `acceptUnique` method to `StreamedState`.
 
