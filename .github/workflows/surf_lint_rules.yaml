@@ -19,22 +19,36 @@ jobs:
         with:
           channel: "stable"
 
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Install dependencies
         run: flutter pub get
+
+      - name: Check our conventions 🔍
+        run: |
+          dart pub upgrade
+          dart run bin/ci.dart check-dev-branch
+        working-directory: tools/ci-cd
+
       - name: Run dependency validator
         run: |
           flutter pub global activate dependency_validator
           flutter pub global run dependency_validator:dependency_validator
+
       - name: Run analyzer
         run: flutter analyze --fatal-warnings --fatal-infos .
+
       - name: Run formatter
         run: flutter format --set-exit-if-changed .
+
   package-analysis:
     runs-on: ubuntu-latest
+
     defaults:
       run:
         working-directory: packages/surf_lint_rules
+
     steps:
       - uses: actions/checkout@v2
       - uses: axel-op/dart-package-analyzer@v3
