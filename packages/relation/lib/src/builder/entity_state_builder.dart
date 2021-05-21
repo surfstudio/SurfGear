@@ -15,27 +15,34 @@
 import 'package:flutter/widgets.dart';
 import 'package:relation/src/relation/state/entity_state.dart';
 
-typedef DataWidgetBuilder<T> = Widget Function(BuildContext, T? data);
-typedef ErrorWidgetBuilder = Widget Function(BuildContext, Exception);
-typedef DataWidgetErrorBuilder<T> = Widget Function(
-  BuildContext,
+typedef DataWidgetBuilder<T> = Widget Function(BuildContext context, T? data);
+
+typedef ErrorWidgetBuilder = Widget Function(BuildContext context, Object? e);
+
+typedef DataErrorWidgetBuidler<T> = Widget Function(
+  BuildContext context,
   T? data,
-  Exception,
+  Object? e,
 );
 
 /// Reactive widget for [EntityStreamedState]
 ///
 /// [streamedState] - external stream that controls the state of the widget
 /// widget has three states:
-///   [child] - content;
+///   [builder] - content;
 ///   [loadingChild] - loading;
 ///   [errorChild] - error.
+///
+/// Error builders priority order:
+/// 1. [errorDataBuilder]
+/// 2. [errorBuilder]
+/// 3. [errorChild]
 ///
 /// ### example
 /// ```dart
 /// EntityStateBuilder<Data>(
 ///      streamedState: wm.dataState,
-///      child: (data) => DataWidget(data),
+///      builder: (context, data) => DataWidget(data),
 ///      loadingChild: LoadingWidget(),
 ///      errorChild: ErrorPlaceholder(),
 ///    );
@@ -43,8 +50,9 @@ typedef DataWidgetErrorBuilder<T> = Widget Function(
 class EntityStateBuilder<T> extends StatelessWidget {
   const EntityStateBuilder({
     required this.streamedState,
-    required this.child,
+    required this.builder,
     this.loadingBuilder,
+    this.errorDataBuilder,
     this.errorBuilder,
     this.loadingChild = const SizedBox(),
     this.errorChild = const SizedBox(),
@@ -54,14 +62,17 @@ class EntityStateBuilder<T> extends StatelessWidget {
   /// StreamedState of entity
   final EntityStreamedState<T> streamedState;
 
-  /// Child of builder
-  final DataWidgetBuilder<T> child;
+  /// WidgetBuilder for [streamedState]'s data
+  final DataWidgetBuilder<T> builder;
 
-  /// Loading child of builder
+  /// WidgetBuilder for empty data
   final DataWidgetBuilder<T>? loadingBuilder;
 
-  /// Error child of builder
-  final DataWidgetErrorBuilder<T>? errorBuilder;
+  /// WidgetBuilder for error with previous data
+  final DataErrorWidgetBuidler<T>? errorDataBuilder;
+
+  /// WidgetBuilder for error
+  final ErrorWidgetBuilder? errorBuilder;
 
   /// Loading child widget
   final Widget loadingChild;
@@ -83,19 +94,17 @@ class EntityStateBuilder<T> extends StatelessWidget {
             return loadingChild;
           }
         } else if (streamData.hasError) {
-          if (errorBuilder != null) {
-            return errorBuilder!(
+          if (errorDataBuilder != null) {
+            return errorDataBuilder!(
               context,
               streamData.data,
-              streamData.error?.e != null
-                  ? streamData.error!.e as Exception
-                  : Exception(),
+              streamData.error,
             );
-          } else {
-            return errorChild;
+          } else if (errorBuilder != null) {
+            return errorBuilder!(context, streamData.error);
           }
         } else if (streamData.data != null) {
-          return child(context, streamData.data);
+          return builder(context, streamData.data);
         }
 
         return errorChild;
