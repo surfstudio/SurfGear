@@ -65,7 +65,7 @@ class Action<T> implements Event<T> {
   }
 
   /// Call action
-  Future<void> call([T? data]) => accept(data);
+  Future<T?> call([T? data]) => accept(data);
 
   /// Close stream
   Future<void> dispose() => _actionSubject.close();
