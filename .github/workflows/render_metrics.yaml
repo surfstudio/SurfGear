@@ -24,7 +24,9 @@ jobs:
           channel: "stable"
 
       - name: Install lcov
-        run: apt update && apt install -y lcov
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lcov
 
       - name: Checkout
         uses: actions/checkout@v2
