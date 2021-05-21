@@ -44,11 +44,11 @@ class _DemoRelationsState extends State<DemoRelations> {
     reloadAction.stream.listen((_) => _load());
 
     textAction.stream.listen((event) {
-      print("typed $event");
+      debugPrint('typed $event');
     });
 
     scrollAction.stream.listen((event) {
-      print("scroll offset $event");
+      debugPrint('scroll offset $event');
     });
   }
 
@@ -107,6 +107,7 @@ class _DemoRelationsState extends State<DemoRelations> {
             ),
 
             const SizedBox(width: 32.0),
+
             /// button for increment
             TextButton(
               onPressed: incrementAction,
