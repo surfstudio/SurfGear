@@ -24,6 +24,20 @@ void main() {
     streamedState.accept('test');
   });
 
+  test('StreamedState acceptUnique([T data]) test', () async {
+    final result = <String>[];
+
+    final streamedState = StreamedState<String>();
+    streamedState.stream.listen((event) {
+      result.add(event!);
+    });
+
+    await streamedState.acceptUnique('test');
+    await streamedState.acceptUnique('test');
+
+    expect(result, equals(['test']));
+  });
+
   test('StreamedState dispose() test', () {
     final streamedState = StreamedState<String>()..dispose();
     expect(streamedState.stateSubject.isClosed, true);

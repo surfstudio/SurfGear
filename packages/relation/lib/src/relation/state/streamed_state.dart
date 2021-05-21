@@ -53,6 +53,14 @@ class StreamedState<T> implements Event<T> {
     return stateSubject.stream.first;
   }
 
+  /// Accepts new [data] if current [value] is not equal to [data]
+  Future<T?> acceptUnique([T? data]) {
+    if (stateSubject.valueOrNull == data) {
+      return stateSubject.stream.first;
+    }
+    return accept(data);
+  }
+
   void dispose() {
     stateSubject.close();
   }
