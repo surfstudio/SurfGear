@@ -42,7 +42,7 @@ jobs:
           flutter pub global run dependency_validator:dependency_validator
 
       - name: Run analyzer 🔍
-        run: dart analyze --fatal-warnings --fatal-infos .
+        run: flutter analyze --fatal-warnings --fatal-infos .
 
       - name: Run formatter 🔍
         run: flutter format --set-exit-if-changed .
