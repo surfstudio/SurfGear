@@ -1,0 +1,109 @@
+name: Publish coverage to codecov.io
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/publish_coverage.yaml"
+
+  push:
+    branches:
+      - main
+
+jobs:
+  flutter:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - auto_reload
+          - bottom_navigation_bar
+          - bottom_sheet
+          - ink_widget
+          - mwwm
+          - otp_autofill
+          - relation
+          - render_metrics
+          - surf_mwwm
+          - surf_util
+          - swipe_refresh
+          - tabnavigator
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+
+      - name: Install lcov 🔧
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lcov
+
+      - name: Install Flutter 🔧
+        uses: subosito/flutter-action@v1
+        with:
+          channel: "stable"
+
+      - name: Install dependencies 🔧
+        run: flutter pub get
+        working-directory: packages/${{matrix.package}}
+
+      - name: Run tests ⚙️
+        run: |
+          flutter test --coverage
+          mv coverage/lcov.info coverage/lcov.base.info
+          flutter pub run ../../tools/coverage/fake_test_generator.dart
+          flutter test --coverage --merge-coverage test/fake_test.dart
+          flutter pub run ../../tools/coverage/patch_lcov.dart
+        working-directory: packages/${{matrix.package}}
+
+      - name: Deploy coverage 🚀
+        env:
+          CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
+        run: bash <(curl -s https://codecov.io/bash) -f coverage/lcov.info -F ${{matrix.package}}
+        working-directory: packages/${{matrix.package}}
+
+  dart:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - analytics
+          - datalist
+          - surf_logger
+
+    container:
+      image: google/dart:latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+
+      - name: Install dependencies 🔧
+        run: dart pub get
+        working-directory: packages/${{matrix.package}}
+
+      - name: Run tests ⚙️
+        run: |
+          dart run ../../tools/coverage/fake_test_generator.dart dart
+          dart test --coverage=coverage
+          dart pub global activate coverage
+          dart pub global run coverage:format_coverage --packages=.packages -i coverage -o coverage/lcov.info --lcov --report-on=lib
+          dart pub run ../../tools/coverage/patch_lcov.dart
+        working-directory: packages/${{matrix.package}}
+
+      - name: Deploy coverage 🚀
+        env:
+          CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
+        run: bash <(curl -s https://codecov.io/bash) -f coverage/lcov.info -F ${{matrix.package}}
+        working-directory: packages/${{matrix.package}}
