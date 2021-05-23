@@ -16,7 +16,18 @@ jobs:
       fail-fast: false
       matrix:
         package:
-          - analytics
+          - auto_reload
+          - bottom_navigation_bar
+          - bottom_sheet
+          - ink_widget
+          - mwwm
+          - otp_autofill
+          - relation
+          - render_metrics
+          - surf_mwwm
+          - surf_util
+          - swipe_refresh
+          - tabnavigator
 
     defaults:
       run:
