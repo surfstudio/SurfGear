@@ -10,8 +10,9 @@ on:
       - main
 
 jobs:
-  publish:
+  flutter:
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
       matrix:
@@ -58,6 +59,47 @@ jobs:
           flutter pub run ../../tools/coverage/fake_test_generator.dart
           flutter test --coverage --merge-coverage test/fake_test.dart
           flutter pub run ../../tools/coverage/patch_lcov.dart
+        working-directory: packages/${{matrix.package}}
+
+      - name: Deploy coverage 🚀
+        env:
+          CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
+        run: bash <(curl -s https://codecov.io/bash) -f coverage/lcov.info -F ${{matrix.package}}
+        working-directory: packages/${{matrix.package}}
+
+  dart:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - analytics
+          - datalist
+          - surf_logger
+
+    container:
+      image: google/dart:latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+
+      - name: Install dependencies 🔧
+        run: dart pub get
+        working-directory: packages/${{matrix.package}}
+
+      - name: Run tests ⚙️
+        run: |
+          dart run ../../tools/coverage/fake_test_generator.dart dart
+          dart test --coverage=coverage
+          dart pub global activate coverage
+          dart pub global run coverage:format_coverage --packages=.packages -i coverage -o coverage/lcov.info --lcov --report-on=lib
+          dart pub run ../../tools/coverage/patch_lcov.dart
         working-directory: packages/${{matrix.package}}
 
       - name: Deploy coverage 🚀
