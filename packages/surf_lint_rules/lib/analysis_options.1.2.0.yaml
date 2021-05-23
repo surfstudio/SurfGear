@@ -172,7 +172,6 @@ linter:
     prefer_if_null_operators: true
     prefer_initializing_formals: true
     prefer_inlined_adds: true
-    prefer_int_literals: true
     prefer_interpolation_to_compose_strings: true
     prefer_is_empty: true
     prefer_is_not_empty: true
