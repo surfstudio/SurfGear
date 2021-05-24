@@ -39,5 +39,5 @@ jobs:
       - name: Deploy dev version 🚀
         env:
           PUB_CREDENTIALS: ${{ secrets.PUB_CREDENTIALS }}
-        run: dart run tool/ci.dart publish-dev-version
+        run: dart run ../../tools/ci-cd/bin/ci.dart publish-dev-version
         working-directory: packages/${{matrix.package}}
