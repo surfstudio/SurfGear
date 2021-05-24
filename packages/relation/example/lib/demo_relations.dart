@@ -23,10 +23,10 @@ class DemoRelations extends StatefulWidget {
 }
 
 class _DemoRelationsState extends State<DemoRelations> {
-  final incrementAction = r.Action<void>();
+  final incrementAction = r.RelAction<void>();
   final incrementState = r.StreamedState<int>(0);
 
-  final reloadAction = r.Action<void>();
+  final reloadAction = r.RelAction<void>();
   final loadDataState = r.EntityStreamedState<int>();
 
   @override

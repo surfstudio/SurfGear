@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:relation/src/relation/event.dart';
+import 'package:relation/src/relation/relation_event.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// A state of some type wrapped in a stream
@@ -27,7 +27,7 @@ import 'package:rxdart/rxdart.dart';
 ///     builder: (ctx, data) => Text(data.toString()),
 ///   )
 /// ```
-class StreamedState<T> implements Event<T> {
+class StreamedState<T> implements RelEvent<T> {
   StreamedState([T? initialData]) {
     if (initialData != null) {
       accept(initialData);
@@ -39,9 +39,9 @@ class StreamedState<T> implements Event<T> {
   }
 
   /// Behavior state for updating events
-  final BehaviorSubject<T?> stateSubject = BehaviorSubject();
+  final BehaviorSubject<T?> stateSubject = BehaviorSubject<T?>();
 
-  /// current value in stream
+  /// Current value of stream
   T? get value => stateSubject.value;
 
   @override
@@ -50,13 +50,13 @@ class StreamedState<T> implements Event<T> {
   @override
   Future<T?> accept([T? data]) {
     stateSubject.add(data);
-    return stateSubject.stream.first;
+    return Future.value(data);
   }
 
   /// Accepts new [data] if current [value] is not equal to [data]
   Future<T?> acceptUnique([T? data]) {
     if (stateSubject.valueOrNull == data) {
-      return stateSubject.stream.first;
+      return Future.value(data);
     }
     return accept(data);
   }

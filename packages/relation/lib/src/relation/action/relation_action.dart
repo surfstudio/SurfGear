@@ -14,10 +14,10 @@
 
 import 'dart:async';
 
-import 'package:relation/src/relation/event.dart';
+import 'package:relation/src/relation/relation_event.dart';
 import 'package:rxdart/rxdart.dart';
 
-/// Action
+/// [RelAction] stands for Relation Action
 /// It's wrapper over an action on screen.
 /// It may be a tap on button, text changes, focus changes and so on.
 /// [onChanged] - callback for [accept]'s or [call]'s call
@@ -33,8 +33,8 @@ import 'package:rxdart/rxdart.dart';
 ///
 ///   someAction.action.listen(doSomething);
 /// ```
-class Action<T> implements Event<T> {
-  Action({
+class RelAction<T> implements RelEvent<T> {
+  RelAction({
     void Function(T? data)? onChanged,
     bool acceptUnique = false,
   })  : onChanged = onChanged ?? ((_) {}),

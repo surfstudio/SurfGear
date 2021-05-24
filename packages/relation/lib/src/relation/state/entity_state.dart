@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:relation/src/relation/event.dart';
+import 'package:relation/src/relation/relation_event.dart';
 import 'package:relation/src/relation/state/streamed_state.dart';
 
 ///[StreamedState] that have download/error/content status

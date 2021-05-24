@@ -12,8 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/// [RelEvent] stands for Relation Event
 /// An event that can take some value
-abstract class Event<T> {
+abstract class RelEvent<T> {
+  const RelEvent();
+
   /// The stream to which the event is transmitted
   Stream<T?> get stream;
 
@@ -23,6 +26,8 @@ abstract class Event<T> {
 
 /// An event that has multiple States
 abstract class EntityEvent<T, E> {
+  const EntityEvent();
+
   /// Acceptance of a new entity event
   Future<void> content([T data]);
 

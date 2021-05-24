@@ -13,12 +13,12 @@
 // limitations under the License.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:relation/src/relation/action/action.dart';
+import 'package:relation/src/relation/action/relation_action.dart';
 import 'package:rxdart/subjects.dart';
 
 void main() {
-  test('Action accept([T data]) test', () {
-    final action = Action<String>();
+  test('RelAction accept([T data]) test', () {
+    final action = RelAction<String>();
 
     action.stream.listen((event) {
       expect(event, equals('test'));
@@ -27,8 +27,8 @@ void main() {
     action.accept('test');
   });
 
-  test('Action acceptUnique accept([T data]) test', () async {
-    final action = Action<String>(acceptUnique: true);
+  test('RelAction acceptUnique accept([T data]) test', () async {
+    final action = RelAction<String>(acceptUnique: true);
     final result = <String?>[];
 
     action.stream.listen(expectAsync1(result.add));
@@ -39,8 +39,8 @@ void main() {
     expect(result, equals(['test']));
   });
 
-  test('Action call([T data]) test', () {
-    final action = Action<String>();
+  test('RelAction call([T data]) test', () {
+    final action = RelAction<String>();
 
     action.stream.listen((event) {
       expect(event, equals('test'));
@@ -50,7 +50,7 @@ void main() {
   });
 
   test('Action dispose() test', () {
-    final action = Action<String>()..dispose();
+    final action = RelAction<String>()..dispose();
     expect((action.stream as Subject).isClosed, isTrue);
   });
 }

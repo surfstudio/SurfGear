@@ -19,7 +19,7 @@ import 'package:rxdart/rxdart.dart';
 
 void main() {
   test('TextEditingAction test', () {
-    final action = TextEditingAction(
+    final action = TextEditingRelAction(
       onChanged: (data) {
         expect(data, equals('test'));
       },
@@ -28,7 +28,7 @@ void main() {
   });
 
   test('TextEditingAction dispose test', () {
-    final action = TextEditingAction()..dispose();
+    final action = TextEditingRelAction()..dispose();
     expect((action.stream as Subject).isClosed, isTrue);
   });
 

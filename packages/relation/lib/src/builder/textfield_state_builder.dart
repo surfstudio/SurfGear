@@ -14,7 +14,7 @@
 
 import 'package:flutter/widgets.dart';
 import 'package:relation/src/builder/streamed_state_builder.dart';
-import 'package:relation/src/relation/event.dart';
+import 'package:relation/src/relation/relation_event.dart';
 import 'package:relation/src/relation/state/entity_state.dart';
 import 'package:relation/src/relation/state/streamed_state.dart';
 
