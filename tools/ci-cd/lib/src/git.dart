@@ -7,12 +7,12 @@ void pushNewVersion({required Version version, required String packageName}) {
     ['config', 'user.name', 'github-actions'],
     ['config', 'user.email', 'github-actions@github.com'],
     ['add', '.'],
-    ['commit', '-m', '🔖 Update $packageName version to $version'],
+    ['commit', '--message', '🔖 Update $packageName version to $version'],
     [
       'tag',
-      '-a',
+      '--annotate',
       '$packageName-$version',
-      '-m',
+      '--message',
       '🔖 Release $packageName version $version',
     ],
     ['push'],
@@ -21,8 +21,8 @@ void pushNewVersion({required Version version, required String packageName}) {
 
   for (final command in gitCommands) {
     final result = Process.runSync('git', command);
-    stdout.write(result.stdout);
-    stderr.write(result.stderr);
+    stdout..writeln('git ${command.join(' ')}')..writeln(result.stdout);
+    stderr.writeln(result.stderr);
     if (result.exitCode != 0) {
       exit(exitCode);
     }
