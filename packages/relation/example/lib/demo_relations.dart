@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
-import 'package:relation/relation.dart' as r;
+import 'package:relation/relation.dart';
 
 class DemoRelations extends StatefulWidget {
   const DemoRelations({Key? key}) : super(key: key);
@@ -23,11 +23,11 @@ class DemoRelations extends StatefulWidget {
 }
 
 class _DemoRelationsState extends State<DemoRelations> {
-  final incrementAction = r.RelAction<void>();
-  final incrementState = r.StreamedState<int>(0);
+  final incrementAction = RelAction<void>();
+  final incrementState = StreamedState<int>(0);
 
-  final reloadAction = r.RelAction<void>();
-  final loadDataState = r.EntityStreamedState<int>();
+  final reloadAction = RelAction<void>();
+  final loadDataState = EntityStreamedState<int>();
 
   @override
   void initState() {
@@ -84,7 +84,7 @@ class _DemoRelationsState extends State<DemoRelations> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             /// build state by StreamedState
-            r.StreamedStateBuilder<int>(
+            StreamedStateBuilder<int>(
               streamedState: incrementState,
               builder: (ctx, count) => Text('number of count: $count'),
             ),
@@ -112,7 +112,7 @@ class _DemoRelationsState extends State<DemoRelations> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           /// build state by StreamedState
-          r.EntityStateBuilder<int>(
+          EntityStateBuilder<int>(
             streamedState: loadDataState,
             builder: (ctx, data) => Text('success load: $data'),
             loadingChild: const CircularProgressIndicator(),
