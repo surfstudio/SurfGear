@@ -102,7 +102,7 @@ class PublishDevToPub extends Command<void> {
     }
 
     final packageVersion = getPackageVersion(pubspecContent);
-    final updatedPackageVersion = bumpPackageVersion(packageVersion);
+    final updatedPackageVersion = bumpDevPackageVersion(packageVersion);
 
     savePubspec(patchPubspec(pubspecContent, updatedPackageVersion));
     saveChangelog(
