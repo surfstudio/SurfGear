@@ -17,6 +17,8 @@ import 'dart:async';
 import 'package:bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
+// ignore_for_file: avoid-returning-widgets
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -94,17 +96,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: _isCustom ? _buildWithCustom() : _buildWithCommon(),
+        child:
+            _isCustom ? _buildBottomNavigator() : _buildCustomBottomNavigator(),
       ),
     );
-  }
-
-  Widget _buildWithCommon() {
-    return Container(child: _buildBottomNavigator());
-  }
-
-  Widget _buildWithCustom() {
-    return Container(child: _buildCustomBottomNavigator());
   }
 
   BottomNavigator _buildBottomNavigator() {
@@ -152,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
               _buildChangeButton(1),
               _buildChangeButton(2),
             ],
-          )
+          ),
         ],
       ),
     );

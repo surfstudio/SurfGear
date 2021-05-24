@@ -57,6 +57,7 @@ final _map = {
   ),
 };
 
+// ignore: avoid-returning-widgets
 Widget _buildButton(Key key, bool isSelected, Color color) {
   return Container(
     key: key,

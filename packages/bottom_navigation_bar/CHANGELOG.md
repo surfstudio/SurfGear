@@ -1,5 +1,9 @@
 # Changelog
 
+## PATCH
+
+* Fix `closeSelectController`.
+
 ## 1.0.0
 
 * Migrated to null safety, min SDK is `2.12.0`.

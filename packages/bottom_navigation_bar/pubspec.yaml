@@ -18,11 +18,3 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 flutter:
-
-custom:
-  is_stable: false
-  unstable_version:
-  is_plugin: false
-  path: bottom_navigation_bar
-  separate_repo_url:
-  hostUrl:
