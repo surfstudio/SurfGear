@@ -16,9 +16,9 @@ The stream representation of the relations of the entities and widget utilities
 
 Main classes:
 
-1. [Action](./lib/src/relation/action/action.dart)
-    1.1 [ScrollAction](./lib/src/relation/action/actions/scroll_action.dart)
-    1.2 [TextEdititingAction](./lib/src/relation/action/actions/text_editing_action.dart)
+1. [RelAction](./lib/src/relation/action/relation_action.dart)
+    1.1 [ScrollRelAction](./lib/src/relation/action/actions/scroll_relation_action.dart)
+    1.2 [TextEditingRelAction](./lib/src/relation/action/actions/text_editing_relation_action.dart)
 2. [Builder](./lib/src/builder)
     2.1 [EntityStreamBuilder](./lib/src/builder/entity_stream_builder.dart)
     2.2 [StreamedStateBuilder](./lib/src/builder/streamed_state_builder.dart)
@@ -28,7 +28,7 @@ Main classes:
 
 ## Actions
 
-### Action
+### RelAction
 
 It's wrapper over an action on screen.
 It may be a tap on button, text changes, focus changes and so on.
@@ -43,7 +43,7 @@ It may be a tap on button, text changes, focus changes and so on.
    someAction.action.listen(doSomething);
 ```
 
-### ScrollAction
+### ScrollRelAction
 
 The action that fires when the value changes when scrolling.
 
@@ -51,7 +51,7 @@ The action that fires when the value changes when scrolling.
   testWidgets(
     'ScrollOffsetAction test',
     (WidgetTester tester) async {
-      final action = ScrollOffsetAction((onChanged) {
+      final action = ScrollOffsetRelAction((onChanged) {
         expect(1.0, onChanged);
       });
 
@@ -78,14 +78,14 @@ The action that fires when the value changes when scrolling.
   );
 ```
 
-### TextEditingAction
+### TextEditingRelAction
 
 **Currently experimental.**  
 An action that fires when a text field receives new characters
 
 ```dart
-  test('TextEditingAction test', () {
-    final action = TextEditingAction((onChanged) {
+  test('TextEditingRelAction test', () {
+    final action = TextEditingRelAction((onChanged) {
       expect('test', onChanged);
     });
     action.controller.text = 'test';
@@ -290,7 +290,7 @@ Add `relation` to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  relation: ^1.0.0
+  relation: ^3.0.0
 ```
 
 You can use both `stable` and `dev` versions of the package listed above in the badges bar.
