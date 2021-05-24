@@ -1,9 +1,9 @@
 # Changelog
 
-## PATCH
+## 1.1.1-dev.2 - 2021-05-24
 
-* Set min SDK version to `2.13.0`.
-* Tune `avoid-returning-widgets`.
+* Set min SDK version to `2.13.0`. (patch)
+* Tune `avoid-returning-widgets`. (patch)
 
 ## 1.1.1-dev.1 - 2021-05-24
 
