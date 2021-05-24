@@ -2,8 +2,10 @@
 
 ## 3.0.0
 
-* **Breaking Change:** `Action`'s, `ScrollOffsetAction`'s and `TextEditingAction`'s `onChanged` callback is named parameter now.
-* Add `acceptUnique` param to `Action`.
+* **Breaking Change:** `Event` renamed to `RelEvent`
+* **Breaking Change:** `Action` renamed to `RelAction` with it's successors
+* **Breaking Change:** `RelAction`'s, `ScrollOffsetRelAction`'s and `TextEditingRelAction`'s `onChanged` callback is named parameter now.
+* Add `acceptUnique` param to `RelAction`.
 * Add `acceptUnique` method to `StreamedState`.
 
 ## 2.0.0
