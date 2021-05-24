@@ -98,10 +98,10 @@ class PushNewVersion extends Command<void> {
 
 class PublishDevToPub extends Command<void> {
   @override
-  String get name => 'publish';
+  String get name => 'publish-dev-version';
 
   @override
-  String get description => 'Publish to pub.dev.';
+  String get description => 'Publish dev version to pub.dev.';
 
   @override
   void run() {
