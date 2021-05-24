@@ -1,6 +1,10 @@
 name: Publish coverage to codecov.io
 
 on:
+  pull_request:
+    paths:
+      - ".github/workflows/publish_dev_version.yaml"
+
   push:
     branches:
       - main
