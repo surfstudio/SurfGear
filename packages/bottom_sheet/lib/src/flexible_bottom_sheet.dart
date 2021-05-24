@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:bottom_sheet/src/flexible_bottom_sheet_header_delegate.dart';
 import 'package:bottom_sheet/src/widgets/flexible_bottom_sheet_scroll_notifyer.dart';
 import 'package:bottom_sheet/src/widgets/flexible_draggable_scrollable_sheet.dart';
-import 'package:bottom_sheet/src/flexible_bottom_sheet_header_delegate.dart';
 import 'package:flutter/material.dart';
 
 /// Flexible and scrollable bottom sheet.
@@ -41,23 +41,23 @@ import 'package:flutter/material.dart';
 ///
 /// [initHeight] - relevant height for init bottom sheet
 class FlexibleBottomSheet extends StatefulWidget {
-  const FlexibleBottomSheet(
-      {Key? key,
-      this.minHeight = 0,
-      this.initHeight = 0.5,
-      this.maxHeight = 1,
-      this.builder,
-      this.headerBuilder,
-      this.bodyBuilder,
-      this.isCollapsible = false,
-      this.isExpand = true,
-      this.animationController,
-      this.anchors,
-      this.minHeaderHeight,
-      this.maxHeaderHeight,
-      this.decoration,
-      this.onDismiss})
-      : assert(minHeight >= 0 && minHeight <= 1),
+  const FlexibleBottomSheet({
+    Key? key,
+    this.minHeight = 0,
+    this.initHeight = 0.5,
+    this.maxHeight = 1,
+    this.builder,
+    this.headerBuilder,
+    this.bodyBuilder,
+    this.isCollapsible = false,
+    this.isExpand = true,
+    this.animationController,
+    this.anchors,
+    this.minHeaderHeight,
+    this.maxHeaderHeight,
+    this.decoration,
+    this.onDismiss,
+  })  : assert(minHeight >= 0 && minHeight <= 1),
         assert(maxHeight > 0 && maxHeight <= 1),
         assert(maxHeight > minHeight),
         assert(!isCollapsible || minHeight == 0),
@@ -142,7 +142,7 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
       parent: _animationController,
       curve: Curves.linear,
     );
-    final Animation<double> topTweenAnimation = _topOffsetTween.animate(curve);
+    final topTweenAnimation = _topOffsetTween.animate(curve);
     topTweenAnimation
       ..addListener(() {
         if (_animationController.isAnimating) {
@@ -189,6 +189,7 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
     );
   }
 
+  // ignore: avoid-returning-widgets
   Widget _buildContent(BuildContext context) {
     if (widget.builder != null) {
       return widget.builder!(
@@ -220,7 +221,7 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
                   context,
                   _currentExtent,
                 ),
-              )
+              ),
           ],
         ),
       ),
@@ -251,7 +252,7 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
   }
 
   void _keyboardOpened() {
-    final double maxBottomSheetHeight = widget.maxHeight;
+    final maxBottomSheetHeight = widget.maxHeight;
 
     _currentAnchor = maxBottomSheetHeight;
     _animateToNextAnchor(maxBottomSheetHeight);
@@ -265,16 +266,15 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
   void _preScroll() {
     if (FocusManager.instance.primaryFocus == null) return;
 
-    final double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+    final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
 
     if (_controller.extent.currentExtent == widget.maxHeight &&
         keyboardHeight != 0) {
-      final double widgetOffset = FocusManager.instance.primaryFocus!.offset.dy;
-      final double widgetHeight =
-          FocusManager.instance.primaryFocus!.size.height;
-      final double screenHeight = MediaQuery.of(context).size.height;
+      final widgetOffset = FocusManager.instance.primaryFocus!.offset.dy;
+      final widgetHeight = FocusManager.instance.primaryFocus!.size.height;
+      final screenHeight = MediaQuery.of(context).size.height;
 
-      final double valueToScroll =
+      final valueToScroll =
           keyboardHeight - (screenHeight - (widgetOffset + widgetHeight));
       if (valueToScroll > 0) {
         Future<void>.delayed(const Duration(milliseconds: 100)).then((_) {
@@ -304,8 +304,8 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
       }
     }
 
-    final double currentVal = notification.extent;
-    double initVal = notification.initialExtent;
+    final currentVal = notification.extent;
+    var initVal = notification.initialExtent;
 
     if (initVal == 0) {
       initVal = currentVal;
@@ -339,9 +339,8 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
   }
 
   void _scrollToNearestAnchor(DragEndDetails? oldDragDetails) {
-    final List<double> screenAnchors = _screenAnchors;
-
-    final double nextAnchor = _calculateNextAnchor(screenAnchors);
+    final screenAnchors = _screenAnchors;
+    final nextAnchor = _calculateNextAnchor(screenAnchors);
 
     _animateToNextAnchor(nextAnchor);
     _currentAnchor = nextAnchor;
@@ -352,10 +351,10 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
       return _controller.extent.currentExtent;
     }
 
-    final List<double> nearestAnchor =
+    final nearestAnchor =
         _findNearestAnchors(screenAnchor, _controller.extent.currentExtent);
-    final double firstAnchor = nearestAnchor[0];
-    final double secondAnchor = nearestAnchor[1];
+    final firstAnchor = nearestAnchor[0];
+    final secondAnchor = nearestAnchor[1];
 
     if (firstAnchor == _currentAnchor) {
       return _findNextAnchorFromPrevious(firstAnchor, secondAnchor);
@@ -371,17 +370,15 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
 
   List<double> _findNearestAnchors(List<double> list, double x) {
     list.sort();
-    final Map<double, double> diff = {for (var d in list) d: d - x};
-    final double firstAnchor =
-        diff.entries.where((me) => me.value > 0).first.key;
-    final double secondAnchor =
-        diff.entries.where((me) => me.value < 0).last.key;
+    final diff = {for (var d in list) d: d - x};
+    final firstAnchor = diff.entries.where((me) => me.value > 0).first.key;
+    final secondAnchor = diff.entries.where((me) => me.value < 0).last.key;
 
     return [firstAnchor, secondAnchor];
   }
 
   double _findNextAnchorFromPrevious(double previousAnchor, double nextAnchor) {
-    const double percent = 0.2;
+    const percent = 0.2;
 
     return (_controller.extent.currentExtent - previousAnchor).abs() >
             (nextAnchor - previousAnchor).abs() * percent
