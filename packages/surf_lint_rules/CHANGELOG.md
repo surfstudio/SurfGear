@@ -3,10 +3,11 @@
 ## PATCH
 
 * Set min SDK version to `2.13.0`.
+* Remove rule: `diagnostic_describe_all_properties`
 
-## 1.1.0-dev.1 - 2021-05-24
+## 1.1.1-dev.1 - 2021-05-24
 
-* Add some rules: `avoid_multiple_declarations_per_line`, `cast_nullable_to_non_nullable`, `deprecated_consistency`, `prefer_if_elements_to_conditional_expressions`, `unnecessary_null_checks`, `unnecessary_nullable_for_final_variable_declarations`, `use_if_null_to_convert_nulls_to_bools`, `use_late_for_private_fields_and_variables`, `use_named_constants`, `missing_whitespace_between_adjacent_strings`, `avoid_type_to_string`, `diagnostic_describe_all_properties`, `use_build_context_synchronously`. (minor)
+* Add some rules: `avoid_multiple_declarations_per_line`, `cast_nullable_to_non_nullable`, `deprecated_consistency`, `prefer_if_elements_to_conditional_expressions`, `unnecessary_null_checks`, `unnecessary_nullable_for_final_variable_declarations`, `use_if_null_to_convert_nulls_to_bools`, `use_late_for_private_fields_and_variables`, `use_named_constants`, `missing_whitespace_between_adjacent_strings`, `avoid_type_to_string`, `use_build_context_synchronously`. (minor)
 * Disable rules: `sort_child_properties_last`, `sort_constructors_first`, `sort_unnamed_constructors_first`. (minor)
 
 ## 1.1.0
