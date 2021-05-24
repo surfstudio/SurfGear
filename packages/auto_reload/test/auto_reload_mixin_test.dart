@@ -15,8 +15,8 @@
 import 'package:auto_reload/src/auto_reload/auto_reload_mixin.dart';
 import 'package:auto_reload/src/auto_reload/auto_reloader.dart';
 import 'package:fake_async/fake_async.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:test/test.dart';
 
 const testDuration = Duration(minutes: 1);
 const testDurationLag = Duration(seconds: 10);
