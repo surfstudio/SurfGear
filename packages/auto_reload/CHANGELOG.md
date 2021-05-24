@@ -1,8 +1,8 @@
 # Changelog
 
-## PATCH
+## 1.0.0-dev.2 - 2021-05-24
 
-* Fix changelog
+* Fix changelog (patch)
 
 ## 1.0.0
 
