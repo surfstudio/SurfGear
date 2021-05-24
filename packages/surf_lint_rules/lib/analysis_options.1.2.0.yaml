@@ -44,7 +44,9 @@ analyzer:
 
 dart_code_metrics:
   rules:
-    - avoid-returning-widgets
+    - avoid-returning-widgets:
+        ignored-names:
+          - makeTestableWidget
     - binary-expression-operand-order
     - no-equal-then-else
     - prefer-trailing-comma

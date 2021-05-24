@@ -3,7 +3,8 @@
 ## PATCH
 
 * Set min SDK version to `2.13.0`.
-* Remove rule: `diagnostic_describe_all_properties`
+* Remove rule: `diagnostic_describe_all_properties`.
+* Tune `avoid-returning-widgets`.
 
 ## 1.1.1-dev.1 - 2021-05-24
 
