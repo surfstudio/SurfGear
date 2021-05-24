@@ -11,9 +11,9 @@ void pushNewVersion({required Version version, required String packageName}) {
     [
       'tag',
       '-a',
-      version.toString(),
+      '$packageName-$version',
       '-m',
-      '🔖 Release $packageName  version $version',
+      '🔖 Release $packageName version $version',
     ],
     ['push'],
     ['push', 'origin', version.toString()],

@@ -16,6 +16,7 @@ jobs:
           - analytics
           - auto_reload
           - surf_lint_rules
+      max-parallel: 1
 
     container:
       image: google/dart:latest
