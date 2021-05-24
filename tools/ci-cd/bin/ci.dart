@@ -21,7 +21,6 @@ void main(List<String> args) {
   CommandRunner<void>('tools/ci', 'tools for automate some ci/cd cases')
     ..addCommand(CheckDevBranch())
     ..addCommand(BumpDevVersion())
-    ..addCommand(PushNewVersion())
     ..addCommand(PublishDevToPub())
     ..run(args);
 }
@@ -78,21 +77,6 @@ class BumpDevVersion extends Command<void> {
         DateTime.now(),
       ),
     );
-  }
-}
-
-class PushNewVersion extends Command<void> {
-  @override
-  String get name => 'push-new-version';
-
-  @override
-  String get description => 'Push new version.';
-
-  @override
-  void run() {
-    final version = getPackageVersion(readPubspec());
-
-    pushNewVersion(version);
   }
 }
 
