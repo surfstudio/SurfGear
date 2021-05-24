@@ -132,7 +132,7 @@ class PublishDevToPub extends Command<void> {
 
     pushNewVersion(updatedPackageVersion);
 
-//    publishToPub();
+    publishToPub();
   }
 }
 
