@@ -16,6 +16,8 @@ import 'package:bottom_sheet/src/flexible_bottom_sheet.dart';
 import 'package:bottom_sheet/src/widgets/flexible_draggable_scrollable_sheet.dart';
 import 'package:flutter/material.dart';
 
+// ignore_for_file: avoid-returning-widgets
+
 const Duration _bottomSheetDuration = Duration(milliseconds: 500);
 
 /// Shows a flexible bottom sheet.
@@ -170,7 +172,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     _animationController = AnimationController(
       duration: _bottomSheetDuration,
       debugLabel: 'FlexibleBottomSheet',
-      vsync: navigator?.overlay as TickerProvider,
+      vsync: (navigator?.overlay)!,
     );
 
     return _animationController;
@@ -230,7 +232,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     Widget child,
   ) {
     const begin = Offset(0.0, 1.0);
-    final end = Offset.zero;
+    const end = Offset.zero;
     final curve = Curves.ease;
     final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
