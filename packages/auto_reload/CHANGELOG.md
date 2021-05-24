@@ -2,7 +2,7 @@
 
 ## PATCH
 
-* Get rid flutter from dependency
+* Fix changelog
 
 ## 1.0.0
 
