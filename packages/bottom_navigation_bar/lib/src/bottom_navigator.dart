@@ -20,6 +20,8 @@ import 'package:bottom_navigation_bar/src/bottom_navigation_relationship.dart';
 import 'package:flutter/material.dart';
 import 'package:tabnavigator/tabnavigator.dart';
 
+// ignore_for_file: avoid-returning-widgets
+
 /// Widget that display element by item currently selected in bottom bar.
 class BottomNavigator extends StatefulWidget {
   const BottomNavigator({
@@ -69,7 +71,9 @@ class _CustomBottomNavigatorState extends _BaseBottomNavigatorState {
   }
 
   @override
-  void closeSelectController() {}
+  void closeSelectController() {
+    widget.selectController?.close();
+  }
 }
 
 class _BottomNavigatorState extends _BaseBottomNavigatorState {
@@ -129,7 +133,8 @@ abstract class _BaseBottomNavigatorState extends State<BottomNavigator> {
     _selectController = initSelectController()..add(widget.initialTab);
 
     _navigatorMap.addAll(
-        widget.tabsMap.map((key, value) => MapEntry(key, value.tabBuilder)));
+      widget.tabsMap.map((key, value) => MapEntry(key, value.tabBuilder)),
+    );
   }
 
   @override
