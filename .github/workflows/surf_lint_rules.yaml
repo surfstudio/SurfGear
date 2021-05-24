@@ -18,22 +18,22 @@ jobs:
         working-directory: packages/surf_lint_rules
 
     steps:
-      - name: Install Flutter
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+
+      - name: Install Flutter 🔧
         uses: subosito/flutter-action@v1
         with:
           channel: "stable"
 
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2
-
-      - name: Prepare check our conventions ⚙️
+      - name: Prepare check our conventions 🔧
         run: dart pub upgrade
         working-directory: tools/ci-cd
 
       - name: Check our conventions 🔍
         run: dart run ../../tools/ci-cd/bin/ci.dart check-dev-branch
 
-      - name: Install dependencies ⚙️
+      - name: Install dependencies 🔧
         run: flutter pub get
 
       - name: Run dependency validator 🔍
@@ -44,7 +44,7 @@ jobs:
       - name: Run analyzer 🔍
         run: flutter analyze --fatal-warnings --fatal-infos .
 
-      - name: Run formatter 🔍
+      - name: Run formatter ⚙️
         run: flutter format --set-exit-if-changed .
 
   package-analysis:
