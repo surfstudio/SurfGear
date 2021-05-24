@@ -1,0 +1,43 @@
+name: Publish coverage to codecov.io
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/publish_dev_version.yaml"
+
+  push:
+    branches:
+      - main
+
+jobs:
+  publish_dev:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - analytics
+          - auto_reload
+          - surf_lint_rules
+
+    container:
+      image: google/dart:latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+
+      - name: Prepare check our conventions ⚙️
+        run: dart pub upgrade
+        working-directory: tools/ci-cd
+
+      - name: Deploy dev version 🚀
+        env:
+          PUB_CREDENTIALS: ${{ secrets.PUB_CREDENTIALS }}
+        run: dart run tool/ci.dart publish-dev-version
+        working-directory: packages/${{matrix.package}}

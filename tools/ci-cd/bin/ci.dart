@@ -22,7 +22,7 @@ void main(List<String> args) {
     ..addCommand(CheckDevBranch())
     ..addCommand(BumpDevVersion())
     ..addCommand(PushNewVersion())
-    ..addCommand(PublishToPub())
+    ..addCommand(PublishDevToPub())
     ..run(args);
 }
 
@@ -96,7 +96,7 @@ class PushNewVersion extends Command<void> {
   }
 }
 
-class PublishToPub extends Command<void> {
+class PublishDevToPub extends Command<void> {
   @override
   String get name => 'publish';
 
@@ -105,7 +105,34 @@ class PublishToPub extends Command<void> {
 
   @override
   void run() {
-    publishToPub();
+    final changelogContent = readChangelog();
+    final pubspecContent = readPubspec();
+
+    final importance = getDevChangesImportance(changelogContent);
+    if (importance == ChangesImportance.unknown) {
+      exit(0);
+    }
+
+    if (getDevChangesCount(changelogContent) == 0) {
+      printErrorMessage("Please run 'check-branch' command before.");
+    }
+
+    final packageVersion = getPackageVersion(pubspecContent);
+    final updatedPackageVersion = bumpPackageVersion(packageVersion);
+
+    savePubspec(patchPubspec(pubspecContent, updatedPackageVersion));
+    saveChangelog(
+      patchChangelog(
+        changelogContent,
+        updatedPackageVersion,
+        importance,
+        DateTime.now(),
+      ),
+    );
+
+    pushNewVersion(updatedPackageVersion);
+
+//    publishToPub();
   }
 }
 
