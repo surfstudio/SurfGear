@@ -1,4 +1,4 @@
-name: Publish coverage to codecov.io
+name: Publish to pub.dev
 
 on:
   push:

@@ -7,16 +7,16 @@ void pushNewVersion({required Version version, required String packageName}) {
     ['config', 'user.name', 'github-actions'],
     ['config', 'user.email', 'github-actions@github.com'],
     ['add', '.'],
-    ['commit', '--message', '"🔖 Update $packageName version to $version"'],
+    ['commit', '--message', '🔖 Update $packageName version to $version'],
     [
       'tag',
       '--annotate',
-      '"$packageName-$version"',
+      '$packageName-$version',
       '--message',
-      '"🔖 Release $packageName version $version"',
+      '🔖 Release $packageName version $version',
     ],
     ['push'],
-    ['push', 'origin', version.toString()],
+    ['push', 'origin', '$packageName-$version'],
   ];
 
   for (final command in gitCommands) {
