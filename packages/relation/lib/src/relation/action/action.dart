@@ -20,6 +20,8 @@ import 'package:rxdart/rxdart.dart';
 /// Action
 /// It's wrapper over an action on screen.
 /// It may be a tap on button, text changes, focus changes and so on.
+/// [onChanged] - callback for [accept]'s or [call]'s call
+/// `acceptUnique` - data will be accepted only if it's unique
 ///
 /// It is **reactive**.
 ///
@@ -34,10 +36,13 @@ import 'package:rxdart/rxdart.dart';
 class Action<T> implements Event<T> {
   Action({
     void Function(T? data)? onChanged,
-    this.acceptUnique = false,
-  }) : onChanged = onChanged ?? ((_) {});
+    bool acceptUnique = false,
+  })  : onChanged = onChanged ?? ((_) {}),
+        _acceptUnique = acceptUnique;
 
-  final bool acceptUnique;
+  /// When switched on, data will be
+  /// accepted only if it's unique
+  final bool _acceptUnique;
 
   /// Publish subject for updating actions
   final _actionSubject = PublishSubject<T?>();
@@ -54,7 +59,7 @@ class Action<T> implements Event<T> {
 
   @override
   Future<T?> accept([T? data]) async {
-    if (acceptUnique && _value == data) {
+    if (_acceptUnique && _value == data) {
       return _value;
     } else {
       _value = data;
