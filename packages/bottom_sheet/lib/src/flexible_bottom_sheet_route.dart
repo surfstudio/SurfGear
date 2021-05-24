@@ -172,7 +172,7 @@ class _FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     _animationController = AnimationController(
       duration: _bottomSheetDuration,
       debugLabel: 'FlexibleBottomSheet',
-      vsync: (navigator?.overlay)!,
+      vsync: navigator?.overlay as TickerProvider,
     );
 
     return _animationController;
