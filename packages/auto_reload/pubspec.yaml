@@ -6,8 +6,6 @@ issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 
 dependencies:
   connectivity: ^3.0.0
-  flutter:
-    sdk: flutter
 
 dev_dependencies:
   fake_async: ^1.2.0
