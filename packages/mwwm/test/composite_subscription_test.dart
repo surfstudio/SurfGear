@@ -29,14 +29,14 @@ void main() {
         );
       });
 
-      test('no emits throw if isDisposed is false', () {
+      test('does not throw an exception isDisposed is false', () {
         expect(
           () => compositeSubscription.add<Object>(streamSubscriptionMock),
           returnsNormally,
         );
       });
 
-      test('emits throw if isDisposed is true', () {
+      test('throws an exception if isDisposed is true', () {
         compositeSubscription.dispose();
 
         expect(
