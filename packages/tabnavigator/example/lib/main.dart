@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Stream<AppTab> get tabStream => _tabController.stream;
 
-  final _map = {
+  final _map = <AppTab, TabBuilder>{
     AppTab.feed: () {
       return ListView.builder(
         itemCount: 100,
