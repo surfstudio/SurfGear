@@ -19,6 +19,8 @@ import 'package:flutter/widgets.dart';
 import 'package:swipe_refresh/src/swipe_refresh_base.dart';
 import 'package:swipe_refresh/src/swipe_refresh_state.dart';
 
+// ignore_for_file: avoid-returning-widgets
+
 /// Refresh indicator widget with Material Design style.
 class MaterialSwipeRefresh extends SwipeRefreshBase {
   const MaterialSwipeRefresh({
@@ -60,7 +62,11 @@ class MaterialSwipeRefresh extends SwipeRefreshBase {
 class _MaterialSwipeRefreshState
     extends SwipeRefreshBaseState<MaterialSwipeRefresh> {
   @override
-  Widget buildRefresher(Key key, List<Widget> children, onRefresh) {
+  Widget buildRefresher(
+    Key key,
+    List<Widget> children,
+    Future<void> Function() onRefresh,
+  ) {
     return RefreshIndicator(
       key: key,
       onRefresh: onRefresh,

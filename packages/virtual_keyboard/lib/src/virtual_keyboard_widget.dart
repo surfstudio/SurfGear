@@ -17,6 +17,8 @@ import 'package:virtual_keyboard/src/table_button.dart';
 import 'package:virtual_keyboard/src/virtual_keyboard_effect.dart';
 import 'package:virtual_keyboard/src/virtual_keyboard_key.dart';
 
+// ignore_for_file: avoid-returning-widgets
+
 /// On-screen keyboard widget
 
 /// Callback key on the on-screen keyboard

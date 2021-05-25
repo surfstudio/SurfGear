@@ -17,6 +17,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:swipe_refresh/swipe_refresh.dart';
 
+// ignore_for_file: avoid-returning-widgets
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -54,9 +56,9 @@ class _MainPageState extends State<MainPage> {
         body: Padding(
           padding: const EdgeInsets.only(top: 25),
           child: Column(
-            children: <Widget>[
+            children: [
               TabBar(
-                tabs: <Widget>[
+                tabs: [
                   _buildTab(SwipeRefreshStyle.material),
                   _buildTab(SwipeRefreshStyle.cupertino),
                   _buildTab(SwipeRefreshStyle.builder),
@@ -64,7 +66,7 @@ class _MainPageState extends State<MainPage> {
               ),
               Expanded(
                 child: TabBarView(
-                  children: <Widget>[
+                  children: [
                     SwipeRefresh.material(
                       stateStream: _stream,
                       onRefresh: _refresh,
@@ -131,7 +133,7 @@ class _MainPageState extends State<MainPage> {
   List<Widget> _buildExampleBody(SwipeRefreshStyle style) {
     final isMaterial = style == SwipeRefreshStyle.material;
     final color = _getColor(style);
-    return <Widget>[
+    return [
       Container(
         color: color,
         height: 100,
