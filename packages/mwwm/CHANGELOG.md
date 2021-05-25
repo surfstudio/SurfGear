@@ -1,8 +1,8 @@
 # Changelog
 
-## PATCH
+## 1.1.1-dev.1 - 2021-05-25
 
-* Apply new lint rules.
+* Apply new lint rules. (patch)
 
 ## 1.1.0
 
