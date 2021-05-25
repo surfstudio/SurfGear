@@ -57,11 +57,11 @@ jobs:
           CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
         if: success()
         run: |
-          dart run ../../tools/coverage/fake_test_generator.dart dart
-          dart test --coverage=coverage
-          dart pub global activate coverage
-          dart pub global run coverage:format_coverage --packages=.packages -i coverage -o coverage/lcov.info --lcov --report-on=lib
-          dart pub run ../../tools/coverage/patch_lcov.dart
+          flutter test --coverage
+          mv coverage/lcov.info coverage/lcov.base.info
+          flutter pub run ../../tools/coverage/fake_test_generator.dart dart
+          flutter test --coverage --merge-coverage test/fake_test.dart
+          flutter pub run ../../tools/coverage/patch_lcov.dart
           bash <(curl -s https://codecov.io/bash) -f coverage/lcov.info -F surf_logger
 
   package-analysis:
