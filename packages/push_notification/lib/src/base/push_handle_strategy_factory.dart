@@ -38,7 +38,7 @@ abstract class PushHandleStrategyFactory {
     StrategyBuilder? builder;
     try {
       if (Platform.isAndroid) {
-        builder = map[messageData['data'][_key]];
+        builder = map[(messageData['data'] as Map)[_key]];
       } else if (Platform.isIOS) {
         builder = map[messageData[_key]];
       }

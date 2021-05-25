@@ -1,24 +1,21 @@
-name: build surf_logger
+name: build push_notification
 
 on:
   pull_request:
     branches:
       - main
     paths:
-      - "packages/surf_logger/**"
-      - ".github/workflows/surf_logger.yaml"
+      - "packages/push_notification/**"
+      - ".github/workflows/push_notification.yaml"
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    container:
-      image: google/dart:latest
-
     defaults:
       run:
         shell: bash
-        working-directory: packages/surf_logger
+        working-directory: packages/push_notification
 
     steps:
       - name: Checkout 🛎️
@@ -60,19 +57,19 @@ jobs:
           CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
         if: success()
         run: |
-          dart run ../../tools/coverage/fake_test_generator.dart dart
-          dart test --coverage=coverage
-          dart pub global activate coverage
-          dart pub global run coverage:format_coverage --packages=.packages -i coverage -o coverage/lcov.info --lcov --report-on=lib
-          dart pub run ../../tools/coverage/patch_lcov.dart
-          bash <(curl -s https://codecov.io/bash) -f coverage/lcov.info -F surf_logger
+          flutter test --coverage
+          mv coverage/lcov.info coverage/lcov.base.info
+          flutter pub run ../../tools/coverage/fake_test_generator.dart
+          flutter test --coverage --merge-coverage test/fake_test.dart
+          flutter pub run ../../tools/coverage/patch_lcov.dart
+          bash <(curl -s https://codecov.io/bash) -f coverage/lcov.info -F push_notification
 
   package-analysis:
     runs-on: ubuntu-latest
 
     defaults:
       run:
-        working-directory: packages/surf_logger
+        working-directory: packages/push_notification
 
     steps:
       - name: Checkout 🛎️
@@ -82,4 +79,4 @@ jobs:
         uses: axel-op/dart-package-analyzer@v3
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          relativePath: packages/surf_logger
+          relativePath: packages/push_notification

@@ -1,5 +1,9 @@
 # Changelog
 
+## Patch
+
+* Apply new lint rules.
+
 ## 1.0.0
 
 * Migrated to null safety, min SDK is `2.12.0`.

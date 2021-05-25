@@ -7,6 +7,7 @@ class DialogBuilder<T extends DialogData> {
 
   final Widget Function(BuildContext context, {required T data}) builder;
 
+  // ignore: avoid-returning-widgets
   Widget call(BuildContext context, {required T data}) =>
       builder(context, data: data);
 }
