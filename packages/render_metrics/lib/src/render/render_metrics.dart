@@ -59,7 +59,9 @@ class RenderMetricsObject<T> extends SingleChildRenderObjectWidget {
 
   @override
   void updateRenderObject(
-      BuildContext context, covariant RenderObject renderObject) {
+    BuildContext context,
+    covariant RenderObject renderObject,
+  ) {
     if (renderObject is RenderMetricsBox) {
       onUpdate?.call(id, renderObject);
       manager.updateRenderObject(id, renderObject);
@@ -82,12 +84,12 @@ class RenderMetricsBox extends RenderProxyBox {
   }) : super(child);
 
   RenderData get data {
-    final Size size = this.size;
-    final double width = size.width;
-    final double height = size.height;
-    final Offset globalOffset = localToGlobal(Offset(width, height));
-    final double dy = globalOffset.dy;
-    final double dx = globalOffset.dx;
+    final size = this.size;
+    final width = size.width;
+    final height = size.height;
+    final globalOffset = localToGlobal(Offset(width, height));
+    final dy = globalOffset.dy;
+    final dx = globalOffset.dx;
 
     return RenderData(
       yTop: dy - height,

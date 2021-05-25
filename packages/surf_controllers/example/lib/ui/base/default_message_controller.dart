@@ -1,5 +1,5 @@
-import 'package:surf_controllers/surf_controllers.dart';
 import 'package:flutter/material.dart';
+import 'package:surf_controllers/surf_controllers.dart';
 
 typedef SnackBarBuilder = SnackBar Function(String, SnackBarAction?);
 
@@ -26,8 +26,11 @@ class DefaultMessageController implements MessageController {
     _show(type: msgType is MsgType ? msgType : MsgType.common, msg: msg ?? '');
   }
 
-  void _show(
-      {required MsgType type, required String msg, SnackBarAction? action}) {
+  void _show({
+    required MsgType type,
+    required String msg,
+    SnackBarAction? action,
+  }) {
     final builder = _defaultSnackBarBuilder[type];
     if (builder != null) {
       _showBottomSnack(builder(msg, action));
@@ -40,6 +43,7 @@ class DefaultMessageController implements MessageController {
       ..showSnackBar(snack); // ignore: deprecated_member_use
   }
 
+  // ignore: avoid-returning-widgets
   static SnackBar _defaultSnackBar(
     String text, {
     bool hasError = false,

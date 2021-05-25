@@ -20,6 +20,8 @@ coverage:
         flags: mwwm
       otp_autofill:
         flags: otp_autofill
+      push_notification:
+        flags: push_notification
       relation:
         flags: relation
       render_metrics:
@@ -67,6 +69,10 @@ flags:
   otp_autofill:
     paths:
       - packages/otp_autofill/
+    carryforward: true
+  push_notification:
+    paths:
+      - packages/push_notification/
     carryforward: true
   relation:
     paths:

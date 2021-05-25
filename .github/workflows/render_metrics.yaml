@@ -18,34 +18,41 @@ jobs:
         working-directory: packages/render_metrics
 
     steps:
-      - name: Checkout
+      - name: Checkout 🛎️
         uses: actions/checkout@v2
 
-      - name: Install lcov
+      - name: Install lcov 🔧
         run: |
           sudo apt-get update
           sudo apt-get install -y lcov
 
-      - name: Install Flutter
+      - name: Install Flutter 🔧
         uses: subosito/flutter-action@v1
         with:
           channel: "stable"
 
-      - name: Install dependencies
+      - name: Prepare check our conventions 🔧
+        run: dart pub upgrade
+        working-directory: tools/ci-cd
+
+      - name: Check our conventions 🔍
+        run: dart run ../../tools/ci-cd/bin/ci.dart check-dev-branch
+
+      - name: Install dependencies 🔧
         run: flutter pub get
 
-      - name: Run dependency validator
+      - name: Run dependency validator 🔍
         run: |
           flutter pub global activate dependency_validator
           flutter pub global run dependency_validator:dependency_validator
 
-      - name: Run analyzer
+      - name: Run analyzer 🔍
         run: flutter analyze --fatal-warnings --fatal-infos .
 
-      - name: Run formatter
+      - name: Run formatter ⚙️
         run: flutter format --set-exit-if-changed .
 
-      - name: Run tests
+      - name: Run tests ⚙️
         env:
           CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
         if: success()
@@ -65,8 +72,11 @@ jobs:
         working-directory: packages/render_metrics
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: axel-op/dart-package-analyzer@v3
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+
+      - name: Run package analyzer 🔍
+        uses: axel-op/dart-package-analyzer@v3
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           relativePath: packages/render_metrics

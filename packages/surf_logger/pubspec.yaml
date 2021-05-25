@@ -14,15 +14,3 @@ dev_dependencies:
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
-
-dependency_validator:
-  exclude:
-    - "example/**"
-
-custom:
-  is_stable: false
-  unstable_version:
-  is_plugin: false
-  path: surf_logger
-  separate_repo_url:
-  hostUrl:

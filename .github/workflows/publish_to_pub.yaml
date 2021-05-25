@@ -21,8 +21,12 @@ jobs:
           - ink_widget
           - mwwm
           - otp_autofill
+          - push_notification
           - relation
+          - render_metrics
+          - surf_controllers
           - surf_lint_rules
+          - surf_logger
       max-parallel: 1
 
     container:

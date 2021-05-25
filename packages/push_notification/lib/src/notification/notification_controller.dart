@@ -69,7 +69,7 @@ class NotificationController {
       '${strategy.payload.body}',
     );
 
-    final int pushId = DateTime.now().millisecondsSinceEpoch;
+    final pushId = DateTime.now().millisecondsSinceEpoch;
 
     final tmpPayload = strategy.payload.messageData.map(
       // ignore: avoid_annotating_with_dynamic

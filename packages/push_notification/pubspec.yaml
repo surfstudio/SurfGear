@@ -6,7 +6,7 @@ repository: "https://github.com/surfstudio/SurfGear/tree/main/packages/push_noti
 dependencies:
   flutter:
     sdk: flutter
-  rxdart: ^0.26.0
+  rxdart: ^0.27.0
 
 dev_dependencies:
   flutter_test:
@@ -26,11 +26,3 @@ flutter:
         pluginClass: PushNotificationPlugin
       ios:
         pluginClass: PushNotificationPlugin
-
-custom:
-  is_stable: false
-  unstable_version:
-  is_plugin: true
-  path: push_notification
-  separate_repo_url:
-  hostUrl:
