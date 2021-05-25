@@ -1,5 +1,5 @@
 name: swipe_refresh
-version: "1.0.0"
+version: 1.0.1-dev.1
 description: Widget for refresh by swipe.
 repository: "https://github.com/surfstudio/SurfGear/tree/main/packages/swipe_refresh"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
