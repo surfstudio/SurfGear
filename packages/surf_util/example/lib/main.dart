@@ -52,7 +52,7 @@ class _RefresherPageState extends State<RefresherPage> {
           child: SingleChildScrollView(
             child: Column(
               children: Colors.primaries
-                  .map<Widget>(
+                  .map(
                     (color) => Container(
                       height: 200,
                       color: color,

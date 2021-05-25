@@ -18,6 +18,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tabnavigator/tabnavigator.dart';
 
+// ignore_for_file: avoid-returning-widgets
+
 typedef TabBuilder = Widget Function();
 typedef ObserversBuilder = List<NavigatorObserver> Function(TabType tabType);
 
@@ -55,7 +57,7 @@ class TabNavigator extends StatefulWidget {
   final RouteFactory? onGenerateRoute;
 
   static TabNavigatorState of(BuildContext context) {
-    final Type type = _typeOf<TabNavigatorState>();
+    final type = _typeOf<TabNavigatorState>();
     TabNavigatorState? tabNavigator;
     tabNavigator = context.findAncestorStateOfType<TabNavigatorState>();
     if (tabNavigator == null) {
@@ -109,7 +111,7 @@ class TabNavigatorState extends State<TabNavigator> {
         if (snapshot.data == null) {
           return const SizedBox();
         }
-        final TabType tabType = snapshot.data!;
+        final tabType = snapshot.data!;
         if (tabType.value != TabType.emptyValue &&
             !_initializedTabs.contains(tabType)) {
           _initializedTabs.add(tabType);
@@ -175,8 +177,9 @@ class TabNavigatorState extends State<TabNavigator> {
   }
 
   Future<bool> _willPop(TabType tabType) async {
-    final Future<bool> maybePop =
+    final maybePop =
         mappedNavKeys[tabType]?.currentState?.maybePop() ?? Future.value(false);
+
     return !(await maybePop);
   }
 }
