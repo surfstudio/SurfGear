@@ -1,8 +1,8 @@
 # Changelog
 
-## Minor
+## 1.0.1-dev.1 - 2021-05-25
 
-* Update `rxdart` dependency to `0.27.0`.
+* Update `rxdart` dependency to `0.27.0`. (minor)
 
 ## 1.0.0
 

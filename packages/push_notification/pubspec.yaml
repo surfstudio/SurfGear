@@ -1,5 +1,5 @@
 name: push_notification
-version: "1.0.0"
+version: 1.0.1-dev.1
 description: Library for implementing push notifications. The module contains the main work with push notifications.
 repository: "https://github.com/surfstudio/SurfGear/tree/main/packages/push_notification"
 
