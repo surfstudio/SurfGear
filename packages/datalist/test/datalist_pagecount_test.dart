@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:datalist/src/impl/datalist_page_count.dart';
 import 'package:datalist/src/exceptions.dart';
+import 'package:datalist/src/impl/datalist_page_count.dart';
 import 'package:test/test.dart';
 
 void main() {

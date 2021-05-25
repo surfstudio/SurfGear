@@ -43,6 +43,8 @@ analyzer:
     valid_regexps: error
 
 dart_code_metrics:
+  metrics-exclude:
+    - test/**
   rules:
     - avoid-returning-widgets:
         ignored-names:

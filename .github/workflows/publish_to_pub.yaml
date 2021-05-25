@@ -17,6 +17,8 @@ jobs:
           - auto_reload
           - bottom_navigation_bar
           - bottom_sheet
+          - datalist
+          - ink_widget
           - surf_lint_rules
       max-parallel: 1
 

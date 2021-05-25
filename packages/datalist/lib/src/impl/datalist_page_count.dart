@@ -211,12 +211,12 @@ class PageCountDataList<T> extends DataList<T> {
   @override
   String toString() {
     return 'DataList{'
-        'pageSize=$pageSize'
-        ', startPage=$startPage'
-        ', numPages=$numPages'
-        ', totalItemsCount=$totalItemsCount'
-        ', totalPagesCount=$totalPagesCount'
-        ', data=$data'
+        'pageSize=$pageSize, '
+        'startPage=$startPage, '
+        'numPages=$numPages, '
+        'totalItemsCount=$totalItemsCount, '
+        'totalPagesCount=$totalPagesCount, '
+        'data=$data'
         '}';
   }
 }

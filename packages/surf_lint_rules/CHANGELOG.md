@@ -1,5 +1,9 @@
 # Changelog
 
+## PATCH
+
+* Tune metrics settings
+
 ## 1.1.1-dev.2 - 2021-05-24
 
 * Set min SDK version to `2.13.0`. (patch)
