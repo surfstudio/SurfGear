@@ -27,6 +27,9 @@ jobs:
           - surf_controllers
           - surf_lint_rules
           - surf_logger
+          - surf_mwwm
+          - surf_util
+          - swipe_refresh
       max-parallel: 1
 
     container:
