@@ -1,5 +1,9 @@
 # Changelog
 
+## PATCH
+
+* Apply new lint rules.
+
 ## 2.0.0
 
 * **Breaking Change:** `EntityStateBuilder`'s `child` argument replaced with `builder`

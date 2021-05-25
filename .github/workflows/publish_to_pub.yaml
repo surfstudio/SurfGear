@@ -19,6 +19,9 @@ jobs:
           - bottom_sheet
           - datalist
           - ink_widget
+          - mwwm
+          - otp_autofill
+          - relation
           - surf_lint_rules
       max-parallel: 1
 

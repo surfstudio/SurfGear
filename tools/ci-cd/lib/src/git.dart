@@ -6,6 +6,7 @@ void pushNewVersion({required Version version, required String packageName}) {
   final gitCommands = [
     ['config', 'user.name', 'github-actions'],
     ['config', 'user.email', 'github-actions@github.com'],
+    ['pull'],
     ['add', '.'],
     ['commit', '--message', '🔖 Update $packageName version to $version'],
     [

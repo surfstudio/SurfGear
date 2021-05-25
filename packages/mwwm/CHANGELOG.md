@@ -1,5 +1,9 @@
 # Changelog
 
+## PATCH
+
+* Apply new lint rules.
+
 ## 1.1.0
 
 * Made subscribe's stream's values nullable.

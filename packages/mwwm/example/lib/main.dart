@@ -1,5 +1,5 @@
-import 'package:counter/data/counter/storage/shared_prefs.dart';
 import 'package:counter/data/counter/repository/counter_repository.dart';
+import 'package:counter/data/counter/storage/shared_prefs.dart';
 import 'package:counter/ui/app.dart';
 import 'package:counter/ui/counter_screen/counter_wm.dart';
 import 'package:counter/ui/counter_screen/exceptions/default_error_handler.dart';

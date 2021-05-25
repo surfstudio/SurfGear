@@ -1,5 +1,9 @@
 # Changelog
 
+## PATCH
+
+* Apply new lint rules.
+
 ## 1.0.1
 
 * Fix android build bug related on null-safety.
