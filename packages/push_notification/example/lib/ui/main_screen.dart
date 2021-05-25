@@ -52,6 +52,7 @@ class MessageScreenState extends State<MessageScreen> {
         itemCount: messageList.length,
         itemBuilder: (_, index) {
           final message = messageList[index];
+
           return ListTile(
             title: Text(message.title),
             subtitle: Text(message.body),
