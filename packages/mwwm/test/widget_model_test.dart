@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:mwwm/src/widget_model.dart';
 import 'package:mwwm/src/dependencies/wm_dependencies.dart';
+import 'package:mwwm/src/widget_model.dart';
 
 import 'mocks/error_handler_mock.dart';
 import 'mocks/steam_subscription_mock.dart';
@@ -23,13 +23,16 @@ void main() {
       streamController = StreamController<int>();
       completer = Completer<int>.sync();
       widgetModel = WidgetModelMock(
-          WidgetModelDependencies(errorHandler: errorHandlerMock));
+        WidgetModelDependencies(errorHandler: errorHandlerMock),
+      );
     });
 
     group('subscribe', () {
       test('returns StreamSubscription', () {
-        expect(widgetModel.subscribe(streamController.stream, (t) {}),
-            isA<StreamSubscription<int>>());
+        expect(
+          widgetModel.subscribe(streamController.stream, (t) {}),
+          isA<StreamSubscription<int>>(),
+        );
       });
 
       test('uses onValue handle on stream', () {
@@ -56,8 +59,9 @@ void main() {
     group('subscribeHandleError', () {
       test('returns StreamSubscription', () {
         expect(
-            widgetModel.subscribeHandleError(streamController.stream, (t) {}),
-            isA<StreamSubscription<int>>());
+          widgetModel.subscribeHandleError(streamController.stream, (t) {}),
+          isA<StreamSubscription<int>>(),
+        );
       });
 
       test('subscribes onValue handle on stream', () {
@@ -76,8 +80,11 @@ void main() {
           expect(v, equals(value));
         }
 
-        widgetModel.subscribeHandleError(streamController.stream, (t) {},
-            onError: verifyFunc);
+        widgetModel.subscribeHandleError(
+          streamController.stream,
+          (t) {},
+          onError: verifyFunc,
+        );
 
         streamController
           ..addError(value)

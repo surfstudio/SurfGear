@@ -12,15 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//errors
-export 'package:mwwm/src/error/error_handler.dart';
-
-//main
-export 'package:mwwm/src/widget_state.dart';
-export 'package:mwwm/src/widget_model.dart';
-export 'package:mwwm/src/ticker_providers.dart';
 export 'package:mwwm/src/dependencies/wm_dependencies.dart';
-
-export 'package:mwwm/src/model/model.dart';
+export 'package:mwwm/src/error/error_handler.dart';
 export 'package:mwwm/src/model/changes/changes.dart';
+export 'package:mwwm/src/model/model.dart';
 export 'package:mwwm/src/model/performer/performer.dart';
+export 'package:mwwm/src/ticker_providers.dart';
+export 'package:mwwm/src/widget_model.dart';
+export 'package:mwwm/src/widget_state.dart';

@@ -49,8 +49,10 @@ void main() {
         when(() => performerStringMock.canPerform(any<String>()))
             .thenReturn(false);
 
-        expect(() => model.perform(changeMock),
-            throwsA(isA<NoPerformerException>()));
+        expect(
+          () => model.perform(changeMock),
+          throwsA(isA<NoPerformerException>()),
+        );
       });
     });
 

@@ -15,6 +15,8 @@
 import 'package:flutter/material.dart';
 import 'package:relation/relation.dart' as r;
 
+// ignore_for_file: avoid-returning-widgets
+
 class DemoRelations extends StatefulWidget {
   const DemoRelations({Key? key}) : super(key: key);
 

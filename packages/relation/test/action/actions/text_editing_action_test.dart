@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/widgets.dart' hide TextEditingAction;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:relation/relation.dart';
 import 'package:rxdart/rxdart.dart';

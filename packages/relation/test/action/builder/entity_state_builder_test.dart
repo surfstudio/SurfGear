@@ -173,31 +173,33 @@ void main() {
     expect(loadingBuilderFinder, findsOneWidget);
   });
 
-  testWidgets('EntityStateBuilder with errorDataBuilder passing data',
-      (tester) async {
-    final testData = EntityStreamedState<String>();
-    final streamedStateBuilder = EntityStateBuilder<String>(
-      streamedState: testData,
-      builder: (context, data) {
-        return const Text('test');
-      },
-      errorDataBuilder: (context, data, error) =>
-          Text('errorDataBuilder $data'),
-    );
+  testWidgets(
+    'EntityStateBuilder with errorDataBuilder passing data',
+    (tester) async {
+      final testData = EntityStreamedState<String>();
+      final streamedStateBuilder = EntityStateBuilder<String>(
+        streamedState: testData,
+        builder: (context, data) {
+          return const Text('test');
+        },
+        errorDataBuilder: (context, data, error) =>
+            Text('errorDataBuilder $data'),
+      );
 
-    unawaited(testData.error(Exception(), 'data'));
-    await tester.pumpWidget(
-      MaterialApp(
-        title: 'Flutter Demo',
-        home: Scaffold(
-          body: streamedStateBuilder,
+      unawaited(testData.error(Exception(), 'data'));
+      await tester.pumpWidget(
+        MaterialApp(
+          title: 'Flutter Demo',
+          home: Scaffold(
+            body: streamedStateBuilder,
+          ),
         ),
-      ),
-    );
+      );
 
-    final loadingBuilderFinder = find.text('errorDataBuilder data');
-    expect(loadingBuilderFinder, findsOneWidget);
-  });
+      final loadingBuilderFinder = find.text('errorDataBuilder data');
+      expect(loadingBuilderFinder, findsOneWidget);
+    },
+  );
 
   group('EntityStateBuilder order:', () {
     testWidgets('errorDataBuilder has hightest priority', (tester) async {

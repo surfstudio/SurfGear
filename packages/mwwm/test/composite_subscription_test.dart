@@ -23,20 +23,26 @@ void main() {
 
     group('add()', () {
       test('returns subscription', () {
-        expect(compositeSubscription.add<Object>(streamSubscriptionMock),
-            streamSubscriptionMock);
+        expect(
+          compositeSubscription.add<Object>(streamSubscriptionMock),
+          streamSubscriptionMock,
+        );
       });
 
       test('no emits throw if isDisposed is false', () {
-        expect(() => compositeSubscription.add<Object>(streamSubscriptionMock),
-            returnsNormally);
+        expect(
+          () => compositeSubscription.add<Object>(streamSubscriptionMock),
+          returnsNormally,
+        );
       });
 
       test('emits throw if isDisposed is true', () {
         compositeSubscription.dispose();
 
-        expect(() => compositeSubscription.add<Object>(streamSubscriptionMock),
-            throwsA(isException));
+        expect(
+          () => compositeSubscription.add<Object>(streamSubscriptionMock),
+          throwsA(isException),
+        );
       });
 
       group('remove', () {
