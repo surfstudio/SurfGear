@@ -1,5 +1,9 @@
 # Changelog
 
+## PATCH
+
+* Apply new lint rules.
+
 ## 2.0.0
 
 * Migrate this package to null safety.

@@ -125,6 +125,7 @@ class InkWidget extends StatelessWidget {
     );
   }
 
+  // ignore: avoid-returning-widgets
   InkWell _buildDefaultInkWell() => InkWell(
         customBorder: customBorder ?? shapeBorder,
         onTap: onTap,
