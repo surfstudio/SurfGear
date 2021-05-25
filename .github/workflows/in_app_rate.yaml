@@ -18,26 +18,26 @@ jobs:
         working-directory: packages/in_app_rate
 
     steps:
-      - name: Install Flutter
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+
+      - name: Install Flutter 🔧
         uses: subosito/flutter-action@v1
         with:
           channel: "stable"
 
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Install dependencies
+      - name: Install dependencies 🔧
         run: flutter pub get
 
-      - name: Run dependency validator
+      - name: Run dependency validator 🔍
         run: |
           flutter pub global activate dependency_validator
           flutter pub global run dependency_validator:dependency_validator
 
-      - name: Run analyzer
+      - name: Run analyzer 🔍
         run: flutter analyze --fatal-warnings --fatal-infos .
 
-      - name: Run formatter
+      - name: Run formatter ⚙️
         run: flutter format --set-exit-if-changed .
 
   package-analysis:
@@ -48,8 +48,11 @@ jobs:
         working-directory: packages/in_app_rate
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: axel-op/dart-package-analyzer@v3
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+
+      - name: Run package analyzer 🔍
+        uses: axel-op/dart-package-analyzer@v3
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           relativePath: packages/in_app_rate

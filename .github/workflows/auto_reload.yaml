@@ -38,7 +38,7 @@ jobs:
       - name: Check our conventions 🔍
         run: dart run ../../tools/ci-cd/bin/ci.dart check-dev-branch
 
-      - name: Install dependencies
+      - name: Install dependencies 🔧
         run: flutter pub get
 
       - name: Run dependency validator 🔍
