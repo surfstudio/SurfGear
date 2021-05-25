@@ -1,8 +1,8 @@
 # Changelog
 
-## PATCH
+## 1.1.1-dev.3 - 2021-05-25
 
-* Tune metrics settings
+* Tune metrics settings (patch)
 
 ## 1.1.1-dev.2 - 2021-05-24
 
