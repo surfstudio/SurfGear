@@ -12,25 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/widgets.dart' as flutter;
-import 'package:relation/src/relation/action/relation_action.dart';
+/// An event that can take some value
+abstract class Event<T> {
+  const Event();
 
-/// Action for scroll
-class ScrollOffsetRelAction extends RelAction<double> {
-  ScrollOffsetRelAction({void Function(double? data)? onChanged})
-      : super(onChanged: onChanged) {
-    controller.addListener(() {
-      accept(controller.offset);
-    });
-  }
+  /// The stream to which the event is transmitted
+  Stream<T> get stream;
 
-  /// Scroll controller of some list
-  final flutter.ScrollController controller = flutter.ScrollController();
+  /// Acceptance of a new event
+  Future<void> accept(T data);
+}
 
-  @override
-  Future<void> dispose() {
-    controller.dispose();
+/// An event that has multiple States
+abstract class EntityEvent<T, E> {
+  const EntityEvent();
 
-    return super.dispose();
-  }
+  /// Acceptance of a new entity event
+  Future<void> content(T data);
+
+  /// Setting the event data is loading
+  Future<void> loading();
+
+  /// Setting the event data is error
+  Future<void> error([Exception? error]);
 }

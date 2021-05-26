@@ -15,6 +15,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:relation/src/relation/state/streamed_state.dart';
 
+typedef StreamedStateWidgetBuilder<T> = Widget Function(BuildContext context, T? data);
+
 /// Widget for StreamedState.
 /// Wrap Flutter StreamBuilder
 class StreamedStateBuilder<T> extends StatelessWidget {
@@ -28,11 +30,11 @@ class StreamedStateBuilder<T> extends StatelessWidget {
   final StreamedState<T> streamedState;
 
   /// Builder of widget child
-  final Widget Function(BuildContext, T?) builder;
+  final StreamedStateWidgetBuilder<T> builder;
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<T?>(
+    return StreamBuilder<T>(
       builder: (ctx, snapshot) => builder(ctx, snapshot.data),
       stream: streamedState.stream,
       initialData: streamedState.value,

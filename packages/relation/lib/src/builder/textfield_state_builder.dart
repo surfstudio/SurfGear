@@ -14,7 +14,7 @@
 
 import 'package:flutter/widgets.dart';
 import 'package:relation/src/builder/streamed_state_builder.dart';
-import 'package:relation/src/relation/relation_event.dart';
+import 'package:relation/src/relation/event.dart';
 import 'package:relation/src/relation/state/entity_state.dart';
 import 'package:relation/src/relation/state/streamed_state.dart';
 
@@ -100,7 +100,7 @@ class TextFieldStreamedState extends StreamedState<TextFieldState>
   final String incorrectTextMsg;
 
   @override
-  Future<TextFieldState?> content([String data = '']) {
+  Future<void> content(String data) {
     if (!validator.hasMatch(data) || (data.isEmpty && mandatory)) {
       return super.accept(
         TextFieldState.error(
@@ -109,23 +109,17 @@ class TextFieldStreamedState extends StreamedState<TextFieldState>
         ),
       );
     } else if (!canEdit) {
-      return accept(TextFieldState.enabled(value?.data, enabled: canEdit));
+      return accept(TextFieldState.enabled(value.data, enabled: canEdit));
     } else {
       return super.accept(TextFieldState.content(data));
     }
   }
 
   @override
-  Future<TextFieldState?> error([Exception? error]) {
-    final state = TextFieldState.error(value?.data, error);
-    return super.accept(state);
-  }
+  Future<void> error([Exception? error]) => super.accept(TextFieldState.error(value.data, error));
 
   @override
-  Future<TextFieldState?> loading() {
-    final state = TextFieldState.loading();
-    return super.accept(state);
-  }
+  Future<void> loading() => super.accept(TextFieldState.loading());
 }
 
 /// Exception of incorrect text wrapper

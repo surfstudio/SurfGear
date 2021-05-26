@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:relation/src/relation/relation_event.dart';
+import 'package:relation/src/relation/event.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// A state of some type wrapped in a stream
@@ -27,41 +27,37 @@ import 'package:rxdart/rxdart.dart';
 ///     builder: (ctx, data) => Text(data.toString()),
 ///   )
 /// ```
-class StreamedState<T> implements RelEvent<T> {
-  StreamedState([T? initialData]) {
-    if (initialData != null) {
-      accept(initialData);
-    }
-  }
+class StreamedState<T> implements Event<T> {
+  StreamedState(T initialData) : _stateSubject = BehaviorSubject.seeded(initialData);
 
-  StreamedState.from(Stream<T> stream) {
-    stateSubject.addStream(stream);
+  StreamedState.from(Stream<T> stream) : _stateSubject = BehaviorSubject<T>() {
+    _stateSubject.addStream(stream);
   }
 
   /// Behavior state for updating events
-  final BehaviorSubject<T?> stateSubject = BehaviorSubject<T?>();
+  final BehaviorSubject<T> _stateSubject;
 
   /// Current value of stream
-  T? get value => stateSubject.value;
+  T get value => _stateSubject.value;
 
   @override
-  Stream<T?> get stream => stateSubject.stream;
+  Stream<T> get stream => _stateSubject.stream;
 
   @override
-  Future<T?> accept([T? data]) {
-    stateSubject.add(data);
-    return Future.value(data);
+  Future<void> accept(T data) {
+    _stateSubject.add(data);
+    return Future<void>.value();
   }
 
   /// Accepts new [data] if current [value] is not equal to [data]
-  Future<T?> acceptUnique([T? data]) {
-    if (stateSubject.valueOrNull == data) {
-      return Future.value(data);
+  Future<void> acceptUnique(T data) {
+    if (value != data) {
+      accept(data);
     }
-    return accept(data);
+    return Future<void>.value();
   }
 
   void dispose() {
-    stateSubject.close();
+    _stateSubject.close();
   }
 }

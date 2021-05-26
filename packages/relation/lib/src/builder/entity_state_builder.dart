@@ -15,15 +15,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:relation/src/relation/state/entity_state.dart';
 
-typedef DataWidgetBuilder<T> = Widget Function(BuildContext context, T? data);
+typedef LoadingWidgetBuilder<T> = Widget Function(BuildContext context, T? data);
 
-typedef ErrorWidgetBuilder = Widget Function(BuildContext context, Object? e);
+typedef DataWidgetBuilder<T> = Widget Function(BuildContext context, T data);
 
-typedef DataErrorWidgetBuidler<T> = Widget Function(
-  BuildContext context,
-  T? data,
-  Object? e,
-);
+typedef ErrorWidgetBuilder = Widget Function(BuildContext context, Exception? e);
+
+typedef DataErrorWidgetBuilder<T> = Widget Function(BuildContext context, T? data, Exception? e);
 
 /// Reactive widget for [EntityStreamedState]
 ///
@@ -66,10 +64,10 @@ class EntityStateBuilder<T> extends StatelessWidget {
   final DataWidgetBuilder<T> builder;
 
   /// WidgetBuilder for empty data
-  final DataWidgetBuilder<T>? loadingBuilder;
+  final LoadingWidgetBuilder<T>? loadingBuilder;
 
   /// WidgetBuilder for error with previous data
-  final DataErrorWidgetBuidler<T>? errorDataBuilder;
+  final DataErrorWidgetBuilder<T>? errorDataBuilder;
 
   /// WidgetBuilder for error
   final ErrorWidgetBuilder? errorBuilder;
@@ -82,14 +80,14 @@ class EntityStateBuilder<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<EntityState<T>?>(
+    return StreamBuilder<EntityState<T>>(
       stream: streamedState.stream,
       initialData: streamedState.value,
       builder: (context, snapshot) {
-        final streamData = snapshot.data;
-        if (streamData == null || streamData.isLoading) {
+        final streamData = snapshot.data!;
+        if (streamData.isLoading) {
           if (loadingBuilder != null) {
-            return loadingBuilder!(context, streamData?.data);
+            return loadingBuilder!(context, streamData.data);
           } else {
             return loadingChild;
           }
@@ -104,7 +102,7 @@ class EntityStateBuilder<T> extends StatelessWidget {
             return errorBuilder!(context, streamData.error);
           }
         } else if (streamData.data != null) {
-          return builder(context, streamData.data);
+          return builder(context, streamData.data!);
         }
 
         return errorChild;

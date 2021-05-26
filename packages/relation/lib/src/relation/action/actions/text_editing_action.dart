@@ -13,11 +13,11 @@
 // limitations under the License.
 
 import 'package:flutter/widgets.dart' as flutter;
-import 'package:relation/src/relation/action/relation_action.dart';
+import 'package:relation/src/relation/action/streamed_action.dart';
 
 /// Action for text editing
-class TextEditingRelAction extends RelAction<String> {
-  TextEditingRelAction({
+class TextEditingAction extends StreamedAction<String> {
+  TextEditingAction({
     void Function(String? data)? onChanged,
   }) : super(onChanged: onChanged) {
     controller.addListener(() {

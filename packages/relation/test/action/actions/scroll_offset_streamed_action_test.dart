@@ -21,7 +21,7 @@ void main() {
   testWidgets(
     'ScrollOffsetAction test',
     (tester) async {
-      final action = ScrollOffsetRelAction(onChanged: (data) {
+      final action = ScrollOffsetAction(onChanged: (data) {
         expect(data, equals(1.0));
       });
 
@@ -49,7 +49,7 @@ void main() {
   testWidgets(
     'ScrollOffsetAction dispose test',
     (tester) async {
-      final action = ScrollOffsetRelAction();
+      final action = ScrollOffsetAction();
 
       await tester.pumpWidget(MaterialApp(
         title: 'Flutter Demo',

@@ -12,28 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// [RelEvent] stands for Relation Event
-/// An event that can take some value
-abstract class RelEvent<T> {
-  const RelEvent();
+import 'package:flutter/widgets.dart' as flutter;
+import 'package:relation/src/relation/action/streamed_action.dart';
 
-  /// The stream to which the event is transmitted
-  Stream<T?> get stream;
+/// Action for scroll
+class ScrollOffsetAction extends StreamedAction<double> {
+  ScrollOffsetAction({void Function(double? data)? onChanged})
+      : super(onChanged: onChanged) {
+    controller.addListener(() {
+      accept(controller.offset);
+    });
+  }
 
-  /// Acceptance of a new event
-  Future<T?> accept([T data]);
-}
+  /// Scroll controller of some list
+  final flutter.ScrollController controller = flutter.ScrollController();
 
-/// An event that has multiple States
-abstract class EntityEvent<T, E> {
-  const EntityEvent();
+  @override
+  Future<void> dispose() {
+    controller.dispose();
 
-  /// Acceptance of a new entity event
-  Future<void> content([T data]);
-
-  /// Setting the event data is loading
-  Future<void> loading();
-
-  /// Setting the event data is error
-  Future<void> error([Exception error]);
+    return super.dispose();
+  }
 }

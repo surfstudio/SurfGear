@@ -14,10 +14,10 @@
 
 import 'dart:async';
 
-import 'package:relation/src/relation/relation_event.dart';
+import 'package:relation/src/relation/event.dart';
 import 'package:rxdart/rxdart.dart';
 
-/// [RelAction] stands for Relation Action
+/// [StreamedAction] stands for Relation Action
 /// It's wrapper over an action on screen.
 /// It may be a tap on button, text changes, focus changes and so on.
 /// [onChanged] - callback for [accept]'s or [call]'s call
@@ -33,44 +33,70 @@ import 'package:rxdart/rxdart.dart';
 ///
 ///   someAction.action.listen(doSomething);
 /// ```
-class RelAction<T> implements RelEvent<T> {
-  RelAction({
-    void Function(T? data)? onChanged,
+class StreamedAction<T> implements Event<T> {
+  StreamedAction({
+    this.onChanged,
     bool acceptUnique = false,
-  })  : onChanged = onChanged ?? ((_) {}),
-        _acceptUnique = acceptUnique;
+  }) : _acceptUnique = acceptUnique;
 
   /// When switched on, data will be
   /// accepted only if it's unique
   final bool _acceptUnique;
 
   /// Publish subject for updating actions
-  final _actionSubject = PublishSubject<T?>();
+  final _actionSubject = PublishSubject<T>();
 
   /// Callback for handling a new action
-  final void Function(T? data) onChanged;
+  @Deprecated(
+    'Use subscription on stream instead. And handle changes in listener. Will be removed in next major version',
+  )
+  final void Function(T data)? onChanged;
 
   /// Data of action
   T? _value;
+
+  @Deprecated(
+    'Accept value to StreamedState instead and use its getter value. Will be removed in next major version',
+  )
   T? get value => _value;
 
   @override
-  Stream<T?> get stream => _actionSubject.stream;
+  Stream<T> get stream => _actionSubject.stream;
 
   @override
-  Future<T?> accept([T? data]) async {
-    if (_acceptUnique && _value == data) {
-      return _value;
-    } else {
+  Future<void> accept(T data) {
+    if (!_acceptUnique || _value != data) {
       _value = data;
-      _actionSubject.add(_value);
-      onChanged(_value);
-      return _value;
+      _actionSubject.add(data);
+      onChanged?.call(data);
     }
+    return Future.value();
   }
 
   /// Call action
-  Future<T?> call([T? data]) => accept(data);
+  Future<void> call(T data) => accept(data);
+
+  /// Close stream
+  Future<void> dispose() => _actionSubject.close();
+}
+
+class VoidAction extends Event<void> {
+  VoidAction();
+
+  /// Publish subject for updating actions
+  final _actionSubject = PublishSubject<void>();
+
+  @override
+  Future<void> accept(void data) {
+    _actionSubject.add(data);
+    return Future.value();
+  }
+
+  @override
+  Stream<void> get stream => _actionSubject.stream;
+
+  /// Call action
+  Future<void> call() => accept(null);
 
   /// Close stream
   Future<void> dispose() => _actionSubject.close();

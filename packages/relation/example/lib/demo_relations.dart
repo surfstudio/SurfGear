@@ -23,17 +23,17 @@ class DemoRelations extends StatefulWidget {
 }
 
 class _DemoRelationsState extends State<DemoRelations> {
-  final incrementAction = RelAction<void>();
+  final incrementAction = VoidAction();
   final incrementState = StreamedState<int>(0);
 
-  final reloadAction = RelAction<void>();
+  final reloadAction = VoidAction();
   final loadDataState = EntityStreamedState<int>();
 
   @override
   void initState() {
     super.initState();
     incrementAction.stream.listen(
-      (_) => incrementState.accept(incrementState.value! + 1),
+      (_) => incrementState.accept(incrementState.value + 1),
     );
 
     reloadAction.stream.listen((_) => _load());

@@ -16,30 +16,41 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:relation/src/relation/state/streamed_state.dart';
 
 void main() {
-  test('StreamedState accept([T data]) test', () {
-    final streamedState = StreamedState<String>();
-    streamedState.stream.listen((event) {
-      expect(event, equals('test'));
-    });
-    streamedState.accept('test');
+  test('StreamedState accept test', () async {
+    final streamedState = StreamedState<String>('a');
+    final result = <String?>[];
+
+    streamedState.stream.listen(result.add);
+    await streamedState.accept('a');
+    await streamedState.accept('b');
+    expect(result, equals(['a', 'a', 'b']));
   });
 
-  test('StreamedState acceptUnique([T data]) test', () async {
+  test('StreamedState accept test with initial null', () async {
+    final streamedState = StreamedState<String?>(null);
+    final result = <String?>[];
+
+    streamedState.stream.listen(result.add);
+    await streamedState.accept('a');
+    await streamedState.accept('b');
+    expect(result, equals([null, 'a', 'b']));
+  });
+
+  test('StreamedState acceptUnique test', () async {
     final result = <String>[];
 
-    final streamedState = StreamedState<String>();
-    streamedState.stream.listen((event) {
-      result.add(event!);
-    });
+    final streamedState = StreamedState<String>('initial');
+    streamedState.stream.listen(result.add);
 
-    await streamedState.acceptUnique('test');
-    await streamedState.acceptUnique('test');
-
-    expect(result, equals(['test']));
+    await streamedState.acceptUnique('a');
+    await streamedState.acceptUnique('a');
+    await streamedState.acceptUnique('b');
+    await streamedState.acceptUnique('b');
+    expect(result, equals(['initial', 'a', 'b']));
   });
 
-  test('StreamedState dispose() test', () {
-    final streamedState = StreamedState<String>()..dispose();
-    expect(streamedState.stateSubject.isClosed, true);
+  test('StreamedState dispose test', () {
+    final streamedState = StreamedState<String>('initial')..dispose();
+    expectLater(streamedState.stream, emitsInOrder(<dynamic>['initial', emitsDone]));
   });
 }

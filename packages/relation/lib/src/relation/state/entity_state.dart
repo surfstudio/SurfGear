@@ -12,33 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:relation/src/relation/relation_event.dart';
+import 'package:relation/src/relation/event.dart';
 import 'package:relation/src/relation/state/streamed_state.dart';
 
 ///[StreamedState] that have download/error/content status
 class EntityStreamedState<T> extends StreamedState<EntityState<T>>
     implements EntityEvent<T, EntityState<T>> {
-  EntityStreamedState([EntityState<T>? initialData]) : super(initialData);
+  EntityStreamedState([EntityState<T>? initialData]) : super(initialData ?? EntityState<T>());
 
   EntityStreamedState.from(Stream<EntityState<T>> stream) : super.from(stream);
 
   @override
-  Future<EntityState<T>?> content([T? data]) {
-    final newState = EntityState<T>.content(data);
-    return super.accept(newState);
-  }
+  Future<void> content(T data) => super.accept(EntityState<T>.content(data));
 
   @override
-  Future<EntityState<T>?> error([Object? error, T? data]) {
-    final newState = EntityState<T>.error(error, data);
-    return super.accept(newState);
-  }
+  Future<void> error([Exception? exception, T? data]) =>
+      super.accept(EntityState<T>.error(exception, data));
 
   @override
-  Future<EntityState<T>?> loading([T? previousData]) {
-    final newState = EntityState<T>.loading(previousData);
-    return super.accept(newState);
-  }
+  Future<void> loading([T? previousData]) => super.accept(EntityState<T>.loading(previousData));
 }
 
 /// State of some logical entity
@@ -52,8 +44,8 @@ class EntityState<T> {
   /// State has error
   final bool hasError;
 
-  /// Error from state
-  final Object? error;
+  /// Exception from state
+  final Exception? error;
 
   const EntityState({
     this.data,
@@ -63,18 +55,18 @@ class EntityState<T> {
   });
 
   /// Loading constructor
-  EntityState.loading([this.data])
+  const EntityState.loading([this.data])
       : isLoading = true,
         hasError = false,
         error = null;
 
   /// Error constructor
-  EntityState.error([this.error, this.data])
+  const EntityState.error([this.error, this.data])
       : isLoading = false,
         hasError = true;
 
   /// Content constructor
-  EntityState.content([this.data])
+  const EntityState.content(this.data)
       : isLoading = false,
         hasError = false,
         error = null;
