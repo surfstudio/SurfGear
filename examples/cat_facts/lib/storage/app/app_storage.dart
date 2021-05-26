@@ -23,7 +23,8 @@ class AppStorage {
 
   void changeTheme() {
     final current = appTheme.value;
-    appTheme
-        .accept((current == AppTheme.dark) ? AppTheme.light : AppTheme.dark);
+    appTheme.accept(
+      (current == AppTheme.dark) ? AppTheme.light : AppTheme.dark,
+    );
   }
 }

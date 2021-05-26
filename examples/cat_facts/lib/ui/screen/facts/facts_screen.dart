@@ -43,30 +43,31 @@ class _FactsSceenState extends WidgetState<FactsScreenWidgetModel> {
               wm.switchTheme();
             },
             child: StreamBuilder<AppTheme?>(
-                stream: wm.currentTheme(),
-                builder: (context, snapshot) {
-                  return Row(children: [
-                    if (snapshot.data == AppTheme.light)
-                      const Text(
-                        'Switch Off',
-                        style: TextStyle(color: Colors.white),
-                      )
-                    else
-                      const Text(
-                        'Switch On',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    const SizedBox(width: 10),
-                    if (snapshot.data == AppTheme.light)
-                      Transform.rotate(
-                        angle: pi / 6,
-                        child:
-                            const Icon(Icons.brightness_3, color: Colors.white),
-                      )
-                    else
-                      const Icon(Icons.brightness_7, color: Colors.white),
-                  ]);
-                }),
+              stream: wm.currentTheme(),
+              builder: (context, snapshot) {
+                return Row(children: [
+                  if (snapshot.data == AppTheme.light)
+                    const Text(
+                      'Switch Off',
+                      style: TextStyle(color: Colors.white),
+                    )
+                  else
+                    const Text(
+                      'Switch On',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  const SizedBox(width: 10),
+                  if (snapshot.data == AppTheme.light)
+                    Transform.rotate(
+                      angle: pi / 6,
+                      child:
+                          const Icon(Icons.brightness_3, color: Colors.white),
+                    )
+                  else
+                    const Icon(Icons.brightness_7, color: Colors.white),
+                ]);
+              },
+            ),
           ),
         ],
       ),
