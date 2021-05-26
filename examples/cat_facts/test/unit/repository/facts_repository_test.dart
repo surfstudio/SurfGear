@@ -1,5 +1,5 @@
 import 'package:cat_facts/repository/api_client.dart';
-import 'package:cat_facts/repository/facts_repository.dart';
+import 'package:cat_facts/repository/facts/facts_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:mocktail/mocktail.dart';
