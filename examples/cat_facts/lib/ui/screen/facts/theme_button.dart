@@ -28,16 +28,11 @@ class ThemeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(children: [
-      if (theme == AppTheme.light)
-        const Text(
-          'Switch Off',
-          style: TextStyle(color: Colors.white),
-        )
-      else
-        const Text(
-          'Switch On',
-          style: TextStyle(color: Colors.white),
-        ),
+      Text(
+        theme == AppTheme.light ? 'Switch Off' : 'Switch On',
+        key: const Key('theme_status'),
+        style: const TextStyle(color: Colors.white),
+      ),
       const SizedBox(width: 10),
       if (theme == AppTheme.light)
         Transform.rotate(
