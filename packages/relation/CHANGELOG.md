@@ -11,6 +11,10 @@
 * Add `acceptUnique` param to `StreamedAction`.
 * Add `acceptUnique` method to `StreamedState`.
 
+## 2.0.1-dev.1 - 2021-05-25
+
+* Apply new lint rules. (patch)
+
 ## 2.0.0
 
 * **Breaking Change:** `EntityStateBuilder`'s `child` argument replaced with `builder`

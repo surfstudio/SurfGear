@@ -15,6 +15,8 @@
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
+// ignore_for_file: avoid-returning-widgets
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -188,9 +190,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           child: ListView(
-              padding: const EdgeInsets.all(0),
-              controller: scrollController,
-              children: _getChildren(bottomSheetOffset, isShowPosition: true)),
+            padding: EdgeInsets.zero,
+            controller: scrollController,
+            children: _getChildren(bottomSheetOffset, isShowPosition: true),
+          ),
         ),
       ),
     );

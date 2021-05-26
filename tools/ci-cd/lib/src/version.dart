@@ -2,12 +2,12 @@ import 'package:pub_semver/pub_semver.dart';
 
 const _devPattern = 'dev';
 
-Version bumpPackageVersion(Version version) {
+Version bumpDevPackageVersion(Version version) {
   if (!version.isPreRelease) {
     return Version(
       version.major,
       version.minor,
-      version.patch,
+      version.patch + 1,
       pre: '$_devPattern.1',
     );
   }

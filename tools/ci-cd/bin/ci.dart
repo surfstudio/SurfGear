@@ -21,8 +21,7 @@ void main(List<String> args) {
   CommandRunner<void>('tools/ci', 'tools for automate some ci/cd cases')
     ..addCommand(CheckDevBranch())
     ..addCommand(BumpDevVersion())
-    ..addCommand(PushNewVersion())
-    ..addCommand(PublishToPub())
+    ..addCommand(PublishDevToPub())
     ..run(args);
 }
 
@@ -67,7 +66,7 @@ class BumpDevVersion extends Command<void> {
     }
 
     final packageVersion = getPackageVersion(pubspecContent);
-    final updatedPackageVersion = bumpPackageVersion(packageVersion);
+    final updatedPackageVersion = bumpDevPackageVersion(packageVersion);
 
     savePubspec(patchPubspec(pubspecContent, updatedPackageVersion));
     saveChangelog(
@@ -81,30 +80,45 @@ class BumpDevVersion extends Command<void> {
   }
 }
 
-class PushNewVersion extends Command<void> {
+class PublishDevToPub extends Command<void> {
   @override
-  String get name => 'push-new-version';
+  String get name => 'publish-dev-version';
 
   @override
-  String get description => 'Push new version.';
-
-  @override
-  void run() {
-    final version = getPackageVersion(readPubspec());
-
-    pushNewVersion(version);
-  }
-}
-
-class PublishToPub extends Command<void> {
-  @override
-  String get name => 'publish';
-
-  @override
-  String get description => 'Publish to pub.dev.';
+  String get description => 'Publish dev version to pub.dev.';
 
   @override
   void run() {
+    final changelogContent = readChangelog();
+    final pubspecContent = readPubspec();
+
+    final importance = getDevChangesImportance(changelogContent);
+    if (importance == ChangesImportance.unknown) {
+      exit(0);
+    }
+
+    if (getDevChangesCount(changelogContent) == 0) {
+      printErrorMessage("Please run 'check-branch' command before.");
+    }
+
+    final packageVersion = getPackageVersion(pubspecContent);
+    final updatedPackageVersion = bumpDevPackageVersion(packageVersion);
+
+    savePubspec(patchPubspec(pubspecContent, updatedPackageVersion));
+    saveChangelog(
+      patchChangelog(
+        changelogContent,
+        updatedPackageVersion,
+        importance,
+        DateTime.now(),
+      ),
+    );
+
+    pushNewVersion(
+      version: updatedPackageVersion,
+      packageName: getPackageName(pubspecContent),
+    );
+
     publishToPub();
   }
 }

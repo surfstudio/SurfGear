@@ -1,5 +1,5 @@
 name: ink_widget
-version: "2.0.0"
+version: 2.0.1-dev.1
 description: Widget library with ink effect without problems with decoration for child.
 repository: "https://github.com/surfstudio/SurfGear/tree/main/packages/ink_widget"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
@@ -17,11 +17,3 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 flutter:
-
-custom:
-  is_stable: false
-  unstable_version:
-  is_plugin: false
-  path: ink_widget
-  hostUrl:
-  separate_repo_url:

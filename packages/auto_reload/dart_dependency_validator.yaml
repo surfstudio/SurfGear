@@ -1,0 +1,4 @@
+exclude:
+  - "example/**"
+ignore:
+  - flutter

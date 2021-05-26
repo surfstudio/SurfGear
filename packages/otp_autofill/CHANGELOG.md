@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2-dev.1 - 2021-05-25
+
+* Apply new lint rules. (patch)
+
 ## 1.0.1
 
 * Fix android build bug related on null-safety.

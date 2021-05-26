@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter/material.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:bottom_sheet/src/widgets/flexible_bottom_sheet_scroll_notifyer.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import 'scroll.dart';
 import 'test_utils.dart';

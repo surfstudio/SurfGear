@@ -24,6 +24,30 @@ void main() {
         ]),
         equals(Version(0, 10, 0, pre: 'dev.5')),
       );
+      expect(
+        getPackageVersion([
+          'name: relation',
+          'version:0.10.0-dev.5',
+          'description: the stream representation of the relations of the entities and widget utilities',
+        ]),
+        equals(Version(0, 10, 0, pre: 'dev.5')),
+      );
+      expect(
+        getPackageVersion([
+          'name: relation',
+          "version: '0.10.0-dev.5'",
+          'description: the stream representation of the relations of the entities and widget utilities',
+        ]),
+        equals(Version(0, 10, 0, pre: 'dev.5')),
+      );
+      expect(
+        getPackageVersion([
+          'name: relation',
+          'version:"0.10.0-dev.5"',
+          'description: the stream representation of the relations of the entities and widget utilities',
+        ]),
+        equals(Version(0, 10, 0, pre: 'dev.5')),
+      );
     });
   });
 

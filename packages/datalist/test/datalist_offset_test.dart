@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:datalist/src/impl/datalist_limit_offset.dart';
 import 'package:datalist/src/exceptions.dart';
+import 'package:datalist/src/impl/datalist_limit_offset.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -89,10 +89,11 @@ void main() {
       totalCount: 10,
     );
     final list4 = OffsetDataList(
-        data: [1, 2, 3, 4, 5, 6, 7, 6, 7, 8, 9, 10],
-        limit: 12,
-        offset: 7,
-        totalCount: 10);
+      data: [1, 2, 3, 4, 5, 6, 7, 6, 7, 8, 9, 10],
+      limit: 12,
+      offset: 7,
+      totalCount: 10,
+    );
 
     list3..merge(list2)..merge(list1);
     expect(list3, equals(list4));

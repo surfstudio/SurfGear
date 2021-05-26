@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: unused_element, prefer_final_fields, unused_field
+// ignore_for_file: unused_element, prefer_final_fields, unused_field, type_annotate_public_apis
 import 'package:meta/meta.dart';
 import 'package:surf_lint_rules/surf_lint_rules.dart';
 

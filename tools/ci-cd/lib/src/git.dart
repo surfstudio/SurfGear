@@ -2,21 +2,28 @@ import 'dart:io';
 
 import 'package:pub_semver/pub_semver.dart';
 
-void pushNewVersion(Version version) {
+void pushNewVersion({required Version version, required String packageName}) {
   final gitCommands = [
     ['config', 'user.name', 'github-actions'],
     ['config', 'user.email', 'github-actions@github.com'],
+    ['pull'],
     ['add', '.'],
-    ['commit', '-m', '🔖 Update version to $version'],
-    ['tag', '-a', version.toString(), '-m', '🔖 Release version $version'],
+    ['commit', '--message', '🔖 Update $packageName version to $version'],
+    [
+      'tag',
+      '--annotate',
+      '$packageName-$version',
+      '--message',
+      '🔖 Release $packageName version $version',
+    ],
     ['push'],
-    ['push', 'origin', version.toString()],
+    ['push', 'origin', '$packageName-$version'],
   ];
 
   for (final command in gitCommands) {
     final result = Process.runSync('git', command);
-    stdout.write(result.stdout);
-    stderr.write(result.stderr);
+    stdout..writeln('git ${command.join(' ')}')..writeln(result.stdout);
+    stderr.writeln(result.stderr);
     if (result.exitCode != 0) {
       exit(exitCode);
     }
