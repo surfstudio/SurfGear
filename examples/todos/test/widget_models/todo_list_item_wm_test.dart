@@ -33,7 +33,8 @@ void main() {
         todoListItemWM.changeStatus();
 
         verify(
-            () => todosRepositoryMock.updateTodo(any(that: isA<TodoEntity>())));
+          () => todosRepositoryMock.updateTodo(any(that: isA<TodoEntity>())),
+        );
       });
 
       test('emit new todo state', () {
@@ -48,10 +49,11 @@ void main() {
       test('call _navigation.showAddEditScreen', () {
         todoListItemWM.editTodo();
         verify(() => navigationMock.showAddEditScreen(
-                todoEntity: any(
-              named: 'todoEntity',
-              that: isA<TodoEntity>(),
-            )));
+              todoEntity: any(
+                named: 'todoEntity',
+                that: isA<TodoEntity>(),
+              ),
+            ));
       });
     });
   });

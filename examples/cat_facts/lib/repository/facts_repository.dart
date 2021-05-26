@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:cat_facts/interactor/api_client.dart';
 import 'package:cat_facts/data/facts/fact.dart';
+import 'package:cat_facts/interactor/api_client.dart';
 
 class FactsRepository {
   const FactsRepository(this.client);
