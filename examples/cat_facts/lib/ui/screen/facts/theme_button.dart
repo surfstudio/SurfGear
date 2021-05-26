@@ -30,7 +30,6 @@ class ThemeButton extends StatelessWidget {
     return Row(children: [
       Text(
         theme == AppTheme.light ? 'Switch Off' : 'Switch On',
-        key: const Key('theme_status'),
         style: const TextStyle(color: Colors.white),
       ),
       const SizedBox(width: 10),
