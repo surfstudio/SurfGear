@@ -2,10 +2,13 @@
 
 ## 3.0.0
 
-* **Breaking Change:** `Event` renamed to `RelEvent`
-* **Breaking Change:** `Action` renamed to `RelAction` with it's successors
-* **Breaking Change:** `RelAction`'s, `ScrollOffsetRelAction`'s and `TextEditingRelAction`'s `onChanged` callback is named parameter now.
-* Add `acceptUnique` param to `RelAction`.
+* **Breaking Change:** `Action` renamed to `StreamedAction`
+* **Breaking Change:** `StreamedAction`'s, `ScrollOffsetAction`'s and `TextEditingAction`'s `onChanged` callback is named parameter now.
+* **Breaking Change:** replaced `Object` with `Exception` in `EntityEvent` and all derived classes
+* **Breaking Change:** removed value return from `Event.accept`, `EntityEvent.accept` and all derived
+* **Breaking Change:** removed nullable types where possible
+
+* Add `acceptUnique` param to `StreamedAction`.
 * Add `acceptUnique` method to `StreamedState`.
 
 ## 2.0.0
