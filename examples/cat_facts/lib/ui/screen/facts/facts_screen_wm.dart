@@ -1,11 +1,10 @@
+import 'package:cat_facts/data/facts/fact.dart';
+import 'package:cat_facts/repository/facts_repository.dart';
 import 'package:cat_facts/storage/app/app_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:provider/provider.dart';
 import 'package:relation/relation.dart';
-
-import 'package:cat_facts/data/facts/fact.dart';
-import 'package:cat_facts/repository/facts_repository.dart';
 
 class FactsScreenWidgetModel extends WidgetModel {
   FactsScreenWidgetModel(
