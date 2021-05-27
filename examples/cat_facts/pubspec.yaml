@@ -10,13 +10,12 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.1
-  mwwm:
-    path: ../../packages/mwwm/
+  mwwm: ^1.1.0
   provider: ^5.0.0
-  relation: ^1.0.0
+  relation: ^2.0.0
 
 dev_dependencies:
-  surf_lint_rules: ^1.0.0
+  surf_lint_rules: ^1.1.1-dev.0
 
 flutter:
   uses-material-design: true

@@ -17,8 +17,8 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
-import 'package:surf_injector/surf_injector.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:surf_injector/surf_injector.dart';
 
 /// Extensions for [WidgetModel]
 extension SurfMwwmExtension on WidgetModel {

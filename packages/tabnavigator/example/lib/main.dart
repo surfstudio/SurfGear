@@ -120,53 +120,45 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               'Powered by Surf',
               style: Theme.of(context).textTheme.subtitle1,
-            )
+            ),
           ],
         );
       });
-    }
+    },
   };
-
-  Widget _buildBody() {
-    return TabNavigator(
-      initialTab: _initTab,
-      selectedTabStream: tabStream,
-      mappedTabs: _map,
-    );
-  }
-
-  Widget _buildbottomNavigationBar() {
-    return StreamBuilder<AppTab>(
-      stream: tabStream,
-      initialData: _initTab,
-      builder: (context, snapshot) {
-        return BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.feedback),
-              label: 'Feed',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.color_lens),
-              label: 'Colors',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.info),
-              label: 'Info',
-            ),
-          ],
-          currentIndex: snapshot.hasData ? snapshot.data!.value : 0,
-          onTap: (value) => _tabController.sink.add(AppTab.byValue(value)),
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildBody(),
-      bottomNavigationBar: _buildbottomNavigationBar(),
+      body: TabNavigator(
+        initialTab: _initTab,
+        selectedTabStream: tabStream,
+        mappedTabs: _map,
+      ),
+      bottomNavigationBar: StreamBuilder<AppTab>(
+        stream: tabStream,
+        initialData: _initTab,
+        builder: (context, snapshot) {
+          return BottomNavigationBar(
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.feedback),
+                label: 'Feed',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.color_lens),
+                label: 'Colors',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.info),
+                label: 'Info',
+              ),
+            ],
+            currentIndex: snapshot.hasData ? snapshot.data!.value : 0,
+            onTap: (value) => _tabController.sink.add(AppTab.byValue(value)),
+          );
+        },
+      ),
     );
   }
 

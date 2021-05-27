@@ -15,10 +15,9 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:swipe_refresh/src/cupertino_swipe_refresh.dart';
 import 'package:swipe_refresh/src/material_swipe_refresh.dart';
 import 'package:swipe_refresh/src/swipe_refresh_state.dart';
-
-import 'package:swipe_refresh/src/cupertino_swipe_refresh.dart';
 import 'package:swipe_refresh/src/swipe_refresh_style.dart';
 
 /// Refresh indicator widget.
@@ -220,6 +219,7 @@ class SwipeRefresh extends StatelessWidget {
     return _buildByStyle(style);
   }
 
+  // ignore: avoid-returning-widgets
   Widget _buildByStyle(SwipeRefreshStyle style) {
     switch (style) {
       case SwipeRefreshStyle.material:

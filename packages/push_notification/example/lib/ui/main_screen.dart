@@ -50,16 +50,15 @@ class MessageScreenState extends State<MessageScreen> {
       ),
       body: ListView.builder(
         itemCount: messageList.length,
-        itemBuilder: buildMessage,
-      ),
-    );
-  }
+        itemBuilder: (_, index) {
+          final message = messageList[index];
 
-  Widget buildMessage(BuildContext context, int index) {
-    final message = messageList[index];
-    return ListTile(
-      title: Text(message.title),
-      subtitle: Text(message.body),
+          return ListTile(
+            title: Text(message.title),
+            subtitle: Text(message.body),
+          );
+        },
+      ),
     );
   }
 }

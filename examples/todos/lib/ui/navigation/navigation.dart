@@ -11,9 +11,10 @@ class Navigation {
     Navigator.push(
       _context,
       MaterialPageRoute<AddEditScreen>(
-          builder: (_context) => AddEditScreen(
-                todoEntity: todoEntity,
-              )),
+        builder: (_context) => AddEditScreen(
+          todoEntity: todoEntity,
+        ),
+      ),
     );
   }
 
