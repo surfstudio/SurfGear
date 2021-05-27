@@ -9,6 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide RefreshIndicator;
 import 'package:flutter/widgets.dart';
 
+/// Forked from flutter framework to add [RefreshIndicator.refreshIndicator] property
+
 // The over-scroll distance that moves the indicator to its maximum
 // displacement, as a percentage of the scrollable's container extent.
 const double _kDragContainerExtentPercentage = 0.25;
