@@ -5,7 +5,7 @@ repository: "https://github.com/surfstudio/SurfGear/tree/main/packages/surf_lint
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 
 dependencies:
-  dart_code_metrics: ^3.2.3
+  dart_code_metrics: ^3.3.2
   pedantic: ^1.11.0
 
 environment:

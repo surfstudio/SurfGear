@@ -1,5 +1,9 @@
 # Changelog
 
+## Minor
+
+* Add new rule: [member-ordering-extended](https://github.com/dart-code-checker/dart-code-metrics/blob/master/doc/rules/member-ordering-extended.md)
+
 ## 1.1.1-dev.3 - 2021-05-25
 
 * Tune metrics settings (patch)
