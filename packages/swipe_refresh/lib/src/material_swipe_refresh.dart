@@ -14,8 +14,9 @@
 
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide RefreshIndicator, RefreshIndicatorState;
 import 'package:flutter/widgets.dart';
+import 'package:swipe_refresh/src/custom_refresh_indicator.dart';
 import 'package:swipe_refresh/src/swipe_refresh_base.dart';
 import 'package:swipe_refresh/src/swipe_refresh_state.dart';
 
@@ -26,6 +27,7 @@ class MaterialSwipeRefresh extends SwipeRefreshBase {
     required VoidCallback onRefresh,
     Key? key,
     this.indicatorColor,
+    this.indicator,
     List<Widget>? children,
     SliverChildDelegate? childrenDelegate,
     SwipeRefreshState? initState,
@@ -52,13 +54,13 @@ class MaterialSwipeRefresh extends SwipeRefreshBase {
 
   final Color? indicatorColor;
   final Color backgroundColor;
+  final Widget? indicator;
 
   @override
   _MaterialSwipeRefreshState createState() => _MaterialSwipeRefreshState();
 }
 
-class _MaterialSwipeRefreshState
-    extends SwipeRefreshBaseState<MaterialSwipeRefresh> {
+class _MaterialSwipeRefreshState extends SwipeRefreshBaseState<MaterialSwipeRefresh> {
   @override
   Widget buildRefresher(Key key, List<Widget> children, onRefresh) {
     return RefreshIndicator(
@@ -66,14 +68,15 @@ class _MaterialSwipeRefreshState
       onRefresh: onRefresh,
       color: widget.indicatorColor,
       backgroundColor: widget.backgroundColor,
+      refreshIndicator: widget.indicator,
       child: widget.childrenDelegate == null
           ? ListView(
               shrinkWrap: widget.shrinkWrap,
               padding: widget.padding,
               controller: widget.scrollController ?? ScrollController(),
               physics: AlwaysScrollableScrollPhysics(parent: widget.physics),
-              keyboardDismissBehavior: widget.keyboardDismissBehavior ??
-                  ScrollViewKeyboardDismissBehavior.manual,
+              keyboardDismissBehavior:
+                  widget.keyboardDismissBehavior ?? ScrollViewKeyboardDismissBehavior.manual,
               children: children,
             )
           : ListView.custom(
@@ -81,8 +84,8 @@ class _MaterialSwipeRefreshState
               padding: widget.padding,
               childrenDelegate: widget.childrenDelegate!,
               controller: widget.scrollController ?? ScrollController(),
-              keyboardDismissBehavior: widget.keyboardDismissBehavior ??
-                  ScrollViewKeyboardDismissBehavior.manual,
+              keyboardDismissBehavior:
+                  widget.keyboardDismissBehavior ?? ScrollViewKeyboardDismissBehavior.manual,
               physics: AlwaysScrollableScrollPhysics(parent: widget.physics),
             ),
     );
