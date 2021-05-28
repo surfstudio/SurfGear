@@ -7,7 +7,6 @@
 * **Breaking Change:** replaced `Object` with `Exception` in `EntityEvent` and all derived classes
 * **Breaking Change:** removed value return from `Event.accept`, `EntityEvent.accept` and all derived
 * **Breaking Change:** removed nullable types where possible
-
 * Add `acceptUnique` param to `StreamedAction`.
 * Add `acceptUnique` method to `StreamedState`.
 
