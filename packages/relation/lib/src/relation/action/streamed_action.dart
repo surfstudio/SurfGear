@@ -17,30 +17,26 @@ import 'dart:async';
 import 'package:relation/src/relation/event.dart';
 import 'package:rxdart/rxdart.dart';
 
-/// [StreamedAction] stands for Relation Action
 /// It's wrapper over an action on screen.
-/// It may be a tap on button, text changes, focus changes and so on.
-/// [onChanged] - callback for [accept]'s or [call]'s call
-/// `acceptUnique` - data will be accepted only if it's unique
+/// It may be a text changes, focus changes and so on.
 ///
 /// It is **reactive**.
 ///
 /// Usage:
 /// ```
 ///   SomeWidget(
-///     onTap: someAction.accept,
+///     onValueChanged: someAction,
 ///   )
 ///
 ///   someAction.action.listen(doSomething);
 /// ```
 class StreamedAction<T> implements Event<T> {
+  /// [acceptUnique] - data will be accepted only if it's unique
   StreamedAction({
     this.onChanged,
     bool acceptUnique = false,
   }) : _acceptUnique = acceptUnique;
 
-  /// When switched on, data will be
-  /// accepted only if it's unique
   final bool _acceptUnique;
 
   /// Publish subject for updating actions
@@ -68,6 +64,7 @@ class StreamedAction<T> implements Event<T> {
     if (!_acceptUnique || _value != data) {
       _value = data;
       _actionSubject.add(data);
+      // ignore: deprecated_member_use_from_same_package
       onChanged?.call(data);
     }
     return Future.value();
@@ -80,6 +77,19 @@ class StreamedAction<T> implements Event<T> {
   Future<void> dispose() => _actionSubject.close();
 }
 
+/// It's wrapper over an void action on screen.
+/// It may be a tap action
+///
+/// It is **reactive**.
+///
+/// Usage:
+/// ```
+///   SomeWidget(
+///     onTap: someAction,
+///   )
+///
+///   someAction.action.listen(doSomething);
+/// ```
 class VoidAction extends Event<void> {
   VoidAction();
 
