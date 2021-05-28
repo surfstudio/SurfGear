@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.0.0
+## MAJOR
 
 * **Breaking Change:** `Action` renamed to `StreamedAction`
 * **Breaking Change:** `StreamedAction`'s, `ScrollOffsetAction`'s and `TextEditingAction`'s `onChanged` callback is named parameter now.
