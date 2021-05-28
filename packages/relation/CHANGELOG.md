@@ -17,8 +17,7 @@
 ## 2.0.0
 
 * **Breaking Change:** `EntityStateBuilder`'s `child` argument replaced with `builder`
-* **Breaking Change:** `EntityStateBuilder`'s `errorBuilder` argument now passes `Widget Function(BuildContext, Exception)`.
-If you'd like to get `data` from `error` please use `errorDataBuilder` instead.
+* **Breaking Change:** `EntityStateBuilder`'s `errorBuilder` argument now passes `Widget Function(BuildContext, Exception)`. If you'd like to get `data` from `error` please use `errorDataBuilder` instead.
 * Add the ability to get an `error` in `EntityStateBuilder` from `errorChild`.
 * Add `data` argument to `EntityStreamedState`.
 * Update `rxdart` dependency to `0.27.0`.
