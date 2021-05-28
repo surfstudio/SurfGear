@@ -33,7 +33,8 @@ void main() {
   });
 
   test('ExtendedTextEditingController setText({String text}) test', () {
-    final TextEditingController controller = ExtendedTextEditingController()..text = 'test';
+    final TextEditingController controller = ExtendedTextEditingController()
+      ..text = 'test';
     expect(controller.value.text, 'test');
     expect(
       controller.selection,

@@ -29,7 +29,10 @@ void main() {
     final result = <EntityState<String?>>[];
     entityStreamedState.stream.listen(result.add);
     await entityStreamedState.error(Exception());
-    expect(result.map((state) => state.error).toList(), equals([null, isException]));
+    expect(
+      result.map((state) => state.error).toList(),
+      equals([null, isException]),
+    );
   });
 
   test('EntityStreamedState loading test', () async {
@@ -37,6 +40,9 @@ void main() {
     final result = <EntityState<String?>>[];
     entityStreamedState.stream.listen(result.add);
     await entityStreamedState.loading();
-    expect(result.map((state) => state.isLoading).toList(), equals([false, true]));
+    expect(
+      result.map((state) => state.isLoading).toList(),
+      equals([false, true]),
+    );
   });
 }

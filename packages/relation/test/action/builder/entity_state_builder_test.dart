@@ -19,7 +19,8 @@ import 'package:relation/relation.dart';
 
 void main() {
   testWidgets('EntityStateBuilder accept test', (tester) async {
-    final testData = EntityStreamedState<String>(const EntityState(data: 'test'));
+    final testData =
+        EntityStreamedState<String>(const EntityState(data: 'test'));
 
     final streamedStateBuilder = EntityStateBuilder<String>(
       streamedState: testData,
@@ -160,14 +161,16 @@ void main() {
     expect(loadingBuilderFinder, findsOneWidget);
   });
 
-  testWidgets('EntityStateBuilder with errorDataBuilder passing data', (tester) async {
+  testWidgets('EntityStateBuilder with errorDataBuilder passing data',
+      (tester) async {
     final testData = EntityStreamedState<String>();
     final streamedStateBuilder = EntityStateBuilder<String>(
       streamedState: testData,
       builder: (context, data) {
         return const Text('test');
       },
-      errorDataBuilder: (context, data, error) => Text('errorDataBuilder $data'),
+      errorDataBuilder: (context, data, error) =>
+          Text('errorDataBuilder $data'),
     );
 
     unawaited(testData.error(Exception(), 'data'));

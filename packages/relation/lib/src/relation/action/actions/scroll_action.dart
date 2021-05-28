@@ -17,7 +17,8 @@ import 'package:relation/src/relation/action/streamed_action.dart';
 
 /// Action for scroll
 class ScrollOffsetAction extends StreamedAction<double> {
-  ScrollOffsetAction({void Function(double? data)? onChanged}) : super(onChanged: onChanged) {
+  ScrollOffsetAction({void Function(double? data)? onChanged})
+      : super(onChanged: onChanged) {
     controller.addListener(() {
       accept(controller.offset);
     });

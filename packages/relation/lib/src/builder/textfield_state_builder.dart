@@ -116,7 +116,8 @@ class TextFieldStreamedState extends StreamedState<TextFieldState>
   }
 
   @override
-  Future<void> error([Exception? error]) => super.accept(TextFieldState.error(value.data, error));
+  Future<void> error([Exception? error]) =>
+      super.accept(TextFieldState.error(value.data, error));
 
   @override
   Future<void> loading() => super.accept(TextFieldState.loading());

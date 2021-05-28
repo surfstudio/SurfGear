@@ -15,7 +15,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:relation/src/relation/state/streamed_state.dart';
 
-typedef StreamedStateWidgetBuilder<T> = Widget Function(BuildContext context, T? data);
+typedef StreamedStateWidgetBuilder<T> = Widget Function(
+  BuildContext context,
+  T? data,
+);
 
 /// Widget for StreamedState.
 /// Wrap Flutter StreamBuilder

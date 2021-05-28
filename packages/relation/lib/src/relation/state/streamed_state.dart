@@ -28,7 +28,8 @@ import 'package:rxdart/rxdart.dart';
 ///   )
 /// ```
 class StreamedState<T> implements Event<T> {
-  StreamedState(T initialData) : _stateSubject = BehaviorSubject.seeded(initialData);
+  StreamedState(T initialData)
+      : _stateSubject = BehaviorSubject.seeded(initialData);
 
   StreamedState.from(Stream<T> stream) : _stateSubject = BehaviorSubject<T>() {
     _stateSubject.addStream(stream);

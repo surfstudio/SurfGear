@@ -15,13 +15,23 @@
 import 'package:flutter/widgets.dart';
 import 'package:relation/src/relation/state/entity_state.dart';
 
-typedef LoadingWidgetBuilder<T> = Widget Function(BuildContext context, T? data);
+typedef LoadingWidgetBuilder<T> = Widget Function(
+  BuildContext context,
+  T? data,
+);
 
 typedef DataWidgetBuilder<T> = Widget Function(BuildContext context, T data);
 
-typedef ErrorWidgetBuilder = Widget Function(BuildContext context, Exception? e);
+typedef ErrorWidgetBuilder = Widget Function(
+  BuildContext context,
+  Exception? e,
+);
 
-typedef DataErrorWidgetBuilder<T> = Widget Function(BuildContext context, T? data, Exception? e);
+typedef DataErrorWidgetBuilder<T> = Widget Function(
+  BuildContext context,
+  T? data,
+  Exception? e,
+);
 
 /// Reactive widget for [EntityStreamedState]
 ///

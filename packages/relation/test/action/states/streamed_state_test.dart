@@ -51,6 +51,9 @@ void main() {
 
   test('StreamedState dispose test', () {
     final streamedState = StreamedState<String>('initial')..dispose();
-    expectLater(streamedState.stream, emitsInOrder(<dynamic>['initial', emitsDone]));
+    expectLater(
+      streamedState.stream,
+      emitsInOrder(<dynamic>['initial', emitsDone]),
+    );
   });
 }
