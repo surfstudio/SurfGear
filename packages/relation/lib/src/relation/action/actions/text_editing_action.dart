@@ -26,8 +26,7 @@ class TextEditingAction extends StreamedAction<String> {
   }
 
   /// TextEditing controller of text field
-  final ExtendedTextEditingController controller =
-      ExtendedTextEditingController();
+  final ExtendedTextEditingController controller = ExtendedTextEditingController();
 
   @override
   Future<void> dispose() {
