@@ -1,8 +1,8 @@
 # Changelog
 
-## PATCH
+## 1.0.1-dev.2 - 2021-05-29
 
-* Remove animation listeners.
+* Remove animation listeners. (patch)
 
 ## 1.0.1-dev.1 - 2021-05-24
 
