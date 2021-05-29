@@ -1,5 +1,9 @@
 # Changelog
 
+## PATCH
+
+* Remove animation listeners.
+
 ## 1.0.1-dev.1 - 2021-05-24
 
 * Apply new lint rules. (patch)
