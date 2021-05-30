@@ -86,6 +86,18 @@ ChangesImportance getLineImportance(String line) =>
       orElse: () => ChangesImportance.unknown,
     );
 
+DateTime? getPublicationDate(Iterable<String> changelog, Version version) {
+  final date = changelog
+      .firstWhere(
+        (line) => line.contains(version.toString()),
+        orElse: () => '',
+      )
+      .split(' - ')
+      .last;
+
+  return DateTime.tryParse(date);
+}
+
 Iterable<int> getUnstableReleaseLineIndices(Iterable<String> content) {
   var lineIndex = 0;
 
