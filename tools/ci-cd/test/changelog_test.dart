@@ -190,6 +190,17 @@ void main() {
     },
   );
 
+  test('getLatestStableVersion returns latest stableVersion', () {
+    expect(
+      getLatestStableVersion(_changelog),
+      equals(Version(1, 1, 0)),
+    );
+    expect(
+      getLatestStableVersion([]),
+      equals(Version(0, 0, 0)),
+    );
+  });
+
   test('getLineImportance returns importance of passed line', () {
     expect(getLineImportance(''), equals(ChangesImportance.unknown));
     expect(

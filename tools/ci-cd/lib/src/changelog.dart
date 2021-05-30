@@ -80,6 +80,15 @@ int getDeveloperChangesCount(Iterable<String> changelog) {
       : 0;
 }
 
+Version getLatestStableVersion(Iterable<String> changelog) => changelog
+    .where((line) => line.startsWith(_versionMark))
+    .map((line) => line.substring(_versionMark.length).split(' - ').first)
+    .map((line) => Version.parse(line))
+    .firstWhere(
+      (version) => !version.isPreRelease,
+      orElse: () => Version(0, 0, 0),
+    );
+
 ChangesImportance getLineImportance(String line) =>
     ChangesImportance.values.firstWhere(
       (values) => line.toLowerCase().endsWith('($values)'),
