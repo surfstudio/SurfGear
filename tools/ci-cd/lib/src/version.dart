@@ -1,13 +1,30 @@
+import 'package:ci_cd/src/importance.dart';
 import 'package:pub_semver/pub_semver.dart';
 
 const _devPattern = 'dev';
 
-Version bumpDevPackageVersion(Version version) {
+Version bumpUnstablePackageVersion(
+  Version version,
+  ChangesImportance importance,
+) {
   if (!version.isPreRelease) {
+    var newVersion = version;
+    switch (importance) {
+      case ChangesImportance.major:
+        newVersion = version.nextMajor;
+        break;
+      case ChangesImportance.minor:
+        newVersion = version.nextMinor;
+        break;
+      default:
+        newVersion = version.nextPatch;
+        break;
+    }
+
     return Version(
-      version.major,
-      version.minor,
-      version.patch + 1,
+      newVersion.major,
+      newVersion.minor,
+      newVersion.patch,
       pre: '$_devPattern.1',
     );
   }

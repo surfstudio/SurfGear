@@ -24,36 +24,61 @@ void main() {
       getChangesImportanceForStable([
         '# Changelog',
         '',
-        '## 0.0.4-dev.3 - 2021-03-24',
+        '## 1.1.1-dev.4 - 2021-05-27',
         '',
-        '* Fixed loading and error builders on empty stream data (PATCH)',
-        '* Update README.md (PATCH)',
+        '* Add new rule: [member-ordering-extended](https://github.com/dart-code-checker/dart-code-metrics/blob/master/doc/rules/member-ordering-extended.md) (minor)',
         '',
-        '## 0.0.4-dev.1 - 2021-03-24',
+        '## 1.1.1-dev.3 - 2021-05-25',
         '',
-        '* Up rxdart dependency (MINOR)',
+        '* Tune metrics settings (patch)',
+        '',
+        '## 1.1.1-dev.2 - 2021-05-24',
+        '',
+        '* Set min SDK version to `2.13.0`. (patch)',
+        '* Tune `avoid-returning-widgets`. (patch)',
+        '',
+        '## 1.1.1-dev.1 - 2021-05-24',
+        '',
+        '* Add some rules: `avoid_multiple_declarations_per_line`, `deprecated_consistency`, `prefer_if_elements_to_conditional_expressions`, `unnecessary_null_checks`, `unnecessary_nullable_for_final_variable_declarations`, `use_if_null_to_convert_nulls_to_bools`, `use_late_for_private_fields_and_variables`, `use_named_constants`, `missing_whitespace_between_adjacent_strings`, `avoid_type_to_string`, `use_build_context_synchronously`. (minor)',
+        '* Disable rules: `sort_child_properties_last`, `sort_constructors_first`, `sort_unnamed_constructors_first`. (minor)',
+        '',
+        '## 1.1.0',
+        '',
+        '* Bump pedantic version.',
+        '* Add [dart-code-metrics](https://pub.dev/packages/dart_code_metrics) dependency.',
+        '',
+      ]),
+      equals(ChangesImportance.minor),
+    );
+
+    expect(
+      getChangesImportanceForStable([
+        '# Changelog',
         '',
         '## 0.0.2 - 2021-03-08',
         '',
         '* Initial release',
         '',
       ]),
-      equals(ChangesImportance.minor),
+      equals(ChangesImportance.unknown),
     );
   });
 
-  group('getDevChangesImportance returns', () {
+  group('getChangesImportanceForUnstable returns', () {
     test('unknown for empty changelog', () {
-      expect(getDevChangesImportance([]), equals(ChangesImportance.unknown));
       expect(
-        getDevChangesImportance(['# Changelog', '']),
+        getChangesImportanceForUnstable([]),
+        equals(ChangesImportance.unknown),
+      );
+      expect(
+        getChangesImportanceForUnstable(['# Changelog', '']),
         equals(ChangesImportance.unknown),
       );
     });
 
     test('unknown for changelog without dev block', () {
       expect(
-        getDevChangesImportance([
+        getChangesImportanceForUnstable([
           '# Changelog',
           '',
           '## 0.0.4-dev.3 - 2021-03-24',
@@ -67,7 +92,7 @@ void main() {
 
     test('unknown for unknown importance form changelog with dev block', () {
       expect(
-        getDevChangesImportance([
+        getChangesImportanceForUnstable([
           '# Changelog',
           '',
           '## NEW FEATURE',
@@ -81,7 +106,7 @@ void main() {
 
     test('importance for changelog in dev block', () {
       expect(
-        getDevChangesImportance([
+        getChangesImportanceForUnstable([
           '# Changelog',
           '',
           '## MAJOR',
@@ -92,7 +117,7 @@ void main() {
         equals(ChangesImportance.major),
       );
       expect(
-        getDevChangesImportance([
+        getChangesImportanceForUnstable([
           '# Changelog',
           '',
           '## MINOR',
@@ -103,7 +128,7 @@ void main() {
         equals(ChangesImportance.minor),
       );
       expect(
-        getDevChangesImportance([
+        getChangesImportanceForUnstable([
           '# Changelog',
           '',
           '## PATCH',
@@ -116,11 +141,11 @@ void main() {
   });
 
   test(
-    'getDevChangesCount returns count of developer changes introduced in this branch',
+    'getDeveloperChangesCount returns count of developer changes introduced in this branch',
     () {
-      expect(getDevChangesCount([]), isZero);
+      expect(getDeveloperChangesCount([]), isZero);
       expect(
-        getDevChangesCount([
+        getDeveloperChangesCount([
           '# Changelog',
           '',
           '## 0.0.4-dev.3 - 2021-03-08',
@@ -133,7 +158,7 @@ void main() {
         isZero,
       );
       expect(
-        getDevChangesCount([
+        getDeveloperChangesCount([
           '# Changelog',
           '',
           '## MINOR',
@@ -146,7 +171,7 @@ void main() {
         isZero,
       );
       expect(
-        getDevChangesCount([
+        getDeveloperChangesCount([
           '# Changelog',
           '',
           '## MINOR',
@@ -163,34 +188,34 @@ void main() {
     },
   );
 
-  test(
-    'getLineImportance returns importance of passed line',
-    () {
-      expect(getLineImportance(''), equals(ChangesImportance.unknown));
-      expect(
-        getLineImportance(
-            '* Fixed loading and error builders on empty stream data'),
-        equals(ChangesImportance.unknown),
-      );
-      expect(
-        getLineImportance(
-            '* Fixed loading and error builders on empty stream data (patch)'),
-        equals(ChangesImportance.patch),
-      );
-      expect(
-        getLineImportance(
-            '* Fixed loading and error builders on empty stream data (minor)'),
-        equals(ChangesImportance.minor),
-      );
-    },
-  );
+  test('getLineImportance returns importance of passed line', () {
+    expect(getLineImportance(''), equals(ChangesImportance.unknown));
+    expect(
+      getLineImportance(
+        '* Fixed loading and error builders on empty stream data',
+      ),
+      equals(ChangesImportance.unknown),
+    );
+    expect(
+      getLineImportance(
+        '* Fixed loading and error builders on empty stream data (patch)',
+      ),
+      equals(ChangesImportance.patch),
+    );
+    expect(
+      getLineImportance(
+        '* Fixed loading and error builders on empty stream data (minor)',
+      ),
+      equals(ChangesImportance.minor),
+    );
+  });
 
   test(
-    'getReleaseLineIndices returns lines indices with release paragraphs',
+    'getUnstableReleaseLineIndices returns lines indices with release paragraphs',
     () {
-      expect(getReleaseLineIndices([]), isEmpty);
+      expect(getUnstableReleaseLineIndices([]), isEmpty);
       expect(
-        getReleaseLineIndices([
+        getUnstableReleaseLineIndices([
           '# Changelog',
           '',
           '## MINOR',
@@ -207,9 +232,9 @@ void main() {
     },
   );
 
-  test('patchChangelog returns patched content', () {
+  test('patchUnstableChangelog returns patched content', () {
     expect(
-      patchChangelog(
+      patchUnstableChangelog(
         [
           '# Changelog',
           '',

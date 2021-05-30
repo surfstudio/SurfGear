@@ -21,7 +21,7 @@ void main(List<String> args) {
   CommandRunner<void>('tools/ci', 'tools for automate some ci/cd cases')
     ..addCommand(CheckDevBranch())
     ..addCommand(BumpDevVersion())
-    ..addCommand(PublishDevToPub())
+    ..addCommand(PublishUnstableToPub())
     ..run(args);
 }
 
@@ -36,12 +36,12 @@ class CheckDevBranch extends Command<void> {
   @override
   void run() {
     final changelogContent = readChangelog();
-    final importance = getDevChangesImportance(changelogContent);
+    final importance = getChangesImportanceForUnstable(changelogContent);
     if (importance == ChangesImportance.unknown) {
       printErrorMessage("Can't get changes importance.");
     }
 
-    if (getDevChangesCount(changelogContent) == 0) {
+    if (getDeveloperChangesCount(changelogContent) == 0) {
       printErrorMessage("Can't get introduces changes.");
     }
   }
@@ -59,18 +59,19 @@ class BumpDevVersion extends Command<void> {
     final changelogContent = readChangelog();
     final pubspecContent = readPubspec();
 
-    final importance = getDevChangesImportance(changelogContent);
+    final importance = getChangesImportanceForUnstable(changelogContent);
     if (importance == ChangesImportance.unknown ||
-        getDevChangesCount(changelogContent) == 0) {
+        getDeveloperChangesCount(changelogContent) == 0) {
       printErrorMessage("Please run 'check-branch' command before.");
     }
 
     final packageVersion = getPackageVersion(pubspecContent);
-    final updatedPackageVersion = bumpDevPackageVersion(packageVersion);
+    final updatedPackageVersion =
+        bumpUnstablePackageVersion(packageVersion, importance);
 
     savePubspec(patchPubspec(pubspecContent, updatedPackageVersion));
     saveChangelog(
-      patchChangelog(
+      patchUnstableChangelog(
         changelogContent,
         updatedPackageVersion,
         importance,
@@ -80,33 +81,34 @@ class BumpDevVersion extends Command<void> {
   }
 }
 
-class PublishDevToPub extends Command<void> {
+class PublishUnstableToPub extends Command<void> {
   @override
   String get name => 'publish-dev-version';
 
   @override
-  String get description => 'Publish dev version to pub.dev.';
+  String get description => 'Publish unstable version to pub.dev.';
 
   @override
   void run() {
     final changelogContent = readChangelog();
     final pubspecContent = readPubspec();
 
-    final importance = getDevChangesImportance(changelogContent);
+    final importance = getChangesImportanceForUnstable(changelogContent);
     if (importance == ChangesImportance.unknown) {
       exit(0);
     }
 
-    if (getDevChangesCount(changelogContent) == 0) {
+    if (getDeveloperChangesCount(changelogContent) == 0) {
       printErrorMessage("Please run 'check-branch' command before.");
     }
 
     final packageVersion = getPackageVersion(pubspecContent);
-    final updatedPackageVersion = bumpDevPackageVersion(packageVersion);
+    final updatedPackageVersion =
+        bumpUnstablePackageVersion(packageVersion, importance);
 
     savePubspec(patchPubspec(pubspecContent, updatedPackageVersion));
     saveChangelog(
-      patchChangelog(
+      patchUnstableChangelog(
         changelogContent,
         updatedPackageVersion,
         importance,
