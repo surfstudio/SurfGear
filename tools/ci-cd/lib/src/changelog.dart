@@ -117,6 +117,33 @@ Iterable<int> getUnstableReleaseLineIndices(Iterable<String> content) {
   });
 }
 
+Iterable<String> patchStableChangelog(
+  Iterable<String> originalContent,
+  Version newVersion,
+  DateTime changesDate,
+) {
+  final content = originalContent.toList();
+
+  return [
+    ...content.sublist(0, 2),
+    '$_versionMark$newVersion - ${changesDate.year}-${changesDate.month.toString().padLeft(2, '0')}-${changesDate.day.toString().padLeft(2, '0')}',
+    '',
+    '* Stable release',
+    '',
+    ...content.sublist(2).map((line) {
+      for (final importance in ChangesImportance.values) {
+        if (line.endsWith('($importance)')) {
+          return line
+              .substring(0, line.length - (importance.toString().length + 2))
+              .trim();
+        }
+      }
+
+      return line;
+    }),
+  ];
+}
+
 Iterable<String> patchUnstableChangelog(
   Iterable<String> originalContent,
   Version newVersion,
