@@ -18,36 +18,38 @@ import 'package:ci_cd/src/importance.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 
+const _changelog = [
+  '# Changelog',
+  '',
+  '## 1.1.1-dev.4 - 2021-05-27',
+  '',
+  '* Add new rule: [member-ordering-extended](https://github.com/dart-code-checker/dart-code-metrics/blob/master/doc/rules/member-ordering-extended.md) (minor)',
+  '',
+  '## 1.1.1-dev.3 - 2021-05-25',
+  '',
+  '* Tune metrics settings (patch)',
+  '',
+  '## 1.1.1-dev.2 - 2021-05-24',
+  '',
+  '* Set min SDK version to `2.13.0`. (patch)',
+  '* Tune `avoid-returning-widgets`. (patch)',
+  '',
+  '## 1.1.1-dev.1 - 2021-05-24',
+  '',
+  '* Add some rules: `avoid_multiple_declarations_per_line`, `deprecated_consistency`, `prefer_if_elements_to_conditional_expressions`, `unnecessary_null_checks`, `unnecessary_nullable_for_final_variable_declarations`, `use_if_null_to_convert_nulls_to_bools`, `use_late_for_private_fields_and_variables`, `use_named_constants`, `missing_whitespace_between_adjacent_strings`, `avoid_type_to_string`, `use_build_context_synchronously`. (minor)',
+  '* Disable rules: `sort_child_properties_last`, `sort_constructors_first`, `sort_unnamed_constructors_first`. (minor)',
+  '',
+  '## 1.1.0',
+  '',
+  '* Bump pedantic version.',
+  '* Add [dart-code-metrics](https://pub.dev/packages/dart_code_metrics) dependency.',
+  '',
+];
+
 void main() {
   test('getChangesImportanceForStable', () {
     expect(
-      getChangesImportanceForStable([
-        '# Changelog',
-        '',
-        '## 1.1.1-dev.4 - 2021-05-27',
-        '',
-        '* Add new rule: [member-ordering-extended](https://github.com/dart-code-checker/dart-code-metrics/blob/master/doc/rules/member-ordering-extended.md) (minor)',
-        '',
-        '## 1.1.1-dev.3 - 2021-05-25',
-        '',
-        '* Tune metrics settings (patch)',
-        '',
-        '## 1.1.1-dev.2 - 2021-05-24',
-        '',
-        '* Set min SDK version to `2.13.0`. (patch)',
-        '* Tune `avoid-returning-widgets`. (patch)',
-        '',
-        '## 1.1.1-dev.1 - 2021-05-24',
-        '',
-        '* Add some rules: `avoid_multiple_declarations_per_line`, `deprecated_consistency`, `prefer_if_elements_to_conditional_expressions`, `unnecessary_null_checks`, `unnecessary_nullable_for_final_variable_declarations`, `use_if_null_to_convert_nulls_to_bools`, `use_late_for_private_fields_and_variables`, `use_named_constants`, `missing_whitespace_between_adjacent_strings`, `avoid_type_to_string`, `use_build_context_synchronously`. (minor)',
-        '* Disable rules: `sort_child_properties_last`, `sort_constructors_first`, `sort_unnamed_constructors_first`. (minor)',
-        '',
-        '## 1.1.0',
-        '',
-        '* Bump pedantic version.',
-        '* Add [dart-code-metrics](https://pub.dev/packages/dart_code_metrics) dependency.',
-        '',
-      ]),
+      getChangesImportanceForStable(_changelog),
       equals(ChangesImportance.minor),
     );
 
@@ -188,6 +190,17 @@ void main() {
     },
   );
 
+  test('getLatestStableVersion returns latest stableVersion', () {
+    expect(
+      getLatestStableVersion(_changelog),
+      equals(Version(1, 1, 0)),
+    );
+    expect(
+      getLatestStableVersion([]),
+      equals(Version(0, 0, 0)),
+    );
+  });
+
   test('getLineImportance returns importance of passed line', () {
     expect(getLineImportance(''), equals(ChangesImportance.unknown));
     expect(
@@ -207,6 +220,27 @@ void main() {
         '* Fixed loading and error builders on empty stream data (minor)',
       ),
       equals(ChangesImportance.minor),
+    );
+  });
+
+  test('getPublicationDate returns publication date', () {
+    expect(getPublicationDate(_changelog, Version(1, 0, 0)), isNull);
+    expect(getPublicationDate(_changelog, Version(1, 1, 0)), isNull);
+    expect(
+      getPublicationDate(_changelog, Version(1, 1, 1, pre: 'dev.1')),
+      equals(DateTime(2021, 05, 24)),
+    );
+    expect(
+      getPublicationDate(_changelog, Version(1, 1, 1, pre: 'dev.2')),
+      equals(DateTime(2021, 05, 24)),
+    );
+    expect(
+      getPublicationDate(_changelog, Version(1, 1, 1, pre: 'dev.3')),
+      equals(DateTime(2021, 05, 25)),
+    );
+    expect(
+      getPublicationDate(_changelog, Version(1, 1, 1, pre: 'dev.4')),
+      equals(DateTime(2021, 05, 27)),
     );
   });
 
@@ -231,6 +265,47 @@ void main() {
       );
     },
   );
+
+  test('patchStableChangelog returns patched content', () {
+    expect(
+      patchStableChangelog(
+        _changelog,
+        Version(1, 2, 0),
+        DateTime(2021, 5, 30),
+      ),
+      equals([
+        '# Changelog',
+        '',
+        '## 1.2.0 - 2021-05-30',
+        '',
+        '* Stable release',
+        '',
+        '## 1.1.1-dev.4 - 2021-05-27',
+        '',
+        '* Add new rule: [member-ordering-extended](https://github.com/dart-code-checker/dart-code-metrics/blob/master/doc/rules/member-ordering-extended.md)',
+        '',
+        '## 1.1.1-dev.3 - 2021-05-25',
+        '',
+        '* Tune metrics settings',
+        '',
+        '## 1.1.1-dev.2 - 2021-05-24',
+        '',
+        '* Set min SDK version to `2.13.0`.',
+        '* Tune `avoid-returning-widgets`.',
+        '',
+        '## 1.1.1-dev.1 - 2021-05-24',
+        '',
+        '* Add some rules: `avoid_multiple_declarations_per_line`, `deprecated_consistency`, `prefer_if_elements_to_conditional_expressions`, `unnecessary_null_checks`, `unnecessary_nullable_for_final_variable_declarations`, `use_if_null_to_convert_nulls_to_bools`, `use_late_for_private_fields_and_variables`, `use_named_constants`, `missing_whitespace_between_adjacent_strings`, `avoid_type_to_string`, `use_build_context_synchronously`.',
+        '* Disable rules: `sort_child_properties_last`, `sort_constructors_first`, `sort_unnamed_constructors_first`.',
+        '',
+        '## 1.1.0',
+        '',
+        '* Bump pedantic version.',
+        '* Add [dart-code-metrics](https://pub.dev/packages/dart_code_metrics) dependency.',
+        '',
+      ]),
+    );
+  });
 
   test('patchUnstableChangelog returns patched content', () {
     expect(

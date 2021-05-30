@@ -80,11 +80,32 @@ int getDeveloperChangesCount(Iterable<String> changelog) {
       : 0;
 }
 
+Version getLatestStableVersion(Iterable<String> changelog) => changelog
+    .where((line) => line.startsWith(_versionMark))
+    .map((line) => line.substring(_versionMark.length).split(' - ').first)
+    .map((line) => Version.parse(line))
+    .firstWhere(
+      (version) => !version.isPreRelease,
+      orElse: () => Version(0, 0, 0),
+    );
+
 ChangesImportance getLineImportance(String line) =>
     ChangesImportance.values.firstWhere(
       (values) => line.toLowerCase().endsWith('($values)'),
       orElse: () => ChangesImportance.unknown,
     );
+
+DateTime? getPublicationDate(Iterable<String> changelog, Version version) {
+  final date = changelog
+      .firstWhere(
+        (line) => line.contains(version.toString()),
+        orElse: () => '',
+      )
+      .split(' - ')
+      .last;
+
+  return DateTime.tryParse(date);
+}
 
 Iterable<int> getUnstableReleaseLineIndices(Iterable<String> content) {
   var lineIndex = 0;
@@ -94,6 +115,33 @@ Iterable<int> getUnstableReleaseLineIndices(Iterable<String> content) {
 
     return line.startsWith(_versionMark) ? [lineIndex - 1] : [];
   });
+}
+
+Iterable<String> patchStableChangelog(
+  Iterable<String> originalContent,
+  Version newVersion,
+  DateTime changesDate,
+) {
+  final content = originalContent.toList();
+
+  return [
+    ...content.sublist(0, 2),
+    '$_versionMark$newVersion - ${changesDate.year}-${changesDate.month.toString().padLeft(2, '0')}-${changesDate.day.toString().padLeft(2, '0')}',
+    '',
+    '* Stable release',
+    '',
+    ...content.sublist(2).map((line) {
+      for (final importance in ChangesImportance.values) {
+        if (line.endsWith('($importance)')) {
+          return line
+              .substring(0, line.length - (importance.toString().length + 2))
+              .trim();
+        }
+      }
+
+      return line;
+    }),
+  ];
 }
 
 Iterable<String> patchUnstableChangelog(

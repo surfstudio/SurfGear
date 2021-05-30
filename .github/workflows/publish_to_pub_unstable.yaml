@@ -47,7 +47,7 @@ jobs:
         run: dart pub upgrade
         working-directory: tools/ci-cd
 
-      - name: Deploy dev version 🚀
+      - name: Deploy unstable version 🚀
         env:
           PUB_CREDENTIALS: ${{ secrets.PUB_CREDENTIALS }}
         run: dart run ../../tools/ci-cd/bin/ci.dart publish-dev-version

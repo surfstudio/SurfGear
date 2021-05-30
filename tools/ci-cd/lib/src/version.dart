@@ -3,6 +3,20 @@ import 'package:pub_semver/pub_semver.dart';
 
 const _devPattern = 'dev';
 
+Version bumpStablePackageVersion(
+  Version version,
+  ChangesImportance importance,
+) {
+  switch (importance) {
+    case ChangesImportance.major:
+      return version.nextMajor;
+    case ChangesImportance.minor:
+      return version.nextMinor;
+    default:
+      return version.nextPatch;
+  }
+}
+
 Version bumpUnstablePackageVersion(
   Version version,
   ChangesImportance importance,
