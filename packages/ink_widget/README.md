@@ -1,9 +1,10 @@
 # Ink Widget
 
-[![Build Status](https://github.com/surfstudio/SurfGear/workflows/build/badge.svg)](https://github.com/surfstudio/SurfGear)
-[![Coverage Status](https://codecov.io/gh/surfstudio/SurfGear/branch/dev/graph/badge.svg?flag=ink_widget)](https://codecov.io/gh/surfstudio/SurfGear)
-[![Pub Version](https://img.shields.io/pub/v/ink_widget)](https://pub.dev/packages/ink_widget)
+[![Build Status](https://shields.io/github/workflow/status/surfstudio/SurfGear/build?logo=github&logoColor=white)](https://github.com/surfstudio/SurfGear/tree/main/packages/ink_widget)
+[![Coverage Status](https://img.shields.io/codecov/c/github/surfstudio/SurfGear?flag=ink_widget&logo=codecov&logoColor=white)](https://codecov.io/gh/surfstudio/SurfGear)
+[![Pub Version](https://img.shields.io/pub/v/ink_widget?logo=dart&logoColor=white)](https://pub.dev/packages/ink_widget)
 [![Pub Likes](https://badgen.net/pub/likes/ink_widget)](https://pub.dev/packages/ink_widget)
+[![Pub popularity](https://badgen.net/pub/popularity/ink_widget)](https://pub.dev/packages/ink_widget/score)
 ![Flutter Platform](https://badgen.net/pub/flutter-platform/ink_widget)
 
 This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolkit made by [Surf](https://surf.ru/).

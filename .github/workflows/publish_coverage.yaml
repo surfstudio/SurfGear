@@ -23,6 +23,7 @@ jobs:
           - ink_widget
           - mwwm
           - otp_autofill
+          - push_notification
           - relation
           - render_metrics
           - surf_mwwm
@@ -90,7 +91,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies 🔧
-        run: dart pub get
+        run: dart pub upgrade
         working-directory: packages/${{matrix.package}}
 
       - name: Run tests ⚙️
