@@ -132,8 +132,6 @@ class PublishStableToPub extends Command<void> {
       version: updatedPackageVersion,
       packageName: getPackageName(pubspecContent),
     );
-
-    publishToPub();
   }
 }
 
