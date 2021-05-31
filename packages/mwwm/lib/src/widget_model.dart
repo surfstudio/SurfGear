@@ -52,7 +52,8 @@ abstract class WidgetModel {
     void Function(T value) onValue, {
     void Function(Object error)? onError,
   }) =>
-      _compositeSubscription.add<T>(stream.listen(onValue, onError: onError?.call));
+      _compositeSubscription
+          .add<T>(stream.listen(onValue, onError: onError?.call));
 
   /// subscribe for interactors with default handle error
   StreamSubscription<T> subscribeHandleError<T>(
