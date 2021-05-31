@@ -15,7 +15,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart' hide RefreshIndicator, RefreshIndicatorState;
-import 'package:flutter/widgets.dart';
 import 'package:swipe_refresh/src/custom_refresh_indicator.dart';
 import 'package:swipe_refresh/src/swipe_refresh_base.dart';
 import 'package:swipe_refresh/src/swipe_refresh_state.dart';
