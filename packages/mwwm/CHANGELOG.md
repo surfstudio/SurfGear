@@ -1,6 +1,6 @@
 # Changelog
 
-## MINOR
+## MAJOR
 
 * Marked as deprecated `doFuture` and `doFutureHandleError`
 * Removed nullable types where possible
