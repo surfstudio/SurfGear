@@ -8,6 +8,7 @@ import 'package:mwwm/mwwm.dart';
 // ignore: prefer_mixin
 class CounterWidgetModel extends WidgetModel with ChangeNotifier {
   final CounterRepository _counterRepository;
+
   int counter = 0;
 
   CounterWidgetModel(

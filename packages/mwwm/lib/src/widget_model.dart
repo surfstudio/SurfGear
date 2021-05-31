@@ -27,7 +27,9 @@ import 'package:mwwm/src/utils/composite_subscription.dart';
 abstract class WidgetModel {
   @protected
   final Model model;
+
   final _compositeSubscription = CompositeSubscription();
+
   final ErrorHandler? _errorHandler;
 
   WidgetModel(
@@ -50,8 +52,7 @@ abstract class WidgetModel {
     void Function(T value) onValue, {
     void Function(Object error)? onError,
   }) =>
-      _compositeSubscription
-          .add<T>(stream.listen(onValue, onError: onError?.call));
+      _compositeSubscription.add<T>(stream.listen(onValue, onError: onError?.call));
 
   /// subscribe for interactors with default handle error
   StreamSubscription<T> subscribeHandleError<T>(
