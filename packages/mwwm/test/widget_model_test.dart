@@ -95,6 +95,7 @@ void main() {
     group('doFuture', () {
       test('calls onValue after complete Future', () {
         late int res;
+        // ignore: deprecated_member_use_from_same_package
         widgetModel.doFuture<int>(completer.future, (value) {
           res = value;
         });
@@ -103,6 +104,7 @@ void main() {
       });
 
       test('calls onError after throw Error', () {
+        // ignore: deprecated_member_use_from_same_package
         widgetModel.doFuture<int>(
           completer.future,
           (value) {
@@ -119,6 +121,7 @@ void main() {
     group('doFutureHandleError', () {
       test('calls onValue after complete Future', () {
         late int res;
+        // ignore: deprecated_member_use_from_same_package
         widgetModel.doFutureHandleError<int>(completer.future, (newValue) {
           res = newValue;
         });
@@ -131,6 +134,7 @@ void main() {
           throw Exception();
         }
 
+        // ignore: deprecated_member_use_from_same_package
         widgetModel.doFutureHandleError<int>(
           completer.future,
           onValue,

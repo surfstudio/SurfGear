@@ -25,18 +25,16 @@ import 'package:mwwm/src/utils/composite_subscription.dart';
 /// `WidgetModelDependencies` - is pack of dependencies for WidgetModel. Most often it is `ErrorHandler`.
 /// `Model` - optionally, but recommended, manager for connection with business layer
 abstract class WidgetModel {
+  @protected
+  final Model model;
+  final _compositeSubscription = CompositeSubscription();
+  final ErrorHandler? _errorHandler;
+
   WidgetModel(
     WidgetModelDependencies baseDependencies, {
     Model? model,
   })  : _errorHandler = baseDependencies.errorHandler,
         model = model ?? const Model([]);
-
-  final ErrorHandler? _errorHandler;
-
-  @protected
-  final Model model;
-
-  final _compositeSubscription = CompositeSubscription();
 
   /// called when widget ready
   @mustCallSuper
@@ -52,7 +50,8 @@ abstract class WidgetModel {
     void Function(T value) onValue, {
     void Function(Object error)? onError,
   }) =>
-      _compositeSubscription.add<T>(stream.listen(onValue, onError: onError?.call));
+      _compositeSubscription
+          .add<T>(stream.listen(onValue, onError: onError?.call));
 
   /// subscribe for interactors with default handle error
   StreamSubscription<T> subscribeHandleError<T>(

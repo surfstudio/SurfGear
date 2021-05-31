@@ -20,11 +20,6 @@ typedef WidgetModelBuilder = WidgetModel Function(BuildContext);
 /// Class for widgets that has [WidgetModel]
 /// You must provide [WidgetModel] in constructor or by WidgetModelFactory
 abstract class CoreMwwmWidget extends StatefulWidget {
-  const CoreMwwmWidget({
-    required this.widgetModelBuilder,
-    Key? key,
-  }) : super(key: key);
-
   /// Builder for `WidgetModel`
   /// There are two possibilities to provide `WidgetModel` :
   ///  1. Here by [widgetModelBuilder] (prefer)
@@ -39,17 +34,31 @@ abstract class CoreMwwmWidget extends StatefulWidget {
   /// );
   /// ```
   final WidgetModelBuilder widgetModelBuilder;
+
+  const CoreMwwmWidget({
+    required this.widgetModelBuilder,
+    Key? key,
+  }) : super(key: key);
 }
 
 /// Base class for state of [CoreMwwmWidget].
 /// Has [WidgetModel] from [initState].
 abstract class WidgetState<WM extends WidgetModel>
     extends State<CoreMwwmWidget> {
+  @protected
+  WM get wm => _wm;
+
   /// [WidgetModel] for widget.
   late WM _wm;
 
+  /// Descendants must call super in the end
+  @override
   @protected
-  WM get wm => _wm;
+  @mustCallSuper
+  void dispose() {
+    _wm.dispose();
+    super.dispose();
+  }
 
   /// Descendants must call super firstly
   @mustCallSuper
@@ -62,14 +71,5 @@ abstract class WidgetState<WM extends WidgetModel>
     _wm
       ..onLoad()
       ..onBind();
-  }
-
-  /// Descendants must call super in the end
-  @override
-  @protected
-  @mustCallSuper
-  void dispose() {
-    _wm.dispose();
-    super.dispose();
   }
 }
