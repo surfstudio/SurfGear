@@ -33,7 +33,10 @@ import 'package:rxdart/rxdart.dart';
 class StreamedAction<T> implements Event<T> {
   /// [acceptUnique] - data will be accepted only if it's unique
   StreamedAction({
-    this.onChanged,
+    @Deprecated(
+      'Use subscription on stream instead. And handle changes in listener. Will be removed in next major version',
+    )
+        this.onChanged,
     bool acceptUnique = false,
   }) : _acceptUnique = acceptUnique;
 

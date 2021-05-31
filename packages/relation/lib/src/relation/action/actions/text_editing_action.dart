@@ -18,7 +18,9 @@ import 'package:relation/src/relation/action/streamed_action.dart';
 /// Action for text editing
 class TextEditingAction extends StreamedAction<String> {
   TextEditingAction({
-    void Function(String? data)? onChanged,
+    @Deprecated('Use subscription on stream instead. And handle changes in listener. Will be removed in next major version')
+        void Function(String? data)? onChanged,
+    // ignore: deprecated_member_use_from_same_package
   }) : super(onChanged: onChanged) {
     controller.addListener(() {
       accept(controller.value.text);
@@ -26,8 +28,7 @@ class TextEditingAction extends StreamedAction<String> {
   }
 
   /// TextEditing controller of text field
-  final ExtendedTextEditingController controller =
-      ExtendedTextEditingController();
+  final ExtendedTextEditingController controller = ExtendedTextEditingController();
 
   @override
   Future<void> dispose() {
