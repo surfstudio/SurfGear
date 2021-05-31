@@ -14,7 +14,8 @@
 
 import 'dart:async';
 
-import 'package:flutter/material.dart' hide RefreshIndicator, RefreshIndicatorState;
+import 'package:flutter/material.dart'
+    hide RefreshIndicator, RefreshIndicatorState;
 import 'package:swipe_refresh/src/custom_refresh_indicator.dart';
 import 'package:swipe_refresh/src/swipe_refresh_base.dart';
 import 'package:swipe_refresh/src/swipe_refresh_state.dart';
@@ -61,7 +62,8 @@ class MaterialSwipeRefresh extends SwipeRefreshBase {
   _MaterialSwipeRefreshState createState() => _MaterialSwipeRefreshState();
 }
 
-class _MaterialSwipeRefreshState extends SwipeRefreshBaseState<MaterialSwipeRefresh> {
+class _MaterialSwipeRefreshState
+    extends SwipeRefreshBaseState<MaterialSwipeRefresh> {
   @override
   Widget buildRefresher(
     Key key,
@@ -80,8 +82,8 @@ class _MaterialSwipeRefreshState extends SwipeRefreshBaseState<MaterialSwipeRefr
               padding: widget.padding,
               controller: widget.scrollController ?? ScrollController(),
               physics: AlwaysScrollableScrollPhysics(parent: widget.physics),
-              keyboardDismissBehavior:
-                  widget.keyboardDismissBehavior ?? ScrollViewKeyboardDismissBehavior.manual,
+              keyboardDismissBehavior: widget.keyboardDismissBehavior ??
+                  ScrollViewKeyboardDismissBehavior.manual,
               children: children,
             )
           : ListView.custom(
@@ -89,8 +91,8 @@ class _MaterialSwipeRefreshState extends SwipeRefreshBaseState<MaterialSwipeRefr
               padding: widget.padding,
               childrenDelegate: widget.childrenDelegate!,
               controller: widget.scrollController ?? ScrollController(),
-              keyboardDismissBehavior:
-                  widget.keyboardDismissBehavior ?? ScrollViewKeyboardDismissBehavior.manual,
+              keyboardDismissBehavior: widget.keyboardDismissBehavior ??
+                  ScrollViewKeyboardDismissBehavior.manual,
               physics: AlwaysScrollableScrollPhysics(parent: widget.physics),
             ),
     );

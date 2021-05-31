@@ -114,7 +114,10 @@ void main() {
       );
 
       await tester.pumpWidget(testWidget);
-      await tester.drag(find.byType(MaterialSwipeRefresh), const Offset(0, 300));
+      await tester.drag(
+        find.byType(MaterialSwipeRefresh),
+        const Offset(0, 300),
+      );
       await tester.pump(const Duration(seconds: 1));
 
       expect(find.byWidget(indicator), findsOneWidget);
