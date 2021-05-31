@@ -61,8 +61,8 @@ class RenderParametersManager<T> extends RenderManager<T> {
   /// two instances [RenderObject]
   /// by [firstId] and [secondId]
   ComparisonDiff? getDiffById(T firstId, T secondId) {
-    final RenderData? first = getRenderData(firstId);
-    final RenderData? second = getRenderData(secondId);
+    final first = getRenderData(firstId);
+    final second = getRenderData(secondId);
     return getDiffByInstance(first, second);
   }
 

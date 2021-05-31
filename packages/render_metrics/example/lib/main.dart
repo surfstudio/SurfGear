@@ -15,6 +15,8 @@
 import 'package:flutter/material.dart';
 import 'package:render_metrics/render_metrics.dart';
 
+// ignore_for_file: avoid-returning-widgets
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -72,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _text0 = _getRenderDataText(_text0Id);
     });
 
-    final ComparisonDiff? diff = renderManager.getDiffById(
+    final diff = renderManager.getDiffById(
       _containerPositionedId,
       _textBlockId,
     );
@@ -145,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     const SizedBox(height: 1500),
                   ],
                 ),
-              )
+              ),
             ],
           ),
           Positioned(

@@ -14,8 +14,8 @@
 
 import 'package:counter/ui/screen/counter/counter_route.dart';
 import 'package:flutter/widgets.dart';
-import 'package:surf_mwwm/surf_mwwm.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:surf_mwwm/surf_mwwm.dart';
 
 /// WidgetModel приложения
 class AppWidgetModel extends WidgetModel {

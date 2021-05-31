@@ -12,12 +12,13 @@ class AddEditScreen extends CoreMwwmWidget {
     Key? key,
     TodoEntity? todoEntity,
   }) : super(
-            key: key,
-            widgetModelBuilder: (context) => AddEditScreenWM(
-                  Navigation(context),
-                  context.read<AppProvider>().todosRepository,
-                  todoEntity,
-                ));
+          key: key,
+          widgetModelBuilder: (context) => AddEditScreenWM(
+            Navigation(context),
+            context.read<AppProvider>().todosRepository,
+            todoEntity,
+          ),
+        );
 
   @override
   State<StatefulWidget> createState() => _AddEditScreenState();

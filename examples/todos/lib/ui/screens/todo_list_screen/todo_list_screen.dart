@@ -13,11 +13,12 @@ import 'package:todos/ui/widgets/todo_list_item/todo_list_item.dart';
 class TodoListScreen extends CoreMwwmWidget {
   TodoListScreen({Key? key})
       : super(
-            key: key,
-            widgetModelBuilder: (context) => TodoListScreenWM(
-                  Navigation(context),
-                  context.read<AppProvider>().todosRepository,
-                ));
+          key: key,
+          widgetModelBuilder: (context) => TodoListScreenWM(
+            Navigation(context),
+            context.read<AppProvider>().todosRepository,
+          ),
+        );
 
   @override
   State<StatefulWidget> createState() => _TodoListScreenState();

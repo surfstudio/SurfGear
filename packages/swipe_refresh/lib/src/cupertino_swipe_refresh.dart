@@ -18,6 +18,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:swipe_refresh/src/swipe_refresh_base.dart';
 import 'package:swipe_refresh/src/swipe_refresh_state.dart';
 
+// ignore_for_file: avoid-returning-widgets
+
 /// Refresh indicator widget with Cupertino style.
 class CupertinoSwipeRefresh extends SwipeRefreshBase {
   const CupertinoSwipeRefresh({
@@ -73,7 +75,11 @@ class _CupertinoSwipeRefreshState
   final ScrollController _scrollController;
 
   @override
-  Widget buildRefresher(Key key, List<Widget> children, onRefresh) {
+  Widget buildRefresher(
+    Key key,
+    List<Widget> children,
+    Future<void> Function() onRefresh,
+  ) {
     return CustomScrollView(
       shrinkWrap: widget.shrinkWrap,
       controller: _scrollController,

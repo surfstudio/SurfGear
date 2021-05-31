@@ -51,6 +51,7 @@ abstract class VirtualKeyboardKey {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes , avoid_annotating_with_dynamic
   bool operator ==(dynamic other) {
+    // ignore: avoid_dynamic_calls
     return id == other.id;
   }
 

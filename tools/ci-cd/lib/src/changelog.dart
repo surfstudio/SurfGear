@@ -30,35 +30,7 @@ Iterable<String> readChangelog() {
   return LineSplitter.split(changelog.readAsStringSync());
 }
 
-ChangesImportance getChangesImportanceForStable(Iterable<String> changelog) =>
-    changelog.fold(ChangesImportance.unknown, (previousValue, line) {
-      final trimmedLine = line.trim();
-      if (!trimmedLine.startsWith(_changeMark)) {
-        return previousValue;
-      }
-
-      final lineImportance = getLineImportance(trimmedLine);
-
-      return lineImportance > previousValue ? lineImportance : previousValue;
-    });
-
-int getDevChangesCount(Iterable<String> changelog) {
-  if (getDevChangesImportance(changelog) == ChangesImportance.unknown) {
-    return 0;
-  }
-
-  final indices = getReleaseLineIndices(changelog).toList();
-
-  return indices.isNotEmpty
-      ? changelog
-          .toList()
-          .sublist(indices[0] + 1, indices[1])
-          .where((line) => line.trim().startsWith(_changeMark))
-          .length
-      : 0;
-}
-
-ChangesImportance getDevChangesImportance(Iterable<String> changelog) {
+ChangesImportance getChangesImportanceForUnstable(Iterable<String> changelog) {
   const _importanceMap = {
     '## major': ChangesImportance.major,
     '## minor': ChangesImportance.minor,
@@ -80,13 +52,62 @@ ChangesImportance getDevChangesImportance(Iterable<String> changelog) {
   return _importanceMap[potentialSeverityLine] ?? ChangesImportance.unknown;
 }
 
+ChangesImportance getChangesImportanceForStable(Iterable<String> changelog) =>
+    changelog.fold(ChangesImportance.unknown, (previousValue, line) {
+      final trimmedLine = line.trim();
+      if (!trimmedLine.startsWith(_changeMark)) {
+        return previousValue;
+      }
+
+      final lineImportance = getLineImportance(trimmedLine);
+
+      return lineImportance > previousValue ? lineImportance : previousValue;
+    });
+
+int getDeveloperChangesCount(Iterable<String> changelog) {
+  if (getChangesImportanceForUnstable(changelog) == ChangesImportance.unknown) {
+    return 0;
+  }
+
+  final indices = getUnstableReleaseLineIndices(changelog).toList();
+
+  return indices.isNotEmpty
+      ? changelog
+          .toList()
+          .sublist(indices[0] + 1, indices[1])
+          .where((line) => line.trim().startsWith(_changeMark))
+          .length
+      : 0;
+}
+
+Version getLatestStableVersion(Iterable<String> changelog) => changelog
+    .where((line) => line.startsWith(_versionMark))
+    .map((line) => line.substring(_versionMark.length).split(' - ').first)
+    .map((line) => Version.parse(line))
+    .firstWhere(
+      (version) => !version.isPreRelease,
+      orElse: () => Version(0, 0, 0),
+    );
+
 ChangesImportance getLineImportance(String line) =>
     ChangesImportance.values.firstWhere(
       (values) => line.toLowerCase().endsWith('($values)'),
       orElse: () => ChangesImportance.unknown,
     );
 
-Iterable<int> getReleaseLineIndices(Iterable<String> content) {
+DateTime? getPublicationDate(Iterable<String> changelog, Version version) {
+  final date = changelog
+      .firstWhere(
+        (line) => line.contains(version.toString()),
+        orElse: () => '',
+      )
+      .split(' - ')
+      .last;
+
+  return DateTime.tryParse(date);
+}
+
+Iterable<int> getUnstableReleaseLineIndices(Iterable<String> content) {
   var lineIndex = 0;
 
   return content.expand((line) {
@@ -96,16 +117,43 @@ Iterable<int> getReleaseLineIndices(Iterable<String> content) {
   });
 }
 
-Iterable<String> patchChangelog(
+Iterable<String> patchStableChangelog(
+  Iterable<String> originalContent,
+  Version newVersion,
+  DateTime changesDate,
+) {
+  final content = originalContent.toList();
+
+  return [
+    ...content.sublist(0, 2),
+    '$_versionMark$newVersion - ${changesDate.year}-${changesDate.month.toString().padLeft(2, '0')}-${changesDate.day.toString().padLeft(2, '0')}',
+    '',
+    '* Stable release',
+    '',
+    ...content.sublist(2).map((line) {
+      for (final importance in ChangesImportance.values) {
+        if (line.endsWith('($importance)')) {
+          return line
+              .substring(0, line.length - (importance.toString().length + 2))
+              .trim();
+        }
+      }
+
+      return line;
+    }),
+  ];
+}
+
+Iterable<String> patchUnstableChangelog(
   Iterable<String> originalContent,
   Version newVersion,
   ChangesImportance importance,
   DateTime changesDate,
 ) {
   final content = originalContent.toList();
-  final releaseLineIndexes = getReleaseLineIndices(content).toList();
+  final releaseLineIndexes = getUnstableReleaseLineIndices(content).toList();
 
-  final patchedContent = [
+  return [
     ...content.sublist(0, 2),
     '$_versionMark$newVersion - ${changesDate.year}-${changesDate.month.toString().padLeft(2, '0')}-${changesDate.day.toString().padLeft(2, '0')}',
     ...content
@@ -121,8 +169,6 @@ Iterable<String> patchChangelog(
     }),
     ...content.sublist(releaseLineIndexes[1]),
   ];
-
-  return patchedContent;
 }
 
 void saveChangelog(Iterable<String> content) {

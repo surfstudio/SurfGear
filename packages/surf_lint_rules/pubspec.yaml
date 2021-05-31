@@ -1,11 +1,11 @@
 name: surf_lint_rules
-version: 1.1.1-dev.3
+version: 1.2.0
 description: Lint rules for "Surf" company for Dart and Flutter projects. Like pedantic but stricter.
 repository: "https://github.com/surfstudio/SurfGear/tree/main/packages/surf_lint_rules"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 
 dependencies:
-  dart_code_metrics: ^3.2.3
+  dart_code_metrics: ^3.3.2
   pedantic: ^1.11.0
 
 environment:

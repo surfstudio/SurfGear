@@ -1,9 +1,10 @@
 # Analytics
 
-[![Build Status](https://github.com/surfstudio/SurfGear/workflows/build/badge.svg)](https://github.com/surfstudio/SurfGear)
-[![Coverage Status](https://codecov.io/gh/surfstudio/SurfGear/branch/dev/graph/badge.svg?flag=analytics)](https://codecov.io/gh/surfstudio/SurfGear)
-[![Pub Version](https://img.shields.io/pub/v/analytics)](https://pub.dev/packages/analytics)
+[![Build Status](https://shields.io/github/workflow/status/surfstudio/SurfGear/build?logo=github&logoColor=white)](https://github.com/surfstudio/SurfGear/tree/main/packages/analytics)
+[![Coverage Status](https://img.shields.io/codecov/c/github/surfstudio/SurfGear?flag=analytics&logo=codecov&logoColor=white)](https://codecov.io/gh/surfstudio/SurfGear)
+[![Pub Version](https://img.shields.io/pub/v/analytics?logo=dart&logoColor=white)](https://pub.dev/packages/analytics)
 [![Pub Likes](https://badgen.net/pub/likes/analytics)](https://pub.dev/packages/analytics)
+[![Pub popularity](https://badgen.net/pub/popularity/analytics)](https://pub.dev/packages/analytics/score)
 ![Flutter Platform](https://badgen.net/pub/flutter-platform/analytics)
 
 This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolkit made by [Surf](https://surf.ru).

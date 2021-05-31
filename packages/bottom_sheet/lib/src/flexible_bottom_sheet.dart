@@ -123,6 +123,10 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
 
   late FlexibleDraggableScrollableSheetScrollController _controller;
 
+  late Animation<double> _topTweenAnimation;
+  late VoidCallback _animationListener;
+  late void Function(AnimationStatus) _statusListener;
+
   bool _isKeyboardOpenedNotified = false;
   bool _isKeyboardClosedNotified = false;
 
@@ -142,19 +146,21 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
       parent: _animationController,
       curve: Curves.linear,
     );
-    final topTweenAnimation = _topOffsetTween.animate(curve);
-    topTweenAnimation
-      ..addListener(() {
-        if (_animationController.isAnimating) {
-          _controller.extent.currentExtent = topTweenAnimation.value;
-        }
-      })
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          _controller.extent.currentExtent = _currentAnchor;
-          _animationController.reset();
-        }
-      });
+    _topTweenAnimation = _topOffsetTween.animate(curve);
+    _statusListener = (status) {
+      if (status == AnimationStatus.completed) {
+        _controller.extent.currentExtent = _currentAnchor;
+        _animationController.reset();
+      }
+    };
+    _animationListener = () {
+      if (_animationController.isAnimating) {
+        _controller.extent.currentExtent = _topTweenAnimation.value;
+      }
+    };
+    _topTweenAnimation
+      ..addListener(_animationListener)
+      ..addStatusListener(_statusListener);
   }
 
   @override
@@ -231,6 +237,9 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet>
   @override
   void dispose() {
     _animationController.dispose();
+    _topTweenAnimation
+      ..removeListener(_animationListener)
+      ..removeStatusListener(_statusListener);
 
     super.dispose();
   }

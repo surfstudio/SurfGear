@@ -1,5 +1,5 @@
 name: auto_reload
-version: 1.0.0-dev.2
+version: 1.0.1
 description: A library that helps to perform actions with some periodicity
 repository: "https://github.com/surfstudio/SurfGear/tree/main/packages/auto_reload"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"

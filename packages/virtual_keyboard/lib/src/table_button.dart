@@ -68,7 +68,7 @@ class TableButton extends StatelessWidget {
 
     return _buildContainer(
       child: Padding(
-        padding: padding ?? const EdgeInsets.all(0),
+        padding: padding ?? EdgeInsets.zero,
         child: ConstrainedBox(
           constraints: BoxConstraints(
             minHeight: height ?? 0.0,
@@ -82,6 +82,7 @@ class TableButton extends StatelessWidget {
     );
   }
 
+  // ignore: avoid-returning-widgets
   Widget _buildContainer({required Widget child}) {
     switch (virtualKeyboardEffect) {
       case VirtualKeyboardEffect.keyboardRipple:
