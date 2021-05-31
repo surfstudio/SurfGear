@@ -49,7 +49,8 @@ jobs:
       - name: Run analyzer 🔍
         run: |
           flutter analyze --fatal-warnings --fatal-infos .
-          flutter pub run dart_code_metrics:metrics --reporter=github lib test
+          flutter pub global activate dart_code_metrics
+          flutter pub global run dart_code_metrics:metrics --reporter=github lib test
 
       - name: Run formatter ⚙️
         run: flutter format --set-exit-if-changed .
