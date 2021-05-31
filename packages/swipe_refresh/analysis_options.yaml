@@ -1,1 +1,4 @@
 include: package:surf_lint_rules/analysis_options.yaml
+analyzer:
+  exclude:
+    - lib/src/custom_refresh_indicator.dart
