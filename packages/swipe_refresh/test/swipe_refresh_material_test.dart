@@ -97,5 +97,27 @@ void main() {
 
       expect(events, equals([SwipeRefreshState.hidden]));
     });
+    testWidgets('shows custom indicator if specified', (tester) async {
+      const indicator = Text('0');
+      final testWidget = makeTestableWidget(
+        MaterialSwipeRefresh(
+          stateStream: stream,
+          onRefresh: _onRefresh,
+          indicator: indicator,
+          children: Colors.primaries
+              .map((e) => Container(
+                    color: e,
+                    height: 100,
+                  ))
+              .toList(),
+        ),
+      );
+
+      await tester.pumpWidget(testWidget);
+      await tester.drag(find.byType(MaterialSwipeRefresh), const Offset(0, 300));
+      await tester.pump(const Duration(seconds: 1));
+
+      expect(find.byWidget(indicator), findsOneWidget);
+    });
   });
 }
