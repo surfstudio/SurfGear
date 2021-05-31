@@ -1,5 +1,5 @@
 name: surf_util
-version: 1.0.0-dev.2
+version: 1.0.1
 description: A library with set of common classes and utilities.
 repository: "https://github.com/surfstudio/SurfGear/tree/main/packages/surf_util"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"

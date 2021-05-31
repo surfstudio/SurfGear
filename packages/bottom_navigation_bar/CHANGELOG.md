@@ -1,8 +1,12 @@
 # Changelog
 
+## 1.0.1 - 2021-05-30
+
+* Stable release
+
 ## 1.0.1-dev.1 - 2021-05-24
 
-* Fix `closeSelectController`. (patch)
+* Fix `closeSelectController`.
 
 ## 1.0.0
 

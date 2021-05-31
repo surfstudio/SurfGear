@@ -1,8 +1,12 @@
 # Changelog
 
+## 1.0.1 - 2021-05-30
+
+* Stable release
+
 ## 1.0.0-dev.1 - 2021-05-24
 
-* Cleanup pubspec.yaml (patch)
+* Cleanup pubspec.yaml
 
 ## 1.0.0
 
