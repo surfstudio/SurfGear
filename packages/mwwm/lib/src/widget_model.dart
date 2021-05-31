@@ -21,9 +21,9 @@ import 'package:mwwm/src/error/error_handler.dart';
 import 'package:mwwm/src/utils/composite_subscription.dart';
 
 /// WidgetModel
-/// WM is logical representation of widget and his state.
-/// `WidgetModelDependencies` - is pack of dependencies for WidgetModel. Offtenly, it is `ErrorHandler`.
-/// `Model` - optionally, but recommended, manager for connection with bussines layer
+/// WM is logical representation of widget and its state.
+/// `WidgetModelDependencies` - is pack of dependencies for WidgetModel. Most often it is `ErrorHandler`.
+/// `Model` - optionally, but recommended, manager for connection with business layer
 abstract class WidgetModel {
   WidgetModel(
     WidgetModelDependencies baseDependencies, {
