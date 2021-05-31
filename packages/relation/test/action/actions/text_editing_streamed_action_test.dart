@@ -20,6 +20,7 @@ import 'package:rxdart/rxdart.dart';
 void main() {
   test('TextEditingAction test', () {
     final action = TextEditingAction(
+      // ignore: deprecated_member_use_from_same_package
       onChanged: (data) {
         expect(data, equals('test'));
       },
@@ -33,8 +34,7 @@ void main() {
   });
 
   test('ExtendedTextEditingController setText({String text}) test', () {
-    final TextEditingController controller = ExtendedTextEditingController()
-      ..text = 'test';
+    final TextEditingController controller = ExtendedTextEditingController()..text = 'test';
     expect(controller.value.text, 'test');
     expect(
       controller.selection,

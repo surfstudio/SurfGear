@@ -21,6 +21,7 @@ void main() {
   testWidgets(
     'ScrollOffsetAction test',
     (tester) async {
+      // ignore: deprecated_member_use_from_same_package
       final action = ScrollOffsetAction(onChanged: (data) {
         expect(data, equals(1.0));
       });
