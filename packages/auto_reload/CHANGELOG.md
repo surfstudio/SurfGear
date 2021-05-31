@@ -1,5 +1,9 @@
 # Changelog
 
+## PATCH
+
+* Activate dart-code-metrics on CI
+
 ## 1.0.1 - 2021-05-30
 
 * Stable release

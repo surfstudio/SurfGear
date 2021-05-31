@@ -39,7 +39,7 @@ jobs:
         run: dart run ../../tools/ci-cd/bin/ci.dart check-dev-branch
 
       - name: Install dependencies 🔧
-        run: flutter pub get
+        run: flutter pub upgrade
 
       - name: Run dependency validator 🔍
         run: |
@@ -47,7 +47,9 @@ jobs:
           flutter pub global run dependency_validator:dependency_validator
 
       - name: Run analyzer 🔍
-        run: flutter analyze --fatal-warnings --fatal-infos .
+        run: |
+          flutter analyze --fatal-warnings --fatal-infos .
+          flutter pub run dart_code_metrics:metrics --reporter=github lib test
 
       - name: Run formatter ⚙️
         run: flutter format --set-exit-if-changed .
