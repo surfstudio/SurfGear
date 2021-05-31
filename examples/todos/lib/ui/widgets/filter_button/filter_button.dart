@@ -10,9 +10,10 @@ import 'package:todos/ui/widgets/filter_button/filter_button_wm.dart';
 class FilterButton extends CoreMwwmWidget {
   FilterButton({Key? key})
       : super(
-            key: key,
-            widgetModelBuilder: (context) =>
-                FilterButtonWM(context.read<AppProvider>().todosRepository));
+          key: key,
+          widgetModelBuilder: (context) =>
+              FilterButtonWM(context.read<AppProvider>().todosRepository),
+        );
 
   @override
   State<StatefulWidget> createState() => _FilterButtonState();

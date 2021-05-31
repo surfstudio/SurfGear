@@ -12,12 +12,13 @@ class TodoListItem extends CoreMwwmWidget {
     required int todoId,
     Key? key,
   }) : super(
-            key: key,
-            widgetModelBuilder: (context) => TodoListItemWM(
-                  Navigation(context),
-                  context.read<AppProvider>().todosRepository,
-                  todoId,
-                ));
+          key: key,
+          widgetModelBuilder: (context) => TodoListItemWM(
+            Navigation(context),
+            context.read<AppProvider>().todosRepository,
+            todoId,
+          ),
+        );
 
   @override
   State<StatefulWidget> createState() => _TodoListItemState();

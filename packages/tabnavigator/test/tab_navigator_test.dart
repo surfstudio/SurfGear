@@ -30,7 +30,7 @@ void main() {
 
       Stream<TestTab> tabStream() => _tabController.stream;
 
-      final _map = <TestTab, TabBuilder>{
+      final _map = {
         TestTab.first: () => Container(color: Colors.white),
         TestTab.second: () => Container(color: Colors.blue),
         TestTab.third: () => Container(color: Colors.red),
@@ -58,7 +58,7 @@ void main() {
         Key('third'),
       ];
 
-      final _map = <TestTab, TabBuilder>{
+      final _map = {
         TestTab.first: () => Container(color: Colors.white, key: _keys[0]),
         TestTab.second: () => Container(color: Colors.blue, key: _keys[1]),
         TestTab.third: () => Container(color: Colors.red, key: _keys[2]),
@@ -134,23 +134,25 @@ void main() {
         Key('third'),
       ];
 
-      final _map = <TestTab, TabBuilder>{
-        TestTab.first: () => Builder(builder: (context) {
-              return InkWell(
-                onTap: () {
-                  Navigator.of(context).push<void>(
-                    MaterialPageRoute(
-                      builder: (context) => Scaffold(
-                        body: Container(
-                          color: Colors.green,
-                        ),
+      final _map = {
+        TestTab.first: () {
+          return Builder(builder: (context) {
+            return InkWell(
+              onTap: () {
+                Navigator.of(context).push<void>(
+                  MaterialPageRoute(
+                    builder: (context) => Scaffold(
+                      body: Container(
+                        color: Colors.green,
                       ),
                     ),
-                  );
-                },
-                child: Container(color: Colors.white, key: _keys[0]),
-              );
-            }),
+                  ),
+                );
+              },
+              child: Container(color: Colors.white, key: _keys[0]),
+            );
+          });
+        },
         TestTab.second: () => Container(color: Colors.blue, key: _keys[1]),
         TestTab.third: () => Container(color: Colors.red, key: _keys[2]),
       };
@@ -169,7 +171,7 @@ void main() {
             initialData: _initTab,
             builder: (context, snapshot) {
               return BottomNavigationBar(
-                items: const <BottomNavigationBarItem>[
+                items: const [
                   BottomNavigationBarItem(
                     icon: Icon(Icons.feedback),
                     label: 'Feed',
@@ -205,7 +207,8 @@ void main() {
 
       expect(
         find.byWidgetPredicate(
-            (widget) => widget is Container && widget.color == Colors.green),
+          (widget) => widget is Container && widget.color == Colors.green,
+        ),
         findsNothing,
       );
 
@@ -215,7 +218,8 @@ void main() {
       // this means that we're at second screen of first tab
       expect(
         find.byWidgetPredicate(
-            (widget) => widget is Container && widget.color == Colors.green),
+          (widget) => widget is Container && widget.color == Colors.green,
+        ),
         findsWidgets,
       );
 

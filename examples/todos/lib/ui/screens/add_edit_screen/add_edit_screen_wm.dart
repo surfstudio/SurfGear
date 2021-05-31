@@ -14,16 +14,8 @@ class AddEditScreenWM extends WidgetModel {
   final Navigation _navigation;
   final TodoEntity? todoEntity;
 
-  String _title = '';
-  String _description = '';
-
-  set description(String description) {
-    _description = description;
-  }
-
-  set title(String title) {
-    _title = title;
-  }
+  String title = '';
+  String description = '';
 
   bool get isEditing => todoEntity != null;
 
@@ -37,14 +29,14 @@ class AddEditScreenWM extends WidgetModel {
   }
 
   void _addTodo() {
-    _todosRepository.addTodo(_title, _description);
+    _todosRepository.addTodo(title, description);
   }
 
   void _editTodo() {
     _todosRepository.updateTodo(TodoEntity(
       id: todoEntity!.id,
-      title: _title,
-      description: _description,
+      title: title,
+      description: description,
       isCompleted: todoEntity!.isCompleted,
     ));
   }
