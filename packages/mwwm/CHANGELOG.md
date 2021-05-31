@@ -1,5 +1,10 @@
 # Changelog
 
+## MINOR
+
+* Marked as deprecated `doFuture` and `doFutureHandleError`
+* Removed nullable types where possible
+
 ## 1.1.1 - 2021-05-30
 
 * Stable release
