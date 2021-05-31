@@ -71,6 +71,7 @@ abstract class WidgetModel {
 
   /// Call a future.
   /// Using Rx wrappers with [subscribe] method is preferable.
+  @Deprecated('Use try/catch instead')
   void doFuture<T>(
     Future<T> future,
     void Function(T value) onValue, {
@@ -83,6 +84,7 @@ abstract class WidgetModel {
   }
 
   /// Call a future with default error handling
+  @Deprecated('Use try/catch instead')
   void doFutureHandleError<T>(
     Future<T> future,
     void Function(T value) onValue, {
