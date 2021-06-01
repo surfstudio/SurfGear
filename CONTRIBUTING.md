@@ -51,6 +51,8 @@ For example, you'd like to create a patch, that doesn't break backward compatibi
 
 When reviewer accepts your PR, and merge it into `main` branch, [GH Actions script](https://github.com/surfstudio/SurfGear/blob/main/.github/workflows/publish_to_pub.yaml) will analyse `Changelog` file for MAJOR, MINOR or PATCH tag. Selecting the highest severity of changes updates the corresponding digit in the package version, then cleans the semver tags from the changelog and publishes the package.
 
+Note that you don't need to update version in pubspec.yaml. The script does it for you.
+
 So, your `Changelog` updates will be replaced with
 
 ``` markdown
