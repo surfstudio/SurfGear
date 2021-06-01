@@ -1,7 +1,4 @@
-import 'package:mwwm/src/dependencies/wm_dependencies.dart';
-import 'package:mwwm/src/widget_model.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:mwwm/mwwm.dart';
 
-class WidgetModelMock extends WidgetModel {
-  WidgetModelMock(WidgetModelDependencies baseDependencies)
-      : super(baseDependencies);
-}
+class WidgetModelMock extends Mock implements WidgetModel {}

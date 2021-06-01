@@ -8,7 +8,7 @@ import 'package:mwwm/src/widget_model.dart';
 import 'mocks/error_handler_mock.dart';
 import 'mocks/steam_subscription_mock.dart';
 import 'mocks/stream_mock.dart';
-import 'mocks/widget_model_mock.dart';
+import 'test_entities/test_widget_model.dart';
 // ignore_for_file: deprecated_member_use_from_same_package
 
 void main() {
@@ -23,7 +23,7 @@ void main() {
       errorHandlerMock = ErrorHandlerMock();
       streamController = StreamController<int>();
       completer = Completer<int>.sync();
-      widgetModel = WidgetModelMock(
+      widgetModel = TestWidgetModel(
         WidgetModelDependencies(errorHandler: errorHandlerMock),
       );
     });

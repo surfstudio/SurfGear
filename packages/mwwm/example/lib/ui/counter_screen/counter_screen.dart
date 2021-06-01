@@ -4,17 +4,19 @@ import 'package:mwwm/mwwm.dart';
 import 'package:provider/provider.dart';
 
 /// Counter's screen
-class CounterScreen extends CoreMwwmWidget {
+class CounterScreen extends CoreMwwmWidget<CounterWidgetModel> {
   const CounterScreen({
-    required WidgetModelBuilder widgetModelBuilder,
+    required WidgetModelBuilder<CounterWidgetModel> widgetModelBuilder,
     Key? key,
   }) : super(key: key, widgetModelBuilder: widgetModelBuilder);
 
   @override
-  State<StatefulWidget> createState() => _CounterScreenState();
+  WidgetState<CoreMwwmWidget<CounterWidgetModel>, CounterWidgetModel> createWidgetState() {
+    return _CounterScreenState();
+  }
 }
 
-class _CounterScreenState extends WidgetState<CounterWidgetModel> {
+class _CounterScreenState extends WidgetState<CounterScreen, CounterWidgetModel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

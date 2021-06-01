@@ -12,14 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mwwm/mwwm.dart';
 
-typedef WidgetModelBuilder = WidgetModel Function(BuildContext);
+typedef WidgetModelBuilder<WM> = WM Function(BuildContext context);
 
 /// Class for widgets that has [WidgetModel]
 /// You must provide [WidgetModel] in constructor or by WidgetModelFactory
-abstract class CoreMwwmWidget extends StatefulWidget {
+abstract class CoreMwwmWidget<WM extends WidgetModel> extends StatefulWidget {
   /// Builder for `WidgetModel`
   /// There are two possibilities to provide `WidgetModel` :
   ///  1. Here by [widgetModelBuilder] (prefer)
@@ -33,43 +34,49 @@ abstract class CoreMwwmWidget extends StatefulWidget {
   ///   widgetModelBuilder: wmBuilder ?? myBuilderFn
   /// );
   /// ```
-  final WidgetModelBuilder widgetModelBuilder;
+  final WidgetModelBuilder<WM> widgetModelBuilder;
 
   const CoreMwwmWidget({
     required this.widgetModelBuilder,
     Key? key,
   }) : super(key: key);
+
+  @override
+  @nonVirtual
+  // ignore: no_logic_in_create_state
+  State createState() => createWidgetState();
+
+  WidgetState<CoreMwwmWidget<WM>, WM> createWidgetState();
 }
 
 /// Base class for state of [CoreMwwmWidget].
 /// Has [WidgetModel] from [initState].
-abstract class WidgetState<WM extends WidgetModel>
-    extends State<CoreMwwmWidget> {
+abstract class WidgetState<W extends CoreMwwmWidget<WM>, WM extends WidgetModel> extends State<W> {
   @protected
   WM get wm => _wm;
 
   /// [WidgetModel] for widget.
   late WM _wm;
 
-  /// Descendants must call super in the end
-  @override
-  @protected
-  @mustCallSuper
-  void dispose() {
-    _wm.dispose();
-    super.dispose();
-  }
-
   /// Descendants must call super firstly
   @mustCallSuper
   @override
   void initState() {
-    _wm = widget.widgetModelBuilder(context) as WM;
+    _wm = widget.widgetModelBuilder(context);
 
     super.initState();
 
     _wm
       ..onLoad()
       ..onBind();
+  }
+
+  /// Descendants must call super in the end
+  @protected
+  @mustCallSuper
+  @override
+  void dispose() {
+    _wm.dispose();
+    super.dispose();
   }
 }
