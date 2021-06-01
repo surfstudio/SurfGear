@@ -11,12 +11,14 @@ class CounterScreen extends CoreMwwmWidget<CounterWidgetModel> {
   }) : super(key: key, widgetModelBuilder: widgetModelBuilder);
 
   @override
-  WidgetState<CoreMwwmWidget<CounterWidgetModel>, CounterWidgetModel> createWidgetState() {
+  WidgetState<CoreMwwmWidget<CounterWidgetModel>, CounterWidgetModel>
+      createWidgetState() {
     return _CounterScreenState();
   }
 }
 
-class _CounterScreenState extends WidgetState<CounterScreen, CounterWidgetModel> {
+class _CounterScreenState
+    extends WidgetState<CounterScreen, CounterWidgetModel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

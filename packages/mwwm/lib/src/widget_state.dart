@@ -51,7 +51,8 @@ abstract class CoreMwwmWidget<WM extends WidgetModel> extends StatefulWidget {
 
 /// Base class for state of [CoreMwwmWidget].
 /// Has [WidgetModel] from [initState].
-abstract class WidgetState<W extends CoreMwwmWidget<WM>, WM extends WidgetModel> extends State<W> {
+abstract class WidgetState<W extends CoreMwwmWidget<WM>, WM extends WidgetModel>
+    extends State<W> {
   @protected
   WM get wm => _wm;
 
