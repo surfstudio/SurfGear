@@ -2,6 +2,7 @@ coverage:
   precision: 2
   round: nearest
   status:
+    patch: off
     project:
       default: off
       analytics:
