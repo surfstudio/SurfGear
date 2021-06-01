@@ -1,12 +1,16 @@
 # Changelog
 
+## 1.0.1 - 2021-06-01
+
+* Stable release
+
 ## 1.0.1-dev.2 - 2021-05-29
 
-* Remove animation listeners. (patch)
+* Remove animation listeners.
 
 ## 1.0.1-dev.1 - 2021-05-24
 
-* Apply new lint rules. (patch)
+* Apply new lint rules.
 
 ## 1.0.0
 
