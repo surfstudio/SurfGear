@@ -35,6 +35,19 @@ void main() {
     expect(result, equals(['wow', 'rly']));
   });
 
+  test('SurfMwwmExtension bindVoid', () async {
+    final wm = TestWM();
+    final action = VoidAction();
+
+    final result = <String>[];
+
+    wm.bindVoid(action, () => result.add('1'));
+    await action();
+    await action();
+
+    expect(result, equals(['1', '1']));
+  });
+
   group('FutureExt', () {
     test('on', () async {
       final wm = TestWM();
