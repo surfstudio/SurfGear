@@ -16,7 +16,7 @@ import 'package:flutter/widgets.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:surf_injector/surf_injector.dart';
 
-typedef DependenciesBuilder<C> = C Function(BuildContext);
+typedef DependenciesBuilder<C> = C Function(BuildContext context);
 typedef WidgetStateBuilder = State Function();
 
 /// Base class for widgets that has [WidgetModel]
@@ -27,9 +27,7 @@ abstract class MwwmWidget<C extends Component> extends StatefulWidget {
     required this.widgetStateBuilder,
     required this.widgetModelBuilder,
     Key? key,
-  }) : super(
-          key: key,
-        );
+  }) : super(key: key);
 
   /// A function that build dependencies for WidgetModel and Widget
   final DependenciesBuilder<C> dependenciesBuilder;
@@ -48,17 +46,16 @@ abstract class MwwmWidget<C extends Component> extends StatefulWidget {
 
 /// Hidden widget that create [WidgetState]
 /// It's only proxy builder for [State]
-class _ProxyMwwmWidget extends CoreMwwmWidget {
+class _ProxyMwwmWidget extends StatefulWidget {
   const _ProxyMwwmWidget({
     required WidgetStateBuilder widgetStateBuilder,
-    required WidgetModelBuilder widgetModelBuilder,
+    required this.widgetModelBuilder,
     Key? key,
   })  : _wsBuilder = widgetStateBuilder,
         super(
           key: key,
-          widgetModelBuilder: widgetModelBuilder,
         );
-
+  final WidgetModelBuilder widgetModelBuilder;
   final WidgetStateBuilder _wsBuilder;
 
   @override
@@ -87,14 +84,51 @@ class _MwwmWidgetState<C extends Component> extends State<MwwmWidget> {
   Widget build(BuildContext context) => child;
 }
 
+/// WidgetState which doesn't require Widget to be CoreMwwmWidget.
+///
+/// It is supposed to be used with [MwwmWidget] and not with [CoreMwwmWidget]
+///
+/// Because of complexity of changes and migration, and because of
+/// changes are not profitable after surf_injector is not preferable DI solution
+/// it is easier to use widget state from mwwm which is not coupled with widget by generic type
+abstract class OldWidgetState<WM extends WidgetModel> extends State<CoreMwwmWidget> {
+  /// [WidgetModel] for widget.
+  late WM _wm;
+
+  @protected
+  WM get wm => _wm;
+
+  /// Descendants must call super firstly
+  @mustCallSuper
+  @override
+  void initState() {
+    _wm = widget.widgetModelBuilder(context) as WM;
+
+    super.initState();
+
+    _wm
+      ..onLoad()
+      ..onBind();
+  }
+
+  /// Descendants must call super in the end
+  @override
+  @protected
+  @mustCallSuper
+  void dispose() {
+    _wm.dispose();
+    super.dispose();
+  }
+}
+
 /// Implementation of MwwmWidget based on [InheritedWidget]
 /// todo test perfomance
-abstract class MwwmInheritedWidget<C extends Component>
+abstract class MwwmInheritedWidget<WM extends WidgetModel, C extends Component>
     extends InheritedWidget {
   MwwmInheritedWidget({
     required DependenciesBuilder<C> dependenciesBuilder,
     required WidgetStateBuilder widgetStateBuilder,
-    required WidgetModelBuilder widgetModelBuilder,
+    required WidgetModelBuilder<WM> widgetModelBuilder,
     Key? key,
   }) : super(
           key: key,

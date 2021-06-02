@@ -17,7 +17,6 @@ import 'package:counter/ui/app/app_wm.dart';
 import 'package:counter/ui/app/di/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mwwm/mwwm.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
 /// Widget приложения
@@ -31,7 +30,7 @@ class App extends MwwmWidget<AppComponent> {
         );
 }
 
-class _AppState extends WidgetState<AppWidgetModel> {
+class _AppState extends OldWidgetState<AppWidgetModel> {
   late final GlobalKey<NavigatorState> _navKey;
 
   @override

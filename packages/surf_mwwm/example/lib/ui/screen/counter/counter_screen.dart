@@ -23,14 +23,13 @@ class CounterScreen extends MwwmWidget<CounterComponent> {
   CounterScreen({Key? key})
       : super(
           key: key,
-          dependenciesBuilder: (context) =>
-              CounterComponent(Navigator.of(context)),
+          dependenciesBuilder: (context) => CounterComponent(Navigator.of(context)),
           widgetStateBuilder: () => _CounterScreenState(),
           widgetModelBuilder: createCounterModel,
         );
 }
 
-class _CounterScreenState extends WidgetState<CounterWidgetModel> {
+class _CounterScreenState extends OldWidgetState<CounterWidgetModel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

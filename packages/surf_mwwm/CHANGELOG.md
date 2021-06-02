@@ -1,5 +1,10 @@
 # Changelog
 
+# MAJOR
+
+* Added `bindVoid` extension to bind `VoidAction`s
+* Added `OldWidgetState` to simplify migration of projects with legacy codebase to new mwwm
+
 ## 1.0.1 - 2021-05-30
 
 * Stable release
