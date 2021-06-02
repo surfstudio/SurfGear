@@ -23,7 +23,8 @@ class CounterScreen extends MwwmWidget<CounterComponent> {
   CounterScreen({Key? key})
       : super(
           key: key,
-          dependenciesBuilder: (context) => CounterComponent(Navigator.of(context)),
+          dependenciesBuilder: (context) =>
+              CounterComponent(Navigator.of(context)),
           widgetStateBuilder: () => _CounterScreenState(),
           widgetModelBuilder: createCounterModel,
         );

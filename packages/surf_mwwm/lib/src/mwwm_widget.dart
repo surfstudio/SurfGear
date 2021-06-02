@@ -91,7 +91,8 @@ class _MwwmWidgetState<C extends Component> extends State<MwwmWidget> {
 /// Because of complexity of changes and migration, and because of
 /// changes are not profitable after surf_injector is not preferable DI solution
 /// it is easier to use widget state from mwwm which is not coupled with widget by generic type
-abstract class OldWidgetState<WM extends WidgetModel> extends State<CoreMwwmWidget> {
+abstract class OldWidgetState<WM extends WidgetModel>
+    extends State<CoreMwwmWidget> {
   /// [WidgetModel] for widget.
   late WM _wm;
 
