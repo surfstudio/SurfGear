@@ -14,5 +14,6 @@
 
 import 'package:flutter/material.dart';
 
-Widget makeTestableWidget(Widget widgetForWrap) =>
-    MaterialApp(home: Scaffold(body: Stack(children: [widgetForWrap])));
+Widget makeTestableWidget(Widget widgetForWrap) {
+  return MaterialApp(home: Scaffold(body: Stack(children: [widgetForWrap])));
+}

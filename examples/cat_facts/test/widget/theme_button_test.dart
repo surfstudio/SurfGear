@@ -31,13 +31,15 @@ void main() {
       expect(find.text('Switch Off'), findsOneWidget);
       expect(find.text('Switch On'), findsNothing);
 
-      final typeFinder = find.byWidgetPredicate((widget) {
-        if (widget is! Icon) {
-          return false;
-        }
+      final typeFinder = find.byWidgetPredicate(
+        (widget) {
+          if (widget is! Icon) {
+            return false;
+          }
 
-        return widget.icon == Icons.brightness_3;
-      });
+          return widget.icon == Icons.brightness_3;
+        },
+      );
 
       expect(typeFinder, findsOneWidget);
     });
