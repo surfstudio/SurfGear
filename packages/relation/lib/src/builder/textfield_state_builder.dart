@@ -102,7 +102,7 @@ class TextFieldStreamedState extends StreamedState<TextFieldState>
   @override
   Future<void> content(String data) {
     if (!validator.hasMatch(data) || (data.isEmpty && mandatory)) {
-      return super.accept(
+      return accept(
         TextFieldState.error(
           data,
           IncorrectTextException(incorrectTextMsg),
@@ -111,16 +111,15 @@ class TextFieldStreamedState extends StreamedState<TextFieldState>
     } else if (!canEdit) {
       return accept(TextFieldState.enabled(value.data, enabled: canEdit));
     } else {
-      return super.accept(TextFieldState.content(data));
+      return accept(TextFieldState.content(data));
     }
   }
 
   @override
-  Future<void> error([Exception? error]) =>
-      super.accept(TextFieldState.error(value.data, error));
+  Future<void> error([Exception? error]) => accept(TextFieldState.error(value.data, error));
 
   @override
-  Future<void> loading() => super.accept(TextFieldState.loading());
+  Future<void> loading() => accept(TextFieldState.loading());
 }
 
 /// Exception of incorrect text wrapper

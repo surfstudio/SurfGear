@@ -18,7 +18,7 @@ import 'package:relation/relation.dart';
 void main() {
   test('EntityStreamedState content test', () async {
     final entityStreamedState = EntityStreamedState<String>();
-    final result = <EntityState<String?>>[];
+    final result = <EntityState<String>>[];
     entityStreamedState.stream.listen(result.add);
     await entityStreamedState.content('test');
     expect(result.map((state) => state.data).toList(), equals([null, 'test']));
@@ -26,7 +26,7 @@ void main() {
 
   test('EntityStreamedState error test', () async {
     final entityStreamedState = EntityStreamedState<String>();
-    final result = <EntityState<String?>>[];
+    final result = <EntityState<String>>[];
     entityStreamedState.stream.listen(result.add);
     await entityStreamedState.error(Exception());
     expect(
@@ -35,14 +35,35 @@ void main() {
     );
   });
 
-  test('EntityStreamedState loading test', () async {
+  test('EntityStreamedState loading test isLoading value is correct', () async {
     final entityStreamedState = EntityStreamedState<String>();
-    final result = <EntityState<String?>>[];
+    final result = <EntityState<String>>[];
     entityStreamedState.stream.listen(result.add);
     await entityStreamedState.loading();
     expect(
       result.map((state) => state.isLoading).toList(),
       equals([false, true]),
     );
+  });
+
+  test('EntityStreamedState loading test data is not cleared after loading', () async {
+    final entityStreamedState = EntityStreamedState<String>(const EntityState.content('initial'));
+    final result = <EntityState<String>>[];
+    entityStreamedState.stream.listen(result.add);
+    await entityStreamedState.loading();
+    expect(
+      result.map((state) => state.data != null).toList(),
+      equals([true, true]),
+    );
+  });
+
+  test('EntityStreamedState fromStream test', () async {
+    final testIterable = [1, 2, 3].map((value) => EntityState.content(value));
+    final entityStreamedState = EntityStreamedState<int>.from(Stream.fromIterable(testIterable));
+    final result = <EntityState<int>>[];
+    entityStreamedState.stream.listen(result.add);
+    await entityStreamedState.loading();
+    expect(result.sublist(0, result.length - 1), equals(testIterable));
+    expect(result.last.isLoading, isTrue);
   });
 }
