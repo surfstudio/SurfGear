@@ -19,9 +19,9 @@ import 'package:cat_facts/repository/api_client.dart';
 
 /// Репозиторий для работы с фактами
 class FactsRepository {
-  const FactsRepository(this.client);
-
   final ApiClient client;
+
+  const FactsRepository(this.client);
 
   /// Получить список фактов
   Future<Iterable<Fact>> getFacts() async {

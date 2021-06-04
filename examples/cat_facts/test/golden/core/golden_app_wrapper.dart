@@ -12,8 +12,8 @@ class GoldenAppWrapper extends AppDependencies {
   final MockFactsInteractor? factsInteractor;
 
   const GoldenAppWrapper({
-    Key? key,
     required App app,
+    Key? key,
     this.themeInteractor,
     this.factsInteractor,
   }) : super(

@@ -16,8 +16,9 @@ import 'package:http/http.dart';
 
 /// Класс для взаимодействия с API слоем.
 class ApiClient {
-  final String _baseUrl;
   final Client httpClient;
+
+  final String _baseUrl;
 
   ApiClient(this._baseUrl, this.httpClient);
 

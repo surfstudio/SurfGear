@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 class AppDependencies extends StatelessWidget {
   final App app;
 
-  const AppDependencies({Key? key, required this.app}) : super(key: key);
+  const AppDependencies({required this.app, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

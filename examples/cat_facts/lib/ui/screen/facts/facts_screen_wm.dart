@@ -22,16 +22,16 @@ import 'package:provider/provider.dart';
 import 'package:relation/relation.dart';
 
 class FactsScreenWidgetModel extends WidgetModel {
+  final ThemeInteractor _themeInteractor;
+  final FactsInteractor _factsInteractor;
+
+  final facts = StreamedState<Iterable<Fact>>([]);
+
   FactsScreenWidgetModel(
     WidgetModelDependencies baseDependencies,
     this._themeInteractor,
     this._factsInteractor,
   ) : super(baseDependencies);
-
-  final ThemeInteractor _themeInteractor;
-  final FactsInteractor _factsInteractor;
-
-  final facts = StreamedState<Iterable<Fact>>([]);
 
   @override
   void onLoad() {
