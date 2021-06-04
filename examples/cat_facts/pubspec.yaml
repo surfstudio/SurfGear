@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.1
-  mwwm: ^1.1.0
+  mwwm: ^2.0.0-dev.1
   provider: ^5.0.0
   relation: ^2.0.0
 
@@ -18,12 +18,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  golden_toolkit: 0.9.0
+  golden_toolkit: ^0.9.0
 
   integration_test:
     sdk: flutter
 
-  mocktail: 0.1.2
+  mocktail: ^0.1.2
 
   surf_lint_rules: ^1.1.1-dev.0
 

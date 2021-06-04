@@ -21,16 +21,20 @@ import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
 
 @immutable
-class FactsScreen extends CoreMwwmWidget {
+class FactsScreen extends CoreMwwmWidget<FactsScreenWidgetModel> {
   const FactsScreen({
     Key? key,
   }) : super(key: key, widgetModelBuilder: createFactsScreenWidgetModel);
 
   @override
-  State<StatefulWidget> createState() => _FactsSceenState();
+  WidgetState<CoreMwwmWidget<FactsScreenWidgetModel>, FactsScreenWidgetModel>
+      createWidgetState() {
+    return _FactsSceenState();
+  }
 }
 
-class _FactsSceenState extends WidgetState<FactsScreenWidgetModel> {
+class _FactsSceenState
+    extends WidgetState<FactsScreen, FactsScreenWidgetModel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -22,10 +22,10 @@ import 'package:provider/provider.dart';
 import 'package:relation/relation.dart';
 
 class FactsScreenWidgetModel extends WidgetModel {
+  final facts = StreamedState<Iterable<Fact>>([]);
+
   final ThemeInteractor _themeInteractor;
   final FactsInteractor _factsInteractor;
-
-  final facts = StreamedState<Iterable<Fact>>([]);
 
   FactsScreenWidgetModel(
     WidgetModelDependencies baseDependencies,
@@ -39,12 +39,12 @@ class FactsScreenWidgetModel extends WidgetModel {
     _fetchFacts();
   }
 
-  Future<void> _fetchFacts() async =>
-      facts.accept(await _factsInteractor.getFacts());
-
   Stream<AppTheme?> currentTheme() => _themeInteractor.appTheme.stream;
 
   void switchTheme() => _themeInteractor.changeTheme();
+
+  Future<void> _fetchFacts() async =>
+      facts.accept(await _factsInteractor.getFacts());
 }
 
 FactsScreenWidgetModel createFactsScreenWidgetModel(BuildContext context) {

@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
 
-class App extends CoreMwwmWidget {
+class App extends CoreMwwmWidget<AppWidgetModel> {
   const App({
     Key? key,
   }) : super(
@@ -28,10 +28,13 @@ class App extends CoreMwwmWidget {
         );
 
   @override
-  State<StatefulWidget> createState() => _AppState();
+  WidgetState<CoreMwwmWidget<AppWidgetModel>, AppWidgetModel>
+      createWidgetState() {
+    return _AppState();
+  }
 }
 
-class _AppState extends WidgetState<AppWidgetModel> {
+class _AppState extends WidgetState<App, AppWidgetModel> {
   @override
   Widget build(BuildContext context) {
     return StreamedStateBuilder<AppTheme>(

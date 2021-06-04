@@ -22,12 +22,12 @@ import 'package:relation/relation.dart';
 class AppWidgetModel extends WidgetModel {
   final ThemeInteractor _themeInteractor;
 
+  StreamedState<AppTheme> get theme => _themeInteractor.appTheme;
+
   AppWidgetModel(
     WidgetModelDependencies baseDependencies,
     this._themeInteractor,
   ) : super(baseDependencies);
-
-  StreamedState<AppTheme> get theme => _themeInteractor.appTheme;
 }
 
 AppWidgetModel createAppWidgetModel(BuildContext context) {
