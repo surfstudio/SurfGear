@@ -1,5 +1,11 @@
 # Changelog
 
+## MAJOR
+
+* **Breaking Change:** Removed nullable types where possible
+* **Breaking Change:** Added generic type of WidgetModel to CoreMwwmWidget and generic type of CoreMwwmWidget to WidgetState to easily get attributes of Widget without cast
+* Marked as deprecated `doFuture` and `doFutureHandleError`
+
 ## 1.1.1 - 2021-05-30
 
 * Stable release

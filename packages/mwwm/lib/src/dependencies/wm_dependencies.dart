@@ -17,7 +17,7 @@ import 'package:mwwm/src/error/error_handler.dart';
 /// Base dependencies for WidgetModel
 /// Typically is an [ErrorHandler]
 class WidgetModelDependencies {
-  const WidgetModelDependencies({this.errorHandler});
-
   final ErrorHandler? errorHandler;
+
+  const WidgetModelDependencies({this.errorHandler});
 }
