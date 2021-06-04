@@ -8,16 +8,8 @@ issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 dependencies:
   flutter:
     sdk: flutter
-  mwwm:
-    git:
-      url: https://github.com/surfstudio/SurfGear.git
-      ref: mwwm_better_null_safety_migration
-      path: packages/mwwm
-  relation:
-    git:
-      url: https://github.com/surfstudio/SurfGear.git
-      ref: relation_3.0
-      path: packages/relation
+  mwwm: ^2.0.0-dev.1
+  relation: ^4.0.0-dev.1
   rxdart: ^0.27.0
   surf_injector: ^1.0.0
 

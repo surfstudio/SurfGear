@@ -1,6 +1,6 @@
 # Changelog
 
-# MAJOR
+## MAJOR
 
 * Added `bindVoid` extension to bind `VoidAction`s
 * Added `OldWidgetState` to simplify migration of projects with legacy codebase to new mwwm
