@@ -12,12 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:http/http.dart' as http;
+import 'package:cat_facts/data/theme/app_theme.dart';
+import 'package:relation/relation.dart';
 
-class ApiClient {
-  final _baseUrl = 'https://cat-fact.herokuapp.com';
-  final http.Client httpClient = http.Client();
+/// Интерактор для работы с темой приложения.
+class ThemeInteractor {
+  final appTheme = StreamedState<AppTheme>(AppTheme.light);
 
-  Future<http.Response> get(String endpoint) =>
-      httpClient.get(Uri.parse(_baseUrl + endpoint));
+  void changeTheme() {
+    final current = appTheme.value;
+    appTheme.accept(
+      (current == AppTheme.dark) ? AppTheme.light : AppTheme.dark,
+    );
+  }
 }

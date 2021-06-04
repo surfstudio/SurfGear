@@ -13,26 +13,26 @@
 // limitations under the License.
 
 import 'package:cat_facts/data/theme/app_theme.dart';
-import 'package:cat_facts/storage/app/app_storage.dart';
+import 'package:cat_facts/interactor/theme/theme_interactor.dart';
 import 'package:flutter/widgets.dart' hide Action;
 import 'package:mwwm/mwwm.dart';
 import 'package:provider/provider.dart';
 import 'package:relation/relation.dart';
 
 class AppWidgetModel extends WidgetModel {
+  final ThemeInteractor _themeInteractor;
+
+  StreamedState<AppTheme> get theme => _themeInteractor.appTheme;
+
   AppWidgetModel(
     WidgetModelDependencies baseDependencies,
-    this._appStorage,
+    this._themeInteractor,
   ) : super(baseDependencies);
-
-  final AppStorage _appStorage;
-
-  StreamedState<AppTheme> get theme => _appStorage.appTheme;
 }
 
 AppWidgetModel createAppWidgetModel(BuildContext context) {
   return AppWidgetModel(
     const WidgetModelDependencies(),
-    context.read<AppStorage>(),
+    context.read<ThemeInteractor>(),
   );
 }

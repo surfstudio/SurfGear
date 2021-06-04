@@ -1,4 +1,4 @@
-// Copyright (c) 2019-present, SurfStudio LLC
+// Copyright (c) 2019-present,  SurfStudio LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,19 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:cat_facts/data/theme/app_theme.dart';
-import 'package:cat_facts/interactor/api_client.dart';
-import 'package:relation/relation.dart';
+import 'package:flutter/material.dart';
 
-class AppStorage {
-  final appTheme = StreamedState<AppTheme>(AppTheme.light);
-
-  final ApiClient apiClient = ApiClient();
-
-  void changeTheme() {
-    final current = appTheme.value;
-    appTheme.accept(
-      (current == AppTheme.dark) ? AppTheme.light : AppTheme.dark,
-    );
-  }
+Widget makeTestableWidget(Widget widgetForWrap) {
+  return MaterialApp(home: Scaffold(body: Stack(children: [widgetForWrap])));
 }

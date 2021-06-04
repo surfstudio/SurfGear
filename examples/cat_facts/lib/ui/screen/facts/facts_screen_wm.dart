@@ -14,23 +14,24 @@
 
 import 'package:cat_facts/data/facts/fact.dart';
 import 'package:cat_facts/data/theme/app_theme.dart';
-import 'package:cat_facts/repository/facts_repository.dart';
-import 'package:cat_facts/storage/app/app_storage.dart';
+import 'package:cat_facts/interactor/facts/facts_interactor.dart';
+import 'package:cat_facts/interactor/theme/theme_interactor.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:provider/provider.dart';
 import 'package:relation/relation.dart';
 
 class FactsScreenWidgetModel extends WidgetModel {
+  final facts = StreamedState<Iterable<Fact>>([]);
+
+  final ThemeInteractor _themeInteractor;
+  final FactsInteractor _factsInteractor;
+
   FactsScreenWidgetModel(
     WidgetModelDependencies baseDependencies,
-    this._appStorage,
-    this._factsRepository,
+    this._themeInteractor,
+    this._factsInteractor,
   ) : super(baseDependencies);
-  final AppStorage _appStorage;
-  final FactsRepository _factsRepository;
-
-  final facts = StreamedState<Iterable<Fact>>([]);
 
   @override
   void onLoad() {
@@ -38,20 +39,18 @@ class FactsScreenWidgetModel extends WidgetModel {
     _fetchFacts();
   }
 
+  Stream<AppTheme?> currentTheme() => _themeInteractor.appTheme.stream;
+
+  void switchTheme() => _themeInteractor.changeTheme();
+
   Future<void> _fetchFacts() async =>
-      facts.accept(await _factsRepository.getFacts());
-
-  void switchTheme() => _appStorage.changeTheme();
-
-  Stream<AppTheme?> currentTheme() => _appStorage.appTheme.stream;
+      facts.accept(await _factsInteractor.getFacts());
 }
 
 FactsScreenWidgetModel createFactsScreenWidgetModel(BuildContext context) {
-  final appStorage = context.read<AppStorage>();
-
   return FactsScreenWidgetModel(
     const WidgetModelDependencies(),
-    appStorage,
-    FactsRepository(appStorage.apiClient),
+    context.read<ThemeInteractor>(),
+    context.read<FactsInteractor>(),
   );
 }

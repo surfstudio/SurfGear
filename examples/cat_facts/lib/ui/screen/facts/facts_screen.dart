@@ -12,26 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:math';
-
 import 'package:cat_facts/data/facts/fact.dart';
 import 'package:cat_facts/data/theme/app_theme.dart';
 import 'package:cat_facts/ui/screen/facts/facts_screen_wm.dart';
+import 'package:cat_facts/ui/screen/facts/theme_button.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
 
 @immutable
-class FactsScreen extends CoreMwwmWidget {
+class FactsScreen extends CoreMwwmWidget<FactsScreenWidgetModel> {
   const FactsScreen({
     Key? key,
   }) : super(key: key, widgetModelBuilder: createFactsScreenWidgetModel);
 
   @override
-  State<StatefulWidget> createState() => _FactsSceenState();
+  WidgetState<CoreMwwmWidget<FactsScreenWidgetModel>, FactsScreenWidgetModel>
+      createWidgetState() {
+    return _FactsSceenState();
+  }
 }
 
-class _FactsSceenState extends WidgetState<FactsScreenWidgetModel> {
+class _FactsSceenState
+    extends WidgetState<FactsScreen, FactsScreenWidgetModel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,33 +42,14 @@ class _FactsSceenState extends WidgetState<FactsScreenWidgetModel> {
         title: const Text('Cats facts'),
         actions: [
           TextButton(
+            key: const Key('theme_switcher'),
             onPressed: () {
               wm.switchTheme();
             },
             child: StreamBuilder<AppTheme?>(
               stream: wm.currentTheme(),
               builder: (context, snapshot) {
-                return Row(children: [
-                  if (snapshot.data == AppTheme.light)
-                    const Text(
-                      'Switch Off',
-                      style: TextStyle(color: Colors.white),
-                    )
-                  else
-                    const Text(
-                      'Switch On',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  const SizedBox(width: 10),
-                  if (snapshot.data == AppTheme.light)
-                    Transform.rotate(
-                      angle: pi / 6,
-                      child:
-                          const Icon(Icons.brightness_3, color: Colors.white),
-                    )
-                  else
-                    const Icon(Icons.brightness_7, color: Colors.white),
-                ]);
+                return ThemeButton(theme: snapshot.data);
               },
             ),
           ),

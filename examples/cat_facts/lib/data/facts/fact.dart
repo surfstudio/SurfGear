@@ -13,6 +13,18 @@
 // limitations under the License.
 
 class Fact {
+  final Status? status;
+  final String? type;
+  final bool? deleted;
+  final String? id;
+  final String? user;
+  final String? text;
+  final int? v;
+  final String? source;
+  final String? updatedAt;
+  final String? createdAt;
+  final bool? used;
+
   const Fact({
     this.status,
     this.type,
@@ -40,21 +52,13 @@ class Fact {
         createdAt: json['createdAt'] as String?,
         used: json['used'] as bool?,
       );
-
-  final Status? status;
-  final String? type;
-  final bool? deleted;
-  final String? id;
-  final String? user;
-  final String? text;
-  final int? v;
-  final String? source;
-  final String? updatedAt;
-  final String? createdAt;
-  final bool? used;
 }
 
 class Status {
+  final bool? verified;
+  final int? sentCount;
+  final String? feedback;
+
   const Status({
     this.verified,
     this.sentCount,
@@ -66,8 +70,4 @@ class Status {
         sentCount: json['sentCount'] as int?,
         feedback: json['feedback'] as String?,
       );
-
-  final bool? verified;
-  final int? sentCount;
-  final String? feedback;
 }

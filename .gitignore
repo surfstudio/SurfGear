@@ -94,3 +94,4 @@ packages/template/ios/Flutter/flutter_export_environment.sh
 # Unit test runner related
 **/coverage/**.info
 fake_test.dart
+examples/cat_facts/test/golden/app/failures
