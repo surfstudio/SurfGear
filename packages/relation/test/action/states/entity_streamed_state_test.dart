@@ -46,27 +46,13 @@ void main() {
     );
   });
 
-  test('EntityStreamedState loading test data is not cleared after loading',
-      () async {
-    final entityStreamedState =
-        EntityStreamedState<String>(const EntityState.content('initial'));
-    final result = <EntityState<String>>[];
-    entityStreamedState.stream.listen(result.add);
-    await entityStreamedState.loading();
-    expect(
-      result.map((state) => state.data != null).toList(),
-      equals([true, true]),
-    );
-  });
-
   test('EntityStreamedState fromStream test', () async {
     final testIterable = [1, 2, 3].map((value) => EntityState.content(value));
-    final entityStreamedState =
-        EntityStreamedState<int>.from(Stream.fromIterable(testIterable));
+    final entityStreamedState = EntityStreamedState<int>.from(Stream.fromIterable(testIterable));
     final result = <EntityState<int>>[];
     entityStreamedState.stream.listen(result.add);
-    await entityStreamedState.loading();
-    expect(result.sublist(0, result.length - 1), equals(testIterable));
-    expect(result.last.isLoading, isTrue);
+    await Future<void>.delayed(Duration.zero);
+    Map<EntityState<int>, EntityState<int>>.fromIterables(result, testIterable)
+        .forEach((key, value) => expect(key.data, value.data));
   });
 }
