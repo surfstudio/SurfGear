@@ -19,9 +19,12 @@ import 'package:rxdart/rxdart.dart';
 
 void main() {
   test('TextEditingAction test', () {
-    final action = TextEditingAction((onChanged) {
-      expect('test', onChanged);
-    });
+    final action = TextEditingAction(
+      // ignore: deprecated_member_use_from_same_package
+      onChanged: (data) {
+        expect(data, equals('test'));
+      },
+    );
     action.controller.text = 'test';
   });
 

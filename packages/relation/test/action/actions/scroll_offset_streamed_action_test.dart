@@ -21,8 +21,9 @@ void main() {
   testWidgets(
     'ScrollOffsetAction test',
     (tester) async {
-      final action = ScrollOffsetAction((onChanged) {
-        expect(1.0, onChanged);
+      // ignore: deprecated_member_use_from_same_package
+      final action = ScrollOffsetAction(onChanged: (data) {
+        expect(data, equals(1.0));
       });
 
       await tester.pumpWidget(MaterialApp(

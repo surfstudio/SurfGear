@@ -28,32 +28,37 @@ import 'package:rxdart/rxdart.dart';
 ///   )
 /// ```
 class StreamedState<T> implements Event<T> {
-  StreamedState([T? initialData]) {
-    if (initialData != null) {
-      accept(initialData);
-    }
-  }
+  StreamedState(T initialData)
+      : _stateSubject = BehaviorSubject.seeded(initialData);
 
-  StreamedState.from(Stream<T> stream) {
-    stateSubject.addStream(stream);
+  StreamedState.from(Stream<T> stream) : _stateSubject = BehaviorSubject<T>() {
+    _stateSubject.addStream(stream);
   }
 
   /// Behavior state for updating events
-  final BehaviorSubject<T?> stateSubject = BehaviorSubject();
+  final BehaviorSubject<T> _stateSubject;
 
-  /// current value in stream
-  T? get value => stateSubject.value;
-
-  @override
-  Stream<T?> get stream => stateSubject.stream;
+  /// Current value of stream
+  T get value => _stateSubject.value;
 
   @override
-  Future<T?> accept([T? data]) {
-    stateSubject.add(data);
-    return stateSubject.stream.first;
+  Stream<T> get stream => _stateSubject.stream;
+
+  @override
+  Future<void> accept(T data) {
+    _stateSubject.add(data);
+    return Future<void>.value();
+  }
+
+  /// Accepts new [data] if current [value] is not equal to [data]
+  Future<void> acceptUnique(T data) {
+    if (value != data) {
+      accept(data);
+    }
+    return Future<void>.value();
   }
 
   void dispose() {
-    stateSubject.close();
+    _stateSubject.close();
   }
 }

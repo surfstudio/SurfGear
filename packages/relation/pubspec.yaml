@@ -1,5 +1,5 @@
 name: relation
-version: 2.0.1
+version: 3.0.0
 description: the stream representation of the relations of the entities and widget utilities
 homepage: "https://github.com/surfstudio/SurfGear/tree/main/packages/relation"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"

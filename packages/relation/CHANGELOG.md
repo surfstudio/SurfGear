@@ -1,5 +1,15 @@
 # Changelog
 
+## MAJOR
+
+* **Breaking Change:** `Action` renamed to `StreamedAction`
+* **Breaking Change:** `StreamedAction`'s, `ScrollOffsetAction`'s and `TextEditingAction`'s `onChanged` callback is named parameter now.
+* **Breaking Change:** replaced `Object` with `Exception` in `EntityEvent` and all derived classes
+* **Breaking Change:** removed value return from `Event.accept`, `EntityEvent.accept` and all derived
+* **Breaking Change:** removed nullable types where possible
+* Add `acceptUnique` param to `StreamedAction`.
+* Add `acceptUnique` method to `StreamedState`.
+
 ## 2.0.1 - 2021-05-30
 
 * Stable release
@@ -11,8 +21,7 @@
 ## 2.0.0
 
 * **Breaking Change:** `EntityStateBuilder`'s `child` argument replaced with `builder`
-* **Breaking Change:** `EntityStateBuilder`'s `errorBuilder` argument now passes `Widget Function(BuildContext, Exception)`.
-If you'd like to get `data` from `error` please use `errorDataBuilder` instead.
+* **Breaking Change:** `EntityStateBuilder`'s `errorBuilder` argument now passes `Widget Function(BuildContext, Exception)`. If you'd like to get `data` from `error` please use `errorDataBuilder` instead.
 * Add the ability to get an `error` in `EntityStateBuilder` from `errorChild`.
 * Add `data` argument to `EntityStreamedState`.
 * Update `rxdart` dependency to `0.27.0`.

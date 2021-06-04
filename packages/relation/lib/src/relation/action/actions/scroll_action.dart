@@ -13,12 +13,16 @@
 // limitations under the License.
 
 import 'package:flutter/widgets.dart' as flutter;
-import 'package:relation/src/relation/action/action.dart';
+import 'package:relation/src/relation/action/streamed_action.dart';
 
 /// Action for scroll
-class ScrollOffsetAction extends Action<double> {
-  ScrollOffsetAction([void Function(double? data)? onChanged])
-      : super(onChanged) {
+class ScrollOffsetAction extends StreamedAction<double> {
+  ScrollOffsetAction({
+    @Deprecated('Use subscription on stream instead. And handle changes in listener. Will be removed in next major version')
+        void Function(double data)? onChanged,
+  })
+  // ignore: deprecated_member_use_from_same_package
+  : super(onChanged: onChanged) {
     controller.addListener(() {
       accept(controller.offset);
     });

@@ -17,11 +17,11 @@ The stream representation of the relations of the entities and widget utilities
 
 Main classes:
 
-1. [Action](./lib/src/relation/action/action.dart)
-    1.1 [ScrollAction](./lib/src/relation/action/actions/scroll_action.dart)
-    1.2 [TextEdititingAction](./lib/src/relation/action/actions/text_editing_action.dart)
+1. [StreamedAction](lib/src/relation/action/streamed_action.dart)
+    1.1 [ScrollOffsetAction](lib/src/relation/action/actions/scroll_action.dart)
+    1.2 [TextEditingAction](lib/src/relation/action/actions/text_editing_action.dart)
 2. [Builder](./lib/src/builder)
-    2.1 [EntityStreamBuilder](./lib/src/builder/entity_stream_builder.dart)
+    2.1 [EntityStateBuilder](./lib/src/builder/entity_state_builder.dart)
     2.2 [StreamedStateBuilder](./lib/src/builder/streamed_state_builder.dart)
     2.3 [TextfieldStateBuilder](./lib/src/builder/textfield_state_builder.dart)
 3. [StreamedState](./lib/src/relation/state/streamed_state.dart)
@@ -29,7 +29,7 @@ Main classes:
 
 ## Actions
 
-### Action
+### StreamedAction
 
 It's wrapper over an action on screen.
 It may be a tap on button, text changes, focus changes and so on.
@@ -44,7 +44,7 @@ It may be a tap on button, text changes, focus changes and so on.
    someAction.action.listen(doSomething);
 ```
 
-### ScrollAction
+### ScrollOffsetAction
 
 The action that fires when the value changes when scrolling.
 
@@ -52,7 +52,7 @@ The action that fires when the value changes when scrolling.
   testWidgets(
     'ScrollOffsetAction test',
     (WidgetTester tester) async {
-      final action = ScrollOffsetAction((onChanged) {
+      final action = ScrollOffsetStreamedAction((onChanged) {
         expect(1.0, onChanged);
       });
 
@@ -79,7 +79,7 @@ The action that fires when the value changes when scrolling.
   );
 ```
 
-### TextEditingAction
+### TextEditingStreamedAction
 
 **Currently experimental.**  
 An action that fires when a text field receives new characters
@@ -125,7 +125,7 @@ Updates child widget when an answer arrives
   );
 ```
 
-### EntityStreamBuilder
+### EntityStateBuilder
 
 This builder has three states onResponse, onError, onLoading
 
@@ -291,7 +291,7 @@ Add `relation` to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  relation: ^1.0.0
+  relation: ^3.0.0
 ```
 
 You can use both `stable` and `dev` versions of the package listed above in the badges bar.

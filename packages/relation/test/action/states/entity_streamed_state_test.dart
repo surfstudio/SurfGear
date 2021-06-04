@@ -16,27 +16,44 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:relation/relation.dart';
 
 void main() {
-  test('EntityStreamedState content test', () {
+  test('EntityStreamedState content test', () async {
     final entityStreamedState = EntityStreamedState<String>();
-    entityStreamedState.stream.listen((event) {
-      expect(event?.data, 'test');
-    });
-    entityStreamedState.content('test');
+    final result = <EntityState<String>>[];
+    entityStreamedState.stream.listen(result.add);
+    await entityStreamedState.content('test');
+    expect(result.map((state) => state.data).toList(), equals([null, 'test']));
   });
 
-  test('EntityStreamedState error test', () {
+  test('EntityStreamedState error test', () async {
     final entityStreamedState = EntityStreamedState<String>();
-    entityStreamedState.stream.listen((event) {
-      expect(event?.error, isException);
-    });
-    entityStreamedState.error(Exception());
+    final result = <EntityState<String>>[];
+    entityStreamedState.stream.listen(result.add);
+    await entityStreamedState.error(Exception());
+    expect(
+      result.map((state) => state.error).toList(),
+      equals([null, isException]),
+    );
   });
 
-  test('EntityStreamedState loading test', () {
+  test('EntityStreamedState loading test isLoading value is correct', () async {
     final entityStreamedState = EntityStreamedState<String>();
-    entityStreamedState.stream.listen((event) {
-      expect(event?.isLoading, true);
-    });
-    entityStreamedState.loading();
+    final result = <EntityState<String>>[];
+    entityStreamedState.stream.listen(result.add);
+    await entityStreamedState.loading();
+    expect(
+      result.map((state) => state.isLoading).toList(),
+      equals([false, true]),
+    );
+  });
+
+  test('EntityStreamedState fromStream test', () async {
+    final testIterable = [1, 2, 3].map((value) => EntityState.content(value));
+    final entityStreamedState =
+        EntityStreamedState<int>.from(Stream.fromIterable(testIterable));
+    final result = <EntityState<int>>[];
+    entityStreamedState.stream.listen(result.add);
+    await Future<void>.delayed(Duration.zero);
+    Map<EntityState<int>, EntityState<int>>.fromIterables(result, testIterable)
+        .forEach((key, value) => expect(key.data, value.data));
   });
 }
