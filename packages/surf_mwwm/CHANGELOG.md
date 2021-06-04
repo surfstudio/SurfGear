@@ -1,10 +1,10 @@
 # Changelog
 
-## MAJOR
+## 2.0.0-dev.1 - 2021-06-04
 
-* Added `bindVoid` extension to bind `VoidAction`s
-* Added `OldWidgetState` to simplify migration of projects with legacy codebase to new mwwm
-* Removed null type of generic in `bind`
+* Added `bindVoid` extension to bind `VoidAction`s (major)
+* Added `OldWidgetState` to simplify migration of projects with legacy codebase to new mwwm (major)
+* Removed null type of generic in `bind` (major)
 
 ## 1.0.1 - 2021-05-30
 
