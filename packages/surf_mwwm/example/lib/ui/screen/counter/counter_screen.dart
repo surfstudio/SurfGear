@@ -30,7 +30,7 @@ class CounterScreen extends MwwmWidget<CounterComponent> {
         );
 }
 
-class _CounterScreenState extends WidgetState<CounterWidgetModel> {
+class _CounterScreenState extends OldWidgetState<CounterWidgetModel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
