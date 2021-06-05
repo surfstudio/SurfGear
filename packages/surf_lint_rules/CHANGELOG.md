@@ -1,8 +1,8 @@
 # Changelog
 
-## PATCH
+## 1.2.1-dev.1 - 2021-06-05
 
-* Switch on `dart_code_metrics` 4.0.0-dev.1
+* Switch on `dart_code_metrics` 4.0.0-dev.1 (patch)
 
 ## 1.2.0 - 2021-05-30
 
