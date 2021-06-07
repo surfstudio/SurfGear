@@ -1,5 +1,9 @@
 # Changelog
 
+## MINOR
+
+* Add some rules: [always-remove-listener](https://github.com/dart-code-checker/dart-code-metrics/blob/master/doc/rules/always-remove-listener.md), [avoid-unnecessary-setstate](https://github.com/dart-code-checker/dart-code-metrics/blob/master/doc/rules/avoid-unnecessary-setstate.md).
+
 ## 1.2.1-dev.1 - 2021-06-05
 
 * Switch on `dart_code_metrics` 4.0.0-dev.1 (patch)
