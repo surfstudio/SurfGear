@@ -1,5 +1,5 @@
 name: surf_mwwm
-version: 2.0.0-dev.1
+version: 2.0.0
 description: |
   Reflection of widget in a single entity. Includes: surf_injector, relation, mwwm, rxdart.
 homepage: "https://github.com/surfstudio/SurfGear/tree/main/packages/surf_mwwm"
