@@ -1,14 +1,18 @@
 # Changelog
 
+## 3.0.0 - 2021-06-07
+
+* Stable release
+
 ## 4.0.0-dev.1 - 2021-06-04
 
-* **Breaking Change:** `Action` renamed to `StreamedAction` (major)
-* **Breaking Change:** `StreamedAction`'s, `ScrollOffsetAction`'s and `TextEditingAction`'s `onChanged` callback is named parameter now. (major)
-* **Breaking Change:** replaced `Object` with `Exception` in `EntityEvent` and all derived classes (major)
-* **Breaking Change:** removed value return from `Event.accept`, `EntityEvent.accept` and all derived (major)
-* **Breaking Change:** removed nullable types where possible (major)
-* Add `acceptUnique` param to `StreamedAction`. (major)
-* Add `acceptUnique` method to `StreamedState`. (major)
+* **Breaking Change:** `Action` renamed to `StreamedAction`
+* **Breaking Change:** `StreamedAction`'s, `ScrollOffsetAction`'s and `TextEditingAction`'s `onChanged` callback is named parameter now.
+* **Breaking Change:** replaced `Object` with `Exception` in `EntityEvent` and all derived classes
+* **Breaking Change:** removed value return from `Event.accept`, `EntityEvent.accept` and all derived
+* **Breaking Change:** removed nullable types where possible
+* Add `acceptUnique` param to `StreamedAction`.
+* Add `acceptUnique` method to `StreamedState`.
 
 ## 2.0.1 - 2021-05-30
 
