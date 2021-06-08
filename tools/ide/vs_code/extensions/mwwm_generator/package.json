@@ -63,7 +63,7 @@
 		"@types/mocha": "^8.0.0",
 		"@types/node": "^15.12.2",
 		"@types/vscode": "^1.50.0",
-		"@typescript-eslint/eslint-plugin": "^4.26.0",
+		"@typescript-eslint/eslint-plugin": "^4.26.1",
 		"@typescript-eslint/parser": "^4.26.1",
 		"eslint": "^7.28.0",
 		"glob": "^7.1.6",
