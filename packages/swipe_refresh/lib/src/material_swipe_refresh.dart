@@ -14,8 +14,9 @@
 
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart'
+    hide RefreshIndicator, RefreshIndicatorState;
+import 'package:swipe_refresh/src/custom_refresh_indicator.dart';
 import 'package:swipe_refresh/src/swipe_refresh_base.dart';
 import 'package:swipe_refresh/src/swipe_refresh_state.dart';
 
@@ -28,6 +29,7 @@ class MaterialSwipeRefresh extends SwipeRefreshBase {
     required VoidCallback onRefresh,
     Key? key,
     this.indicatorColor,
+    this.indicator,
     List<Widget>? children,
     SliverChildDelegate? childrenDelegate,
     SwipeRefreshState? initState,
@@ -56,6 +58,7 @@ class MaterialSwipeRefresh extends SwipeRefreshBase {
   final Color? indicatorColor;
   final Color backgroundColor;
   final double? cacheExtent;
+  final Widget? indicator;
 
   @override
   _MaterialSwipeRefreshState createState() => _MaterialSwipeRefreshState();
@@ -74,6 +77,7 @@ class _MaterialSwipeRefreshState
       onRefresh: onRefresh,
       color: widget.indicatorColor,
       backgroundColor: widget.backgroundColor,
+      refreshIndicator: widget.indicator,
       child: widget.childrenDelegate == null
           ? ListView(
               shrinkWrap: widget.shrinkWrap,

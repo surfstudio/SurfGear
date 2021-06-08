@@ -4,6 +4,10 @@
 
 * add cacheExtent property
 
+## MINOR
+
+* Added optional indicator to `MaterialSwipeRefresh`
+
 ## 1.0.1 - 2021-05-30
 
 * Stable release
