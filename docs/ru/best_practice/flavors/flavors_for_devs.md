@@ -119,7 +119,7 @@ $(IDENTIFIER)
 
 ![build_settings](../../../img/best_practice/bs_step3.png)
 
-Теперь переходим в Info.plist и убираем из строки с идентификатором bundle suffix,  оставляя толькол :
+Теперь переходим в Info.plist и убираем из строки с идентификатором bundle suffix,  оставляя только :
 ```
 $(PRODUCT_BUNFLE_IDENTIFIER)
 ```
