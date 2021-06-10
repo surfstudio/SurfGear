@@ -2,7 +2,7 @@
 
 ## PATCH
 
-* OldWidgetState fix
+* OldWidgetState fixed to be state of _ProxyMwwmWidget instead of CoreMwwmWidget
 
 ## 2.0.0 - 2021-06-07
 
