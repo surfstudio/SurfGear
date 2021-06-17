@@ -41,5 +41,6 @@ class StreamedStateBuilder<T> extends StreamBuilderBase<T, T> {
   T initial() => streamedState.value;
 
   @override
-  Widget build(BuildContext context, T currentSummary) => builder(context, currentSummary);
+  Widget build(BuildContext context, T currentSummary) =>
+      builder(context, currentSummary);
 }

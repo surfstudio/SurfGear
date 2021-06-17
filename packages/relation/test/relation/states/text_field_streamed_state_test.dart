@@ -13,11 +13,15 @@ void main() {
     expect(entityStreamedState.value.hasError, isFalse);
     expect(entityStreamedState.value.data, 'text');
   });
-  test('TextFieldStreamedState accepts error if data isEmpty and mandatory', () async {
-    final entityStreamedState = TextFieldStreamedState('', validator: 'text', mandatory: true);
+  test(
+    'TextFieldStreamedState accepts error if data isEmpty and mandatory',
+    () async {
+      final entityStreamedState =
+          TextFieldStreamedState('', validator: 'text', mandatory: true);
 
-    await entityStreamedState.content('text');
-    await entityStreamedState.content('');
-    expect(entityStreamedState.value.hasError, isTrue);
-  });
+      await entityStreamedState.content('text');
+      await entityStreamedState.content('');
+      expect(entityStreamedState.value.hasError, isTrue);
+    },
+  );
 }
