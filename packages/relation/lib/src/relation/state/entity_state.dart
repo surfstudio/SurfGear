@@ -18,9 +18,10 @@ import 'package:relation/src/relation/state/streamed_state.dart';
 ///[StreamedState] that have download/error/content status
 class EntityStreamedState<T> extends StreamedState<EntityState<T>>
     implements EntityEvent<T, EntityState<T>> {
-  EntityStreamedState([EntityState<T>? initialData])
-      : super(initialData ?? EntityState<T>());
+  EntityStreamedState([EntityState<T>? initialData]) : super(initialData ?? EntityState<T>());
 
+  @Deprecated('Better use other subjects or streams')
+  // ignore: deprecated_member_use_from_same_package
   EntityStreamedState.from(Stream<EntityState<T>> stream) : super.from(stream);
 
   @override
@@ -31,8 +32,7 @@ class EntityStreamedState<T> extends StreamedState<EntityState<T>>
       super.accept(EntityState<T>.error(exception, data));
 
   @override
-  Future<void> loading([T? previousData]) =>
-      super.accept(EntityState<T>.loading(previousData));
+  Future<void> loading([T? previousData]) => super.accept(EntityState<T>.loading(previousData));
 }
 
 /// State of some logical entity

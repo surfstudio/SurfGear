@@ -16,6 +16,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:relation/src/relation/state/streamed_state.dart';
 
 void main() {
+  test('not nullable StreamedState value getter test', () {
+    final streamedState = StreamedState<String>('a');
+    expect(streamedState.value, equals('a'));
+    streamedState.accept('b');
+    expect(streamedState.value, equals('b'));
+  });
+  test('nullable StreamedState value getter test', () {
+    final streamedState = StreamedState<String?>(null);
+    expect(streamedState.value, isNull);
+    streamedState.accept('b');
+    expect(streamedState.value, equals('b'));
+  });
   test('StreamedState accept test', () async {
     final streamedState = StreamedState<String>('a');
     final result = <String?>[];

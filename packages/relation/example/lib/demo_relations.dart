@@ -43,11 +43,11 @@ class _DemoRelationsState extends State<DemoRelations> {
 
   Future _load() async {
     await loadDataState.loading();
-    final result = Future.delayed(
+    final result = await Future.delayed(
       const Duration(seconds: 2),
       () => DateTime.now().second,
     );
-    await loadDataState.content(await result);
+    await loadDataState.content(result);
   }
 
   @override
