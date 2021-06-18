@@ -1,10 +1,10 @@
-import '../../data/message.dart';
-import 'repository/message_repository.dart';
+import 'package:simple_messenger/data/message.dart';
+import 'package:simple_messenger/interactor/message/repository/message_repository.dart';
 
 class MessageInteractor {
-  const MessageInteractor({required MessageRepository repo}) : _repo = repo;
-
   final MessageRepository _repo;
+
+  const MessageInteractor({required MessageRepository repo}) : _repo = repo;
 
   Stream<List<Message>> getMessages() => _repo.getMessages();
 

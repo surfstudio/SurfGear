@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
-import '../../../data/message.dart';
-
-import '../../../interactor/message/message_interactor.dart';
+import 'package:simple_messenger/data/message.dart';
+import 'package:simple_messenger/interactor/message/message_interactor.dart';
 
 class GlobalChatScreenWidgetModel extends WidgetModel {
+  final String username;
+  final messageController = TextEditingController();
+  final scrollController = ScrollController();
+
+  final sendMessageAction = VoidAction();
+  final messageListState = StreamedState<List<Message>>([]);
+  final MessageInteractor _messageInteractor;
+
   GlobalChatScreenWidgetModel(
     WidgetModelDependencies baseDependencies, {
     required this.username,
@@ -13,20 +20,17 @@ class GlobalChatScreenWidgetModel extends WidgetModel {
   })  : _messageInteractor = messageInteractor,
         super(baseDependencies);
 
-  final String username;
-  final MessageInteractor _messageInteractor;
-
-  final messageController = TextEditingController();
-  final scrollController = ScrollController();
-
-  final sendMessageAction = VoidAction();
-  final messageListState = StreamedState<List<Message>>([]);
-
   @override
   void onBind() {
     super.onBind();
     subscribe<void>(sendMessageAction.stream, (_) => _sendMessage());
     subscribe<List<Message>>(_messageInteractor.getMessages(), _viewMessages);
+  }
+
+  @override
+  void dispose() {
+    messageController.dispose();
+    super.dispose();
   }
 
   void scrollToEnd() =>
@@ -45,11 +49,5 @@ class GlobalChatScreenWidgetModel extends WidgetModel {
 
   void _viewMessages(List<Message> messages) {
     messageListState.accept(messages);
-  }
-
-  @override
-  void dispose() {
-    messageController.dispose();
-    super.dispose();
   }
 }

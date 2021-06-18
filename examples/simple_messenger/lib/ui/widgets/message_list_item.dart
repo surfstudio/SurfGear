@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-
-import '../../data/message.dart';
+import 'package:simple_messenger/data/message.dart';
 
 class MessageListItem extends StatelessWidget {
+  final Message message;
+  final bool isSender;
+
   const MessageListItem({
     required this.message,
     required this.isSender,
-  });
-
-  final Message message;
-  final bool isSender;
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

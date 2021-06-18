@@ -3,14 +3,15 @@ import 'package:mwwm/mwwm.dart';
 import 'package:provider/provider.dart';
 import 'package:relation/relation.dart';
 
-import '../../../data/message.dart';
-import '../../../interactor/message/message_interactor.dart';
-import '../../widgets/message_list_item.dart';
-import 'global_chat_screen_wm.dart';
+import 'package:simple_messenger/data/message.dart';
+import 'package:simple_messenger/interactor/message/message_interactor.dart';
+import 'package:simple_messenger/ui/screens/global_chat/global_chat_screen_wm.dart';
+import 'package:simple_messenger/ui/widgets/message_list_item.dart';
 
 class GlobalChatScreen extends CoreMwwmWidget<GlobalChatScreenWidgetModel> {
-  GlobalChatScreen({required String username})
+  GlobalChatScreen({required String username, Key? key})
       : super(
+          key: key,
           widgetModelBuilder: (context) {
             final interactor = context.read<MessageInteractor>();
             final wmDependencies = context.read<WidgetModelDependencies>();
@@ -58,7 +59,7 @@ class _GlobalChatScreenState
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       );

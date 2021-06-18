@@ -1,13 +1,12 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../../../data/message.dart';
+import 'package:simple_messenger/data/message.dart';
 
 class MessageRepository {
-  const MessageRepository(FirebaseFirestore source) : _source = source;
-
   final FirebaseFirestore _source;
+
+  const MessageRepository(FirebaseFirestore source) : _source = source;
 
   Future<void> sendMessage(Message message) =>
       _source.collection('messages').add(message.toMap());

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:provider/provider.dart';
-import '../global_chat/global_chat_screen_route.dart';
-
-import 'pick_name_screen_wm.dart';
+import 'package:simple_messenger/ui/screens/choose_name/pick_name_screen_wm.dart';
+import 'package:simple_messenger/ui/screens/global_chat/global_chat_screen_route.dart';
 
 class PickNameScreen extends CoreMwwmWidget<PickNameScreenWidgetModel> {
-  PickNameScreen()
+  PickNameScreen({Key? key})
       : super(
+          key: key,
           widgetModelBuilder: (context) {
             final wmDependencies = context.read<WidgetModelDependencies>();
             return PickNameScreenWidgetModel(wmDependencies);
