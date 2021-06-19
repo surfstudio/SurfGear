@@ -22,36 +22,33 @@ const _testNotNullString = 'test';
 const _defaultString = 'def';
 
 void main() {
-  group('StreamedStateBuilder nullable test', () {
-    testWidgets('test common case', (tester) async {
-      final testStreamedState = StreamedState<String?>(null);
-      final streamedStateBuilder = StreamedStateBuilder<String?>(
-        streamedState: testStreamedState,
-        builder: (context, data) {
-          return Text(data ?? _defaultString);
-        },
-      );
-      await tester.pumpWidget(makeTestableWidget(streamedStateBuilder));
-      expect(find.text(_defaultString), findsOneWidget);
-      await testStreamedState.accept(_testNotNullString);
-      await tester.pump();
-      expect(find.text(_testNotNullString), findsOneWidget);
-    });
+  testWidgets('StreamedStateBuilder nullable test', (tester) async {
+    final testStreamedState = StreamedState<String?>(null);
+    final streamedStateBuilder = StreamedStateBuilder<String?>(
+      streamedState: testStreamedState,
+      builder: (context, data) {
+        return Text(data ?? _defaultString);
+      },
+    );
+    await tester.pumpWidget(makeTestableWidget(streamedStateBuilder));
+    expect(find.text(_defaultString), findsOneWidget);
+    await testStreamedState.accept(_testNotNullString);
+    await tester.pump();
+    expect(find.text(_testNotNullString), findsOneWidget);
   });
-  group('StreamedStateBuilder not nullable tests', () {
-    testWidgets('test common case', (tester) async {
-      final testStreamedState = StreamedState<int>(0);
-      final streamedStateBuilder = StreamedStateBuilder<int>(
-        streamedState: testStreamedState,
-        builder: (context, data) {
-          return Text(data.toString());
-        },
-      );
-      await tester.pumpWidget(makeTestableWidget(streamedStateBuilder));
-      expect(find.text(0.toString()), findsOneWidget);
-      await testStreamedState.accept(1);
-      await tester.pump();
-      expect(find.text(1.toString()), findsOneWidget);
-    });
+
+  testWidgets('StreamedStateBuilder not nullable test', (tester) async {
+    final testStreamedState = StreamedState<int>(0);
+    final streamedStateBuilder = StreamedStateBuilder<int>(
+      streamedState: testStreamedState,
+      builder: (context, data) {
+        return Text(data.toString());
+      },
+    );
+    await tester.pumpWidget(makeTestableWidget(streamedStateBuilder));
+    expect(find.text(0.toString()), findsOneWidget);
+    await testStreamedState.accept(1);
+    await tester.pump();
+    expect(find.text(1.toString()), findsOneWidget);
   });
 }
