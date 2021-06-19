@@ -22,9 +22,8 @@ const _testNotNullString = 'test';
 const _defaultString = 'def';
 
 void main() {
-  testWidgets(
-    'StreamedStateBuilder nullable test',
-    (tester) async {
+  group('StreamedStateBuilder nullable test', () {
+    testWidgets('test common case', (tester) async {
       final testStreamedState = StreamedState<String?>(null);
       final streamedStateBuilder = StreamedStateBuilder<String?>(
         streamedState: testStreamedState,
@@ -37,12 +36,10 @@ void main() {
       await testStreamedState.accept(_testNotNullString);
       await tester.pump();
       expect(find.text(_testNotNullString), findsOneWidget);
-    },
-  );
-
-  testWidgets(
-    'StreamedStateBuilder not nullable test',
-    (tester) async {
+    });
+  });
+  group('StreamedStateBuilder not nullable tests', () {
+    testWidgets('test common case', (tester) async {
       final testStreamedState = StreamedState<int>(0);
       final streamedStateBuilder = StreamedStateBuilder<int>(
         streamedState: testStreamedState,
@@ -55,6 +52,6 @@ void main() {
       await testStreamedState.accept(1);
       await tester.pump();
       expect(find.text(1.toString()), findsOneWidget);
-    },
-  );
+    });
+  });
 }

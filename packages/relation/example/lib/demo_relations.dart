@@ -41,7 +41,7 @@ class _DemoRelationsState extends State<DemoRelations> {
     reloadAction.stream.listen((_) => _load());
   }
 
-  Future _load() async {
+  Future<void> _load() async {
     await loadDataState.loading();
     final result = await Future.delayed(
       const Duration(seconds: 2),
