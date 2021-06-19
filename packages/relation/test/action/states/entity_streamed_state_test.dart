@@ -28,7 +28,8 @@ void main() {
       );
     });
     test('can put null', () async {
-      final entityStreamedState = EntityStreamedState<String>(const EntityState.content('test'));
+      final entityStreamedState =
+          EntityStreamedState<String>(const EntityState.content('test'));
       final result = <EntityState<String>>[];
       entityStreamedState.stream.listen(result.add);
       await entityStreamedState.content(null);
@@ -63,7 +64,8 @@ void main() {
 
   test('EntityStreamedState fromStream test', () async {
     final testIterable = [1, 2, 3].map((value) => EntityState.content(value));
-    final entityStreamedState = EntityStreamedState<int>.from(Stream.fromIterable(testIterable));
+    final entityStreamedState =
+        EntityStreamedState<int>.from(Stream.fromIterable(testIterable));
     final result = <EntityState<int>>[];
     entityStreamedState.stream.listen(result.add);
     await Future<void>.delayed(Duration.zero);
