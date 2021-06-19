@@ -1,5 +1,9 @@
 # Changelog
 
+## MINOR
+
+* Add possibility for `EntityStreamedState` to add null content
+
 ## 3.0.0 - 2021-06-07
 
 * Stable release
