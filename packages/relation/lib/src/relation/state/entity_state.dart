@@ -24,7 +24,7 @@ class EntityStreamedState<T> extends StreamedState<EntityState<T>>
   EntityStreamedState.from(Stream<EntityState<T>> stream) : super.from(stream);
 
   @override
-  Future<void> content(T data) => super.accept(EntityState<T>.content(data));
+  Future<void> content(T? data) => super.accept(EntityState<T>.content(data));
 
   @override
   Future<void> error([Exception? exception, T? data]) =>

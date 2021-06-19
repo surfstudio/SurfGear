@@ -16,12 +16,28 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:relation/relation.dart';
 
 void main() {
-  test('EntityStreamedState content test', () async {
-    final entityStreamedState = EntityStreamedState<String>();
-    final result = <EntityState<String>>[];
-    entityStreamedState.stream.listen(result.add);
-    await entityStreamedState.content('test');
-    expect(result.map((state) => state.data).toList(), equals([null, 'test']));
+  group('EntityStreamedState content tests', () {
+    test('common case', () async {
+      final entityStreamedState = EntityStreamedState<String>();
+      final result = <EntityState<String>>[];
+      entityStreamedState.stream.listen(result.add);
+      await entityStreamedState.content('test');
+      expect(
+        result.map((state) => state.data).toList(),
+        equals([null, 'test']),
+      );
+    });
+    test('can put null', () async {
+      final entityStreamedState =
+          EntityStreamedState<String>(const EntityState.content('test'));
+      final result = <EntityState<String>>[];
+      entityStreamedState.stream.listen(result.add);
+      await entityStreamedState.content(null);
+      expect(
+        result.map((state) => state.data).toList(),
+        equals(['test', null]),
+      );
+    });
   });
 
   test('EntityStreamedState error test', () async {
