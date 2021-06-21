@@ -1,9 +1,9 @@
 # Changelog
 
-## MINOR
+## 3.1.0-dev.1 - 2021-06-21
 
-* Marked as deprecated `fromStream` constructors of `StreamedState` and `EntityState`
-* Added possibility to configure nullable type by generic in `StreamedStateBuilder`
+* Marked as deprecated `fromStream` constructors of `StreamedState` and `EntityState` (minor)
+* Added possibility to configure nullable type by generic in `StreamedStateBuilder` (minor)
 
 ## 3.0.0 - 2021-06-07
 
