@@ -90,6 +90,7 @@ class EntityStateBuilder<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //todo(maksimenko): replace with StreamedStateBuilder when not nullable StreamedStateBuilder is stable
     return StreamBuilder<EntityState<T>>(
       stream: streamedState.stream,
       initialData: streamedState.value,

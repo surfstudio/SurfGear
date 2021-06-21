@@ -4,6 +4,14 @@
 
 * switch on `relation` 3.1.0-dev.1
 
+## 2.0.1 - 2021-06-15
+
+* Stable release
+
+## 2.0.1-dev.1 - 2021-06-11
+
+* OldWidgetState fixed to be state of _ProxyMwwmWidget instead of CoreMwwmWidget
+
 ## 2.0.0 - 2021-06-07
 
 * Stable release

@@ -31,6 +31,7 @@ class StreamedState<T> implements Event<T> {
   StreamedState(T initialData)
       : _stateSubject = BehaviorSubject.seeded(initialData);
 
+  @Deprecated('Better use other subjects or streams')
   StreamedState.from(Stream<T> stream) : _stateSubject = BehaviorSubject<T>() {
     _stateSubject.addStream(stream);
   }
