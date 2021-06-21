@@ -13,28 +13,24 @@ class MessageRepository {
       _source.collection(kMessageCollection).add(message.toMap());
 
   Stream<List<Message>> getMessages() => _source
-      .collection(kMessageCollection)
-      .orderBy(kTimestampField)
-      .snapshots()
-      .asyncMap<List<Message>>(_snapshotParser);
+          .collection(kMessageCollection)
+          .orderBy(kTimestampField)
+          .snapshots()
+          .asyncMap<List<Message>>((snapshot) {
+        final objectSnapshot = snapshot.docs
+            .map((doc) => doc.data().cast<String, Object>())
+            .toList();
 
-  FutureOr<List<Message>> _snapshotParser(
-    QuerySnapshot<Map<String, dynamic>> snapshot,
+        return _snapshotParser(objectSnapshot);
+      });
+
+  List<Message> _snapshotParser(
+    List<Map<String, Object>> docs,
   ) {
-    final docs = snapshot.docs;
-
     if (docs.isEmpty) {
       return [];
     }
-    return docs.map(_messageParser).toList();
-  }
 
-  Message _messageParser(
-    QueryDocumentSnapshot<Map<String, dynamic>> doc,
-  ) {
-    final map = doc.data();
-    final message = Message.fromMap(map);
-
-    return message;
+    return docs.map((doc) => Message.fromMap(doc)).toList();
   }
 }
