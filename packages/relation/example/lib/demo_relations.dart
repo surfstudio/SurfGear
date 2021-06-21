@@ -41,13 +41,13 @@ class _DemoRelationsState extends State<DemoRelations> {
     reloadAction.stream.listen((_) => _load());
   }
 
-  Future _load() async {
+  Future<void> _load() async {
     await loadDataState.loading();
-    final result = Future.delayed(
+    final result = await Future.delayed(
       const Duration(seconds: 2),
       () => DateTime.now().second,
     );
-    await loadDataState.content(await result);
+    await loadDataState.content(result);
   }
 
   @override

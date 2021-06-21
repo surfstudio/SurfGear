@@ -49,6 +49,7 @@ void main() {
   test('EntityStreamedState fromStream test', () async {
     final testIterable = [1, 2, 3].map((value) => EntityState.content(value));
     final entityStreamedState =
+        // ignore: deprecated_member_use_from_same_package
         EntityStreamedState<int>.from(Stream.fromIterable(testIterable));
     final result = <EntityState<int>>[];
     entityStreamedState.stream.listen(result.add);

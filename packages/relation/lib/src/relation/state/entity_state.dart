@@ -21,6 +21,8 @@ class EntityStreamedState<T> extends StreamedState<EntityState<T>>
   EntityStreamedState([EntityState<T>? initialData])
       : super(initialData ?? EntityState<T>());
 
+  @Deprecated('Better use other subjects or streams')
+  // ignore: deprecated_member_use_from_same_package
   EntityStreamedState.from(Stream<EntityState<T>> stream) : super.from(stream);
 
   @override
