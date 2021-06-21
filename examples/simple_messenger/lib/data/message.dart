@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:simple_messenger/utils/constants.dart';
 
 class Message {
   final String sender;
@@ -11,15 +12,16 @@ class Message {
     required this.sendTime,
   });
 
-  factory Message.fromMap(Map<String, dynamic> map) => Message(
-        sender: map['sender'] as String? ?? '',
-        content: map['content'] as String? ?? '',
-        sendTime: (map['timestamp'] as Timestamp? ?? Timestamp(0, 0)).toDate(),
+  factory Message.fromMap(Map<String, Object> map) => Message(
+        sender: map[kSenderField] as String? ?? '',
+        content: map[kContentField] as String? ?? '',
+        sendTime:
+            (map[kTimestampField] as Timestamp? ?? Timestamp(0, 0)).toDate(),
       );
 
-  Map<String, dynamic> toMap() => <String, dynamic>{
-        'sender': sender,
-        'content': content,
-        'timestamp': Timestamp.fromDate(sendTime),
+  Map<String, Object> toMap() => <String, Object>{
+        kSenderField: sender,
+        kContentField: content,
+        kTimestampField: Timestamp.fromDate(sendTime),
       };
 }

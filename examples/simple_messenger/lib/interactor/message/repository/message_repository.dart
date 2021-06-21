@@ -2,18 +2,19 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:simple_messenger/data/message.dart';
+import 'package:simple_messenger/utils/constants.dart';
 
 class MessageRepository {
   final FirebaseFirestore _source;
 
-  const MessageRepository(FirebaseFirestore source) : _source = source;
+  const MessageRepository(this._source);
 
   Future<void> sendMessage(Message message) =>
-      _source.collection('messages').add(message.toMap());
+      _source.collection(kMessageCollection).add(message.toMap());
 
   Stream<List<Message>> getMessages() => _source
-      .collection('messages')
-      .orderBy('timestamp')
+      .collection(kMessageCollection)
+      .orderBy(kTimestampField)
       .snapshots()
       .asyncMap<List<Message>>(_snapshotParser);
 
