@@ -64,8 +64,8 @@ class _GlobalChatScreenState
         ),
       );
 
-  Widget _messageListBuilder(BuildContext context, List<Message>? messages) {
-    if (messages != null && messages.isNotEmpty) {
+  Widget _messageListBuilder(BuildContext context, List<Message> messages) {
+    if (messages.isNotEmpty) {
       final list = ListView.builder(
         controller: wm.scrollController,
         itemCount: messages.length,
