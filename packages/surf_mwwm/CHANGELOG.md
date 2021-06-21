@@ -1,5 +1,9 @@
 # Changelog
 
+## PATCH
+
+* switch on `relation` 3.1.0-dev.1
+
 ## 2.0.1 - 2021-06-15
 
 * Stable release
