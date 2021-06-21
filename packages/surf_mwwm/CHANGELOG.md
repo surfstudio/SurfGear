@@ -1,8 +1,8 @@
 # Changelog
 
-## PATCH
+## 2.0.2-dev.1 - 2021-06-21
 
-* switch on `relation` 3.1.0-dev.1
+* switch on `relation` 3.1.0-dev.1 (patch)
 
 ## 2.0.1 - 2021-06-15
 
