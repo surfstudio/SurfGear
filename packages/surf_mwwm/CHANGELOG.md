@@ -1,8 +1,12 @@
 # Changelog
 
+## 2.0.2 - 2021-06-28
+
+* Stable release
+
 ## 2.0.2-dev.1 - 2021-06-21
 
-* switch on `relation` 3.1.0-dev.1 (patch)
+* switch on `relation` 3.1.0-dev.1
 
 ## 2.0.1 - 2021-06-15
 
