@@ -29,11 +29,11 @@ class FactsScreen extends CoreMwwmWidget<FactsScreenWidgetModel> {
   @override
   WidgetState<CoreMwwmWidget<FactsScreenWidgetModel>, FactsScreenWidgetModel>
       createWidgetState() {
-    return _FactsSceenState();
+    return _FactsScreenState();
   }
 }
 
-class _FactsSceenState
+class _FactsScreenState
     extends WidgetState<FactsScreen, FactsScreenWidgetModel> {
   @override
   Widget build(BuildContext context) {
@@ -72,28 +72,7 @@ class _FactsSceenState
                     itemCount: facts.length,
                     itemBuilder: (c, i) {
                       final el = facts.elementAt(i);
-                      return ListTile(
-                        title: Row(
-                          children: [
-                            Text('Fact ${i + 1}'),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            StreamBuilder<AppTheme?>(
-                              stream: wm.currentTheme(),
-                              builder: (context, snapshot) {
-                                return Expanded(
-                                    child: Divider(
-                                  color: (snapshot.data == AppTheme.light)
-                                      ? Colors.black
-                                      : Colors.white,
-                                ));
-                              },
-                            )
-                          ],
-                        ),
-                        subtitle: Text(el.fact ?? ''),
-                      );
+                      return FactListTile(wm: wm, el: el, position: i + 1);
                     },
                   ),
                 ),
@@ -111,6 +90,55 @@ class _FactsSceenState
             return const Center(child: CircularProgressIndicator());
           }
         },
+      ),
+    );
+  }
+}
+
+class FactListTile extends StatelessWidget {
+  const FactListTile({
+    Key? key,
+    required this.wm,
+    required this.el,
+    required this.position,
+  }) : super(key: key);
+
+  final FactsScreenWidgetModel wm;
+  final Fact el;
+  final int position;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Text(
+                'Fact $position',
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(width: 4),
+              StreamBuilder<AppTheme?>(
+                stream: wm.currentTheme(),
+                builder: (context, snapshot) {
+                  return Expanded(
+                      child: Divider(
+                    color: (snapshot.data == AppTheme.light)
+                        ? Colors.black
+                        : Colors.white,
+                  ));
+                },
+              )
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(el.fact ?? ''),
+        ],
       ),
     );
   }
