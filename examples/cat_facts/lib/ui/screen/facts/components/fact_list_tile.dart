@@ -3,6 +3,7 @@ import 'package:cat_facts/data/theme/app_theme.dart';
 import 'package:cat_facts/ui/screen/facts/facts_screen_wm.dart';
 import 'package:flutter/material.dart';
 
+///Отображение одного факта в списке
 class FactListTile extends StatelessWidget {
   final FactsScreenWidgetModel wm;
   final Fact el;
