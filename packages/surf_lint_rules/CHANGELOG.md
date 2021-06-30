@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.3.1-dev.1 - 2021-06-30
+## 1 | 3.1 | dev.1
 
 * Remove pedantic dependency
 
