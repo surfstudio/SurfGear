@@ -20,4 +20,4 @@
 /// there are times where one or more futures are intentionally not awaited.
 /// This function may be used to ignore a particular future. It silences the
 /// `unawaited_futures` lint.
-export 'package:pedantic/pedantic.dart' show unawaited;
+void unawaited(Future<void>? future) {}
