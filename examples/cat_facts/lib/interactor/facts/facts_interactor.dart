@@ -18,7 +18,7 @@ class FactsInteractor {
   }
 
   /// Получить один факт
-  Future<Iterable<Fact>> getFact() async {
+  Future<Iterable<Fact>> appendFact() async {
     final fact = await _factsRepository.getFact();
     _facts.add(fact);
     return _facts;

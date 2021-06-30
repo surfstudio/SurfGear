@@ -51,7 +51,7 @@ class FactsScreenWidgetModel extends WidgetModel {
   }
 
   Future<void> _fetchFact() async {
-    final response = await _factsInteractor.getFact();
+    final response = await _factsInteractor.appendFact();
     await _countTotalLength(response);
     facts.accept(response);
   }
