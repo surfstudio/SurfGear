@@ -23,6 +23,7 @@ import 'package:relation/relation.dart';
 
 class FactsScreenWidgetModel extends WidgetModel {
   final facts = StreamedState<Iterable<Fact>>([]);
+  final totalLength = StreamedState<int>(0);
 
   final ThemeInteractor _themeInteractor;
   final FactsInteractor _factsInteractor;
@@ -43,11 +44,25 @@ class FactsScreenWidgetModel extends WidgetModel {
 
   void switchTheme() => _themeInteractor.changeTheme();
 
-  Future<void> _fetchFacts() async =>
-      facts.accept(await _factsInteractor.getFacts(count: 5));
+  Future<void> _fetchFacts() async {
+    final response = await _factsInteractor.getFacts(count: 5);
+    await _countTotalLength(response);
+    facts.accept(response);
+  }
 
-  Future<void> _fetchFact() async =>
-      facts.accept(await _factsInteractor.getFact());
+  Future<void> _fetchFact() async {
+    final response = await _factsInteractor.getFact();
+    await _countTotalLength(response);
+    facts.accept(response);
+  }
+
+  Future<void> _countTotalLength(Iterable<Fact> response) async {
+    var _totalLength = 0;
+    for (final fact in response) {
+      _totalLength = _totalLength + (fact.length ?? 0);
+    }
+    totalLength.accept(_totalLength);
+  }
 
   void loadMoreFacts() {
     _fetchFact();

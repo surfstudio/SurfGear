@@ -65,13 +65,26 @@ class _FactsSceenState
         streamedState: wm.facts,
         builder: (context, facts) {
           if (facts != null && facts.isNotEmpty) {
-            return ListView.builder(
-              itemCount: facts.length,
-              itemBuilder: (c, i) {
-                final el = facts.elementAt(i);
-
-                return ListTile(title: Text(el.fact ?? ''));
-              },
+            return Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: facts.length,
+                    itemBuilder: (c, i) {
+                      final el = facts.elementAt(i);
+                      return ListTile(title: Text(el.fact ?? ''));
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: Text(
+                    'Loaded ${facts.length} facts',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text('Total length ${wm.totalLength.value}'),
+                ),
+                SizedBox(height: 20)
+              ],
             );
           } else {
             return const Center(child: CircularProgressIndicator());

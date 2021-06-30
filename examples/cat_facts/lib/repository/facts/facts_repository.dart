@@ -27,7 +27,7 @@ class FactsRepository {
   Future<Iterable<Fact>> getFacts(int count) async {
     final response = await client.get(
       '/facts',
-      params: <String, dynamic>{'limit': count.toString()},
+      params: <String, String>{'limit': '$count'},
     );
 
     if (response.statusCode == 200 && response.body.isNotEmpty) {
