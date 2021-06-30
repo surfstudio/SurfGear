@@ -23,34 +23,67 @@ import 'package:relation/relation.dart';
 
 class FactsScreenWidgetModel extends WidgetModel {
   final facts = StreamedState<Iterable<Fact>>([]);
+  final totalLength = StreamedState<int>(0);
 
   final ThemeInteractor _themeInteractor;
   final FactsInteractor _factsInteractor;
+
+  final GlobalKey<ScaffoldState> _scaffoldKey;
 
   FactsScreenWidgetModel(
     WidgetModelDependencies baseDependencies,
     this._themeInteractor,
     this._factsInteractor,
+    this._scaffoldKey,
   ) : super(baseDependencies);
 
   @override
   void onLoad() {
     super.onLoad();
-    _fetchFacts();
+    _fetchListFacts();
   }
 
   Stream<AppTheme?> currentTheme() => _themeInteractor.appTheme.stream;
 
   void switchTheme() => _themeInteractor.changeTheme();
 
-  Future<void> _fetchFacts() async =>
-      facts.accept(await _factsInteractor.getFacts());
+  Future<void> _fetchListFacts() async {
+    final response = await _factsInteractor.getFacts(count: 5);
+    totalLength.accept(_countTotalLength(response));
+    facts.accept(response);
+  }
+
+  Future<void> _fetchFact() async {
+    try {
+      final response = await _factsInteractor.appendFact();
+      totalLength.accept(_countTotalLength(response));
+      facts.accept(response);
+    } on Exception catch (_) {
+      _scaffoldKey.currentState!.showSnackBar(const SnackBar(
+        content: Text('An error occurred while trying to get a fact'),
+      ));
+    }
+  }
+
+  int _countTotalLength(Iterable<Fact> response) {
+    var _totalLength = 0;
+    for (final fact in response) {
+      _totalLength = _totalLength + (fact.length ?? 0);
+    }
+    return _totalLength;
+  }
+
+  void loadMoreFacts() => _fetchFact();
 }
 
-FactsScreenWidgetModel createFactsScreenWidgetModel(BuildContext context) {
+FactsScreenWidgetModel createFactsScreenWidgetModel(
+  BuildContext context,
+  GlobalKey<ScaffoldState> _scaffoldKey,
+) {
   return FactsScreenWidgetModel(
     const WidgetModelDependencies(),
     context.read<ThemeInteractor>(),
     context.read<FactsInteractor>(),
+    _scaffoldKey,
   );
 }
