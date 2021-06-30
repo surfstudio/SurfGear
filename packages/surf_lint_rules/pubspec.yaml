@@ -6,7 +6,7 @@ issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 
 dependencies:
   dart_code_metrics: ^4.0.0-dev.2
-  pedantic: ^1.11.0
+  flutter_lints: ^1.0.3
 
 environment:
   sdk: ">=2.13.0 <3.0.0"
