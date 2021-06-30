@@ -1,6 +1,6 @@
 # Changelog
 
-## 1 | 3.1 | dev.1
+## PATCH
 
 * Remove pedantic dependency
 
