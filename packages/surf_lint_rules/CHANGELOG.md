@@ -1,6 +1,6 @@
 # Changelog
 
-## PATCH
+## MINOR
 
 * Remove pedantic dependency
 
