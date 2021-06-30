@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Exported from [package:pedantic](https://pub.dev/packages/pedantic)
 /// Indicates to tools that `Future` is intentionally not `await`-ed.
 ///
 /// In an `async` context, it is normally expected that all `Future`s are
