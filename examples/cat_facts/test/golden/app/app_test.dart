@@ -13,9 +13,9 @@ import '../core/golden_app_wrapper.dart';
 /// Голден тесты [App]
 void main() {
   const _factList = <Fact>[
-    Fact(fact: 'Some fact text'),
-    Fact(fact: 'One more fact text'),
-    Fact(fact: 'One more fact text. Long long loooooooooong fact.'),
+    Fact(content: 'Some fact text'),
+    Fact(content: 'One more fact text'),
+    Fact(content: 'One more fact text. Long long loooooooooong fact.'),
   ];
 
   late StreamedState<AppTheme> themeStream;

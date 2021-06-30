@@ -21,11 +21,19 @@ import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
 
+GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
 @immutable
 class FactsScreen extends CoreMwwmWidget<FactsScreenWidgetModel> {
-  const FactsScreen({
+  FactsScreen({
     Key? key,
-  }) : super(key: key, widgetModelBuilder: createFactsScreenWidgetModel);
+  }) : super(
+          key: key,
+          widgetModelBuilder: (context) => createFactsScreenWidgetModel(
+            context,
+            _scaffoldKey,
+          ),
+        );
 
   @override
   WidgetState<CoreMwwmWidget<FactsScreenWidgetModel>, FactsScreenWidgetModel>
@@ -39,6 +47,7 @@ class _FactsScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       floatingActionButton: FloatingActionButton(
         child: const Text('More'),
         onPressed: () {
@@ -84,7 +93,7 @@ class _FactsScreenState
                   ),
                   subtitle: Text('Total length ${wm.totalLength.value}'),
                 ),
-                SizedBox(height: 20)
+                const SizedBox(height: 20),
               ],
             );
           } else {
@@ -95,5 +104,3 @@ class _FactsScreenState
     );
   }
 }
-
-

@@ -44,12 +44,11 @@ class FactsRepository {
   //Получить один факт
   Future<Fact> getFact() async {
     final response = await client.get('/fact');
-
     if (response.statusCode == 200 && response.body.isNotEmpty) {
       final data = jsonDecode(response.body) as Map<String, dynamic>;
       return Fact.fromJson(data);
     } else {
-      return const Fact();
+      throw Exception('Bad request with code:  ${response.statusCode}');
     }
   }
 }

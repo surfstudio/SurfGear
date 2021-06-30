@@ -4,16 +4,16 @@ import 'package:cat_facts/ui/screen/facts/facts_screen_wm.dart';
 import 'package:flutter/material.dart';
 
 class FactListTile extends StatelessWidget {
-  const FactListTile({
-    Key? key,
-    required this.wm,
-    required this.el,
-    required this.position,
-  }) : super(key: key);
-
   final FactsScreenWidgetModel wm;
   final Fact el;
   final int position;
+
+  const FactListTile({
+    required this.wm,
+    required this.el,
+    required this.position,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,17 +35,18 @@ class FactListTile extends StatelessWidget {
                 stream: wm.currentTheme(),
                 builder: (context, snapshot) {
                   return Expanded(
-                      child: Divider(
-                    color: (snapshot.data == AppTheme.light)
-                        ? Colors.black
-                        : Colors.white,
-                  ));
+                    child: Divider(
+                      color: (snapshot.data == AppTheme.light)
+                          ? Colors.black
+                          : Colors.white,
+                    ),
+                  );
                 },
-              )
+              ),
             ],
           ),
           const SizedBox(height: 10),
-          Text(el.fact ?? ''),
+          Text(el.content ?? ''),
         ],
       ),
     );

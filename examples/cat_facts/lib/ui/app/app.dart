@@ -47,7 +47,7 @@ class _AppState extends WidgetState<App, AppWidgetModel> {
         ),
         darkTheme: ThemeData.dark(),
         themeMode: theme == AppTheme.dark ? ThemeMode.dark : ThemeMode.light,
-        home: const FactsScreen(),
+        home: FactsScreen(),
       ),
     );
   }

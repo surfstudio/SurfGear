@@ -28,32 +28,41 @@ class FactsScreenWidgetModel extends WidgetModel {
   final ThemeInteractor _themeInteractor;
   final FactsInteractor _factsInteractor;
 
+  final GlobalKey<ScaffoldState> _scaffoldKey;
+
   FactsScreenWidgetModel(
     WidgetModelDependencies baseDependencies,
     this._themeInteractor,
     this._factsInteractor,
+    this._scaffoldKey,
   ) : super(baseDependencies);
 
   @override
   void onLoad() {
     super.onLoad();
-    _fetchFacts();
+    _fetchListFacts();
   }
 
   Stream<AppTheme?> currentTheme() => _themeInteractor.appTheme.stream;
 
   void switchTheme() => _themeInteractor.changeTheme();
 
-  Future<void> _fetchFacts() async {
+  Future<void> _fetchListFacts() async {
     final response = await _factsInteractor.getFacts(count: 5);
     await _countTotalLength(response);
     facts.accept(response);
   }
 
   Future<void> _fetchFact() async {
-    final response = await _factsInteractor.appendFact();
-    await _countTotalLength(response);
-    facts.accept(response);
+    try {
+      final response = await _factsInteractor.appendFact();
+      await _countTotalLength(response);
+      facts.accept(response);
+    } on Exception catch (e) {
+      _scaffoldKey.currentState!.showSnackBar(const SnackBar(
+        content: Text('An error occurred while trying to get a fact'),
+      ));
+    }
   }
 
   Future<void> _countTotalLength(Iterable<Fact> response) async {
@@ -64,15 +73,17 @@ class FactsScreenWidgetModel extends WidgetModel {
     totalLength.accept(_totalLength);
   }
 
-  void loadMoreFacts() {
-    _fetchFact();
-  }
+  void loadMoreFacts() => _fetchFact();
 }
 
-FactsScreenWidgetModel createFactsScreenWidgetModel(BuildContext context) {
+FactsScreenWidgetModel createFactsScreenWidgetModel(
+  BuildContext context,
+  GlobalKey<ScaffoldState> _scaffoldKey,
+) {
   return FactsScreenWidgetModel(
     const WidgetModelDependencies(),
     context.read<ThemeInteractor>(),
     context.read<FactsInteractor>(),
+    _scaffoldKey,
   );
 }

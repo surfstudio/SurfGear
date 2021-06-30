@@ -12,17 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/// Содержит информацию фактов о котиках
 class Fact {
-  final String? fact;
+  /// Содержание строки
+  final String? content;
+
+  /// Далинна строки
   final int? length;
 
   const Fact({
-    this.fact,
+    this.content,
     this.length,
   });
 
   factory Fact.fromJson(Map<String, dynamic> json) => Fact(
-        fact: json['fact'] as String?,
+        content: json['fact'] as String?,
         length: json['length'] as int?,
       );
 }
