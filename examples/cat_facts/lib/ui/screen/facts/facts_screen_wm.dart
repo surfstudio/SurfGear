@@ -44,7 +44,14 @@ class FactsScreenWidgetModel extends WidgetModel {
   void switchTheme() => _themeInteractor.changeTheme();
 
   Future<void> _fetchFacts() async =>
-      facts.accept(await _factsInteractor.getFacts());
+      facts.accept(await _factsInteractor.getFacts(count: 5));
+
+  Future<void> _fetchFact() async =>
+      facts.accept(await _factsInteractor.getFact());
+
+  void loadMoreFacts() {
+    _fetchFact();
+  }
 }
 
 FactsScreenWidgetModel createFactsScreenWidgetModel(BuildContext context) {

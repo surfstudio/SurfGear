@@ -28,7 +28,7 @@ void main() {
         ),
       );
 
-      factsRepository.getFacts();
+      factsRepository.getFacts(10);
 
       verify(() => appClient.get('/facts')).called(1);
     },

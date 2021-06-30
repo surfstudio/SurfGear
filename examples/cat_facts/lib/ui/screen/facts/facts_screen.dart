@@ -38,6 +38,12 @@ class _FactsSceenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: const Text('More'),
+        onPressed: () {
+          wm.loadMoreFacts();
+        },
+      ),
       appBar: AppBar(
         title: const Text('Cats facts'),
         actions: [
@@ -64,7 +70,7 @@ class _FactsSceenState
               itemBuilder: (c, i) {
                 final el = facts.elementAt(i);
 
-                return ListTile(title: Text(el.text ?? ''));
+                return ListTile(title: Text(el.fact ?? ''));
               },
             );
           } else {

@@ -22,6 +22,9 @@ class ApiClient {
 
   ApiClient(this._baseUrl, this.httpClient);
 
-  Future<Response> get(String endpoint) =>
-      httpClient.get(Uri.parse(_baseUrl + endpoint));
+  Future<Response> get(String endpoint, {Map<String, dynamic>? params}) {
+    final queryString = Uri(queryParameters: params).query;
+    return httpClient
+        .get(Uri.parse('$_baseUrl$endpoint?$queryString'));
+  }
 }
