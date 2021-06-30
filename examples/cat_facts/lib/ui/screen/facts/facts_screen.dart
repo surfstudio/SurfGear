@@ -72,7 +72,28 @@ class _FactsSceenState
                     itemCount: facts.length,
                     itemBuilder: (c, i) {
                       final el = facts.elementAt(i);
-                      return ListTile(title: Text(el.fact ?? ''));
+                      return ListTile(
+                        title: Row(
+                          children: [
+                            Text('Fact ${i + 1}'),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            StreamBuilder<AppTheme?>(
+                              stream: wm.currentTheme(),
+                              builder: (context, snapshot) {
+                                return Expanded(
+                                    child: Divider(
+                                  color: (snapshot.data == AppTheme.light)
+                                      ? Colors.black
+                                      : Colors.white,
+                                ));
+                              },
+                            )
+                          ],
+                        ),
+                        subtitle: Text(el.fact ?? ''),
+                      );
                     },
                   ),
                 ),
