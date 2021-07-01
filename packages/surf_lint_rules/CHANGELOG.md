@@ -1,8 +1,8 @@
 # Changelog
 
-## MINOR
+## 1.4.0-dev.1 - 2021-07-01
 
-* Remove pedantic dependency
+* Remove pedantic dependency (minor)
 
 ## 1.3.0 - 2021-06-11
 
