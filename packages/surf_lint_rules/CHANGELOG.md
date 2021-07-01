@@ -1,5 +1,9 @@
 # Changelog
 
+## MINOR
+
+* Remove pedantic dependency
+
 ## 1.3.0 - 2021-06-11
 
 * Stable release
