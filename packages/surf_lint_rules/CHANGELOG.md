@@ -1,8 +1,12 @@
 # Changelog
 
+## 1.4.0 - 2021-07-05
+
+* Stable release
+
 ## 1.4.0-dev.1 - 2021-07-01
 
-* Remove pedantic dependency (minor)
+* Remove pedantic dependency
 
 ## 1.3.0 - 2021-06-11
 

@@ -1,5 +1,5 @@
 name: surf_lint_rules
-version: 1.4.0-dev.1
+version: 1.4.0
 description: Lint rules for "Surf" company for Dart and Flutter projects.
 repository: "https://github.com/surfstudio/SurfGear/tree/main/packages/surf_lint_rules"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
