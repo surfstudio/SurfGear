@@ -25,6 +25,7 @@ class OTPTextEditController extends TextEditingController {
     required this.onCodeReceive,
     required this.codeLength,
     this.onTimeOutException,
+    this.autoStop = true,
   }) {
     addListener(checkForComplete);
   }
@@ -41,6 +42,9 @@ class OTPTextEditController extends TextEditingController {
   /// Receiver gets TimeoutError after 5 minutes without sms
   final VoidCallback? onTimeOutException;
 
+  /// Stop listening after receiving or error an OTP code
+  final bool autoStop;
+
   /// Start listen for OTP code with User Consent API
   /// sms by default
   /// could be added another input as [OTPStrategy]
@@ -56,11 +60,15 @@ class OTPTextEditController extends TextEditingController {
       if (Platform.isAndroid) smsListen,
       if (strategiesListen != null) ...strategiesListen,
     ]).first.then((value) {
-      stopListen();
+      if (autoStop) {
+        stopListen();
+      }
       text = codeExtractor(value);
       //ignore: avoid_types_on_closure_parameters
     }).catchError((Object _) {
-      stopListen();
+      if (autoStop) {
+        stopListen();
+      }
       onTimeOutException?.call();
     });
   }
@@ -81,11 +89,15 @@ class OTPTextEditController extends TextEditingController {
       if (Platform.isAndroid) smsListen,
       if (strategiesListen != null) ...strategiesListen,
     ]).first.then((value) {
-      stopListen();
+      if (autoStop) {
+        stopListen();
+      }
       text = codeExtractor(value);
       //ignore: avoid_types_on_closure_parameters
     }).catchError((Object _) {
-      stopListen();
+      if (autoStop) {
+        stopListen();
+      }
       onTimeOutException?.call();
     });
   }
