@@ -194,9 +194,11 @@ public class OTPPlugin : FlutterPlugin, MethodCallHandler, PluginRegistry.Activi
     private fun unRegisterBroadcastReceivers() {
         if (smsUserConsentBroadcastReceiver != null) {
             activity?.unregisterReceiver(smsUserConsentBroadcastReceiver)
+            smsUserConsentBroadcastReceiver = null
         }
         if (smsRetrieverBroadcastReceiver != null) {
             activity?.unregisterReceiver(smsRetrieverBroadcastReceiver)
+            smsRetrieverBroadcastReceiver = null
         }
     }
 
