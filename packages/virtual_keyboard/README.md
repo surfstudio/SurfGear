@@ -1,10 +1,6 @@
 # Virtual Keyboard
 
-[![Build Status](https://github.com/surfstudio/SurfGear/workflows/build/badge.svg)](https://github.com/surfstudio/SurfGear)
-[![Coverage Status](https://codecov.io/gh/surfstudio/SurfGear/branch/dev/graph/badge.svg?flag=virtual_keyboard)](https://codecov.io/gh/surfstudio/SurfGear)
-[![Pub Version](https://img.shields.io/pub/v/virtual_keyboard)](https://pub.dev/packages/virtual_keyboard)
-[![Pub Likes](https://badgen.net/pub/likes/virtual_keyboard)](https://pub.dev/packages/virtual_keyboard)
-![Flutter Platform](https://badgen.net/pub/flutter-platform/virtual_keyboard)
+[![Build Status](https://shields.io/github/workflow/status/surfstudio/SurfGear/build?logo=github&logoColor=white)](https://github.com/surfstudio/SurfGear/tree/main/packages/virtual_keyboard)
 
 This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolkit made by [Surf](https://surf.ru).
 

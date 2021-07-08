@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.0.0 - 2021-06-07
+
+* Stable release
+
+## 2.0.0-dev.1 - 2021-06-04
+
+* **Breaking Change:** Removed nullable types where possible
+* **Breaking Change:** Added generic type of WidgetModel to CoreMwwmWidget and generic type of CoreMwwmWidget to WidgetState to easily get attributes of Widget without cast
+* Marked as deprecated `doFuture` and `doFutureHandleError`
+
+## 1.1.1 - 2021-05-30
+
+* Stable release
+
+## 1.1.1-dev.1 - 2021-05-25
+
+* Apply new lint rules.
+
 ## 1.1.0
 
 * Made subscribe's stream's values nullable.

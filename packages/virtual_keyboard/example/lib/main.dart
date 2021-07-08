@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 keyboardKeys: numericKeyboardKeys,
                 onPressKey: _handleTapKey,
               ),
-            )
+            ),
           ],
         ),
       ),

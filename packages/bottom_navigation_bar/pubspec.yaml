@@ -1,5 +1,5 @@
 name: bottom_navigation_bar
-version: "1.0.0"
+version: 1.0.1
 description: Widget for simple switch content by selected item in bottom bar
 repository: "https://github.com/surfstudio/SurfGear/tree/main/packages/bottom_navigation_bar"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
@@ -18,11 +18,3 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 flutter:
-
-custom:
-  is_stable: false
-  unstable_version:
-  is_plugin: false
-  path: bottom_navigation_bar
-  separate_repo_url:
-  hostUrl:

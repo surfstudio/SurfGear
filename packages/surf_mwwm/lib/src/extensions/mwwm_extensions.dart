@@ -17,18 +17,26 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
-import 'package:surf_injector/surf_injector.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:surf_injector/surf_injector.dart';
 
 /// Extensions for [WidgetModel]
 extension SurfMwwmExtension on WidgetModel {
-  /// bind ui [Event]'s
-  StreamSubscription<T?> bind<T>(
-    Event<T> event,
-    void Function(T? value) onValue, {
+  /// bind ui [StreamedAction]'s
+  StreamSubscription<T> bind<T>(
+    StreamedAction<T> action,
+    void Function(T value) onValue, {
     void Function(Object error)? onError,
   }) =>
-      subscribe<T>(event.stream, onValue, onError: onError);
+      subscribe<T>(action.stream, onValue, onError: onError);
+
+  /// bind ui [VoidAction]'s
+  StreamSubscription bindVoid(
+    VoidAction action,
+    void Function() onAction, {
+    void Function(Object error)? onError,
+  }) =>
+      subscribe<void>(action.stream, (value) => onAction(), onError: onError);
 }
 
 extension FutureExt<T> on Future<T> {
@@ -38,6 +46,7 @@ extension FutureExt<T> on Future<T> {
   /// await Future.value("wow").on(wm).then(result.add);
   /// await Future.value("rly").on(wm).then(result.add);
   /// ```
+  @Deprecated('Will be removed because of deprecation of `doFuture`')
   Future<T> on(
     WidgetModel listener, {
     void Function(Object error)? onError,
@@ -56,6 +65,7 @@ extension FutureExt<T> on Future<T> {
   }
 
   /// Do future with error catching on specified listener
+  @Deprecated('Will be removed because of deprecation of `doFutureHandleError`')
   Future<T> withErrorHandling(WidgetModel listener) {
     final completer = Completer<T>();
     listener.doFutureHandleError<T>(

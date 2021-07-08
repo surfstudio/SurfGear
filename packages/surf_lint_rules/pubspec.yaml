@@ -1,12 +1,12 @@
 name: surf_lint_rules
-version: "1.1.0"
-description: Lint rules for "Surf" company for Dart and Flutter projects. Like pedantic but stricter.
+version: 1.4.0
+description: Lint rules for "Surf" company for Dart and Flutter projects.
 repository: "https://github.com/surfstudio/SurfGear/tree/main/packages/surf_lint_rules"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
 
 dependencies:
-  dart_code_metrics: ^3.2.3
-  pedantic: ^1.11.0
+  dart_code_metrics: ^4.0.0-dev.2
+  flutter_lints: ^1.0.3
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.13.0 <3.0.0"

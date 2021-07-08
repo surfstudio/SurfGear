@@ -13,7 +13,9 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
-import 'package:relation/relation.dart' as r;
+import 'package:relation/relation.dart';
+
+// ignore_for_file: avoid-returning-widgets
 
 class DemoRelations extends StatefulWidget {
   const DemoRelations({Key? key}) : super(key: key);
@@ -23,21 +25,21 @@ class DemoRelations extends StatefulWidget {
 }
 
 class _DemoRelationsState extends State<DemoRelations> {
-  final incrementAction = r.Action<void>();
+  final incrementAction = VoidAction();
+  final incrementState = StreamedState<int>(0);
 
-  final reloadAction = r.Action<void>();
-  final loadDataState = r.EntityStreamedState<int>();
+  final reloadAction = VoidAction();
+  final loadDataState = EntityStreamedState<int>();
 
-  final textAction = r.TextEditingAction();
-  final incrementState = r.StreamedState<int>(0);
+  final textAction = TextEditingAction();
 
-  final scrollAction = r.ScrollOffsetAction();
+  final scrollAction = ScrollOffsetAction();
 
   @override
   void initState() {
     super.initState();
     incrementAction.stream.listen(
-      (_) => incrementState.accept(incrementState.value! + 1),
+      (_) => incrementState.accept(incrementState.value + 1),
     );
 
     reloadAction.stream.listen((_) => _load());
@@ -51,13 +53,13 @@ class _DemoRelationsState extends State<DemoRelations> {
     });
   }
 
-  Future _load() async {
+  Future<void> _load() async {
     await loadDataState.loading();
-    final result = Future.delayed(
+    final result = await Future.delayed(
       const Duration(seconds: 2),
       () => DateTime.now().second,
     );
-    await loadDataState.content(await result);
+    await loadDataState.content(result);
   }
 
   @override
@@ -102,7 +104,7 @@ class _DemoRelationsState extends State<DemoRelations> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             /// build state by StreamedState
-            r.StreamedStateBuilder<int>(
+            StreamedStateBuilder<int>(
               streamedState: incrementState,
               builder: (ctx, count) => Text('number of count: $count'),
             ),
@@ -130,7 +132,7 @@ class _DemoRelationsState extends State<DemoRelations> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           /// build state by StreamedState
-          r.EntityStateBuilder<int>(
+          EntityStateBuilder<int>(
             streamedState: loadDataState,
             builder: (ctx, data) => Text('success load: $data'),
             loadingChild: const CircularProgressIndicator(),

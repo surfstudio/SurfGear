@@ -16,15 +16,37 @@ void savePubspec(Iterable<String> content) {
   File('pubspec.yaml').writeAsStringSync('${content.join('\n')}\n');
 }
 
+String getPackageName(Iterable<String> pubspec) {
+  const namePattern = 'name:';
+
+  final nameString = pubspec
+      .firstWhere(
+        (line) => line.trim().startsWith(namePattern),
+        orElse: () => namePattern,
+      )
+      .substring(namePattern.length)
+      .trim();
+
+  return nameString;
+}
+
 Version getPackageVersion(Iterable<String> pubspec) {
   const versionPattern = 'version:';
 
-  final versionString = pubspec
+  var versionString = pubspec
       .firstWhere(
         (line) => line.trim().startsWith(versionPattern),
         orElse: () => '$versionPattern 0.0.0',
       )
-      .substring(versionPattern.length + 1);
+      .substring(versionPattern.length)
+      .trim();
+
+  final lastIndex = versionString.length - 1;
+  if (lastIndex > 0 &&
+      (versionString[0] == '"' || versionString[0] == "'") &&
+      (versionString[lastIndex] == '"' || versionString[lastIndex] == "'")) {
+    versionString = versionString.substring(1, lastIndex);
+  }
 
   return Version.parse(versionString);
 }

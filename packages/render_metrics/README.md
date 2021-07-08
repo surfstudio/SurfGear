@@ -1,9 +1,10 @@
 # Render Metrics
 
-[![Build Status](https://github.com/surfstudio/SurfGear/workflows/build/badge.svg)](https://github.com/surfstudio/SurfGear)
-[![Coverage Status](https://codecov.io/gh/surfstudio/SurfGear/branch/dev/graph/badge.svg?flag=render_metrics)](https://codecov.io/gh/surfstudio/SurfGear)
-[![Pub Version](https://img.shields.io/pub/v/render_metrics)](https://pub.dev/packages/render_metrics)
+[![Build Status](https://shields.io/github/workflow/status/surfstudio/SurfGear/build?logo=github&logoColor=white)](https://github.com/surfstudio/SurfGear/tree/main/packages/render_metrics)
+[![Coverage Status](https://img.shields.io/codecov/c/github/surfstudio/SurfGear?flag=render_metrics&logo=codecov&logoColor=white)](https://codecov.io/gh/surfstudio/SurfGear)
+[![Pub Version](https://img.shields.io/pub/v/render_metrics?logo=dart&logoColor=white)](https://pub.dev/packages/render_metrics)
 [![Pub Likes](https://badgen.net/pub/likes/render_metrics)](https://pub.dev/packages/render_metrics)
+[![Pub popularity](https://badgen.net/pub/popularity/render_metrics)](https://pub.dev/packages/render_metrics/score)
 ![Flutter Platform](https://badgen.net/pub/flutter-platform/render_metrics)
 
 This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolkit made by [Surf](https://surf.ru/).

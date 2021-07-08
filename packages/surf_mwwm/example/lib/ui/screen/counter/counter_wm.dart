@@ -33,8 +33,8 @@ class CounterWidgetModel extends WidgetModel {
 
   StreamedState<int> counterState = StreamedState(0);
 
-  final incrementAction = Action<void>();
-  final showInit = Action<int>();
+  final incrementAction = VoidAction();
+  final showInit = StreamedAction<int>();
 
   @override
   void onLoad() {
@@ -44,7 +44,7 @@ class CounterWidgetModel extends WidgetModel {
 
   void _listenToActions() {
     incrementAction.bind((_) {
-      counterState.accept(counterState.value! + 1);
+      counterState.accept(counterState.value + 1);
     }).listenOn(
       this,
       onValue: (_) {},
@@ -58,7 +58,7 @@ class CounterWidgetModel extends WidgetModel {
       );
     }).listenOn(this, onValue: (_) {});
 
-    counterState.stream.where((c) => c!.isEven).skip(1).listenOn(
+    counterState.stream.where((c) => c.isEven).skip(1).listenOn(
       this,
       onValue: (c) {
         navigator.push(

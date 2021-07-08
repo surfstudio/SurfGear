@@ -30,7 +30,7 @@ class CounterScreen extends MwwmWidget<CounterComponent> {
         );
 }
 
-class _CounterScreenState extends WidgetState<CounterWidgetModel> {
+class _CounterScreenState extends OldWidgetState<CounterWidgetModel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,37 +38,33 @@ class _CounterScreenState extends WidgetState<CounterWidgetModel> {
       appBar: AppBar(
         title: const Text('Counter Demo'),
       ),
-      body: _buildBody(),
+      body: StreamBuilder(
+        stream: wm.counterState.stream,
+        initialData: 0,
+        builder: (context, snapshot) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('You have pushed the this many times:'),
+                Text(
+                  '${snapshot.data}',
+                  style: Theme.of(context).textTheme.caption,
+                ),
+                TextField(
+                  autofocus: true,
+                  onChanged: (_) {},
+                ),
+              ],
+            ),
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: wm.incrementAction,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
-    );
-  }
-
-  Widget _buildBody() {
-    return StreamBuilder<int?>(
-      stream: wm.counterState.stream,
-      initialData: 0,
-      builder: (context, snapshot) {
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text('You have pushed the this many times:'),
-              Text(
-                '${snapshot.data}',
-                style: Theme.of(context).textTheme.caption,
-              ),
-              TextField(
-                autofocus: true,
-                onChanged: (_) {},
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 }

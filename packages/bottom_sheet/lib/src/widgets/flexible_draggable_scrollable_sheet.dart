@@ -261,7 +261,7 @@ class FlexibleDraggableSheetExtent {
     required this.maxExtent,
     required this.initialExtent,
     required VoidCallback listener,
-  })   : assert(minExtent >= 0),
+  })  : assert(minExtent >= 0),
         assert(maxExtent <= 1),
         assert(minExtent <= initialExtent),
         assert(initialExtent <= maxExtent),
@@ -501,14 +501,13 @@ class _FlexibleDraggableScrollableSheetScrollPosition
       tolerance: physics.tolerance,
     );
 
-    final AnimationController ballisticController =
-        AnimationController.unbounded(
-      debugLabel: '$runtimeType',
+    final ballisticController = AnimationController.unbounded(
+      debugLabel: '_FlexibleDraggableScrollableSheetScrollPosition',
       vsync: context.vsync,
     );
-    double lastDelta = 0;
+    var lastDelta = 0.0;
     void _tick() {
-      final double delta = ballisticController.value - lastDelta;
+      final delta = ballisticController.value - lastDelta;
       lastDelta = ballisticController.value;
       extent.addPixelDelta(delta, context.notificationContext);
       if ((velocity > 0 && extent.isAtMax) ||
@@ -637,9 +636,9 @@ class _InheritedResetNotifier extends InheritedNotifier<_ResetNotifier> {
       return false;
     }
     assert(widget is _InheritedResetNotifier);
-    final _InheritedResetNotifier inheritedNotifier = widget;
+    final inheritedNotifier = widget;
     if (inheritedNotifier.notifier != null) {
-      final bool wasCalled = inheritedNotifier.notifier!._wasCalled;
+      final wasCalled = inheritedNotifier.notifier!._wasCalled;
       inheritedNotifier.notifier!._wasCalled = false;
       return wasCalled;
     } else {

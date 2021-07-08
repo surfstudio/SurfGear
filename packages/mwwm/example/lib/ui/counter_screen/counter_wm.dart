@@ -7,14 +7,14 @@ import 'package:mwwm/mwwm.dart';
 /// Counter screen's widget model
 // ignore: prefer_mixin
 class CounterWidgetModel extends WidgetModel with ChangeNotifier {
+  final CounterRepository _counterRepository;
+
+  int counter = 0;
+
   CounterWidgetModel(
     WidgetModelDependencies baseDependencies,
     this._counterRepository,
   ) : super(baseDependencies);
-
-  final CounterRepository _counterRepository;
-
-  int counter = 0;
 
   @override
   void onLoad() {
@@ -22,14 +22,14 @@ class CounterWidgetModel extends WidgetModel with ChangeNotifier {
     _initCounter();
   }
 
-  Future<void> _initCounter() async {
-    counter = await _counterRepository.getCounter();
-    notifyListeners();
-  }
-
   void increment() {
     counter++;
     _counterRepository.changeCounter(counter);
+    notifyListeners();
+  }
+
+  Future<void> _initCounter() async {
+    counter = await _counterRepository.getCounter();
     notifyListeners();
   }
 }

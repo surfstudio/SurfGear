@@ -100,7 +100,7 @@ IDENTIFIER=$(identifier)$(bundle_suffix)
 
 ![schemes](../../../img/best_practice/schemes.png)
 
-Из создание крайне просто. Единсвтенный момент - выберите правильный таргет - Runner.
+Их создание крайне просто. Единственный момент - выберите правильный таргет - Runner.
 
 Теперь выберите пункт Edit Scheme и проставьте необходимые конфигурации на каждом из этапов для схем.
 
@@ -119,7 +119,7 @@ $(IDENTIFIER)
 
 ![build_settings](../../../img/best_practice/bs_step3.png)
 
-Теперь переходим в Info.plist и убираем из строки с идентификатором bundle suffix,  оставляя толькол :
+Теперь переходим в Info.plist и убираем из строки с идентификатором bundle suffix,  оставляя только :
 ```
 $(PRODUCT_BUNFLE_IDENTIFIER)
 ```

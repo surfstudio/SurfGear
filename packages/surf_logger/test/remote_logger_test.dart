@@ -65,9 +65,7 @@ void main() {
       verifyNever(() => strategyMock.logInfo(key, 'info'));
     });
 
-    test(
-        'add method supposed to set an old value to a new one',
-        () {
+    test('add method supposed to set an old value to a new one', () {
       final strategyMock2 = RemoteUserLogStrategyMock();
       RemoteLogger.addStrategy(strategyMock);
       RemoteLogger.addStrategy(strategyMock2);

@@ -40,7 +40,7 @@ class CompositeSubscription {
   /// Adds new subscription to this composite.
   ///
   /// Throws an exception if this composite was disposed
-  StreamSubscription<T?> add<T>(StreamSubscription<T?> subscription) {
+  StreamSubscription<T> add<T>(StreamSubscription<T> subscription) {
     if (isDisposed) {
       throw Exception(
         'This composite was disposed, try to use new instance instead',

@@ -21,22 +21,22 @@ import 'package:mwwm/src/error/error_handler.dart';
 import 'package:mwwm/src/utils/composite_subscription.dart';
 
 /// WidgetModel
-/// WM is logical representation of widget and his state.
-/// `WidgetModelDependencies` - is pack of dependencies for WidgetModel. Offtenly, it is `ErrorHandler`.
-/// `Model` - optionally, but recommended, manager for connection with bussines layer
+/// WM is logical representation of widget and its state.
+/// `WidgetModelDependencies` - is pack of dependencies for WidgetModel. Most often it is `ErrorHandler`.
+/// `Model` - optionally, but recommended, manager for connection with business layer
 abstract class WidgetModel {
+  @protected
+  final Model model;
+
+  final _compositeSubscription = CompositeSubscription();
+
+  final ErrorHandler? _errorHandler;
+
   WidgetModel(
     WidgetModelDependencies baseDependencies, {
     Model? model,
   })  : _errorHandler = baseDependencies.errorHandler,
         model = model ?? const Model([]);
-
-  final ErrorHandler? _errorHandler;
-
-  @protected
-  final Model model;
-
-  final _compositeSubscription = CompositeSubscription();
 
   /// called when widget ready
   @mustCallSuper
@@ -47,16 +47,16 @@ abstract class WidgetModel {
   void onBind() {}
 
   /// subscribe for interactors
-  StreamSubscription<T?> subscribe<T>(
-    Stream<T?> stream,
-    void Function(T? value) onValue, {
+  StreamSubscription<T> subscribe<T>(
+    Stream<T> stream,
+    void Function(T value) onValue, {
     void Function(Object error)? onError,
   }) =>
       _compositeSubscription
-          .add(stream.listen(onValue, onError: onError?.call));
+          .add<T>(stream.listen(onValue, onError: onError?.call));
 
   /// subscribe for interactors with default handle error
-  StreamSubscription<T?> subscribeHandleError<T>(
+  StreamSubscription<T> subscribeHandleError<T>(
     Stream<T> stream,
     void Function(T value) onValue, {
     void Function(Object error)? onError,
@@ -72,6 +72,7 @@ abstract class WidgetModel {
 
   /// Call a future.
   /// Using Rx wrappers with [subscribe] method is preferable.
+  @Deprecated('Use try/catch instead')
   void doFuture<T>(
     Future<T> future,
     void Function(T value) onValue, {
@@ -84,6 +85,7 @@ abstract class WidgetModel {
   }
 
   /// Call a future with default error handling
+  @Deprecated('Use try/catch instead')
   void doFutureHandleError<T>(
     Future<T> future,
     void Function(T value) onValue, {

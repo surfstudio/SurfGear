@@ -19,10 +19,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:surf_injector/surf_injector.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
+// ignore_for_file: deprecated_member_use_from_same_package
 void main() {
   test('SurfMwwmExtension bind', () async {
     final wm = TestWM();
-    final event = StringEvent();
+    final event = StreamedAction<String>();
 
     final result = <String?>[];
 
@@ -32,6 +33,19 @@ void main() {
     await event.accept('rly');
 
     expect(result, equals(['wow', 'rly']));
+  });
+
+  test('SurfMwwmExtension bindVoid', () async {
+    final wm = TestWM();
+    final action = VoidAction();
+
+    final result = <String>[];
+
+    wm.bindVoid(action, () => result.add('1'));
+    await action();
+    await action();
+
+    expect(result, equals(['1', '1']));
   });
 
   group('FutureExt', () {
@@ -208,16 +222,16 @@ class TestWM extends WidgetModel {
 }
 
 class StringEvent extends Event<String> {
-  final _controller = StreamController<String?>();
+  final _controller = StreamController<String>();
 
   @override
-  Future<String?> accept([String? data]) async {
+  Stream<String> get stream => _controller.stream;
+
+  @override
+  Future<void> accept(String data) async {
     _controller.add(data);
-    return data;
+    return Future.value(null);
   }
-
-  @override
-  Stream<String?> get stream => _controller.stream;
 
   Future<void> dispose() async {
     await _controller.close();

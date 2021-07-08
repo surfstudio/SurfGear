@@ -78,6 +78,7 @@ abstract class SwipeRefreshBaseState<T extends SwipeRefreshBase>
     return buildRefresher(refreshKey, widget.children ?? [], _onRefresh);
   }
 
+  // ignore: avoid-returning-widgets
   @protected
   Widget buildRefresher(
     Key key,

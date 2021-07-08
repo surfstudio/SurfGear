@@ -17,12 +17,14 @@ import 'dart:io';
 import 'package:args/command_runner.dart';
 import 'package:ci_cd/ci.dart';
 
+const daysForStabialize = 2;
+
 void main(List<String> args) {
   CommandRunner<void>('tools/ci', 'tools for automate some ci/cd cases')
     ..addCommand(CheckDevBranch())
     ..addCommand(BumpDevVersion())
-    ..addCommand(PushNewVersion())
-    ..addCommand(PublishToPub())
+    ..addCommand(PublishStableToPub())
+    ..addCommand(PublishUnstableToPub())
     ..run(args);
 }
 
@@ -37,12 +39,12 @@ class CheckDevBranch extends Command<void> {
   @override
   void run() {
     final changelogContent = readChangelog();
-    final importance = getDevChangesImportance(changelogContent);
+    final importance = getChangesImportanceForUnstable(changelogContent);
     if (importance == ChangesImportance.unknown) {
       printErrorMessage("Can't get changes importance.");
     }
 
-    if (getDevChangesCount(changelogContent) == 0) {
+    if (getDeveloperChangesCount(changelogContent) == 0) {
       printErrorMessage("Can't get introduces changes.");
     }
   }
@@ -60,18 +62,19 @@ class BumpDevVersion extends Command<void> {
     final changelogContent = readChangelog();
     final pubspecContent = readPubspec();
 
-    final importance = getDevChangesImportance(changelogContent);
+    final importance = getChangesImportanceForUnstable(changelogContent);
     if (importance == ChangesImportance.unknown ||
-        getDevChangesCount(changelogContent) == 0) {
+        getDeveloperChangesCount(changelogContent) == 0) {
       printErrorMessage("Please run 'check-branch' command before.");
     }
 
     final packageVersion = getPackageVersion(pubspecContent);
-    final updatedPackageVersion = bumpPackageVersion(packageVersion);
+    final updatedPackageVersion =
+        bumpUnstablePackageVersion(packageVersion, importance);
 
     savePubspec(patchPubspec(pubspecContent, updatedPackageVersion));
     saveChangelog(
-      patchChangelog(
+      patchUnstableChangelog(
         changelogContent,
         updatedPackageVersion,
         importance,
@@ -81,30 +84,99 @@ class BumpDevVersion extends Command<void> {
   }
 }
 
-class PushNewVersion extends Command<void> {
+class PublishStableToPub extends Command<void> {
   @override
-  String get name => 'push-new-version';
+  String get name => 'publish-stable-version';
 
   @override
-  String get description => 'Push new version.';
+  String get description => 'Publish stable version to pub.dev.';
 
   @override
   void run() {
-    final version = getPackageVersion(readPubspec());
+    final changelogContent = readChangelog();
+    final pubspecContent = readPubspec();
 
-    pushNewVersion(version);
+    final packageVersion = getPackageVersion(pubspecContent);
+    if (!packageVersion.isPreRelease) {
+      exit(0);
+    }
+
+    final packagePublicationDate =
+        getPublicationDate(changelogContent, packageVersion);
+    if (packagePublicationDate == null ||
+        DateTime.now().difference(packagePublicationDate).inDays <
+            daysForStabialize) {
+      exit(0);
+    }
+
+    final importance = getChangesImportanceForStable(changelogContent);
+    if (importance == ChangesImportance.unknown) {
+      exit(0);
+    }
+
+    final latestStableVersion = getLatestStableVersion(changelogContent);
+
+    final updatedPackageVersion =
+        bumpStablePackageVersion(latestStableVersion, importance);
+
+    savePubspec(patchPubspec(pubspecContent, updatedPackageVersion));
+    saveChangelog(
+      patchStableChangelog(
+        changelogContent,
+        updatedPackageVersion,
+        DateTime.now(),
+      ),
+    );
+
+    pushNewVersion(
+      version: updatedPackageVersion,
+      packageName: getPackageName(pubspecContent),
+    );
+
+    publishToPub();
   }
 }
 
-class PublishToPub extends Command<void> {
+class PublishUnstableToPub extends Command<void> {
   @override
-  String get name => 'publish';
+  String get name => 'publish-dev-version';
 
   @override
-  String get description => 'Publish to pub.dev.';
+  String get description => 'Publish unstable version to pub.dev.';
 
   @override
   void run() {
+    final changelogContent = readChangelog();
+    final pubspecContent = readPubspec();
+
+    final importance = getChangesImportanceForUnstable(changelogContent);
+    if (importance == ChangesImportance.unknown) {
+      exit(0);
+    }
+
+    if (getDeveloperChangesCount(changelogContent) == 0) {
+      printErrorMessage("Please run 'check-branch' command before.");
+    }
+
+    final packageVersion = getPackageVersion(pubspecContent);
+    final updatedPackageVersion =
+        bumpUnstablePackageVersion(packageVersion, importance);
+
+    savePubspec(patchPubspec(pubspecContent, updatedPackageVersion));
+    saveChangelog(
+      patchUnstableChangelog(
+        changelogContent,
+        updatedPackageVersion,
+        importance,
+        DateTime.now(),
+      ),
+    );
+
+    pushNewVersion(
+      version: updatedPackageVersion,
+      packageName: getPackageName(pubspecContent),
+    );
+
     publishToPub();
   }
 }
