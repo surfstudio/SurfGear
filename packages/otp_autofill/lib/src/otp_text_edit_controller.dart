@@ -22,9 +22,10 @@ import 'package:otp_autofill/src/otp_interactor.dart';
 /// Custom controller for text views, IOS autofill is built in flutter
 class OTPTextEditController extends TextEditingController {
   OTPTextEditController({
-    required this.onCodeReceive,
     required this.codeLength,
+    this.onCodeReceive,
     this.onTimeOutException,
+    this.autoStop = true,
   }) {
     addListener(checkForComplete);
   }
@@ -36,10 +37,13 @@ class OTPTextEditController extends TextEditingController {
   final int codeLength;
 
   /// [OTPTextEditController]'s receive OTP code callback
-  final StringCallback onCodeReceive;
+  final StringCallback? onCodeReceive;
 
   /// Receiver gets TimeoutError after 5 minutes without sms
   final VoidCallback? onTimeOutException;
+
+  /// Stop listening after receiving or error an OTP code
+  final bool autoStop;
 
   /// Start listen for OTP code with User Consent API
   /// sms by default
@@ -56,11 +60,15 @@ class OTPTextEditController extends TextEditingController {
       if (Platform.isAndroid) smsListen,
       if (strategiesListen != null) ...strategiesListen,
     ]).first.then((value) {
-      stopListen();
+      if (autoStop) {
+        stopListen();
+      }
       text = codeExtractor(value);
       //ignore: avoid_types_on_closure_parameters
     }).catchError((Object _) {
-      stopListen();
+      if (autoStop) {
+        stopListen();
+      }
       onTimeOutException?.call();
     });
   }
@@ -81,11 +89,15 @@ class OTPTextEditController extends TextEditingController {
       if (Platform.isAndroid) smsListen,
       if (strategiesListen != null) ...strategiesListen,
     ]).first.then((value) {
-      stopListen();
+      if (autoStop) {
+        stopListen();
+      }
       text = codeExtractor(value);
       //ignore: avoid_types_on_closure_parameters
     }).catchError((Object _) {
-      stopListen();
+      if (autoStop) {
+        stopListen();
+      }
       onTimeOutException?.call();
     });
   }
@@ -111,6 +123,6 @@ class OTPTextEditController extends TextEditingController {
 
   /// call onComplete callback if code entered
   void checkForComplete() {
-    if (text.length == codeLength) onCodeReceive.call(text);
+    if (text.length == codeLength) onCodeReceive?.call(text);
   }
 }

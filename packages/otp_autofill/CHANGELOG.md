@@ -1,5 +1,11 @@
 # Changelog
 
+## Minor
+
+* Make native Android receivers null after unregister.
+* Add `autoStop` param to `OTPTextEditController`.
+* Make `OTPTextEditController`'s `onCodeReceive` non-required.
+
 ## 1.0.2 - 2021-05-30
 
 * Stable release
