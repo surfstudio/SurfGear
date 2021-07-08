@@ -1,5 +1,5 @@
 name: otp_autofill
-version: 1.0.2
+version: 1.1.0-dev.1
 description: Android implementation of OTP autofill with using User Consent API and Retriever API. Add possibility to receive OTP code from another input.
 repository: "https://github.com/surfstudio/SurfGear/tree/main/packages/otp_autofill"
 issue_tracker: "https://github.com/surfstudio/SurfGear/issues"
