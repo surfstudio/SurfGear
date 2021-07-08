@@ -16,67 +16,30 @@ Two-way communication channels for transferring data between different architect
 
 ## Currently supported features
 
-- Notify your app's presentation layer about every user input or UI event (button tap, focus change, gesture detection, etc.) using `Action` and implement a reaction to them;
-- Write less code with *Actions* that are customized for specific user cases (scrolling, editing text, `ValueNotifier` value changing).
+- Notify your app's presentation layer about every user input or UI event (button tap, focus change, gesture detection, etc.) using `StreamedAction` and implement a reaction to them;
+- Write less code with *StreamedAction* that are customized for specific user cases (scrolling, editing text, `ValueNotifier` value changing).
 - React to the data state changes and redraw UI using `StreamedState` together with `StreamedStateBuilder` and its variations;
 - Manage the screen state easily with a special stream that handles three predefined states: data, loading, error.
-
-## Warning
-
-> :warning: You may run into naming collisions when using this package.
-
-We use the `Action` class, but there is already a class with the exact same name in the Flutter SDK. This can lead to collisions with naming. We recommend you use one of the following workarounds to avoid this issue. This class will be renamed shortly.
-
-### Preferred solution
-
-The preferable solution is to specify a prefix for the **Relation** library and use it to access the `Action` class.
-
-```dart
-import 'package:relation/relation.dart' as r;
-```
-
-In this case you will need to use your prefix to specify the right class while reffering to it.
-
-```dart
-final action = r.Action();
-```
-
-### Optional solution
-
-Another option is to hide the `Action` class from Flutter SDK.
-
-```dart
-import 'package:flutter/material.dart' hide Action;
-import 'package:flutter/widgets.dart' hide Action;
-```
-
-This solution enables you to call `Action` class from **Relation** library without any additional preffixes but doesn't let you refer `Action` class from the SDK.
-
-```dart
-final action = Action();
-```
-
-This collision will disappear shortly with one of our upcoming releases.
 
 ## Usage
 
 ### Notify and react
 
-#### Action
+#### StreamedAction
 
-![Action Scheme](https://i.ibb.co/6wVgh84/relation-action.png)
+![StreamedAction Scheme](https://i.ibb.co/6wVgh84/relation-action.png)
 
-`Action` is a good way to notify consumers about every event coming from the UI.
+`StreamedAction` is a good way to notify consumers about every event coming from the UI.
 
-Create an `Action` class instance. You can pass data with `Action`'s events, so you need to specify the concrete type of `Action` while declaring it.
+Create an `StreamedAction` class instance. You can pass data with `StreamedAction`'s events, so you need to specify the concrete type of `StreamedAction` while declaring it.
 
 ```dart
-final logoutAction = Action<void>();
+final logoutAction = VoidAction();
 
-final addItemToCartAction = Action<Item>();
+final addItemToCartAction = StreamedAction<Item>();
 ```
 
-Find the place where you're going to handle events triggered by your `Action`. Subscribe to the event stream. You can access it through the `stream` property.
+Find the place where you're going to handle events triggered by your `StreamedAction`. Subscribe to the event stream. You can access it through the `stream` property.
 
 ```dart
 logoutAction.stream.listen(
@@ -88,7 +51,7 @@ addItemToCartAction.stream.listen(
 );
 ```
 
-Now you can trigger an event through an `Action` instance from anywhere just like that:
+Now you can trigger an event through an `StreamedAction` instance from anywhere just like that:
 
 ```dart
 logoutAction.accept();
@@ -162,7 +125,7 @@ You can build a state management solution for your Flutter app using all of the 
 
 We recommend using **Relation** package in conjunction with [MWWM architecture](https://pub.dev/packages/mwwm).
 
-- Use `Action` to notify the presentation layer of all UI events (button taps, pull-to-refresh triggers, swipes, or other gestures detections);
+- Use `StreamedAction` to notify the presentation layer of all UI events (button taps, pull-to-refresh triggers, swipes, or other gestures detections);
 - Use `StreamedState` to report any data changes to the UI layer;
 - Let `StreamedStateBuilder` manage the UI state for you. It will rebuild all its child widgets right after it detects any newly released data in the associated `StreamedState`.
 
@@ -170,7 +133,7 @@ We recommend using **Relation** package in conjunction with [MWWM architecture](
 
 The **Relation** package provides you not only with some basic components for common use cases, but with even more highly specialized classes for solving specific issues.
 
-### Extra Actions
+### Extra StreamedActions
 
 #### ScrollOffsetActon
 
