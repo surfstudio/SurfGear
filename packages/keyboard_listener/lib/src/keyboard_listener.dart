@@ -22,12 +22,7 @@ typedef KeyboardChangeListener = Function(bool isVisible);
 
 /// Keyboard display listener
 class KeyboardListener extends WidgetsBindingObserver {
-  KeyboardListener() {
-    _init();
-  }
-
   static final _random = Random();
-
   final _changeListeners = <String, KeyboardChangeListener>{};
   final _showListeners = <String, VoidCallback>{};
   final _hideListeners = <String, VoidCallback>{};
@@ -50,17 +45,23 @@ class KeyboardListener extends WidgetsBindingObserver {
     return WidgetsBinding.instance!.window.viewInsets.bottom > 0;
   }
 
-  void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
-    _changeListeners.clear();
-    _showListeners.clear();
-    _hideListeners.clear();
+  bool _isKeyboardOpened = false;
+
+  KeyboardListener() {
+    _init();
   }
 
   /// Callback for changing metrics
   @override
   void didChangeMetrics() {
     _listener();
+  }
+
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    _changeListeners.clear();
+    _showListeners.clear();
+    _hideListeners.clear();
   }
 
   /// Add keyboard listener
@@ -81,7 +82,10 @@ class KeyboardListener extends WidgetsBindingObserver {
     VoidCallback? onShow,
     VoidCallback? onHide,
   }) {
-    assert(onChange != null || onShow != null || onHide != null);
+    assert(
+      onChange != null || onShow != null || onHide != null,
+      'At least any one callback must be defined',
+    );
     id ??= _generateId();
 
     if (onChange != null) _changeListeners[id] = onChange;
@@ -157,12 +161,16 @@ class KeyboardListener extends WidgetsBindingObserver {
     } else {
       /// The new height is less than the previous one
       /// - the keyboard is closed
-      _onHide();
+      if (_isKeyboardOpened) {
+        _onHide();
+      }
+
       _onChange(false);
     }
   }
 
   void _onChange(bool isOpen) {
+    _isKeyboardOpened = isOpen;
     for (final listener in _changeListeners.values) {
       listener(isOpen);
     }
