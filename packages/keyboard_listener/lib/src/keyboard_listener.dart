@@ -83,8 +83,8 @@ class KeyboardListener extends WidgetsBindingObserver {
     VoidCallback? onHide,
   }) {
     assert(
-    onChange != null || onShow != null || onHide != null,
-    'At least any one callback must be defined',
+      onChange != null || onShow != null || onHide != null,
+      'At least any one callback must be defined',
     );
     id ??= _generateId();
 
