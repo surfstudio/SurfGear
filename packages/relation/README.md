@@ -27,7 +27,7 @@ Two-way communication channels for transferring data between different architect
 
 #### StreamedAction
 
-![StreamedAction Scheme](https://i.ibb.co/6wVgh84/relation-action.png)
+![StreamedAction Scheme](https://i.ibb.co/rcvRN44/Streamed-Action-scheme.png)
 
 `StreamedAction` is a good way to notify consumers about every event coming from the UI.
 
