@@ -35,7 +35,7 @@ MWWM is the perfect mix of the [Flutter framework architectural concept](https:/
 
 - **Scalable** - the scale of your project is not a problem. You can use additional MWWM features as your project grows more complex (such as `Model`);
 
-- **No limitations** - this architecture package doesn't dictate what DI, navigation, or any other approaches you should use in your project. You can even implement communication between layers the way you want. Or take our advice and do so with another package. Everything is up to you!
+- **No limitations** - this architecture package doesn't dictate what DI, navigation, or any other approaches you should use in your project. You can even implement communication between layers the way you want. Or take our advice and do so with the [Relation package](https://pub.dev/packages/relation). Everything is up to you!
 
 ### Key components
 

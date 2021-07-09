@@ -1,288 +1,266 @@
 # Relation
 
-[![Build Status](https://shields.io/github/workflow/status/surfstudio/SurfGear/build?logo=github&logoColor=white)](https://github.com/surfstudio/SurfGear/tree/main/packages/relation)
-[![Coverage Status](https://img.shields.io/codecov/c/github/surfstudio/SurfGear?flag=relation&logo=codecov&logoColor=white)](https://codecov.io/gh/surfstudio/SurfGear)
-[![Pub Version](https://img.shields.io/pub/v/relation?logo=dart&logoColor=white)](https://pub.dev/packages/relation)
+[![Build Status](https://github.com/surfstudio/SurfGear/workflows/build/badge.svg)](https://github.com/surfstudio/SurfGear)
+[![Coverage Status](https://codecov.io/gh/surfstudio/SurfGear/branch/dev/graph/badge.svg?flag=relation)](https://codecov.io/gh/surfstudio/SurfGear)
+[![Pub Version](https://img.shields.io/pub/v/relation)](https://pub.dev/packages/relation)
 [![Pub Likes](https://badgen.net/pub/likes/relation)](https://pub.dev/packages/relation)
-[![Pub popularity](https://badgen.net/pub/popularity/relation)](https://pub.dev/packages/relation/score)
 ![Flutter Platform](https://badgen.net/pub/flutter-platform/relation)
 
 This package is part of the [SurfGear](https://github.com/surfstudio/SurfGear) toolkit made by [Surf](https://surf.ru/).
 
+![Relation Cover](https://i.ibb.co/f1yC8d5/relation-logo.png)
+
 ## About
 
-The stream representation of the relations of the entities and widget utilities
+Two-way communication channels for transferring data between different architectural layers of a Flutter application.
+
+## Currently supported features
+
+- Notify your app's presentation layer about every user input or UI event (button tap, focus change, gesture detection, etc.) using `StreamedAction` and implement a reaction to them;
+- Write less code with *StreamedAction* that are customized for specific user cases (scrolling, editing text, `ValueNotifier` value changing).
+- React to the data state changes and redraw UI using `StreamedState` together with `StreamedStateBuilder` and its variations;
+- Manage the screen state easily with a special stream that handles three predefined states: data, loading, error.
 
 ## Usage
 
-Main classes:
+### Notify and react
 
-1. [StreamedAction](lib/src/relation/action/streamed_action.dart)
-    1.1 [ScrollOffsetAction](lib/src/relation/action/actions/scroll_action.dart)
-    1.2 [TextEditingAction](lib/src/relation/action/actions/text_editing_action.dart)
-2. [Builder](./lib/src/builder)
-    2.1 [EntityStateBuilder](./lib/src/builder/entity_state_builder.dart)
-    2.2 [StreamedStateBuilder](./lib/src/builder/streamed_state_builder.dart)
-    2.3 [TextfieldStateBuilder](./lib/src/builder/textfield_state_builder.dart)
-3. [StreamedState](./lib/src/relation/state/streamed_state.dart)
-4. [EntityStreamedState](./lib/src/relation/state/entity_state.dart)
+#### StreamedAction
 
-## Actions
+![StreamedAction Scheme](https://i.ibb.co/rcvRN44/Streamed-Action-scheme.png)
 
-### StreamedAction
+`StreamedAction` is a good way to notify consumers about every event coming from the UI.
 
-It's wrapper over an action on screen.
-It may be a tap on button, text changes, focus changes and so on.
+Create an `StreamedAction` class instance. You can pass data with `StreamedAction`'s events, so you need to specify the concrete type of `StreamedAction` while declaring it.
 
 ```dart
-   SomeWidget(
-     onTap: someAction.accept,
-   )
-    
-   ...
+final logoutAction = VoidAction();
 
-   someAction.action.listen(doSomething);
+final addItemToCartAction = StreamedAction<Item>();
 ```
 
-### ScrollOffsetAction
-
-The action that fires when the value changes when scrolling.
+Find the place where you're going to handle events triggered by your `StreamedAction`. Subscribe to the event stream. You can access it through the `stream` property.
 
 ```dart
-  testWidgets(
-    'ScrollOffsetAction test',
-    (WidgetTester tester) async {
-      final action = ScrollOffsetStreamedAction((onChanged) {
-        expect(1.0, onChanged);
-      });
+logoutAction.stream.listen(
+  (_) => logout()
+);
 
-      await tester.pumpWidget(MaterialApp(
-        title: 'Flutter Demo',
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('test'),
-          ),
-          body: ListView(
-            controller: action.controller,
-            scrollDirection: Axis.vertical,
-            children: <Widget>[
-              Text('test'),
-              Text('test'),
-              Text('test'),
-            ],
-          ),
-        ),
-      ));
-
-      action.controller.jumpTo(1.0);
-    },
-  );
+addItemToCartAction.stream.listen(
+  (item) => addItemToCart(item)
+);
 ```
 
-### TextEditingStreamedAction
-
-**Currently experimental.**  
-An action that fires when a text field receives new characters
+Now you can trigger an event through an `StreamedAction` instance from anywhere just like that:
 
 ```dart
-  test('TextEditingAction test', () {
-    final action = TextEditingAction((onChanged) {
-      expect('test', onChanged);
-    });
-    action.controller.text = 'test';
-  });
+logoutAction.accept();
+
+addItemToCartAction.accept(item);
 ```
 
-## Builder
-
-Builders are widgets that listen to a change in a stream and provide new data to child widgets
-
-### StreamedStateBuilder
-
-Updates child widget when an answer arrives
+Or even easier:
 
 ```dart
- testWidgets(
-    'StreamedStateBuilder test',
-    (WidgetTester tester) async {
-      final testData = StreamedState<String>('test');
-      final streamedStateBuilder = StreamedStateBuilder<String>(
-          streamedState: testData,
-          builder: (context, data) {
-            return Text(data);
-          });
-      await tester.pumpWidget(
-        MaterialApp(
-          title: 'Flutter Demo',
-          home: Scaffold(
-            body: streamedStateBuilder,
-          ),
-        ),
-      );
-      final textFinder = find.text('test');
-      expect(textFinder, findsOneWidget);
-    },
-  );
+TextButton(
+  onPressed: logoutAction,
+  ...
+),
 ```
 
-### EntityStateBuilder
+#### StreamedState
 
-This builder has three states onResponse, onError, onLoading
+![StreamedState Scheme](https://i.ibb.co/nwZWsP2/relation-streamed-state.png)
+
+With `StreamedState` you can notify consumers of data changes.
+
+Create a `StreamedState` class instance. `StreamedState` constructor allows you to set the initial value that the consumers will receive as soon as they subscribe to the `StreamedState`. You need to specify the data type that your `StreamedState` will handle.
 
 ```dart
- testWidgets(
-    'StreamedStateBuilder accept test',
-    (WidgetTester tester) async {
-      final testData = EntityStreamedState<String>(EntityState(data: 'test'));
+final userBalanceState = StreamedState<int>(0);
 
-      final streamedStateBuilder = EntityStateBuilder<String>(
-        streamedState: testData,
-        child: (context, data) {
-          return Text(data);
-        },
-      );
-
-      await tester.pumpWidget(
-        MaterialApp(
-          title: 'Flutter Demo',
-          home: Scaffold(
-            body: streamedStateBuilder,
-          ),
-        ),
-      );
-      expect(streamedStateBuilder.streamedState.value.data, 'test');
-      final testFinder = find.text('test');
-      expect(testFinder, findsOneWidget);
-
-      await testData.error();
-    },
-  );
-
-  testWidgets(
-    'StreamedStateBuilder error test',
-    (WidgetTester tester) async {
-      final testData = EntityStreamedState<String>();
-      final streamedStateBuilder = EntityStateBuilder<String>(
-        streamedState: testData,
-        child: (context, data) {
-          return Text('test');
-        },
-        errorChild: Text('error_text'),
-      );
-
-      unawaited(testData.error(Exception()));
-      await tester.pumpWidget(
-        MaterialApp(
-          title: 'Flutter Demo',
-          home: Scaffold(
-            body: streamedStateBuilder,
-          ),
-        ),
-      );
-
-      final errorFinder = find.text('error_text');
-      expect(errorFinder, findsOneWidget);
-    },
-  );
-
-  testWidgets(
-    'StreamedStateBuilder loading test',
-        (WidgetTester tester) async {
-      final testData = EntityStreamedState<String>();
-      final streamedStateBuilder = EntityStateBuilder<String>(
-        streamedState: testData,
-        child: (context, data) {
-          return Text('test');
-        },
-        loadingChild: Text('loading_child'),
-      );
-
-      unawaited(testData.loading());
-      await tester.pumpWidget(
-        MaterialApp(
-          title: 'Flutter Demo',
-          home: Scaffold(
-            body: streamedStateBuilder,
-          ),
-        ),
-      );
-
-      final loadingFinder = find.text('loading_child');
-      expect(loadingFinder, findsOneWidget);
-    },
-  );
+final itemsInCartState = StreamedState<List<Item>>();
 ```
 
-### TextFieldStateBuilder
-
-Wrapper over TextFieldStreamedState.  
-StateBuilder callback is triggered every time new data appears in the stream.
+You can subscribe to `StreamedState` changes the same way as with `Action`.
 
 ```dart
-  testWidgets(
-    'TextfieldStreamBuilder content test',
-    (WidgetTester tester) async {
-      final testData = TextFieldStreamedState('test');
-      final textFieldStateBuilder = TextFieldStateBuilder(
-          state: testData,
-          stateBuilder: (context, data) {
-            return Text('test');
-          });
-
-      await tester.pumpWidget(
-        MaterialApp(
-          title: 'Flutter Demo',
-          home: Scaffold(
-            body: textFieldStateBuilder,
-          ),
-        ),
-      );
-
-      final textFinder = find.text('test');
-      expect(textFinder, findsOneWidget);
-    },
-  );
+userBalanceState.stream.listen(
+  (balance) => showUserBalance(balance)
+);
 ```
 
-## State
-
-### StreamedState
-
-A state of some type wrapped in a stream
-dictates the widget's state
+To notify consumers of any data changes, you can release the relevant data to the `StreamedState` via the `accept()` function.
 
 ```dart
-   yourStreamedState.accept(someData);
-    
-   ...
-   
-   StreamedStateBuilder<T>(
-     streamedState: yourStreamedState,
-     builder: (ctx, T data) => Text(data.toString()),
-   );
+userBalanceState.accept(100);
 ```
 
-### EntityStreamedState
+In fact, you can use `Action`s and `StreamedState`s to communicate between any objects in your application. However, we recommend using them to connect the UI and presentation layers.
 
-A state that have download/error/content status
+### Update UI
+
+#### StreamStateBuilder
+
+![StreamedStateBuilder Scheme](https://i.ibb.co/xhVBkt8/relation-streamed-state-builder.png)
+
+`StreamStateBuilder` is a widget built on the latest snapshot of interaction with a `StreamedState`. The `StreamStateBuilder`'s behavior is almost the same as the standard `StreamBuilder`. The only difference is that it accepts `StreamedState` instead of the usual `Stream`, thus simplifying the initial data setup.
+
+`StreamStateBuilder` rebuilds its widget subtree each time as its corresponding `StreamedState` emits a new value. This is the recommended way to organize your UI layer. It can save you from multiple `setState()` function calls.
 
 ```dart
- dataState.loading();
- try {
-    var content = await someRepository.getData();
-    dataState.content(content);
- } catch (e) {
-    dataState.error(e);
- }
- 
- ...
+Container(
+  child: StreamedStateBuilder(
+    streamedState: userBalanceState,
+    builder: (ctx, balance) => _buildUserBalanceWidget(balance),
+  ),
+)
+```
 
- EntityStateBuilder<Data>(
-      streamedState: dataState,
-      child: (data) => DataWidget(data),
-      loadingChild: LoadingWidget(),
-      errorChild: ErrorPlaceholder(),
-    );
+### State Management
+
+![State Management Scheme](https://i.ibb.co/YcnGww0/relation-state-management.png)
+
+You can build a state management solution for your Flutter app using all of the components above.
+
+We recommend using **Relation** package in conjunction with [MWWM architecture](https://pub.dev/packages/mwwm).
+
+- Use `StreamedAction` to notify the presentation layer of all UI events (button taps, pull-to-refresh triggers, swipes, or other gestures detections);
+- Use `StreamedState` to report any data changes to the UI layer;
+- Let `StreamedStateBuilder` manage the UI state for you. It will rebuild all its child widgets right after it detects any newly released data in the associated `StreamedState`.
+
+## Extra units
+
+The **Relation** package provides you not only with some basic components for common use cases, but with even more highly specialized classes for solving specific issues.
+
+### Extra StreamedActions
+
+#### ScrollOffsetActon
+
+You can use special `ScrollOffsetAction` to track the scroll offset of a scrollable widget. This is possible thanks to the built-in `ScrollController`.
+
+```dart
+final scrollOffsetAction = ScrollOffsetAction();
+
+scrollOffsetAction.stream.listen((offset) {
+  print("Current scroll offset = $offset");
+});
+
+SingleChildScrollView(
+  controller: scrollOffsetAction.controller,
+)
+```
+
+#### TextEditingActon
+
+`TextEditingAction` is a special type of **Action** that tracks text changes in the text field. The built-in `TextEditingController` makes it possible.
+
+```dart
+final textEditingAction = TextEditingAction();
+
+textEditingAction.stream.listen((text) {
+    print("Typed text = $text");
+});
+
+TextField(
+    controller: textEditingAction.controller,
+    onChanged: textEditingAction,
+),
+```
+
+#### ControllerActon
+
+`ControllerAction` is more common than the two previous variations. You can pass a [`ValueNotifier`](https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html) inheritor during the `ControllerAction` instantiation.
+
+This means you can work with the `ClipboardStatusNotifier`, `TextEditingController` or `TransformationController` through the `ControllerAction`.
+
+### Extra StreamedStates
+
+#### EntityStreamedState + EntityStateBuilder
+
+`EntityStreamedState` is an extended version of `StreamedState` designed to make implementing typical dynamic data screens easier.
+
+Most screens in mobile applications are quite simple and usually have several typical states:
+
+- data;
+- loading;
+- error.
+
+`EntityStreamedState` provides you with a convenient interface for the data stream to handle these states properly.
+
+Create a `EntityStreamedState` class instance. It has the same abilities as `StreamedState`: the initial value setup and the specific data type declaration. Keep in mind that `EntityStreamedState` accepts an `EntityState` wrapper around your data rather than a raw part of your data.
+
+```dart
+final userProfileState = EntityStreamedState<UserProfile>(EntityState(isLoading: true));
+```
+
+Now you can switch your `EntityStreamedState`'s state with just a simple function call. A typical workflow for a query providing some data would look like this:
+
+```dart
+userProfileState.loading();
+try {
+  final result = await _loadUserProfile();
+  userProfileState.content(result);
+} on Exception catch (error) {
+  userProfileState.error(error);
+}
+```
+
+But what do all these functions actually do? The answer is on the other side. By using `EntityStateBuilder` instead of just `StreamedStateBuilder` you can set widgets for all three states and switch between them easily.
+
+Pass `EntityStreamedState` instance to the `streamedState` argument first. After that, you can specify a set of widgets for displaying data (`child`), load state (`loadingChild`), and error state (`errorChild`).
+
+```dart
+EntityStateBuilder<UserProfile>(
+  streamedState: userProfileState,
+  builder: (ctx, data) => UserProfileWidget(data),
+  loadingChild: CircularProgressIndicator(),
+  errorChild: ErrorWidget('Something went wrong. Please, try again'),
+),
+```
+
+Another way to deal with `EntityStateBuilder` is to use `loadingBuilder` and `errorBuilder`. This allows you to customize the error state widgets because you can account for the type of error and the last registered data value from the data stream received by the `errorBuilder`. The same with `loadingBuilder`.
+
+```dart
+EntityStateBuilder<UserProfile>(
+  streamedState: userProfileState,
+  builder: (ctx, data) => UserProfileWidget(data),
+  loadingBuilder: (context, data) {
+    return LoadingWidget(data);
+  },
+  errorBuilder: (context, data, error) {
+    return ErrorWidget(error);
+  },
+),
+```
+
+To summarize, every time someone calls an `EntityStateBuilder`'s functions (`loading()`, `content()` or `error()`), the builder redraws its widget subtree and displays the state that corresponds to the last call.
+
+#### TextFieldStreamedState + TextFieldStateBuilder
+
+The idea behind `TextFieldStreamedState` and `TextFieldStateBuilder` is technically the same. The only difference is that `TextFieldStreamedState` is designed to work with text widgets (`Text`, `TextField`, etc.).
+
+`TextFieldStreamedState` allows you to set up your text field validation rules and some other settings, such as making the text field mandatory for the user to fill out.
+
+```dart
+final textState = TextFieldStreamedState(
+  'initialString',
+  validator: '[a-zA-Z]{3,30}',
+  canEdit: true,
+  incorrectTextMsg: 'Text is invalid',
+  mandatory: true,
+);
+```
+
+`TextFieldStateBuilder` accepts the `TextFieldStreamedState` instance and allows to create text widgets according to all state properties.
+
+```dart
+TextFieldStateBuilder(
+  state: textState,
+  stateBuilder: (context, textStateValue) {
+    return Text(textStateValue.data);
+  },
+),
 ```
 
 ## Installation
@@ -291,7 +269,7 @@ Add `relation` to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  relation: ^3.0.0
+  relation: ^2.0.0
 ```
 
 You can use both `stable` and `dev` versions of the package listed above in the badges bar.
