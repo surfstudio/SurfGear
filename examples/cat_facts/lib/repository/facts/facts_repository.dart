@@ -25,17 +25,12 @@ class FactsRepository {
 
   /// Получить список фактов
   Future<Iterable<Fact>> getFacts(int count) async {
-    final response = await client.get(
-      '/facts',
-      params: <String, String>{'limit': '$count'},
-    );
+    final response = await client.get('/facts', params: {'limit': '$count'});
 
     if (response.statusCode == 200 && response.body.isNotEmpty) {
       final map = json.decode(response.body) as Map<String, dynamic>;
-      final data = map['data'] as List<dynamic>;
-      return data
-          .map<Fact>((dynamic e) => Fact.fromJson(e as Map<String, dynamic>))
-          .toList();
+      final data = (map['data'] as List).cast<Map<String, dynamic>>();
+      return data.map<Fact>((e) => Fact.fromJson(e)).toList();
     } else {
       return const <Fact>[];
     }

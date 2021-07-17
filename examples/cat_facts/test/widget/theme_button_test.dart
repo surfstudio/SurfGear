@@ -16,16 +16,13 @@ import 'package:cat_facts/data/theme/app_theme.dart';
 import 'package:cat_facts/ui/screen/facts/theme_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'utils.dart';
+import 'package:golden_toolkit/src/testing_tools.dart';
 
 void main() {
   group('ThemeButton builds', () {
     testWidgets('for light theme', (tester) async {
-      await tester.pumpWidget(
-        makeTestableWidget(
-          const ThemeButton(theme: AppTheme.light),
-        ),
+      await tester.pumpWidgetBuilder(
+        const ThemeButton(theme: AppTheme.light),
       );
 
       expect(find.text('Switch Off'), findsOneWidget);
@@ -45,10 +42,8 @@ void main() {
     });
 
     testWidgets('for dark theme', (tester) async {
-      await tester.pumpWidget(
-        makeTestableWidget(
-          const ThemeButton(theme: AppTheme.dark),
-        ),
+      await tester.pumpWidgetBuilder(
+        const ThemeButton(theme: AppTheme.dark),
       );
 
       expect(find.text('Switch Off'), findsNothing);

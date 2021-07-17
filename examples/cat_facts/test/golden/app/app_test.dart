@@ -12,7 +12,7 @@ import '../core/golden_app_wrapper.dart';
 
 /// Голден тесты [App]
 void main() {
-  const _factList = <Fact>[
+  const _factList = [
     Fact(content: 'Some fact text'),
     Fact(content: 'One more fact text'),
     Fact(content: 'One more fact text. Long long loooooooooong fact.'),
@@ -27,9 +27,8 @@ void main() {
     themeInteractor = MockThemeInteractor();
     factsInteractor = MockFactsInteractor();
 
-    when(() => factsInteractor.getFacts()).thenAnswer(
-      (_) => Future.value(_factList),
-    );
+    when(() => factsInteractor.getFacts(count: any(named: 'count')))
+        .thenAnswer((_) => Future.value(_factList));
     when(() => themeInteractor.appTheme).thenReturn(themeStream);
 
     await loadAppFonts();

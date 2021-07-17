@@ -89,7 +89,7 @@ class _FactsScreenState
                 ListTile(
                   title: Text(
                     'Loaded ${facts.length} facts',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text('Total length ${wm.totalLength.value}'),
                 ),
