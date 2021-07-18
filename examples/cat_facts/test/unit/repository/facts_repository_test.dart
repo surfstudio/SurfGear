@@ -4,6 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:mocktail/mocktail.dart';
 
+class ApiClientMock extends Mock implements ApiClient {}
+
 /// Тесты для [FactsRepository]
 void main() {
   late ApiClientMock appClient;
@@ -15,24 +17,12 @@ void main() {
     factsRepository = FactsRepository(appClient);
   });
 
-  test(
-    'getFacts should make correct request to api',
-    () {
-      when(
-        () => appClient.get(
-          any(),
-        ),
-      ).thenAnswer(
-        (invocation) => Future.value(
-          Response('', 200),
-        ),
-      );
+  test('getFacts should make correct request to api', () {
+    when(() => appClient.get(any(), params: any(named: 'params')))
+        .thenAnswer((invocation) => Future.value(Response('', 200)));
 
-      factsRepository.getFacts(10);
+    factsRepository.getFacts(10);
 
-      verify(() => appClient.get('/facts')).called(1);
-    },
-  );
+    verify(() => appClient.get('/facts', params: {'limit': '10'})).called(1);
+  });
 }
-
-class ApiClientMock extends Mock implements ApiClient {}

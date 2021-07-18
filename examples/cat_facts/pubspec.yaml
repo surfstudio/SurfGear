@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.1
-  mwwm: ^2.0.0-dev.1
+  mwwm: ^2.0.0
   provider: ^5.0.0
   relation: ^2.0.0
 

@@ -47,17 +47,19 @@ class FactsScreenWidgetModel extends WidgetModel {
 
   void switchTheme() => _themeInteractor.changeTheme();
 
+  void loadMoreFacts() => _fetchFact();
+
   Future<void> _fetchListFacts() async {
     final response = await _factsInteractor.getFacts(count: 5);
-    totalLength.accept(_countTotalLength(response));
-    facts.accept(response);
+    await totalLength.accept(_countTotalLength(response));
+    await facts.accept(response);
   }
 
   Future<void> _fetchFact() async {
     try {
       final response = await _factsInteractor.appendFact();
-      totalLength.accept(_countTotalLength(response));
-      facts.accept(response);
+      await totalLength.accept(_countTotalLength(response));
+      await facts.accept(response);
     } on Exception catch (_) {
       _scaffoldKey.currentState!.showSnackBar(const SnackBar(
         content: Text('An error occurred while trying to get a fact'),
@@ -72,8 +74,6 @@ class FactsScreenWidgetModel extends WidgetModel {
     }
     return _totalLength;
   }
-
-  void loadMoreFacts() => _fetchFact();
 }
 
 FactsScreenWidgetModel createFactsScreenWidgetModel(
