@@ -9,6 +9,7 @@
           android:right="10dp">
         <bitmap
                 android:gravity="center"
-                android:src="@mipmap/launch_image"/>
+                android:src="@mipmap/launch_image"
+                android:alpha="0.3"/>
     </item>
 </layer-list>
