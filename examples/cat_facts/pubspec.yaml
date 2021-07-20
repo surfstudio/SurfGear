@@ -9,7 +9,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   http: ^0.13.1
+  intl: ^0.17.0
   mwwm: ^2.0.0
   provider: ^5.0.0
   relation: ^2.0.0
