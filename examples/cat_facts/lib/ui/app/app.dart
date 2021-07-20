@@ -50,7 +50,6 @@ class _AppState extends WidgetState<App, AppWidgetModel> {
         ),
         darkTheme: ThemeData.dark(),
         themeMode: theme == AppTheme.dark ? ThemeMode.dark : ThemeMode.light,
-        locale: const Locale('ja'),
         localizationsDelegates: const [
           AppLocalizationsDelegate(),
           GlobalMaterialLocalizations.delegate,
