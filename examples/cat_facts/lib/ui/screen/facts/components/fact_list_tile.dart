@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 class FactListTile extends StatelessWidget {
   final FactsScreenWidgetModel wm;
   final Fact el;
-  final int position;
+  final int number;
 
   const FactListTile({
     required this.wm,
     required this.el,
-    required this.position,
+    required this.number,
     Key? key,
   }) : super(key: key);
 
@@ -34,7 +34,7 @@ class FactListTile extends StatelessWidget {
               const SizedBox(width: 4),
               StreamBuilder<AppTheme?>(
                 stream: wm.currentTheme(),
-                builder: (context, snapshot) {
+                builder: (_, snapshot) {
                   return Expanded(
                     child: Divider(
                       color: (snapshot.data == AppTheme.light)

@@ -16,7 +16,7 @@ import 'package:cat_facts/data/facts/fact.dart';
 import 'package:cat_facts/data/theme/app_theme.dart';
 import 'package:cat_facts/ui/screen/facts/components/fact_list_tile.dart';
 import 'package:cat_facts/ui/screen/facts/facts_screen_wm.dart';
-import 'package:cat_facts/ui/screen/facts/theme_button.dart';
+import 'package:cat_facts/ui/screen/facts/components/theme_button.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
@@ -82,14 +82,14 @@ class _FactsScreenState
                     itemCount: facts.length,
                     itemBuilder: (c, i) {
                       final el = facts.elementAt(i);
-                      return FactListTile(wm: wm, el: el, position: i + 1);
+                      return FactListTile(wm: wm, el: el, number: i + 1);
                     },
                   ),
                 ),
                 ListTile(
                   title: Text(
                     'Loaded ${facts.length} facts',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text('Total length ${wm.totalLength.value}'),
                 ),
