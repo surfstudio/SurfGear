@@ -15,6 +15,7 @@
 import 'dart:math';
 
 import 'package:cat_facts/data/theme/app_theme.dart';
+import 'package:cat_facts/localizations.dart';
 import 'package:flutter/material.dart';
 
 class ThemeButton extends StatelessWidget {
@@ -29,7 +30,9 @@ class ThemeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(children: [
       Text(
-        theme == AppTheme.light ? 'Switch Off' : 'Switch On',
+        theme == AppTheme.light
+            ? ThemeButtonI18n.switchOff
+            : ThemeButtonI18n.switchOn,
         style: const TextStyle(color: Colors.white),
       ),
       const SizedBox(width: 10),

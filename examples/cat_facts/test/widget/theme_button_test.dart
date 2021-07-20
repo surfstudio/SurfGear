@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:cat_facts/data/theme/app_theme.dart';
-import 'package:cat_facts/ui/screen/facts/theme_button.dart';
+import 'package:cat_facts/ui/screen/facts/components/theme_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/src/testing_tools.dart';

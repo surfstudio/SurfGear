@@ -1,0 +1,67 @@
+{
+  "@@locale": "ja",
+  "@@last_modified": "2021-07-20T11:51:47.755899",
+  "FactListTileI18n_title": "{number}番の事実",
+  "@FactListTileI18n_title": {
+    "description": "Fact list title",
+    "type": "text",
+    "placeholders_order": [
+      "number"
+    ],
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "ThemeButtonI18n_switchOff": "スイッチをつける",
+  "@ThemeButtonI18n_switchOff": {
+    "description": "Switch to dark theme title",
+    "type": "text",
+    "placeholders_order": [],
+    "placeholders": {}
+  },
+  "ThemeButtonI18n_switchOn": "スイッチを切る",
+  "@ThemeButtonI18n_switchOn": {
+    "description": "Switch to light theme title",
+    "type": "text",
+    "placeholders_order": [],
+    "placeholders": {}
+  },
+  "FactsScreenI18n_title": "猫の事実",
+  "@FactsScreenI18n_title": {
+    "description": "Application title",
+    "type": "text",
+    "placeholders_order": [],
+    "placeholders": {}
+  },
+  "FactsScreenI18n_fetchFact": "その他",
+  "@FactsScreenI18n_fetchFact": {
+    "description": "Fetch new fact",
+    "type": "text",
+    "placeholders_order": [],
+    "placeholders": {}
+  },
+  "FactsScreenI18n_fetchedFacts": "{number,plural, other{事実が{numberText}ロードされました}}",
+  "@FactsScreenI18n_fetchedFacts": {
+    "description": "Fetched facts label",
+    "type": "text",
+    "placeholders_order": [
+      "number",
+      "numberText"
+    ],
+    "placeholders": {
+      "number": {},
+      "numberText": {}
+    }
+  },
+  "FactsScreenI18n_totalLoaded": "文字数は{count}",
+  "@FactsScreenI18n_totalLoaded": {
+    "description": "Fetched symbols label",
+    "type": "text",
+    "placeholders_order": [
+      "count"
+    ],
+    "placeholders": {
+      "count": {}
+    }
+  }
+}

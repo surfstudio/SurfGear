@@ -14,10 +14,12 @@
 
 import 'package:cat_facts/data/facts/fact.dart';
 import 'package:cat_facts/data/theme/app_theme.dart';
+import 'package:cat_facts/localizations.dart';
 import 'package:cat_facts/ui/screen/facts/components/fact_list_tile.dart';
+import 'package:cat_facts/ui/screen/facts/components/theme_button.dart';
 import 'package:cat_facts/ui/screen/facts/facts_screen_wm.dart';
-import 'package:cat_facts/ui/screen/facts/theme_button.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
 
@@ -49,13 +51,13 @@ class _FactsScreenState
     return Scaffold(
       key: _scaffoldKey,
       floatingActionButton: FloatingActionButton(
-        child: const Text('More'),
+        child: Text(FactsScreenI18n.fetchFact),
         onPressed: () {
           wm.loadMoreFacts();
         },
       ),
       appBar: AppBar(
-        title: const Text('Cats facts'),
+        title: Text(FactsScreenI18n.title),
         actions: [
           TextButton(
             key: const Key('theme_switcher'),
@@ -82,16 +84,21 @@ class _FactsScreenState
                     itemCount: facts.length,
                     itemBuilder: (c, i) {
                       final el = facts.elementAt(i);
-                      return FactListTile(wm: wm, el: el, position: i + 1);
+                      return FactListTile(wm: wm, el: el, number: i + 1);
                     },
                   ),
                 ),
                 ListTile(
                   title: Text(
-                    'Loaded ${facts.length} facts',
+                    FactsScreenI18n.fetchedFacts(
+                      facts.length,
+                      NumberFormat().format(facts.length),
+                    ),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  subtitle: Text('Total length ${wm.totalLength.value}'),
+                  subtitle: Text(FactsScreenI18n.totalLoaded(
+                    NumberFormat().format(wm.totalLength.value),
+                  )),
                 ),
                 const SizedBox(height: 20),
               ],
