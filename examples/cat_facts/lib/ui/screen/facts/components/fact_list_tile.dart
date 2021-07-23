@@ -21,11 +21,12 @@ class FactListTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
               Text(
-                'Fact $position',
+                'Fact $number',
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
