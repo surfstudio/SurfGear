@@ -14,6 +14,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   dio: ^4.0.0
   font_awesome_flutter: ^9.1.0
+  google_fonts: ^2.1.0
   hive: ^2.0.4
   hive_flutter: ^1.1.0
   json_serializable: ^4.1.4
@@ -29,6 +30,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/images/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
