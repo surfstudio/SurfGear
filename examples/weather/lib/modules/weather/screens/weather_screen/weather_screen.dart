@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mwwm/mwwm.dart';
 import 'package:weather/modules/weather/decorations/input_text_decoration.dart';
+import 'package:weather/modules/weather/screens/weather_screen/weather_screen_wm.dart';
 import 'package:weather/modules/weather/widgets/text_weather_hl2.dart';
 import 'package:weather/modules/weather/widgets/text_weather_hl1.dart';
 import 'package:weather/modules/weather/widgets/text_weather_hl5.dart';
 import 'package:weather/modules/weather/widgets/text_weather_hl5_italic.dart';
 
-class WeatherScreen extends StatelessWidget {
-  const WeatherScreen({Key? key}) : super(key: key);
+class WeatherScreen extends CoreMwwmWidget<WeatherScreenWidgetModel> {
+  WeatherScreen({Key? key})
+      : super(
+          key: key,
+          widgetModelBuilder: (context) =>
+              createWeatherScreenWidgetModel(context),
+        );
 
   @override
+  WidgetState<CoreMwwmWidget<WeatherScreenWidgetModel>,
+      WeatherScreenWidgetModel> createWidgetState() {
+    return _WeatherScreen();
+  }
+}
+
+class _WeatherScreen
+    extends WidgetState<WeatherScreen, WeatherScreenWidgetModel> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
