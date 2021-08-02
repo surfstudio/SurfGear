@@ -1,19 +1,31 @@
-import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart';
 
-class WeatherData {
-  final String city;
-  final int temperaure;
-  final String main; // Clouds
-  final String description; // Shatterd Clouds
-  final int pressure;
-  final int humidity;
-  final int windSpeed;
+import 'package:weather/modules/weather/models/main_info.dart';
+import 'package:weather/modules/weather/models/weather_info.dart';
+import 'package:weather/modules/weather/models/wind_info.dart';
 
-  WeatherData(this.city, this.temperaure, this.main, this.description,
-      this.pressure, this.humidity, this.windSpeed);
+part 'weather_model.g.dart';
+
+@JsonSerializable(explicitToJson: true)
+class WeatherModel {
+  final List<WeatherInfo> weather;
+  final MainInfo main;
+  final WindInfo wind;
+  final String name;
+
+  WeatherModel({
+    required this.weather,
+    required this.main,
+    required this.wind,
+    required this.name,
+  });
+
+  factory WeatherModel.fromJson(Map<String, dynamic> json) =>
+      _$WeatherModelFromJson(json);
+  Map<String, dynamic> toJson() => _$WeatherModelToJson(this);
 
   @override
   String toString() {
-    return 'WeatherData(city: $city, temperaure: $temperaure, main: $main, description: $description, pressure: $pressure, humidity: $humidity, windSpeed: $windSpeed)';
+    return 'WeatherModel(weather: $weather, main: $main, wind: $wind, name: $name)';
   }
 }

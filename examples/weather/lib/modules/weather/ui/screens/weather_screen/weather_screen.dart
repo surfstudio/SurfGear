@@ -67,7 +67,14 @@ class _WeatherScreen
                               standardPadding, inputpadding, standardPadding),
                           child: Row(
                             children: [
-                              FaIcon(FontAwesomeIcons.mapMarkerAlt, size: 40),
+                              // TODO: быстрый тест, убрать
+                              GestureDetector(
+                                child: FaIcon(FontAwesomeIcons.mapMarkerAlt,
+                                    size: 40),
+                                onTap: () {
+                                  wm.getWeather('Voronezh');
+                                },
+                              ),
                               Expanded(
                                 child: Container(
                                   padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -91,6 +98,7 @@ class _WeatherScreen
                               Text('Moscow', style: hl2Style),
                               Text('30 July 2021', style: hl5Style),
                               Text('32°', style: hl1Style),
+                              Text('18° / 32°', style: hl5Style),
                               Text('Cloudy', style: hl5Style),
                               Text('Scattered Clouds', style: hl5Style),
                               Divider(

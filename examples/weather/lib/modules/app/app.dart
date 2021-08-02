@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather/modules/weather/ui/screens/app/weather_app.dart';
 import 'package:weather/modules/weather/ui/screens/weather_screen/weather_screen.dart';
 
 class App extends StatelessWidget {
@@ -9,7 +10,7 @@ class App extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         primaryColor: Colors.white,
       ),
-      home: WeatherScreen(),
+      home: WeatherApp(),
     );
   }
 }

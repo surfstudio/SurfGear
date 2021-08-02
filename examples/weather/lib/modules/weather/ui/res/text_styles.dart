@@ -25,6 +25,5 @@ final TextStyle hl5StyleBold = GoogleFonts.roboto(
 final TextStyle hl5Style = GoogleFonts.roboto(
   fontSize: 24,
   color: Colors.white,
-  fontWeight: FontWeight.w900,
   shadows: defaultShadow(),
 );
