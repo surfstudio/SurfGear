@@ -6,10 +6,6 @@ import 'package:weather/modules/weather/ui/res/assets.dart';
 import 'package:weather/modules/weather/ui/res/text_styles.dart';
 import 'package:weather/modules/weather/ui/res/ui_constants.dart';
 import 'package:weather/modules/weather/ui/screens/weather_screen/weather_screen_wm.dart';
-import 'package:weather/modules/weather/ui/widgets/text_weather_hl2.dart';
-import 'package:weather/modules/weather/ui/widgets/text_weather_hl1.dart';
-import 'package:weather/modules/weather/ui/widgets/text_weather_hl5.dart';
-import 'package:weather/modules/weather/ui/widgets/text_weather_hl5_italic.dart';
 
 class WeatherScreen extends CoreMwwmWidget<WeatherScreenWidgetModel> {
   WeatherScreen({Key? key})
