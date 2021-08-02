@@ -21,7 +21,7 @@ class WeatherRepository {
     if (response.statusCode == 200 && response.body.isNotEmpty) {
       final data = jsonDecode(response.body) as Map<String, dynamic>;
 
-      /// парсинг через fromJson?
+      /// парсинг через сгенерированный fromJson
       return WeatherModel.fromJson(data);
     } else {
       throw Exception('Bad request with code:  ${response.statusCode}');

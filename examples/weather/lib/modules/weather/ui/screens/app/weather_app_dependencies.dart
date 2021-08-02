@@ -7,6 +7,7 @@ import 'package:weather/modules/weather/services/weather_interactor.dart';
 import 'package:http/http.dart';
 import 'package:weather/modules/weather/ui/screens/weather_screen/weather_screen.dart';
 
+/// создание сервисного слоя, который будет получать погоду по API и прокидывание его в зависимости
 class WeatherAppDependencies extends StatelessWidget {
   final WeatherScreen app;
 

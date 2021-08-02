@@ -7,6 +7,7 @@ import 'package:weather/modules/weather/ui/res/text_styles.dart';
 import 'package:weather/modules/weather/ui/res/ui_constants.dart';
 import 'package:weather/modules/weather/ui/screens/weather_screen/weather_screen_wm.dart';
 
+/// главный экран погоды
 class WeatherScreen extends CoreMwwmWidget<WeatherScreenWidgetModel> {
   WeatherScreen({Key? key})
       : super(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather/modules/weather/ui/screens/app/weather_app.dart';
-import 'package:weather/modules/weather/ui/screens/weather_screen/weather_screen.dart';
 
+/// создание MaterialApp и запуск модуля "погода"
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
