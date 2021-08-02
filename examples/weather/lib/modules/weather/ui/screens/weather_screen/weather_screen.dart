@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:weather/modules/weather/decorations/input_text_decoration.dart';
-import 'package:weather/modules/weather/screens/weather_screen/weather_screen_wm.dart';
-import 'package:weather/modules/weather/widgets/text_weather_hl2.dart';
-import 'package:weather/modules/weather/widgets/text_weather_hl1.dart';
-import 'package:weather/modules/weather/widgets/text_weather_hl5.dart';
-import 'package:weather/modules/weather/widgets/text_weather_hl5_italic.dart';
+import 'package:weather/modules/weather/ui/decorations/input_text_decoration.dart';
+import 'package:weather/modules/weather/ui/res/assets.dart';
+import 'package:weather/modules/weather/ui/res/text_styles.dart';
+import 'package:weather/modules/weather/ui/res/ui_constants.dart';
+import 'package:weather/modules/weather/ui/screens/weather_screen/weather_screen_wm.dart';
+import 'package:weather/modules/weather/ui/widgets/text_weather_hl2.dart';
+import 'package:weather/modules/weather/ui/widgets/text_weather_hl1.dart';
+import 'package:weather/modules/weather/ui/widgets/text_weather_hl5.dart';
+import 'package:weather/modules/weather/ui/widgets/text_weather_hl5_italic.dart';
 
 class WeatherScreen extends CoreMwwmWidget<WeatherScreenWidgetModel> {
   WeatherScreen({Key? key})
@@ -37,10 +40,10 @@ class _WeatherScreen
         child: LayoutBuilder(
           builder: (context, constraints) {
             /// управление полем вовода и разденилитем на больших экранах
-            double inputpadding = 20;
+            double inputpadding = standardPadding * 2;
             final width = constraints.maxWidth;
-            if (width > 680) {
-              inputpadding = (width - 640) / 2;
+            if (width > maxCityInputWidth + standardPadding * 2) {
+              inputpadding = (width - maxCityInputWidth) / 2;
             }
 
             return Container(
@@ -49,7 +52,7 @@ class _WeatherScreen
                   fit: BoxFit.cover,
                   colorFilter: new ColorFilter.mode(
                       Colors.black.withOpacity(0.7), BlendMode.dstATop),
-                  image: AssetImage('assets/images/clouds.jpg'),
+                  image: AssetImage(genericBackground),
                 ),
               ),
               child: CustomScrollView(
@@ -64,8 +67,8 @@ class _WeatherScreen
                           padding: EdgeInsets.all(10),
                         ),
                         Container(
-                          padding: EdgeInsets.fromLTRB(
-                              inputpadding, 10, inputpadding, 10),
+                          padding: EdgeInsets.fromLTRB(inputpadding,
+                              standardPadding, inputpadding, standardPadding),
                           child: Row(
                             children: [
                               FaIcon(FontAwesomeIcons.mapMarkerAlt, size: 40),
@@ -89,16 +92,16 @@ class _WeatherScreen
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              TextWeatherHL2(text: 'Kaliningrad'),
-                              TextWeatherHL5(text: '30 July 2021'),
-                              TextWeatherHL1(text: '32°'),
-                              TextWeatherHL5(text: 'Cloudy'),
-                              TextWeatherHL5(text: 'Scattered Clouds'),
+                              Text('Moscow', style: hl2Style),
+                              Text('30 July 2021', style: hl5Style),
+                              Text('32°', style: hl1Style),
+                              Text('Cloudy', style: hl5Style),
+                              Text('Scattered Clouds', style: hl5Style),
                               Divider(
                                 thickness: 3,
                                 color: Colors.white,
-                                endIndent: inputpadding + 40,
-                                indent: inputpadding + 40,
+                                endIndent: inputpadding + dividerPadding,
+                                indent: inputpadding + dividerPadding,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -106,18 +109,18 @@ class _WeatherScreen
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
-                                      TextWeatherHL5(text: 'Pressure: '),
-                                      TextWeatherHL5(text: 'Humidity: '),
-                                      TextWeatherHL5(text: 'Wind: '),
+                                      Text('Pressure: ', style: hl5Style),
+                                      Text('Humidity: ', style: hl5Style),
+                                      Text('Wind: ', style: hl5Style),
                                     ],
                                   ),
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      TextWeatherHL5Italic(text: '99 mmHg'),
-                                      TextWeatherHL5Italic(text: '99 g/m3'),
-                                      TextWeatherHL5Italic(text: '99 m/s'),
+                                      Text('99 mmHg', style: hl5StyleBold),
+                                      Text('99 g/m3', style: hl5StyleBold),
+                                      Text('99 m/s', style: hl5StyleBold),
                                     ],
                                   ),
                                 ],

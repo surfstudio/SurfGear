@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather/modules/weather/screens/weather_screen/weather_screen.dart';
+import 'package:weather/modules/weather/ui/screens/weather_screen/weather_screen.dart';
 
 class App extends StatelessWidget {
   @override

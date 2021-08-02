@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:weather/modules/weather/decorations/shadows.dart';
+import 'package:weather/modules/weather/ui/decorations/shadows.dart';
 
 class TextWeatherHL2 extends StatelessWidget {
   const TextWeatherHL2({
