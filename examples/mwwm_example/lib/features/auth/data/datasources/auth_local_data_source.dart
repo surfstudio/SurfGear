@@ -17,5 +17,6 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   @override
   Future<void> saveAuthData() async {
     //Логика сохранения токена память
+    return;
   }
 }
