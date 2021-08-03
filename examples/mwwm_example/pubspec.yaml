@@ -32,6 +32,7 @@ dependencies:
   equatable: ^2.0.3
   flutter:
     sdk: flutter
+  golden_toolkit: ^0.9.0
   mockito: ^5.0.13
   mwwm: ^2.0.0
   provider: ^5.0.0

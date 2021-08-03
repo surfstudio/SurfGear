@@ -3,10 +3,13 @@ import 'package:mwwm/mwwm.dart';
 import 'package:mwwm_example/features/auth/presentation/wms/auth_screen_wm.dart';
 
 class AuthScreen extends CoreMwwmWidget<AuthScreenWidgetModel> {
-  const AuthScreen({Key? key})
-      : super(
+  const AuthScreen({
+    Key? key,
+    AuthScreenWidgetModel Function(BuildContext context) widgetModelBuilder =
+        authScreenWidgetModelBuilder,
+  }) : super(
           key: key,
-          widgetModelBuilder: authScreenWidgetModelBuilder,
+          widgetModelBuilder: widgetModelBuilder,
         );
   @override
   WidgetState<CoreMwwmWidget<AuthScreenWidgetModel>, AuthScreenWidgetModel>

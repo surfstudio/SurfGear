@@ -51,9 +51,9 @@ class AuthScreenWidgetModel extends WidgetModel {
   }
 
   Future<void> authenticate() async {
-    if (loginController.text == '' || passwordController.text == '') {
-      //Индикация обязательных полей
-      throw Exception('Fill fields');
+    if (!isDataValid()) {
+      handleError(Exception('fill data'));
+      return;
     }
 
     try {
@@ -69,5 +69,12 @@ class AuthScreenWidgetModel extends WidgetModel {
     } finally {
       _isLoadingController.add(false);
     }
+  }
+
+  bool isDataValid() {
+    if (loginController.text == '' || passwordController.text == '') {
+      return false;
+    }
+    return true;
   }
 }
