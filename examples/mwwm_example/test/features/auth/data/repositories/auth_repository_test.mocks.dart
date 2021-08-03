@@ -37,8 +37,8 @@ class MockAuthLocalDataSourceImpl extends _i1.Mock
           returnValue: Future<_i2.AuthDataModel>.value(_FakeAuthDataModel()))
       as _i4.Future<_i2.AuthDataModel>);
   @override
-  _i4.Future<void> saveAuthData() =>
-      (super.noSuchMethod(Invocation.method(#saveAuthData, []),
+  _i4.Future<void> saveAuthData(_i2.AuthDataModel? authDataModel) =>
+      (super.noSuchMethod(Invocation.method(#saveAuthData, [authDataModel]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override

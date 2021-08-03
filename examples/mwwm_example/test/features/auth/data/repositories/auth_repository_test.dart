@@ -32,6 +32,8 @@ void main() {
     final result =
         await authRepository.authenticate(login: 'test', password: 'test');
 
+    verify(authRemote.authenticate(login: 'test', password: 'test')).called(1);
+
     expect(tAuthDataModel, result);
   });
 }
