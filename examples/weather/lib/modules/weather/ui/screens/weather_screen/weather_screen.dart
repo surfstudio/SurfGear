@@ -6,6 +6,7 @@ import 'package:weather/modules/weather/ui/res/assets.dart';
 import 'package:weather/modules/weather/ui/res/text_styles.dart';
 import 'package:weather/modules/weather/ui/res/ui_constants.dart';
 import 'package:weather/modules/weather/ui/screens/weather_screen/weather_screen_wm.dart';
+import 'package:rxdart/rxdart.dart';
 
 /// главный экран погоды
 class WeatherScreen extends CoreMwwmWidget<WeatherScreenWidgetModel> {
@@ -73,7 +74,7 @@ class _WeatherScreen
                                 child: FaIcon(FontAwesomeIcons.mapMarkerAlt,
                                     size: 40),
                                 onTap: () {
-                                  wm.getWeather('Voronezh');
+                                  wm.getWeather(wm.currentCity);
                                 },
                               ),
                               Expanded(
@@ -84,10 +85,19 @@ class _WeatherScreen
                                     cursorColor: Colors.white,
                                     decoration:
                                         inputTextDecoration('Enter City Name'),
+                                    //TODO action - choosecity
+                                    onChanged: (value) {
+                                      wm.setCity(value);
+                                    },
                                   ),
                                 ),
                               ),
-                              FaIcon(FontAwesomeIcons.searchLocation, size: 40),
+
+                              GestureDetector(
+                                child: FaIcon(FontAwesomeIcons.searchLocation,
+                                    size: 40),
+                                onTap: wm.fetchInput,
+                              ),
                             ],
                           ),
                         ),

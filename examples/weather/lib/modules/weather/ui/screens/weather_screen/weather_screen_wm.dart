@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
 import 'package:weather/domain/city_model.dart';
-import 'package:weather/modules/weather/models/weather_model.dart';
+import 'package:weather/modules/weather/models/weather.dart';
 import 'package:weather/modules/weather/services/weather_interactor.dart';
 import 'package:provider/provider.dart';
+import 'package:rxdart/rxdart.dart';
 
 class WeatherScreenWidgetModel extends WidgetModel {
   WeatherScreenWidgetModel(
@@ -14,8 +15,10 @@ class WeatherScreenWidgetModel extends WidgetModel {
   final WeatherInteractor _weatherInteractor;
 
   /// Данные для экрана
-  final contentState = EntityStreamedState<WeatherModel>()..loading();
+  final weathertState = EntityStreamedState<
+      Weather>(); //..loading(); - перевод в загрузкуна старте
 
+  //TODO streamedAction
   /// Данные - город пользователя
   final cityInfo = EntityStreamedState<cityModel>();
 
@@ -28,6 +31,17 @@ class WeatherScreenWidgetModel extends WidgetModel {
   /// Перезагрузить экран в случае ошибки
   final reloadErrorAction = VoidAction();
 
+  //TODO rxdart - zip (комбинирует 2 события)
+
+  /// Текущий город
+  String? _currentCity;
+
+  /// Установить город
+  void setCity(String newCity) => _currentCity = newCity;
+
+  /// Получить текущий город
+  String get currentCity => _currentCity ?? '';
+
   @override
   void onLoad() {
     super.onLoad();
@@ -35,12 +49,24 @@ class WeatherScreenWidgetModel extends WidgetModel {
 
   @override
   void onBind() {
-    // TODO: сделать подписку на сервисы
+    /// подписка на стрим событий с кнопки "погода по городу" на запрос погоды по нему
+    subscribe(fetchInput.stream, _getWeatherInfoA);
     super.onBind();
   }
 
-  // TODO: быстрый тест, убрать
-  WeatherModel? currentWeather;
+  void _getWeatherInfoA(_) async {
+    currentWeather = await _weatherInteractor.getWeather(currentCity);
+    await getWeather;
+  }
+
+  void _getWeatherInfo(_) {
+    _weatherInteractor
+        .getWeather(_currentCity ?? "")
+        .then((value) => weathertState.content(value))
+        .catchError((e) => weathertState.error(e));
+  }
+
+  Weather? currentWeather;
 
   // TODO: быстрый тест, убрать
   void getWeather(String city) async {
