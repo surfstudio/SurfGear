@@ -1,22 +1,21 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
-import 'package:location/location.dart';
+
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
+import 'package:weather/error_handlers/app_error_handler.dart';
 import 'package:weather/modules/weather/models/weather.dart';
 import 'package:weather/modules/weather/services/find_lication.dart';
 import 'package:weather/modules/weather/services/weather_interactor.dart';
 import 'package:provider/provider.dart';
-import 'package:rxdart/rxdart.dart';
+
 import 'package:relation/relation.dart' as relation show TextEditingAction;
-import 'package:weather/modules/weather/ui/res/assets.dart';
 
 class WeatherScreenWidgetModel extends WidgetModel {
   WeatherScreenWidgetModel(
       WidgetModelDependencies baseDependencies, this._weatherInteractor)
       : super(baseDependencies);
 
+  /// интерактор
   final WeatherInteractor _weatherInteractor;
 
   /// Данные для экрана
@@ -60,12 +59,12 @@ class WeatherScreenWidgetModel extends WidgetModel {
   }
 
   /// отправка погоды в weathertState через then и catchError
-  void _getWeatherInfoT(_) {
-    _weatherInteractor
-        .getWeather(cityInputAction.controller.value.text)
-        .then((value) => weathertState.content(value))
-        .catchError((e) => weathertState.error(e));
-  }
+  // void _getWeatherInfoT(_) {
+  //   _weatherInteractor
+  //       .getWeather(cityInputAction.controller.value.text)
+  //       .then((value) => weathertState.content(value))
+  //       .catchError((e) => weathertState.error(e));
+  // }
 
   /// отправка погоды в weathertState через try - catch
   void _getWeatherInfoA(_) async {
@@ -74,7 +73,11 @@ class WeatherScreenWidgetModel extends WidgetModel {
           .getWeather(cityInputAction.controller.value.text);
       weathertState.content(newWeather);
       setBackround(newWeather.weather[0].main);
-    } catch (e, stack) {
+    } catch (e, _) {
+      /// обработать ошибку
+      handleError(e);
+
+      /// закинуть ошибку в стрим
       weathertState.error(Exception(e));
     }
   }
@@ -87,7 +90,8 @@ class WeatherScreenWidgetModel extends WidgetModel {
           location.latitude ?? 0, location.longitude ?? 0);
       weathertState.content(newWeather);
       setBackround(newWeather.weather[0].main);
-    } catch (e, stack) {
+    } catch (e, _) {
+      handleError(e);
       weathertState.error(Exception(e));
     }
   }
@@ -95,7 +99,13 @@ class WeatherScreenWidgetModel extends WidgetModel {
 
 WeatherScreenWidgetModel createWeatherScreenWidgetModel(BuildContext context) {
   return WeatherScreenWidgetModel(
-    const WidgetModelDependencies(),
+    /// добавлен обработчик ошибок
+    WidgetModelDependencies(errorHandler: AppErrorHandler()),
     context.read<WeatherInteractor>(),
   );
 }
+
+//TODO; вопросы на обсуждение:
+// что должен делать обработчик ошибок
+// как закинуть в него контекст, чтобы показать например снекбар
+

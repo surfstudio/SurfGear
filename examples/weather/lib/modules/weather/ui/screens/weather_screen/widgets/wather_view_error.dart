@@ -8,7 +8,7 @@ class WeatherViewError extends StatelessWidget {
   Widget build(BuildContext context) {
     return Flexible(
       child: Center(
-        child: Text('Something went wrong', style: hl5Style),
+        child: Text('Something went wrong, try again', style: hl5Style),
       ),
     );
   }
