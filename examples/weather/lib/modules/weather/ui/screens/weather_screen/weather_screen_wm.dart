@@ -8,6 +8,7 @@ import 'package:weather/modules/weather/services/weather_interactor.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:relation/relation.dart' as relation show TextEditingAction;
+import 'package:weather/modules/weather/ui/res/assets.dart';
 
 class WeatherScreenWidgetModel extends WidgetModel {
   WeatherScreenWidgetModel(
@@ -27,13 +28,21 @@ class WeatherScreenWidgetModel extends WidgetModel {
   /// получение значения - через cityInputAction.controller.value.text
   final cityInputAction = relation.TextEditingAction();
 
-  /// --------------------
-
   /// Найти город исходя из текущео гео пользователя
   final findCityByGeo = VoidAction();
 
-  /// Перезагрузить экран в случае ошибки
-  final reloadErrorAction = VoidAction();
+  /// стрим бекграундов
+  final backgroundsState = StreamedState<String>("clouds");
+
+  /// Установка нового бекграунда
+  void setBackround(String newBackground) {
+    if (['clear', 'clouds', 'mist', 'rain', 'snow', 'thunderstorm']
+        .contains(newBackground.toLowerCase())) {
+      backgroundsState.accept(newBackground.toLowerCase());
+    } else {
+      backgroundsState.accept('clouds');
+    }
+  }
 
   @override
   void onLoad() {
@@ -43,10 +52,11 @@ class WeatherScreenWidgetModel extends WidgetModel {
   @override
   void onBind() {
     /// подписка на стрим событий с кнопки "погода по городу" на запрос погоды по нему
-    subscribe(fetchInput.stream, _getWeatherInfoT);
+    subscribe(fetchInput.stream, _getWeatherInfoA);
     super.onBind();
   }
 
+  /// отправка погоды в weathertState через then и catchError
   void _getWeatherInfoT(_) {
     _weatherInteractor
         .getWeather(cityInputAction.controller.value.text)
@@ -54,11 +64,16 @@ class WeatherScreenWidgetModel extends WidgetModel {
         .catchError((e) => weathertState.error(e));
   }
 
-  void _getWeatherInfo(_) async {
-    final newWeather = await _weatherInteractor
-        .getWeather(cityInputAction.controller.value.text);
-    weathertState.content(newWeather);
-    print(newWeather);
+  /// отправка погоды в weathertState через try - catch
+  void _getWeatherInfoA(_) async {
+    try {
+      final newWeather = await _weatherInteractor
+          .getWeather(cityInputAction.controller.value.text);
+      weathertState.content(newWeather);
+      setBackround(newWeather.weather[0].main);
+    } catch (e, stack) {
+      weathertState.error(Exception(e));
+    }
   }
 }
 

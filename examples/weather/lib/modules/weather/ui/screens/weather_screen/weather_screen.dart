@@ -49,75 +49,85 @@ class _WeatherScreen
               inputPadding = (width - maxCityInputWidth) / 2;
             }
 
-            return Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  colorFilter: new ColorFilter.mode(
-                      Colors.black.withOpacity(0.7), BlendMode.dstATop),
-                  image: AssetImage(genericBackground),
-                ),
-              ),
-              child: CustomScrollView(
-                slivers: [
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(10),
-                        ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(inputPadding,
-                              standardPadding, inputPadding, standardPadding),
-                          child: Row(
+            return StreamedStateBuilder<String>(
+                streamedState: wm.backgroundsState,
+                builder: (context, snapshot) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        colorFilter: new ColorFilter.mode(
+                            Colors.black.withOpacity(0.7), BlendMode.dstATop),
+                        image: AssetImage(
+                            '$baseImagesPath/${snapshot.toLowerCase()}.jpg'),
+                      ),
+                    ),
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              // TODO: быстрый тест, убрать
-                              GestureDetector(
-                                child: FaIcon(FontAwesomeIcons.mapMarkerAlt,
-                                    size: 40),
-                                // onTap: () {
-                                //   wm.getWeather(wm.currentCity);
-                                // },
+                              Padding(
+                                padding: EdgeInsets.all(10),
                               ),
-                              Expanded(
-                                child: Container(
-                                  padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                  child: TextFormField(
-                                    style: TextStyle(fontSize: 20),
-                                    cursorColor: Colors.white,
-                                    decoration:
-                                        inputTextDecoration('Enter City Name'),
-                                    controller: wm.cityInputAction.controller,
-                                  ),
+                              Container(
+                                padding: EdgeInsets.fromLTRB(
+                                    inputPadding,
+                                    standardPadding,
+                                    inputPadding,
+                                    standardPadding),
+                                child: Row(
+                                  children: [
+                                    GestureDetector(
+                                      child: FaIcon(
+                                          FontAwesomeIcons.mapMarkerAlt,
+                                          size: 40),
+                                      onTap: wm.findCityByGeo,
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        padding:
+                                            EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                        child: TextFormField(
+                                          style: TextStyle(fontSize: 20),
+                                          cursorColor: Colors.white,
+                                          decoration: inputTextDecoration(
+                                              'Enter City Name'),
+                                          controller:
+                                              wm.cityInputAction.controller,
+                                        ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      child: FaIcon(
+                                          FontAwesomeIcons.searchLocation,
+                                          size: 40),
+                                      onTap: wm.fetchInput,
+                                    ),
+                                  ],
                                 ),
                               ),
 
-                              GestureDetector(
-                                child: FaIcon(FontAwesomeIcons.searchLocation,
-                                    size: 40),
-                                onTap: wm.fetchInput,
+                              /// стейтбилдер показывает разные экраны в зависимости от состояния ответа
+                              EntityStateBuilder<Weather>(
+                                streamedState: wm.weathertState,
+                                builder: (_, data) => WeatherViewOk(
+                                    weather: data,
+                                    inputPadding: inputPadding,
+                                    dividerPadding: dividerPadding),
+                                loadingChild: WeatherViewLoading(),
+                                errorBuilder: (_, e) => WeatherViewError(),
                               ),
                             ],
                           ),
                         ),
-                        EntityStateBuilder<Weather>(
-                          streamedState: wm.weathertState,
-                          builder: (_, data) => WeatherViewOk(
-                              weather: data,
-                              inputPadding: inputPadding,
-                              dividerPadding: dividerPadding),
-                          loadingChild: WeatherViewLoading(),
-                          errorBuilder: (_, e) => WeatherViewError(),
-                        ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-            );
+                  );
+                });
           },
         ),
       ),
