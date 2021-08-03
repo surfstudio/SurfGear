@@ -55,6 +55,7 @@ class WeatherScreenWidgetModel extends WidgetModel {
     /// подписка на стрим событий с кнопки "погода по городу" на запрос погоды по нему
     subscribe(fetchInput.stream, _getWeatherInfoA);
     subscribe(findCityByGeo.stream, _getWeatherInfoCoords);
+    _getWeatherInfoCoords(null);
     super.onBind();
   }
 
@@ -68,6 +69,7 @@ class WeatherScreenWidgetModel extends WidgetModel {
 
   /// отправка погоды в weathertState через try - catch
   void _getWeatherInfoA(_) async {
+    weathertState.loading();
     try {
       final newWeather = await _weatherInteractor
           .getWeather(cityInputAction.controller.value.text);
@@ -84,6 +86,8 @@ class WeatherScreenWidgetModel extends WidgetModel {
 
   /// отправка погоды в weatherState из текущих координат по try-catch
   void _getWeatherInfoCoords(_) async {
+    weathertState.loading();
+    // await Future.delayed(Duration(seconds: 3));
     try {
       final location = await findLoacation();
       final newWeather = await _weatherInteractor.getWeatherGeolocation(

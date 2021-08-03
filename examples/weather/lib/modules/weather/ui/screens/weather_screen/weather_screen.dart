@@ -117,7 +117,10 @@ class _WeatherScreen
                                     inputPadding: inputPadding,
                                     dividerPadding: dividerPadding),
                                 loadingChild: WeatherViewLoading(),
-                                errorBuilder: (_, e) => WeatherViewError(),
+                                errorBuilder: (_, e) => WeatherViewError(
+                                  inputPadding: inputPadding,
+                                  dividerPadding: dividerPadding,
+                                ),
                               ),
                             ],
                           ),
