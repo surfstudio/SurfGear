@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:location/location.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
 import 'package:weather/modules/weather/models/weather.dart';
+import 'package:weather/modules/weather/services/find_lication.dart';
 import 'package:weather/modules/weather/services/weather_interactor.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
@@ -24,7 +26,7 @@ class WeatherScreenWidgetModel extends WidgetModel {
   /// Действие - получить данные по введённому городу
   final fetchInput = VoidAction();
 
-  /// Экшен - получение города
+  /// Экшен - получение города из поля ввода
   /// получение значения - через cityInputAction.controller.value.text
   final cityInputAction = relation.TextEditingAction();
 
@@ -53,6 +55,7 @@ class WeatherScreenWidgetModel extends WidgetModel {
   void onBind() {
     /// подписка на стрим событий с кнопки "погода по городу" на запрос погоды по нему
     subscribe(fetchInput.stream, _getWeatherInfoA);
+    subscribe(findCityByGeo.stream, _getWeatherInfoCoords);
     super.onBind();
   }
 
@@ -69,6 +72,19 @@ class WeatherScreenWidgetModel extends WidgetModel {
     try {
       final newWeather = await _weatherInteractor
           .getWeather(cityInputAction.controller.value.text);
+      weathertState.content(newWeather);
+      setBackround(newWeather.weather[0].main);
+    } catch (e, stack) {
+      weathertState.error(Exception(e));
+    }
+  }
+
+  /// отправка погоды в weatherState из текущих координат по try-catch
+  void _getWeatherInfoCoords(_) async {
+    try {
+      final location = await findLoacation();
+      final newWeather = await _weatherInteractor.getWeatherGeolocation(
+          location.latitude ?? 0, location.longitude ?? 0);
       weathertState.content(newWeather);
       setBackround(newWeather.weather[0].main);
     } catch (e, stack) {

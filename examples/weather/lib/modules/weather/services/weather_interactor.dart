@@ -11,4 +11,9 @@ class WeatherInteractor {
   Future<Weather> getWeather(String city) {
     return _weatherRepository.getWeather(city);
   }
+
+  /// Получить погоду по текущим координатам
+  Future<Weather> getWeatherGeolocation(double lat, double lon) {
+    return _weatherRepository.getWeatherGeolocation(lat, lon);
+  }
 }
