@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:relation/relation.dart';
+import 'package:weather/modules/weather/models/weather.dart';
 import 'package:weather/modules/weather/ui/decorations/input_text_decoration.dart';
 import 'package:weather/modules/weather/ui/res/assets.dart';
 import 'package:weather/modules/weather/ui/res/text_styles.dart';
 import 'package:weather/modules/weather/ui/res/ui_constants.dart';
 import 'package:weather/modules/weather/ui/screens/weather_screen/weather_screen_wm.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:weather/modules/weather/ui/screens/weather_screen/widgets/wather_view_error.dart';
+import 'package:weather/modules/weather/ui/screens/weather_screen/widgets/weather_view_loading.dart';
+import 'package:weather/modules/weather/ui/screens/weather_screen/widgets/weather_view_ok.dart';
 
 /// главный экран погоды
 class WeatherScreen extends CoreMwwmWidget<WeatherScreenWidgetModel> {
@@ -38,10 +43,10 @@ class _WeatherScreen
         child: LayoutBuilder(
           builder: (context, constraints) {
             /// управление полем вовода и разденилитем на больших экранах
-            double inputpadding = standardPadding * 2;
+            double inputPadding = standardPadding * 2;
             final width = constraints.maxWidth;
             if (width > maxCityInputWidth + standardPadding * 2) {
-              inputpadding = (width - maxCityInputWidth) / 2;
+              inputPadding = (width - maxCityInputWidth) / 2;
             }
 
             return Container(
@@ -65,17 +70,17 @@ class _WeatherScreen
                           padding: EdgeInsets.all(10),
                         ),
                         Container(
-                          padding: EdgeInsets.fromLTRB(inputpadding,
-                              standardPadding, inputpadding, standardPadding),
+                          padding: EdgeInsets.fromLTRB(inputPadding,
+                              standardPadding, inputPadding, standardPadding),
                           child: Row(
                             children: [
                               // TODO: быстрый тест, убрать
                               GestureDetector(
                                 child: FaIcon(FontAwesomeIcons.mapMarkerAlt,
                                     size: 40),
-                                onTap: () {
-                                  wm.getWeather(wm.currentCity);
-                                },
+                                // onTap: () {
+                                //   wm.getWeather(wm.currentCity);
+                                // },
                               ),
                               Expanded(
                                 child: Container(
@@ -85,10 +90,7 @@ class _WeatherScreen
                                     cursorColor: Colors.white,
                                     decoration:
                                         inputTextDecoration('Enter City Name'),
-                                    //TODO action - choosecity
-                                    onChanged: (value) {
-                                      wm.setCity(value);
-                                    },
+                                    controller: wm.cityInputAction.controller,
                                   ),
                                 ),
                               ),
@@ -101,47 +103,14 @@ class _WeatherScreen
                             ],
                           ),
                         ),
-                        Flexible(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('Moscow', style: hl2Style),
-                              Text('30 July 2021', style: hl5Style),
-                              Text('32°', style: hl1Style),
-                              Text('18° / 32°', style: hl5Style),
-                              Text('Cloudy', style: hl5Style),
-                              Text('Scattered Clouds', style: hl5Style),
-                              Divider(
-                                thickness: 3,
-                                color: Colors.white,
-                                endIndent: inputpadding + dividerPadding,
-                                indent: inputpadding + dividerPadding,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text('Pressure: ', style: hl5Style),
-                                      Text('Humidity: ', style: hl5Style),
-                                      Text('Wind: ', style: hl5Style),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('99 mmHg', style: hl5StyleBold),
-                                      Text('99 g/m3', style: hl5StyleBold),
-                                      Text('99 m/s', style: hl5StyleBold),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                        EntityStateBuilder<Weather>(
+                          streamedState: wm.weathertState,
+                          builder: (_, data) => WeatherViewOk(
+                              weather: data,
+                              inputPadding: inputPadding,
+                              dividerPadding: dividerPadding),
+                          loadingChild: WeatherViewLoading(),
+                          errorBuilder: (_, e) => WeatherViewError(),
                         ),
                       ],
                     ),
