@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
 import 'package:weather/error_handlers/app_error_handler.dart';
@@ -7,7 +6,6 @@ import 'package:weather/modules/weather/models/weather.dart';
 import 'package:weather/modules/weather/services/find_lication.dart';
 import 'package:weather/modules/weather/services/weather_interactor.dart';
 import 'package:provider/provider.dart';
-
 import 'package:relation/relation.dart' as relation show TextEditingAction;
 
 class WeatherScreenWidgetModel extends WidgetModel {
@@ -36,7 +34,7 @@ class WeatherScreenWidgetModel extends WidgetModel {
   final backgroundsState = StreamedState<String>("clouds");
 
   /// Установка нового бекграунда
-  void setBackround(String newBackground) {
+  void _setBackround(String newBackground) {
     if (['clear', 'clouds', 'mist', 'rain', 'snow', 'thunderstorm']
         .contains(newBackground.toLowerCase())) {
       backgroundsState.accept(newBackground.toLowerCase());
@@ -59,14 +57,6 @@ class WeatherScreenWidgetModel extends WidgetModel {
     super.onBind();
   }
 
-  /// отправка погоды в weathertState через then и catchError
-  // void _getWeatherInfoT(_) {
-  //   _weatherInteractor
-  //       .getWeather(cityInputAction.controller.value.text)
-  //       .then((value) => weathertState.content(value))
-  //       .catchError((e) => weathertState.error(e));
-  // }
-
   /// отправка погоды в weathertState через try - catch
   void _getWeatherInfoA(_) async {
     weathertState.loading();
@@ -74,7 +64,7 @@ class WeatherScreenWidgetModel extends WidgetModel {
       final newWeather = await _weatherInteractor
           .getWeather(cityInputAction.controller.value.text);
       weathertState.content(newWeather);
-      setBackround(newWeather.weather[0].main);
+      _setBackround(newWeather.weather[0].main);
     } catch (e, _) {
       /// обработать ошибку
       handleError(e);
@@ -87,13 +77,12 @@ class WeatherScreenWidgetModel extends WidgetModel {
   /// отправка погоды в weatherState из текущих координат по try-catch
   void _getWeatherInfoCoords(_) async {
     weathertState.loading();
-    // await Future.delayed(Duration(seconds: 3));
     try {
       final location = await findLoacation();
       final newWeather = await _weatherInteractor.getWeatherGeolocation(
           location.latitude ?? 0, location.longitude ?? 0);
       weathertState.content(newWeather);
-      setBackround(newWeather.weather[0].main);
+      _setBackround(newWeather.weather[0].main);
     } catch (e, _) {
       handleError(e);
       weathertState.error(Exception(e));

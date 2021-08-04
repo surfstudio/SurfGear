@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:weather/error_handlers/exceptions.dart';
 import 'package:weather/modules/weather/models/weather.dart';
 import 'package:weather/modules/weather/repository/weather_api_client.dart';
 
@@ -24,7 +25,14 @@ class WeatherRepository {
       /// парсинг через сгенерированный fromJson
       return Weather.fromJson(data);
     } else {
-      throw Exception('Bad request with code:  ${response.statusCode}');
+      print(response.statusCode);
+      if (response.statusCode == 400) {
+        throw ClientNetworkException();
+      } else if (response.statusCode >= 401 && response.statusCode <= 599) {
+        throw ServerNetworkException();
+      } else {
+        throw Exception('Bad request with code:  ${response.statusCode}');
+      }
     }
   }
 
@@ -44,7 +52,20 @@ class WeatherRepository {
       /// парсинг через сгенерированный fromJson
       return Weather.fromJson(data);
     } else {
-      throw Exception('Bad request with code:  ${response.statusCode}');
+      if (response.statusCode == 400) {
+        throw ClientNetworkException();
+      } else if (response.statusCode >= 401 && response.statusCode <= 599) {
+        throw ServerNetworkException();
+      } else {
+        throw Exception('Bad request with code:  ${response.statusCode}');
+      }
     }
   }
 }
+
+//TODO
+// наследоваться от Exception
+// ошибка сервера и ошибка клиента
+// проверить по is
+
+// из SMP - bottom nawbar и табы
