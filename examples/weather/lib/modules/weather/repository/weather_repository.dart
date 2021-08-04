@@ -62,10 +62,3 @@ class WeatherRepository {
     }
   }
 }
-
-//TODO
-// наследоваться от Exception
-// ошибка сервера и ошибка клиента
-// проверить по is
-
-// из SMP - bottom nawbar и табы

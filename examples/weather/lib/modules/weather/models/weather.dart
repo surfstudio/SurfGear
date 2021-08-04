@@ -6,6 +6,8 @@ import 'package:weather/modules/weather/models/wind_info.dart';
 
 part 'weather.g.dart';
 
+/// Модель общей информации о погоде
+
 @JsonSerializable(explicitToJson: true)
 class Weather {
   final List<WeatherInfo> weather;

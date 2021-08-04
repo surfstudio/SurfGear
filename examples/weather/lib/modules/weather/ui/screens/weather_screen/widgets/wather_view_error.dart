@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:weather/modules/weather/ui/res/text_styles.dart';
 
+/// Экран ошибки
 class WeatherViewError extends StatelessWidget {
-  const WeatherViewError(
-      {Key? key, required this.inputPadding, required this.dividerPadding})
-      : super(key: key);
+  const WeatherViewError({
+    Key? key,
+    required this.inputPadding,
+    required this.dividerPadding,
+  }) : super(key: key);
 
   final double inputPadding;
   final double dividerPadding;

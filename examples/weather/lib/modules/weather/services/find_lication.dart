@@ -1,5 +1,7 @@
 import 'package:location/location.dart';
 
+//TODO: сделать классом
+
 Future<LocationData> findLoacation() async {
   Location location = new Location();
 

@@ -11,6 +11,8 @@ import 'package:weather/modules/weather/ui/screens/weather_screen/widgets/wather
 import 'package:weather/modules/weather/ui/screens/weather_screen/widgets/weather_view_loading.dart';
 import 'package:weather/modules/weather/ui/screens/weather_screen/widgets/weather_view_ok.dart';
 
+//TODO: разбить на виджеты
+
 /// главный экран погоды
 class WeatherScreen extends CoreMwwmWidget<WeatherScreenWidgetModel> {
   WeatherScreen({Key? key})

@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:weather/error_handlers/exceptions.dart';
 
+/// Обработчик ошибок на уровне приложения
+/// Выдает снекбары разного цвета в зависимости от типа ошибки
+/// Черный - если проблемы с локацией (сервис не знает город)
+/// Красный - другие ошибки (сетевые)
 class AppErrorHandler implements ErrorHandler {
   final BuildContext context;
   AppErrorHandler({

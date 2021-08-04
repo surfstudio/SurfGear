@@ -2,6 +2,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:weather/modules/weather/ui/decorations/shadows.dart';
 
+/// Главные текстовые стили для экрана погоды
+
 final TextStyle hl1Style = GoogleFonts.anton(
   fontSize: 104,
   color: Colors.white,

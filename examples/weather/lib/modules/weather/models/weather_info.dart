@@ -2,6 +2,9 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'weather_info.g.dart';
 
+/// Описание погоды.
+/// Основное значение main (напр. Clouds) и descripion (напр. Scattered clouds)
+
 @JsonSerializable()
 class WeatherInfo {
   final int id;

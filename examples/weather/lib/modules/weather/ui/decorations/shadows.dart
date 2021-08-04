@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// тени для текстов на экране погоды
 List<Shadow> defaultShadow() {
   return [
     Shadow(

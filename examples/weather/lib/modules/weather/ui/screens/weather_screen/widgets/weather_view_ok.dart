@@ -3,6 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:weather/modules/weather/models/weather.dart';
 import 'package:weather/modules/weather/ui/res/text_styles.dart';
 
+/// Параметры погоды
+/// Показываем если запрос на сервер прошёл нормально и вернул данные
+
 class WeatherViewOk extends StatelessWidget {
   const WeatherViewOk(
       {Key? key,

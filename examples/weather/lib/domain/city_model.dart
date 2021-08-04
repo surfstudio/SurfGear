@@ -1,5 +1,7 @@
-class cityModel {
+/// Передача информации о городе между экранами на уровне приложения
+
+class CityModel {
   final String city;
 
-  cityModel(this.city);
+  CityModel(this.city);
 }

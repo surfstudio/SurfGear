@@ -2,6 +2,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'main_info.g.dart';
 
+/// Главные числовые параметры погоды
+
 @JsonSerializable(fieldRename: FieldRename.snake)
 class MainInfo {
   final double temp;
