@@ -33,7 +33,9 @@ class _WeatherScreen
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          print('yo tho');
+        },
         label: const Text('News'),
         icon: const FaIcon(FontAwesomeIcons.newspaper),
         backgroundColor: Colors.white,
@@ -41,7 +43,7 @@ class _WeatherScreen
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
-            /// управление полем вовода и разденилитем на больших экранах
+            /// управление полем вовода и разделителе на больших экранах
             double inputPadding = standardPadding * 2;
             final width = constraints.maxWidth;
             if (width > maxCityInputWidth + standardPadding * 2) {

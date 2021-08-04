@@ -95,7 +95,9 @@ class WeatherScreenWidgetModel extends WidgetModel {
 WeatherScreenWidgetModel createWeatherScreenWidgetModel(BuildContext context) {
   return WeatherScreenWidgetModel(
     /// добавлен обработчик ошибок
-    WidgetModelDependencies(errorHandler: AppErrorHandler(context: context)),
+    WidgetModelDependencies(
+      errorHandler: AppErrorHandler(context: context),
+    ),
     context.read<WeatherInteractor>(),
   );
 }
