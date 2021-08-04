@@ -6,7 +6,7 @@ import 'package:weather/error_handlers/exceptions.dart';
 /// Обработчик ошибок на уровне приложения
 /// Выдает снекбары разного цвета в зависимости от типа ошибки
 /// Черный - если проблемы с локацией (сервис не знает город)
-/// Красный - другие ошибки (сетевые)
+/// Красный - другие ошибки (сетевые, геолокатор, всё остальное)
 class AppErrorHandler implements ErrorHandler {
   final BuildContext context;
   AppErrorHandler({
@@ -18,6 +18,9 @@ class AppErrorHandler implements ErrorHandler {
       showBlackSnackbar("Location is not available. Try anoter location.");
     } else if (e is ServerNetworkException) {
       showRedSnackbar("Network error. Try again later");
+    } else if (e is GeolocationException) {
+      showRedSnackbar(
+          "Geolocation is not allowed. Allow geolocation and try again");
     } else {
       showRedSnackbar(e.toString());
     }

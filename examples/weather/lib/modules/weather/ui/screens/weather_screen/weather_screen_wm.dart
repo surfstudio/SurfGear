@@ -33,6 +33,8 @@ class WeatherScreenWidgetModel extends WidgetModel {
   /// стрим бекграундов
   final backgroundsState = StreamedState<String>("clouds");
 
+  final geoService = GeoService();
+
   /// Установка нового бекграунда
   void _setBackround(String newBackground) {
     if (['clear', 'clouds', 'mist', 'rain', 'snow', 'thunderstorm']
@@ -78,7 +80,7 @@ class WeatherScreenWidgetModel extends WidgetModel {
   void _getWeatherInfoCoords(_) async {
     weathertState.loading();
     try {
-      final location = await findLoacation();
+      final location = await geoService.findLoacation();
       final newWeather = await _weatherInteractor.getWeatherGeolocation(
           location.latitude ?? 0, location.longitude ?? 0);
       weathertState.content(newWeather);
