@@ -14,7 +14,8 @@ class NewsScreenWidgetModel extends WidgetModel {
 
   //TODO: убрать быстрый тест
   void testRequest() async {
-    final r = await _newsInteractor.getNews(offset: 10, limit: 2, keywords: '');
+    final r = await _newsInteractor.getNews(
+        offset: 10, limit: 2, keywords: 'Pasadena');
     print(r);
   }
 }

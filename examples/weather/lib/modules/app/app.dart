@@ -7,9 +7,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Weather and News',
-      theme: ThemeData.dark().copyWith(
-        primaryColor: Colors.white,
-      ),
+      theme: ThemeData.dark(),
       home: WeatherApp(),
     );
   }
