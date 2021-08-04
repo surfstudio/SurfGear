@@ -34,7 +34,7 @@ class _WeatherScreen
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          print('yo tho');
+          wm.openNewsScreen(context);
         },
         label: const Text('News'),
         icon: const FaIcon(FontAwesomeIcons.newspaper),

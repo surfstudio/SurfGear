@@ -11,6 +11,12 @@ class NewsScreenWidgetModel extends WidgetModel {
 
   /// интерактор с API новостей
   final NewsInteractor _newsInteractor;
+
+  //TODO: убрать быстрый тест
+  void testRequest() async {
+    final r = await _newsInteractor.getNews(offset: 10, limit: 2, keywords: '');
+    print(r);
+  }
 }
 
 NewsScreenWidgetModel createNewsScreenWidgetModel(BuildContext context) {

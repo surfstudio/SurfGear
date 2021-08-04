@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
 import 'package:weather/error_handlers/app_error_handler.dart';
+import 'package:weather/modules/news/ui/screens/app/news_screen_route.dart';
 import 'package:weather/modules/weather/models/weather.dart';
 import 'package:weather/modules/weather/services/find_lication.dart';
 import 'package:weather/modules/weather/services/weather_interactor.dart';
@@ -89,6 +90,14 @@ class WeatherScreenWidgetModel extends WidgetModel {
       handleError(e);
       weathertState.error(Exception(e));
     }
+  }
+
+  /// открыть экран новостей через его Route
+  void openNewsScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      NewsAppRoute(),
+    );
   }
 }
 

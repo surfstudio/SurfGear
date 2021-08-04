@@ -21,7 +21,10 @@ class _NewsScreen extends WidgetState<NewsScreen, NewsScreenWidgetModel> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('yo tho'),
+        child: ElevatedButton(
+          child: Text('yo tho'),
+          onPressed: wm.testRequest,
+        ),
       ),
     );
   }
