@@ -104,12 +104,7 @@ class WeatherScreenWidgetModel extends WidgetModel {
 WeatherScreenWidgetModel createWeatherScreenWidgetModel(BuildContext context) {
   return WeatherScreenWidgetModel(
     /// добавлен обработчик ошибок
-    WidgetModelDependencies(errorHandler: AppErrorHandler()),
+    WidgetModelDependencies(errorHandler: AppErrorHandler(context: context)),
     context.read<WeatherInteractor>(),
   );
 }
-
-//TODO; вопросы на обсуждение:
-// что должен делать обработчик ошибок
-// как закинуть в него контекст, чтобы показать например снекбар
-
