@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
 import 'package:weather/modules/weather/models/weather.dart';
-import 'package:weather/modules/weather/ui/decorations/input_text_decoration.dart';
 import 'package:weather/modules/weather/ui/res/assets.dart';
 import 'package:weather/modules/weather/ui/res/ui_constants.dart';
 import 'package:weather/modules/weather/ui/screens/weather_screen/weather_screen_wm.dart';

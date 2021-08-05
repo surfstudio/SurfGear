@@ -3,5 +3,5 @@
 class CityModel {
   final String city;
 
-  CityModel(this.city);
+  CityModel({required this.city});
 }

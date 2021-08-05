@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:weather/modules/app/services/app_storage_interactor.dart';
+import 'package:weather/modules/app/services/app_storage_repository.dart';
 import '../app.dart';
 
 class AppDependencies extends StatelessWidget {
@@ -11,15 +14,14 @@ class AppDependencies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: добавить интеракторы и провайдер
-    // final hiveInteractor = HiveInteractor();
+    final appStorageRepository = AppStorageRepository();
+    final appStorageInteractor = AppStorageInteractor(appStorageRepository);
 
-    // return MultiProvider(
-    //   providers: [
-    //     Provider<HiveInteractor>(create: (_) => hiveInteractor),
-    //   ],
-    //   child: app,
-    // );
-    return app;
+    return MultiProvider(
+      providers: [
+        Provider<AppStorageInteractor>(create: (_) => appStorageInteractor),
+      ],
+      child: app,
+    );
   }
 }

@@ -23,7 +23,7 @@ class _NewsScreen extends WidgetState<NewsScreen, NewsScreenWidgetModel> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('News in that city'),
+        title: Text('News about ${wm.currentCity}'),
       ),
       body: SafeArea(
         child: LayoutBuilder(
@@ -54,6 +54,12 @@ class _NewsScreen extends WidgetState<NewsScreen, NewsScreenWidgetModel> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
+                              ElevatedButton(
+                                child: Text("yo tho"),
+                                onPressed: () {
+                                  wm.testRequest();
+                                },
+                              ),
                               for (var i = 0; i < 50; i++) NewsCard(),
                             ],
                           ),
