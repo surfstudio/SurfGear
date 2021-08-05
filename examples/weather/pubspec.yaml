@@ -28,7 +28,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  integration_test:
+    sdk: flutter
   build_runner: ^2.0.6
+
+  # тестирование
+  golden_toolkit: ^0.9.0
+  mocktail: ^0.1.4
 
 flutter:
   uses-material-design: true

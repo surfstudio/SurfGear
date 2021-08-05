@@ -19,6 +19,7 @@ class WeatherRepository {
     };
 
     final response = await client.get('/data/2.5/weather', params: params);
+
     if (response.statusCode == 200 && response.body.isNotEmpty) {
       final data = jsonDecode(response.body) as Map<String, dynamic>;
 

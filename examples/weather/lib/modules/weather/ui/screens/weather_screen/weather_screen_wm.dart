@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/cupertino.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
