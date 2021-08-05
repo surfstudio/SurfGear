@@ -2,6 +2,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'wind_info.g.dart';
 
+/// Информация о ветре
+
 @JsonSerializable()
 class WindInfo {
   @JsonKey(defaultValue: 0)

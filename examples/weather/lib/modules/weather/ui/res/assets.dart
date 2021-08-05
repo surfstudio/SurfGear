@@ -1,4 +1,5 @@
-const String _baseResPath = 'assets';
-const String _baseImagesPath = '$_baseResPath/images';
+/// пути на ассеты - картинки для фонов
 
-const String genericBackground = '$_baseImagesPath/clouds.jpg';
+const String _baseResPath = 'assets';
+const String baseImagesPath = '$_baseResPath/images';
+const String genericBackground = '$baseImagesPath/clouds.jpg';

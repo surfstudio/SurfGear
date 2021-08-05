@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Офолмление поля ввода на экране погоды
 InputDecoration inputTextDecoration(String inputText) {
   return InputDecoration(
       focusedBorder: OutlineInputBorder(

@@ -1,32 +1,49 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
-import 'package:weather/domain/city_model.dart';
-import 'package:weather/modules/weather/models/weather_model.dart';
+import 'package:weather/error_handlers/app_error_handler.dart';
+import 'package:weather/modules/weather/models/weather.dart';
+import 'package:weather/modules/weather/services/find_lication.dart';
 import 'package:weather/modules/weather/services/weather_interactor.dart';
 import 'package:provider/provider.dart';
+import 'package:relation/relation.dart' as relation show TextEditingAction;
 
 class WeatherScreenWidgetModel extends WidgetModel {
   WeatherScreenWidgetModel(
       WidgetModelDependencies baseDependencies, this._weatherInteractor)
       : super(baseDependencies);
 
+  /// интерактор
   final WeatherInteractor _weatherInteractor;
 
   /// Данные для экрана
-  final contentState = EntityStreamedState<WeatherModel>()..loading();
+  final weathertState = EntityStreamedState<Weather>()
+    ..loading(); // перевод в загрузку на старте
 
-  /// Данные - город пользователя
-  final cityInfo = EntityStreamedState<cityModel>();
-
-  /// Получить данные по введённому городу
+  /// Действие - получить данные по введённому городу
   final fetchInput = VoidAction();
+
+  /// Экшен - получение города из поля ввода
+  /// получение значения - через cityInputAction.controller.value.text
+  final cityInputAction = relation.TextEditingAction();
 
   /// Найти город исходя из текущео гео пользователя
   final findCityByGeo = VoidAction();
 
-  /// Перезагрузить экран в случае ошибки
-  final reloadErrorAction = VoidAction();
+  /// стрим бекграундов
+  final backgroundsState = StreamedState<String>("clouds");
+
+  final geoService = GeoService();
+
+  /// Установка нового бекграунда
+  void _setBackround(String newBackground) {
+    if (['clear', 'clouds', 'mist', 'rain', 'snow', 'thunderstorm']
+        .contains(newBackground.toLowerCase())) {
+      backgroundsState.accept(newBackground.toLowerCase());
+    } else {
+      backgroundsState.accept('clouds');
+    }
+  }
 
   @override
   void onLoad() {
@@ -35,23 +52,50 @@ class WeatherScreenWidgetModel extends WidgetModel {
 
   @override
   void onBind() {
-    // TODO: сделать подписку на сервисы
+    /// подписка на стрим событий с кнопки "погода по городу" на запрос погоды по нему
+    subscribe(fetchInput.stream, _getWeatherInfoA);
+    subscribe(findCityByGeo.stream, _getWeatherInfoCoords);
+    _getWeatherInfoCoords(null);
     super.onBind();
   }
 
-  // TODO: быстрый тест, убрать
-  WeatherModel? currentWeather;
+  /// отправка погоды в weathertState через try - catch
+  void _getWeatherInfoA(_) async {
+    weathertState.loading();
+    try {
+      final newWeather = await _weatherInteractor
+          .getWeather(cityInputAction.controller.value.text);
+      weathertState.content(newWeather);
+      _setBackround(newWeather.weather[0].main);
+    } catch (e, _) {
+      /// обработать ошибку
+      handleError(e);
 
-  // TODO: быстрый тест, убрать
-  void getWeather(String city) async {
-    currentWeather = await _weatherInteractor.getWeather(city);
-    print(currentWeather);
+      /// закинуть ошибку в стрим
+      weathertState.error(Exception(e));
+    }
+  }
+
+  /// отправка погоды в weatherState из текущих координат по try-catch
+  void _getWeatherInfoCoords(_) async {
+    weathertState.loading();
+    try {
+      final location = await geoService.findLoacation();
+      final newWeather = await _weatherInteractor.getWeatherGeolocation(
+          location.latitude ?? 0, location.longitude ?? 0);
+      weathertState.content(newWeather);
+      _setBackround(newWeather.weather[0].main);
+    } catch (e, _) {
+      handleError(e);
+      weathertState.error(Exception(e));
+    }
   }
 }
 
 WeatherScreenWidgetModel createWeatherScreenWidgetModel(BuildContext context) {
   return WeatherScreenWidgetModel(
-    const WidgetModelDependencies(),
+    /// добавлен обработчик ошибок
+    WidgetModelDependencies(errorHandler: AppErrorHandler(context: context)),
     context.read<WeatherInteractor>(),
   );
 }
