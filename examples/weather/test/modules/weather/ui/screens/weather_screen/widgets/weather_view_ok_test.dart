@@ -20,14 +20,18 @@ void main() {
       testWidgets(
         'Showing weather',
         (tester) async {
-          await tester.pumpWidgetBuilder(Scaffold(
-            body: Column(
-              children: [
-                WeatherViewOk(
-                    weather: weatherData, inputPadding: 10, dividerPadding: 10),
-              ],
+          await tester.pumpWidgetBuilder(
+            Scaffold(
+              body: Column(
+                children: [
+                  WeatherViewOk(
+                      weather: weatherData,
+                      inputPadding: 10,
+                      dividerPadding: 10),
+                ],
+              ),
             ),
-          ));
+          );
 
           expect(find.text('Pressure: '), findsOneWidget);
           expect(find.text('Humidity: '), findsOneWidget);
