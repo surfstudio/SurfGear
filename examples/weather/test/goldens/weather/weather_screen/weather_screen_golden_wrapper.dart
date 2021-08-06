@@ -10,11 +10,14 @@ class WeatherScreenGoldenWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          testWidget,
-        ],
+    return MaterialApp(
+      theme: ThemeData.dark(),
+      home: Scaffold(
+        body: Column(
+          children: [
+            testWidget,
+          ],
+        ),
       ),
     );
   }

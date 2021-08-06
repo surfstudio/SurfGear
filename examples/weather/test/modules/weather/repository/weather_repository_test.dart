@@ -45,7 +45,6 @@ void main() {
         ),
       ).thenAnswer(
         (invocation) => Future.value(
-          //TODO: уточнить, как правильно. Невалидный JSON кидает ошибки.
           Response(weatherResp, 200),
         ),
       );
@@ -68,7 +67,6 @@ void main() {
         ),
       ).thenAnswer(
         (invocation) => Future.value(
-          //TODO: уточнить, как правильно. Невалидный JSON кидает ошибки.
           Response(weatherResp, 200),
         ),
       );

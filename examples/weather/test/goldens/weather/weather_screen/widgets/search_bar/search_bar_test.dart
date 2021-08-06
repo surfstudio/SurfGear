@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:weather/modules/weather/ui/screens/weather_screen/widgets/wather_view_error.dart';
+import 'package:relation/relation.dart';
+import 'package:weather/modules/weather/ui/screens/weather_screen/widgets/search_bar.dart';
 
-import '../weather_screen_golden_wrapper.dart';
+import '../../weather_screen_golden_wrapper.dart';
 
 /// Голден тесты [App]
 void main() {
@@ -15,10 +16,12 @@ void main() {
     'App golden test',
     (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: WeatherScreenGoldenWrapper(
-            testWidget: WeatherViewError(inputPadding: 10, dividerPadding: 10),
-          ),
+        WeatherScreenGoldenWrapper(
+          testWidget: SearchBar(
+              inputPadding: 10,
+              findCityByGeoAction: VoidAction(),
+              textEditionController: ExtendedTextEditingController(),
+              fetchInputAction: VoidAction()),
         ),
       );
 
@@ -32,7 +35,9 @@ void main() {
           Device.phone,
           Device.tabletPortrait,
           Device.iphone11,
-          const Device(size: Size(400, 900), name: 'custom 1'),
+          Device.tabletPortrait,
+          const Device(size: Size(400, 900), name: 'custom_400x900'),
+          const Device(size: Size(800, 600), name: 'custom_800x600'),
         ],
       );
     },
