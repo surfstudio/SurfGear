@@ -31,14 +31,14 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<RawAnimeTop> getAnimeTop() async {
+  Future<RawAnimeTop> getAnimeTop(page) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RawAnimeTop>(
             Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/top/anime',
+                .compose(_dio.options, '/top/anime/$page',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RawAnimeTop.fromJson(_result.data!);

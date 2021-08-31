@@ -3,43 +3,33 @@ import 'package:json_annotation/json_annotation.dart';
 part 'raw_anime.g.dart';
 
 @JsonSerializable()
-class RawAnimeTop {
-  List<RawAnime> top;
-
-  RawAnimeTop({this.top = const []});
-
-  factory RawAnimeTop.fromJson(Map<String, dynamic> json) => _$RawAnimeTopFromJson(json);
-  Map<String, dynamic> toJson() => _$RawAnimeTopToJson(this);
-}
-
-@JsonSerializable()
 class RawAnime {
-  RawAired? aired;
-  bool? airing;
-  String? background;
-  String? broadcast;
-  String? duration;
-  List<String>? ending_themes;
-  int? episodes;
-  int? favorites;
-  List<RawGenre>? genres;
-  String? image_url;
-  int? mal_id;
-  int? members;
-  List<String>? opening_themes;
-  int? popularity;
-  String? premiered;
-  int? rank;
-  String? rating;
-  double? score;
-  int? scored_by;
-  String? status;
-  String? synopsis;
-  String? title;
-  String? title_english;
-  String? title_japanese;
-  String? trailer_url;
-  String? type;
+  RawAired aired;
+  bool airing;
+  String background;
+  String broadcast;
+  String duration;
+  List<String> ending_themes;
+  int episodes;
+  int favorites;
+  List<RawGenre> genres;
+  String image_url;
+  int mal_id;
+  int members;
+  List<String> opening_themes;
+  int popularity;
+  String premiered;
+  int rank;
+  String rating;
+  double score;
+  int scored_by;
+  String status;
+  String synopsis;
+  String title;
+  String title_english;
+  String title_japanese;
+  String trailer_url;
+  String type;
 
   RawAnime({
     this.aired = const RawAired(),
