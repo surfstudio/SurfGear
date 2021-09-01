@@ -1,4 +1,5 @@
 import 'package:my_anime/data/raw_models/raw_anime_top.dart';
+
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import '../raw_models/raw_anime.dart';
@@ -14,4 +15,5 @@ abstract class RestClient {
 
   @GET("/top/anime/{page}")
   Future<RawAnimeTop> getAnimeTop(@Path("page") String page);
+
 }
