@@ -7,43 +7,80 @@ class AnimeListElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 200,
-      child: Row(
-        children: [
-          SizedBox(
-            child: Image.network(
-              anime.imageUrl,
-              fit: BoxFit.fitWidth,
+    return Card(
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      elevation: 10,
+      child: SizedBox(
+        height: 200,
+        child: Row(
+          children: [
+            SizedBox(
+              child: Image.network(
+                anime.imageUrl,
+                fit: BoxFit.cover,
+              ),
+              width: 150,
             ),
-            width: 150,
-            height: 200,
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      anime.title,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: _Title(anime.title),
                     ),
-                  ),
-                  Text('Rank: ${anime.rank}'),
-                  Text('Score: ${anime.score}'),
-                  Text('Members: ${anime.members}'),
-                  Text('Type: ${anime.type}'),
-                  Text('Episodes: ${anime.episodes}'),
-                  Text('Release Dates: ${anime.startDate} - ${anime.endDate}')
-                ],
+                    _Subtitle('Rank', anime.rank.toString()),
+                    _Subtitle('Score', anime.score.toString()),
+                    _Subtitle('Members', anime.members.toString()),
+                    _Subtitle('Type', anime.type),
+                    _Subtitle('Episodes', anime.episodes.toString()),
+                    _Subtitle('Release Dates', '${anime.startDate} - ${anime.endDate}'),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
+    );
+  }
+}
+
+class _Title extends StatelessWidget {
+  const _Title(this._title, {Key? key}) : super(key: key);
+
+  final String _title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      _title,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+      style: const TextStyle(
+        fontSize: 20,
+      ),
+    );
+  }
+}
+
+class _Subtitle extends StatelessWidget {
+  const _Subtitle(this._subtitle, this._value, {Key? key}) : super(key: key);
+
+  final String _subtitle;
+  final String _value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      '$_subtitle: $_value',
+      style: const TextStyle(
+        fontSize: 15,
+        color: Colors.white60,
+      ),
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }

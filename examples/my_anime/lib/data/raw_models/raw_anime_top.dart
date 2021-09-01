@@ -5,9 +5,9 @@ part 'raw_anime_top.g.dart';
 
 @JsonSerializable()
 class RawAnimeTop {
-  List<RawAnimeListElement> top;
-
   RawAnimeTop({this.top = const []});
+
+  List<RawAnimeListElement> top;
 
   factory RawAnimeTop.fromJson(Map<String, dynamic> json) => _$RawAnimeTopFromJson(json);
   Map<String, dynamic> toJson() => _$RawAnimeTopToJson(this);
