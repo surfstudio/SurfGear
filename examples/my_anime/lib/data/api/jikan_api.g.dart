@@ -32,7 +32,6 @@ class _RestClient implements RestClient {
 
   @override
   Future<RawAnimeTop> getAnimeTop(page) async {
-
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};

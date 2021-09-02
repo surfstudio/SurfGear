@@ -7,26 +7,28 @@ import 'package:relation/relation.dart';
 import 'package:surf_injector/surf_injector.dart';
 
 TopAnimeScreenWM createTopAnimeScreenWM(BuildContext context) {
-  AppComponent component = Injector.of<AppComponent>(context).component;
+  final component = Injector.of<AppComponent>(context).component;
 
-  return TopAnimeScreenWM(component.animeRepository);
+  return TopAnimeScreenWM(
+    component.animeRepository,
+  );
 }
 
 class TopAnimeScreenWM extends WidgetModel {
+  final scrollController = ScrollController();
+
+  final listLoadingState = EntityStreamedState<Object>();
+  final EntityStreamedState<List<AnimeEntity>> topAnimeState = EntityStreamedState()..content([]);
+
+  final AnimeRepository _repository;
+
+  int nextPage = 1;
+
   TopAnimeScreenWM(
     this._repository,
   ) : super(const WidgetModelDependencies()) {
     _loadNextAnimesPage();
   }
-
-  final AnimeRepository _repository;
-  final EntityStreamedState<List<AnimeEntity>> topAnimeState = EntityStreamedState()..content([]);
-
-  final scrollController = ScrollController();
-
-  final listLoadingState = EntityStreamedState<Object>();
-
-  int nextPage = 1;
 
   @override
   void onLoad() {
@@ -41,15 +43,16 @@ class TopAnimeScreenWM extends WidgetModel {
     }
   }
 
-  void _loadNextAnimesPage() {
-    listLoadingState.loading();
-    _repository.getTop(nextPage).then(
-      (newElements) {
-        nextPage++;
-        topAnimeState.value.data!.addAll(newElements);
-        topAnimeState.content(topAnimeState.value.data!);
-        listLoadingState.content(Object());
-      },
-    ).catchError((dynamic e) => listLoadingState.accept(EntityState.error(e, Object())));
+  Future<void> _loadNextAnimesPage() async {
+    await listLoadingState.loading();
+    try {
+      final newElements = await _repository.getTop(nextPage);
+      nextPage++;
+      topAnimeState.value.data!.addAll(newElements);
+      await topAnimeState.content(topAnimeState.value.data!);
+      await listLoadingState.content(Object());
+    } on Exception catch (e) {
+      await listLoadingState.accept(EntityState.error(e, Object()));
+    }
   }
 }

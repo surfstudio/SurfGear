@@ -5,12 +5,12 @@ import 'package:relation/relation.dart';
 import 'package:tabnavigator/tabnavigator.dart';
 
 class MainScreenWM extends WidgetModel {
-  MainScreenWM() : super(const WidgetModelDependencies());
-
   /// Поток с выбранными табами
   final StreamedState<TabType> selectedTabState = StreamedState(MainScreenTabs.initTab);
 
   final tabNavigatorKey = GlobalKey<TabNavigatorState>();
+
+  MainScreenWM() : super(const WidgetModelDependencies());
 
   void navigationTap(int tabId) {
     final tabType = MainScreenTabs.byValue(tabId);

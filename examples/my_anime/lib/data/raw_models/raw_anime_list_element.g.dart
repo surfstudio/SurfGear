@@ -21,7 +21,9 @@ RawAnimeListElement _$RawAnimeListElementFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$RawAnimeListElementToJson(RawAnimeListElement instance) => <String, dynamic>{
+Map<String, dynamic> _$RawAnimeListElementToJson(
+        RawAnimeListElement instance) =>
+    <String, dynamic>{
       'end_date': instance.end_date,
       'episodes': instance.episodes,
       'image_url': instance.image_url,

@@ -3,6 +3,7 @@ import 'package:my_anime/models/aime_entity.dart';
 
 class AnimeListElement extends StatelessWidget {
   final AnimeEntity anime;
+
   const AnimeListElement(this.anime, {Key? key}) : super(key: key);
 
   @override
@@ -48,9 +49,9 @@ class AnimeListElement extends StatelessWidget {
 }
 
 class _Title extends StatelessWidget {
-  const _Title(this._title, {Key? key}) : super(key: key);
-
   final String _title;
+
+  const _Title(this._title, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +67,10 @@ class _Title extends StatelessWidget {
 }
 
 class _Subtitle extends StatelessWidget {
-  const _Subtitle(this._subtitle, this._value, {Key? key}) : super(key: key);
-
   final String _subtitle;
   final String _value;
+
+  const _Subtitle(this._subtitle, this._value, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

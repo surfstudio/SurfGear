@@ -4,6 +4,17 @@ part 'raw_anime_list_element.g.dart';
 
 @JsonSerializable()
 class RawAnimeListElement {
+  String? end_date;
+  int? episodes;
+  String? image_url;
+  int? mal_id;
+  int? members;
+  int? rank;
+  double? score;
+  String? start_date;
+  String? title;
+  String? type;
+
   RawAnimeListElement({
     this.end_date = '',
     this.episodes = 0,
@@ -16,17 +27,6 @@ class RawAnimeListElement {
     this.title = '',
     this.type = '',
   });
-
-  String? end_date;
-  int? episodes;
-  String? image_url;
-  int? mal_id;
-  int? members;
-  int? rank;
-  double? score;
-  String? start_date;
-  String? title;
-  String? type;
 
   factory RawAnimeListElement.fromJson(Map<String, dynamic> json) => _$RawAnimeListElementFromJson(json);
   Map<String, dynamic> toJson() => _$RawAnimeListElementToJson(this);

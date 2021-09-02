@@ -11,23 +11,26 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  retrofit: ^2.0.1
+
   mwwm: ^2.0.0
-  relation: ^3.1.0
-  tabnavigator: ^1.0.0
-
-  # DI
-  surf_injector: ^1.0.0
-
   # хранение данных между сеансами
   hive: ^2.0.4
   hive_flutter: ^1.1.0
+
+  retrofit: ^2.0.1
+  relation: ^3.1.0
+
+  # DI
+  surf_injector: ^1.0.0
+  tabnavigator: ^1.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   json_serializable: ^4.1.4
+
+  surf_lint_rules: ^1.4.0
 
   # тестирование
   mocktail: ^0.1.4
@@ -36,7 +39,6 @@ dev_dependencies:
   hive_generator: ^1.1.0
   retrofit_generator: ^2.0.1
   build_runner: ^2.1.1
-  dart_code_metrics: ^4.1.0
 
 flutter:
   uses-material-design: true

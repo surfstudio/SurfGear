@@ -37,17 +37,17 @@ class _TopAnimeScreenState extends WidgetState<TopAnimeScreen, TopAnimeScreenWM>
             itemBuilder: (_, index) => index == animes.length
                 ? EntityStateBuilder<Object>(
                     streamedState: wm.listLoadingState,
-                    errorBuilder: (_, e) => SizedBox(
+                    errorBuilder: (_, e) => const SizedBox(
                       height: 64,
                       child: Center(child: Text('Error while fetching data')),
                     ),
-                    loadingChild: SizedBox(
+                    loadingChild: const SizedBox(
                       height: 64,
                       child: Center(
                         child: CircularProgressIndicator(),
                       ),
                     ),
-                    builder: (_, __) => SizedBox(
+                    builder: (_, __) => const SizedBox(
                       height: 64,
                     ),
                   )

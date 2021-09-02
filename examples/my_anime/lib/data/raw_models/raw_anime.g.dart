@@ -75,12 +75,14 @@ Map<String, dynamic> _$RawAnimeToJson(RawAnime instance) => <String, dynamic>{
 RawAired _$RawAiredFromJson(Map<String, dynamic> json) {
   return RawAired(
     from: json['from'] as String,
+    string: json['string'] as String,
     to: json['to'] as String,
   );
 }
 
 Map<String, dynamic> _$RawAiredToJson(RawAired instance) => <String, dynamic>{
       'from': instance.from,
+      'string': instance.string,
       'to': instance.to,
     };
 
