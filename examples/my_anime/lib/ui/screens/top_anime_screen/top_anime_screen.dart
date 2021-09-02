@@ -6,7 +6,7 @@ import 'package:my_anime/ui/widgets/anime_list_element.dart';
 import 'package:relation/relation.dart';
 
 class TopAnimeScreen extends CoreMwwmWidget<TopAnimeScreenWM> {
-  TopAnimeScreen({Key? key})
+  const TopAnimeScreen({Key? key})
       : super(
           key: key,
           widgetModelBuilder: createTopAnimeScreenWM,
@@ -17,18 +17,41 @@ class TopAnimeScreen extends CoreMwwmWidget<TopAnimeScreenWM> {
 
 class _TopAnimeScreenState extends WidgetState<TopAnimeScreen, TopAnimeScreenWM> {
   @override
-  Widget build(BuildContext context) => EntityStateBuilder<List<AnimeEntity>>(
-        streamedState: wm.topAnimeState,
-        loadingChild: const Center(
-          child: CircularProgressIndicator(),
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: const Text('Top'),
         ),
-        builder: (_, animes) => Scaffold(
-          appBar: AppBar(
-            title: const Text('Top'),
+        body: EntityStateBuilder<List<AnimeEntity>>(
+          streamedState: wm.topAnimeState,
+          loadingChild: const Center(
+            child: CircularProgressIndicator(),
           ),
-          body: ListView.builder(
-            itemBuilder: (_, idex) => AnimeListElement(animes[idex]),
-            itemCount: animes.length,
+          errorBuilder: (_, e) => Center(
+            child: Text('Error: $e'),
+          ),
+          builder: (_, animes) => ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            controller: wm.scrollController,
+            padding: const EdgeInsets.all(4),
+            itemCount: animes.length + 1,
+            itemBuilder: (_, index) => index == animes.length
+                ? EntityStateBuilder<Object>(
+                    streamedState: wm.listLoadingState,
+                    errorBuilder: (_, e) => SizedBox(
+                      height: 64,
+                      child: Center(child: Text('Error while fetching data')),
+                    ),
+                    loadingChild: SizedBox(
+                      height: 64,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                    builder: (_, __) => SizedBox(
+                      height: 64,
+                    ),
+                  )
+                : AnimeListElement(animes[index]),
           ),
         ),
       );

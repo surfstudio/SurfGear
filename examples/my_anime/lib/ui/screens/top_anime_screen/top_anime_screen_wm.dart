@@ -2,26 +2,54 @@ import 'package:flutter/cupertino.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:my_anime/models/aime_entity.dart';
 import 'package:my_anime/repositories/anime_repository.dart';
-import 'package:my_anime/ui/screens/top_anime_screen/top_anime_screen_component.dart';
+import 'package:my_anime/ui/app/app_component.dart';
 import 'package:relation/relation.dart';
 import 'package:surf_injector/surf_injector.dart';
 
 TopAnimeScreenWM createTopAnimeScreenWM(BuildContext context) {
-  TopAnimeScreenComponent component = Injector.of<TopAnimeScreenComponent>(context).component;
+  AppComponent component = Injector.of<AppComponent>(context).component;
+
   return TopAnimeScreenWM(component.animeRepository);
 }
 
 class TopAnimeScreenWM extends WidgetModel {
-  final AnimeRepository _repository;
-  final EntityStreamedState<List<AnimeEntity>> _topAnimeState = EntityStreamedState(EntityState.loading());
-
   TopAnimeScreenWM(
     this._repository,
   ) : super(const WidgetModelDependencies()) {
-    _repository.getTop().then((data) => _topAnimeState.accept(EntityState.content(data))).catchError((error) {
-      print(error);
-      return error;
-    });
+    _loadNextAnimesPage();
   }
-  EntityStreamedState<List<AnimeEntity>> get topAnimeState => _topAnimeState;
+
+  final AnimeRepository _repository;
+  final EntityStreamedState<List<AnimeEntity>> topAnimeState = EntityStreamedState()..content([]);
+
+  final scrollController = ScrollController();
+
+  final listLoadingState = EntityStreamedState<Object>();
+
+  int nextPage = 1;
+
+  @override
+  void onLoad() {
+    super.onLoad();
+    scrollController.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    if (scrollController.position.pixels >= scrollController.position.maxScrollExtent) {
+      if (listLoadingState.value.isLoading) return;
+      _loadNextAnimesPage();
+    }
+  }
+
+  void _loadNextAnimesPage() {
+    listLoadingState.loading();
+    _repository.getTop(nextPage).then(
+      (newElements) {
+        nextPage++;
+        topAnimeState.value.data!.addAll(newElements);
+        topAnimeState.content(topAnimeState.value.data!);
+        listLoadingState.content(Object());
+      },
+    ).catchError((dynamic e) => listLoadingState.accept(EntityState.error(e, Object())));
+  }
 }
