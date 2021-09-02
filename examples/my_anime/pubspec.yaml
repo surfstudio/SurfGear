@@ -19,6 +19,7 @@ dependencies:
 
   retrofit: ^2.0.1
   relation: ^3.1.0
+  tabnavigator: ^1.0.0
 
   # DI
   surf_injector: ^1.0.0
@@ -39,6 +40,7 @@ dev_dependencies:
   hive_generator: ^1.1.0
   retrofit_generator: ^2.0.1
   build_runner: ^2.1.1
+  dart_code_metrics: ^4.1.0
 
 flutter:
   uses-material-design: true

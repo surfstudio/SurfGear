@@ -17,7 +17,7 @@ class AnimeMapper {
       type: raw.type ?? '',
     );
   }
-
+  
   static AnimeEntity mapRawAnimeToEntity(RawAnime raw) {
     return AnimeEntity(
       dates: raw.aired.string,

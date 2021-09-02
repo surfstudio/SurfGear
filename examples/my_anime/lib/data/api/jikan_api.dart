@@ -13,6 +13,7 @@ abstract class RestClient {
   @GET('/anime/{id}')
   Future<RawAnime> getAnimeDetails(@Path('id') String id);
 
+
   @GET('/top/anime/{page}')
   Future<RawAnimeTop> getAnimeTop(@Path('page') String page);
 }
