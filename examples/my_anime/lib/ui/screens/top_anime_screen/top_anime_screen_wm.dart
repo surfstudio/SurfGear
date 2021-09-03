@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:my_anime/interactors/anime_interactor.dart';
 import 'package:my_anime/models/aime_entity.dart';
-import 'package:my_anime/repositories/anime_repository.dart';
-import 'package:my_anime/ui/app/app_component.dart';
 import 'package:my_anime/ui/screens/details_screen/details_screen_roure.dart';
+import 'package:my_anime/ui/screens/top_anime_screen/top_anime_screen_component.dart';
 import 'package:relation/relation.dart';
 import 'package:surf_injector/surf_injector.dart';
 
 TopAnimeScreenWM createTopAnimeScreenWM(BuildContext context) {
-  final component = Injector.of<AppComponent>(context).component;
+  final component = Injector.of<TopAnimeScreenComponent>(context).component;
 
   return TopAnimeScreenWM(
-    component.animeRepository,
-    Navigator.of(context),
+    component.animeInteractor,
+    component.navigator,
   );
 }
 
@@ -22,13 +22,13 @@ class TopAnimeScreenWM extends WidgetModel {
   final listLoadingState = EntityStreamedState<Object>();
   final EntityStreamedState<List<AnimeEntity>> topAnimeState = EntityStreamedState()..content([]);
 
-  final AnimeRepository _repository;
+  final AnimeInteractor _interactor;
   final NavigatorState _navigator;
 
   int nextPage = 1;
 
   TopAnimeScreenWM(
-    this._repository,
+    this._interactor,
     this._navigator,
   ) : super(const WidgetModelDependencies()) {
     _loadNextAnimesPage();
@@ -54,7 +54,7 @@ class TopAnimeScreenWM extends WidgetModel {
   Future<void> _loadNextAnimesPage() async {
     await listLoadingState.loading();
     try {
-      final newElements = await _repository.getTop(nextPage);
+      final newElements = await _interactor.getTop(nextPage);
       nextPage++;
       topAnimeState.value.data!.addAll(newElements);
       await topAnimeState.content(topAnimeState.value.data!);

@@ -24,7 +24,7 @@ class _MainScreenState extends WidgetState<MainScreen, MainScreenWM> {
         body: TabNavigator(
           key: wm.tabNavigatorKey,
           initialTab: MainScreenTabs.initTab,
-          mappedTabs: MainScreenTabs.mappedTabs(),
+          mappedTabs: MainScreenTabs.mappedTabs(context),
           selectedTabStream: wm.selectedTabState.stream,
         ),
         bottomNavigationBar: StreamedStateBuilder<TabType>(

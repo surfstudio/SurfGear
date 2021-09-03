@@ -1,12 +1,12 @@
-import 'package:my_anime/repositories/anime_repository.dart';
+import 'package:my_anime/interactors/anime_interactor.dart';
 import 'package:surf_injector/surf_injector.dart';
 
 class DetailsScreenComponent extends Component {
   int id;
-  AnimeRepository animeRepository;
+  AnimeInteractor animeInteractor;
 
   DetailsScreenComponent(
     this.id,
-    this.animeRepository,
+    this.animeInteractor,
   );
 }

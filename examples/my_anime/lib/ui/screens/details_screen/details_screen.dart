@@ -25,26 +25,32 @@ class _DetailsScreenState extends WidgetState<DetailsScreen, DetailsScreenWM> {
           errorBuilder: (_, __) => const Center(
             child: Text('Error while fetching data'),
           ),
-          builder: (_, anime) => _AnimeDetails(anime),
+          builder: (_, anime) => _AnimeDetails(anime, wm),
         ),
       );
 }
 
 class _AnimeDetails extends StatelessWidget {
   final AnimeEntity anime;
-  const _AnimeDetails(this.anime, {Key? key}) : super(key: key);
+  final DetailsScreenWM wm;
+  const _AnimeDetails(this.anime, this.wm, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Container(
+          SizedBox(
             width: double.infinity,
             child: Image.network(
               anime.imageUrl,
               fit: BoxFit.fitWidth,
             ),
+          ),
+          _FavoriteButton(
+            isFavorite: anime.isFavorite,
+            addToFavorite: wm.addToFavorite,
+            deleteFromFavorite: wm.deleteFromFavorite,
           ),
           _DetailsStringElement('Title:', anime.title),
           _DetailsStringElement('Japanese title:', anime.titleJapanese),
@@ -73,6 +79,28 @@ class _AnimeDetails extends StatelessWidget {
           _DetailsStringListElement('Ending themes:', anime.endingThemes),
         ],
       ),
+    );
+  }
+}
+
+class _FavoriteButton extends StatelessWidget {
+  final bool isFavorite;
+  final void Function() addToFavorite;
+  final void Function() deleteFromFavorite;
+
+  const _FavoriteButton({
+    required this.isFavorite,
+    required this.addToFavorite,
+    required this.deleteFromFavorite,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton.icon(
+      onPressed: isFavorite ? deleteFromFavorite : addToFavorite,
+      icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
+      label: Text(isFavorite ? 'not favorite anymore' : 'to favorite'),
     );
   }
 }

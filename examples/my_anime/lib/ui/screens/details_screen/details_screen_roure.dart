@@ -10,7 +10,7 @@ class DetailsScreenRoute extends MaterialPageRoute<void> {
           builder: (context) => Injector(
             component: DetailsScreenComponent(
               id,
-              Injector.of<AppComponent>(context).component.animeRepository,
+              Injector.of<AppComponent>(context).component.animeInteractor,
             ),
             builder: (_) => const DetailsScreen(),
           ),

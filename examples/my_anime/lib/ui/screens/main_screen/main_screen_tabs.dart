@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_anime/ui/app/app_component.dart';
 import 'package:my_anime/ui/screens/top_anime_screen/top_anime_screen.dart';
+import 'package:my_anime/ui/screens/top_anime_screen/top_anime_screen_component.dart';
+import 'package:surf_injector/surf_injector.dart';
 import 'package:tabnavigator/tabnavigator.dart';
 
 class MainScreenTabs {
@@ -7,7 +10,6 @@ class MainScreenTabs {
     /// топ
     const ScreenTabItem(
       type: MainScreenTabType.top,
-      screen: TopAnimeScreen(),
       bottomNavigationIcon: TabBarItem(
         icon: Icon(Icons.view_list_rounded),
         text: 'Top',
@@ -17,9 +19,6 @@ class MainScreenTabs {
     /// избранные
     const ScreenTabItem(
       type: MainScreenTabType.favorites,
-      screen: Center(
-        child: Text('favorites'),
-      ),
       bottomNavigationIcon: TabBarItem(
         icon: Icon(Icons.favorite),
         text: 'Favorites',
@@ -32,10 +31,19 @@ class MainScreenTabs {
   MainScreenTabs();
 
   /// получить набор табов
-  static Map<TabType, TabBuilder> mappedTabs() {
-    return Map.fromEntries(
-      tabs.map((tabItem) => MapEntry(tabItem.type, () => tabItem.screen)),
-    );
+  static Map<TabType, TabBuilder> mappedTabs(BuildContext context) {
+    return {
+      MainScreenTabType.top: () => Injector(
+            component: TopAnimeScreenComponent(
+              Injector.of<AppComponent>(context).component.animeInteractor,
+              Navigator.of(context),
+            ),
+            builder: (_) => const TopAnimeScreen(),
+          ),
+      MainScreenTabType.favorites: () => const Center(
+            child: Text('Favorites'),
+          ),
+    };
   }
 
   /// получить набор иконок для нижнего таббара
@@ -68,7 +76,6 @@ class MainScreenTabType extends TabType {
 @immutable
 class ScreenTabItem {
   final TabType type;
-  final Widget screen;
   final TabBarItem bottomNavigationIcon;
 
   @override
@@ -76,7 +83,6 @@ class ScreenTabItem {
 
   const ScreenTabItem({
     required this.type,
-    required this.screen,
     required this.bottomNavigationIcon,
   });
 

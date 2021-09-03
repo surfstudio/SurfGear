@@ -1,1 +1,6 @@
 include: package:surf_lint_rules/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - lib/data/api/*.g.dart
+    - lib/data/raw_models/**
