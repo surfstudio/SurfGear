@@ -8,38 +8,40 @@ part of 'raw_anime.dart';
 
 RawAnime _$RawAnimeFromJson(Map<String, dynamic> json) {
   return RawAnime(
-    aired: RawAired.fromJson(json['aired'] as Map<String, dynamic>),
-    airing: json['airing'] as bool,
-    background: json['background'] as String,
-    broadcast: json['broadcast'] as String,
-    duration: json['duration'] as String,
-    ending_themes: (json['ending_themes'] as List<dynamic>)
-        .map((e) => e as String)
+    aired: json['aired'] == null
+        ? null
+        : RawAired.fromJson(json['aired'] as Map<String, dynamic>),
+    airing: json['airing'] as bool?,
+    background: json['background'] as String?,
+    broadcast: json['broadcast'] as String?,
+    duration: json['duration'] as String?,
+    ending_themes: (json['ending_themes'] as List<dynamic>?)
+        ?.map((e) => e as String)
         .toList(),
-    episodes: json['episodes'] as int,
-    favorites: json['favorites'] as int,
-    genres: (json['genres'] as List<dynamic>)
-        .map((e) => RawGenre.fromJson(e as Map<String, dynamic>))
+    episodes: json['episodes'] as int?,
+    favorites: json['favorites'] as int?,
+    genres: (json['genres'] as List<dynamic>?)
+        ?.map((e) => RawGenre.fromJson(e as Map<String, dynamic>))
         .toList(),
-    image_url: json['image_url'] as String,
-    mal_id: json['mal_id'] as int,
-    members: json['members'] as int,
-    opening_themes: (json['opening_themes'] as List<dynamic>)
-        .map((e) => e as String)
+    image_url: json['image_url'] as String?,
+    mal_id: json['mal_id'] as int?,
+    members: json['members'] as int?,
+    opening_themes: (json['opening_themes'] as List<dynamic>?)
+        ?.map((e) => e as String)
         .toList(),
-    popularity: json['popularity'] as int,
-    premiered: json['premiered'] as String,
-    rank: json['rank'] as int,
-    rating: json['rating'] as String,
-    score: (json['score'] as num).toDouble(),
-    scored_by: json['scored_by'] as int,
-    status: json['status'] as String,
-    synopsis: json['synopsis'] as String,
-    title: json['title'] as String,
-    title_english: json['title_english'] as String,
-    title_japanese: json['title_japanese'] as String,
-    trailer_url: json['trailer_url'] as String,
-    type: json['type'] as String,
+    popularity: json['popularity'] as int?,
+    premiered: json['premiered'] as String?,
+    rank: json['rank'] as int?,
+    rating: json['rating'] as String?,
+    score: (json['score'] as num?)?.toDouble(),
+    scored_by: json['scored_by'] as int?,
+    status: json['status'] as String?,
+    synopsis: json['synopsis'] as String?,
+    title: json['title'] as String?,
+    title_english: json['title_english'] as String?,
+    title_japanese: json['title_japanese'] as String?,
+    trailer_url: json['trailer_url'] as String?,
+    type: json['type'] as String?,
   );
 }
 
@@ -74,9 +76,9 @@ Map<String, dynamic> _$RawAnimeToJson(RawAnime instance) => <String, dynamic>{
 
 RawAired _$RawAiredFromJson(Map<String, dynamic> json) {
   return RawAired(
-    from: json['from'] as String,
-    string: json['string'] as String,
-    to: json['to'] as String,
+    from: json['from'] as String?,
+    string: json['string'] as String?,
+    to: json['to'] as String?,
   );
 }
 

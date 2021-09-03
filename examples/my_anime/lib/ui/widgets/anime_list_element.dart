@@ -3,45 +3,53 @@ import 'package:my_anime/models/aime_entity.dart';
 
 class AnimeListElement extends StatelessWidget {
   final AnimeEntity anime;
+  final void Function(int) onTap;
 
-  const AnimeListElement(this.anime, {Key? key}) : super(key: key);
+  const AnimeListElement(
+    this.anime, {
+    required this.onTap,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      elevation: 10,
-      child: SizedBox(
-        height: 200,
-        child: Row(
-          children: [
-            SizedBox(
-              child: Image.network(
-                anime.imageUrl,
-                fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () => onTap(anime.id),
+      child: Card(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        elevation: 10,
+        child: SizedBox(
+          height: 200,
+          child: Row(
+            children: [
+              SizedBox(
+                child: Image.network(
+                  anime.imageUrl,
+                  fit: BoxFit.cover,
+                ),
+                width: 150,
               ),
-              width: 150,
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: _Title(anime.title),
-                    ),
-                    _Subtitle('Rank', anime.rank.toString()),
-                    _Subtitle('Score', anime.score.toString()),
-                    _Subtitle('Members', anime.members.toString()),
-                    _Subtitle('Type', anime.type),
-                    _Subtitle('Episodes', anime.episodes.toString()),
-                    _Subtitle('Release Dates', '${anime.startDate} - ${anime.endDate}'),
-                  ],
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: _Title(anime.title),
+                      ),
+                      _Subtitle('Rank', anime.rank.toString()),
+                      _Subtitle('Score', anime.score.toString()),
+                      _Subtitle('Members', anime.members.toString()),
+                      _Subtitle('Type', anime.type),
+                      _Subtitle('Episodes', anime.episodes.toString()),
+                      _Subtitle('Release Dates', '${anime.startDate} - ${anime.endDate}'),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

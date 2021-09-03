@@ -51,7 +51,10 @@ class _TopAnimeScreenState extends WidgetState<TopAnimeScreen, TopAnimeScreenWM>
                       height: 64,
                     ),
                   )
-                : AnimeListElement(animes[index]),
+                : AnimeListElement(
+                    animes[index],
+                    onTap: wm.onAnimeTap,
+                  ),
           ),
         ),
       );

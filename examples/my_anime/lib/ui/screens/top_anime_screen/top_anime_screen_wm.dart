@@ -3,6 +3,7 @@ import 'package:mwwm/mwwm.dart';
 import 'package:my_anime/models/aime_entity.dart';
 import 'package:my_anime/repositories/anime_repository.dart';
 import 'package:my_anime/ui/app/app_component.dart';
+import 'package:my_anime/ui/screens/details_screen/details_screen_roure.dart';
 import 'package:relation/relation.dart';
 import 'package:surf_injector/surf_injector.dart';
 
@@ -11,6 +12,7 @@ TopAnimeScreenWM createTopAnimeScreenWM(BuildContext context) {
 
   return TopAnimeScreenWM(
     component.animeRepository,
+    Navigator.of(context),
   );
 }
 
@@ -21,11 +23,13 @@ class TopAnimeScreenWM extends WidgetModel {
   final EntityStreamedState<List<AnimeEntity>> topAnimeState = EntityStreamedState()..content([]);
 
   final AnimeRepository _repository;
+  final NavigatorState _navigator;
 
   int nextPage = 1;
 
   TopAnimeScreenWM(
     this._repository,
+    this._navigator,
   ) : super(const WidgetModelDependencies()) {
     _loadNextAnimesPage();
   }
@@ -34,6 +38,10 @@ class TopAnimeScreenWM extends WidgetModel {
   void onLoad() {
     super.onLoad();
     scrollController.addListener(_onScroll);
+  }
+
+  void onAnimeTap(int id) {
+    _navigator.push(DetailsScreenRoute(id));
   }
 
   void _onScroll() {
