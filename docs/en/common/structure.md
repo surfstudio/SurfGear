@@ -7,7 +7,7 @@
     - /assets - graphic resource location directory
 - /docs - project's documentation(technical doc, technical debt)
 - /android - folder with native Android code
-- /ios - older with native iOS code
+- /ios - folder with native iOS code
 - /lib - Dart code , Flutter-application
     - /domain - Domain-layer
     - /interactor - Interactor-layer
