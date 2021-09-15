@@ -8,9 +8,6 @@ class UsersRepo {
 
   Future<List<User>> getUsers() async {
     var usersFromApi = await apiClient.fecthUsers();
-    usersFromApi.sort((a, b) {
-      return a.id.compareTo(b.id);
-    });
     return usersFromApi;
   }
 }

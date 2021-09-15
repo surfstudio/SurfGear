@@ -13,7 +13,7 @@ class ApiClient {
   Future<List<User>> fecthUsers() async {
     const mainUrl = '$baseUrl/users';
 
-    final usersResponse = await this.httpClient.get(Uri.parse(mainUrl));
+    final usersResponse = await httpClient.get(Uri.parse(mainUrl));
 
     if (usersResponse.statusCode != 200) {
       throw Exception('error getting users');

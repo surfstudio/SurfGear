@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:example2/ui/users_screen/user_screen_wm.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:provider/provider.dart';
 
@@ -19,11 +22,23 @@ class UserScreen extends CoreMwwmWidget<UserScreenWidgetModel> {
 class _UserScreenState extends WidgetState<UserScreen, UserScreenWidgetModel> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Consumer<UserScreenWidgetModel>(builder: (_, wm, __) {
-          return Text("dd");
-        }),
+    return Scaffold(
+      body: Center(
+        child: Consumer<UserScreenWidgetModel>(
+          builder: (_, wm, __) {
+            return Text(
+              wm.randomUserName,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            );
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: wm.fetchRandomUserName,
+        child: const Icon(Icons.refresh),
       ),
     );
   }
