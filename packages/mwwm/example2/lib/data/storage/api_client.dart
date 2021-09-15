@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'package:example2/ui/data/models/user_model.dart';
+
+import 'package:example2/data/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiClient {
