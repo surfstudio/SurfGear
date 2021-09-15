@@ -8,7 +8,8 @@ class UserScreenWidgetModel extends WidgetModel with ChangeNotifier {
 
   List<User> userList = [];
 
-  UserScreenWidgetModel(WidgetModelDependencies baseDepencies, this._usersRepo)
+  UserScreenWidgetModel(WidgetModelDependencies baseDepencies, this._usersRepo,
+      {builder})
       : super(baseDepencies);
 
   Future<void> _fetchUsersFromServer() async {
