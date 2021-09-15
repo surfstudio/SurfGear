@@ -3,9 +3,9 @@ class Pokemon {
   final String? name;
   final String? description;
   final String? sprite;
-  final List<String>? types;
-  final double? height;
-  final double? weight;
+  final List<dynamic>? types;
+  final String? height;
+  final String? weight;
 
   Pokemon({
     this.name,
@@ -18,10 +18,10 @@ class Pokemon {
 
   /// Create object from JSON
   factory Pokemon.fromJson(Map<String, dynamic> json) => Pokemon(
-    name: json["name"]["English"],
+    name: json["name"]["english"],
     description: json["description"],
     sprite: json["sprite"],
-    types: json["types"],
+    types: json["type"],
     height: json["profile"]["height"],
     weight: json["profile"]["wight"],
   );

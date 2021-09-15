@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:pokemon/models/pokemon/interactors/pokemon_interactor.dart';
 import 'package:pokemon/models/pokemon/pokemon.dart';
@@ -18,9 +17,12 @@ class PokemonShowWM extends WidgetModel {
   void onLoad() {
     super.onLoad();
     Logger.d("PokemonShowWidgetModel has been loaded");
+    getRandomPokemon();
+    Logger.d("Web request for Pokemon has been completed");
   }
 
   Future getRandomPokemon() async {
+    await pokemon.accept(null);
     final data = await _pokemonInteractor.getRandomPokemon();
     await pokemon.accept(data);
   }
