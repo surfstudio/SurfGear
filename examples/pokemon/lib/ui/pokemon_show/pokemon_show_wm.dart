@@ -4,7 +4,9 @@ import 'package:pokemon/models/pokemon/pokemon.dart';
 import 'package:relation/relation.dart';
 import 'package:surf_logger/surf_logger.dart';
 
+/// WidgetModel for PokemonShowScreen
 class PokemonShowWM extends WidgetModel {
+  // Using relation for updating state
   final pokemon = StreamedState<Pokemon?>(null);
   final PokemonInteractor _pokemonInteractor;
 
@@ -13,6 +15,7 @@ class PokemonShowWM extends WidgetModel {
     this._pokemonInteractor,
   ) : super(baseDependencies);
 
+  /// Initial loading
   @override
   void onLoad() {
     super.onLoad();
@@ -21,6 +24,7 @@ class PokemonShowWM extends WidgetModel {
     Logger.d("Web request for Pokemon has been completed");
   }
 
+  /// Fetch random Pokemon
   Future getRandomPokemon() async {
     await pokemon.accept(null);
     final data = await _pokemonInteractor.getRandomPokemon();

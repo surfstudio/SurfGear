@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'pokemon_show_screen.dart';
 import 'pokemon_show_wm.dart';
 
+/// Route for PokemonShow Screen
 class PokemonShowRoute extends MaterialPageRoute {
   PokemonShowRoute()
       : super(

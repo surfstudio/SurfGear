@@ -34,6 +34,7 @@ dependencies:
   surf_logger: ^1.0.1
   provider: ^6.0.0
   http: ^0.13.3
+  animated_text_kit: ^4.2.1
 
 
   # The following adds the Cupertino Icons font to your application.

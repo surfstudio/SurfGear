@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pokemon/models/pokemon/pokemon.dart';
 
+/// HTTP-client for fetching data from [_baseUrl]
 class PokemonApiClient {
   static const String _baseUrl = 'https://app.pokemon-api.xyz/pokemon/random';
   final http.Client? httpClient;

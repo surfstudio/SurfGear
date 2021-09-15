@@ -17,6 +17,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
+    // Collecting dependecies
     final client = http.Client();
     final pokemonApiClient = PokemonApiClient(httpClient: client);
     final pokemonRepository =
