@@ -57,7 +57,7 @@ class _PokemonShowScreenState
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
-            wm.getRandomPokemon();
+            wm.getRandomPokemon(); // Fetch new random Pokemon
           },
           child: const Icon(Icons.update)),
     );
