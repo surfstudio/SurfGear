@@ -1,16 +1,7 @@
-# example2
+# MWWM EXAMPLE
 
-A new Flutter project.
+There is a new Flutter example that uses MWWM.
 
-## Getting Started
+## Description
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This app uses free API from https://jsonplaceholder.typicode.com/ that contains some information about users, their albums and photoes. For this app only users list was taken. At a main screen there is Text widget and button. Pressing on this button gets random user's name from server and put it into the Text widget.

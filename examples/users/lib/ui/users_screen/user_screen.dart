@@ -5,10 +5,10 @@ import 'package:mwwm/mwwm.dart';
 import 'package:provider/provider.dart';
 
 class UserScreen extends CoreMwwmWidget<UserScreenWidgetModel> {
-  const UserScreen(
-      {required WidgetModelBuilder<UserScreenWidgetModel> widgetModelBuilder,
-      Key? key})
-      : super(widgetModelBuilder: widgetModelBuilder, key: key);
+  const UserScreen({
+    required WidgetModelBuilder<UserScreenWidgetModel> widgetModelBuilder,
+    Key? key,
+  }) : super(widgetModelBuilder: widgetModelBuilder, key: key);
 
   @override
   WidgetState<CoreMwwmWidget<UserScreenWidgetModel>, UserScreenWidgetModel>

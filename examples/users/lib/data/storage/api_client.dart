@@ -19,7 +19,8 @@ class ApiClient {
       throw Exception('error getting users');
     }
 
-    List<User> usersList = (json.decode(usersResponse.body) as List)
+    final usersList = (json.decode(usersResponse.body) as List)
+        .cast<Map<String, dynamic>>()
         .map((e) => User.fromJson(e))
         .toList();
 

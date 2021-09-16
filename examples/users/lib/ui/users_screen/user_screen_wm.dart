@@ -5,20 +5,30 @@ import 'package:example2/data/repo/users_repo.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mwwm/mwwm.dart';
 
+// ignore: prefer_mixin
 class UserScreenWidgetModel extends WidgetModel with ChangeNotifier {
   final UsersRepo _usersRepo;
 
-  List<User> _userList = [];
-  String randomUserName = "Loading...";
+  String randomUserName = 'Loading...';
 
-  UserScreenWidgetModel(WidgetModelDependencies baseDepencies, this._usersRepo,
-      {builder})
-      : super(baseDepencies);
+  List<User> _userList = [];
+
+  UserScreenWidgetModel(
+    WidgetModelDependencies baseDepencies,
+    this._usersRepo,
+  ) : super(baseDepencies);
 
   @override
   void onLoad() {
     super.onLoad();
     _fetchUsersFromServer();
+  }
+
+  void fetchRandomUserName() {
+    final rnd = Random();
+    final randomUserIndex = 0 + rnd.nextInt(_userList.length);
+    randomUserName = _userList[randomUserIndex].name;
+    notifyListeners();
   }
 
   Future<void> _fetchUsersFromServer() async {
@@ -27,13 +37,7 @@ class UserScreenWidgetModel extends WidgetModel with ChangeNotifier {
       fetchRandomUserName();
 
       notifyListeners();
+      // ignore: avoid_catches_without_on_clauses, empty_catches
     } catch (e) {}
-  }
-
-  void fetchRandomUserName() {
-    var rnd = Random();
-    int randomUserIndex = 0 + rnd.nextInt(_userList.length);
-    randomUserName = _userList[randomUserIndex].name;
-    notifyListeners();
   }
 }

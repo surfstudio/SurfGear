@@ -6,9 +6,10 @@ import 'package:provider/provider.dart';
 class UserScreenRoute<T> extends MaterialPageRoute<T> {
   UserScreenRoute()
       : super(
-            builder: (ctx) => const UserScreen(
-                  widgetModelBuilder: _createUserWM,
-                ));
+          builder: (ctx) => const UserScreen(
+            widgetModelBuilder: _createUserWM,
+          ),
+        );
 }
 
 UserScreenWidgetModel _createUserWM(BuildContext context) {

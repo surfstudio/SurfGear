@@ -4,9 +4,9 @@ import 'package:example2/ui/app.dart';
 import 'package:example2/ui/users_screen/exceptions/default_error_handler.dart';
 import 'package:example2/ui/users_screen/user_screen_wm.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
 import 'package:mwwm/mwwm.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 
 void main() {
   runApp(

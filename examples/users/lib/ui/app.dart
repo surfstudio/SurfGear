@@ -12,7 +12,8 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        onGenerateRoute: (_) => UserScreenRoute<void>());
+      debugShowCheckedModeBanner: false,
+      onGenerateRoute: (_) => UserScreenRoute<void>(),
+    );
   }
 }

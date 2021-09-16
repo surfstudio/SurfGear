@@ -7,7 +7,7 @@ class UsersRepo {
   UsersRepo({required this.apiClient});
 
   Future<List<User>> getUsers() async {
-    var usersFromApi = await apiClient.fecthUsers();
+    final usersFromApi = await apiClient.fecthUsers();
     return usersFromApi;
   }
 }
