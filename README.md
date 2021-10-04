@@ -2,7 +2,7 @@
 
 ![SurfGear Cover](https://i.ibb.co/k6d07BK/logo-surf-gear.png)
 
-A set of libraries and tools used by [Surf studio](https://surf.ru/) when developing with Flutter. 
+A set of libraries and tools used by [Surf](https://surf.ru/) when developing with Flutter. 
 This repository is a showcase. All packages are in separate repositories, which you can find at the links.
 
 Our other solutions are also in separate repositories, but they are under development.
@@ -59,51 +59,9 @@ This plugin uses [SMS User Consent API](https://developers.google.com/identity/s
 [![Pub Popularity](https://badgen.net/pub/popularity/push_notification?label=pub%20popularity)](https://pub.dev/packages/push_notification/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/push_notification)](https://pub.dev/packages/push_notification/)
 
-Library for implementing push notifications. The module contains the main work with push notifications. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/push_notification/README.md)
+Library for implementing push notifications. The module contains the main work with push notifications. [Learn More](https://github.com/surfstudio/flutter-push-notification/blob/main/README.md)
 
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/push_notification)
-
----
-
-#### `Relation`
-
-> [![Pub Version](https://img.shields.io/pub/v/relation?logo=dart&logoColor=white)](https://pub.dev/packages/relation/)
-[![Pub Likes](https://badgen.net/pub/likes/relation?label=pub%20likes)](https://pub.dev/packages/relation/score)
-[![Pub Points](https://badgen.net/pub/points/relation?label=pub%20points)](https://pub.dev/packages/relation/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/relation?label=pub%20popularity)](https://pub.dev/packages/relation/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/relation)](https://pub.dev/packages/relation/)
-
-The stream representation of the relations of the entities and widget utilities. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/relation/README.md)
-
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/relation)
-
----
-
-#### `Render Metrics`
-
-> [![Pub Version](https://img.shields.io/pub/v/render_metrics?logo=dart&logoColor=white)](https://pub.dev/packages/render_metrics/)
-[![Pub Likes](https://badgen.net/pub/likes/render_metrics?label=pub%20likes)](https://pub.dev/packages/render_metrics/score)
-[![Pub Points](https://badgen.net/pub/points/render_metrics?label=pub%20points)](https://pub.dev/packages/render_metrics/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/render_metrics?label=pub%20popularity)](https://pub.dev/packages/render_metrics/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/render_metrics)](https://pub.dev/packages/render_metrics/)
-
-This package helps retrieve the current positioning coordinates of any widget in a widgets tree in your Flutter application. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/render_metrics/README.md)
-
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/render_metrics)
-
----
-
-#### `Surf Controllers`
-
-> [![Pub Version](https://img.shields.io/pub/v/surf_controllers?logo=dart&logoColor=white)](https://pub.dev/packages/surf_controllers/)
-[![Pub Likes](https://badgen.net/pub/likes/surf_controllers?label=pub%20likes)](https://pub.dev/packages/surf_controllers/score)
-[![Pub Points](https://badgen.net/pub/points/surf_controllers?label=pub%20points)](https://pub.dev/packages/surf_controllers/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/surf_controllers?label=pub%20popularity)](https://pub.dev/packages/surf_controllers/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_controllers)](https://pub.dev/packages/surf_controllers/)
-
-Common controller for call dialogs. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/surf_controllers/README.md)
-
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/surf_controllers)
+[View Source](https://github.com/surfstudio/flutter-push-notification)
 
 ---
 
@@ -115,9 +73,9 @@ Common controller for call dialogs. [Learn More](https://github.com/surfstudio/S
 [![Pub Popularity](https://badgen.net/pub/popularity/surf_lint_rules?label=pub%20popularity)](https://pub.dev/packages/surf_lint_rules/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_lint_rules)](https://pub.dev/packages/surf_lint_rules/)
 
-Lint rules used in "Surf" company. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/surf_lint_rules/README.md)
+Lint rules used in [Surf](https://surf.ru/). [Learn More](https://github.com/surfstudio/flutter-surf-lint-rules/blob/main/README.md)
 
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/surf_lint_rules)
+[View Source](https://github.com/surfstudio/flutter-surf-lint-rules)
 
 ---
 
@@ -129,23 +87,9 @@ Lint rules used in "Surf" company. [Learn More](https://github.com/surfstudio/Su
 [![Pub Popularity](https://badgen.net/pub/popularity/surf_logger?label=pub%20popularity)](https://pub.dev/packages/surf_logger/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_logger)](https://pub.dev/packages/surf_logger/)
 
-Logger for Dart & Flutter. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/surf_logger/README.md)
+Logger for Dart & Flutter. [Learn More](https://github.com/surfstudio/flutter-surf-logger/blob/main/README.md)
 
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/surf_logger)
-
----
-
-#### `Surf MWWM`
-
-> [![Pub Version](https://img.shields.io/pub/v/surf_mwwm?logo=dart&logoColor=white)](https://pub.dev/packages/surf_mwwm/)
-[![Pub Likes](https://badgen.net/pub/likes/surf_mwwm?label=pub%20likes)](https://pub.dev/packages/surf_mwwm/score)
-[![Pub Points](https://badgen.net/pub/points/surf_mwwm?label=pub%20points)](https://pub.dev/packages/surf_mwwm/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/surf_mwwm?label=pub%20popularity)](https://pub.dev/packages/surf_mwwm/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_mwwm)](https://pub.dev/packages/surf_mwwm/)
-
-Reflection of widget in a single entity. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/surf_mwwm/README.md)
-
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/surf_mwwm)
+[View Source](https://github.com/surfstudio/flutter-surf-logger)
 
 ---
 
@@ -157,9 +101,9 @@ Reflection of widget in a single entity. [Learn More](https://github.com/surfstu
 [![Pub Popularity](https://badgen.net/pub/popularity/surf_util?label=pub%20popularity)](https://pub.dev/packages/surf_util/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_util)](https://pub.dev/packages/surf_util/)
 
-A library with set of common classes and utilities used in different modules. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/surf_util/README.md)
+A library with set of common classes and utilities used in different modules. [Learn More](https://github.com/surfstudio/flutter-surf-util/blob/main/README.md)
 
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/surf_util)
+[View Source](https://github.com/surfstudio/flutter-surf-util)
 
 ---
 
@@ -171,38 +115,15 @@ A library with set of common classes and utilities used in different modules. [L
 [![Pub Popularity](https://badgen.net/pub/popularity/swipe_refresh?label=pub%20popularity)](https://pub.dev/packages/swipe_refresh/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/swipe_refresh)](https://pub.dev/packages/swipe_refresh/)
 
-Widget for refresh by swipe. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/swipe_refresh/README.md)
+Widget for refresh by swipe. [Learn More](https://github.com/surfstudio/flutter-swipe-refresh/blob/main/README.md)
 
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/swipe_refresh)
-
----
-
-#### `Tab Navigator`
-
-> [![Pub Version](https://img.shields.io/pub/v/tabnavigator?logo=dart&logoColor=white)](https://pub.dev/packages/tabnavigator/)
-[![Pub Likes](https://badgen.net/pub/likes/tabnavigator?label=pub%20likes)](https://pub.dev/packages/tabnavigator/score)
-[![Pub Points](https://badgen.net/pub/points/tabnavigator?label=pub%20points)](https://pub.dev/packages/tabnavigator/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/tabnavigator?label=pub%20popularity)](https://pub.dev/packages/tabnavigator/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/tabnavigator)](https://pub.dev/packages/tabnavigator/)
-
-Possibly the most common style of navigation in mobile apps is tab-based navigation. This module can manage the tabs on the screen. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/tabnavigator/README.md)
-
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/tabnavigator)
-
----
-
-#### `Virtual Keyboard`
-
-Keyboard widget for use in widget tree. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/virtual_keyboard/README.md)
-
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/virtual_keyboard)
+[View Source](https://github.com/surfstudio/flutter-swipe-refresh)
 
 ---
 
 ## How to ask questions?  
 
-You can ask questions of interest either in the [Issue](https://github.com/surfstudio/SurfGear/issues) or [Discussion](https://github.com/surfstudio/SurfGear/discussions) to the repository, or in a special [chat on Telegram](https://t.me/SurfGear).  
-
+You can ask questions of interest either in the Release, or in the Discussion in the repository of the package to which the question relates, or in a special [chat in Telegram](https://t.me/SurfGear).
 ## Thanks  
 
 Many thanks to the entire **Surf team** for their contribution to the development of the repository!  
