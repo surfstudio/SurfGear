@@ -1,7 +1,0 @@
-# app_identifier "[[APP_IDENTIFIER]]" # The bundle identifier of your app
-apple_id "YOUR_APPLE_ID" # Your Apple email address todo
-
-team_id "YOUR_TEAM_ID"  # Developer Portal Team ID todo
-
-# For more information about the Appfile, see:
-#     https://docs.fastlane.tools/advanced/#appfile

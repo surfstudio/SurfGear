@@ -2,43 +2,10 @@
 
 ![SurfGear Cover](https://i.ibb.co/k6d07BK/logo-surf-gear.png)
 
-A set of libraries, standards, tools used by Surf studio when developing on Flutter.  
+A set of libraries and tools used by [Surf studio](https://surf.ru/) when developing with Flutter. 
+This repository is a showcase. All packages are in separate repositories, which you can find at the links.
 
-This repository is intended **for demonstration**.
-
-[**Documentation and standards**](docs/en/main.md)  
-
-## Modules  
-
-### Architecture
-
-* [MWWM](#mwwm)
-* [Relation](#relation)
-* [Surf Controllers](#surf-controllers)
-* [Surf MWWM](#surf-mwwm)
-
-### Widgets
-
-* [Bottom Navigation Bar](#bottom-navigation-bar)
-* [Bottom Sheet](#bottom-sheet)
-* [In App Rate](#in-app-rate)
-* [Ink Widget](#ink-widget)
-* [Swipe Refresh](#swipe-refresh)
-* [Tab Navigator](#tab-navigator)
-* [Virtual Keyboard](#virtual-keyboard)
-
-### Services
-
-* [Analytics](#analytics)
-* [Auto Reload](#auto-reload)
-* [Data List](#data-list)
-* [Keyboard Listener](#keyboard-listener)
-* [OTP autofill](#otp-autofill)
-* [Push Notification](#push-notification)
-* [Render Metrics](#render-metrics)
-* [Surf Lint Rules](#surf-lint-rules)
-* [Surf Logger](#surf-logger)
-* [Surf Util](#surf-util)
+Our other solutions are also in separate repositories, but they are under development.
 
 ---
 
@@ -50,37 +17,9 @@ This repository is intended **for demonstration**.
 [![Pub Popularity](https://badgen.net/pub/popularity/analytics?label=pub%20popularity)](https://pub.dev/packages/analytics/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/analytics)](https://pub.dev/packages/analytics/)
 
-Interface for working with analytic services. The library is supposed to unify work with various analytic services. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/analytics/README.md)
+Interface for working with analytic services. The library is supposed to unify work with various analytic services. [Learn More](https://github.com/surfstudio/flutter-analytics/blob/main/README.md)
 
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/analytics)
-
----
-
-#### `Auto Reload`
-
-> [![Pub Version](https://img.shields.io/pub/v/auto_reload?logo=dart&logoColor=white)](https://pub.dev/packages/auto_reload/)
-[![Pub Likes](https://badgen.net/pub/likes/auto_reload?label=pub%20likes)](https://pub.dev/packages/auto_reload/score)
-[![Pub Points](https://badgen.net/pub/points/auto_reload?label=pub%20points)](https://pub.dev/packages/auto_reload/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/auto_reload?label=pub%20popularity)](https://pub.dev/packages/auto_reload/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/auto_reload)](https://pub.dev/packages/auto_reload/)
-
-A library that helps to perform actions with some periodicity. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/auto_reload/README.md)
-
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/auto_reload)
-
----
-
-#### `Bottom Navigation Bar`
-
-> [![Pub Version](https://img.shields.io/pub/v/bottom_navigation_bar?logo=dart&logoColor=white)](https://pub.dev/packages/bottom_navigation_bar/)
-[![Pub Likes](https://badgen.net/pub/likes/bottom_navigation_bar?label=pub%20likes)](https://pub.dev/packages/bottom_navigation_bar/score)
-[![Pub Points](https://badgen.net/pub/points/bottom_navigation_bar?label=pub%20points)](https://pub.dev/packages/bottom_navigation_bar/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/bottom_navigation_bar?label=pub%20popularity)](https://pub.dev/packages/bottom_navigation_bar/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/bottom_navigation_bar)](https://pub.dev/packages/bottom_navigation_bar/)
-
-Bottom navigation bar. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/bottom_navigation_bar/README.md)
-
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/bottom_navigation_bar)
+[View Source](https://github.com/surfstudio/flutter-analytics)
 
 ---
 
@@ -92,67 +31,9 @@ Bottom navigation bar. [Learn More](https://github.com/surfstudio/SurfGear/blob/
 [![Pub Popularity](https://badgen.net/pub/popularity/bottom_sheet?label=pub%20popularity)](https://pub.dev/packages/bottom_sheet/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/bottom_sheet)](https://pub.dev/packages/bottom_sheet/)
 
-Custom bottom sheet widget, that can resize by drag and then scroll. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/bottom_sheet/README.md)
+Custom bottom sheet widget, that can resize by drag and then scroll. [Learn More](https://github.com/surfstudio/flutter-bottom-sheet/blob/main/README.md)
 
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/bottom_sheet)
-
----
-
-#### `Data List`
-
-> [![Pub Version](https://img.shields.io/pub/v/datalist?logo=dart&logoColor=white)](https://pub.dev/packages/datalist/)
-[![Pub Likes](https://badgen.net/pub/likes/datalist?label=pub%20likes)](https://pub.dev/packages/datalist/score)
-[![Pub Points](https://badgen.net/pub/points/datalist?label=pub%20points)](https://pub.dev/packages/datalist/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/datalist?label=pub%20popularity)](https://pub.dev/packages/datalist/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/datalist)](https://pub.dev/packages/datalist/)
-
-Implementation DataList in Flutter. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/datalist/README.md)
-
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/datalist)
-
----
-
-#### `In App Rate`
-
-Plugin open native dialog for application rate/review. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/in_app_rate/README.md)
-
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/in_app_rate)
-
----
-
-#### `Ink Widget`
-
-> [![Pub Version](https://img.shields.io/pub/v/ink_widget?logo=dart&logoColor=white)](https://pub.dev/packages/ink_widget/)
-[![Pub Likes](https://badgen.net/pub/likes/ink_widget?label=pub%20likes)](https://pub.dev/packages/ink_widget/score)
-[![Pub Points](https://badgen.net/pub/points/ink_widget?label=pub%20points)](https://pub.dev/packages/ink_widget/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/ink_widget?label=pub%20popularity)](https://pub.dev/packages/ink_widget/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/ink_widget)](https://pub.dev/packages/ink_widget/)
-
-Widget library with ink effect without problems with decoration for child. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/ink_widget/README.md)
-
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/ink_widget)
-
----
-
-#### `Keyboard Listener`
-
-Keyboard listener created only on Flutter. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/keyboard_listener/README.md)
-
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/keyboard_listener)
-
----
-
-#### `MWWM`
-
-> [![Pub Version](https://img.shields.io/pub/v/mwwm?logo=dart&logoColor=white)](https://pub.dev/packages/mwwm/)
-[![Pub Likes](https://badgen.net/pub/likes/mwwm?label=pub%20likes)](https://pub.dev/packages/mwwm/score)
-[![Pub Points](https://badgen.net/pub/points/mwwm?label=pub%20points)](https://pub.dev/packages/mwwm/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/mwwm?label=pub%20popularity)](https://pub.dev/packages/mwwm/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/mwwm)](https://pub.dev/packages/mwwm/)
-
-MVVM-inspired lightweight architectural framework for Flutter apps made with respect to Clean Architecture. [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/mwwm/README.md)
-
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/mwwm)
+[View Source](https://github.com/surfstudio/flutter-bottom-sheet)
 
 ---
 
@@ -164,9 +45,9 @@ MVVM-inspired lightweight architectural framework for Flutter apps made with res
 [![Pub Popularity](https://badgen.net/pub/popularity/otp_autofill?label=pub%20popularity)](https://pub.dev/packages/otp_autofill/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/otp_autofill)](https://pub.dev/packages/otp_autofill/)
 
-This plugin uses [SMS User Consent API](https://developers.google.com/identity/sms-retriever/user-consent/overview) and [SMS Retriever API](https://developers.google.com/identity/sms-retriever/overview) on Android. You could use autofill from another input by using OTPStrategy. (e.g. from push-notification). [Learn More](https://github.com/surfstudio/SurfGear/blob/main/packages/otp_autofill/README.md)
+This plugin uses [SMS User Consent API](https://developers.google.com/identity/sms-retriever/user-consent/overview) and [SMS Retriever API](https://developers.google.com/identity/sms-retriever/overview) on Android. You could use autofill from another input by using OTPStrategy. (e.g. from push-notification). [Learn More](https://github.com/surfstudio/flutter-otp-autofill/blob/main/README.md)
 
-[View Source](https://github.com/surfstudio/SurfGear/blob/main/packages/otp_autofill)
+[View Source](https://github.com/surfstudio/flutter-otp-autofill)
 
 ---
 
