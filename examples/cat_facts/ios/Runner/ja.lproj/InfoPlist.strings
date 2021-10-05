@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  Runner
+
+  Created by Михаил Зотьев on 14.07.2021.
+  
+*/
+
+"CFBundleName" = "猫の事実";
+"CFBundleDisplayName" = "猫の事実";

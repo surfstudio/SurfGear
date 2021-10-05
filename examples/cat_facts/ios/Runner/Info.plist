@@ -11,7 +11,11 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>cat_facts</string>
+	<string>Cat Facts</string>
+	<key>CFBundleDisplayName</key>
+	<string>Cat Facts</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>2019-present, SurfStudio LLC. All rights reserved.</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -41,5 +45,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>ru</string>
+		<string>ja</string>
+	</array>
 </dict>
 </plist>

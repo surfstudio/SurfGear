@@ -13,9 +13,12 @@
 // limitations under the License.
 
 import 'package:cat_facts/data/theme/app_theme.dart';
+import 'package:cat_facts/ui/app/app_localizations.dart';
+import 'package:cat_facts/ui/app/app_localizations_delegate.dart';
 import 'package:cat_facts/ui/app/app_wm.dart';
 import 'package:cat_facts/ui/screen/facts/facts_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
 
@@ -47,6 +50,13 @@ class _AppState extends WidgetState<App, AppWidgetModel> {
         ),
         darkTheme: ThemeData.dark(),
         themeMode: theme == AppTheme.dark ? ThemeMode.dark : ThemeMode.light,
+        localizationsDelegates: const [
+          AppLocalizationsDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
         home: FactsScreen(),
       ),
     );
