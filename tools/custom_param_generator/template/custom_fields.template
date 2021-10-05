@@ -1,7 +1,0 @@
-custom:
-  is_stable: false
-  unstable_version: 0
-  is_plugin: false
-  path: $pathToModule
-  separate_repo_url:
-  hostUrl:

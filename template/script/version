@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-# todo change to needed version of Flutter
-# list of versions: flutter version
-current_version=v1.12.3
-
-dart ./script/version_impl/checkout_version.dart ${current_version}

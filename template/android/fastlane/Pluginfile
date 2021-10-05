@@ -1,1 +1,0 @@
-gem 'fastlane-plugin-firebase_app_distribution'
