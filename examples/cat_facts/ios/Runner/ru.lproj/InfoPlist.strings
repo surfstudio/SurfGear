@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  Runner
+
+  Created by Михаил Зотьев on 14.07.2021.
+  
+*/
+"CFBundleName" = "О котах";
+"CFBundleDisplayName" = "О котах";
+"NSHumanReadableCopyright" = "c 2019, SurfStudio LLC. Все права защищены.";
