@@ -2,10 +2,13 @@
 
 ![SurfGear Cover](https://i.ibb.co/k6d07BK/logo-surf-gear.png)
 
-A set of libraries and tools used by [Surf](https://surf.ru/) when developing with Flutter. 
-This repository is a showcase. All packages are in separate repositories, which you can find at the links.
+A set of libraries and tools used by [Surf](https://surf.ru/) when developing with Flutter.
+All these solutions are fully consistent with our level of quality, supported and developed by the team.
+This repository is a showcase. All packages are in their own repositories, which you can find at the links.
 
-Our other solutions are also in separate repositories, but they are under development.
+In addition to the packages presented here, we use many of our own solutions, which you can also find in our space.
+However, they may be at various stages of development and support.
+As soon as they meet the declared quality level, they will also be presented on this showcase.
 
 ---
 
@@ -124,6 +127,7 @@ Widget for refresh by swipe. [Learn More](https://github.com/surfstudio/flutter-
 ## How to ask questions?  
 
 You can ask questions of interest either in the Release, or in the Discussion in the repository of the package to which the question relates, or in a special [chat in Telegram](https://t.me/SurfGear).
+
 ## Thanks  
 
 Many thanks to the entire **Surf team** for their contribution to the development of the repository!  
