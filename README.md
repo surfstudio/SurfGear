@@ -124,6 +124,20 @@ Widget for refresh by swipe. [Learn More](https://github.com/surfstudio/flutter-
 
 ---
 
+#### `Render Metrics`
+
+> [![Pub Version](https://img.shields.io/pub/v/render_metrics?logo=dart&logoColor=white)](https://pub.dev/packages/render_metrics)
+[![Pub Likes](https://badgen.net/pub/likes/render_metrics)](https://pub.dev/packages/render_metrics)
+[![Pub Points](https://badgen.net/pub/points/render_metrics?label=pub%20points)](https://pub.dev/packages/render_metrics/score)
+[![Pub Popularity](https://badgen.net/pub/popularity/render_metrics?label=pub%20popularity)](https://pub.dev/packages/render_metrics/score)
+[![Flutter Platform](https://badgen.net/pub/flutter-platform/render_metrics)](https://pub.dev/packages/render_metrics/)
+
+This package helps retrieve the current positioning coordinates of any widget in a widgets tree in your Flutter application. [Learn More](https://github.com/surfstudio/flutter-render-metrics/blob/main/README.md)
+
+[View Source](https://github.com/surfstudio/flutter-render-metrics)
+
+---
+
 ## How to ask questions?  
 
 You can ask questions of interest either in the Release, or in the Discussion in the repository of the package to which the question relates, or in a special [chat in Telegram](https://t.me/SurfGear).
