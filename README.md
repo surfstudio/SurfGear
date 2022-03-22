@@ -138,6 +138,19 @@ This package helps retrieve the current positioning coordinates of any widget in
 
 ---
 
+#### `Bottom inset obserever`
+
+[![Pub Version](https://img.shields.io/pub/v/bottom_inset_observer?logo=dart&logoColor=white)](https://pub.dev/packages/bottom_inset_observer)
+[![Pub Likes](https://badgen.net/pub/likes/bottom_inset_observer)](https://pub.dev/packages/bottom_inset_observer)
+[![Pub Points](https://badgen.net/pub/points/bottom_inset_observer?label=pub%20points)](https://pub.dev/packages/bottom_inset_observer/score)
+[![Pub popularity](https://badgen.net/pub/popularity/bottom_inset_observer)](https://pub.dev/packages/bottom_inset_observer/score)
+![Flutter Platform](https://badgen.net/pub/flutter-platform/bottom_inset_observer)
+
+This package for tracking changes of the bottom margin (viewInsets.bottom) using callBack functions. [Learn More](https://github.com/surfstudio/flutter-bottom-inset-observer/blob/main/README.md)
+
+[View Source](https://github.com/surfstudio/flutter-bottom-inset-observer)
+
+---
 ## How to ask questions?  
 
 You can ask questions of interest either in the Release, or in the Discussion in the repository of the package to which the question relates, or in a special [chat in Telegram](https://t.me/SurfGear).
