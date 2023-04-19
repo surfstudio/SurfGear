@@ -2,7 +2,7 @@
 
 #### `App template`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/surf-flutter-app-template/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/surf-flutter-app-template)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/surf-flutter-app-template/workflow.yaml?logo=github&logoColor=white)](https://github.com/surfstudio/surf-flutter-app-template)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/surf-flutter-app-template/new%20issues)](https://github.com/surfstudio/surf-flutter-app-template/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/surf-flutter-app-template)](https://github.com/surfstudio/surf-flutter-app-template/issues?q=is%3Aissue+is%3Aopen)
@@ -18,7 +18,7 @@
 
 #### `OTP autofill`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-otp-autofill/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-otp-autofill)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-otp-autofill/main.yml?branch=main&logo=github&logoColor=white)](https://github.com/surfstudio/flutter-otp-autofill)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-otp-autofill/new%20issues)](https://github.com/surfstudio/flutter-otp-autofill/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-otp-autofill)](https://github.com/surfstudio/flutter-otp-autofill/issues?q=is%3Aissue+is%3Aopen)
@@ -35,7 +35,7 @@
 
 #### `Bottom Sheet`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-bottom-sheet/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-bottom-sheet)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-bottom-sheet/main.yml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-bottom-sheet)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-bottom-sheet/new%20issues)](https://github.com/surfstudio/flutter-bottom-sheet/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-bottom-sheet)](https://github.com/surfstudio/flutter-bottom-sheet/issues?q=is%3Aissue+is%3Aopen)
@@ -52,7 +52,7 @@
 
 #### `Tab Navigator`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-tabnavigator/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-tabnavigator)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-tabnavigator/build.yaml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-tabnavigator)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-tabnavigator/new%20issues)](https://github.com/surfstudio/flutter-tabnavigator/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-tabnavigator)](https://github.com/surfstudio/flutter-tabnavigator/issues?q=is%3Aissue+is%3Aopen)
@@ -69,7 +69,7 @@
 
 #### `Bottom Navigation Bar`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-bottom-navigation-bar/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-bottom-navigation-bar)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-bottom-navigation-bar/workflow.yaml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-bottom-navigation-bar)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-bottom-navigation-bar/new%20issues)](https://github.com/surfstudio/flutter-bottom-navigation-bar/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-bottom-navigation-bar)](https://github.com/surfstudio/flutter-bottom-navigation-bar/issues?q=is%3Aissue+is%3Aopen)
@@ -86,7 +86,7 @@
 
 #### `Virtual Keyboard`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-virtual-keyboard/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-virtual-keyboard)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-virtual-keyboard/workflow.yaml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-virtual-keyboard)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-virtual-keyboard/new%20issues)](https://github.com/surfstudio/flutter-virtual-keyboard/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-virtual-keyboard)](https://github.com/surfstudio/flutter-bottom-navigation-bar/issues?q=is%3Aissue+is%3Aopen)
@@ -102,7 +102,7 @@
 
 #### `CLI tool for fast and easy creation of Flutter projects`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/surf_flutter_starter/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/surf_flutter_starter)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/surf_flutter_starter/main.yml?logo=github&logoColor=white)](https://github.com/surfstudio/surf_flutter_starter)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/surf_flutter_starter/new%20issues)](https://github.com/surfstudio/surf_flutter_starter/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/surf_flutter_starter)](https://github.com/surfstudio/surf_flutter_starter/issues?q=is%3Aissue+is%3Aopen)
@@ -119,7 +119,7 @@
 
 #### `Render Metrics`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-render-metrics/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-render-metrics)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-render-metrics/main.yml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-render-metrics)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-render-metrics/new%20issues) ](https://github.com/surfstudio/flutter-render-metrics/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-render-metrics)](https://github.com/surfstudio/flutter-render-metrics/issues?q=is%3Aissue+is%3Aopen)
@@ -136,7 +136,7 @@
 
 #### `Push Notification`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-push-notification/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-push-notification)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-push-notification/main.yml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-push-notification)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-push-notification/new%20issues)](https://github.com/surfstudio/flutter-push-notification/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-push-notification)](https://github.com/surfstudio/flutter-push-notification/issues?q=is%3Aissue+is%3Aopen)
@@ -153,7 +153,7 @@
 
 #### `Bottom inset observer`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-bottom-inset-observer/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-bottom-inset-observer)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-bottom-inset-observer/main.yml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-bottom-inset-observer)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-bottom-inset-observer/new%20issues)](https://github.com/surfstudio/flutter-bottom-inset-observer/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-bottom-inset-observer)](https://github.com/surfstudio/flutter-bottom-inset-observer/issues?q=is%3Aissue+is%3Aopen)
@@ -170,7 +170,7 @@
 
 #### `Surf Util`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-surf-util/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-surf-util)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-surf-util/main.yml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-surf-util)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-surf-util/new%20issues)](https://github.com/surfstudio/flutter-surf-util/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-surf-util)](https://github.com/surfstudio/flutter-surf-util/issues?q=is%3Aissue+is%3Aopen)
@@ -187,7 +187,7 @@
 
 #### `Surf Logger`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-surf-logger/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-surf-logger)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-surf-logger/main.yml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-surf-logger)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-surf-logger/new%20issues)](https://github.com/surfstudio/flutter-surf-logger/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-surf-logger)](https://github.com/surfstudio/flutter-surf-logger/issues?q=is%3Aissue+is%3Aopen)
@@ -204,7 +204,7 @@
 
 #### `Surf Lint Rules`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-surf-lint-rules/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-surf-lint-rules)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-surf-lint-rules/main.yml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-surf-lint-rules)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-surf-lint-rules/new%20issues)](https://github.com/surfstudio/flutter-surf-lint-rules/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-surf-lint-rules)](https://github.com/surfstudio/flutter-surf-lint-rules/issues?q=is%3Aissue+is%3Aopen)
@@ -221,7 +221,7 @@
 
 #### `Analytics`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-analytics/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-analytics)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-analytics/main.yml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-analytics)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-analytics/new%20issues)](https://github.com/surfstudio/flutter-analytics/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-analytics)](https://github.com/surfstudio/flutter-analytics/issues?q=is%3Aissue+is%3Aopen)
@@ -238,7 +238,7 @@
 
 #### `Auto Reload`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-auto-reload/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-auto-reload)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-auto-reload/workflow.yaml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-auto-reload)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-auto-reload/new%20issues)](https://github.com/surfstudio/flutter-auto-reload/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-auto-reload)](https://github.com/surfstudio/flutter-auto-reload/issues?q=is%3Aissue+is%3Aopen)
@@ -255,7 +255,7 @@
 
 #### `Swipe Refresh`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-swipe-refresh/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-swipe-refresh)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-swipe-refresh/main.yml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-swipe-refresh)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-swipe-refresh/new%20issues)](https://github.com/surfstudio/flutter-swipe-refresh/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-swipe-refresh)](https://github.com/surfstudio/flutter-swipe-refresh/issues?q=is%3Aissue+is%3Aopen)
@@ -272,7 +272,7 @@
 
 #### `Surf MWWM`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-surf-mwwm/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-surf-mwwm)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-surf-mwwm/workflow.yaml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-surf-mwwm)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-surf-mwwm/new%20issues)](https://github.com/surfstudio/flutter-surf-mwwm/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-surf-mwwm)](https://github.com/surfstudio/flutter-surf-mwwm/issues?q=is%3Aissue+is%3Aopen)
@@ -289,7 +289,7 @@
 
 #### `MWWM`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-mwwm/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-mwwm)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-mwwm/workflow.yaml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-mwwm)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-mwwm/new%20issues)](https://github.com/surfstudio/flutter-mwwm/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-mwwm)](https://github.com/surfstudio/flutter-mwwm/issues?q=is%3Aissue+is%3Aopen)
@@ -306,7 +306,7 @@
 
 #### `Data list`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-datalist/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-datalist)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-datalist/workflow.yaml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-datalist)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-datalist/new%20issues)](https://github.com/surfstudio/flutter-datalist/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-datalist)](https://github.com/surfstudio/flutter-datalist/issues?q=is%3Aissue+is%3Aopen)
@@ -323,7 +323,7 @@
 
 #### `Relation`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-relation/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-relation)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-relation/workflow.yaml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-relation)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-relation/new%20issues)](https://github.com/surfstudio/flutter-relation/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-relation)](https://github.com/surfstudio/flutter-relation/issues?q=is%3Aissue+is%3Aopen)
@@ -340,7 +340,7 @@
 
 #### `Surf Controllers`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-surf-controllers/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-surf-controllers)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-surf-controllers/workflow.yaml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-surf-controllers)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-surf-controllers/new%20issues)](https://github.com/surfstudio/flutter-surf-controllers/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-surf-controllers)](https://github.com/surfstudio/flutter-surf-controllers/issues?q=is%3Aissue+is%3Aopen)
@@ -357,7 +357,7 @@
 
 #### `In App Rate`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-in-app-rate/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-in-app-rate)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-in-app-rate/workflow.yaml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-in-app-rate)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-in-app-rate/new%20issues)](https://github.com/surfstudio/flutter-in-app-rate/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-in-app-rate)](https://github.com/surfstudio/flutter-in-app-rate/issues?q=is%3Aissue+is%3Aopen)
@@ -373,7 +373,7 @@
 
 #### `Ink Widget`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-ink-widget/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-ink-widget)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-ink-widget/workflow.yaml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-ink-widget)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-ink-widget/new%20issues)](https://github.com/surfstudio/flutter-ink-widget/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-ink-widget)](https://github.com/surfstudio/flutter-ink-widget/issues?q=is%3Aissue+is%3Aopen)
@@ -390,7 +390,7 @@
 
 #### `Decomposer fluro`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/decomposer-fluro/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/decomposer-fluro)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/decomposer-fluro/dart.yml?logo=github&logoColor=white)](https://github.com/surfstudio/decomposer-fluro)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/decomposer-fluro/new%20issues)](https://github.com/surfstudio/decomposer-fluro/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/decomposer-fluro)](https://github.com/surfstudio/decomposer-fluro/issues?q=is%3Aissue+is%3Aopen)
@@ -406,7 +406,7 @@
 
 #### `SurfGear`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/SurfGear/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/SurfGear)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/SurfGear/workflow.yaml?logo=github&logoColor=white)](https://github.com/surfstudio/SurfGear)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/SurfGear/new%20issues)](https://github.com/surfstudio/SurfGear/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/SurfGear)](https://github.com/surfstudio/SurfGear/issues?q=is%3Aissue+is%3Aopen)
@@ -422,7 +422,7 @@
 
 #### `GitHub Actions on SurfGear packages`
 
-> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-ci-workflows/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-ci-workflows)
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/flutter-ci-workflows/analysis.yml?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-ci-workflows)
 >
 > [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-ci-workflows/new%20issues)](https://github.com/surfstudio/flutter-ci-workflows/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-ci-workflows)](https://github.com/surfstudio/flutter-ci-workflows/issues?q=is%3Aissue+is%3Aopen)
