@@ -12,31 +12,31 @@ As soon as they meet the declared quality level, they will also be presented on 
 
 ---
 
-#### `Analytics`
+#### `Surf Lint Rules`
 
-> [![Pub Version](https://img.shields.io/pub/v/analytics?logo=dart&logoColor=white)](https://pub.dev/packages/analytics/)
-[![Pub Likes](https://badgen.net/pub/likes/analytics?label=pub%20likes)](https://pub.dev/packages/analytics/score)
-[![Pub Points](https://badgen.net/pub/points/analytics?label=pub%20points)](https://pub.dev/packages/analytics/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/analytics?label=pub%20popularity)](https://pub.dev/packages/analytics/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/analytics)](https://pub.dev/packages/analytics/)
+> [![Pub Version](https://img.shields.io/pub/v/surf_lint_rules?logo=dart&logoColor=white)](https://pub.dev/packages/surf_lint_rules/)
+[![Pub Likes](https://badgen.net/pub/likes/surf_lint_rules?label=pub%20likes)](https://pub.dev/packages/surf_lint_rules/score)
+[![Pub Points](https://badgen.net/pub/points/surf_lint_rules?label=pub%20points)](https://pub.dev/packages/surf_lint_rules/score)
+[![Pub Popularity](https://badgen.net/pub/popularity/surf_lint_rules?label=pub%20popularity)](https://pub.dev/packages/surf_lint_rules/score)
+[![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_lint_rules)](https://pub.dev/packages/surf_lint_rules/)
 
-Interface for working with analytic services. The library is supposed to unify work with various analytic services. [Learn More](https://github.com/surfstudio/flutter-analytics/blob/main/README.md)
+Lint rules used in [Surf](https://surf.ru).
 
-[View Source](https://github.com/surfstudio/flutter-analytics)
+[Learn More](https://github.com/surfstudio/flutter-surf-lint-rules)
 
 ---
 
-#### `Bottom Sheet`
+#### `CLI tool for fast and easy creation of Flutter projects`
 
-> [![Pub Version](https://img.shields.io/pub/v/bottom_sheet?logo=dart&logoColor=white)](https://pub.dev/packages/bottom_sheet/)
-[![Pub Likes](https://badgen.net/pub/likes/bottom_sheet?label=pub%20likes)](https://pub.dev/packages/bottom_sheet/score)
-[![Pub Points](https://badgen.net/pub/points/bottom_sheet?label=pub%20points)](https://pub.dev/packages/bottom_sheet/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/bottom_sheet?label=pub%20popularity)](https://pub.dev/packages/bottom_sheet/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/bottom_sheet)](https://pub.dev/packages/bottom_sheet/)
+> [![Pub Version](https://img.shields.io/pub/v/surf_flutter_starter?logo=dart&logoColor=white)](https://pub.dev/packages/surf_flutter_starter/)
+[![Pub Likes](https://badgen.net/pub/likes/surf_flutter_starter?label=pub%20likes)](https://pub.dev/packages/surf_flutter_starter/score)
+[![Pub Points](https://badgen.net/pub/points/surf_flutter_starter?label=pub%20points)](https://pub.dev/packages/surf_flutter_starter/score)
+[![Pub Popularity](https://badgen.net/pub/popularity/surf_flutter_starter?label=pub%20popularity)](https://pub.dev/packages/surf_flutter_starter/score)
+[![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_flutter_starter)](https://pub.dev/packages/surf_flutter_starter/)
 
-Custom bottom sheet widget, that can resize by drag and then scroll. [Learn More](https://github.com/surfstudio/flutter-bottom-sheet/blob/main/README.md)
+Flutter project creation based on surf template (https://github.com/surfstudio/surf-flutter-app-template).
 
-[View Source](https://github.com/surfstudio/flutter-bottom-sheet)
+[Learn More](https://github.com/surfstudio/surf_flutter_starter)
 
 ---
 
@@ -48,37 +48,37 @@ Custom bottom sheet widget, that can resize by drag and then scroll. [Learn More
 [![Pub Popularity](https://badgen.net/pub/popularity/otp_autofill?label=pub%20popularity)](https://pub.dev/packages/otp_autofill/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/otp_autofill)](https://pub.dev/packages/otp_autofill/)
 
-This plugin uses [SMS User Consent API](https://developers.google.com/identity/sms-retriever/user-consent/overview) and [SMS Retriever API](https://developers.google.com/identity/sms-retriever/overview) on Android. You could use autofill from another input by using OTPStrategy. (e.g. from push-notification). [Learn More](https://github.com/surfstudio/flutter-otp-autofill/blob/main/README.md)
+This plugin uses [SMS User Consent API](https://developers.google.com/identity/sms-retriever/user-consent/overview) and [SMS Retriever API](https://developers.google.com/identity/sms-retriever/overview) on Android. You could use autofill from another input by using OTPStrategy. (e.g. from push-notification).
 
-[View Source](https://github.com/surfstudio/flutter-otp-autofill)
-
----
-
-#### `Push Notification`
-
-> [![Pub Version](https://img.shields.io/pub/v/push_notification?logo=dart&logoColor=white)](https://pub.dev/packages/push_notification/)
-[![Pub Likes](https://badgen.net/pub/likes/push_notification?label=pub%20likes)](https://pub.dev/packages/push_notification/score)
-[![Pub Points](https://badgen.net/pub/points/push_notification?label=pub%20points)](https://pub.dev/packages/push_notification/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/push_notification?label=pub%20popularity)](https://pub.dev/packages/push_notification/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/push_notification)](https://pub.dev/packages/push_notification/)
-
-Library for implementing push notifications. The module contains the main work with push notifications. [Learn More](https://github.com/surfstudio/flutter-push-notification/blob/main/README.md)
-
-[View Source](https://github.com/surfstudio/flutter-push-notification)
+[Learn More](https://github.com/surfstudio/flutter-otp-autofill)
 
 ---
 
-#### `Surf Lint Rules`
+#### `Bottom Sheet`
 
-> [![Pub Version](https://img.shields.io/pub/v/surf_lint_rules?logo=dart&logoColor=white)](https://pub.dev/packages/surf_lint_rules/)
-[![Pub Likes](https://badgen.net/pub/likes/surf_lint_rules?label=pub%20likes)](https://pub.dev/packages/surf_lint_rules/score)
-[![Pub Points](https://badgen.net/pub/points/surf_lint_rules?label=pub%20points)](https://pub.dev/packages/surf_lint_rules/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/surf_lint_rules?label=pub%20popularity)](https://pub.dev/packages/surf_lint_rules/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_lint_rules)](https://pub.dev/packages/surf_lint_rules/)
+> [![Pub Version](https://img.shields.io/pub/v/bottom_sheet?logo=dart&logoColor=white)](https://pub.dev/packages/bottom_sheet/)
+[![Pub Likes](https://badgen.net/pub/likes/bottom_sheet?label=pub%20likes)](https://pub.dev/packages/bottom_sheet/score)
+[![Pub Points](https://badgen.net/pub/points/bottom_sheet?label=pub%20points)](https://pub.dev/packages/bottom_sheet/score)
+[![Pub Popularity](https://badgen.net/pub/popularity/bottom_sheet?label=pub%20popularity)](https://pub.dev/packages/bottom_sheet/score)
+[![Flutter Platform](https://badgen.net/pub/flutter-platform/bottom_sheet)](https://pub.dev/packages/bottom_sheet/)
 
-Lint rules used in [Surf](https://surf.ru/). [Learn More](https://github.com/surfstudio/flutter-surf-lint-rules/blob/main/README.md)
+Custom bottom sheet widget, that can resize by drag and then scroll.
 
-[View Source](https://github.com/surfstudio/flutter-surf-lint-rules)
+[Learn More](https://github.com/surfstudio/flutter-bottom-sheet)
+
+---
+
+#### `Analytics`
+
+> [![Pub Version](https://img.shields.io/pub/v/analytics?logo=dart&logoColor=white)](https://pub.dev/packages/analytics/)
+[![Pub Likes](https://badgen.net/pub/likes/analytics?label=pub%20likes)](https://pub.dev/packages/analytics/score)
+[![Pub Points](https://badgen.net/pub/points/analytics?label=pub%20points)](https://pub.dev/packages/analytics/score)
+[![Pub Popularity](https://badgen.net/pub/popularity/analytics?label=pub%20popularity)](https://pub.dev/packages/analytics/score)
+[![Flutter Platform](https://badgen.net/pub/flutter-platform/analytics)](https://pub.dev/packages/analytics/)
+
+Interface for working with analytic services. The library is supposed to unify work with various analytic services.
+
+[View Source](https://github.com/surfstudio/flutter-analytics)
 
 ---
 
@@ -90,23 +90,37 @@ Lint rules used in [Surf](https://surf.ru/). [Learn More](https://github.com/sur
 [![Pub Popularity](https://badgen.net/pub/popularity/surf_logger?label=pub%20popularity)](https://pub.dev/packages/surf_logger/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_logger)](https://pub.dev/packages/surf_logger/)
 
-Logger for Dart & Flutter. [Learn More](https://github.com/surfstudio/flutter-surf-logger/blob/main/README.md)
+Logger for Dart & Flutter.
 
 [View Source](https://github.com/surfstudio/flutter-surf-logger)
 
 ---
 
-#### `Surf Util`
+#### `Auto Reload`
 
-> [![Pub Version](https://img.shields.io/pub/v/surf_util?logo=dart&logoColor=white)](https://pub.dev/packages/surf_util/)
-[![Pub Likes](https://badgen.net/pub/likes/surf_util?label=pub%20likes)](https://pub.dev/packages/surf_util/score)
-[![Pub Points](https://badgen.net/pub/points/surf_util?label=pub%20points)](https://pub.dev/packages/surf_util/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/surf_util?label=pub%20popularity)](https://pub.dev/packages/surf_util/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_util)](https://pub.dev/packages/surf_util/)
+> [![Pub Version](https://img.shields.io/pub/v/auto_reload?logo=dart&logoColor=white)](https://pub.dev/packages/auto_reload/)
+[![Pub Likes](https://badgen.net/pub/likes/auto_reload?label=pub%20likes)](https://pub.dev/packages/auto_reload/score)
+[![Pub Points](https://badgen.net/pub/points/auto_reload?label=pub%20points)](https://pub.dev/packages/auto_reload/score)
+[![Pub Popularity](https://badgen.net/pub/popularity/auto_reload?label=pub%20popularity)](https://pub.dev/packages/auto_reload/score)
+[![Flutter Platform](https://badgen.net/pub/flutter-platform/auto_reload)](https://pub.dev/packages/auto_reload/)
 
-A library with set of common classes and utilities used in different modules. [Learn More](https://github.com/surfstudio/flutter-surf-util/blob/main/README.md)
+Library that helps to perform actions with some periodicity.
 
-[View Source](https://github.com/surfstudio/flutter-surf-util)
+[View Source](https://github.com/surfstudio/flutter-auto-reload)
+
+---
+
+#### `Push Notification`
+
+> [![Pub Version](https://img.shields.io/pub/v/push_notification?logo=dart&logoColor=white)](https://pub.dev/packages/push_notification/)
+[![Pub Likes](https://badgen.net/pub/likes/push_notification?label=pub%20likes)](https://pub.dev/packages/push_notification/score)
+[![Pub Points](https://badgen.net/pub/points/push_notification?label=pub%20points)](https://pub.dev/packages/push_notification/score)
+[![Pub Popularity](https://badgen.net/pub/popularity/push_notification?label=pub%20popularity)](https://pub.dev/packages/push_notification/score)
+[![Flutter Platform](https://badgen.net/pub/flutter-platform/push_notification)](https://pub.dev/packages/push_notification/)
+
+Library for implementing push notifications. The module contains the main work with push notifications.
+
+[Learn More](https://github.com/surfstudio/flutter-push-notification)
 
 ---
 
@@ -118,9 +132,9 @@ A library with set of common classes and utilities used in different modules. [L
 [![Pub Popularity](https://badgen.net/pub/popularity/swipe_refresh?label=pub%20popularity)](https://pub.dev/packages/swipe_refresh/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/swipe_refresh)](https://pub.dev/packages/swipe_refresh/)
 
-Widget for refresh by swipe. [Learn More](https://github.com/surfstudio/flutter-swipe-refresh/blob/main/README.md)
+Widget for refresh by swipe.
 
-[View Source](https://github.com/surfstudio/flutter-swipe-refresh)
+[Learn More](https://github.com/surfstudio/flutter-swipe-refresh)
 
 ---
 
@@ -132,25 +146,12 @@ Widget for refresh by swipe. [Learn More](https://github.com/surfstudio/flutter-
 [![Pub Popularity](https://badgen.net/pub/popularity/render_metrics?label=pub%20popularity)](https://pub.dev/packages/render_metrics/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/render_metrics)](https://pub.dev/packages/render_metrics/)
 
-This package helps retrieve the current positioning coordinates of any widget in a widgets tree in your Flutter application. [Learn More](https://github.com/surfstudio/flutter-render-metrics/blob/main/README.md)
+This package helps retrieve the current positioning coordinates of any widget in a widgets tree in your Flutter application.
 
-[View Source](https://github.com/surfstudio/flutter-render-metrics)
-
----
-
-#### `Bottom inset obserever`
-
-[![Pub Version](https://img.shields.io/pub/v/bottom_inset_observer?logo=dart&logoColor=white)](https://pub.dev/packages/bottom_inset_observer)
-[![Pub Likes](https://badgen.net/pub/likes/bottom_inset_observer)](https://pub.dev/packages/bottom_inset_observer)
-[![Pub Points](https://badgen.net/pub/points/bottom_inset_observer?label=pub%20points)](https://pub.dev/packages/bottom_inset_observer/score)
-[![Pub popularity](https://badgen.net/pub/popularity/bottom_inset_observer)](https://pub.dev/packages/bottom_inset_observer/score)
-![Flutter Platform](https://badgen.net/pub/flutter-platform/bottom_inset_observer)
-
-This package for tracking changes of the bottom margin (viewInsets.bottom) using callBack functions. [Learn More](https://github.com/surfstudio/flutter-bottom-inset-observer/blob/main/README.md)
-
-[View Source](https://github.com/surfstudio/flutter-bottom-inset-observer)
+[Learn More](https://github.com/surfstudio/flutter-render-metrics)
 
 ---
+
 ## How to ask questions?  
 
 You can ask questions of interest either in the Release, or in the Discussion in the repository of the package to which the question relates, or in a special [chat in Telegram](https://t.me/SurfGear).
