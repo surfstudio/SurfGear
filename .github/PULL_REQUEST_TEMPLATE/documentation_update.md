@@ -2,7 +2,6 @@
 name: Documentation update
 about: Fixing a problem or improve in an existing docs page.
 labels: documentation
-assignees: MbIXjkee
 ---
 
 <!--
