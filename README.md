@@ -11,6 +11,13 @@ However, they may be at various stages of development and support.
 As soon as they meet the declared quality level, they will also be presented on this showcase.
 
 ---
+#### `Surf Gear`
+
+> ![GitHub stars](https://img.shields.io/github/stars/surfstudio/SurfGear?style=social)
+>
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/SurfGear)](https://github.com/surfstudio/SurfGear/issues?q=is%3Aissue+is%3Aopen)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/SurfGear)](https://github.com/surfstudio/SurfGear/pulls)
+>
 
 #### `Surf Lint Rules`
 
@@ -19,6 +26,10 @@ As soon as they meet the declared quality level, they will also be presented on 
 [![Pub Points](https://badgen.net/pub/points/surf_lint_rules?label=pub%20points)](https://pub.dev/packages/surf_lint_rules/score)
 [![Pub Popularity](https://badgen.net/pub/popularity/surf_lint_rules?label=pub%20popularity)](https://pub.dev/packages/surf_lint_rules/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_lint_rules)](https://pub.dev/packages/surf_lint_rules/)
+> 
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-surf-lint-rules)](https://github.com/surfstudio/flutter-surf-lint-rules/issues?q=is%3Aissue+is%3Aopen)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-surf-lint-rules)](https://github.com/surfstudio/flutter-surf-lint-rules/pulls)
+
 
 Lint rules used in [Surf](https://surf.ru).
 
@@ -33,6 +44,9 @@ Lint rules used in [Surf](https://surf.ru).
 [![Pub Points](https://badgen.net/pub/points/surf_flutter_starter?label=pub%20points)](https://pub.dev/packages/surf_flutter_starter/score)
 [![Pub Popularity](https://badgen.net/pub/popularity/surf_flutter_starter?label=pub%20popularity)](https://pub.dev/packages/surf_flutter_starter/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_flutter_starter)](https://pub.dev/packages/surf_flutter_starter/)
+>
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/surf_flutter_starter)](https://github.com/surfstudio/surf_flutter_starter/issues?q=is%3Aissue+is%3Aopen)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/surf_flutter_starter)](https://github.com/surfstudio/surf_flutter_starter/pulls)
 
 Flutter project creation based on surf template (https://github.com/surfstudio/surf-flutter-app-template).
 
@@ -47,6 +61,9 @@ Flutter project creation based on surf template (https://github.com/surfstudio/s
 [![Pub Points](https://badgen.net/pub/points/otp_autofill?label=pub%20points)](https://pub.dev/packages/otp_autofill/score)
 [![Pub Popularity](https://badgen.net/pub/popularity/otp_autofill?label=pub%20popularity)](https://pub.dev/packages/otp_autofill/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/otp_autofill)](https://pub.dev/packages/otp_autofill/)
+>
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-otp-autofill)](https://github.com/surfstudio/flutter-otp-autofill/issues?q=is%3Aissue+is%3Aopen)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-otp-autofill)](https://github.com/surfstudio/flutter-otp-autofill/pulls)
 
 This plugin uses [SMS User Consent API](https://developers.google.com/identity/sms-retriever/user-consent/overview) and [SMS Retriever API](https://developers.google.com/identity/sms-retriever/overview) on Android. You could use autofill from another input by using OTPStrategy. (e.g. from push-notification).
 
@@ -61,6 +78,10 @@ This plugin uses [SMS User Consent API](https://developers.google.com/identity/s
 [![Pub Points](https://badgen.net/pub/points/bottom_sheet?label=pub%20points)](https://pub.dev/packages/bottom_sheet/score)
 [![Pub Popularity](https://badgen.net/pub/popularity/bottom_sheet?label=pub%20popularity)](https://pub.dev/packages/bottom_sheet/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/bottom_sheet)](https://pub.dev/packages/bottom_sheet/)
+> 
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-bottom-sheet)](https://github.com/surfstudio/flutter-bottom-sheet/issues?q=is%3Aissue+is%3Aopen)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-bottom-sheet)](https://github.com/surfstudio/flutter-bottom-sheet/pulls)
+
 
 Custom bottom sheet widget, that can resize by drag and then scroll.
 
@@ -75,6 +96,9 @@ Custom bottom sheet widget, that can resize by drag and then scroll.
 [![Pub Points](https://badgen.net/pub/points/analytics?label=pub%20points)](https://pub.dev/packages/analytics/score)
 [![Pub Popularity](https://badgen.net/pub/popularity/analytics?label=pub%20popularity)](https://pub.dev/packages/analytics/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/analytics)](https://pub.dev/packages/analytics/)
+>
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-analytics)](https://github.com/surfstudio/flutter-analytics/issues?q=is%3Aissue+is%3Aopen)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-analytics)](https://github.com/surfstudio/flutter-analytics/pulls)
 
 Interface for working with analytic services. The library is supposed to unify work with various analytic services.
 
@@ -89,6 +113,9 @@ Interface for working with analytic services. The library is supposed to unify w
 [![Pub Points](https://badgen.net/pub/points/surf_logger?label=pub%20points)](https://pub.dev/packages/surf_logger/score)
 [![Pub Popularity](https://badgen.net/pub/popularity/surf_logger?label=pub%20popularity)](https://pub.dev/packages/surf_logger/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_logger)](https://pub.dev/packages/surf_logger/)
+>
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-surf-logger)](https://github.com/surfstudio/flutter-surf-logger/issues?q=is%3Aissue+is%3Aopen)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-surf-logger)](https://github.com/surfstudio/flutter-surf-logger/pulls)
 
 Logger for Dart & Flutter.
 
@@ -103,6 +130,9 @@ Logger for Dart & Flutter.
 [![Pub Points](https://badgen.net/pub/points/auto_reload?label=pub%20points)](https://pub.dev/packages/auto_reload/score)
 [![Pub Popularity](https://badgen.net/pub/popularity/auto_reload?label=pub%20popularity)](https://pub.dev/packages/auto_reload/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/auto_reload)](https://pub.dev/packages/auto_reload/)
+> 
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-auto-reload)](https://github.com/surfstudio/flutter-auto-reload/issues?q=is%3Aissue+is%3Aopen)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-auto-reload)](https://github.com/surfstudio/flutter-auto-reload/pulls)
 
 Library that helps to perform actions with some periodicity.
 
@@ -117,6 +147,9 @@ Library that helps to perform actions with some periodicity.
 [![Pub Points](https://badgen.net/pub/points/push_notification?label=pub%20points)](https://pub.dev/packages/push_notification/score)
 [![Pub Popularity](https://badgen.net/pub/popularity/push_notification?label=pub%20popularity)](https://pub.dev/packages/push_notification/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/push_notification)](https://pub.dev/packages/push_notification/)
+>
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-push-notification)](https://github.com/surfstudio/flutter-push-notification/issues?q=is%3Aissue+is%3Aopen)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-push-notification)](https://github.com/surfstudio/flutter-push-notification/pulls)
 
 Library for implementing push notifications. The module contains the main work with push notifications.
 
@@ -131,6 +164,9 @@ Library for implementing push notifications. The module contains the main work w
 [![Pub Points](https://badgen.net/pub/points/swipe_refresh?label=pub%20points)](https://pub.dev/packages/swipe_refresh/score)
 [![Pub Popularity](https://badgen.net/pub/popularity/swipe_refresh?label=pub%20popularity)](https://pub.dev/packages/swipe_refresh/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/swipe_refresh)](https://pub.dev/packages/swipe_refresh/)
+> 
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-swipe-refresh)](https://github.com/surfstudio/flutter-swipe-refresh/issues?q=is%3Aissue+is%3Aopen)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-swipe-refresh)](https://github.com/surfstudio/flutter-swipe-refresh/pulls)
 
 Widget for refresh by swipe.
 
@@ -145,6 +181,9 @@ Widget for refresh by swipe.
 [![Pub Points](https://badgen.net/pub/points/render_metrics?label=pub%20points)](https://pub.dev/packages/render_metrics/score)
 [![Pub Popularity](https://badgen.net/pub/popularity/render_metrics?label=pub%20popularity)](https://pub.dev/packages/render_metrics/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/render_metrics)](https://pub.dev/packages/render_metrics/)
+>
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-render-metrics)](https://github.com/surfstudio/flutter-render-metrics/issues?q=is%3Aissue+is%3Aopen)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-render-metrics)](https://github.com/surfstudio/flutter-render-metrics/pulls)
 
 This package helps retrieve the current positioning coordinates of any widget in a widgets tree in your Flutter application.
 
