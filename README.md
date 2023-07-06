@@ -217,6 +217,19 @@ This package is part of the SurfGear toolkit made by [Surf](https://surf.dev).
 You can ask questions of interest either in the Release, or in the Discussion in the repository of the package to which
 the question relates, or in a special [chat in Telegram](https://t.me/SurfGear).
 
+## Issues
+
+To report your issues, file directly in the Issues section.
+
+https://github.com/surfstudio/SurfGear/issues/new
+
+## Contribute
+
+If you would like to contribute to the package (e.g. by improving the documentation, fixing a bug or adding a cool new
+feature), please read our [contribution guide](./CONTRIBUTING.md) first and send us your pull request.
+
+Your PRs are always welcome.
+
 ## Thanks
 
 Many thanks to the entire **Surf team** for their contribution to the development of the repository!
