@@ -215,3 +215,20 @@
 [View Issues](https://github.com/surfstudio/flutter-render-metrics/issues)
 
 ---
+
+#### `Surf Util`
+
+> [![Build Status](https://shields.io/github/workflow/status/surfstudio/flutter-surf-util/Analysis?logo=github&logoColor=white)](https://github.com/surfstudio/flutter-surf-util)
+>
+> [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/flutter-surf-util/new%20issues)](https://github.com/surfstudio/flutter-surf-util/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-surf-util)](https://github.com/surfstudio/flutter-surf-util/issues?q=is%3Aissue+is%3Aopen)
+>
+> [![GitHub new pull request by-label](https://img.shields.io/github/issues-pr-raw/surfstudio/flutter-surf-util/new%20pull%20request)](https://github.com/surfstudio/flutter-surf-util/pulls?q=is%3Apr+is%3Aopen+label%3A%22new+pull+request%22)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-surf-util)](https://github.com/surfstudio/flutter-surf-util/pulls)
+>
+> ![GitHub stars](https://img.shields.io/github/stars/surfstudio/flutter-surf-util?style=social)
+> [![Pub Likes](https://badgen.net/pub/likes/surf_util?label=pub%20likes)](https://pub.dev/packages/surf_util)
+
+[View Issues](https://github.com/surfstudio/flutter-surf-util/issues)
+
+---

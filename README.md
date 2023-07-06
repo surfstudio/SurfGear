@@ -11,6 +11,7 @@ However, they may be at various stages of development and support.
 As soon as they meet the declared quality level, they will also be presented on this showcase.
 
 ---
+
 #### `Surf Gear`
 
 > ![GitHub stars](https://img.shields.io/github/stars/surfstudio/SurfGear?style=social)
@@ -26,7 +27,7 @@ As soon as they meet the declared quality level, they will also be presented on 
 [![Pub Points](https://badgen.net/pub/points/surf_lint_rules?label=pub%20points)](https://pub.dev/packages/surf_lint_rules/score)
 [![Pub Popularity](https://badgen.net/pub/popularity/surf_lint_rules?label=pub%20popularity)](https://pub.dev/packages/surf_lint_rules/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_lint_rules)](https://pub.dev/packages/surf_lint_rules/)
-> 
+>
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-surf-lint-rules)](https://github.com/surfstudio/flutter-surf-lint-rules/issues?q=is%3Aissue+is%3Aopen)
 > [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-surf-lint-rules)](https://github.com/surfstudio/flutter-surf-lint-rules/pulls)
 
@@ -65,7 +66,9 @@ Flutter project creation based on surf template (https://github.com/surfstudio/s
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-otp-autofill)](https://github.com/surfstudio/flutter-otp-autofill/issues?q=is%3Aissue+is%3Aopen)
 > [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-otp-autofill)](https://github.com/surfstudio/flutter-otp-autofill/pulls)
 
-This plugin uses [SMS User Consent API](https://developers.google.com/identity/sms-retriever/user-consent/overview) and [SMS Retriever API](https://developers.google.com/identity/sms-retriever/overview) on Android. You could use autofill from another input by using OTPStrategy. (e.g. from push-notification).
+This plugin uses [SMS User Consent API](https://developers.google.com/identity/sms-retriever/user-consent/overview)
+and [SMS Retriever API](https://developers.google.com/identity/sms-retriever/overview) on Android. You could use
+autofill from another input by using OTPStrategy. (e.g. from push-notification).
 
 [Learn More](https://github.com/surfstudio/flutter-otp-autofill)
 
@@ -78,7 +81,7 @@ This plugin uses [SMS User Consent API](https://developers.google.com/identity/s
 [![Pub Points](https://badgen.net/pub/points/bottom_sheet?label=pub%20points)](https://pub.dev/packages/bottom_sheet/score)
 [![Pub Popularity](https://badgen.net/pub/popularity/bottom_sheet?label=pub%20popularity)](https://pub.dev/packages/bottom_sheet/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/bottom_sheet)](https://pub.dev/packages/bottom_sheet/)
-> 
+>
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-bottom-sheet)](https://github.com/surfstudio/flutter-bottom-sheet/issues?q=is%3Aissue+is%3Aopen)
 > [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-bottom-sheet)](https://github.com/surfstudio/flutter-bottom-sheet/pulls)
 
@@ -130,7 +133,7 @@ Logger for Dart & Flutter.
 [![Pub Points](https://badgen.net/pub/points/auto_reload?label=pub%20points)](https://pub.dev/packages/auto_reload/score)
 [![Pub Popularity](https://badgen.net/pub/popularity/auto_reload?label=pub%20popularity)](https://pub.dev/packages/auto_reload/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/auto_reload)](https://pub.dev/packages/auto_reload/)
-> 
+>
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-auto-reload)](https://github.com/surfstudio/flutter-auto-reload/issues?q=is%3Aissue+is%3Aopen)
 > [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-auto-reload)](https://github.com/surfstudio/flutter-auto-reload/pulls)
 
@@ -164,7 +167,7 @@ Library for implementing push notifications. The module contains the main work w
 [![Pub Points](https://badgen.net/pub/points/swipe_refresh?label=pub%20points)](https://pub.dev/packages/swipe_refresh/score)
 [![Pub Popularity](https://badgen.net/pub/popularity/swipe_refresh?label=pub%20popularity)](https://pub.dev/packages/swipe_refresh/score)
 [![Flutter Platform](https://badgen.net/pub/flutter-platform/swipe_refresh)](https://pub.dev/packages/swipe_refresh/)
-> 
+>
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-swipe-refresh)](https://github.com/surfstudio/flutter-swipe-refresh/issues?q=is%3Aissue+is%3Aopen)
 > [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-swipe-refresh)](https://github.com/surfstudio/flutter-swipe-refresh/pulls)
 
@@ -185,31 +188,38 @@ Widget for refresh by swipe.
 > [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-render-metrics)](https://github.com/surfstudio/flutter-render-metrics/issues?q=is%3Aissue+is%3Aopen)
 > [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-render-metrics)](https://github.com/surfstudio/flutter-render-metrics/pulls)
 
-This package helps retrieve the current positioning coordinates of any widget in a widgets tree in your Flutter application.
+This package helps retrieve the current positioning coordinates of any widget in a widgets tree in your Flutter
+application.
 
 [Learn More](https://github.com/surfstudio/flutter-render-metrics)
 
 ---
 
-## How to ask questions?  
+#### `Surf Util`
 
-You can ask questions of interest either in the Release, or in the Discussion in the repository of the package to which the question relates, or in a special [chat in Telegram](https://t.me/SurfGear).
+> [![Pub Version](https://img.shields.io/pub/v/surf_util?logo=dart&logoColor=white)](https://pub.dev/packages/surf_util)
+[![Pub Likes](https://badgen.net/pub/likes/surf_util)](https://pub.dev/packages/surf_util)
+[![Pub Points](https://badgen.net/pub/points/surf_util?label=pub%20points)](https://pub.dev/packages/surf_util/score)
+[![Pub Popularity](https://badgen.net/pub/popularity/surf_util?label=pub%20popularity)](https://pub.dev/packages/surf_util/score)
+[![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_util)](https://pub.dev/packages/surf_util/)
+>
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-surf-util)](https://github.com/surfstudio/flutter-surf-util/issues?q=is%3Aissue+is%3Aopen)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-surf-util)](https://github.com/surfstudio/flutter-surf-util/pulls)
 
-## Issues
+This package is part of the SurfGear toolkit made by [Surf](https://surf.dev).
 
-To report your issues, file directly in the Issues section.
+[Learn More](https://github.com/surfstudio/flutter-surf-util)
 
-https://github.com/surfstudio/SurfGear/issues/new
+---
 
-## Contribute
+## How to ask questions?
 
-If you would like to contribute to the package (e.g. by improving the documentation, fixing a bug or adding a cool new feature), please read our [contribution guide](./CONTRIBUTING.md) first and send us your pull request.
+You can ask questions of interest either in the Release, or in the Discussion in the repository of the package to which
+the question relates, or in a special [chat in Telegram](https://t.me/SurfGear).
 
-Your PRs are always welcome.
+## Thanks
 
-## Thanks  
-
-Many thanks to the entire **Surf team** for their contribution to the development of the repository!  
+Many thanks to the entire **Surf team** for their contribution to the development of the repository!
 
 ## License
 
