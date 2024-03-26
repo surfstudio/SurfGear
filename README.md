@@ -279,6 +279,23 @@ This package provides a left to right fade effect for multiline text.
 
 [Learn More](https://github.com/surfstudio/surf-flutter-faded-text)
 
+---
+
+#### `Surf DCM Presets`
+
+> [![Pub Version](https://img.shields.io/pub/v/surf_dcm_presets?logo=dart&logoColor=white)](https://pub.dev/packages/surf_dcm_presets/)
+[![Pub Likes](https://badgen.net/pub/likes/surf_dcm_presets?label=pub%20likes)](https://pub.dev/packages/surf_dcm_presets/score)
+[![Pub Points](https://badgen.net/pub/points/surf_dcm_presets?label=pub%20points)](https://pub.dev/packages/surf_dcm_presets/score)
+[![Pub Popularity](https://badgen.net/pub/popularity/surf_dcm_presets?label=pub%20popularity)](https://pub.dev/packages/surf_dcm_presets/score)
+[![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_dcm_presets)](https://pub.dev/packages/surf_dcm_presets/)
+>
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/surf-dcm-presets)](https://github.com/surfstudio/surf-dcm-presets/issues?q=is%3Aissue+is%3Aopen)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/surf-dcm-presets)](https://github.com/surfstudio/surf-dcm-presets/pulls)
+
+This repository contains a list of pre-set presets for DCM that are used on Surf projects.
+
+[Learn More](https://github.com/surfstudio/surf-dcm-presets)
+
 
 ## How to ask questions?
 

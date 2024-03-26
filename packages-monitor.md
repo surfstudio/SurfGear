@@ -298,3 +298,20 @@
 > [![Pub Likes](https://badgen.net/pub/likes/faded_text?label=pub%20likes)](https://pub.dev/packages/faded_text)
 
 [View Issues](https://github.com/surfstudio/surf-flutter-faded-text/issues)
+
+---
+
+#### `Surf DCM Presets`
+
+> [![Build Status](https://shields.io/github/actions/workflow/status/surfstudio/surf-dcm-presets/workflow.yaml?logo=github&logoColor=white)](https://github.com/surfstudio/surf-dcm-presets)
+>
+> [![GitHub issues by-label](https://img.shields.io/github/issues-raw/surfstudio/surf-dcm-presets/new%20issues)](https://github.com/surfstudio/surf-dcm-presets/issues?q=is%3Aissue+is%3Aopen+label%3A%22new+issues%22)
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/surf-dcm-presets)](https://github.com/surfstudio/surf-dcm-presets/issues?q=is%3Aissue+is%3Aopen)
+>
+> [![GitHub new pull request by-label](https://img.shields.io/github/issues-pr-raw/surfstudio/surf-dcm-presets/new%20pull%20request)](https://github.com/surfstudio/surf-dcm-presets/pulls?q=is%3Apr+is%3Aopen+label%3A%22new+pull+request%22)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/surf-dcm-presets)](https://github.com/surfstudio/surf-dcm-presets/pulls)
+>
+> ![GitHub stars](https://img.shields.io/github/stars/surfstudio/surf-dcm-presets?style=social)
+> [![Pub Likes](https://badgen.net/pub/likes/surf_dcm_presets?label=pub%20likes)](https://pub.dev/packages/surf_dcm_presets)
+
+[View Issues](https://github.com/surfstudio/surf-dcm-presets/issues)
