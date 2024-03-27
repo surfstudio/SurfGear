@@ -212,6 +212,91 @@ This package is part of the SurfGear toolkit made by [Surf](https://surf.dev).
 
 ---
 
+#### `Union State`
+
+> [![Pub Version](https://img.shields.io/pub/v/union_state?logo=dart&logoColor=white)](https://pub.dev/packages/union_state/)
+[![Pub Likes](https://badgen.net/pub/likes/union_state?label=pub%20likes)](https://pub.dev/packages/union_state/score)
+[![Pub Points](https://badgen.net/pub/points/union_state?label=pub%20points)](https://pub.dev/packages/union_state/score)
+[![Pub Popularity](https://badgen.net/pub/popularity/union_state?label=pub%20popularity)](https://pub.dev/packages/union_state/score)
+[![Flutter Platform](https://badgen.net/pub/flutter-platform/union_state)](https://pub.dev/packages/union_state/)
+>
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-union-state)](https://github.com/surfstudio/flutter-union-state/issues?q=is%3Aissue+is%3Aopen)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-union-state)](https://github.com/surfstudio/flutter-union-state/pulls)
+
+A simple union with three states (loading, data, and error) based on sealed classes and ChangeNotifier. 
+Used for delivering data to the UI layer, for example, using the [Elementary library](https://pub.dev/packages/elementary).
+
+[Learn More](https://github.com/surfstudio/flutter-union-state)
+
+---
+
+#### `Widget Test Composer`
+
+> [![Pub Version](https://img.shields.io/pub/v/surf_widget_test_composer?logo=dart&logoColor=white)](https://pub.dev/packages/surf_widget_test_composer/)
+[![Pub Likes](https://badgen.net/pub/likes/surf_widget_test_composer?label=pub%20likes)](https://pub.dev/packages/surf_widget_test_composer/score)
+[![Pub Points](https://badgen.net/pub/points/surf_widget_test_composer?label=pub%20points)](https://pub.dev/packages/surf_widget_test_composer/score)
+[![Pub Popularity](https://badgen.net/pub/popularity/surf_widget_test_composer?label=pub%20popularity)](https://pub.dev/packages/surf_widget_test_composer/score)
+[![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_widget_test_composer)](https://pub.dev/packages/surf_widget_test_composer/)
+>
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-surf-widget-test-composer)](https://github.com/surfstudio/flutter-surf-widget-test-composer/issues?q=is%3Aissue+is%3Aopen)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-surf-widget-test-composer)](https://github.com/surfstudio/flutter-surf-widget-test-composer/pulls)
+
+This package is designed to simplify widget and golden testing processes using [golden_toolkit](https://pub.dev/packages/golden_toolkit) package for Flutter applications.
+
+[Learn More](https://github.com/surfstudio/flutter-surf-widget-test-composer)
+
+---
+
+#### `Yandex Mapkit Lite`
+
+> [![Pub Version](https://img.shields.io/pub/v/yandex_mapkit_lite?logo=dart&logoColor=white)](https://pub.dev/packages/yandex_mapkit_lite/)
+[![Pub Likes](https://badgen.net/pub/likes/yandex_mapkit_lite?label=pub%20likes)](https://pub.dev/packages/yandex_mapkit_lite/score)
+[![Pub Points](https://badgen.net/pub/points/yandex_mapkit_lite?label=pub%20points)](https://pub.dev/packages/yandex_mapkit_lite/score)
+[![Pub Popularity](https://badgen.net/pub/popularity/yandex_mapkit_lite?label=pub%20popularity)](https://pub.dev/packages/yandex_mapkit_lite/score)
+[![Flutter Platform](https://badgen.net/pub/flutter-platform/yandex_mapkit_lite)](https://pub.dev/packages/yandex_mapkit_lite/)
+>
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/yandex-mapkit-lite-flutter)](https://github.com/surfstudio/yandex-mapkit-lite-flutter/issues?q=is%3Aissue+is%3Aopen)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/yandex-mapkit-lite-flutter)](https://github.com/surfstudio/yandex-mapkit-lite-flutter/pulls)
+
+Fork of [yandex_mapkit](https://pub.dev/packages/yandex_mapkit) library, but lightweight and more appropriate for the majority of the apps.
+
+[Learn More](https://github.com/surfstudio/yandex-mapkit-lite-flutter)
+
+---
+
+#### `Faded Text`
+
+> [![Pub Version](https://img.shields.io/pub/v/faded_text?logo=dart&logoColor=white)](https://pub.dev/packages/faded_text/)
+[![Pub Likes](https://badgen.net/pub/likes/faded_text?label=pub%20likes)](https://pub.dev/packages/faded_text/score)
+[![Pub Points](https://badgen.net/pub/points/faded_text?label=pub%20points)](https://pub.dev/packages/faded_text/score)
+[![Pub Popularity](https://badgen.net/pub/popularity/faded_text?label=pub%20popularity)](https://pub.dev/packages/faded_text/score)
+[![Flutter Platform](https://badgen.net/pub/flutter-platform/faded_text)](https://pub.dev/packages/faded_text/)
+>
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/surf-flutter-faded-text)](https://github.com/surfstudio/surf-flutter-faded-text/issues?q=is%3Aissue+is%3Aopen)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/surf-flutter-faded-text)](https://github.com/surfstudio/surf-flutter-faded-text/pulls)
+
+This package provides a left to right fade effect for multiline text.
+
+[Learn More](https://github.com/surfstudio/surf-flutter-faded-text)
+
+---
+
+#### `Surf DCM Presets`
+
+> [![Pub Version](https://img.shields.io/pub/v/surf_dcm_presets?logo=dart&logoColor=white)](https://pub.dev/packages/surf_dcm_presets/)
+[![Pub Likes](https://badgen.net/pub/likes/surf_dcm_presets?label=pub%20likes)](https://pub.dev/packages/surf_dcm_presets/score)
+[![Pub Points](https://badgen.net/pub/points/surf_dcm_presets?label=pub%20points)](https://pub.dev/packages/surf_dcm_presets/score)
+[![Pub Popularity](https://badgen.net/pub/popularity/surf_dcm_presets?label=pub%20popularity)](https://pub.dev/packages/surf_dcm_presets/score)
+[![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_dcm_presets)](https://pub.dev/packages/surf_dcm_presets/)
+>
+> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/surf-dcm-presets)](https://github.com/surfstudio/surf-dcm-presets/issues?q=is%3Aissue+is%3Aopen)
+> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/surf-dcm-presets)](https://github.com/surfstudio/surf-dcm-presets/pulls)
+
+This repository contains a list of pre-set presets for DCM that are used on Surf projects.
+
+[Learn More](https://github.com/surfstudio/surf-dcm-presets)
+
+
 ## How to ask questions?
 
 You can ask questions of interest either in the Release, or in the Discussion in the repository of the package to which
