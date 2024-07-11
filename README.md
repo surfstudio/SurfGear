@@ -1,6 +1,8 @@
 # Surf Gear
 
 ![SurfGear Cover](https://i.ibb.co/k6d07BK/logo-surf-gear.png)
+> [!CAUTION]
+> This repository is no longer supported. You can find our packages at our [pub.dev page](https://pub.dev/publishers/surf.ru/packages).
 
 A set of libraries and tools used by [Surf](https://surf.ru/) when developing with Flutter.
 All these solutions are fully consistent with our level of quality, supported and developed by the team.
@@ -11,14 +13,6 @@ However, they may be at various stages of development and support.
 As soon as they meet the declared quality level, they will also be presented on this showcase.
 
 ---
-
-#### `Surf Gear`
-
-> ![GitHub stars](https://img.shields.io/github/stars/surfstudio/SurfGear?style=social)
->
-> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/SurfGear)](https://github.com/surfstudio/SurfGear/issues?q=is%3Aissue+is%3Aopen)
-> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/SurfGear)](https://github.com/surfstudio/SurfGear/pulls)
->
 
 #### `Surf Lint Rules`
 
@@ -35,23 +29,6 @@ As soon as they meet the declared quality level, they will also be presented on 
 Lint rules used in [Surf](https://surf.ru).
 
 [Learn More](https://github.com/surfstudio/flutter-surf-lint-rules)
-
----
-
-#### `CLI tool for fast and easy creation of Flutter projects`
-
-> [![Pub Version](https://img.shields.io/pub/v/surf_flutter_starter?logo=dart&logoColor=white)](https://pub.dev/packages/surf_flutter_starter/)
-[![Pub Likes](https://badgen.net/pub/likes/surf_flutter_starter?label=pub%20likes)](https://pub.dev/packages/surf_flutter_starter/score)
-[![Pub Points](https://badgen.net/pub/points/surf_flutter_starter?label=pub%20points)](https://pub.dev/packages/surf_flutter_starter/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/surf_flutter_starter?label=pub%20popularity)](https://pub.dev/packages/surf_flutter_starter/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_flutter_starter)](https://pub.dev/packages/surf_flutter_starter/)
->
-> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/surf_flutter_starter)](https://github.com/surfstudio/surf_flutter_starter/issues?q=is%3Aissue+is%3Aopen)
-> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/surf_flutter_starter)](https://github.com/surfstudio/surf_flutter_starter/pulls)
-
-Flutter project creation based on surf template (https://github.com/surfstudio/surf-flutter-app-template).
-
-[Learn More](https://github.com/surfstudio/surf_flutter_starter)
 
 ---
 
@@ -126,40 +103,6 @@ Logger for Dart & Flutter.
 
 ---
 
-#### `Auto Reload`
-
-> [![Pub Version](https://img.shields.io/pub/v/auto_reload?logo=dart&logoColor=white)](https://pub.dev/packages/auto_reload/)
-[![Pub Likes](https://badgen.net/pub/likes/auto_reload?label=pub%20likes)](https://pub.dev/packages/auto_reload/score)
-[![Pub Points](https://badgen.net/pub/points/auto_reload?label=pub%20points)](https://pub.dev/packages/auto_reload/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/auto_reload?label=pub%20popularity)](https://pub.dev/packages/auto_reload/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/auto_reload)](https://pub.dev/packages/auto_reload/)
->
-> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-auto-reload)](https://github.com/surfstudio/flutter-auto-reload/issues?q=is%3Aissue+is%3Aopen)
-> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-auto-reload)](https://github.com/surfstudio/flutter-auto-reload/pulls)
-
-Library that helps to perform actions with some periodicity.
-
-[View Source](https://github.com/surfstudio/flutter-auto-reload)
-
----
-
-#### `Push Notification`
-
-> [![Pub Version](https://img.shields.io/pub/v/push_notification?logo=dart&logoColor=white)](https://pub.dev/packages/push_notification/)
-[![Pub Likes](https://badgen.net/pub/likes/push_notification?label=pub%20likes)](https://pub.dev/packages/push_notification/score)
-[![Pub Points](https://badgen.net/pub/points/push_notification?label=pub%20points)](https://pub.dev/packages/push_notification/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/push_notification?label=pub%20popularity)](https://pub.dev/packages/push_notification/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/push_notification)](https://pub.dev/packages/push_notification/)
->
-> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-push-notification)](https://github.com/surfstudio/flutter-push-notification/issues?q=is%3Aissue+is%3Aopen)
-> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-push-notification)](https://github.com/surfstudio/flutter-push-notification/pulls)
-
-Library for implementing push notifications. The module contains the main work with push notifications.
-
-[Learn More](https://github.com/surfstudio/flutter-push-notification)
-
----
-
 #### `Swipe Refresh`
 
 > [![Pub Version](https://img.shields.io/pub/v/swipe_refresh?logo=dart&logoColor=white)](https://pub.dev/packages/swipe_refresh/)
@@ -174,41 +117,6 @@ Library for implementing push notifications. The module contains the main work w
 Widget for refresh by swipe.
 
 [Learn More](https://github.com/surfstudio/flutter-swipe-refresh)
-
----
-
-#### `Render Metrics`
-
-> [![Pub Version](https://img.shields.io/pub/v/render_metrics?logo=dart&logoColor=white)](https://pub.dev/packages/render_metrics)
-[![Pub Likes](https://badgen.net/pub/likes/render_metrics)](https://pub.dev/packages/render_metrics)
-[![Pub Points](https://badgen.net/pub/points/render_metrics?label=pub%20points)](https://pub.dev/packages/render_metrics/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/render_metrics?label=pub%20popularity)](https://pub.dev/packages/render_metrics/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/render_metrics)](https://pub.dev/packages/render_metrics/)
->
-> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-render-metrics)](https://github.com/surfstudio/flutter-render-metrics/issues?q=is%3Aissue+is%3Aopen)
-> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-render-metrics)](https://github.com/surfstudio/flutter-render-metrics/pulls)
-
-This package helps retrieve the current positioning coordinates of any widget in a widgets tree in your Flutter
-application.
-
-[Learn More](https://github.com/surfstudio/flutter-render-metrics)
-
----
-
-#### `Surf Util`
-
-> [![Pub Version](https://img.shields.io/pub/v/surf_util?logo=dart&logoColor=white)](https://pub.dev/packages/surf_util)
-[![Pub Likes](https://badgen.net/pub/likes/surf_util)](https://pub.dev/packages/surf_util)
-[![Pub Points](https://badgen.net/pub/points/surf_util?label=pub%20points)](https://pub.dev/packages/surf_util/score)
-[![Pub Popularity](https://badgen.net/pub/popularity/surf_util?label=pub%20popularity)](https://pub.dev/packages/surf_util/score)
-[![Flutter Platform](https://badgen.net/pub/flutter-platform/surf_util)](https://pub.dev/packages/surf_util/)
->
-> [![GitHub issues](https://img.shields.io/github/issues/surfstudio/flutter-surf-util)](https://github.com/surfstudio/flutter-surf-util/issues?q=is%3Aissue+is%3Aopen)
-> [![GitHub pull request](https://img.shields.io/github/issues-pr/surfstudio/flutter-surf-util)](https://github.com/surfstudio/flutter-surf-util/pulls)
-
-This package is part of the SurfGear toolkit made by [Surf](https://surf.dev).
-
-[Learn More](https://github.com/surfstudio/flutter-surf-util)
 
 ---
 
